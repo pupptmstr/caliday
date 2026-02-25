@@ -1,0 +1,248 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4DA6FF"/>
+      <stop offset="100%" style="stop-color:#2B7DE9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="45%" cy="45%" r="40%">
+      <stop offset="0%" style="stop-color:#A8D8FF;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#4DA6FF;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="faceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C4A882"/>
+      <stop offset="100%" style="stop-color:#A8896A"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="224" fill="url(#bgGrad)"/>
+  <circle cx="460" cy="450" r="380" fill="url(#glow)"/>
+  
+  <!-- === LEGS (small, attached) === -->
+  <ellipse cx="485" cy="790" rx="100" ry="35" fill="#38384C"/>
+  
+  <!-- Left leg -->
+  <rect x="415" y="775" width="58" height="110" rx="29" fill="#38384C"/>
+  <ellipse cx="435" cy="870" rx="48" ry="32" fill="#353548"/>
+  <ellipse cx="428" cy="900" rx="44" ry="20" fill="#353548"/>
+  
+  <!-- Right leg -->
+  <rect x="500" y="775" width="58" height="110" rx="29" fill="#38384C"/>
+  <ellipse cx="520" cy="870" rx="48" ry="32" fill="#353548"/>
+  <ellipse cx="528" cy="900" rx="44" ry="20" fill="#353548"/>
+  
+  <!-- === TORSO (narrower shoulders, still triangle) === -->
+  
+  <!-- Main torso — top narrowed ~50px each side -->
+  <path d="
+    M290 450
+    Q275 510 290 610
+    Q320 720 410 775
+    Q455 800 500 800
+    Q545 800 580 775
+    Q680 720 710 610
+    Q725 510 710 450
+    Q640 400 500 390
+    Q360 400 290 450Z
+  " fill="#38384C"/>
+  
+  <!-- Torso lighter overlay -->
+  <path d="
+    M315 465
+    Q305 530 320 625
+    Q350 715 430 760
+    Q465 780 500 780
+    Q535 780 570 760
+    Q650 715 680 625
+    Q695 530 685 465
+    Q625 420 500 410
+    Q375 420 315 465Z
+  " fill="#424258"/>
+  
+  <!-- Chest definition -->
+  <ellipse cx="440" cy="540" rx="90" ry="60" fill="#4A4A60" opacity="0.35"/>
+  <ellipse cx="560" cy="540" rx="90" ry="60" fill="#4A4A60" opacity="0.35"/>
+  <path d="M500 480 Q500 560 500 630" stroke="#353548" stroke-width="3" opacity="0.5" fill="none"/>
+  
+  <!-- Abs hint -->
+  <ellipse cx="490" cy="675" rx="52" ry="26" fill="#4A4A60" opacity="0.2"/>
+  <ellipse cx="490" cy="722" rx="46" ry="23" fill="#4A4A60" opacity="0.15"/>
+  
+  <!-- === LEFT ARM (ground support) === -->
+  
+  <!-- Left shoulder -->
+  <ellipse cx="300" cy="460" rx="85" ry="70" fill="#424258"/>
+  <ellipse cx="295" cy="455" rx="70" ry="58" fill="#4A4A60" opacity="0.3"/>
+  
+  <!-- Left upper arm -->
+  <path d="
+    M245 490
+    Q210 550 190 630
+    Q180 680 185 710
+    Q190 745 215 750
+    Q240 742 250 705
+    Q265 645 285 565
+    Q295 510 300 480
+    Z
+  " fill="#38384C"/>
+  <path d="
+    M258 500
+    Q228 555 215 625
+    Q210 655 215 685
+    Q235 668 245 630
+    Q265 560 280 500
+    Z
+  " fill="#424258" opacity="0.6"/>
+  
+  <!-- Left forearm -->
+  <path d="
+    M185 710
+    Q160 775 150 835
+    Q146 862 155 882
+    Q168 900 195 895
+    Q220 886 228 862
+    Q238 825 225 768
+    Q218 738 212 718
+    Z
+  " fill="#38384C"/>
+  <path d="
+    M192 728
+    Q175 785 168 835
+    Q165 858 174 872
+    Q192 862 200 840
+    Q208 798 204 748
+    Z
+  " fill="#424258" opacity="0.5"/>
+  
+  <!-- Left hand on ground -->
+  <ellipse cx="182" cy="890" rx="52" ry="28" fill="#38384C"/>
+  <ellipse cx="182" cy="885" rx="45" ry="23" fill="#424258"/>
+  <circle cx="158" cy="878" r="10" fill="#4A4A60" opacity="0.4"/>
+  <circle cx="178" cy="876" r="11" fill="#4A4A60" opacity="0.4"/>
+  <circle cx="198" cy="878" r="10" fill="#4A4A60" opacity="0.4"/>
+  
+  <!-- === RIGHT ARM (bigger, longer flex!) === -->
+  
+  <!-- Right shoulder -->
+  <ellipse cx="700" cy="460" rx="90" ry="75" fill="#424258"/>
+  <ellipse cx="705" cy="455" rx="75" ry="62" fill="#4A4A60" opacity="0.3"/>
+  
+  <!-- Right upper arm — longer, going further out -->
+  <path d="
+    M700 415
+    Q740 395 800 380
+    Q860 365 920 372
+    Q955 382 958 410
+    Q958 445 930 458
+    Q870 475 810 468
+    Q745 460 700 455
+    Z
+  " fill="#38384C"/>
+  
+  <!-- BICEP — bigger, more prominent -->
+  <ellipse cx="845" cy="388" rx="72" ry="48" fill="#424258"/>
+  <ellipse cx="838" cy="380" rx="55" ry="35" fill="#4A4A60" opacity="0.35"/>
+  <!-- Bicep peak -->
+  <ellipse cx="830" cy="368" rx="32" ry="18" fill="#555572" opacity="0.4"/>
+  <!-- Bicep shine -->
+  <ellipse cx="824" cy="362" rx="16" ry="9" fill="white" opacity="0.08"/>
+  
+  <!-- Right forearm — longer, goes further up, bends back inward -->
+  <path d="
+    M940 395
+    Q960 355 965 305
+    Q970 245 958 195
+    Q948 160 928 150
+    Q905 142 892 160
+    Q878 185 878 235
+    Q878 300 895 370
+    Z
+  " fill="#38384C"/>
+  <!-- Forearm highlight -->
+  <path d="
+    M925 370
+    Q940 330 943 280
+    Q946 230 940 190
+    Q928 175 920 190
+    Q910 225 910 275
+    Q912 335 918 368
+    Z
+  " fill="#424258" opacity="0.5"/>
+  
+  <!-- Right fist — curled inward, bigger -->
+  <g transform="translate(922, 152) rotate(-20)">
+    <ellipse cx="0" cy="0" rx="44" ry="48" fill="#38384C"/>
+    <ellipse cx="0" cy="-3" rx="37" ry="41" fill="#424258"/>
+    <!-- Finger curls -->
+    <ellipse cx="-14" cy="-22" rx="13" ry="10" fill="#4A4A60" opacity="0.4"/>
+    <ellipse cx="3" cy="-26" rx="13" ry="10" fill="#4A4A60" opacity="0.4"/>
+    <ellipse cx="19" cy="-22" rx="13" ry="10" fill="#4A4A60" opacity="0.4"/>
+    <!-- Thumb -->
+    <ellipse cx="-24" cy="5" rx="11" ry="16" fill="#4A4A60" opacity="0.35" transform="rotate(20)"/>
+  </g>
+  
+  <!-- Elbow joint -->
+  <circle cx="942" cy="400" r="16" fill="#353548" opacity="0.3"/>
+  
+  <!-- Neck -->
+  <rect x="425" y="340" width="155" height="115" rx="52" fill="#38384C"/>
+  
+  <!-- === HEAD === -->
+  
+  <ellipse cx="502" cy="240" rx="165" ry="180" fill="#38384C"/>
+  
+  <!-- Sagittal crest -->
+  <ellipse cx="502" cy="78" rx="65" ry="38" fill="#353548"/>
+  <ellipse cx="502" cy="90" rx="85" ry="42" fill="#38384C"/>
+  
+  <!-- Heavy brow ridge -->
+  <path d="M350 220 Q400 180 502 175 Q604 180 654 220 Q604 198 502 193 Q400 198 350 220Z" fill="#2E2E42"/>
+  <ellipse cx="502" cy="205" rx="155" ry="30" fill="#2E2E42" opacity="0.6"/>
+  
+  <!-- Face -->
+  <path d="M395 230 Q395 195 502 185 Q609 195 609 230 L609 330 Q609 395 502 405 Q395 395 395 330Z" fill="url(#faceGrad)"/>
+  
+  <!-- Ears -->
+  <ellipse cx="338" cy="240" rx="30" ry="35" fill="#38384C"/>
+  <ellipse cx="340" cy="240" rx="19" ry="24" fill="#A8896A"/>
+  <ellipse cx="666" cy="240" rx="30" ry="35" fill="#38384C"/>
+  <ellipse cx="664" cy="240" rx="19" ry="24" fill="#A8896A"/>
+  
+  <!-- Eye sockets -->
+  <ellipse cx="448" cy="240" rx="45" ry="33" fill="#2E2E42" opacity="0.3"/>
+  <ellipse cx="556" cy="240" rx="45" ry="33" fill="#2E2E42" opacity="0.3"/>
+  
+  <!-- Left eye -->
+  <ellipse cx="448" cy="244" rx="35" ry="30" fill="white"/>
+  <ellipse cx="455" cy="246" rx="19" ry="22" fill="#1A1A2A"/>
+  <circle cx="460" cy="238" r="8" fill="white"/>
+  <circle cx="449" cy="252" r="3.5" fill="white" opacity="0.5"/>
+  
+  <!-- Right eye -->
+  <ellipse cx="556" cy="244" rx="35" ry="30" fill="white"/>
+  <ellipse cx="549" cy="246" rx="19" ry="22" fill="#1A1A2A"/>
+  <circle cx="554" cy="238" r="8" fill="white"/>
+  <circle cx="543" cy="252" r="3.5" fill="white" opacity="0.5"/>
+  
+  <!-- Eyebrows -->
+  <path d="M400 215 Q425 200 468 208" stroke="#1A1A2A" stroke-width="9" stroke-linecap="round" fill="none"/>
+  <path d="M604 215 Q579 200 536 208" stroke="#1A1A2A" stroke-width="9" stroke-linecap="round" fill="none"/>
+  
+  <!-- Nose -->
+  <ellipse cx="502" cy="310" rx="42" ry="28" fill="#967756"/>
+  <ellipse cx="484" cy="313" rx="12" ry="10" fill="#7A6045"/>
+  <ellipse cx="520" cy="313" rx="12" ry="10" fill="#7A6045"/>
+  
+  <!-- Mouth -->
+  <path d="M452 355 Q478 348 502 350 Q526 348 552 355" stroke="#7A6045" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <path d="M448 358 Q475 385 502 388 Q529 385 556 358" stroke="#7A6045" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+  <path d="M454 360 Q475 382 502 385 Q529 382 550 360 Q502 372 454 360Z" fill="#7A6045" opacity="0.35"/>
+  
+  <!-- === HEADBAND === -->
+  <path d="M340 172 Q420 135 502 132 Q584 135 664 172" stroke="#A8D8FF" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <path d="M365 166 Q435 138 502 136 Q569 138 639 166" stroke="white" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.25"/>
+  <g transform="translate(334, 180)">
+    <path d="M0,0 Q-12,18 -20,45 Q-16,27 -6,13Z" fill="#A8D8FF"/>
+    <path d="M-2,-1 Q-17,13 -28,40 Q-20,22 -10,9Z" fill="#A8D8FF"/>
+  </g>
+</svg>

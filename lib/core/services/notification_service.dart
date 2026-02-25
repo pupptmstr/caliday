@@ -46,7 +46,7 @@ class NotificationService {
       print('[NS] timezone fallback to UTC: $e');
     }
 
-    const android = AndroidInitializationSettings('@mipmap/ic_launcher');
+    const android = AndroidInitializationSettings('ic_goro_notif');
     const darwin = DarwinInitializationSettings(
       requestAlertPermission: false,
       requestBadgePermission: false,
@@ -257,6 +257,7 @@ class NotificationService {
       android: AndroidNotificationDetails(
         channelId,
         channelName,
+        icon: 'ic_goro_notif',
         importance: Importance.high,
         priority: Priority.high,
       ),

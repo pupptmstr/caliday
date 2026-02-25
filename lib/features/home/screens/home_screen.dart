@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../data/models/enums.dart';
@@ -75,6 +76,15 @@ class HomeScreen extends ConsumerWidget {
               ),
 
               const SizedBox(height: 28),
+
+              // ── Goro mascot ───────────────────────────────────────────
+              Center(
+                child: SvgPicture.asset(
+                  'assets/goro/goro_flex.svg',
+                  height: 140,
+                ),
+              ),
+              const SizedBox(height: 16),
 
               // ── Branch cards ──────────────────────────────────────────
               Text(

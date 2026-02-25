@@ -32,6 +32,30 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     super.dispose();
   }
 
+  Future<void> _confirmExit(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Прервать тренировку?'),
+        content: const Text('Прогресс текущей тренировки не сохранится.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: const Text('Продолжить'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: const Text('Прервать'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true && context.mounted) {
+      _timer?.cancel();
+      context.pop();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(workoutProvider);
@@ -62,25 +86,31 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     final overallProgress =
         (state.exerciseIndex + 1) / state.plan.exercises.length;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Тренировка'),
-        leading: IconButton(
-          icon: const Icon(Icons.close_rounded),
-          onPressed: () => context.pop(),
-        ),
-        bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(4),
-          child: LinearProgressIndicator(
-            value: overallProgress,
-            minHeight: 4,
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, _) {
+        if (!didPop) _confirmExit(context);
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Тренировка'),
+          leading: IconButton(
+            icon: const Icon(Icons.close_rounded),
+            onPressed: () => _confirmExit(context),
+          ),
+          bottom: PreferredSize(
+            preferredSize: const Size.fromHeight(4),
+            child: LinearProgressIndicator(
+              value: overallProgress,
+              minHeight: 4,
+            ),
           ),
         ),
-      ),
-      body: SafeArea(
-        child: state.phase == WorkoutPhase.rest
-            ? _RestView(state: state, notifier: notifier)
-            : _ExerciseView(state: state, notifier: notifier),
+        body: SafeArea(
+          child: state.phase == WorkoutPhase.rest
+              ? _RestView(state: state, notifier: notifier)
+              : _ExerciseView(state: state, notifier: notifier),
+        ),
       ),
     );
   }

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Notification small icon — Goro gorilla silhouette, white on transparent.
+  Android tints all pixels automatically; must not contain colour fills.
+-->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="96"
+    android:viewportHeight="96">
+
+    <!-- Sagittal crest top bump  cx=48 cy=22 rx=11 ry=8 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M37,22 A11,8 0 1,0 59,22 A11,8 0 1,0 37,22 Z"/>
+
+    <!-- Crest base (wider)  cx=48 cy=28 rx=16 ry=9 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M32,28 A16,9 0 1,0 64,28 A16,9 0 1,0 32,28 Z"/>
+
+    <!-- Head body  cx=48 cy=56 rx=27 ry=30 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M21,56 A27,30 0 1,0 75,56 A27,30 0 1,0 21,56 Z"/>
+
+    <!-- Left ear  cx=21 cy=53 rx=7 ry=9 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M14,53 A7,9 0 1,0 28,53 A7,9 0 1,0 14,53 Z"/>
+
+    <!-- Right ear  cx=75 cy=53 rx=7 ry=9 -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M68,53 A7,9 0 1,0 82,53 A7,9 0 1,0 68,53 Z"/>
+
+    <!-- Headband stripe -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:pathData="M18,37 Q48,25 78,37"/>
+
+</vector>

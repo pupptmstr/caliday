@@ -77,7 +77,7 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
       title: 'CaliDay',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF58CC02)),
+        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4DA6FF)),
         useMaterial3: true,
       ),
       routerConfig: router,

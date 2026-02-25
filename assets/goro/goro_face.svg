@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4DA6FF"/>
+      <stop offset="100%" style="stop-color:#2B7DE9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" style="stop-color:#A8D8FF;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#4DA6FF;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="faceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C4A882"/>
+      <stop offset="100%" style="stop-color:#A8896A"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="224" fill="url(#bgGrad)"/>
+  <circle cx="512" cy="530" r="420" fill="url(#glow)"/>
+  
+  <!-- === HEAD (fills most of the frame) === -->
+  
+  <!-- Head shape -->
+  <ellipse cx="512" cy="530" rx="310" ry="340" fill="#38384C"/>
+  
+  <!-- Sagittal crest -->
+  <ellipse cx="512" cy="215" rx="120" ry="70" fill="#353548"/>
+  <ellipse cx="512" cy="240" rx="155" ry="78" fill="#38384C"/>
+  
+  <!-- Heavy brow ridge -->
+  <path d="M230 490 Q330 400 512 390 Q694 400 794 490 Q694 450 512 438 Q330 450 230 490Z" fill="#2E2E42"/>
+  <ellipse cx="512" cy="462" rx="280" ry="52" fill="#2E2E42" opacity="0.6"/>
+  
+  <!-- Face (lighter area) -->
+  <path d="M310 500 Q310 435 512 418 Q714 435 714 500 L714 680 Q714 790 512 810 Q310 790 310 680Z" fill="url(#faceGrad)"/>
+  
+  <!-- Left ear -->
+  <ellipse cx="205" cy="530" rx="55" ry="65" fill="#38384C"/>
+  <ellipse cx="210" cy="530" rx="35" ry="45" fill="#A8896A"/>
+  
+  <!-- Right ear -->
+  <ellipse cx="819" cy="530" rx="55" ry="65" fill="#38384C"/>
+  <ellipse cx="814" cy="530" rx="35" ry="45" fill="#A8896A"/>
+  
+  <!-- === EYES === -->
+  
+  <!-- Eye sockets -->
+  <ellipse cx="410" cy="520" rx="80" ry="58" fill="#2E2E42" opacity="0.3"/>
+  <ellipse cx="614" cy="520" rx="80" ry="58" fill="#2E2E42" opacity="0.3"/>
+  
+  <!-- Left eye -->
+  <ellipse cx="410" cy="528" rx="65" ry="55" fill="white"/>
+  <ellipse cx="422" cy="532" rx="35" ry="42" fill="#1A1A2A"/>
+  <circle cx="432" cy="516" r="15" fill="white"/>
+  <circle cx="414" cy="544" r="6" fill="white" opacity="0.5"/>
+  
+  <!-- Right eye -->
+  <ellipse cx="614" cy="528" rx="65" ry="55" fill="white"/>
+  <ellipse cx="602" cy="532" rx="35" ry="42" fill="#1A1A2A"/>
+  <circle cx="612" cy="516" r="15" fill="white"/>
+  <circle cx="594" cy="544" r="6" fill="white" opacity="0.5"/>
+  
+  <!-- Eyebrows -->
+  <path d="M330 485 Q370 460 430 472" stroke="#1A1A2A" stroke-width="16" stroke-linecap="round" fill="none"/>
+  <path d="M694 485 Q654 460 594 472" stroke="#1A1A2A" stroke-width="16" stroke-linecap="round" fill="none"/>
+  
+  <!-- === NOSE === -->
+  <ellipse cx="512" cy="645" rx="75" ry="50" fill="#967756"/>
+  <ellipse cx="482" cy="650" rx="22" ry="17" fill="#7A6045"/>
+  <ellipse cx="542" cy="650" rx="22" ry="17" fill="#7A6045"/>
+  <path d="M496 615 Q512 606 528 615" stroke="#B09070" stroke-width="4" fill="none" opacity="0.5"/>
+  
+  <!-- === MOUTH (friendly smile) === -->
+  <path d="M420 710 Q466 698 512 702 Q558 698 604 710" stroke="#7A6045" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M412 716 Q465 760 512 765 Q559 760 612 716" stroke="#7A6045" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M420 720 Q465 756 512 760 Q559 756 604 720 Q512 742 420 720Z" fill="#7A6045" opacity="0.35"/>
+  <!-- Lower lip -->
+  <path d="M455 748 Q512 768 569 748" stroke="#B09070" stroke-width="4" fill="none" opacity="0.3"/>
+  
+  <!-- === HEADBAND === -->
+  <path d="M210 395 Q370 310 512 305 Q654 310 814 395" stroke="#A8D8FF" stroke-width="32" stroke-linecap="round" fill="none"/>
+  <path d="M255 384 Q390 308 512 304 Q634 308 769 384" stroke="white" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.25"/>
+  <!-- Headband tail -->
+  <g transform="translate(200, 410)">
+    <path d="M0,0 Q-20,32 -35,82 Q-28,48 -10,22Z" fill="#A8D8FF"/>
+    <path d="M-4,-2 Q-30,22 -50,72 Q-36,40 -18,15Z" fill="#A8D8FF"/>
+  </g>
+</svg>

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -58,19 +59,12 @@ class SettingsScreen extends ConsumerWidget {
                 enabled: enabled,
               ),
               onTap: enabled
-                  ? () async {
-                      final picked = await showTimePicker(
-                        context: context,
-                        initialTime: TimeOfDay(
-                          hour: state.notificationHour,
-                          minute: state.notificationMinute,
-                        ),
-                        helpText: 'Время напоминания',
-                      );
-                      if (picked != null) {
-                        notifier.setTime(picked.hour, picked.minute);
-                      }
-                    }
+                  ? () => _showTimePicker(
+                        context,
+                        state.notificationHour,
+                        state.notificationMinute,
+                        notifier.setTime,
+                      )
                   : null,
             ),
 
@@ -201,4 +195,54 @@ class _TimeChip extends StatelessWidget {
       ),
     );
   }
+}
+
+// ── Time picker (Cupertino scroll wheels) ─────────────────────────────────────
+
+Future<void> _showTimePicker(
+  BuildContext context,
+  int hour,
+  int minute,
+  void Function(int h, int m) onPicked,
+) async {
+  var picked = DateTime(2000, 1, 1, hour, minute);
+
+  await showModalBottomSheet<void>(
+    context: context,
+    builder: (ctx) => Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 14, 8, 0),
+          child: Row(
+            children: [
+              Text(
+                'Время напоминания',
+                style: Theme.of(ctx).textTheme.titleMedium?.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
+              ),
+              const Spacer(),
+              TextButton(
+                onPressed: () => Navigator.of(ctx).pop(),
+                child: const Text('Готово'),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(
+          height: 200,
+          child: CupertinoDatePicker(
+            mode: CupertinoDatePickerMode.time,
+            use24hFormat: true,
+            initialDateTime: picked,
+            onDateTimeChanged: (dt) => picked = dt,
+          ),
+        ),
+        const SizedBox(height: 16),
+      ],
+    ),
+  );
+
+  onPicked(picked.hour, picked.minute);
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../providers/onboarding_provider.dart';
 import '../widgets/option_card.dart';
@@ -185,10 +186,10 @@ class _WelcomeStep extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('🏋️', style: TextStyle(fontSize: 80)),
+          SvgPicture.asset('assets/goro/goro_face.svg', height: 120),
           const SizedBox(height: 24),
           Text(
-            'Привет! Я CaliDay',
+            'Привет! Я Горо',
             style: Theme.of(context)
                 .textTheme
                 .headlineMedium

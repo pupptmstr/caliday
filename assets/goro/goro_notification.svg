@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
+  <!-- Sagittal crest -->
+  <ellipse cx="48" cy="22" rx="11" ry="8" fill="white"/>
+  <ellipse cx="48" cy="28" rx="16" ry="9" fill="white"/>
+  <!-- Head body -->
+  <ellipse cx="48" cy="56" rx="27" ry="30" fill="white"/>
+  <!-- Left ear -->
+  <ellipse cx="21" cy="53" rx="7" ry="9" fill="white"/>
+  <!-- Right ear -->
+  <ellipse cx="75" cy="53" rx="7" ry="9" fill="white"/>
+  <!-- Headband stripe (slightly darker to read as detail) -->
+  <path d="M18 37 Q48 25 78 37" stroke="white" stroke-width="6" stroke-linecap="round" fill="none" opacity="0.55"/>
+</svg>

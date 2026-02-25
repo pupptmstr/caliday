@@ -50,9 +50,15 @@ class ProgressionService {
       progress.currentRestSec =
           max(exercise.targetRestSec, progress.currentRestSec - _restStep);
     } else {
-      // All targets met — unlock the Challenge test
-      progress.isChallengeUnlocked = true;
-      return true;
+      // All targets met — unlock the Challenge only if a next stage exists.
+      // At the final stage there is nowhere to go, so just stay at peak values.
+      final hasNext = ExerciseCatalog.forStage(
+            progress.branchId, progress.currentStage + 1) !=
+          null;
+      if (hasNext) {
+        progress.isChallengeUnlocked = true;
+        return true;
+      }
     }
 
     return false;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 /// Post-workout summary screen.
@@ -31,10 +32,11 @@ class SummaryScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
-                '🎉',
-                style: TextStyle(fontSize: 72),
-                textAlign: TextAlign.center,
+              Center(
+                child: SvgPicture.asset(
+                  'assets/goro/goro_flex.svg',
+                  height: 120,
+                ),
               ),
               const SizedBox(height: 16),
               Text(

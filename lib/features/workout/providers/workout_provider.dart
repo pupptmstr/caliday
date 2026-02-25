@@ -307,7 +307,14 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       if (result == null || planned.exercise.stage == 0) continue;
 
       final progress = progressRepo.getProgress(planned.exercise.branch);
-      progressionService.applyResult(progress, planned.exercise, result);
+
+      // Challenge-preview exercises have a stage ahead of the current progress.
+      // Completing one means the user passed the challenge → advance to that stage.
+      if (planned.exercise.stage > progress.currentStage) {
+        progressionService.advanceStage(progress, planned.exercise);
+      } else {
+        progressionService.applyResult(progress, planned.exercise, result);
+      }
       progressRepo.saveProgress(progress);
     }
 

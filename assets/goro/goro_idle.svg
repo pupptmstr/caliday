@@ -1,0 +1,236 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4DA6FF"/>
+      <stop offset="100%" style="stop-color:#2B7DE9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="40%">
+      <stop offset="0%" style="stop-color:#A8D8FF;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#4DA6FF;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="faceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C4A882"/>
+      <stop offset="100%" style="stop-color:#A8896A"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="224" fill="url(#bgGrad)"/>
+  <circle cx="512" cy="450" r="380" fill="url(#glow)"/>
+  
+  <!-- === LEGS === -->
+  <ellipse cx="512" cy="810" rx="105" ry="35" fill="#38384C"/>
+  
+  <!-- Left leg -->
+  <rect x="440" y="795" width="58" height="110" rx="29" fill="#38384C"/>
+  <ellipse cx="460" cy="888" rx="48" ry="32" fill="#353548"/>
+  <ellipse cx="453" cy="916" rx="44" ry="20" fill="#353548"/>
+  
+  <!-- Right leg -->
+  <rect x="525" y="795" width="58" height="110" rx="29" fill="#38384C"/>
+  <ellipse cx="545" cy="888" rx="48" ry="32" fill="#353548"/>
+  <ellipse cx="552" cy="916" rx="44" ry="20" fill="#353548"/>
+  
+  <!-- === TORSO (triangle, centered) === -->
+  <path d="
+    M310 460
+    Q295 530 310 630
+    Q345 735 435 790
+    Q475 812 512 812
+    Q549 812 580 790
+    Q670 735 705 630
+    Q720 530 705 460
+    Q640 410 512 400
+    Q384 410 310 460Z
+  " fill="#38384C"/>
+  
+  <!-- Torso lighter -->
+  <path d="
+    M340 478
+    Q328 540 342 635
+    Q372 730 450 778
+    Q480 796 512 796
+    Q544 796 574 778
+    Q652 730 682 635
+    Q696 540 684 478
+    Q628 432 512 422
+    Q396 432 340 478Z
+  " fill="#424258"/>
+  
+  <!-- Chest -->
+  <ellipse cx="460" cy="555" rx="85" ry="55" fill="#4A4A60" opacity="0.35"/>
+  <ellipse cx="564" cy="555" rx="85" ry="55" fill="#4A4A60" opacity="0.35"/>
+  <path d="M512 500 Q512 575 512 645" stroke="#353548" stroke-width="3" opacity="0.5" fill="none"/>
+  
+  <!-- Abs -->
+  <ellipse cx="512" cy="692" rx="50" ry="24" fill="#4A4A60" opacity="0.2"/>
+  <ellipse cx="512" cy="738" rx="44" ry="21" fill="#4A4A60" opacity="0.15"/>
+  
+  <!-- === LEFT ARM (hanging down) === -->
+  
+  <!-- Left shoulder -->
+  <ellipse cx="320" cy="472" rx="82" ry="68" fill="#424258"/>
+  <ellipse cx="316" cy="467" rx="68" ry="56" fill="#4A4A60" opacity="0.3"/>
+  
+  <!-- Left upper arm -->
+  <path d="
+    M270 500
+    Q255 560 248 630
+    Q242 690 248 730
+    Q255 755 278 758
+    Q300 755 308 730
+    Q315 690 318 630
+    Q322 570 325 510
+    Z
+  " fill="#38384C"/>
+  <path d="
+    M282 515
+    Q270 570 265 635
+    Q262 680 268 715
+    Q285 705 292 665
+    Q300 600 308 530
+    Z
+  " fill="#424258" opacity="0.5"/>
+  
+  <!-- Left forearm -->
+  <path d="
+    M248 730
+    Q235 790 230 840
+    Q228 865 236 882
+    Q248 898 270 895
+    Q292 888 298 868
+    Q305 840 295 790
+    Q288 755 280 735
+    Z
+  " fill="#38384C"/>
+  <path d="
+    M258 748
+    Q248 798 245 840
+    Q244 860 250 872
+    Q266 865 272 845
+    Q278 808 274 758
+    Z
+  " fill="#424258" opacity="0.5"/>
+  
+  <!-- Left hand (relaxed, hanging) -->
+  <ellipse cx="258" cy="892" rx="38" ry="28" fill="#38384C"/>
+  <ellipse cx="258" cy="888" rx="32" ry="23" fill="#424258"/>
+  <!-- Finger hints -->
+  <ellipse cx="242" cy="904" rx="8" ry="10" fill="#38384C" opacity="0.6"/>
+  <ellipse cx="256" cy="907" rx="8" ry="10" fill="#38384C" opacity="0.6"/>
+  <ellipse cx="270" cy="905" rx="8" ry="10" fill="#38384C" opacity="0.6"/>
+  
+  <!-- === RIGHT ARM (hanging down) === -->
+  
+  <!-- Right shoulder -->
+  <ellipse cx="704" cy="472" rx="82" ry="68" fill="#424258"/>
+  <ellipse cx="708" cy="467" rx="68" ry="56" fill="#4A4A60" opacity="0.3"/>
+  
+  <!-- Right upper arm -->
+  <path d="
+    M700 510
+    Q702 570 705 630
+    Q708 690 715 730
+    Q722 755 745 758
+    Q768 755 775 730
+    Q782 690 778 630
+    Q772 560 755 500
+    Z
+  " fill="#38384C"/>
+  <path d="
+    M715 530
+    Q718 600 722 665
+    Q726 705 738 715
+    Q752 705 758 665
+    Q762 600 748 515
+    Z
+  " fill="#424258" opacity="0.5"/>
+  
+  <!-- Right forearm -->
+  <path d="
+    M745 735
+    Q735 790 730 840
+    Q728 865 736 882
+    Q748 898 770 895
+    Q792 888 798 868
+    Q805 840 795 790
+    Q785 755 778 735
+    Z
+  " fill="#38384C"/>
+  <path d="
+    M755 750
+    Q748 800 745 840
+    Q744 860 750 872
+    Q766 865 772 845
+    Q778 808 772 758
+    Z
+  " fill="#424258" opacity="0.5"/>
+  
+  <!-- Right hand (relaxed, hanging) -->
+  <ellipse cx="768" cy="892" rx="38" ry="28" fill="#38384C"/>
+  <ellipse cx="768" cy="888" rx="32" ry="23" fill="#424258"/>
+  <ellipse cx="752" cy="904" rx="8" ry="10" fill="#38384C" opacity="0.6"/>
+  <ellipse cx="766" cy="907" rx="8" ry="10" fill="#38384C" opacity="0.6"/>
+  <ellipse cx="780" cy="905" rx="8" ry="10" fill="#38384C" opacity="0.6"/>
+  
+  <!-- Neck -->
+  <rect x="440" y="345" width="145" height="115" rx="50" fill="#38384C"/>
+  
+  <!-- === HEAD === -->
+  <ellipse cx="512" cy="245" rx="165" ry="180" fill="#38384C"/>
+  
+  <!-- Sagittal crest -->
+  <ellipse cx="512" cy="82" rx="65" ry="38" fill="#353548"/>
+  <ellipse cx="512" cy="95" rx="85" ry="42" fill="#38384C"/>
+  
+  <!-- Brow ridge -->
+  <path d="M360 225 Q410 185 512 180 Q614 185 664 225 Q614 203 512 198 Q410 203 360 225Z" fill="#2E2E42"/>
+  <ellipse cx="512" cy="210" rx="155" ry="30" fill="#2E2E42" opacity="0.6"/>
+  
+  <!-- Face -->
+  <path d="M405 235 Q405 200 512 190 Q619 200 619 235 L619 335 Q619 400 512 410 Q405 400 405 335Z" fill="url(#faceGrad)"/>
+  
+  <!-- Ears -->
+  <ellipse cx="348" cy="245" rx="30" ry="35" fill="#38384C"/>
+  <ellipse cx="350" cy="245" rx="19" ry="24" fill="#A8896A"/>
+  <ellipse cx="676" cy="245" rx="30" ry="35" fill="#38384C"/>
+  <ellipse cx="674" cy="245" rx="19" ry="24" fill="#A8896A"/>
+  
+  <!-- Eye sockets -->
+  <ellipse cx="458" cy="245" rx="45" ry="33" fill="#2E2E42" opacity="0.3"/>
+  <ellipse cx="566" cy="245" rx="45" ry="33" fill="#2E2E42" opacity="0.3"/>
+  
+  <!-- Left eye -->
+  <ellipse cx="458" cy="250" rx="35" ry="30" fill="white"/>
+  <ellipse cx="462" cy="252" rx="19" ry="22" fill="#1A1A2A"/>
+  <circle cx="467" cy="244" r="8" fill="white"/>
+  <circle cx="457" cy="258" r="3.5" fill="white" opacity="0.5"/>
+  
+  <!-- Right eye -->
+  <ellipse cx="566" cy="250" rx="35" ry="30" fill="white"/>
+  <ellipse cx="562" cy="252" rx="19" ry="22" fill="#1A1A2A"/>
+  <circle cx="567" cy="244" r="8" fill="white"/>
+  <circle cx="557" cy="258" r="3.5" fill="white" opacity="0.5"/>
+  
+  <!-- Eyebrows (relaxed, friendly) -->
+  <path d="M410 225 Q435 215 475 220" stroke="#1A1A2A" stroke-width="8" stroke-linecap="round" fill="none"/>
+  <path d="M614 225 Q589 215 549 220" stroke="#1A1A2A" stroke-width="8" stroke-linecap="round" fill="none"/>
+  
+  <!-- Nose -->
+  <ellipse cx="512" cy="315" rx="42" ry="28" fill="#967756"/>
+  <ellipse cx="494" cy="318" rx="12" ry="10" fill="#7A6045"/>
+  <ellipse cx="530" cy="318" rx="12" ry="10" fill="#7A6045"/>
+  
+  <!-- Mouth (gentle smile) -->
+  <path d="M465 360 Q488 353 512 355 Q536 353 559 360" stroke="#7A6045" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M468 363 Q490 382 512 385 Q534 382 556 363" stroke="#7A6045" stroke-width="5" stroke-linecap="round" fill="none"/>
+  <path d="M472 365 Q490 380 512 382 Q534 380 552 365 Q512 374 472 365Z" fill="#7A6045" opacity="0.3"/>
+  
+  <!-- Headband -->
+  <path d="M350 178 Q430 140 512 137 Q594 140 674 178" stroke="#A8D8FF" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <path d="M375 172 Q445 144 512 142 Q579 144 649 172" stroke="white" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.25"/>
+  <g transform="translate(344, 186)">
+    <path d="M0,0 Q-12,18 -20,45 Q-16,27 -6,13Z" fill="#A8D8FF"/>
+    <path d="M-2,-1 Q-17,13 -28,40 Q-20,22 -10,9Z" fill="#A8D8FF"/>
+  </g>
+</svg>
