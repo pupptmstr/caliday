@@ -18,6 +18,8 @@ class SummaryScreen extends StatelessWidget {
     final spEarned = extras['spEarned'] as int? ?? 0;
     final durationSec = extras['durationSec'] as int? ?? 0;
     final exerciseCount = extras['exerciseCount'] as int? ?? 0;
+    final freezeEarned = extras['freezeEarned'] as bool? ?? false;
+    final freezeUsed = extras['freezeUsed'] as bool? ?? false;
 
     final mins = durationSec ~/ 60;
     final secs = durationSec % 60;
@@ -67,7 +69,13 @@ class SummaryScreen extends StatelessWidget {
                 ],
               ),
 
-              const SizedBox(height: 52),
+              const SizedBox(height: 24),
+
+              if (freezeUsed) const _FreezeUsedBanner(),
+              if (freezeUsed && freezeEarned) const SizedBox(height: 10),
+              if (freezeEarned) const _FreezeEarnedBanner(),
+
+              const SizedBox(height: 28),
 
               FilledButton(
                 style: FilledButton.styleFrom(
@@ -85,6 +93,86 @@ class SummaryScreen extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _FreezeUsedBanner extends StatelessWidget {
+  const _FreezeUsedBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          const Text('❄️', style: TextStyle(fontSize: 28)),
+          const SizedBox(width: 12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Заморозка сохранила стрик!',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+              Text(
+                'Серия продолжается — так держать',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: scheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FreezeEarnedBanner extends StatelessWidget {
+  const _FreezeEarnedBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: scheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          const Text('❄️', style: TextStyle(fontSize: 28)),
+          const SizedBox(width: 12),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Получена заморозка стрика!',
+                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
+              ),
+              Text(
+                'Используй, если пропустишь день',
+                style: TextStyle(
+                  fontSize: 12,
+                  color: scheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

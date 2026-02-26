@@ -15,13 +15,17 @@ class StreakService {
   /// - Consecutive day → streak increments.
   /// - 1-day gap and a streak freeze available → freeze consumed, streak kept.
   /// - Otherwise → streak resets to 1.
-  void applyWorkout(UserProfile profile, DateTime workoutDate) {
+  ///
+  /// Returns true if a streak freeze was consumed to preserve the streak.
+  bool applyWorkout(UserProfile profile, DateTime workoutDate) {
     final today = _dateOnly(workoutDate);
     final lastDate = profile.lastWorkoutDate != null
         ? _dateOnly(profile.lastWorkoutDate!)
         : null;
 
-    if (lastDate == today) return; // already counted today
+    if (lastDate == today) return false; // already counted today
+
+    bool freezeUsed = false;
 
     if (lastDate == null) {
       // First workout ever
@@ -36,6 +40,7 @@ class StreakService {
         // Exactly one day skipped — use a streak freeze
         profile.streakFreezeCount--;
         profile.currentStreak++;
+        freezeUsed = true;
       } else {
         // Gap too large or no freeze available
         profile.currentStreak = 1;
@@ -47,6 +52,7 @@ class StreakService {
     }
 
     profile.lastWorkoutDate = today;
+    return freezeUsed;
   }
 
   /// True when the user has an active streak but hasn't trained today yet.
@@ -57,6 +63,22 @@ class StreakService {
     final lastDate = profile.lastWorkoutDate;
     if (lastDate == null) return false;
     return _dateOnly(lastDate) != _dateOnly(DateTime.now());
+  }
+
+  /// Awards 1 freeze token if the streak just hit a multiple of 7 and the
+  /// current freeze count is below the cap of 3.
+  ///
+  /// Must be called **after** [applyWorkout] so the streak is already updated.
+  /// Returns true if a freeze was awarded (caller should persist the profile).
+  bool tryAwardFreeze(UserProfile profile) {
+    const maxFreezes = 3;
+    if (profile.currentStreak > 0 &&
+        profile.currentStreak % 7 == 0 &&
+        profile.streakFreezeCount < maxFreezes) {
+      profile.streakFreezeCount++;
+      return true;
+    }
+    return false;
   }
 
   /// Number of full calendar days since the last workout, or -1 if never.

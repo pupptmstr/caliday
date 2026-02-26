@@ -74,6 +74,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
             'spEarned': s.spEarned,
             'durationSec': s.durationSec,
             'exerciseCount': mainCount,
+            'freezeEarned': s.freezeEarned,
+            'freezeUsed': s.freezeUsed,
           });
         }
       },

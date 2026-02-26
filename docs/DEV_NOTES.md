@@ -47,7 +47,7 @@
 
 | # | Задача | Статус |
 |---|--------|--------|
-| 6 | **Заморозки стрика** — `streakFreezeCount` есть в модели, но не зарабатывается и не тратится. Либо реализовать механику, либо скрыть из UI до v1.1 | ⬜ |
+| 6 | **Заморозки стрика** — `streakFreezeCount` есть в модели, но не зарабатывается и не тратится. Либо реализовать механику, либо скрыть из UI до v1.1 | ✅ |
 
 ---
 
@@ -265,6 +265,7 @@ lib/
 - `getInRange(from, to)` — диапазон дат
 - `getRecent(count)` — последние N логов
 - `hasWorkoutToday()` — bool, используется для стрика и уведомлений
+- `deleteForDate(date)` — удаляет лог за конкретный день (используется в debug-режиме)
 
 ---
 
@@ -288,9 +289,15 @@ lib/
 - `applyToProfile(profile, sp)` — мутирует профиль: прибавляет SP, пересчитывает ранг
 
 **`StreakService`** (`streakServiceProvider`)
-- `applyWorkout(profile, date)` — обновляет стрик; поддерживает streak freeze при пропуске 1 дня
+- `applyWorkout(profile, date)` → `bool` — обновляет стрик; при пропуске 1 дня тратит заморозку и возвращает `true`
+- `tryAwardFreeze(profile)` → `bool` — выдаёт 1 заморозку если `streak % 7 == 0` и `freezeCount < 3`; вызывать **после** `applyWorkout`
 - `isStreakAtRisk(profile)` — true если сегодня ещё не занимались (для уведомлений)
 - `daysSinceLastWorkout(profile)` — вспомогательный счётчик
+
+**Механика заморозок:**
+- Зарабатываются: каждые 7 дней стрика подряд → +1 заморозка (макс. 3)
+- Тратятся: автоматически при пропуске ровно 1 дня (daysSince == 2) если есть запас
+- Summary-экран показывает баннер `❄️ Заморозка сохранила стрик!` / `❄️ Получена заморозка!`
 
 **`ProgressionService`** (`progressionServiceProvider`)
 - `applyResult(progress, exercise, result)` → bool (true = challenge разблокирован)
@@ -374,8 +381,13 @@ lib/
 
 ### Навигация workout → summary → home
 - home → **push** `/workout`
-- workout done → **pushReplacement** `/summary` (extra: {spEarned, durationSec, exerciseCount})
+- workout done → **pushReplacement** `/summary` (extra: {spEarned, durationSec, exerciseCount, freezeEarned, freezeUsed})
 - summary → **go** `/home` (полная замена стека, HomeScreen пересоздаётся)
+
+`WorkoutState` при `phase == done` содержит:
+- `spEarned` — заработанные SP
+- `freezeEarned: bool` — получена новая заморозка (стрик кратен 7)
+- `freezeUsed: bool` — заморозка потрачена для сохранения стрика
 
 ### ExerciseResult semantics (MVP)
 - Одна запись на упражнение (не на подход).
@@ -457,6 +469,27 @@ SVG-ассеты скопированы в `assets/goro/`:
 ---
 
 ## История изменений
+
+### 2026-02-27 — сессия 13 (заморозки: уведомления об использовании + debug)
+- **Уведомление об использовании заморозки:**
+  - `applyWorkout(profile, date)` теперь возвращает `bool` (была ли потрачена заморозка)
+  - `WorkoutState.freezeUsed: bool` — новое поле, пробрасывается в summary extras
+  - `SummaryScreen`: баннер `_FreezeUsedBanner` («Заморозка сохранила стрик!»)
+  - Если оба события одновременно — баннеры разделены `SizedBox(height: 10)`
+- **Debug-кнопки в Settings (kDebugMode):**
+  - `[DEBUG] Стрик → 6, сброс тренировки` — streak=6, lastWorkoutDate=вчера, удаляет сегодняшний лог
+  - `[DEBUG] Симулировать пропуск дня` — lastWorkoutDate=позавчера, удаляет сегодняшний лог
+- `WorkoutRepository.deleteForDate(date)` — новый метод удаления лога по дате
+- `flutter analyze` → No issues found
+
+### 2026-02-27 — сессия 12 (заморозки стрика — зарабатывание)
+- **Механика получения заморозок:**
+  - `StreakService.tryAwardFreeze(profile)` — 1 заморозка каждые 7 дней стрика, макс. 3
+  - `WorkoutNotifier._finishWorkout` вызывает `tryAwardFreeze` после `applyWorkout`
+  - `WorkoutState.freezeEarned: bool` — пробрасывается в summary extras
+  - `SummaryScreen`: баннер `_FreezeEarnedBanner` (❄️ «Получена заморозка стрика!»)
+- Чеклист v1.0 полностью закрыт ✅
+- `flutter analyze` → No issues found
 
 ### 2026-02-25 — сессия 11 (дизайн Горо + полировка)
 - **Дизайн-концепция полностью внедрена:**

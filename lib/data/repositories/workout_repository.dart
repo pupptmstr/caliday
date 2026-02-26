@@ -52,6 +52,16 @@ class WorkoutRepository {
   /// True if at least one workout was logged on today's date.
   bool hasWorkoutToday() => getForDate(DateTime.now()) != null;
 
+  /// Deletes the log for [date] (time component ignored), if one exists.
+  Future<void> deleteForDate(DateTime date) async {
+    final target = _dateOnly(date);
+    final key = _box.keys.firstWhere(
+      (k) => _dateOnly(_box.get(k as dynamic)!.date) == target,
+      orElse: () => null,
+    );
+    if (key != null) await _box.delete(key);
+  }
+
   /// Total number of logged workouts.
   int get totalCount => _box.length;
 

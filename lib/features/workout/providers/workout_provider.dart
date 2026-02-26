@@ -35,6 +35,8 @@ class WorkoutState {
     this.spEarned = 0,
     this.durationSec = 0,
     this.isInterExerciseRest = false,
+    this.freezeEarned = false,
+    this.freezeUsed = false,
   });
 
   final WorkoutPlan plan;
@@ -64,6 +66,12 @@ class WorkoutState {
   final int spEarned;
   final int durationSec;
 
+  /// True when a streak freeze was awarded at the end of this workout.
+  final bool freezeEarned;
+
+  /// True when a streak freeze was consumed to preserve the streak.
+  final bool freezeUsed;
+
   /// True during the rest phase that sits between two different exercises
   /// (as opposed to rest between sets of the same exercise).
   final bool isInterExerciseRest;
@@ -84,6 +92,8 @@ class WorkoutState {
     int? spEarned,
     int? durationSec,
     bool? isInterExerciseRest,
+    bool? freezeEarned,
+    bool? freezeUsed,
   }) {
     return WorkoutState(
       plan: plan,
@@ -97,6 +107,8 @@ class WorkoutState {
       spEarned: spEarned ?? this.spEarned,
       durationSec: durationSec ?? this.durationSec,
       isInterExerciseRest: isInterExerciseRest ?? this.isInterExerciseRest,
+      freezeEarned: freezeEarned ?? this.freezeEarned,
+      freezeUsed: freezeUsed ?? this.freezeUsed,
     );
   }
 
@@ -295,7 +307,9 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     final userRepo = _ref.read(userRepositoryProvider);
     final profile = userRepo.getProfile();
     spService.applyToProfile(profile, spEarned);
-    _ref.read(streakServiceProvider).applyWorkout(profile, now);
+    final streakService = _ref.read(streakServiceProvider);
+    final freezeUsed = streakService.applyWorkout(profile, now);
+    final freezeEarned = streakService.tryAwardFreeze(profile);
     userRepo.saveProfile(profile);
 
     // ── Progression ───────────────────────────────────────────────────────
@@ -339,6 +353,8 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       results: results,
       spEarned: spEarned,
       durationSec: durationSec,
+      freezeEarned: freezeEarned,
+      freezeUsed: freezeUsed,
     );
   }
 }
