@@ -12,6 +12,27 @@ const int _idMorning = 1;
 const int _idEvening = 2;
 const int _idStreakThreat = 3;
 
+// ── Locale-aware notification strings ────────────────────────────────────────
+
+const _notifStrings = {
+  'ru': {
+    'morningTitle': 'Время тренироваться! 💪',
+    'morningBody': 'Твоя ежедневная тренировка ждёт. Не прерывай серию!',
+    'eveningTitle': 'Ещё не поздно! 🏃',
+    'eveningBody': 'Ты сегодня ещё не тренировался. Займёт всего 10 минут.',
+    'streakTitle': 'Серия под угрозой! 🔥',
+    'streakBody': 'Успей потренироваться до полуночи — иначе серия прервётся.',
+  },
+  'en': {
+    'morningTitle': 'Time to work out! 💪',
+    'morningBody': 'Your daily workout is waiting. Keep the streak alive!',
+    'eveningTitle': 'Still time! 🏃',
+    'eveningBody': "You haven't trained today yet. It only takes 10 minutes.",
+    'streakTitle': 'Streak at risk! 🔥',
+    'streakBody': 'Work out before midnight or your streak will end.',
+  },
+};
+
 // ── Service ───────────────────────────────────────────────────────────────────
 
 /// Manages all local notifications for CaliDay.
@@ -129,10 +150,16 @@ class NotificationService {
 
     if (!profile.notificationsEnabled) return;
 
+    final strings = _notifStrings[profile.locale ?? 'ru'] ?? _notifStrings['ru']!;
     final mode = await _getScheduleMode();
-    await _scheduleMorning(profile.notificationHour, profile.notificationMinute, mode);
-    if (profile.eveningReminderEnabled) await _scheduleEvening(mode);
-    if (profile.streakThreatEnabled) await _scheduleStreakThreat(mode);
+    await _scheduleMorning(
+      profile.notificationHour,
+      profile.notificationMinute,
+      mode,
+      strings,
+    );
+    if (profile.eveningReminderEnabled) await _scheduleEvening(mode, strings);
+    if (profile.streakThreatEnabled) await _scheduleStreakThreat(mode, strings);
   }
 
   /// Cancels only the evening and streak-threat notifications.
@@ -170,13 +197,14 @@ class NotificationService {
     int hour,
     int minute,
     AndroidScheduleMode mode,
+    Map<String, String> strings,
   ) async {
     await _plugin.zonedSchedule(
       _idMorning,
-      'Время тренироваться! 💪',
-      'Твоя ежедневная тренировка ждёт. Не прерывай серию!',
+      strings['morningTitle']!,
+      strings['morningBody']!,
       _nextInstanceOf(hour, minute),
-      _details(channelId: 'morning', channelName: 'Утреннее напоминание'),
+      _details(channelId: 'morning', channelName: 'Morning reminder'),
       androidScheduleMode: mode,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
@@ -184,13 +212,16 @@ class NotificationService {
     );
   }
 
-  Future<void> _scheduleEvening(AndroidScheduleMode mode) async {
+  Future<void> _scheduleEvening(
+    AndroidScheduleMode mode,
+    Map<String, String> strings,
+  ) async {
     await _plugin.zonedSchedule(
       _idEvening,
-      'Ещё не поздно! 🏃',
-      'Ты сегодня ещё не тренировался. Займёт всего 10 минут.',
+      strings['eveningTitle']!,
+      strings['eveningBody']!,
       _nextInstanceOf(20, 0),
-      _details(channelId: 'evening', channelName: 'Вечерний дожим'),
+      _details(channelId: 'evening', channelName: 'Evening reminder'),
       androidScheduleMode: mode,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,
@@ -198,13 +229,16 @@ class NotificationService {
     );
   }
 
-  Future<void> _scheduleStreakThreat(AndroidScheduleMode mode) async {
+  Future<void> _scheduleStreakThreat(
+    AndroidScheduleMode mode,
+    Map<String, String> strings,
+  ) async {
     await _plugin.zonedSchedule(
       _idStreakThreat,
-      'Серия под угрозой! 🔥',
-      'Успей потренироваться до полуночи — иначе серия прервётся.',
+      strings['streakTitle']!,
+      strings['streakBody']!,
       _nextInstanceOf(22, 0),
-      _details(channelId: 'streak', channelName: 'Угроза стрику'),
+      _details(channelId: 'streak', channelName: 'Streak threat'),
       androidScheduleMode: mode,
       uiLocalNotificationDateInterpretation:
           UILocalNotificationDateInterpretation.absoluteTime,

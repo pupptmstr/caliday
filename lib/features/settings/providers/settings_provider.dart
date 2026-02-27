@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../data/repositories/user_repository.dart';
 
@@ -12,6 +13,7 @@ class SettingsState {
     required this.streakThreatEnabled,
     required this.notificationHour,
     required this.notificationMinute,
+    required this.locale,
   });
 
   final bool notificationsEnabled;
@@ -19,6 +21,7 @@ class SettingsState {
   final bool streakThreatEnabled;
   final int notificationHour;
   final int notificationMinute;
+  final String locale;
 
   /// Notification time as a zero-padded string, e.g. "09:00".
   String get timeLabel {
@@ -33,6 +36,7 @@ class SettingsState {
     bool? streakThreatEnabled,
     int? notificationHour,
     int? notificationMinute,
+    String? locale,
   }) {
     return SettingsState(
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
@@ -41,6 +45,7 @@ class SettingsState {
       streakThreatEnabled: streakThreatEnabled ?? this.streakThreatEnabled,
       notificationHour: notificationHour ?? this.notificationHour,
       notificationMinute: notificationMinute ?? this.notificationMinute,
+      locale: locale ?? this.locale,
     );
   }
 }
@@ -48,9 +53,10 @@ class SettingsState {
 // ── Notifier ──────────────────────────────────────────────────────────────────
 
 class SettingsNotifier extends StateNotifier<SettingsState> {
-  SettingsNotifier(this._userRepo) : super(_load(_userRepo));
+  SettingsNotifier(this._userRepo, this._ref) : super(_load(_userRepo));
 
   final UserRepository _userRepo;
+  final Ref _ref;
 
   static SettingsState _load(UserRepository repo) {
     final p = repo.getProfile();
@@ -60,6 +66,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       streakThreatEnabled: p.streakThreatEnabled,
       notificationHour: p.notificationHour,
       notificationMinute: p.notificationMinute,
+      locale: p.locale ?? 'ru',
     );
   }
 
@@ -85,6 +92,13 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
     _save();
   }
 
+  void setLocale(String locale) {
+    state = state.copyWith(locale: locale);
+    final p = _userRepo.getProfile()..locale = locale;
+    _userRepo.saveProfile(p);
+    _ref.read(localeProvider.notifier).state = locale;
+  }
+
   void _save() {
     final p = _userRepo.getProfile();
     p.notificationsEnabled = state.notificationsEnabled;
@@ -102,5 +116,5 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
 
 final settingsProvider =
     StateNotifierProvider<SettingsNotifier, SettingsState>((ref) {
-  return SettingsNotifier(ref.watch(userRepositoryProvider));
+  return SettingsNotifier(ref.watch(userRepositoryProvider), ref);
 });

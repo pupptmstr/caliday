@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/providers/locale_provider.dart';
 import '../../../core/router/app_router.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
@@ -171,11 +172,12 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     final userRepo = _ref.read(userRepositoryProvider);
     final progressRepo = _ref.read(skillProgressRepositoryProvider);
 
-    // Create user profile with notification preferences.
+    // Create user profile with notification preferences and selected locale.
     await userRepo.saveProfile(
       UserProfile(
         notificationHour: state.reminderHour,
         notificationMinute: state.reminderMinute,
+        locale: _ref.read(localeProvider),
       ),
     );
 

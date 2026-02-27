@@ -143,6 +143,10 @@ Android разделяет два типа иконок уведомления:
 ## Структура файлов (текущая)
 
 ```
+l10n/
+├── app_ru.arb                         ← шаблон ARB (русский, ~145 ключей)
+└── app_en.arb                         ← английский перевод
+
 assets/
 ├── goro/
 │   ├── goro_face.svg                  ← маскот иконка (onboarding)
@@ -163,10 +167,18 @@ android/app/src/main/res/
     └── ic_launcher*.png               ← сгенерировано flutter_launcher_icons
 
 lib/
-├── main.dart                          ← Hive init, ProviderScope, точка входа
+├── main.dart                          ← Hive init, ProviderScope, locale, точка входа
+├── l10n/                              ← СГЕНЕРИРОВАНО flutter gen-l10n (не редактировать)
+│   ├── app_localizations.dart
+│   ├── app_localizations_ru.dart
+│   └── app_localizations_en.dart
 ├── core/
 │   ├── router/app_router.dart         ← GoRouter + RouterNotifier
 │   ├── services/notification_service.dart ← NotificationService singleton
+│   ├── providers/locale_provider.dart ← StateProvider<String>
+│   ├── extensions/
+│   │   ├── build_context_l10n.dart    ← context.l10n shortcut
+│   │   └── exercise_l10n.dart         ← ExerciseL10n static helper
 │   └── widgets/                       ← переиспользуемые виджеты
 ├── data/
 │   ├── models/
@@ -469,6 +481,48 @@ SVG-ассеты скопированы в `assets/goro/`:
 ---
 
 ## История изменений
+
+### 2026-02-27 — сессия 15 (локализация RU+EN, v1.1.0+2)
+
+**Архитектура локализации:**
+- `flutter_localizations` + `intl ^0.20.0` в `pubspec.yaml`; `flutter: generate: true`
+- `.arb`-файлы: `l10n/app_ru.arb` (шаблон), `l10n/app_en.arb` — ~145 ключей
+- `l10n.yaml`: `arb-dir: l10n`, `output-dir: lib/l10n`, генерация через `flutter gen-l10n`
+- `package:caliday/l10n/app_localizations.dart` — правильный путь импорта (НЕ `flutter_gen`)
+- `lib/core/extensions/build_context_l10n.dart` — расширение `context.l10n`
+- `lib/core/extensions/exercise_l10n.dart` — `ExerciseL10n.name/description/tip(l10n, id)`
+- `lib/core/providers/locale_provider.dart` — `StateProvider<String>`, читает `profile.locale ?? 'ru'`
+- `RankLocalization` extension в `enums.dart` — `rank.localizedName(l10n)`
+- Enum-расширения для онбординга (в `onboarding_screen.dart`): `FitnessFrequencyL10n`, `PushupCountL10n`, `WorkoutMinutesL10n`, `FitnessGoalL10n`, `_TimeLabelL10n`
+
+**Модель данных:**
+- `UserProfile`: добавлено `@HiveField(11) String? locale` (null = 'ru', совместимо со старыми данными)
+- `user_profile.g.dart`: вручную обновлён — `writeByte(11→12)`, добавлена запись поля locale
+
+**UI:**
+- `MaterialApp.router`: `locale: Locale(locale)`, `supportedLocales/localizationsDelegates` из `AppLocalizations`
+- Settings: секция «Язык» — `SimpleDialog` с `RadioGroup<String>` (RadioListTile без deprecated `groupValue/onChanged`)
+- Onboarding step 0: `Stack` + `Positioned` overlay с переключателем `[RU | EN]`
+- Все хардкодные строки во всех экранах заменены на `l10n.*`
+- Даты в Profile → `intl.DateFormat('d MMMM', locale).format(date)` (locale-aware)
+
+**Уведомления:**
+- `NotificationService`: `_notifStrings` static const Map<String, Map<String, String>>
+- `scheduleAll(profile)` читает `profile.locale ?? 'ru'` для выбора строк (нет BuildContext)
+
+**Результат:** `flutter analyze` → No issues found
+
+---
+
+**Как добавить новый язык:**
+1. Скопировать `l10n/app_ru.arb` в `l10n/app_XX.arb` (где `XX` — код языка)
+2. Перевести все строки в новом файле
+3. Добавить `XX` в `preferred-supported-locales` в `l10n.yaml`
+4. Запустить `flutter gen-l10n`
+5. Добавить `_LangButton` и `RadioListTile` в settings_screen.dart + onboarding_screen.dart
+6. Добавить locale в `_notifStrings` в `notification_service.dart`
+
+---
 
 ### 2026-02-27 — сессия 14 (иконка уведомления Android)
 - **`ic_goro_notif.xml`** заменён — ручной силуэт головы Горо (~6 путей) → горилла-эмодзи 🦍 (431 путь)

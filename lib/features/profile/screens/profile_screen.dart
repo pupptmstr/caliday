@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
+import '../../../core/extensions/build_context_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/workout_log.dart';
 import '../providers/profile_provider.dart';
@@ -14,6 +16,7 @@ class ProfileScreen extends ConsumerWidget {
     final data = ref.watch(profileDataProvider);
     final profile = data.profile;
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
 
     // Rank progress
     final nextRank = profile.rank.next;
@@ -21,22 +24,22 @@ class ProfileScreen extends ConsumerWidget {
     final String rankProgressLabel;
     if (nextRank == null) {
       rankProgress = 1.0;
-      rankProgressLabel = 'Максимальный ранг!';
+      rankProgressLabel = l10n.profileMaxRank;
     } else {
       final earned = profile.totalSP - profile.rank.spThreshold;
       final needed = nextRank.spThreshold - profile.rank.spThreshold;
       rankProgress = (earned / needed).clamp(0.0, 1.0);
       final remaining = nextRank.spThreshold - profile.totalSP;
-      rankProgressLabel = '$remaining SP до ${nextRank.displayName}';
+      rankProgressLabel = l10n.profileRankProgress(remaining, nextRank.localizedName(l10n));
     }
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Профиль'),
+        title: Text(l10n.profileTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings_outlined),
-            tooltip: 'Настройки',
+            tooltip: l10n.settingsTitle,
             onPressed: () => context.push('/settings'),
           ),
         ],
@@ -69,7 +72,7 @@ class ProfileScreen extends ConsumerWidget {
 
               // ── Recent workouts ────────────────────────────────────────
               Text(
-                'История тренировок',
+                l10n.profileHistoryTitle,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
@@ -81,7 +84,7 @@ class ProfileScreen extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 24),
                   child: Text(
-                    'Ещё нет завершённых тренировок',
+                    l10n.profileNoHistory,
                     style: TextStyle(color: scheme.onSurfaceVariant),
                     textAlign: TextAlign.center,
                   ),
@@ -123,6 +126,7 @@ class _RankCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
 
     return Container(
       padding: const EdgeInsets.all(20),
@@ -144,7 +148,7 @@ class _RankCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    rank.displayName,
+                    rank.localizedName(l10n),
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                           fontWeight: FontWeight.w800,
                           color: scheme.onPrimaryContainer,
@@ -209,19 +213,16 @@ class _StatsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Row(
       children: [
-        Expanded(
-            child: _StatCell(emoji: '🔥', value: '$currentStreak', label: 'дней')),
+        Expanded(child: _StatCell(emoji: '🔥', value: '$currentStreak', label: l10n.profileStatDays)),
         const SizedBox(width: 10),
-        Expanded(
-            child: _StatCell(emoji: '🏆', value: '$longestStreak', label: 'рекорд')),
+        Expanded(child: _StatCell(emoji: '🏆', value: '$longestStreak', label: l10n.profileStatRecord)),
         const SizedBox(width: 10),
-        Expanded(
-            child: _StatCell(emoji: '💪', value: '$totalWorkouts', label: 'трен.')),
+        Expanded(child: _StatCell(emoji: '💪', value: '$totalWorkouts', label: l10n.profileStatWorkouts)),
         const SizedBox(width: 10),
-        Expanded(
-            child: _StatCell(emoji: '❄️', value: '$streakFreezes', label: 'заморозок')),
+        Expanded(child: _StatCell(emoji: '❄️', value: '$streakFreezes', label: l10n.profileStatFreezes)),
       ],
     );
   }
@@ -280,33 +281,18 @@ class _WorkoutLogTile extends StatelessWidget {
 
   final WorkoutLog log;
 
-  static const _months = [
-    '',
-    'января',
-    'февраля',
-    'марта',
-    'апреля',
-    'мая',
-    'июня',
-    'июля',
-    'августа',
-    'сентября',
-    'октября',
-    'ноября',
-    'декабря',
-  ];
-
-  String get _dateStr => '${log.date.day} ${_months[log.date.month]}';
-
-  String get _durationStr {
-    final m = log.durationSec ~/ 60;
-    final s = log.durationSec % 60;
-    return m > 0 ? '$m мин $s сек' : '$s сек';
-  }
-
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
+    final locale = Localizations.localeOf(context).languageCode;
+
+    final dateStr = DateFormat('d MMMM', locale).format(log.date);
+
+    final m = log.durationSec ~/ 60;
+    final s = log.durationSec % 60;
+    final durationStr = m > 0 ? l10n.durationMin(m, s) : l10n.durationSec(s);
+
     return Container(
       margin: const EdgeInsets.only(bottom: 8),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
@@ -323,7 +309,7 @@ class _WorkoutLogTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  _dateStr,
+                  dateStr,
                   style: const TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 15,
@@ -331,7 +317,7 @@ class _WorkoutLogTile extends StatelessWidget {
                 ),
                 const SizedBox(height: 2),
                 Text(
-                  _durationStr,
+                  durationStr,
                   style: TextStyle(
                     fontSize: 13,
                     color: scheme.onSurfaceVariant,

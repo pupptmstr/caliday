@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../data/repositories/workout_repository.dart';
@@ -17,20 +18,42 @@ class SettingsScreen extends ConsumerWidget {
     final state = ref.watch(settingsProvider);
     final notifier = ref.read(settingsProvider.notifier);
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
     final enabled = state.notificationsEnabled;
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Настройки')),
+      appBar: AppBar(title: Text(l10n.settingsTitle)),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 12),
           children: [
-            // ── Section header ──────────────────────────────────────────
+            // ── Language section ────────────────────────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Text(
+                l10n.settingsSectionLanguage,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                  color: scheme.primary,
+                ),
+              ),
+            ),
+
+            _SettingsTile(
+              title: l10n.settingsLanguageTitle,
+              subtitle: state.locale == 'ru' ? 'Русский' : 'English',
+              trailing: const Icon(Icons.language_rounded),
+              onTap: () => _showLanguagePicker(context, state.locale, notifier.setLocale),
+            ),
+
+            // ── Notifications section ────────────────────────────────────
             Padding(
               padding:
                   const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
               child: Text(
-                'УВЕДОМЛЕНИЯ',
+                l10n.settingsSectionNotifications,
                 style: TextStyle(
                   fontSize: 12,
                   fontWeight: FontWeight.w700,
@@ -42,8 +65,8 @@ class SettingsScreen extends ConsumerWidget {
 
             // Master toggle
             _SettingsTile(
-              title: 'Включить уведомления',
-              subtitle: 'Разрешить приложению присылать напоминания',
+              title: l10n.settingsNotificationsTitle,
+              subtitle: l10n.settingsNotificationsSubtitle,
               trailing: Switch(
                 value: state.notificationsEnabled,
                 onChanged: notifier.setNotificationsEnabled,
@@ -55,8 +78,8 @@ class SettingsScreen extends ConsumerWidget {
             // Notification time
             _SettingsTile(
               enabled: enabled,
-              title: 'Время напоминания',
-              subtitle: 'Утреннее напоминание потренироваться',
+              title: l10n.settingsNotificationTimeTitle,
+              subtitle: l10n.settingsNotificationTimeSubtitle,
               trailing: _TimeChip(
                 label: state.timeLabel,
                 enabled: enabled,
@@ -76,8 +99,8 @@ class SettingsScreen extends ConsumerWidget {
             // Evening reminder
             _SettingsTile(
               enabled: enabled,
-              title: 'Вечерний дожим',
-              subtitle: 'Напомнить вечером, если тренировка не выполнена',
+              title: l10n.settingsEveningReminderTitle,
+              subtitle: l10n.settingsEveningReminderSubtitle,
               trailing: Switch(
                 value: state.eveningReminderEnabled,
                 onChanged: enabled ? notifier.setEveningReminder : null,
@@ -89,8 +112,8 @@ class SettingsScreen extends ConsumerWidget {
             // Streak threat
             _SettingsTile(
               enabled: enabled,
-              title: 'Угроза стрику',
-              subtitle: 'Предупредить, когда серия под угрозой',
+              title: l10n.settingsStreakThreatTitle,
+              subtitle: l10n.settingsStreakThreatSubtitle,
               trailing: Switch(
                 value: state.streakThreatEnabled,
                 onChanged: enabled ? notifier.setStreakThreat : null,
@@ -191,6 +214,44 @@ class SettingsScreen extends ConsumerWidget {
   }
 }
 
+// ── Language picker ────────────────────────────────────────────────────────────
+
+Future<void> _showLanguagePicker(
+  BuildContext context,
+  String currentLocale,
+  void Function(String) onPicked,
+) async {
+  await showDialog<void>(
+    context: context,
+    builder: (ctx) => SimpleDialog(
+      title: const Text('🌐  Язык / Language'),
+      children: [
+        RadioGroup<String>(
+          groupValue: currentLocale,
+          onChanged: (v) {
+            if (v != null) {
+              onPicked(v);
+              Navigator.of(ctx).pop();
+            }
+          },
+          child: Column(
+            children: const [
+              RadioListTile<String>(
+                title: Text('🇷🇺  Русский'),
+                value: 'ru',
+              ),
+              RadioListTile<String>(
+                title: Text('🇬🇧  English'),
+                value: 'en',
+              ),
+            ],
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 // ── Shared tile ───────────────────────────────────────────────────────────────
 
 class _SettingsTile extends StatelessWidget {
@@ -287,7 +348,7 @@ Future<void> _showTimePicker(
           child: Row(
             children: [
               Text(
-                'Время напоминания',
+                context.l10n.settingsNotificationTimeTitle,
                 style: Theme.of(ctx).textTheme.titleMedium?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
@@ -295,7 +356,7 @@ Future<void> _showTimePicker(
               const Spacer(),
               TextButton(
                 onPressed: () => Navigator.of(ctx).pop(),
-                child: const Text('Готово'),
+                child: Text(context.l10n.settingsTimePickerDone),
               ),
             ],
           ),

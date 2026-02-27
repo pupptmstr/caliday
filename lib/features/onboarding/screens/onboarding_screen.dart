@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:caliday/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../../../core/extensions/build_context_l10n.dart';
+import '../../../core/providers/locale_provider.dart';
 import '../providers/onboarding_provider.dart';
 import '../widgets/option_card.dart';
 
@@ -24,6 +27,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   @override
   Widget build(BuildContext context) {
     final state = ref.watch(onboardingProvider);
+    final currentLocale = ref.watch(localeProvider);
 
     // Animate to the new step whenever it changes.
     ref.listen<int>(
@@ -37,30 +41,118 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
 
     return Scaffold(
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            _TopBar(
-              step: state.step,
-              onBack: state.step > 0
-                  ? () => ref.read(onboardingProvider.notifier).previousStep()
-                  : null,
+            Column(
+              children: [
+                _TopBar(
+                  step: state.step,
+                  onBack: state.step > 0
+                      ? () => ref.read(onboardingProvider.notifier).previousStep()
+                      : null,
+                ),
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    physics: const NeverScrollableScrollPhysics(),
+                    children: [
+                      _WelcomeStep(),
+                      _FrequencyStep(),
+                      _PushupStep(),
+                      _DurationStep(),
+                      _GoalStep(),
+                      _ReminderStep(),
+                    ],
+                  ),
+                ),
+                _BottomButton(state: state),
+              ],
             ),
-            Expanded(
-              child: PageView(
-                controller: _pageController,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _WelcomeStep(),
-                  _FrequencyStep(),
-                  _PushupStep(),
-                  _DurationStep(),
-                  _GoalStep(),
-                  _ReminderStep(),
-                ],
+
+            // Language toggle — visible only on the welcome step.
+            if (state.step == 0)
+              Positioned(
+                top: 10,
+                right: 16,
+                child: _LanguageToggle(
+                  currentLocale: currentLocale,
+                  onChanged: (locale) {
+                    ref.read(localeProvider.notifier).state = locale;
+                  },
+                ),
               ),
-            ),
-            _BottomButton(state: state),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── Language toggle ───────────────────────────────────────────────────────────
+
+class _LanguageToggle extends StatelessWidget {
+  const _LanguageToggle({
+    required this.currentLocale,
+    required this.onChanged,
+  });
+
+  final String currentLocale;
+  final void Function(String) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _LangButton(
+          label: 'RU',
+          selected: currentLocale == 'ru',
+          onTap: () => onChanged('ru'),
+          scheme: scheme,
+        ),
+        const SizedBox(width: 4),
+        _LangButton(
+          label: 'EN',
+          selected: currentLocale == 'en',
+          onTap: () => onChanged('en'),
+          scheme: scheme,
+        ),
+      ],
+    );
+  }
+}
+
+class _LangButton extends StatelessWidget {
+  const _LangButton({
+    required this.label,
+    required this.selected,
+    required this.onTap,
+    required this.scheme,
+  });
+
+  final String label;
+  final bool selected;
+  final VoidCallback onTap;
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        decoration: BoxDecoration(
+          color: selected ? scheme.primary : scheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Text(
+          label,
+          style: TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+            color: selected ? scheme.onPrimary : scheme.onSurfaceVariant,
+          ),
         ),
       ),
     );
@@ -134,7 +226,8 @@ class _BottomButton extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final scheme = Theme.of(context).colorScheme;
     final notifier = ref.read(onboardingProvider.notifier);
-    final label = state.isLastStep ? 'Начать тренировку 🔥' : 'Продолжить';
+    final l10n = context.l10n;
+    final label = state.isLastStep ? l10n.onboardingStart : l10n.onboardingContinue;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
@@ -181,6 +274,7 @@ class _BottomButton extends ConsumerWidget {
 class _WelcomeStep extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32),
       child: Column(
@@ -189,7 +283,7 @@ class _WelcomeStep extends StatelessWidget {
           SvgPicture.asset('assets/goro/goro_face.svg', height: 120),
           const SizedBox(height: 24),
           Text(
-            'Привет! Я Горо',
+            l10n.onboardingWelcomeTitle,
             style: Theme.of(context)
                 .textTheme
                 .headlineMedium
@@ -198,7 +292,7 @@ class _WelcomeStep extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            'Короткие сеты, прокачка навыков, стрики и очки.\nОт отжиманий с колен до стойки на руках — шаг за шагом.',
+            l10n.onboardingWelcomeBody,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: Theme.of(context).colorScheme.onSurfaceVariant,
                 ),
@@ -206,7 +300,7 @@ class _WelcomeStep extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           Text(
-            'Настроим всё под тебя за 1 минуту',
+            l10n.onboardingWelcomeCta,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.w600,
@@ -227,15 +321,16 @@ class _FrequencyStep extends ConsumerWidget {
     final selected = ref.watch(
         onboardingProvider.select((s) => s.fitnessFrequency));
     final notifier = ref.read(onboardingProvider.notifier);
+    final l10n = context.l10n;
 
     return _StepScaffold(
-      question: 'Как часто ты занимаешься спортом?',
+      question: l10n.onboardingQ1,
       children: FitnessFrequency.values
           .map(
             (v) => OptionCard(
               emoji: v.emoji,
-              label: v.label,
-              description: v.description,
+              label: v.localizedLabel(l10n),
+              description: v.localizedDescription(l10n),
               isSelected: selected == v,
               onTap: () => notifier.selectFitnessFrequency(v),
             ),
@@ -253,15 +348,16 @@ class _PushupStep extends ConsumerWidget {
     final selected =
         ref.watch(onboardingProvider.select((s) => s.pushupCount));
     final notifier = ref.read(onboardingProvider.notifier);
+    final l10n = context.l10n;
 
     return _StepScaffold(
-      question: 'Сколько отжиманий ты можешь сделать?',
+      question: l10n.onboardingQ2,
       children: PushupCount.values
           .map(
             (v) => OptionCard(
               emoji: v.emoji,
-              label: v.label,
-              description: v.description,
+              label: v.label, // numeric labels are locale-agnostic
+              description: v.localizedDescription(l10n),
               isSelected: selected == v,
               onTap: () => notifier.selectPushupCount(v),
             ),
@@ -279,15 +375,16 @@ class _DurationStep extends ConsumerWidget {
     final selected =
         ref.watch(onboardingProvider.select((s) => s.workoutMinutes));
     final notifier = ref.read(onboardingProvider.notifier);
+    final l10n = context.l10n;
 
     return _StepScaffold(
-      question: 'Сколько минут в день готов уделять?',
+      question: l10n.onboardingQ3,
       children: WorkoutMinutes.values
           .map(
             (v) => OptionCard(
               emoji: v.emoji,
-              label: v.label,
-              description: v.description,
+              label: l10n.minutesLabel(v.minutes),
+              description: v.localizedDescription(l10n),
               isSelected: selected == v,
               onTap: () => notifier.selectWorkoutMinutes(v),
             ),
@@ -305,15 +402,16 @@ class _GoalStep extends ConsumerWidget {
     final selected =
         ref.watch(onboardingProvider.select((s) => s.fitnessGoal));
     final notifier = ref.read(onboardingProvider.notifier);
+    final l10n = context.l10n;
 
     return _StepScaffold(
-      question: 'К чему ты стремишься?',
+      question: l10n.onboardingQ4,
       children: FitnessGoal.values
           .map(
             (v) => OptionCard(
               emoji: v.emoji,
-              label: v.label,
-              description: v.description,
+              label: v.localizedLabel(l10n),
+              description: v.localizedDescription(l10n),
               isSelected: selected == v,
               onTap: () => notifier.selectFitnessGoal(v),
             ),
@@ -327,12 +425,12 @@ class _GoalStep extends ConsumerWidget {
 
 class _ReminderStep extends ConsumerWidget {
   static const _presets = [
-    (7, 0, '07:00', '☀️ Утро'),
-    (8, 0, '08:00', '🌅 Утро'),
-    (9, 0, '09:00', '🌤 День'),
-    (12, 0, '12:00', '🌞 Обед'),
-    (18, 0, '18:00', '🌆 Вечер'),
-    (20, 0, '20:00', '🌙 Вечер'),
+    (7, 0, '07:00', '☀️', _TimeLabel.morning),
+    (8, 0, '08:00', '🌅', _TimeLabel.morning),
+    (9, 0, '09:00', '🌤', _TimeLabel.day),
+    (12, 0, '12:00', '🌞', _TimeLabel.lunch),
+    (18, 0, '18:00', '🌆', _TimeLabel.evening),
+    (20, 0, '20:00', '🌙', _TimeLabel.evening),
   ];
 
   @override
@@ -342,21 +440,33 @@ class _ReminderStep extends ConsumerWidget {
     final minute = ref.watch(
         onboardingProvider.select((s) => s.reminderMinute));
     final notifier = ref.read(onboardingProvider.notifier);
+    final l10n = context.l10n;
 
     return _StepScaffold(
-      question: 'Во сколько напомнить о тренировке?',
+      question: l10n.onboardingQ5,
       children: _presets.map((p) {
         final isSelected = hour == p.$1 && minute == p.$2;
         return OptionCard(
-          emoji: p.$4.split(' ')[0],
+          emoji: p.$4,
           label: p.$3,
-          description: p.$4.split(' ')[1],
+          description: p.$5.localizedLabel(l10n),
           isSelected: isSelected,
           onTap: () => notifier.selectReminderTime(p.$1, p.$2),
         );
       }).toList(),
     );
   }
+}
+
+enum _TimeLabel { morning, day, lunch, evening }
+
+extension _TimeLabelL10n on _TimeLabel {
+  String localizedLabel(AppLocalizations l10n) => switch (this) {
+        _TimeLabel.morning => l10n.timeOfDayMorning,
+        _TimeLabel.day => l10n.timeOfDayDay,
+        _TimeLabel.lunch => l10n.timeOfDayLunch,
+        _TimeLabel.evening => l10n.timeOfDayEvening,
+      };
 }
 
 // ── Shared step scaffold ──────────────────────────────────────────────────────
@@ -392,4 +502,51 @@ class _StepScaffold extends StatelessWidget {
       ),
     );
   }
+}
+
+// ── Localization extensions for onboarding enums ──────────────────────────────
+
+extension FitnessFrequencyL10n on FitnessFrequency {
+  String localizedLabel(AppLocalizations l10n) => switch (this) {
+        FitnessFrequency.never => l10n.frequencyNeverLabel,
+        FitnessFrequency.sometimes => l10n.frequencySometimesLabel,
+        FitnessFrequency.regular => l10n.frequencyRegularLabel,
+      };
+
+  String localizedDescription(AppLocalizations l10n) => switch (this) {
+        FitnessFrequency.never => l10n.frequencyNeverDesc,
+        FitnessFrequency.sometimes => l10n.frequencySometimesDesc,
+        FitnessFrequency.regular => l10n.frequencyRegularDesc,
+      };
+}
+
+extension PushupCountL10n on PushupCount {
+  String localizedDescription(AppLocalizations l10n) => switch (this) {
+        PushupCount.zero => l10n.pushupZeroDesc,
+        PushupCount.oneToFive => l10n.pushupOneToFiveDesc,
+        PushupCount.fiveToFifteen => l10n.pushupFiveToFifteenDesc,
+        PushupCount.moreThan15 => l10n.pushupMoreThan15Desc,
+      };
+}
+
+extension WorkoutMinutesL10n on WorkoutMinutes {
+  String localizedDescription(AppLocalizations l10n) => switch (this) {
+        WorkoutMinutes.five => l10n.minutesFiveDesc,
+        WorkoutMinutes.ten => l10n.minutesTenDesc,
+        WorkoutMinutes.fifteen => l10n.minutesFifteenDesc,
+      };
+}
+
+extension FitnessGoalL10n on FitnessGoal {
+  String localizedLabel(AppLocalizations l10n) => switch (this) {
+        FitnessGoal.generalFitness => l10n.goalGeneralLabel,
+        FitnessGoal.strengthPush => l10n.goalStrengthLabel,
+        FitnessGoal.calisthenics => l10n.goalCalisthenicsLabel,
+      };
+
+  String localizedDescription(AppLocalizations l10n) => switch (this) {
+        FitnessGoal.generalFitness => l10n.goalGeneralDesc,
+        FitnessGoal.strengthPush => l10n.goalStrengthDesc,
+        FitnessGoal.calisthenics => l10n.goalCalisthenicsDesc,
+      };
 }

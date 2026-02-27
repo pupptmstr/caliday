@@ -1,3 +1,4 @@
+import 'package:caliday/l10n/app_localizations.dart';
 import 'package:hive/hive.dart';
 
 part 'enums.g.dart';
@@ -114,4 +115,15 @@ extension RankExtension on Rank {
     }
     return Rank.beginner;
   }
+}
+
+extension RankLocalization on Rank {
+  String localizedName(AppLocalizations l10n) => switch (this) {
+        Rank.beginner => l10n.rankBeginner,
+        Rank.amateur => l10n.rankAmateur,
+        Rank.sportsman => l10n.rankSportsman,
+        Rank.athlete => l10n.rankAthlete,
+        Rank.master => l10n.rankMaster,
+        Rank.legend => l10n.rankLegend,
+      };
 }

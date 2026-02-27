@@ -21,6 +21,7 @@ class UserProfile extends HiveObject {
     this.notificationsEnabled = true,
     this.eveningReminderEnabled = true,
     this.streakThreatEnabled = true,
+    this.locale,
   });
 
   @HiveField(0)
@@ -61,4 +62,8 @@ class UserProfile extends HiveObject {
   /// Whether to send a late-night "streak at risk" notification.
   @HiveField(10)
   bool streakThreatEnabled;
+
+  /// BCP-47 language code for the UI locale. null means 'ru' (default).
+  @HiveField(11)
+  String? locale;
 }

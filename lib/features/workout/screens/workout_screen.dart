@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/build_context_l10n.dart';
+import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../providers/workout_provider.dart';
 
@@ -33,19 +35,20 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   }
 
   Future<void> _confirmExit(BuildContext context) async {
+    final l10n = context.l10n;
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Прервать тренировку?'),
-        content: const Text('Прогресс текущей тренировки не сохранится.'),
+        title: Text(l10n.workoutExitTitle),
+        content: Text(l10n.workoutExitBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Продолжить'),
+            child: Text(l10n.workoutContinue),
           ),
           FilledButton(
             onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Прервать'),
+            child: Text(l10n.workoutAbort),
           ),
         ],
       ),
@@ -60,6 +63,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   Widget build(BuildContext context) {
     final state = ref.watch(workoutProvider);
     final notifier = ref.read(workoutProvider.notifier);
+    final l10n = context.l10n;
 
     // Navigate to summary when workout is finished.
     ref.listen<WorkoutPhase>(
@@ -95,7 +99,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Тренировка'),
+          title: Text(l10n.workoutTitle),
           leading: IconButton(
             icon: const Icon(Icons.close_rounded),
             onPressed: () => _confirmExit(context),
@@ -132,6 +136,7 @@ class _ExerciseView extends StatelessWidget {
     final exercise = planned.exercise;
     final isTimed = exercise.type == ExerciseType.timed;
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -145,7 +150,7 @@ class _ExerciseView extends StatelessWidget {
               children: [
                 // Set indicator
                 Text(
-                  'Подход ${state.setIndex + 1} из ${planned.sets}',
+                  l10n.workoutSetProgress(state.setIndex + 1, planned.sets),
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: scheme.primary,
                         fontWeight: FontWeight.w600,
@@ -156,7 +161,7 @@ class _ExerciseView extends StatelessWidget {
 
                 // Exercise name
                 Text(
-                  exercise.name,
+                  ExerciseL10n.name(l10n, exercise.id),
                   style: Theme.of(context)
                       .textTheme
                       .headlineSmall
@@ -167,14 +172,14 @@ class _ExerciseView extends StatelessWidget {
 
                 // Description
                 Text(
-                  exercise.description,
+                  ExerciseL10n.description(l10n, exercise.id),
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                         color: scheme.onSurfaceVariant,
                       ),
                 ),
 
                 // Technique tip
-                if (exercise.techniqueTip != null) ...[
+                if (ExerciseL10n.tip(l10n, exercise.id) != null) ...[
                   const SizedBox(height: 12),
                   Container(
                     padding: const EdgeInsets.all(12),
@@ -189,7 +194,7 @@ class _ExerciseView extends StatelessWidget {
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(
-                            exercise.techniqueTip!,
+                            ExerciseL10n.tip(l10n, exercise.id)!,
                             style: TextStyle(
                               fontSize: 13,
                               color: scheme.onPrimaryContainer,
@@ -238,7 +243,7 @@ class _ExerciseView extends StatelessWidget {
                       }
                     : () => notifier.confirmSet(),
                 child: Text(
-                  isTimed ? '⏹  Стоп' : '✓  Готово',
+                  isTimed ? l10n.workoutStop : l10n.workoutDone,
                   style: const TextStyle(
                       fontSize: 17, fontWeight: FontWeight.w700),
                 ),
@@ -262,6 +267,7 @@ class _TimedDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
     final progress = targetSec > 0 ? timerSec / targetSec : 0.0;
     final mins = timerSec ~/ 60;
     final secs = timerSec % 60;
@@ -295,7 +301,7 @@ class _TimedDisplay extends StatelessWidget {
                       .displaySmall
                       ?.copyWith(fontWeight: FontWeight.w700),
                 ),
-                Text('сек',
+                Text(l10n.workoutSec,
                     style: TextStyle(color: scheme.onSurfaceVariant)),
               ],
             ),
@@ -317,10 +323,11 @@ class _RepsDisplay extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
     return Column(
       children: [
         Text(
-          'Повторения',
+          l10n.workoutReps,
           style: TextStyle(
             fontSize: 14,
             color: scheme.onSurfaceVariant,
@@ -390,6 +397,7 @@ class _RestView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
     final restSec = state.currentPlanned.restSec;
     final progress = restSec > 0 ? state.timerSec / restSec : 0.0;
 
@@ -402,17 +410,23 @@ class _RestView extends StatelessWidget {
       final nextExercise = nextPlanned.exercise;
       final isTimed = nextExercise.type == ExerciseType.timed;
       final amount = nextPlanned.targetAmount;
-      final unit = isTimed ? 'сек' : 'повт.';
-      title = '✅  Упражнение выполнено!';
-      upcomingLabel =
-          'Следующее: ${nextExercise.name} • $amount $unit';
+      final unit = isTimed ? l10n.workoutSec : l10n.workoutUnitReps;
+      title = l10n.workoutExerciseDone;
+      upcomingLabel = l10n.workoutNextExercise(
+        ExerciseL10n.name(l10n, nextExercise.id),
+        amount,
+        unit,
+      );
     } else {
       final planned = state.currentPlanned;
       final isTimed = planned.exercise.type == ExerciseType.timed;
-      final unit = isTimed ? 'сек' : 'повт.';
-      title = '✅  Подход выполнен!';
-      upcomingLabel =
-          'Следующий: подход ${state.setIndex + 2} • ${planned.targetAmount} $unit';
+      final unit = isTimed ? l10n.workoutSec : l10n.workoutUnitReps;
+      title = l10n.workoutSetDone;
+      upcomingLabel = l10n.workoutNextSet(
+        state.setIndex + 2,
+        planned.targetAmount,
+        unit,
+      );
     }
 
     return Column(
@@ -464,7 +478,7 @@ class _RestView extends StatelessWidget {
                                   ?.copyWith(fontWeight: FontWeight.w700),
                             ),
                             Text(
-                              'отдых',
+                              l10n.workoutRestLabel,
                               style:
                                   TextStyle(color: scheme.onSurfaceVariant),
                             ),
@@ -501,9 +515,9 @@ class _RestView extends StatelessWidget {
               ),
             ),
             onPressed: notifier.skipRest,
-            child: const Text(
-              'Пропустить',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+            child: Text(
+              l10n.workoutSkipRest,
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
           ),
         ),

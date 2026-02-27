@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/build_context_l10n.dart';
+
 /// Post-workout summary screen.
 ///
 /// Expects a [Map<String, dynamic>] via [GoRouterState.extra] with:
@@ -15,6 +17,7 @@ class SummaryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final spEarned = extras['spEarned'] as int? ?? 0;
     final durationSec = extras['durationSec'] as int? ?? 0;
     final exerciseCount = extras['exerciseCount'] as int? ?? 0;
@@ -23,8 +26,9 @@ class SummaryScreen extends StatelessWidget {
 
     final mins = durationSec ~/ 60;
     final secs = durationSec % 60;
-    final durationStr =
-        mins > 0 ? '$mins мин $secs сек' : '$secs сек';
+    final durationStr = mins > 0
+        ? l10n.durationMin(mins, secs)
+        : l10n.durationSec(secs);
 
     return Scaffold(
       body: SafeArea(
@@ -42,7 +46,7 @@ class SummaryScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'Отличная тренировка!',
+                l10n.summaryTitle,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
@@ -50,7 +54,7 @@ class SummaryScreen extends StatelessWidget {
               ),
               const SizedBox(height: 8),
               Text(
-                'Так держать — ещё один шаг вперёд 💪',
+                l10n.summarySubtitle,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       color: Theme.of(context).colorScheme.onSurfaceVariant,
                     ),
@@ -64,8 +68,8 @@ class SummaryScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   _StatTile(value: '+$spEarned', label: 'SP'),
-                  _StatTile(value: durationStr, label: 'Время'),
-                  _StatTile(value: '$exerciseCount', label: 'Упр.'),
+                  _StatTile(value: durationStr, label: l10n.summaryLabelTime),
+                  _StatTile(value: '$exerciseCount', label: l10n.summaryLabelExercises),
                 ],
               ),
 
@@ -85,9 +89,9 @@ class SummaryScreen extends StatelessWidget {
                   ),
                 ),
                 onPressed: () => context.go('/home'),
-                child: const Text(
-                  'Домой',
-                  style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
+                child: Text(
+                  l10n.summaryHome,
+                  style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700),
                 ),
               ),
             ],
@@ -104,6 +108,7 @@ class _FreezeUsedBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l = context.l10n;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -118,13 +123,13 @@ class _FreezeUsedBanner extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Заморозка сохранила стрик!',
+                l.summaryFreezeUsedTitle,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
               ),
               Text(
-                'Серия продолжается — так держать',
+                l.summaryFreezeUsedBody,
                 style: TextStyle(
                   fontSize: 12,
                   color: scheme.onSurfaceVariant,
@@ -144,6 +149,7 @@ class _FreezeEarnedBanner extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l = context.l10n;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
@@ -158,13 +164,13 @@ class _FreezeEarnedBanner extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'Получена заморозка стрика!',
+                l.summaryFreezeEarnedTitle,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                       fontWeight: FontWeight.w700,
                     ),
               ),
               Text(
-                'Используй, если пропустишь день',
+                l.summaryFreezeEarnedBody,
                 style: TextStyle(
                   fontSize: 12,
                   color: scheme.onSurfaceVariant,

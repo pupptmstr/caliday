@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/build_context_l10n.dart';
+import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
 import '../../../data/static/exercise_catalog.dart';
@@ -15,6 +17,13 @@ class HomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(homeDataProvider);
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
+
+    // Resolve exercise IDs for l10n lookup.
+    final pushId = ExerciseCatalog.forStage(
+          BranchId.push, data.pushProgress.currentStage)?.id ?? '';
+    final coreId = ExerciseCatalog.forStage(
+          BranchId.core, data.coreProgress.currentStage)?.id ?? '';
 
     return Scaffold(
       backgroundColor: scheme.surface,
@@ -53,7 +62,7 @@ class HomeScreen extends ConsumerWidget {
                     child: _StatChip(
                       emoji: '🔥',
                       value: '${data.profile.currentStreak}',
-                      label: 'дней',
+                      label: l10n.homeDays,
                     ),
                   ),
                   const SizedBox(width: 12),
@@ -68,7 +77,7 @@ class HomeScreen extends ConsumerWidget {
                   Flexible(
                     child: _StatChip(
                       emoji: '🏅',
-                      value: data.profile.rank.displayName,
+                      value: data.profile.rank.localizedName(l10n),
                       label: '',
                     ),
                   ),
@@ -88,7 +97,7 @@ class HomeScreen extends ConsumerWidget {
 
               // ── Branch cards ──────────────────────────────────────────
               Text(
-                'Ветки прогрессии',
+                l10n.homeBranchesTitle,
                 style: Theme.of(context)
                     .textTheme
                     .titleMedium
@@ -98,18 +107,18 @@ class HomeScreen extends ConsumerWidget {
 
               _BranchProgressCard(
                 emoji: '💪',
-                branchName: 'Толкай',
+                branchName: l10n.homeBranchPush,
                 progress: data.pushProgress,
                 totalStages: ExerciseCatalog.pushProgression.length,
-                exerciseName: data.pushExerciseName,
+                exerciseName: ExerciseL10n.name(l10n, pushId),
               ),
               const SizedBox(height: 10),
               _BranchProgressCard(
                 emoji: '🎯',
-                branchName: 'Кор',
+                branchName: l10n.homeBranchCore,
                 progress: data.coreProgress,
                 totalStages: ExerciseCatalog.coreProgression.length,
-                exerciseName: data.coreExerciseName,
+                exerciseName: ExerciseL10n.name(l10n, coreId),
               ),
 
               const Spacer(),
@@ -192,6 +201,7 @@ class _BranchProgressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
 
     // Within-stage progress: how far along from startReps to targetReps.
     final exercise = ExerciseCatalog.forStage(
@@ -238,7 +248,7 @@ class _BranchProgressCard extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          'Этап ${progress.currentStage}/$totalStages',
+                          l10n.homeStage(progress.currentStage, totalStages),
                           style: TextStyle(
                             fontSize: 12,
                             color: scheme.onSurfaceVariant,
@@ -288,7 +298,7 @@ class _BranchProgressCard extends StatelessWidget {
                     size: 14, color: scheme.tertiary),
                 const SizedBox(width: 4),
                 Text(
-                  'Challenge разблокирован!',
+                  l10n.homeChallengeUnlocked,
                   style: TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,
@@ -314,6 +324,7 @@ class _WorkoutButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     final scheme = Theme.of(context).colorScheme;
     return SizedBox(
       width: double.infinity,
@@ -324,7 +335,7 @@ class _WorkoutButton extends StatelessWidget {
           style: const TextStyle(fontSize: 22),
         ),
         label: Text(
-          done ? 'Тренировка выполнена' : 'Тренировка дня',
+          done ? l10n.homeWorkoutDone : l10n.homeWorkoutStart,
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
         style: FilledButton.styleFrom(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:caliday/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'core/providers/locale_provider.dart';
 import 'core/router/app_router.dart';
 import 'core/services/notification_service.dart';
 import 'data/models/enums.dart';
@@ -72,10 +74,14 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
   @override
   Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
+    final locale = ref.watch(localeProvider);
 
     return MaterialApp.router(
       title: 'CaliDay',
       debugShowCheckedModeBanner: false,
+      locale: Locale(locale),
+      supportedLocales: AppLocalizations.supportedLocales,
+      localizationsDelegates: AppLocalizations.localizationsDelegates,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4DA6FF)),
         useMaterial3: true,

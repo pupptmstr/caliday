@@ -28,13 +28,14 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       notificationsEnabled: fields[8] as bool,
       eveningReminderEnabled: fields[9] as bool,
       streakThreatEnabled: fields[10] as bool,
+      locale: fields[11] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProfile obj) {
     writer
-      ..writeByte(11)
+      ..writeByte(12)
       ..writeByte(0)
       ..write(obj.rank)
       ..writeByte(1)
@@ -56,7 +57,9 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..writeByte(9)
       ..write(obj.eveningReminderEnabled)
       ..writeByte(10)
-      ..write(obj.streakThreatEnabled);
+      ..write(obj.streakThreatEnabled)
+      ..writeByte(11)
+      ..write(obj.locale);
   }
 
   @override
