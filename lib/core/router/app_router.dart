@@ -29,7 +29,7 @@ final isOnboardingCompleteProvider = StateProvider<bool>((ref) {
 /// that the router re-evaluates its redirect logic after onboarding finishes.
 class _RouterNotifier extends ChangeNotifier {
   _RouterNotifier(this._ref) {
-    _ref.listen<bool>(isOnboardingCompleteProvider, (_, __) {
+    _ref.listen<bool>(isOnboardingCompleteProvider, (_, _) {
       notifyListeners();
     });
   }
@@ -62,15 +62,15 @@ final routerProvider = Provider<GoRouter>((ref) {
     routes: [
       GoRoute(
         path: '/onboarding',
-        builder: (_, __) => const OnboardingScreen(),
+        builder: (_, _) => const OnboardingScreen(),
       ),
       GoRoute(
         path: '/home',
-        builder: (_, __) => const HomeScreen(),
+        builder: (_, _) => const HomeScreen(),
       ),
       GoRoute(
         path: '/workout',
-        builder: (_, __) => const WorkoutScreen(),
+        builder: (_, _) => const WorkoutScreen(),
       ),
       GoRoute(
         path: '/summary',
@@ -82,11 +82,11 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/profile',
-        builder: (_, __) => const ProfileScreen(),
+        builder: (_, _) => const ProfileScreen(),
       ),
       GoRoute(
         path: '/settings',
-        builder: (_, __) => const SettingsScreen(),
+        builder: (_, _) => const SettingsScreen(),
       ),
     ],
   );
