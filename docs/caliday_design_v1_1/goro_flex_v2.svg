@@ -1,0 +1,288 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4DA6FF"/>
+      <stop offset="100%" style="stop-color:#2B7DE9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="45%" cy="45%" r="40%">
+      <stop offset="0%" style="stop-color:#A8D8FF;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#4DA6FF;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="faceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C4A882"/>
+      <stop offset="100%" style="stop-color:#A8896A"/>
+    </linearGradient>
+    <linearGradient id="muzzleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#B89870"/>
+      <stop offset="100%" style="stop-color:#9A7E5A"/>
+    </linearGradient>
+    <linearGradient id="bicepGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#38384C"/>
+      <stop offset="60%" style="stop-color:#4A4A62"/>
+      <stop offset="100%" style="stop-color:#555572"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="224" fill="url(#bgGrad)"/>
+  <circle cx="460" cy="450" r="380" fill="url(#glow)"/>
+
+  <!-- Ground shadow -->
+  <ellipse cx="310" cy="990" rx="180" ry="20" fill="#2B7DE9" opacity="0.35"/>
+
+  <!-- === LEGS (short, compact - gorilla proportions) === -->
+  <!-- Left leg -->
+  <path d="M400 800 Q388 850 392 898 Q398 926 428 934 Q455 930 462 900 Q468 863 462 808Z" fill="#38384C"/>
+  <path d="M416 812 Q406 857 408 892 Q414 918 428 926 Q438 912 438 884 Q436 848 432 815Z" fill="#424258" opacity="0.5"/>
+  <!-- Left foot (wide, gorilla-style) -->
+  <ellipse cx="428" cy="936" rx="58" ry="22" fill="#2E2E42"/>
+  <ellipse cx="412" cy="933" rx="15" ry="11" fill="#282838" opacity="0.7"/>
+
+  <!-- Right leg -->
+  <path d="M490 808 Q486 855 490 898 Q496 926 524 934 Q552 930 558 900 Q564 863 558 808Z" fill="#38384C"/>
+  <path d="M506 814 Q503 858 506 893 Q512 918 524 926 Q537 912 537 885 Q534 850 530 815Z" fill="#424258" opacity="0.5"/>
+  <!-- Right foot -->
+  <ellipse cx="524" cy="936" rx="58" ry="22" fill="#2E2E42"/>
+  <ellipse cx="540" cy="933" rx="15" ry="11" fill="#282838" opacity="0.7"/>
+
+  <!-- === TORSO (massive, barrel-shaped, slight forward lean toward ground arm) === -->
+  <path d="
+    M262 442
+    Q240 518 248 628
+    Q258 738 356 800
+    Q415 836 478 840
+    Q540 840 590 808
+    Q700 748 718 638
+    Q728 528 712 452
+    Q642 395 475 385
+    Q320 392 262 442Z
+  " fill="#38384C"/>
+
+  <path d="
+    M290 458
+    Q272 532 280 638
+    Q290 740 376 796
+    Q432 828 480 832
+    Q538 832 582 800
+    Q686 740 706 636
+    Q716 530 702 462
+    Q638 412 476 402
+    Q326 410 290 458Z
+  " fill="#424258"/>
+
+  <!-- Barrel chest (gorilla's massive chest) -->
+  <ellipse cx="422" cy="534" rx="112" ry="76" fill="#4A4A60" opacity="0.38"/>
+  <ellipse cx="548" cy="534" rx="112" ry="76" fill="#4A4A60" opacity="0.38"/>
+  <path d="M484 468 Q484 572 484 652" stroke="#353548" stroke-width="4" opacity="0.5" fill="none"/>
+  <!-- Chest depth/volume -->
+  <ellipse cx="484" cy="498" rx="90" ry="44" fill="#4A4A60" opacity="0.13"/>
+
+  <!-- Abs -->
+  <ellipse cx="474" cy="690" rx="56" ry="28" fill="#4A4A60" opacity="0.18"/>
+  <ellipse cx="474" cy="738" rx="50" ry="25" fill="#4A4A60" opacity="0.13"/>
+
+  <!-- === LEFT ARM (ground support - knuckle-walking style) === -->
+  <!-- Left shoulder (massive, powerful) -->
+  <ellipse cx="278" cy="450" rx="100" ry="82" fill="#424258"/>
+  <ellipse cx="272" cy="444" rx="82" ry="68" fill="#4A4A60" opacity="0.3"/>
+
+  <!-- Left upper arm going down to ground -->
+  <path d="
+    M218 480
+    Q182 548 162 638
+    Q148 700 154 745
+    Q162 778 192 782
+    Q222 775 236 742
+    Q252 695 262 628
+    Q278 545 295 468
+    Z
+  " fill="#38384C"/>
+  <path d="
+    M232 492
+    Q200 556 185 638
+    Q175 688 180 720
+    Q202 705 212 668
+    Q232 595 258 506
+    Z
+  " fill="#424258" opacity="0.6"/>
+
+  <!-- Left forearm (going to ground) -->
+  <path d="
+    M154 745
+    Q128 815 118 880
+    Q112 916 124 940
+    Q140 960 174 955
+    Q205 946 216 918
+    Q228 878 216 820
+    Q205 778 192 752
+    Z
+  " fill="#38384C"/>
+  <path d="
+    M164 762
+    Q142 826 136 882
+    Q132 910 140 928
+    Q166 916 174 888
+    Q184 848 178 790
+    Z
+  " fill="#424258" opacity="0.5"/>
+
+  <!-- Left hand ON GROUND (knuckle-walking - gorilla's signature!) -->
+  <!-- Wide hand pressed to ground -->
+  <ellipse cx="158" cy="958" rx="68" ry="26" fill="#38384C" transform="rotate(-12, 158, 958)"/>
+  <ellipse cx="158" cy="950" rx="58" ry="21" fill="#424258" transform="rotate(-12, 158, 950)"/>
+  <!-- Prominent knuckles (pressed to ground) -->
+  <ellipse cx="118" cy="946" rx="15" ry="13" fill="#4A4A60" opacity="0.65"/>
+  <ellipse cx="140" cy="940" rx="16" ry="14" fill="#4A4A60" opacity="0.65"/>
+  <ellipse cx="163" cy="939" rx="17" ry="15" fill="#4A4A60" opacity="0.65"/>
+  <ellipse cx="187" cy="941" rx="16" ry="14" fill="#4A4A60" opacity="0.65"/>
+  <ellipse cx="207" cy="946" rx="14" ry="12" fill="#4A4A60" opacity="0.6"/>
+  <!-- Gorilla thumb (shorter, positioned to side) -->
+  <ellipse cx="230" cy="962" rx="18" ry="12" fill="#38384C" transform="rotate(30, 230, 962)"/>
+  <!-- Ground contact shadow under knuckles -->
+  <ellipse cx="158" cy="972" rx="60" ry="8" fill="#2B7DE9" opacity="0.25"/>
+
+  <!-- === RIGHT ARM (BICEP FLEX - bigger, longer, more dramatic) === -->
+  <!-- Right shoulder (very large - flexing shoulder) -->
+  <ellipse cx="700" cy="448" rx="105" ry="88" fill="#424258"/>
+  <ellipse cx="706" cy="442" rx="88" ry="72" fill="#4A4A60" opacity="0.3"/>
+
+  <!-- Right upper arm extending outward (longer reach) -->
+  <path d="
+    M698 405
+    Q745 380 812 362
+    Q878 344 948 352
+    Q988 364 990 398
+    Q990 438 958 452
+    Q888 472 822 462
+    Q752 452 702 445
+    Z
+  " fill="#38384C"/>
+
+  <!-- BICEP (much more prominent peak - this is the hero element!) -->
+  <ellipse cx="872" cy="372" rx="80" ry="55" fill="url(#bicepGrad)"/>
+  <ellipse cx="862" cy="360" rx="62" ry="40" fill="#4A4A62" opacity="0.4"/>
+  <!-- Bicep peak highlight -->
+  <ellipse cx="852" cy="346" rx="35" ry="22" fill="#606080" opacity="0.45"/>
+  <!-- Bicep shine (subtle glossy feel) -->
+  <ellipse cx="842" cy="338" rx="18" ry="10" fill="white" opacity="0.08"/>
+  <!-- Bicep muscle fibers (subtle lines) -->
+  <path d="M828 355 Q860 340 892 355" stroke="#424258" stroke-width="2" fill="none" opacity="0.3"/>
+  <path d="M822 368 Q860 352 900 368" stroke="#424258" stroke-width="2" fill="none" opacity="0.25"/>
+
+  <!-- Right forearm (longer, going back toward body, clenched) -->
+  <path d="
+    M968 368
+    Q992 322 998 266
+    Q1004 200 990 145
+    Q978 105 956 92
+    Q930 82 915 102
+    Q898 128 900 182
+    Q902 252 924 334
+    Q942 370 960 380
+    Z
+  " fill="#38384C"/>
+  <!-- Forearm highlight -->
+  <path d="
+    M950 360
+    Q968 320 972 270
+    Q976 218 968 172
+    Q955 155 946 172
+    Q934 208 934 262
+    Q936 325 942 356
+    Z
+  " fill="#424258" opacity="0.55"/>
+  <!-- Forearm vein/muscle detail -->
+  <path d="M952 300 Q958 260 956 220" stroke="#555570" stroke-width="3" fill="none" opacity="0.3"/>
+
+  <!-- Right fist (clenched, curled in) -->
+  <g transform="translate(918, 98) rotate(-15)">
+    <ellipse cx="0" cy="0" rx="48" ry="52" fill="#38384C"/>
+    <ellipse cx="0" cy="-4" rx="40" ry="44" fill="#424258"/>
+    <!-- Finger row -->
+    <ellipse cx="-16" cy="-26" rx="15" ry="11" fill="#4A4A60" opacity="0.45"/>
+    <ellipse cx="2" cy="-31" rx="15" ry="11" fill="#4A4A60" opacity="0.45"/>
+    <ellipse cx="20" cy="-27" rx="14" ry="11" fill="#4A4A60" opacity="0.45"/>
+    <!-- Thumb -->
+    <ellipse cx="-30" cy="6" rx="13" ry="18" fill="#4A4A60" opacity="0.4" transform="rotate(22)"/>
+    <!-- Knuckle highlights -->
+    <ellipse cx="-16" cy="-28" rx="6" ry="4" fill="white" opacity="0.07"/>
+    <ellipse cx="2" cy="-33" rx="6" ry="4" fill="white" opacity="0.07"/>
+    <ellipse cx="20" cy="-29" rx="6" ry="4" fill="white" opacity="0.07"/>
+  </g>
+
+  <!-- Elbow hint -->
+  <circle cx="968" cy="388" r="18" fill="#353548" opacity="0.28"/>
+
+  <!-- === NECK (very short, almost hidden by shoulders) === -->
+  <rect x="438" y="338" width="110" height="88" rx="46" fill="#38384C"/>
+
+  <!-- === HEAD === -->
+  <ellipse cx="492" cy="225" rx="172" ry="182" fill="#38384C"/>
+
+  <!-- Sagittal crest (prominent tall ridge) -->
+  <ellipse cx="492" cy="108" rx="90" ry="52" fill="#38384C"/>
+  <ellipse cx="492" cy="78" rx="68" ry="46" fill="#353548"/>
+  <ellipse cx="492" cy="50" rx="44" ry="30" fill="#2E2E42"/>
+  <path d="M462 64 Q492 38 522 64 Q492 50 462 64Z" fill="#1A1A30" opacity="0.5"/>
+
+  <!-- Heavy brow ridge (overhanging) -->
+  <path d="M320 218 Q378 166 492 158 Q606 166 664 218 Q608 186 492 178 Q376 186 320 218Z" fill="#2E2E42"/>
+  <ellipse cx="492" cy="197" rx="165" ry="38" fill="#2E2E42" opacity="0.7"/>
+  <!-- Brow overhang shadow -->
+  <ellipse cx="492" cy="222" rx="145" ry="18" fill="#1A1A30" opacity="0.5"/>
+  <!-- Brow ridge highlight -->
+  <path d="M344 190 Q414 172 492 169 Q570 172 640 190 Q570 182 492 180 Q414 182 344 190Z" fill="#3A3A52" opacity="0.5"/>
+
+  <!-- Face (wider at bottom - gorilla muzzle) -->
+  <path d="M382 228 Q380 186 492 174 Q604 186 602 228 L610 344 Q616 426 492 440 Q368 426 374 344Z" fill="url(#faceGrad)"/>
+
+  <!-- Muzzle protrusion -->
+  <ellipse cx="492" cy="395" rx="94" ry="52" fill="url(#muzzleGrad)"/>
+  <ellipse cx="492" cy="390" rx="76" ry="40" fill="#C4A882" opacity="0.35"/>
+
+  <!-- Ears -->
+  <ellipse cx="322" cy="234" rx="33" ry="38" fill="#38384C"/>
+  <ellipse cx="324" cy="234" rx="21" ry="26" fill="#A8896A"/>
+  <ellipse cx="662" cy="234" rx="33" ry="38" fill="#38384C"/>
+  <ellipse cx="660" cy="234" rx="21" ry="26" fill="#A8896A"/>
+
+  <!-- Eye sockets (deep, under heavy brow) -->
+  <ellipse cx="436" cy="246" rx="50" ry="36" fill="#1A1A30" opacity="0.3"/>
+  <ellipse cx="548" cy="246" rx="50" ry="36" fill="#1A1A30" opacity="0.3"/>
+
+  <!-- Left eye -->
+  <ellipse cx="436" cy="251" rx="36" ry="31" fill="white"/>
+  <ellipse cx="442" cy="254" rx="20" ry="23" fill="#1A1A2A"/>
+  <circle cx="447" cy="245" r="9" fill="white"/>
+  <circle cx="436" cy="260" r="4" fill="white" opacity="0.5"/>
+
+  <!-- Right eye -->
+  <ellipse cx="548" cy="251" rx="36" ry="31" fill="white"/>
+  <ellipse cx="543" cy="254" rx="20" ry="23" fill="#1A1A2A"/>
+  <circle cx="548" cy="245" r="9" fill="white"/>
+  <circle cx="538" cy="260" r="4" fill="white" opacity="0.5"/>
+
+  <!-- Eyebrows (proud/excited for flex - slightly raised) -->
+  <path d="M388 222 Q416 208 460 216" stroke="#1A1A2A" stroke-width="9" stroke-linecap="round" fill="none"/>
+  <path d="M596 222 Q568 208 524 216" stroke="#1A1A2A" stroke-width="9" stroke-linecap="round" fill="none"/>
+
+  <!-- NOSE (wide, flat gorilla nose) -->
+  <ellipse cx="492" cy="312" rx="54" ry="32" fill="#967756"/>
+  <ellipse cx="467" cy="318" rx="17" ry="14" fill="#7A6045"/>
+  <ellipse cx="517" cy="318" rx="17" ry="14" fill="#7A6045"/>
+  <path d="M483 285 Q492 280 501 285" stroke="#7A6045" stroke-width="5" fill="none" opacity="0.5"/>
+  <ellipse cx="492" cy="302" rx="20" ry="10" fill="#A88866" opacity="0.3"/>
+
+  <!-- Mouth (big confident smile for flex) -->
+  <path d="M440 368 Q468 358 492 360 Q516 358 544 368" stroke="#7A6045" stroke-width="4.5" stroke-linecap="round" fill="none"/>
+  <path d="M442 373 Q468 398 492 401 Q516 398 542 373" stroke="#7A6045" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <path d="M446 375 Q470 396 492 399 Q514 396 538 375 Q492 386 446 375Z" fill="#7A6045" opacity="0.35"/>
+
+  <!-- Headband -->
+  <path d="M330 164 Q416 122 492 118 Q568 122 654 164" stroke="#A8D8FF" stroke-width="22" stroke-linecap="round" fill="none"/>
+  <path d="M356 157 Q428 129 492 126 Q556 129 628 157" stroke="white" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.25"/>
+  <g transform="translate(323, 172)">
+    <path d="M0,0 Q-12,18 -20,45 Q-16,27 -6,13Z" fill="#A8D8FF"/>
+    <path d="M-2,-1 Q-17,13 -28,40 Q-20,22 -10,9Z" fill="#A8D8FF"/>
+  </g>
+</svg>

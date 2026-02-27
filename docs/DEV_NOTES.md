@@ -458,16 +458,70 @@ SVG-ассеты скопированы в `assets/goro/`:
 - `remove_alpha_ios: true` в `flutter_launcher_icons` — убирает альфа-канал для iOS (иначе иконка в трее = белый квадрат/Flutter-лого)
 - Команда генерации: `dart run flutter_launcher_icons`
 
-### Система выражений (v1.1, не реализовано)
-Иконка Горо (face) меняет выражение по состоянию:
-- Довольный (default) — тренировка выполнена
-- Грустный — вечер, тренировки нет
-- Злой — стрик под угрозой
-- Спящий — ночь
-- Восторженный — новый ранг / достижение
-- Поддерживающий — возврат после пропуска
+### Дизайн-ассеты v1.1 — получены, ждут интеграции
 
-Реализация: `flutter_svg` уже в зависимостях. Динамические элементы SVG (брови, глаза, рот) можно менять через string replace перед рендером.
+**Источник:** `docs/caliday_design_v1_1/`
+
+| Файл | Описание |
+|------|----------|
+| `goro_face_happy/sad/angry/sleeping/excited/supportive.svg` | 6 выражений лица, единый шаблон слоёв |
+| `goro_flex_v2.svg` | Горо флекс — улучшенная анатомия |
+| `goro_idle_v2.svg` | Горо idle — улучшенная анатомия |
+| `skala_neutral.svg` | Скала — руки скрещены, нейтральный взгляд |
+| `skala_approve.svg` | Скала — foreshortened большой палец, золотые искры |
+
+**Структура слоёв face-SVG (все 6 идентичны по static-части):**
+```
+Static:  #layer-bg, #layer-head, #layer-face-skin, #layer-ears, #layer-nose, #layer-headband
+Dynamic: #layer-brows (#brow-left / #brow-right)
+         #layer-eyes  (#eye-*-socket / #eye-*-white / #eye-*-pupil / #eye-*-shine1/2)
+         #layer-mouth (#mouth-line-upper / #mouth-curve / #mouth-fill / #mouth-lowerlip)
+```
+
+**Цвета Скалы:** тело `#2E2A22`/`#3D3728`, морда `#6B4F38→#8A6848`,
+рога `#8B7355→#A89060`, нос-кольцо `#C8A040` (золото),
+**фон `#5C1A1A→#3A0C0C`** (тёмно-красный — «арена испытания», отличается от синего Горо).
+
+### Система выражений Горо — план интеграции (v1.1)
+
+**Шаг 1 — скопировать ассеты:**
+- `assets/goro/` ← 6 face SVG + `goro_flex_v2.svg` + `goro_idle_v2.svg`
+- `assets/skala/` ← `skala_neutral.svg` + `skala_approve.svg` (новая папка)
+- `pubspec.yaml`: добавить `- assets/skala/` в `flutter: assets:`
+
+**Шаг 2 — `GoroExpressionProvider`**
+Новый файл `lib/core/providers/goro_expression_provider.dart`:
+```dart
+enum GoroExpression { happy, sad, angry, sleeping, excited, supportive }
+
+// Логика (приоритет сверху вниз):
+// 23:00–06:00                    → sleeping
+// hasWorkoutToday                → happy
+// hour >= 22 && streak > 0       → angry  (стрик горит)
+// hour >= 20 && !hasWorkoutToday → sad    (вечер, не занимался)
+// daysSince >= 2                 → supportive (возврат после пропуска)
+// default                        → happy
+
+extension GoroExpressionAsset on GoroExpression {
+  String get assetPath => 'assets/goro/goro_face_${name}.svg';
+}
+```
+Зависит от: `homeDataProvider` (profile + hasWorkoutToday) + `DateTime.now().hour`.
+
+**Шаг 3 — подключить на экранах:**
+- **Home screen:** заменить `goro_flex.svg` на `goro_face_[state].svg` с `AnimatedSwitcher`
+  *(или оставить flex, но добавить face меньшего размера — решение по виду)*
+- **Summary screen:** `excited` при хорошем результате, `happy` в остальных случаях
+- **Onboarding welcome:** `goro_face_happy.svg` вместо `goro_face.svg`
+
+**Шаг 4 — Скала на Challenge-экране** (после редизайна Challenge-системы):
+- `skala_neutral.svg` — пока идёт тест
+- `skala_approve.svg` — при успехе (через `AnimatedSwitcher`)
+- Высота: больше чем Горо (~160–180px), фон карточки `#5C1A1A`
+
+**Шаг 5 — обновить v2-позы (опционально):**
+Когда визуально проверены — одна строка в `home_screen.dart` и `summary_screen.dart`:
+`'assets/goro/goro_flex.svg'` → `'assets/goro/goro_flex_v2.svg'`
 
 ---
 

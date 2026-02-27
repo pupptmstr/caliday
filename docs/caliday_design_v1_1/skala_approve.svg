@@ -1,0 +1,253 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <!-- Lighter amber background -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#5C1A1A"/>
+      <stop offset="100%" style="stop-color:#3A0C0C"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="42%" r="46%">
+      <stop offset="0%" style="stop-color:#8A2222;stop-opacity:0.65"/>
+      <stop offset="100%" style="stop-color:#3A0C0C;stop-opacity:0"/>
+    </radialGradient>
+    <!-- Gold glow around thumbs-up -->
+    <radialGradient id="approveGlow" cx="78%" cy="50%" r="22%">
+      <stop offset="0%" style="stop-color:#C8A040;stop-opacity:0.25"/>
+      <stop offset="100%" style="stop-color:#C8A040;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="bodyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4A4232"/>
+      <stop offset="100%" style="stop-color:#2E2A22"/>
+    </linearGradient>
+    <linearGradient id="muzzleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#8A6848"/>
+      <stop offset="100%" style="stop-color:#6B4F38"/>
+    </linearGradient>
+    <!-- Curved horn gradient -->
+    <linearGradient id="hornGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#B89A68"/>
+      <stop offset="100%" style="stop-color:#6B5530"/>
+    </linearGradient>
+    <!-- Thumb — slightly lighter than fist to pop -->
+    <linearGradient id="thumbGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#3E3828"/>
+      <stop offset="60%" style="stop-color:#564E3A"/>
+      <stop offset="100%" style="stop-color:#625C46"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1024" height="1024" rx="224" fill="url(#bgGrad)"/>
+  <circle cx="512" cy="440" r="420" fill="url(#glow)"/>
+  <circle cx="512" cy="512" r="512" fill="url(#approveGlow)"/>
+
+  <!-- Ground shadow -->
+  <ellipse cx="512" cy="990" rx="230" ry="19" fill="#180404" opacity="0.6"/>
+
+  <!-- === LEGS === -->
+  <path d="M404 820 Q390 876 394 930 Q400 960 436 968 Q468 964 476 930 Q482 888 476 822Z" fill="#2E2A22"/>
+  <path d="M420 834 Q410 882 412 924 Q418 952 434 960 Q446 944 446 914 Q444 876 440 836Z" fill="#3D3728" opacity="0.55"/>
+  <ellipse cx="434" cy="970" rx="58" ry="22" fill="#1A1610"/>
+  <ellipse cx="418" cy="966" rx="16" ry="12" fill="#100E08" opacity="0.7"/>
+  <ellipse cx="450" cy="966" rx="16" ry="12" fill="#100E08" opacity="0.7"/>
+  <path d="M548 822 Q544 876 548 930 Q554 960 588 968 Q622 964 630 930 Q636 888 630 822Z" fill="#2E2A22"/>
+  <path d="M564 834 Q560 882 562 924 Q568 952 586 960 Q598 944 598 914 Q596 876 592 836Z" fill="#3D3728" opacity="0.55"/>
+  <ellipse cx="588" cy="970" rx="58" ry="22" fill="#1A1610"/>
+  <ellipse cx="572" cy="966" rx="16" ry="12" fill="#100E08" opacity="0.7"/>
+  <ellipse cx="604" cy="966" rx="16" ry="12" fill="#100E08" opacity="0.7"/>
+
+  <!-- === TORSO === -->
+  <path d="M224 418 Q200 508 210 632 Q222 754 340 832 Q408 870 490 876 Q572 876 640 848 Q770 780 796 652 Q812 528 800 428 Q716 362 512 350 Q308 362 224 418Z" fill="#2E2A22"/>
+  <path d="M254 434 Q234 520 244 638 Q256 752 364 826 Q428 860 492 866 Q566 866 626 838 Q752 772 776 642 Q792 520 780 438 Q700 378 512 366 Q326 378 254 434Z" fill="url(#bodyGrad)"/>
+  <ellipse cx="400" cy="530" rx="138" ry="95" fill="#3D3728" opacity="0.42"/>
+  <ellipse cx="624" cy="530" rx="138" ry="95" fill="#3D3728" opacity="0.42"/>
+  <path d="M512 440 Q512 570 512 680" stroke="#2A2620" stroke-width="5" fill="none" opacity="0.5"/>
+
+  <!-- === LEFT ARM (relaxed hanging) === -->
+  <ellipse cx="236" cy="430" rx="112" ry="95" fill="#3D3728"/>
+  <ellipse cx="228" cy="422" rx="92" ry="78" fill="#4A4232" opacity="0.32"/>
+  <path d="M168 458 Q152 528 148 608 Q144 672 152 716 Q162 748 192 752 Q224 748 238 716 Q252 668 254 604 Q256 528 248 466Z" fill="#2E2A22"/>
+  <path d="M186 472 Q174 538 172 612 Q170 664 178 700 Q200 690 208 652 Q220 590 222 510Z" fill="#3D3728" opacity="0.55"/>
+  <path d="M152 716 Q140 784 138 848 Q136 882 148 906 Q164 926 196 920 Q228 910 238 880 Q250 842 242 782 Q234 736 226 720Z" fill="#2E2A22"/>
+  <path d="M166 730 Q156 792 154 848 Q152 876 160 896 Q184 882 192 852 Q202 806 198 744Z" fill="#3D3728" opacity="0.55"/>
+  <ellipse cx="186" cy="924" rx="56" ry="26" fill="#2E2A22" transform="rotate(-6,186,924)"/>
+  <ellipse cx="186" cy="916" rx="48" ry="22" fill="#3D3728" transform="rotate(-6,186,916)"/>
+  <ellipse cx="160" cy="910" rx="13" ry="11" fill="#3A3528" opacity="0.6"/>
+  <ellipse cx="180" cy="906" rx="14" ry="12" fill="#3A3528" opacity="0.6"/>
+  <ellipse cx="202" cy="908" rx="14" ry="12" fill="#3A3528" opacity="0.6"/>
+  <ellipse cx="222" cy="914" rx="13" ry="11" fill="#3A3528" opacity="0.6"/>
+
+  <!-- === RIGHT ARM — foreshortened, punching toward viewer === -->
+  <!-- Right shoulder (large, round — arm comes toward us, we see mostly shoulder mass) -->
+  <ellipse cx="762" cy="455" rx="120" ry="105" fill="#3D3728"/>
+  <ellipse cx="754" cy="446" rx="98" ry="86" fill="#4A4232" opacity="0.3"/>
+
+  <!-- Upper arm — foreshortened oval (arm coming at us, so it looks short/wide) -->
+  <ellipse cx="840" cy="490" rx="68" ry="58" fill="#2E2A22"/>
+  <ellipse cx="836" cy="484" rx="56" ry="48" fill="#3D3728" opacity="0.6"/>
+
+  <!-- Wrist / forearm stub — very short because pointing at viewer -->
+  <ellipse cx="886" cy="500" rx="48" ry="42" fill="#2E2A22"/>
+  <ellipse cx="882" cy="495" rx="40" ry="35" fill="#3D3728" opacity="0.55"/>
+
+  <!-- ================================================================
+    THUMBS UP FIST — correct orientation
+    - Back of hand faces RIGHT, knuckles also on the RIGHT side
+    - We're looking at the fist from a slight front-left angle
+    - 4 knuckle bumps are a VERTICAL ROW on the right edge
+    - Thumb sticks straight UP from the top-left of the fist
+    - Fist is large and close (foreshortened arm = big fist)
+    Center: ~(900, 460)
+  ================================================================ -->
+  <g transform="translate(898, 470)">
+
+    <!-- Fist main body — viewed slightly from front-left,
+         so it looks like a rounded square with right edge being knuckles -->
+    <ellipse cx="0" cy="0" rx="72" ry="78" fill="#2E2A22"/>
+    <!-- Palm/front face (slightly lighter — facing viewer) -->
+    <ellipse cx="-8" cy="-4" rx="60" ry="66" fill="#3D3728"/>
+    <!-- Finger curl shadow (bottom where fingers tuck under) -->
+    <ellipse cx="0" cy="44" rx="50" ry="22" fill="#252218" opacity="0.6"/>
+
+    <!-- 4 KNUCKLE BUMPS — vertical row on the RIGHT side of fist
+         (this is the key: knuckles face right = they appear on the right edge) -->
+    <ellipse cx="54"  cy="-38" rx="18" ry="14" fill="#4A4232"/>
+    <ellipse cx="60"  cy="-16" rx="18" ry="14" fill="#4A4232"/>
+    <ellipse cx="60"  cy="8"   rx="18" ry="14" fill="#4A4232"/>
+    <ellipse cx="56"  cy="30"  rx="16" ry="13" fill="#4A4232"/>
+    <!-- Knuckle highlights -->
+    <ellipse cx="58"  cy="-41" rx="7" ry="4" fill="white" opacity="0.1"/>
+    <ellipse cx="64"  cy="-19" rx="7" ry="4" fill="white" opacity="0.1"/>
+    <ellipse cx="64"  cy="5"   rx="7" ry="4" fill="white" opacity="0.1"/>
+    <ellipse cx="60"  cy="27"  rx="6" ry="3" fill="white" opacity="0.1"/>
+
+    <!-- THUMB — sticks straight UP from top-left of fist
+         Fat, rounded, clearly a thumb not a finger.
+         Comes from left side of fist, base anchored at (-40, -30) area -->
+    <!-- Thumb base (connection to fist) -->
+    <ellipse cx="-22" cy="-42" rx="26" ry="20" fill="#3D3728"/>
+    <!-- Thumb shaft — tall, fat rectangle -->
+    <rect x="-42" y="-132" width="42" height="86" rx="21" fill="url(#thumbGrad)"/>
+    <!-- Thumb tip rounded cap -->
+    <ellipse cx="-21" cy="-134" rx="24" ry="22" fill="url(#thumbGrad)"/>
+    <!-- Thumb nail -->
+    <ellipse cx="-21" cy="-144" rx="16" ry="12" fill="#1E1A12" opacity="0.65"/>
+    <ellipse cx="-21" cy="-147" rx="11" ry="8"  fill="#2A2618" opacity="0.3"/>
+    <!-- Thumb highlight (left edge — volume) -->
+    <ellipse cx="-34" cy="-100" rx="10" ry="28" fill="white" opacity="0.1"/>
+    <!-- Thumb crease at base -->
+    <path d="M-40,-48 Q-21,-38 -2,-48" stroke="#252218" stroke-width="4" fill="none" opacity="0.5"/>
+  </g>
+
+  <!-- === SPARKLES — tight cluster above/around thumb === -->
+  <!-- Large star — above thumb -->
+  <g transform="translate(852, 286)">
+    <path d="M0,-22 L5.5,-5.5 L22,0 L5.5,5.5 L0,22 L-5.5,5.5 L-22,0 L-5.5,-5.5 Z" fill="#E8C040"/>
+    <circle cx="0" cy="0" r="5.5" fill="white" opacity="0.92"/>
+  </g>
+  <!-- Medium star -->
+  <g transform="translate(896, 254)">
+    <path d="M0,-15 L3.8,-3.8 L15,0 L3.8,3.8 L0,15 L-3.8,3.8 L-15,0 L-3.8,-3.8 Z" fill="#F0D060"/>
+    <circle cx="0" cy="0" r="3.8" fill="white" opacity="0.9"/>
+  </g>
+  <!-- Small star -->
+  <g transform="translate(938, 298)">
+    <path d="M0,-11 L2.8,-2.8 L11,0 L2.8,2.8 L0,11 L-2.8,2.8 L-11,0 L-2.8,-2.8 Z" fill="#C8A030"/>
+    <circle cx="0" cy="0" r="2.8" fill="white" opacity="0.85"/>
+  </g>
+  <!-- Sparkle dots -->
+  <circle cx="870" cy="264" r="5"   fill="#E8D070" opacity="0.75"/>
+  <circle cx="916" cy="272" r="3.5" fill="#F0D060" opacity="0.65"/>
+  <circle cx="822" cy="310" r="3.5" fill="#C8A030" opacity="0.6"/>
+  <circle cx="946" cy="336" r="3"   fill="#E8C040" opacity="0.55"/>
+
+  <!-- === NECK === -->
+  <rect x="438" y="318" width="148" height="86" rx="60" fill="#2E2A22"/>
+  <rect x="454" y="324" width="116" height="72" rx="48" fill="#3D3728" opacity="0.4"/>
+
+  <!-- === HEAD === -->
+  <ellipse cx="512" cy="235" rx="218" ry="210" fill="#2E2A22"/>
+  <ellipse cx="512" cy="222" rx="198" ry="190" fill="#3D3728" opacity="0.5"/>
+
+  <!-- === CURVED HORNS (classic bull curve — sweep out then arc forward/up) === -->
+  <!-- Left horn: starts at left side of head, sweeps wide left then curves up and inward -->
+  <path d="
+    M 330 145
+    C 240 100, 140 80, 110 40
+    C 88 10, 118 -8, 148 10
+    C 178 28, 220 70, 290 118
+  " stroke="url(#hornGrad)" stroke-width="22" stroke-linecap="round" fill="none"/>
+  <!-- Horn inner highlight -->
+  <path d="
+    M 326 148
+    C 238 104, 142 84, 114 46
+    C 96 22, 122 6, 150 22
+    C 178 36, 218 74, 286 120
+  " stroke="#C8B080" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.35"/>
+  <!-- Horn tip -->
+  <ellipse cx="130" cy="6" rx="14" ry="10" fill="#B8A070" opacity="0.7" transform="rotate(-40,130,6)"/>
+
+  <!-- Right horn: mirror -->
+  <path d="
+    M 694 145
+    C 784 100, 884 80, 914 40
+    C 936 10, 906 -8, 876 10
+    C 846 28, 804 70, 734 118
+  " stroke="url(#hornGrad)" stroke-width="22" stroke-linecap="round" fill="none"/>
+  <path d="
+    M 698 148
+    C 786 104, 882 84, 910 46
+    C 928 22, 902 6, 874 22
+    C 846 36, 806 74, 738 120
+  " stroke="#C8B080" stroke-width="8" stroke-linecap="round" fill="none" opacity="0.35"/>
+  <ellipse cx="894" cy="6" rx="14" ry="10" fill="#B8A070" opacity="0.7" transform="rotate(40,894,6)"/>
+
+  <!-- === EARS === -->
+  <ellipse cx="302" cy="242" rx="42" ry="54" fill="#2E2A22" transform="rotate(-15,302,242)"/>
+  <ellipse cx="306" cy="244" rx="26" ry="36" fill="#6B4F38" transform="rotate(-15,306,244)"/>
+  <ellipse cx="722" cy="242" rx="42" ry="54" fill="#2E2A22" transform="rotate(15,722,242)"/>
+  <ellipse cx="718" cy="244" rx="26" ry="36" fill="#6B4F38" transform="rotate(15,718,244)"/>
+
+  <!-- === BROW RIDGE === -->
+  <path d="M308 190 Q400 140 512 134 Q624 140 716 190 Q622 158 512 152 Q402 158 308 190Z" fill="#1E1A14"/>
+  <ellipse cx="512" cy="172" rx="204" ry="40" fill="#1E1A14" opacity="0.7"/>
+  <ellipse cx="512" cy="200" rx="185" ry="22" fill="#0E0C08" opacity="0.5"/>
+
+  <!-- === FACE === -->
+  <path d="M348 208 Q346 168 512 156 Q678 168 676 208 L690 338 Q698 428 512 446 Q326 428 334 338Z" fill="url(#muzzleGrad)"/>
+  <ellipse cx="512" cy="400" rx="148" ry="70" fill="#7A5A3E"/>
+  <ellipse cx="512" cy="392" rx="120" ry="55" fill="#8A6848" opacity="0.45"/>
+
+  <!-- === EYES (approving) === -->
+  <ellipse cx="418" cy="255" rx="74" ry="55" fill="#0E0C08" opacity="0.35"/>
+  <ellipse cx="606" cy="255" rx="74" ry="55" fill="#0E0C08" opacity="0.35"/>
+  <ellipse cx="418" cy="260" rx="60" ry="52" fill="white"/>
+  <ellipse cx="424" cy="263" rx="32" ry="38" fill="#1A1A0E"/>
+  <circle  cx="432" cy="251" r="14" fill="white"/>
+  <circle  cx="417" cy="271" r="5.5" fill="white" opacity="0.45"/>
+  <path d="M362 240 Q418 228 474 240" fill="#2E2A22" opacity="0.38"/>
+  <ellipse cx="606" cy="260" rx="60" ry="52" fill="white"/>
+  <ellipse cx="600" cy="263" rx="32" ry="38" fill="#1A1A0E"/>
+  <circle  cx="608" cy="251" r="14" fill="white"/>
+  <circle  cx="594" cy="271" r="5.5" fill="white" opacity="0.45"/>
+  <path d="M550 240 Q606 228 662 240" fill="#2E2A22" opacity="0.38"/>
+
+  <!-- === EYEBROWS === -->
+  <path d="M342 210 Q388 188 448 198" stroke="#1A1A0E" stroke-width="18" stroke-linecap="round" fill="none"/>
+  <path d="M682 210 Q636 188 576 198" stroke="#1A1A0E" stroke-width="18" stroke-linecap="round" fill="none"/>
+
+  <!-- === NOSE + RING === -->
+  <ellipse cx="512" cy="348" rx="88" ry="56" fill="#5A3E28"/>
+  <ellipse cx="470" cy="358" rx="28" ry="24" fill="#3A2418"/>
+  <ellipse cx="554" cy="358" rx="28" ry="24" fill="#3A2418"/>
+  <ellipse cx="512" cy="334" rx="32" ry="16" fill="#7A5A3E" opacity="0.35"/>
+  <ellipse cx="512" cy="374" rx="34" ry="14" fill="none" stroke="#C8A040" stroke-width="7"/>
+  <ellipse cx="512" cy="374" rx="34" ry="14" fill="none" stroke="#E8C060" stroke-width="3" opacity="0.5"/>
+
+  <!-- === MOUTH (slight approving smile — judge is satisfied) === -->
+  <!-- Upper lip line -->
+  <path d="M446 410 Q478 402 512 404 Q546 402 578 410" stroke="#5A3E28" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <!-- Smile curve — corners lifted slightly -->
+  <path d="M440 413 Q476 436 512 440 Q548 436 584 413" stroke="#5A3E28" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <!-- Subtle fill -->
+  <path d="M446 414 Q478 432 512 436 Q546 432 578 414 Q512 428 446 414Z" fill="#5A3E28" opacity="0.25"/>
+</svg>
