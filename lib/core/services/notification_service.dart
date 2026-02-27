@@ -11,6 +11,7 @@ import '../../data/models/user_profile.dart';
 const int _idMorning = 1;
 const int _idEvening = 2;
 const int _idStreakThreat = 3;
+const int _idStreakLost = 4;
 
 // ── Locale-aware notification strings ────────────────────────────────────────
 
@@ -22,6 +23,8 @@ const _notifStrings = {
     'eveningBody': 'Ты сегодня ещё не тренировался. Займёт всего 10 минут.',
     'streakTitle': 'Серия под угрозой! 🔥',
     'streakBody': 'Успей потренироваться до полуночи — иначе серия прервётся.',
+    'streakLostTitle': 'Серия прервалась 😔',
+    'streakLostBody': 'Твой стрик {days} дней пропал. Начни новую серию — первый шаг всегда самый важный!',
   },
   'en': {
     'morningTitle': 'Time to work out! 💪',
@@ -30,6 +33,8 @@ const _notifStrings = {
     'eveningBody': "You haven't trained today yet. It only takes 10 minutes.",
     'streakTitle': 'Streak at risk! 🔥',
     'streakBody': 'Work out before midnight or your streak will end.',
+    'streakLostTitle': 'Streak is gone 😔',
+    'streakLostBody': 'Your {days}-day streak is gone. Start a new one — the first step is always the hardest!',
   },
 };
 
@@ -162,13 +167,15 @@ class NotificationService {
     if (profile.streakThreatEnabled) await _scheduleStreakThreat(mode, strings);
   }
 
-  /// Cancels only the evening and streak-threat notifications.
+  /// Cancels day-specific notifications (evening, streak threat, streak lost).
   ///
   /// Called after workout completion so the user is not nagged on days
-  /// they have already trained.
+  /// they have already trained, and so a previously scheduled streak-lost
+  /// alert is cleared when the next workout happens.
   Future<void> cancelDayReminders() async {
     await _plugin.cancel(_idEvening);
     await _plugin.cancel(_idStreakThreat);
+    await _plugin.cancel(_idStreakLost);
   }
 
   /// Cancels every scheduled notification.
@@ -229,6 +236,45 @@ class NotificationService {
     );
   }
 
+  /// Schedules a one-time "streak lost" notification for the next morning.
+  ///
+  /// Fires at the user's morning reminder time + 30 minutes on the following
+  /// calendar day. Skipped if [profile.currentStreak] < 2 (losing a 1-day
+  /// streak is not worth a notification). Cancelled automatically by
+  /// [cancelDayReminders] when the user completes the next workout.
+  Future<void> scheduleStreakLost(UserProfile profile) async {
+    if (!_initialized) await init();
+    if (profile.currentStreak < 2) return;
+
+    final strings =
+        _notifStrings[profile.locale ?? 'ru'] ?? _notifStrings['ru']!;
+    final body = strings['streakLostBody']!
+        .replaceAll('{days}', '${profile.currentStreak}');
+
+    var hour = profile.notificationHour;
+    var minute = profile.notificationMinute + 30;
+    if (minute >= 60) {
+      hour += 1;
+      minute -= 60;
+    }
+    if (hour >= 24) {
+      hour = 9;
+      minute = 30;
+    }
+
+    final mode = await _getScheduleMode();
+    await _plugin.zonedSchedule(
+      _idStreakLost,
+      strings['streakLostTitle']!,
+      body,
+      _nextDayAt(hour, minute),
+      _details(channelId: 'streak_lost', channelName: 'Streak lost'),
+      androidScheduleMode: mode,
+      uiLocalNotificationDateInterpretation:
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
+  }
+
   Future<void> _scheduleStreakThreat(
     AndroidScheduleMode mode,
     Map<String, String> strings,
@@ -260,6 +306,12 @@ class NotificationService {
     }
     // Non-Android platforms don't use this field.
     return AndroidScheduleMode.inexactAllowWhileIdle;
+  }
+
+  /// Returns a [TZDateTime] for the **next calendar day** at [hour]:[minute].
+  tz.TZDateTime _nextDayAt(int hour, int minute) {
+    final now = tz.TZDateTime.now(tz.local);
+    return tz.TZDateTime(tz.local, now.year, now.month, now.day + 1, hour, minute);
   }
 
   /// Returns the next [TZDateTime] matching the given [hour] and [minute].

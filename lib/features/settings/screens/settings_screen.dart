@@ -48,6 +48,29 @@ class SettingsScreen extends ConsumerWidget {
               onTap: () => _showLanguagePicker(context, state.locale, notifier.setLocale),
             ),
 
+            // ── Workout section ──────────────────────────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Text(
+                l10n.settingsSectionWorkout,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                  color: scheme.primary,
+                ),
+              ),
+            ),
+
+            _SettingsTile(
+              title: l10n.settingsWorkoutDurationTitle,
+              subtitle: l10n.settingsWorkoutDurationSubtitle,
+              trailing: _MinuteChips(
+                selected: state.preferredWorkoutMinutes,
+                onSelect: notifier.setWorkoutMinutes,
+              ),
+            ),
+
             // ── Notifications section ────────────────────────────────────
             Padding(
               padding:
@@ -324,6 +347,54 @@ class _TimeChip extends StatelessWidget {
           color: enabled ? scheme.onPrimaryContainer : scheme.onSurfaceVariant,
         ),
       ),
+    );
+  }
+}
+
+// ── Minute chips (5 / 10 / 15) ───────────────────────────────────────────────
+
+class _MinuteChips extends StatelessWidget {
+  const _MinuteChips({required this.selected, required this.onSelect});
+
+  final int selected;
+  final void Function(int) onSelect;
+
+  static const _options = [5, 10, 15];
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: _options.map((min) {
+        final isSelected = min == selected;
+        return Padding(
+          padding: const EdgeInsets.only(left: 6),
+          child: GestureDetector(
+            onTap: () => onSelect(min),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
+              decoration: BoxDecoration(
+                color: isSelected
+                    ? scheme.primary
+                    : scheme.surfaceContainerHighest,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Text(
+                '$min',
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 13,
+                  color: isSelected
+                      ? scheme.onPrimary
+                      : scheme.onSurfaceVariant,
+                ),
+              ),
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 }

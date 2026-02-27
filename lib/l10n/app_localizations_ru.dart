@@ -201,6 +201,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsLanguageTitle => 'Язык приложения';
 
   @override
+  String get settingsSectionWorkout => 'ТРЕНИРОВКА';
+
+  @override
+  String get settingsWorkoutDurationTitle => 'Длительность сета';
+
+  @override
+  String get settingsWorkoutDurationSubtitle =>
+      'Сколько минут уделять ежедневной тренировке';
+
+  @override
   String get rankBeginner => 'Новичок';
 
   @override

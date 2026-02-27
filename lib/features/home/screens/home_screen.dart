@@ -61,7 +61,7 @@ class HomeScreen extends ConsumerWidget {
                   Flexible(
                     child: _StatChip(
                       emoji: '🔥',
-                      value: '${data.profile.currentStreak}',
+                      value: '${data.displayStreak}',
                       label: l10n.homeDays,
                     ),
                   ),

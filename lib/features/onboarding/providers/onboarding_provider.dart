@@ -49,18 +49,6 @@ enum WorkoutMinutes {
   String get label => '$minutes минут';
 }
 
-enum FitnessGoal {
-  generalFitness('Общая форма', 'Быть активным и здоровым', '🏃'),
-  strengthPush('Отжимания и сила', 'Накачать грудь и трицепс', '💪'),
-  calisthenics('Калистеника', 'Стойка на руках и трюки', '🤸');
-
-  const FitnessGoal(this.label, this.description, this.emoji);
-
-  final String label;
-  final String description;
-  final String emoji;
-}
-
 // ── State ────────────────────────────────────────────────────────────────────
 
 class OnboardingState {
@@ -178,6 +166,8 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         notificationHour: state.reminderHour,
         notificationMinute: state.reminderMinute,
         locale: _ref.read(localeProvider),
+        preferredWorkoutMinutes: state.workoutMinutes?.minutes,
+        fitnessGoal: state.fitnessGoal,
       ),
     );
 

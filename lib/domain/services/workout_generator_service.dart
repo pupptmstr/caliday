@@ -19,9 +19,14 @@ class WorkoutGeneratorService {
 
   /// Generates a [SetType.daily] plan for the given active [branches].
   ///
-  /// For MVP always pass [BranchId.push] and [BranchId.core].
+  /// [preferredMinutes] comes from [UserProfile.preferredWorkoutMinutes] and
+  /// controls workout volume:
+  /// - ≤ 5 min  → 1 set per exercise (quick session)
+  /// - 10 min   → standard (sets as stored in progress)
+  /// - ≥ 15 min → +1 set per exercise, capped at 3
   WorkoutPlan generateDaily({
     List<BranchId> branches = const [BranchId.push, BranchId.core],
+    int preferredMinutes = 10,
   }) {
     final exercises = <PlannedExercise>[];
 
@@ -43,10 +48,19 @@ class WorkoutGeneratorService {
       final exercise = ExerciseCatalog.forStage(branch, progress.currentStage);
       if (exercise == null) continue; // branch fully completed (all stages done)
 
+      final int sets;
+      if (preferredMinutes <= 5) {
+        sets = 1;
+      } else if (preferredMinutes >= 15) {
+        sets = (progress.currentSets + 1).clamp(1, 3);
+      } else {
+        sets = progress.currentSets;
+      }
+
       exercises.add(PlannedExercise(
         exercise: exercise,
         targetAmount: progress.currentReps,
-        sets: progress.currentSets,
+        sets: sets,
         restSec: progress.currentRestSec,
       ));
 

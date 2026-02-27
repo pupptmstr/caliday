@@ -117,6 +117,20 @@ extension RankExtension on Rank {
   }
 }
 
+/// User's fitness goal chosen during onboarding.
+/// Stored in [UserProfile] so it can later influence branch selection.
+@HiveType(typeId: 8)
+enum FitnessGoal {
+  @HiveField(0)
+  generalFitness,
+
+  @HiveField(1)
+  strengthPush,
+
+  @HiveField(2)
+  calisthenics,
+}
+
 extension RankLocalization on Rank {
   String localizedName(AppLocalizations l10n) => switch (this) {
         Rank.beginner => l10n.rankBeginner,

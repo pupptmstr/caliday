@@ -143,6 +143,50 @@ class ExerciseTypeAdapter extends TypeAdapter<ExerciseType> {
           typeId == other.typeId;
 }
 
+class FitnessGoalAdapter extends TypeAdapter<FitnessGoal> {
+  @override
+  final int typeId = 8;
+
+  @override
+  FitnessGoal read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return FitnessGoal.generalFitness;
+      case 1:
+        return FitnessGoal.strengthPush;
+      case 2:
+        return FitnessGoal.calisthenics;
+      default:
+        return FitnessGoal.generalFitness;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, FitnessGoal obj) {
+    switch (obj) {
+      case FitnessGoal.generalFitness:
+        writer.writeByte(0);
+        break;
+      case FitnessGoal.strengthPush:
+        writer.writeByte(1);
+        break;
+      case FitnessGoal.calisthenics:
+        writer.writeByte(2);
+        break;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is FitnessGoalAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
 class RankAdapter extends TypeAdapter<Rank> {
   @override
   final int typeId = 7;

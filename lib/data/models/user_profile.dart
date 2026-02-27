@@ -22,6 +22,8 @@ class UserProfile extends HiveObject {
     this.eveningReminderEnabled = true,
     this.streakThreatEnabled = true,
     this.locale,
+    this.preferredWorkoutMinutes,
+    this.fitnessGoal,
   });
 
   @HiveField(0)
@@ -66,4 +68,15 @@ class UserProfile extends HiveObject {
   /// BCP-47 language code for the UI locale. null means 'ru' (default).
   @HiveField(11)
   String? locale;
+
+  /// Preferred workout duration in minutes, chosen during onboarding (5/10/15).
+  /// null means the user skipped onboarding or the value was not yet recorded;
+  /// the generator treats null as 10 (standard).
+  @HiveField(12)
+  int? preferredWorkoutMinutes;
+
+  /// Fitness goal chosen during onboarding. null for legacy profiles.
+  /// Stored for future use (branch selection, personalised tips).
+  @HiveField(13)
+  FitnessGoal? fitnessGoal;
 }

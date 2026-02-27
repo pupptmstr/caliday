@@ -446,6 +446,24 @@ abstract class AppLocalizations {
   /// **'Язык приложения'**
   String get settingsLanguageTitle;
 
+  /// No description provided for @settingsSectionWorkout.
+  ///
+  /// In ru, this message translates to:
+  /// **'ТРЕНИРОВКА'**
+  String get settingsSectionWorkout;
+
+  /// No description provided for @settingsWorkoutDurationTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Длительность сета'**
+  String get settingsWorkoutDurationTitle;
+
+  /// No description provided for @settingsWorkoutDurationSubtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сколько минут уделять ежедневной тренировке'**
+  String get settingsWorkoutDurationSubtitle;
+
   /// No description provided for @rankBeginner.
   ///
   /// In ru, this message translates to:

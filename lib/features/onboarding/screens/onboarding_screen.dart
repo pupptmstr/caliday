@@ -5,6 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/providers/locale_provider.dart';
+import '../../../data/models/enums.dart';
 import '../providers/onboarding_provider.dart';
 import '../widgets/option_card.dart';
 
@@ -534,6 +535,14 @@ extension WorkoutMinutesL10n on WorkoutMinutes {
         WorkoutMinutes.five => l10n.minutesFiveDesc,
         WorkoutMinutes.ten => l10n.minutesTenDesc,
         WorkoutMinutes.fifteen => l10n.minutesFifteenDesc,
+      };
+}
+
+extension FitnessGoalEmoji on FitnessGoal {
+  String get emoji => switch (this) {
+        FitnessGoal.generalFitness => '🏃',
+        FitnessGoal.strengthPush => '💪',
+        FitnessGoal.calisthenics => '🤸',
       };
 }
 

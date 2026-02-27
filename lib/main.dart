@@ -24,6 +24,7 @@ Future<void> main() async {
     ..registerAdapter(BranchIdAdapter())
     ..registerAdapter(SetTypeAdapter())
     ..registerAdapter(ExerciseTypeAdapter())
+    ..registerAdapter(FitnessGoalAdapter())
     ..registerAdapter(UserProfileAdapter())
     ..registerAdapter(SkillProgressAdapter())
     ..registerAdapter(ExerciseResultAdapter())

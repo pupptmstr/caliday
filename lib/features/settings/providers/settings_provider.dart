@@ -14,6 +14,7 @@ class SettingsState {
     required this.notificationHour,
     required this.notificationMinute,
     required this.locale,
+    required this.preferredWorkoutMinutes,
   });
 
   final bool notificationsEnabled;
@@ -22,6 +23,7 @@ class SettingsState {
   final int notificationHour;
   final int notificationMinute;
   final String locale;
+  final int preferredWorkoutMinutes;
 
   /// Notification time as a zero-padded string, e.g. "09:00".
   String get timeLabel {
@@ -37,6 +39,7 @@ class SettingsState {
     int? notificationHour,
     int? notificationMinute,
     String? locale,
+    int? preferredWorkoutMinutes,
   }) {
     return SettingsState(
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
@@ -46,6 +49,8 @@ class SettingsState {
       notificationHour: notificationHour ?? this.notificationHour,
       notificationMinute: notificationMinute ?? this.notificationMinute,
       locale: locale ?? this.locale,
+      preferredWorkoutMinutes:
+          preferredWorkoutMinutes ?? this.preferredWorkoutMinutes,
     );
   }
 }
@@ -67,6 +72,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       notificationHour: p.notificationHour,
       notificationMinute: p.notificationMinute,
       locale: p.locale ?? 'ru',
+      preferredWorkoutMinutes: p.preferredWorkoutMinutes ?? 10,
     );
   }
 
@@ -90,6 +96,12 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
   void setTime(int hour, int minute) {
     state = state.copyWith(notificationHour: hour, notificationMinute: minute);
     _save();
+  }
+
+  void setWorkoutMinutes(int minutes) {
+    state = state.copyWith(preferredWorkoutMinutes: minutes);
+    final p = _userRepo.getProfile()..preferredWorkoutMinutes = minutes;
+    _userRepo.saveProfile(p);
   }
 
   void setLocale(String locale) {

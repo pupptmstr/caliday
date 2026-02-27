@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/models/user_profile.dart';
+import '../../data/repositories/user_repository.dart';
 
 /// Manages workout streak logic.
 ///
@@ -92,3 +93,19 @@ class StreakService {
 }
 
 final streakServiceProvider = Provider<StreakService>((_) => const StreakService());
+
+/// Streak value to display in the UI, computed without mutating Hive.
+///
+/// Rules (Variant A):
+/// - days since last workout ≤ 1              → stored streak (all good)
+/// - days == 2 and a freeze is available      → stored streak (freeze will
+///                                              save it on the next workout)
+/// - otherwise                                → 0 (streak is already lost)
+final displayStreakProvider = Provider.autoDispose<int>((ref) {
+  final profile = ref.read(userRepositoryProvider).getProfile();
+  final service = ref.read(streakServiceProvider);
+  final days = service.daysSinceLastWorkout(profile);
+  if (days <= 1) return profile.currentStreak;
+  if (days == 2 && profile.streakFreezeCount > 0) return profile.currentStreak;
+  return 0;
+});

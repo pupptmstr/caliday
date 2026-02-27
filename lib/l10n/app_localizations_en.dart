@@ -198,6 +198,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsLanguageTitle => 'App language';
 
   @override
+  String get settingsSectionWorkout => 'WORKOUT';
+
+  @override
+  String get settingsWorkoutDurationTitle => 'Session length';
+
+  @override
+  String get settingsWorkoutDurationSubtitle =>
+      'How many minutes to spend on the daily workout';
+
+  @override
   String get rankBeginner => 'Beginner';
 
   @override

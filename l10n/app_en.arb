@@ -65,6 +65,10 @@
   "settingsStreakThreatSubtitle": "Warn when your streak is at risk",
   "settingsLanguageTitle": "App language",
 
+  "settingsSectionWorkout": "WORKOUT",
+  "settingsWorkoutDurationTitle": "Session length",
+  "settingsWorkoutDurationSubtitle": "How many minutes to spend on the daily workout",
+
   "rankBeginner": "Beginner",
   "rankAmateur": "Amateur",
   "rankSportsman": "Athlete",

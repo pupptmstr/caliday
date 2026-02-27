@@ -135,7 +135,13 @@ class WorkoutState {
 class WorkoutNotifier extends StateNotifier<WorkoutState> {
   WorkoutNotifier(this._ref)
       : super(WorkoutState.initial(
-          _ref.read(workoutGeneratorServiceProvider).generateDaily(),
+          _ref.read(workoutGeneratorServiceProvider).generateDaily(
+            preferredMinutes: _ref
+                    .read(userRepositoryProvider)
+                    .getProfile()
+                    .preferredWorkoutMinutes ??
+                10,
+          ),
         ));
 
   final Ref _ref;
@@ -342,8 +348,11 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       durationSec: durationSec,
     )));
 
-    // Cancel today's evening / streak-threat notifications — the user trained.
+    // Cancel today's evening / streak-threat / streak-lost notifications.
     unawaited(NotificationService.instance.cancelDayReminders());
+    // Schedule a streak-lost alert for tomorrow morning in case the user
+    // misses the next workout. Cancelled automatically on the next completion.
+    unawaited(NotificationService.instance.scheduleStreakLost(profile));
 
     // Invalidate home data so the Home screen reflects the new state.
     _ref.invalidate(homeDataProvider);

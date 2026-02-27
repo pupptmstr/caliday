@@ -117,6 +117,10 @@
   "settingsStreakThreatSubtitle": "Предупредить, когда серия под угрозой",
   "settingsLanguageTitle": "Язык приложения",
 
+  "settingsSectionWorkout": "ТРЕНИРОВКА",
+  "settingsWorkoutDurationTitle": "Длительность сета",
+  "settingsWorkoutDurationSubtitle": "Сколько минут уделять ежедневной тренировке",
+
   "rankBeginner": "Новичок",
   "rankAmateur": "Любитель",
   "rankSportsman": "Спортсмен",

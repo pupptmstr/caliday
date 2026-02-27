@@ -62,7 +62,7 @@ class ProfileScreen extends ConsumerWidget {
 
               // ── Stats grid ─────────────────────────────────────────────
               _StatsGrid(
-                currentStreak: profile.currentStreak,
+                currentStreak: data.displayStreak,
                 longestStreak: profile.longestStreak,
                 totalWorkouts: data.totalWorkouts,
                 streakFreezes: profile.streakFreezeCount,
