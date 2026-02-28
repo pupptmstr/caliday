@@ -513,20 +513,31 @@ extension GoroExpressionAsset on GoroExpression {
 ```
 Зависит от: `homeDataProvider` (profile + hasWorkoutToday) + `DateTime.now().hour`.
 
+**Распределение поз по экранам:**
+
+| Поза | Экран | Обоснование |
+|------|-------|-------------|
+| `goro_face_[state].svg` | **Home** | реагирует на контекст — время суток, стрик, факт тренировки |
+| `goro_flex_v2.svg` | **Summary** | завершил тренировку = победа, flex всегда уместен |
+| `goro_idle_v2.svg` | **Profile** | спокойный экран статистики, idle органичен |
+| `goro_face_happy.svg` | **Onboarding welcome** | заменяет старый `goro_face.svg` |
+| `skala_neutral/approve.svg` | **Workout (Challenge-план)** | арена испытания, своя атмосфера |
+
 **Шаг 3 — подключить на экранах:**
 - **Home screen:** заменить `goro_flex.svg` на `goro_face_[state].svg` с `AnimatedSwitcher`
-  *(или оставить flex, но добавить face меньшего размера — решение по виду)*
-- **Summary screen:** `excited` при хорошем результате, `happy` в остальных случаях
+- **Summary screen:** заменить `goro_flex.svg` на `goro_flex_v2.svg` (без смены позы — всегда победа)
+- **Profile screen:** добавить `goro_idle_v2.svg` над блоком статистики (height ~100px)
 - **Onboarding welcome:** `goro_face_happy.svg` вместо `goro_face.svg`
 
-**Шаг 4 — Скала на Challenge-экране** (после редизайна Challenge-системы):
-- `skala_neutral.svg` — пока идёт тест
-- `skala_approve.svg` — при успехе (через `AnimatedSwitcher`)
-- Высота: больше чем Горо (~160–180px), фон карточки `#5C1A1A`
+**Шаг 4 — Скала на Workout-экране (Challenge-план):**
+- Показывать вместо Горо когда `plan.setType == SetType.challenge`
+- `skala_neutral.svg` — во время выполнения упражнений
+- `skala_approve.svg` — на экране отдыха после успешного Challenge-упражнения (через `AnimatedSwitcher`)
+- Высота: ~160–180px, можно добавить тёмно-красный контейнер-фон `#5C1A1A` за маскотом
 
-**Шаг 5 — обновить v2-позы (опционально):**
-Когда визуально проверены — одна строка в `home_screen.dart` и `summary_screen.dart`:
-`'assets/goro/goro_flex.svg'` → `'assets/goro/goro_flex_v2.svg'`
+**Шаг 5 — убедиться что старые ассеты не остались:**
+После интеграции `goro_flex.svg` и `goro_face.svg` (без суффикса) больше не используются —
+можно оставить в `assets/goro/` как fallback или удалить.
 
 ---
 
