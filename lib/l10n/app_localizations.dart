@@ -143,8 +143,26 @@ abstract class AppLocalizations {
   /// No description provided for @homeChallengeUnlocked.
   ///
   /// In ru, this message translates to:
-  /// **'Challenge разблокирован!'**
+  /// **'🏆 Испытание доступно'**
   String get homeChallengeUnlocked;
+
+  /// No description provided for @homeChallengeButton.
+  ///
+  /// In ru, this message translates to:
+  /// **'Принять вызов'**
+  String get homeChallengeButton;
+
+  /// No description provided for @homeChallengeNormReps.
+  ///
+  /// In ru, this message translates to:
+  /// **'Норматив: {n} повт.'**
+  String homeChallengeNormReps(int n);
+
+  /// No description provided for @homeChallengeNormSec.
+  ///
+  /// In ru, this message translates to:
+  /// **'Норматив: {n} сек'**
+  String homeChallengeNormSec(int n);
 
   /// No description provided for @homeWorkoutDone.
   ///
@@ -313,6 +331,30 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Используй, если пропустишь день'**
   String get summaryFreezeEarnedBody;
+
+  /// No description provided for @summaryChallengeUnlockedTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Испытание ждёт! 🏆'**
+  String get summaryChallengeUnlockedTitle;
+
+  /// No description provided for @summaryChallengeUnlockedBody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Нажми «Принять вызов» на главном экране когда будешь готов'**
+  String get summaryChallengeUnlockedBody;
+
+  /// No description provided for @summaryChallengePassedTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новый этап! 🎉'**
+  String get summaryChallengePassedTitle;
+
+  /// No description provided for @summaryChallengePassedBody.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ты перешёл на: {exercise}'**
+  String summaryChallengePassedBody(String exercise);
 
   /// No description provided for @profileTitle.
   ///

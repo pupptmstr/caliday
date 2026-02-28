@@ -333,8 +333,8 @@ Home screen читает `displayStreak`, а не `profile.currentStreak` нап
 - `nextExercise(progress)` — возвращает следующий этап из каталога
 
 **`WorkoutGeneratorService`** (`workoutGeneratorServiceProvider`)
-- `generateDaily({branches})` — генерирует `WorkoutPlan` со структурой: разминка → Push → Core → заминка
-- Если `isChallengeUnlocked` — добавляет «превью» следующего этапа (1 повторение)
+- `generateDaily({branches, preferredMinutes})` — генерирует `WorkoutPlan`: разминка → Push → Core → заминка. Если `isChallengeUnlocked` — превью **НЕ добавляется** (убрано в v1.1).
+- `generateChallenge(branch)` — Challenge-план для одной ветки: разминка → текущий этап (1 лёгкий сет) → следующий этап (`challengeTargetReps`) → заминка. Fallback на `generateDaily` если ветка завершена.
 - Зависит от `SkillProgressRepository` через конструктор (инжектируется Riverpod)
 
 ### Паттерн мутации
@@ -406,14 +406,18 @@ Home screen читает `displayStreak`, а не `profile.currentStreak` нап
 - При `phase == done` → `context.pushReplacement('/summary', extra: {...})`.
 
 ### Навигация workout → summary → home
-- home → **push** `/workout`
-- workout done → **pushReplacement** `/summary` (extra: {spEarned, durationSec, exerciseCount, freezeEarned, freezeUsed})
+- home → **push** `/workout` (обычная тренировка)
+- home ChallengeCard → `challengeBranchProvider = branch` → **push** `/workout` (Challenge-тренировка)
+- workout done → **pushReplacement** `/summary` (extra: {spEarned, durationSec, exerciseCount, freezeEarned, freezeUsed, challengeUnlocked, challengePassed, newStageExerciseId})
 - summary → **go** `/home` (полная замена стека, HomeScreen пересоздаётся)
 
 `WorkoutState` при `phase == done` содержит:
 - `spEarned` — заработанные SP
 - `freezeEarned: bool` — получена новая заморозка (стрик кратен 7)
 - `freezeUsed: bool` — заморозка потрачена для сохранения стрика
+- `challengeUnlocked: bool` — Challenge разблокирован впервые в этой тренировке
+- `challengePassed: bool` — Challenge-тренировка успешна, этап повышен
+- `newStageExerciseId: String?` — id упражнения нового этапа (если challengePassed)
 
 ### ExerciseResult semantics (MVP)
 - Одна запись на упражнение (не на подход).
@@ -610,7 +614,7 @@ lib/features/settings/screens/
 
 ### v1.1 — Обсуждённые задачи (сессия 2026-02-27)
 
-#### Редизайн системы Challenge (A + B)
+#### ~~Редизайн системы Challenge~~ ✅ сессия 20
 
 **Текущее состояние (проблемы):**
 - На Home: мелкий текст "Challenge разблокирован!" и смена цвета прогресс-бара — никакой торжественности
@@ -794,6 +798,44 @@ final detectedLocale = systemLocale.languageCode == 'ru' ? 'ru' : 'en';
 ---
 
 ## История изменений
+
+### 2026-02-28 — сессия 20 (редизайн системы Challenge)
+
+**Проблема:** Challenge был сломан по трём причинам — провалить невозможно (advanceStage вызывался при любом результате), отказаться невозможно (превью в каждой тренировке), никакой торжественности.
+
+**Новая схема:**
+```
+isChallengeUnlocked = false  →  обычная тренировка
+isChallengeUnlocked = true   →  обычная тренировка БЕЗ превью
+                                + ChallengeCard на Home (пользователь сам решает когда готов)
+Challenge → провал           →  этап не меняется, ChallengeCard остаётся
+Challenge → успех            →  advanceStage + баннер «Новый этап!» в Summary
+```
+
+**Ключевые изменения:**
+
+- **`Exercise.challengeTargetReps: int`** — новое поле (default 0). Минимум повторений/секунд для прохождения Challenge. Заполнено для всех stage-упражнений кроме финальных и s1 (нет challenge-перехода из ниоткуда).
+
+- **`WorkoutGeneratorService`** — удалён блок добавления превью из `generateDaily()`. Добавлен `generateChallenge(branch)`: разминка → текущий этап (1 сет) → следующий этап (challengeTargetReps) → заминка.
+
+- **`challengeBranchProvider = StateProvider<BranchId?>`** — управляет типом тренировки. null = обычная; branch = Challenge для этой ветки. Сбрасывается автоматически в `_finishWorkout` и при выходе пользователем.
+
+- **`WorkoutState`** — новые поля: `challengeUnlocked`, `challengePassed`, `newStageExerciseId`. Передаются в `/summary` через extras.
+
+- **`_finishWorkout`** — исправлена логика: для упражнений с `stage > currentStage` проверяет `completedReps >= challengeTargetReps` (для timed — `actualDurationSec`). `advanceStage` только при успехе.
+
+- **Home screen** — удалён badge «Challenge разблокирован!» из `_BranchProgressCard`. Добавлен `_ChallengeCard` (tertiaryContainer) с именем следующего упражнения, нормативом и кнопкой «Принять вызов».
+
+- **Summary screen** — два новых баннера: `_ChallengeUnlockedBanner` (при первой разблокировке) и `_ChallengePassedBanner` (при успешном переходе этапа, показывает имя нового упражнения).
+
+- **l10n** — 6 новых ключей: `homeChallengeButton`, `homeChallengeNormReps`, `homeChallengeNormSec`, `summaryChallengeUnlockedTitle/Body`, `summaryChallengePassedTitle/Body`. `homeChallengeUnlocked` обновлён.
+
+**Изменённые файлы:**
+`exercise.dart`, `exercise_catalog.dart`, `workout_generator_service.dart`, `workout_provider.dart`, `workout_screen.dart`, `home_screen.dart`, `summary_screen.dart`, `l10n/app_ru.arb`, `l10n/app_en.arb`
+
+**Следующий шаг:** система выражений Горо (шаги 1–5) или Скала на Challenge-экране.
+
+---
 
 ### 2026-02-27 — сессия 18 (мелкие фиксы v1.1: стрик, язык, уведомления, минуты, цель)
 

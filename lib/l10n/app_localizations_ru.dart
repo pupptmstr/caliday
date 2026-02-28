@@ -36,7 +36,20 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get homeChallengeUnlocked => 'Challenge разблокирован!';
+  String get homeChallengeUnlocked => '🏆 Испытание доступно';
+
+  @override
+  String get homeChallengeButton => 'Принять вызов';
+
+  @override
+  String homeChallengeNormReps(int n) {
+    return 'Норматив: $n повт.';
+  }
+
+  @override
+  String homeChallengeNormSec(int n) {
+    return 'Норматив: $n сек';
+  }
 
   @override
   String get homeWorkoutDone => 'Тренировка выполнена';
@@ -127,6 +140,21 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get summaryFreezeEarnedBody => 'Используй, если пропустишь день';
+
+  @override
+  String get summaryChallengeUnlockedTitle => 'Испытание ждёт! 🏆';
+
+  @override
+  String get summaryChallengeUnlockedBody =>
+      'Нажми «Принять вызов» на главном экране когда будешь готов';
+
+  @override
+  String get summaryChallengePassedTitle => 'Новый этап! 🎉';
+
+  @override
+  String summaryChallengePassedBody(String exercise) {
+    return 'Ты перешёл на: $exercise';
+  }
 
   @override
   String get profileTitle => 'Профиль';

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
+import '../../../core/extensions/exercise_l10n.dart';
 
 /// Post-workout summary screen.
 ///
@@ -23,6 +24,9 @@ class SummaryScreen extends StatelessWidget {
     final exerciseCount = extras['exerciseCount'] as int? ?? 0;
     final freezeEarned = extras['freezeEarned'] as bool? ?? false;
     final freezeUsed = extras['freezeUsed'] as bool? ?? false;
+    final challengeUnlocked = extras['challengeUnlocked'] as bool? ?? false;
+    final challengePassed = extras['challengePassed'] as bool? ?? false;
+    final newStageExerciseId = extras['newStageExerciseId'] as String?;
 
     final mins = durationSec ~/ 60;
     final secs = durationSec % 60;
@@ -78,6 +82,13 @@ class SummaryScreen extends StatelessWidget {
               if (freezeUsed) const _FreezeUsedBanner(),
               if (freezeUsed && freezeEarned) const SizedBox(height: 10),
               if (freezeEarned) const _FreezeEarnedBanner(),
+              if ((freezeUsed || freezeEarned) && challengeUnlocked)
+                const SizedBox(height: 10),
+              if (challengeUnlocked) const _ChallengeUnlockedBanner(),
+              if (challengeUnlocked && challengePassed)
+                const SizedBox(height: 10),
+              if (challengePassed && newStageExerciseId != null)
+                _ChallengePassedBanner(exerciseId: newStageExerciseId),
 
               const SizedBox(height: 28),
 
@@ -177,6 +188,96 @@ class _FreezeEarnedBanner extends StatelessWidget {
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChallengeUnlockedBanner extends StatelessWidget {
+  const _ChallengeUnlockedBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final l = context.l10n;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: scheme.tertiaryContainer,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          const Text('🏆', style: TextStyle(fontSize: 28)),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l.summaryChallengeUnlockedTitle,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: scheme.onTertiaryContainer,
+                      ),
+                ),
+                Text(
+                  l.summaryChallengeUnlockedBody,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: scheme.onTertiaryContainer.withAlpha(180),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChallengePassedBanner extends StatelessWidget {
+  const _ChallengePassedBanner({required this.exerciseId});
+
+  final String exerciseId;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final l = context.l10n;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: scheme.tertiaryContainer,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          const Text('🎉', style: TextStyle(fontSize: 28)),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l.summaryChallengePassedTitle,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: scheme.onTertiaryContainer,
+                      ),
+                ),
+                Text(
+                  l.summaryChallengePassedBody(ExerciseL10n.name(l, exerciseId)),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: scheme.onTertiaryContainer.withAlpha(180),
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),

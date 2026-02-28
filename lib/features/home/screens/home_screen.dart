@@ -8,6 +8,7 @@ import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
 import '../../../data/static/exercise_catalog.dart';
+import '../../workout/providers/workout_provider.dart';
 import '../providers/home_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -112,6 +113,10 @@ class HomeScreen extends ConsumerWidget {
                 totalStages: ExerciseCatalog.pushProgression.length,
                 exerciseName: ExerciseL10n.name(l10n, pushId),
               ),
+              if (data.pushProgress.isChallengeUnlocked) ...[
+                const SizedBox(height: 10),
+                _ChallengeCard(branch: BranchId.push, progress: data.pushProgress),
+              ],
               const SizedBox(height: 10),
               _BranchProgressCard(
                 emoji: '🎯',
@@ -120,6 +125,10 @@ class HomeScreen extends ConsumerWidget {
                 totalStages: ExerciseCatalog.coreProgression.length,
                 exerciseName: ExerciseL10n.name(l10n, coreId),
               ),
+              if (data.coreProgress.isChallengeUnlocked) ...[
+                const SizedBox(height: 10),
+                _ChallengeCard(branch: BranchId.core, progress: data.coreProgress),
+              ],
 
               const Spacer(),
 
@@ -289,25 +298,87 @@ class _BranchProgressCard extends StatelessWidget {
               ),
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
 
-          if (progress.isChallengeUnlocked) ...[
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                Icon(Icons.emoji_events_rounded,
-                    size: 14, color: scheme.tertiary),
-                const SizedBox(width: 4),
-                Text(
-                  l10n.homeChallengeUnlocked,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: scheme.tertiary,
-                  ),
-                ),
-              ],
+// ── Challenge card ────────────────────────────────────────────────────────────
+
+class _ChallengeCard extends ConsumerWidget {
+  const _ChallengeCard({required this.branch, required this.progress});
+
+  final BranchId branch;
+  final SkillProgress progress;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
+
+    final next = ExerciseCatalog.forStage(branch, progress.currentStage + 1);
+    if (next == null) return const SizedBox.shrink();
+
+    final isTimed = next.type == ExerciseType.timed;
+    final normLabel = isTimed
+        ? l10n.homeChallengeNormSec(next.challengeTargetReps)
+        : l10n.homeChallengeNormReps(next.challengeTargetReps);
+
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: scheme.tertiaryContainer,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.homeChallengeUnlocked,
+            style: TextStyle(
+              fontSize: 15,
+              fontWeight: FontWeight.w700,
+              color: scheme.onTertiaryContainer,
             ),
-          ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            ExerciseL10n.name(l10n, next.id),
+            style: TextStyle(
+              fontSize: 13,
+              color: scheme.onTertiaryContainer,
+            ),
+          ),
+          const SizedBox(height: 2),
+          Text(
+            normLabel,
+            style: TextStyle(
+              fontSize: 12,
+              color: scheme.onTertiaryContainer.withAlpha(180),
+            ),
+          ),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              style: FilledButton.styleFrom(
+                backgroundColor: scheme.tertiary,
+                foregroundColor: scheme.onTertiary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+              ),
+              onPressed: () {
+                ref.read(challengeBranchProvider.notifier).state = branch;
+                context.push('/workout');
+              },
+              child: Text(
+                l10n.homeChallengeButton,
+                style: const TextStyle(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
         ],
       ),
     );

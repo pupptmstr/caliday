@@ -16,6 +16,12 @@ import '../../../domain/services/workout_generator_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../home/providers/home_provider.dart';
 
+// ── Challenge branch selector ──────────────────────────────────────────────────
+
+/// Set to a [BranchId] before navigating to /workout to launch a challenge.
+/// null means normal daily workout. Reset automatically after workout ends.
+final challengeBranchProvider = StateProvider<BranchId?>((ref) => null);
+
 // ── Phase ─────────────────────────────────────────────────────────────────────
 
 enum WorkoutPhase { exercise, rest, done }
@@ -37,6 +43,9 @@ class WorkoutState {
     this.isInterExerciseRest = false,
     this.freezeEarned = false,
     this.freezeUsed = false,
+    this.challengeUnlocked = false,
+    this.challengePassed = false,
+    this.newStageExerciseId,
   });
 
   final WorkoutPlan plan;
@@ -76,6 +85,15 @@ class WorkoutState {
   /// (as opposed to rest between sets of the same exercise).
   final bool isInterExerciseRest;
 
+  /// True when a challenge was unlocked for the first time during this workout.
+  final bool challengeUnlocked;
+
+  /// True when a challenge workout succeeded and stage was advanced.
+  final bool challengePassed;
+
+  /// Exercise id of the newly reached stage (if [challengePassed]).
+  final String? newStageExerciseId;
+
   // ── Convenience ───────────────────────────────────────────────────────────
 
   PlannedExercise get currentPlanned => plan.exercises[exerciseIndex];
@@ -94,6 +112,9 @@ class WorkoutState {
     bool? isInterExerciseRest,
     bool? freezeEarned,
     bool? freezeUsed,
+    bool? challengeUnlocked,
+    bool? challengePassed,
+    String? newStageExerciseId,
   }) {
     return WorkoutState(
       plan: plan,
@@ -109,6 +130,9 @@ class WorkoutState {
       isInterExerciseRest: isInterExerciseRest ?? this.isInterExerciseRest,
       freezeEarned: freezeEarned ?? this.freezeEarned,
       freezeUsed: freezeUsed ?? this.freezeUsed,
+      challengeUnlocked: challengeUnlocked ?? this.challengeUnlocked,
+      challengePassed: challengePassed ?? this.challengePassed,
+      newStageExerciseId: newStageExerciseId ?? this.newStageExerciseId,
     );
   }
 
@@ -134,15 +158,20 @@ class WorkoutState {
 
 class WorkoutNotifier extends StateNotifier<WorkoutState> {
   WorkoutNotifier(this._ref)
-      : super(WorkoutState.initial(
-          _ref.read(workoutGeneratorServiceProvider).generateDaily(
-            preferredMinutes: _ref
-                    .read(userRepositoryProvider)
-                    .getProfile()
-                    .preferredWorkoutMinutes ??
-                10,
-          ),
-        ));
+      : super(WorkoutState.initial(_buildPlan(_ref)));
+
+  static WorkoutPlan _buildPlan(Ref ref) {
+    final challengeBranch = ref.read(challengeBranchProvider);
+    final generator = ref.read(workoutGeneratorServiceProvider);
+    if (challengeBranch != null) {
+      return generator.generateChallenge(challengeBranch);
+    }
+    return generator.generateDaily(
+      preferredMinutes:
+          ref.read(userRepositoryProvider).getProfile().preferredWorkoutMinutes ??
+              10,
+    );
+  }
 
   final Ref _ref;
 
@@ -321,6 +350,10 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     // ── Progression ───────────────────────────────────────────────────────
     final progressionService = _ref.read(progressionServiceProvider);
     final progressRepo = _ref.read(skillProgressRepositoryProvider);
+    bool challengeUnlocked = false;
+    bool challengePassed = false;
+    String? newStageExerciseId;
+
     for (var i = 0; i < state.plan.exercises.length; i++) {
       final planned = state.plan.exercises[i];
       final result = results[i];
@@ -328,15 +361,27 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
 
       final progress = progressRepo.getProgress(planned.exercise.branch);
 
-      // Challenge-preview exercises have a stage ahead of the current progress.
-      // Completing one means the user passed the challenge → advance to that stage.
       if (planned.exercise.stage > progress.currentStage) {
-        progressionService.advanceStage(progress, planned.exercise);
+        // Challenge exercise: check result against challengeTargetReps.
+        final exercise = planned.exercise;
+        final passed = exercise.type == ExerciseType.timed
+            ? (result.actualDurationSec ?? 0) >= exercise.challengeTargetReps
+            : result.completedReps >= exercise.challengeTargetReps;
+        if (passed) {
+          progressionService.advanceStage(progress, exercise);
+          challengePassed = true;
+          newStageExerciseId = exercise.id;
+        }
+        // If failed: isChallengeUnlocked stays true, progress unchanged.
       } else {
-        progressionService.applyResult(progress, planned.exercise, result);
+        final unlocked = progressionService.applyResult(progress, planned.exercise, result);
+        if (unlocked) challengeUnlocked = true;
       }
       progressRepo.saveProgress(progress);
     }
+
+    // Reset challenge branch after workout.
+    _ref.read(challengeBranchProvider.notifier).state = null;
 
     // ── Workout log ───────────────────────────────────────────────────────
     // Fire-and-forget: Hive write is async but nearly instantaneous locally.
@@ -364,6 +409,9 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       durationSec: durationSec,
       freezeEarned: freezeEarned,
       freezeUsed: freezeUsed,
+      challengeUnlocked: challengeUnlocked,
+      challengePassed: challengePassed,
+      newStageExerciseId: newStageExerciseId,
     );
   }
 }

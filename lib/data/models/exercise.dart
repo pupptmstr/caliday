@@ -19,6 +19,7 @@ class Exercise {
     required this.startRestSec,
     required this.targetRestSec,
     required this.spBase,
+    this.challengeTargetReps = 0,
     this.techniqueTip,
     this.imagePath,
   });
@@ -60,6 +61,10 @@ class Exercise {
   /// SP earned per rep (for [ExerciseType.reps])
   /// or per 10 seconds held (for [ExerciseType.timed]).
   final int spBase;
+
+  /// Minimum reps (or seconds for timed) to complete the Challenge
+  /// and advance to the next stage. 0 for warmup/cooldown and final stages.
+  final int challengeTargetReps;
 
   /// Optional short technique cue shown during workout.
   final String? techniqueTip;

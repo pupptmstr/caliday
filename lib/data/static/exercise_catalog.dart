@@ -50,6 +50,7 @@ class ExerciseCatalog {
     startRestSec: 60,
     targetRestSec: 30,
     spBase: 1,
+    challengeTargetReps: 3,
     techniqueTip: 'Не опускай бёдра — держи прямую линию от колен до плеч.',
   );
 
@@ -69,6 +70,7 @@ class ExerciseCatalog {
     startRestSec: 60,
     targetRestSec: 30,
     spBase: 2,
+    challengeTargetReps: 3,
     techniqueTip: 'Напрягай пресс и ягодицы, чтобы не провисали бёдра.',
   );
 
@@ -88,6 +90,7 @@ class ExerciseCatalog {
     startRestSec: 60,
     targetRestSec: 30,
     spBase: 2,
+    challengeTargetReps: 5,
     techniqueTip: 'Локти не разводи — они должны скользить вдоль тела.',
   );
 
@@ -107,6 +110,7 @@ class ExerciseCatalog {
     startRestSec: 90,
     targetRestSec: 45,
     spBase: 3,
+    challengeTargetReps: 2,
     techniqueTip: 'Рабочая рука — полный диапазон, прямая рука на полу — поддержка.',
   );
 
@@ -126,6 +130,7 @@ class ExerciseCatalog {
     startRestSec: 90,
     targetRestSec: 60,
     spBase: 5,
+    challengeTargetReps: 1,
     techniqueTip: 'Начинай с наклонной поверхности — так легче освоить технику.',
   );
 
@@ -185,6 +190,7 @@ class ExerciseCatalog {
     startRestSec: 45,
     targetRestSec: 20,
     spBase: 2, // per 10 seconds
+    challengeTargetReps: 30,
     techniqueTip: 'Напрягай пресс и ягодицы. Дыши ровно — не задерживай.',
   );
 
@@ -204,6 +210,7 @@ class ExerciseCatalog {
     startRestSec: 45,
     targetRestSec: 20,
     spBase: 1,
+    challengeTargetReps: 5,
     techniqueTip: 'Поясница прижата к полу на протяжении всего движения.',
   );
 
@@ -223,6 +230,7 @@ class ExerciseCatalog {
     startRestSec: 60,
     targetRestSec: 30,
     spBase: 2,
+    challengeTargetReps: 3,
     techniqueTip: 'Не раскачивайся — движение только за счёт пресса.',
   );
 
@@ -242,6 +250,7 @@ class ExerciseCatalog {
     startRestSec: 60,
     targetRestSec: 30,
     spBase: 3, // per 10 seconds
+    challengeTargetReps: 5,
     techniqueTip: 'Носки тяни на себя, плечи — вниз и назад.',
   );
 

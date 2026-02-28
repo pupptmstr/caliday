@@ -55,6 +55,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     );
     if (confirmed == true && context.mounted) {
       _timer?.cancel();
+      ref.read(challengeBranchProvider.notifier).state = null;
       context.pop();
     }
   }
@@ -80,6 +81,9 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
             'exerciseCount': mainCount,
             'freezeEarned': s.freezeEarned,
             'freezeUsed': s.freezeUsed,
+            'challengeUnlocked': s.challengeUnlocked,
+            'challengePassed': s.challengePassed,
+            'newStageExerciseId': s.newStageExerciseId,
           });
         }
       },

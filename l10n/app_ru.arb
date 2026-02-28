@@ -29,7 +29,20 @@
     }
   },
 
-  "homeChallengeUnlocked": "Challenge разблокирован!",
+  "homeChallengeUnlocked": "🏆 Испытание доступно",
+  "homeChallengeButton": "Принять вызов",
+  "homeChallengeNormReps": "Норматив: {n} повт.",
+  "@homeChallengeNormReps": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
+  "homeChallengeNormSec": "Норматив: {n} сек",
+  "@homeChallengeNormSec": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
   "homeWorkoutDone": "Тренировка выполнена",
   "homeWorkoutStart": "Тренировка дня",
 
@@ -84,6 +97,16 @@
   "summaryFreezeUsedBody": "Серия продолжается — так держать",
   "summaryFreezeEarnedTitle": "Получена заморозка стрика!",
   "summaryFreezeEarnedBody": "Используй, если пропустишь день",
+
+  "summaryChallengeUnlockedTitle": "Испытание ждёт! 🏆",
+  "summaryChallengeUnlockedBody": "Нажми «Принять вызов» на главном экране когда будешь готов",
+  "summaryChallengePassedTitle": "Новый этап! 🎉",
+  "summaryChallengePassedBody": "Ты перешёл на: {exercise}",
+  "@summaryChallengePassedBody": {
+    "placeholders": {
+      "exercise": {"type": "String"}
+    }
+  },
 
   "profileTitle": "Профиль",
   "profileMaxRank": "Максимальный ранг!",

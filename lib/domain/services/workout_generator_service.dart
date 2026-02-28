@@ -63,20 +63,6 @@ class WorkoutGeneratorService {
         sets: sets,
         restSec: progress.currentRestSec,
       ));
-
-      // If challenge is unlocked, add a single-rep preview of the next stage
-      // so the user gets a taste of what's coming.
-      if (progress.isChallengeUnlocked) {
-        final next = ExerciseCatalog.forStage(branch, progress.currentStage + 1);
-        if (next != null) {
-          exercises.add(PlannedExercise(
-            exercise: next,
-            targetAmount: next.startReps,
-            sets: 1,
-            restSec: next.startRestSec,
-          ));
-        }
-      }
     }
 
     // ── 3. Cooldown ───────────────────────────────────────────────────────────
@@ -101,6 +87,67 @@ class WorkoutGeneratorService {
     }
 
     return WorkoutPlan(setType: SetType.daily, exercises: exercises);
+  }
+
+  /// Generates a [SetType.challenge] plan for [branch].
+  ///
+  /// Structure: warmup → current stage (1 light set) → next stage
+  /// (challengeTargetReps) → cooldown.
+  /// Returns a daily plan as fallback if challenge is not available.
+  WorkoutPlan generateChallenge(BranchId branch) {
+    final progress = _progressRepo.getProgress(branch);
+    final current = ExerciseCatalog.forStage(branch, progress.currentStage);
+    final next = ExerciseCatalog.forStage(branch, progress.currentStage + 1);
+    if (current == null || next == null) return generateDaily(branches: [branch]);
+
+    final exercises = <PlannedExercise>[];
+
+    // 1. Warmup
+    final warmup = branch == BranchId.push
+        ? ExerciseCatalog.warmupArmRotations
+        : ExerciseCatalog.warmupJumpingJacks;
+    exercises.add(PlannedExercise(
+      exercise: warmup,
+      targetAmount: warmup.startReps,
+      sets: 1,
+      restSec: 0,
+    ));
+
+    // 2. Current stage — 1 light set as movement warm-up
+    exercises.add(PlannedExercise(
+      exercise: current,
+      targetAmount: current.startReps,
+      sets: 1,
+      restSec: progress.currentRestSec,
+    ));
+
+    // 3. Challenge exercise — next stage, challengeTargetReps as target
+    exercises.add(PlannedExercise(
+      exercise: next,
+      targetAmount: next.challengeTargetReps,
+      sets: 1,
+      restSec: next.startRestSec,
+    ));
+
+    // 4. Cooldown
+    if (branch == BranchId.push) {
+      exercises.add(PlannedExercise(
+        exercise: ExerciseCatalog.cooldownShoulderStretch,
+        targetAmount: ExerciseCatalog.cooldownShoulderStretch.startReps,
+        sets: 1,
+        restSec: 0,
+      ));
+    }
+    if (branch == BranchId.core) {
+      exercises.add(PlannedExercise(
+        exercise: ExerciseCatalog.cooldownCatCow,
+        targetAmount: ExerciseCatalog.cooldownCatCow.startReps,
+        sets: 1,
+        restSec: 0,
+      ));
+    }
+
+    return WorkoutPlan(setType: SetType.challenge, exercises: exercises);
   }
 }
 

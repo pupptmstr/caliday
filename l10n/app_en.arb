@@ -9,7 +9,10 @@
   "homeBranchPush": "Push",
   "homeBranchCore": "Core",
   "homeStage": "Stage {stage}/{total}",
-  "homeChallengeUnlocked": "Challenge unlocked!",
+  "homeChallengeUnlocked": "🏆 Challenge Ready",
+  "homeChallengeButton": "Accept Challenge",
+  "homeChallengeNormReps": "Goal: {n} reps",
+  "homeChallengeNormSec": "Goal: {n} sec",
   "homeWorkoutDone": "Workout done",
   "homeWorkoutStart": "Today's workout",
 
@@ -40,6 +43,11 @@
   "summaryFreezeUsedBody": "Streak continues — keep it up",
   "summaryFreezeEarnedTitle": "Streak freeze earned!",
   "summaryFreezeEarnedBody": "Use it if you miss a day",
+
+  "summaryChallengeUnlockedTitle": "Challenge awaits! 🏆",
+  "summaryChallengeUnlockedBody": "Tap «Accept Challenge» on the Home screen when you're ready",
+  "summaryChallengePassedTitle": "New stage! 🎉",
+  "summaryChallengePassedBody": "You've unlocked: {exercise}",
 
   "profileTitle": "Profile",
   "profileMaxRank": "Max rank!",
