@@ -890,6 +890,15 @@ class ExerciseCatalog {
     ...cooldowns,
   ];
 
+  /// Returns the ordered progression list for [branch].
+  static List<Exercise> progressionFor(BranchId branch) => switch (branch) {
+        BranchId.push => pushProgression,
+        BranchId.pull => pullProgression,
+        BranchId.core => coreProgression,
+        BranchId.legs => legsProgression,
+        BranchId.balance => balanceProgression,
+      };
+
   /// Returns the exercise for [branch] at [stage], or null if not found.
   static Exercise? forStage(BranchId branch, int stage) => switch (branch) {
         BranchId.push => pushProgression

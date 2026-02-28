@@ -40,6 +40,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeBranchBalance => 'Balance';
 
   @override
+  String branchJourneyProgress(int done, int total) {
+    return '$done of $total stages completed';
+  }
+
+  @override
+  String get branchJourneyStageCompleted => '✓ Completed';
+
+  @override
+  String get branchJourneyStageCurrent => 'Current stage';
+
+  @override
+  String get branchJourneyStageLocked => 'Locked';
+
+  @override
+  String branchJourneyParams(int reps, int sets, int rest) {
+    return '$reps reps × $sets sets  ·  Rest $rest s';
+  }
+
+  @override
+  String branchJourneyParamsTimed(int secs, int sets, int rest) {
+    return '$secs s × $sets sets  ·  Rest $rest s';
+  }
+
+  @override
   String homeStage(int stage, int total) {
     return 'Stage $stage/$total';
   }

@@ -152,6 +152,42 @@ abstract class AppLocalizations {
   /// **'Баланс'**
   String get homeBranchBalance;
 
+  /// No description provided for @branchJourneyProgress.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пройдено {done} из {total} этапов'**
+  String branchJourneyProgress(int done, int total);
+
+  /// No description provided for @branchJourneyStageCompleted.
+  ///
+  /// In ru, this message translates to:
+  /// **'✓ Пройдено'**
+  String get branchJourneyStageCompleted;
+
+  /// No description provided for @branchJourneyStageCurrent.
+  ///
+  /// In ru, this message translates to:
+  /// **'Текущий этап'**
+  String get branchJourneyStageCurrent;
+
+  /// No description provided for @branchJourneyStageLocked.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заблокировано'**
+  String get branchJourneyStageLocked;
+
+  /// No description provided for @branchJourneyParams.
+  ///
+  /// In ru, this message translates to:
+  /// **'{reps} повт. × {sets} подх.  ·  Отдых {rest} с'**
+  String branchJourneyParams(int reps, int sets, int rest);
+
+  /// No description provided for @branchJourneyParamsTimed.
+  ///
+  /// In ru, this message translates to:
+  /// **'{secs} с × {sets} подх.  ·  Отдых {rest} с'**
+  String branchJourneyParamsTimed(int secs, int sets, int rest);
+
   /// No description provided for @homeStage.
   ///
   /// In ru, this message translates to:

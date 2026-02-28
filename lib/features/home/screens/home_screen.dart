@@ -124,6 +124,7 @@ class HomeScreen extends ConsumerWidget {
                                     )?.id ??
                                 '',
                           ),
+                          onTap: () => context.push('/branch/${branch.name}'),
                         ),
                         if (data.progressMap[branch]!.isChallengeUnlocked) ...[
                           const SizedBox(height: 10),
@@ -204,11 +205,13 @@ class _BranchProgressCard extends StatelessWidget {
     required this.branch,
     required this.progress,
     required this.exerciseName,
+    this.onTap,
   });
 
   final BranchId branch;
   final SkillProgress progress;
   final String exerciseName;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -232,12 +235,14 @@ class _BranchProgressCard extends StatelessWidget {
               .clamp(0.0, 1.0);
     }
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest,
+    return Material(
+      color: scheme.surfaceContainerHighest,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        onTap: onTap,
         borderRadius: BorderRadius.circular(16),
-      ),
+        child: Container(
+      padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -303,6 +308,8 @@ class _BranchProgressCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+        ),
       ),
     );
   }

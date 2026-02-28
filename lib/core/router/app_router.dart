@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../data/models/enums.dart';
 import '../../data/repositories/user_repository.dart';
+import '../../features/home/screens/branch_journey_screen.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
@@ -80,6 +82,17 @@ final routerProvider = Provider<GoRouter>((ref) {
           final extras =
               state.extra as Map<String, dynamic>? ?? const {};
           return SummaryScreen(extras: extras);
+        },
+      ),
+      GoRoute(
+        path: '/branch/:branchId',
+        builder: (_, state) {
+          final name = state.pathParameters['branchId']!;
+          final branch = BranchId.values.firstWhere(
+            (b) => b.name == name,
+            orElse: () => BranchId.push,
+          );
+          return BranchJourneyScreen(branchId: branch);
         },
       ),
       GoRoute(

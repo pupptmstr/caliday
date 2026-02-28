@@ -11,6 +11,14 @@
   "homeBranchCore": "Core",
   "homeBranchLegs": "Legs",
   "homeBranchBalance": "Balance",
+
+  "branchJourneyProgress": "{done} of {total} stages completed",
+  "branchJourneyStageCompleted": "✓ Completed",
+  "branchJourneyStageCurrent": "Current stage",
+  "branchJourneyStageLocked": "Locked",
+  "branchJourneyParams": "{reps} reps × {sets} sets  ·  Rest {rest} s",
+  "branchJourneyParamsTimed": "{secs} s × {sets} sets  ·  Rest {rest} s",
+
   "homeStage": "Stage {stage}/{total}",
   "homeChallengeUnlocked": "🏆 Challenge Ready",
   "homeChallengeButton": "Accept Challenge",

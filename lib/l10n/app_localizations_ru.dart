@@ -40,6 +40,30 @@ class AppLocalizationsRu extends AppLocalizations {
   String get homeBranchBalance => 'Баланс';
 
   @override
+  String branchJourneyProgress(int done, int total) {
+    return 'Пройдено $done из $total этапов';
+  }
+
+  @override
+  String get branchJourneyStageCompleted => '✓ Пройдено';
+
+  @override
+  String get branchJourneyStageCurrent => 'Текущий этап';
+
+  @override
+  String get branchJourneyStageLocked => 'Заблокировано';
+
+  @override
+  String branchJourneyParams(int reps, int sets, int rest) {
+    return '$reps повт. × $sets подх.  ·  Отдых $rest с';
+  }
+
+  @override
+  String branchJourneyParamsTimed(int secs, int sets, int rest) {
+    return '$secs с × $sets подх.  ·  Отдых $rest с';
+  }
+
+  @override
   String homeStage(int stage, int total) {
     return 'Этап $stage/$total';
   }

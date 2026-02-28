@@ -24,6 +24,33 @@
   "homeBranchLegs": "Ноги",
   "homeBranchBalance": "Баланс",
 
+  "branchJourneyProgress": "Пройдено {done} из {total} этапов",
+  "@branchJourneyProgress": {
+    "placeholders": {
+      "done": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "branchJourneyStageCompleted": "✓ Пройдено",
+  "branchJourneyStageCurrent": "Текущий этап",
+  "branchJourneyStageLocked": "Заблокировано",
+  "branchJourneyParams": "{reps} повт. × {sets} подх.  ·  Отдых {rest} с",
+  "@branchJourneyParams": {
+    "placeholders": {
+      "reps": {"type": "int"},
+      "sets": {"type": "int"},
+      "rest": {"type": "int"}
+    }
+  },
+  "branchJourneyParamsTimed": "{secs} с × {sets} подх.  ·  Отдых {rest} с",
+  "@branchJourneyParamsTimed": {
+    "placeholders": {
+      "secs": {"type": "int"},
+      "sets": {"type": "int"},
+      "rest": {"type": "int"}
+    }
+  },
+
   "homeStage": "Этап {stage}/{total}",
   "@homeStage": {
     "placeholders": {

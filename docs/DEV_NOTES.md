@@ -1,4 +1,4 @@
-# CaliDay — Заметки разработки
+ # CaliDay — Заметки разработки
 
 Живой документ: фиксирует принятые решения, прогресс и следующие шаги.
 Обновляется по мере работы над проектом.
@@ -208,7 +208,9 @@ lib/
     │   ├── workout_screen.dart
     │   └── summary_screen.dart
     ├── profile/screens/profile_screen.dart
+    ├── home/screens/branch_journey_screen.dart ← NEW (сессия 24)
     ├── settings/screens/settings_screen.dart
+    ├── settings/screens/developer_options_screen.dart ← NEW (сессия 22)
     └── onboarding/screens/onboarding_screen.dart
 ```
 
@@ -352,12 +354,12 @@ Home screen читает `displayStreak`, а не `profile.currentStreak` нап
 - `routerProvider` — создаёт `GoRouter` с redirect-логикой:
   - нет профиля → всегда `/onboarding`
   - есть профиль + путь `/onboarding` → `/home`
-- Маршруты: `/onboarding`, `/home`, `/workout`, `/summary`, `/profile`, `/settings`
+- Маршруты: `/onboarding`, `/home`, `/workout`, `/summary`, `/profile`, `/settings`, `/branch/:branchId`, `/dev-options` (kDebugMode)
 - `CaliDayApp` переведён на `ConsumerWidget` + `MaterialApp.router`
 
 ### Онбординг (`lib/features/onboarding/`)
 
-**6 шагов** (PageView с `NeverScrollableScrollPhysics`, анимация через `ref.listen`):
+**7 шагов** (PageView с `NeverScrollableScrollPhysics`, анимация через `ref.listen`):
 
 | Шаг | Содержание |
 |-----|-----------|
@@ -366,7 +368,8 @@ Home screen читает `displayStreak`, а не `profile.currentStreak` нап
 | 2 | Сколько отжиманий? (4 варианта) |
 | 3 | Сколько минут в день? (3 варианта) |
 | 4 | К чему стремишься? (3 варианта) |
-| 5 | Во сколько напомнить? (6 пресетов) |
+| 5 | Есть ли турник дома? (Да / Нет) ← добавлен в сессии 23 |
+| 6 | Во сколько напомнить? (6 пресетов) |
 
 **Калибровка Push** по ответу на вопрос 2:
 - 0 отжиманий → stage 1, reps=3 (стена)
@@ -374,7 +377,7 @@ Home screen читает `displayStreak`, а не `profile.currentStreak` нап
 - 5–15 → stage 3, reps=5 (полные)
 - 15+ → stage 3, reps=10, sets=2
 
-По завершении: сохраняет `UserProfile` + `SkillProgress` для Push и Core, устанавливает `isOnboardingCompleteProvider = true` — роутер автоматически переходит на `/home`.
+По завершении: сохраняет `UserProfile` + `SkillProgress` для Push, Core, Legs, Balance, и Pull (если есть турник). `isOnboardingCompleteProvider = true` — роутер переходит на `/home`.
 
 **Виджеты:**
 - `OptionCard` — анимированная карточка ответа (emoji + label + description + checkmark)
@@ -541,7 +544,7 @@ extension GoroExpressionAsset on GoroExpression {
 
 ---
 
-## Экран «Возможности разработчика» (v1.1, только kDebugMode)
+## ~~Экран «Возможности разработчика»~~ ✅ ГОТОВО (session 22)
 
 **Проблема текущего подхода:** дебаг-кнопки вшиты прямо в `settings_screen.dart` как
 хардкодные сценарии (`Стрик → 6`, `Симулировать пропуск дня`). Под каждый новый тест
@@ -613,11 +616,11 @@ lib/features/settings/screens/
 └── developer_options_screen.dart  ← новый экран
 ```
 
-- Роутер: `/dev-options` — маршрут без локализации, только для дебага
-- Провайдер: `developerOptionsProvider` — локальный `StateNotifier`, хранит
-  копии профиля и прогресса in-memory до явного сохранения
-- Все сохраняющие действия через уже существующие репозитории (не дублировать логику)
-- После сохранения: `ref.invalidate(homeDataProvider)` чтобы Home обновился
+**Реализовано:**
+- `lib/features/settings/screens/developer_options_screen.dart` — полный экран (`ConsumerStatefulWidget`)
+- Роутер: `/dev-options` — добавлен под `if (kDebugMode)`
+- Плитка «Возможности разработчика» в `settings_screen.dart` под `if (kDebugMode)`
+- Использует все репозитории напрямую; после сохранения `ref.invalidate(homeDataProvider)`
 
 ---
 
@@ -773,32 +776,18 @@ final detectedLocale = systemLocale.languageCode == 'ru' ? 'ru' : 'en';
 3. Особое внимание: `_TimedDisplay` (круговой таймер), `_RepsDisplay` (±-счётчик)
    и карточки Home — они могут обрезаться на низком landscape-экране
 
-#### Экран «Путь прогрессии» ветки (Branch Journey Screen)
+#### ~~Экран «Путь прогрессии» ветки (Branch Journey Screen)~~ ✅ сессия 24
 
-Сейчас `_BranchProgressCard` — полностью не интерактивная. Нет `onTap`, нельзя узнать
-ничего кроме текущего этапа и прогресс-бара.
+**Реализовано:**
+- Маршрут `/branch/:branchId` в роутере
+- `lib/features/home/screens/branch_journey_screen.dart` — `BranchJourneyScreen(branchId: BranchId)`
+- Вертикальная timeline: `_StageCircle` (число / чекмарк / серый) + `_StageRow` (три состояния: `completed` / `current` / `locked`)
+- `_BranchProgressCard` на Home теперь `onTap: () => context.push('/branch/${branch.name}')`
+- `ExerciseCatalog.progressionFor(branch)` — новый статический метод
+- Шапка: «Пройдено X из Y этапов»; текущий этап показывает reps×sets, rest, прогресс-бар
 
-**Идея:** нажатие на карточку открывает отдельный экран — визуальный маршрут ветки.
-
-Что показывает экран:
-- Все этапы ветки в виде вертикальной временной шкалы (timeline)
-- Пройденные этапы — активные, с галочкой, можно раскрыть описание и технику
-- Текущий этап — выделен, показывает текущие параметры (reps/sets/rest) и прогресс-бар
-- Будущие этапы — заблокированы визуально (замок или серый цвет), но видно название
-- В заголовке: «Ты прошёл X из Y этапов»
-
-**Связь с анимациями упражнений (когда появятся в v1.1):**
-Рядом с каждым этапом на шкале — миниатюра анимации упражнения (Lottie/Rive).
-Пройденные и текущий этап: анимация воспроизводится. Будущие: статичный первый кадр,
-размытый или с иконкой замка поверх. Это даёт пользователю визуальное понимание
-«к чему я иду» без необходимости гуглить что такое «дракон флаг».
-
-**Архитектура:**
-- Новый маршрут `/branch/:branchId` в роутере
-- `BranchJourneyScreen(branchId)` — читает `ExerciseCatalog.pushProgression` /
-  `coreProgression` и текущий `SkillProgress` из репозитория
-- `_StageRow` — виджет одного этапа на шкале, три состояния: `completed` / `current` / `locked`
-- Зависит от наличия анимационных ассетов — реализовывать после v1.1 анимаций
+**Будущее улучшение (когда появятся анимации в v1.1):**
+Миниатюры Lottie/Rive рядом с каждым этапом — пройденные/текущий воспроизводятся, будущие затенены.
 
 ### v1.1 — Улучшения продукта
 
@@ -817,6 +806,28 @@ final detectedLocale = systemLocale.languageCode == 'ru' ? 'ru' : 'en';
 ---
 
 ## История изменений
+
+### 2026-03-01 — сессия 24 (Branch Journey Screen + DEV_NOTES cleanup)
+
+**Branch Journey Screen** — экран «Путь прогрессии» для каждой ветки.
+
+- `lib/features/home/screens/branch_journey_screen.dart` (новый экран)
+- `ExerciseCatalog.progressionFor(branch)` — новый метод в `exercise_catalog.dart`
+- Маршрут `/branch/:branchId` в `app_router.dart` (+ импорт `enums.dart`, `branch_journey_screen.dart`)
+- `_BranchProgressCard` на Home: добавлен параметр `onTap`, обёрнут в `Material + InkWell`
+- l10n: 7 новых ключей (`branchJourneyProgress`, `StageCompleted`, `StageCurrent`, `StageLocked`, `Params`, `ParamsTimed`)
+
+**DEV_NOTES.md**: developer_options_screen ✅, маршруты актуализированы, онбординг 7 шагов, Branch Journey ✅.
+
+**Изменённые файлы:**
+`lib/data/static/exercise_catalog.dart`, `lib/core/router/app_router.dart`,
+`lib/features/home/screens/home_screen.dart`,
+`lib/features/home/screens/branch_journey_screen.dart` (NEW),
+`l10n/app_ru.arb`, `l10n/app_en.arb`
+
+**Следующий шаг:** Home Screen Widget или анимации упражнений.
+
+---
 
 ### 2026-02-28 — сессия 23 (новые ветки прогрессии: Pull, Legs, Balance)
 
