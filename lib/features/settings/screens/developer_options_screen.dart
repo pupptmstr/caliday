@@ -582,14 +582,15 @@ class _DevRow extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             label,
             style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
           ),
-          const Spacer(),
-          child,
+          const SizedBox(height: 4),
+          Align(alignment: Alignment.centerRight, child: child),
         ],
       ),
     );
