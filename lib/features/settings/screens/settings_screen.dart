@@ -84,6 +84,29 @@ class SettingsScreen extends ConsumerWidget {
               onTap: () => _showLanguagePicker(context, state.locale, notifier.setLocale),
             ),
 
+            // ── Equipment section ────────────────────────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Text(
+                l10n.settingsSectionEquipment,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                  color: scheme.primary,
+                ),
+              ),
+            ),
+
+            _SettingsTile(
+              title: l10n.settingsEquipmentPullUpBar,
+              subtitle: l10n.settingsEquipmentPullUpBarSubtitle,
+              trailing: Switch(
+                value: state.hasPullUpBar,
+                onChanged: notifier.setHasPullUpBar,
+              ),
+            ),
+
             // ── Workout section ──────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),

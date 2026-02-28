@@ -28,7 +28,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeBranchPush => 'Push';
 
   @override
+  String get homeBranchPull => 'Pull';
+
+  @override
   String get homeBranchCore => 'Core';
+
+  @override
+  String get homeBranchLegs => 'Legs';
+
+  @override
+  String get homeBranchBalance => 'Balance';
 
   @override
   String homeStage(int stage, int total) {
@@ -238,6 +247,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsThemeDark => 'Dark';
 
   @override
+  String get settingsSectionEquipment => 'EQUIPMENT';
+
+  @override
+  String get settingsEquipmentPullUpBar => 'Pull-up bar at home';
+
+  @override
+  String get settingsEquipmentPullUpBarSubtitle =>
+      'Enables the Pull skill progression branch';
+
+  @override
   String get settingsSectionWorkout => 'WORKOUT';
 
   @override
@@ -294,7 +313,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingQ4 => 'What\'s your goal?';
 
   @override
-  String get onboardingQ5 => 'When should we remind you to work out?';
+  String get onboardingQ5 => 'Do you have a pull-up bar or rings at home?';
+
+  @override
+  String get onboardingEquipmentYes => 'Yes, I do';
+
+  @override
+  String get onboardingEquipmentNo => 'No';
+
+  @override
+  String get onboardingQ6 => 'When should we remind you to work out?';
 
   @override
   String get frequencyNeverLabel => 'Never';
@@ -540,4 +568,231 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get exerciseCooldownCatCowDesc =>
       'On all fours: inhale and arch your back down (cow), exhale and round it up (cat). Releases tension in the lower back and abs.';
+
+  @override
+  String get exercisePullS1AustralianName => 'Australian Pull-up';
+
+  @override
+  String get exercisePullS1AustralianDesc =>
+      'Lie under a bar with a slightly wider than shoulder-width grip. Pull your chest to the bar, keeping your body in a straight line. Control the descent.';
+
+  @override
+  String get exercisePullS1AustralianTip =>
+      'The lower the bar, the harder the exercise.';
+
+  @override
+  String get exercisePullS2NegativeName => 'Negative Pull-up';
+
+  @override
+  String get exercisePullS2NegativeDesc =>
+      'Jump up with your chin above the bar. Slowly lower yourself over 3–5 seconds until your arms are fully extended.';
+
+  @override
+  String get exercisePullS2NegativeTip =>
+      'The slower you lower — the better. Aim for 5 seconds down.';
+
+  @override
+  String get exercisePullS3PullupName => 'Pull-up';
+
+  @override
+  String get exercisePullS3PullupDesc =>
+      'Shoulder-width or slightly wider grip. Pull your chest to the bar until your chin is above it. Fully extend your arms at the bottom.';
+
+  @override
+  String get exercisePullS3PullupTip =>
+      'Squeeze your shoulder blades — you\'re pulling with your back, not your arms.';
+
+  @override
+  String get exercisePullS4CloseGripName => 'Close-Grip Pull-up';
+
+  @override
+  String get exercisePullS4CloseGripDesc =>
+      'Grip narrower than shoulder-width, palms facing you or away. Targets the biceps and lower lats. Pull your chest to the bar.';
+
+  @override
+  String get exercisePullS4CloseGripTip =>
+      'Keep elbows tucked in for maximum bicep engagement.';
+
+  @override
+  String get exercisePullS5ArcherName => 'Archer Pull-up';
+
+  @override
+  String get exercisePullS5ArcherDesc =>
+      'Wide grip. Pull your body toward one arm while keeping the other arm straight. Alternate each side.';
+
+  @override
+  String get exercisePullS5ArcherTip =>
+      'Straight arm is for support; working arm goes full range.';
+
+  @override
+  String get exercisePullS6OneArmName => 'One-Arm Pull-up';
+
+  @override
+  String get exercisePullS6OneArmDesc =>
+      'One hand on the bar, the other on your wrist or free. Full range of motion with the working arm.';
+
+  @override
+  String get exercisePullS6OneArmTip => 'Keep your core tight — don\'t swing.';
+
+  @override
+  String get exerciseWarmupDeadHangName => 'Dead Hang';
+
+  @override
+  String get exerciseWarmupDeadHangDesc =>
+      'Hang from the bar with an overhand grip, arms fully extended. Relax your shoulders and hold the hang.';
+
+  @override
+  String get exerciseCooldownLatStretchName => 'Lat Stretch';
+
+  @override
+  String get exerciseCooldownLatStretchDesc =>
+      'Stand sideways to a wall, raise one arm and press against it. Lean into the stretch to feel it along your side.';
+
+  @override
+  String get exerciseLegsS1SquatName => 'Squat';
+
+  @override
+  String get exerciseLegsS1SquatDesc =>
+      'Feet shoulder-width apart, toes slightly turned out. Squat until thighs are parallel to the floor, knees over toes. Extend fully at the top.';
+
+  @override
+  String get exerciseLegsS1SquatTip =>
+      'Keep heels on the floor and chest upright.';
+
+  @override
+  String get exerciseLegsS2LungeName => 'Lunge';
+
+  @override
+  String get exerciseLegsS2LungeDesc =>
+      'Step forward and lower your back knee toward the floor without touching it. Both knees at 90°. Push off with the front foot to return.';
+
+  @override
+  String get exerciseLegsS2LungeTip => 'Keep your front knee behind your toes.';
+
+  @override
+  String get exerciseLegsS3BulgarianName => 'Bulgarian Split Squat';
+
+  @override
+  String get exerciseLegsS3BulgarianDesc =>
+      'Rear foot elevated on a chair or couch. Lower your front leg until your thigh is parallel to the floor. Keep your torso upright.';
+
+  @override
+  String get exerciseLegsS3BulgarianTip =>
+      'The further your front foot, the more glute activation.';
+
+  @override
+  String get exerciseLegsS4AssistedPistolName => 'Assisted Pistol Squat';
+
+  @override
+  String get exerciseLegsS4AssistedPistolDesc =>
+      'Hold a door frame or pole for support. Squat on one leg while keeping the other straight in front of you. Use the support to reduce load.';
+
+  @override
+  String get exerciseLegsS4AssistedPistolTip =>
+      'Gradually reduce hand assistance as you get stronger.';
+
+  @override
+  String get exerciseLegsS5PistolName => 'Pistol Squat';
+
+  @override
+  String get exerciseLegsS5PistolDesc =>
+      'Single-leg squat without support. Other leg straight in front. Full range of motion to the floor and back up.';
+
+  @override
+  String get exerciseLegsS5PistolTip =>
+      'Arms forward as a counterweight — it helps with balance.';
+
+  @override
+  String get exerciseWarmupLegSwingsName => 'Leg Swings';
+
+  @override
+  String get exerciseWarmupLegSwingsDesc =>
+      'Standing by a wall, swing one leg forward and back, then side to side. Warms up the hip joint.';
+
+  @override
+  String get exerciseCooldownQuadStretchName => 'Quad Stretch';
+
+  @override
+  String get exerciseCooldownQuadStretchDesc =>
+      'Stand on one leg, bend the other back and hold your foot with your hand. Feel the stretch along the front of your thigh.';
+
+  @override
+  String get exerciseBalS1OneLegStandName => 'One-Leg Stand';
+
+  @override
+  String get exerciseBalS1OneLegStandDesc =>
+      'Stand on one leg, keep the other slightly bent and off the ground. Arms can be out for balance.';
+
+  @override
+  String get exerciseBalS1OneLegStandTip =>
+      'Fix your gaze on a point — it greatly improves balance.';
+
+  @override
+  String get exerciseBalS2OneArmPlankName => 'One-Arm Plank';
+
+  @override
+  String get exerciseBalS2OneArmPlankDesc =>
+      'Classic straight-arm plank. Lift one hand off the floor and hold the position, body parallel to the floor.';
+
+  @override
+  String get exerciseBalS2OneArmPlankTip =>
+      'Keep your hips parallel to the floor — don\'t rotate your torso.';
+
+  @override
+  String get exerciseBalS3CrowPrepName => 'Crow Pose Prep';
+
+  @override
+  String get exerciseBalS3CrowPrepDesc =>
+      'Squat with knees on your triceps. Shift weight onto your hands, gently lifting your feet. Hold the balance.';
+
+  @override
+  String get exerciseBalS3CrowPrepTip =>
+      'Look forward-down, not straight down — or you\'ll tip over.';
+
+  @override
+  String get exerciseBalS4CrowPoseName => 'Crow Pose (Kakasana)';
+
+  @override
+  String get exerciseBalS4CrowPoseDesc =>
+      'Both knees on your triceps, full balance on your hands. Arms slightly bent, fingers spread wide.';
+
+  @override
+  String get exerciseBalS4CrowPoseTip =>
+      'Round your back — it engages your core and provides balance.';
+
+  @override
+  String get exerciseBalS5WallHsName => 'Wall Handstand';
+
+  @override
+  String get exerciseBalS5WallHsDesc =>
+      'Kick up into a handstand with your back to the wall. Heels touch the wall for support. Hold the position, body in a straight line.';
+
+  @override
+  String get exerciseBalS5WallHsTip =>
+      'Spread fingers wide and press through the pads — that\'s your balance control.';
+
+  @override
+  String get exerciseBalS6FreeHsName => 'Free Handstand';
+
+  @override
+  String get exerciseBalS6FreeHsDesc =>
+      'Handstand without wall support. Control balance with small finger and wrist movements.';
+
+  @override
+  String get exerciseBalS6FreeHsTip =>
+      'Look at the floor 30–40 cm in front of your hands, not between them.';
+
+  @override
+  String get exerciseWarmupWristCirclesName => 'Wrist Circles';
+
+  @override
+  String get exerciseWarmupWristCirclesDesc =>
+      'Rotate your wrists clockwise and counter-clockwise. Prepares your joints for weight-bearing on your hands.';
+
+  @override
+  String get exerciseCooldownDownwardDogName => 'Downward Dog';
+
+  @override
+  String get exerciseCooldownDownwardDogDesc =>
+      'From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs.';
 }

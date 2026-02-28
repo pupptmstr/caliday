@@ -20,6 +20,7 @@ class Exercise {
     required this.targetRestSec,
     required this.spBase,
     this.challengeTargetReps = 0,
+    this.requiresEquipment = false,
     this.techniqueTip,
     this.imagePath,
   });
@@ -65,6 +66,9 @@ class Exercise {
   /// Minimum reps (or seconds for timed) to complete the Challenge
   /// and advance to the next stage. 0 for warmup/cooldown and final stages.
   final int challengeTargetReps;
+
+  /// Whether this exercise requires gym equipment (e.g. pull-up bar).
+  final bool requiresEquipment;
 
   /// Optional short technique cue shown during workout.
   final String? techniqueTip;

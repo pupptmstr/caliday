@@ -141,3 +141,31 @@ extension RankLocalization on Rank {
         Rank.legend => l10n.rankLegend,
       };
 }
+
+extension BranchIdExtension on BranchId {
+  String get emoji => switch (this) {
+        BranchId.push => '💪',
+        BranchId.pull => '🏋️',
+        BranchId.core => '🎯',
+        BranchId.legs => '🦵',
+        BranchId.balance => '⚖️',
+      };
+
+  String localizedName(AppLocalizations l10n) => switch (this) {
+        BranchId.push => l10n.homeBranchPush,
+        BranchId.pull => l10n.homeBranchPull,
+        BranchId.core => l10n.homeBranchCore,
+        BranchId.legs => l10n.homeBranchLegs,
+        BranchId.balance => l10n.homeBranchBalance,
+      };
+
+  int get stageCount => switch (this) {
+        BranchId.push => 7,
+        BranchId.pull => 6,
+        BranchId.core => 6,
+        BranchId.legs => 5,
+        BranchId.balance => 6,
+      };
+
+  bool get requiresEquipment => this == BranchId.pull;
+}

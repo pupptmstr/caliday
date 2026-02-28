@@ -333,8 +333,8 @@ Home screen читает `displayStreak`, а не `profile.currentStreak` нап
 - `nextExercise(progress)` — возвращает следующий этап из каталога
 
 **`WorkoutGeneratorService`** (`workoutGeneratorServiceProvider`)
-- `generateDaily({branches, preferredMinutes})` — генерирует `WorkoutPlan`: разминка → Push → Core → заминка. Если `isChallengeUnlocked` — превью **НЕ добавляется** (убрано в v1.1).
-- `generateChallenge(branch)` — Challenge-план для одной ветки: разминка → текущий этап (1 лёгкий сет) → следующий этап (`challengeTargetReps`) → заминка. Fallback на `generateDaily` если ветка завершена.
+- `generateDaily({activeBranches, preferredMinutes, dayIndexOverride?})` — ротация веток по dayIndex (дни с 2020-01-01): N = min(2,total) при ≤5мин, min(3,total) при 10мин, total при ≥15мин. Warmup от первой ветки, cooldowns max 2 уникальных. Sets = progress.currentSets.
+- `generateChallenge(branch)` — Challenge-план: `warmupFor(branch)` → текущий этап (1 лёгкий сет) → следующий этап (`challengeTargetReps`) → `cooldownsFor(branch).first`. Fallback на `generateDaily` если ветка завершена.
 - Зависит от `SkillProgressRepository` через конструктор (инжектируется Riverpod)
 
 ### Паттерн мутации
@@ -818,6 +818,52 @@ final detectedLocale = systemLocale.languageCode == 'ru' ? 'ru' : 'en';
 
 ## История изменений
 
+### 2026-02-28 — сессия 23 (новые ветки прогрессии: Pull, Legs, Balance)
+
+**Добавлены три новые ветки прогрессии + система ротации веток по дням.**
+
+**Новые упражнения в каталоге (`exercise_catalog.dart`):**
+- Pull (6 этапов, requiresEquipment: true): `pull_s1_australian` → `pull_s6_one_arm`
+- Legs (5 этапов): `legs_s1_squat` → `legs_s5_pistol`
+- Balance (6 этапов, timed): `bal_s1_one_leg_stand` → `bal_s6_free_hs`
+- Новые аксессуары (stage=0): `warmup_dead_hang`, `warmup_leg_swings`, `warmup_wrist_circles`, `cooldown_lat_stretch`, `cooldown_quad_stretch`, `cooldown_downward_dog`
+
+**Архитектурные изменения:**
+- `Exercise.requiresEquipment: bool` — новое поле (default=false)
+- `ExerciseCatalog.warmupFor(branch)` / `cooldownsFor(branch)` — новые методы выбора аксессуаров по ветке
+- `ExerciseCatalog.forStage()` — переписан на switch expression, поддерживает все 5 веток
+- `BranchIdExtension` в enums.dart — emoji, localizedName, stageCount, requiresEquipment
+- `UserProfile.hasPullUpBar @HiveField(15) bool?` — флаг наличия турника (null = не спрошено)
+- `UserProfile.activeBranches` — computed getter: [push, pull (если hasPullUpBar), core, legs, balance]
+- `user_profile.g.dart` — writeByte 15→16, добавлен hasPullUpBar
+- `WorkoutGeneratorService.generateDaily()` — детерминированная ротация веток по dayIndex; N веток зависит от preferredMinutes (≤5→2, 10→3, ≥15→все); sets из progress
+- `HomeData` — заменены pushProgress/coreProgress на `progressMap: Map<BranchId, SkillProgress>`
+- `HomeScreen` — динамические карточки на основе `profile.activeBranches`; `_BranchProgressCard` принимает `branch: BranchId` вместо emoji/branchName/totalStages
+- `WorkoutNotifier._buildPlan` — передаёт `profile.activeBranches` в generateDaily
+- Онбординг: 7 шагов (lastStep: 5→6), новый шаг 5 «Турник дома»; инициализация Legs, Balance, Pull (если турник) в completeOnboarding
+- Settings: секция «ОБОРУДОВАНИЕ» с Switch турника; `SettingsState.hasPullUpBar`, `setHasPullUpBar()`
+- l10n: ~100 новых ключей (ветки + упражнения + оборудование + онбординг)
+- `exercise_l10n.dart` — добавлены все новые упражнения
+
+**Изменённые файлы:**
+`lib/data/models/exercise.dart`, `lib/data/static/exercise_catalog.dart`,
+`lib/data/models/enums.dart`, `lib/data/models/user_profile.dart`,
+`lib/data/models/user_profile.g.dart`,
+`lib/domain/services/workout_generator_service.dart`,
+`lib/features/home/providers/home_provider.dart`,
+`lib/features/home/screens/home_screen.dart`,
+`lib/features/workout/providers/workout_provider.dart`,
+`lib/features/onboarding/providers/onboarding_provider.dart`,
+`lib/features/onboarding/screens/onboarding_screen.dart`,
+`lib/features/settings/providers/settings_provider.dart`,
+`lib/features/settings/screens/settings_screen.dart`,
+`lib/core/extensions/exercise_l10n.dart`,
+`l10n/app_ru.arb`, `l10n/app_en.arb`
+
+**Следующий шаг:** Branch Journey Screen или Home Screen Widget.
+
+---
+
 ### 2026-02-28 — сессия 22 (тёмная тема + ручное переключение)
 
 **Поддержка тёмной темы** с возможностью ручного выбора в настройках.
@@ -834,7 +880,7 @@ final detectedLocale = systemLocale.languageCode == 'ru' ? 'ru' : 'en';
 `lib/core/providers/theme_provider.dart` (NEW), `lib/features/settings/providers/settings_provider.dart`,
 `lib/features/settings/screens/settings_screen.dart`, `l10n/app_ru.arb`, `l10n/app_en.arb`
 
-**Следующий шаг:** новые ветки прогрессии (Pull, Legs, Balance) или Home Screen Widget.
+**Следующий шаг:** Branch Journey Screen или Home Screen Widget.
 
 ---
 

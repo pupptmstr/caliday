@@ -25,6 +25,7 @@ class UserProfile extends HiveObject {
     this.preferredWorkoutMinutes,
     this.fitnessGoal,
     this.themeModeName,
+    this.hasPullUpBar,
   });
 
   @HiveField(0)
@@ -85,4 +86,18 @@ class UserProfile extends HiveObject {
   /// Stored as a string key: 'light' | 'dark' | null (system).
   @HiveField(14)
   String? themeModeName;
+
+  /// Whether the user has a pull-up bar at home.
+  /// null means the question was not yet asked (treated as false).
+  @HiveField(15)
+  bool? hasPullUpBar;
+
+  /// Ordered list of branches active for this user.
+  List<BranchId> get activeBranches => [
+        BranchId.push,
+        if (hasPullUpBar == true) BranchId.pull,
+        BranchId.core,
+        BranchId.legs,
+        BranchId.balance,
+      ];
 }

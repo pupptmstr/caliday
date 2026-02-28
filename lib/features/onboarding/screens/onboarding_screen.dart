@@ -62,6 +62,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       _PushupStep(),
                       _DurationStep(),
                       _GoalStep(),
+                      _PullUpBarStep(),
                       _ReminderStep(),
                     ],
                   ),
@@ -187,7 +188,7 @@ class _TopBar extends StatelessWidget {
                   )
                 : null,
           ),
-          // Progress dots (steps 1–5; step 0 is the welcome page).
+          // Progress dots (steps 1–6; step 0 is the welcome page).
           Expanded(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -422,7 +423,39 @@ class _GoalStep extends ConsumerWidget {
   }
 }
 
-// ── Step 5: Reminder time ─────────────────────────────────────────────────────
+// ── Step 5: Pull-up bar ───────────────────────────────────────────────────────
+
+class _PullUpBarStep extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final selected =
+        ref.watch(onboardingProvider.select((s) => s.hasPullUpBar));
+    final notifier = ref.read(onboardingProvider.notifier);
+    final l10n = context.l10n;
+
+    return _StepScaffold(
+      question: l10n.onboardingQ5,
+      children: [
+        OptionCard(
+          emoji: '🏋️',
+          label: l10n.onboardingEquipmentYes,
+          description: '',
+          isSelected: selected == true,
+          onTap: () => notifier.selectHasPullUpBar(true),
+        ),
+        OptionCard(
+          emoji: '🏠',
+          label: l10n.onboardingEquipmentNo,
+          description: '',
+          isSelected: selected == false,
+          onTap: () => notifier.selectHasPullUpBar(false),
+        ),
+      ],
+    );
+  }
+}
+
+// ── Step 6: Reminder time ─────────────────────────────────────────────────────
 
 class _ReminderStep extends ConsumerWidget {
   static const _presets = [
@@ -444,7 +477,7 @@ class _ReminderStep extends ConsumerWidget {
     final l10n = context.l10n;
 
     return _StepScaffold(
-      question: l10n.onboardingQ5,
+      question: l10n.onboardingQ6,
       children: _presets.map((p) {
         final isSelected = hour == p.$1 && minute == p.$2;
         return OptionCard(

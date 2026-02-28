@@ -18,6 +18,7 @@ class SettingsState {
     required this.locale,
     required this.preferredWorkoutMinutes,
     required this.themeMode,
+    required this.hasPullUpBar,
   });
 
   final bool notificationsEnabled;
@@ -28,6 +29,7 @@ class SettingsState {
   final String locale;
   final int preferredWorkoutMinutes;
   final ThemeMode themeMode;
+  final bool hasPullUpBar;
 
   /// Notification time as a zero-padded string, e.g. "09:00".
   String get timeLabel {
@@ -45,6 +47,7 @@ class SettingsState {
     String? locale,
     int? preferredWorkoutMinutes,
     ThemeMode? themeMode,
+    bool? hasPullUpBar,
   }) {
     return SettingsState(
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
@@ -57,6 +60,7 @@ class SettingsState {
       preferredWorkoutMinutes:
           preferredWorkoutMinutes ?? this.preferredWorkoutMinutes,
       themeMode: themeMode ?? this.themeMode,
+      hasPullUpBar: hasPullUpBar ?? this.hasPullUpBar,
     );
   }
 }
@@ -80,6 +84,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       locale: p.locale ?? 'ru',
       preferredWorkoutMinutes: p.preferredWorkoutMinutes ?? 10,
       themeMode: themeModeFromString(p.themeModeName),
+      hasPullUpBar: p.hasPullUpBar ?? false,
     );
   }
 
@@ -123,6 +128,12 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
     final p = _userRepo.getProfile()..themeModeName = themeModeToString(mode);
     _userRepo.saveProfile(p);
     _ref.read(themeProvider.notifier).state = mode;
+  }
+
+  void setHasPullUpBar(bool value) {
+    state = state.copyWith(hasPullUpBar: value);
+    final p = _userRepo.getProfile()..hasPullUpBar = value;
+    _userRepo.saveProfile(p);
   }
 
   void _save() {

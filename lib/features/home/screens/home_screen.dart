@@ -22,12 +22,6 @@ class HomeScreen extends ConsumerWidget {
     final scheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
 
-    // Resolve exercise IDs for l10n lookup.
-    final pushId = ExerciseCatalog.forStage(
-          BranchId.push, data.pushProgress.currentStage)?.id ?? '';
-    final coreId = ExerciseCatalog.forStage(
-          BranchId.core, data.coreProgress.currentStage)?.id ?? '';
-
     return Scaffold(
       backgroundColor: scheme.surface,
       body: SafeArea(
@@ -112,31 +106,38 @@ class HomeScreen extends ConsumerWidget {
               ),
               const SizedBox(height: 12),
 
-              _BranchProgressCard(
-                emoji: '💪',
-                branchName: l10n.homeBranchPush,
-                progress: data.pushProgress,
-                totalStages: ExerciseCatalog.pushProgression.length,
-                exerciseName: ExerciseL10n.name(l10n, pushId),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      for (final branch in data.activeBranches) ...[
+                        if (branch != data.activeBranches.first)
+                          const SizedBox(height: 10),
+                        _BranchProgressCard(
+                          branch: branch,
+                          progress: data.progressMap[branch]!,
+                          exerciseName: ExerciseL10n.name(
+                            l10n,
+                            ExerciseCatalog.forStage(
+                                      branch,
+                                      data.progressMap[branch]!.currentStage,
+                                    )?.id ??
+                                '',
+                          ),
+                        ),
+                        if (data.progressMap[branch]!.isChallengeUnlocked) ...[
+                          const SizedBox(height: 10),
+                          _ChallengeCard(
+                            branch: branch,
+                            progress: data.progressMap[branch]!,
+                          ),
+                        ],
+                      ],
+                      const SizedBox(height: 16),
+                    ],
+                  ),
+                ),
               ),
-              if (data.pushProgress.isChallengeUnlocked) ...[
-                const SizedBox(height: 10),
-                _ChallengeCard(branch: BranchId.push, progress: data.pushProgress),
-              ],
-              const SizedBox(height: 10),
-              _BranchProgressCard(
-                emoji: '🎯',
-                branchName: l10n.homeBranchCore,
-                progress: data.coreProgress,
-                totalStages: ExerciseCatalog.coreProgression.length,
-                exerciseName: ExerciseL10n.name(l10n, coreId),
-              ),
-              if (data.coreProgress.isChallengeUnlocked) ...[
-                const SizedBox(height: 10),
-                _ChallengeCard(branch: BranchId.core, progress: data.coreProgress),
-              ],
-
-              const Spacer(),
 
               // ── Daily workout button ───────────────────────────────────
               _WorkoutButton(
@@ -200,17 +201,13 @@ class _StatChip extends StatelessWidget {
 
 class _BranchProgressCard extends StatelessWidget {
   const _BranchProgressCard({
-    required this.emoji,
-    required this.branchName,
+    required this.branch,
     required this.progress,
-    required this.totalStages,
     required this.exerciseName,
   });
 
-  final String emoji;
-  final String branchName;
+  final BranchId branch;
   final SkillProgress progress;
-  final int totalStages;
   final String exerciseName;
 
   @override
@@ -246,7 +243,7 @@ class _BranchProgressCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(emoji, style: const TextStyle(fontSize: 24)),
+              Text(branch.emoji, style: const TextStyle(fontSize: 24)),
               const SizedBox(width: 10),
               Expanded(
                 child: Column(
@@ -256,14 +253,15 @@ class _BranchProgressCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          branchName,
+                          branch.localizedName(l10n),
                           style: const TextStyle(
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         Text(
-                          l10n.homeStage(progress.currentStage, totalStages),
+                          l10n.homeStage(
+                              progress.currentStage, branch.stageCount),
                           style: TextStyle(
                             fontSize: 12,
                             color: scheme.onSurfaceVariant,

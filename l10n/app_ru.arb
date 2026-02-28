@@ -19,7 +19,10 @@
   "homeDays": "дней",
   "homeBranchesTitle": "Ветки прогрессии",
   "homeBranchPush": "Толкай",
+  "homeBranchPull": "Тяга",
   "homeBranchCore": "Кор",
+  "homeBranchLegs": "Ноги",
+  "homeBranchBalance": "Баланс",
 
   "homeStage": "Этап {stage}/{total}",
   "@homeStage": {
@@ -145,6 +148,10 @@
   "settingsThemeLight": "Светлая",
   "settingsThemeDark": "Тёмная",
 
+  "settingsSectionEquipment": "ОБОРУДОВАНИЕ",
+  "settingsEquipmentPullUpBar": "Турник дома",
+  "settingsEquipmentPullUpBarSubtitle": "Открывает ветку прогрессии «Тяга»",
+
   "settingsSectionWorkout": "ТРЕНИРОВКА",
   "settingsWorkoutDurationTitle": "Длительность сета",
   "settingsWorkoutDurationSubtitle": "Сколько минут уделять ежедневной тренировке",
@@ -165,7 +172,10 @@
   "onboardingQ2": "Сколько отжиманий ты можешь сделать?",
   "onboardingQ3": "Сколько минут в день готов уделять?",
   "onboardingQ4": "К чему ты стремишься?",
-  "onboardingQ5": "Во сколько напомнить о тренировке?",
+  "onboardingQ5": "Есть ли у тебя турник или кольца дома?",
+  "onboardingEquipmentYes": "Да, есть",
+  "onboardingEquipmentNo": "Нет",
+  "onboardingQ6": "Во сколько напомнить о тренировке?",
 
   "frequencyNeverLabel": "Никогда",
   "frequencyNeverDesc": "Только начинаю",
@@ -264,5 +274,91 @@
   "exerciseCooldownShoulderStretchDesc": "Заведи руки за спину, сцепи пальцы и потяни плечи назад-вниз. Удержи 30 секунд.",
 
   "exerciseCooldownCatCowName": "Кошка-корова",
-  "exerciseCooldownCatCowDesc": "На четвереньках: на вдохе прогибай спину вниз (корова), на выдохе округляй вверх (кошка). Расслабляет поясницу и пресс."
+  "exerciseCooldownCatCowDesc": "На четвереньках: на вдохе прогибай спину вниз (корова), на выдохе округляй вверх (кошка). Расслабляет поясницу и пресс.",
+
+  "exercisePullS1AustralianName": "Австралийское подтягивание",
+  "exercisePullS1AustralianDesc": "Лёжа под перекладиной, хват чуть шире плеч. Тяни грудь к перекладине, держа тело прямой линией. Контролируй опускание.",
+  "exercisePullS1AustralianTip": "Чем ниже опускаешь перекладину, тем сложнее упражнение.",
+
+  "exercisePullS2NegativeName": "Негативные подтягивания",
+  "exercisePullS2NegativeDesc": "Запрыгни на перекладину с подбородком выше неё. Медленно опускайся в течение 3–5 секунд до полного выпрямления рук.",
+  "exercisePullS2NegativeTip": "Чем медленнее опускаешься — тем лучше. Цель: 5 сек вниз.",
+
+  "exercisePullS3PullupName": "Подтягивания",
+  "exercisePullS3PullupDesc": "Хват на ширине плеч или чуть шире. Тяни грудь к перекладине, пока подбородок не окажется выше неё. Полностью выпрямляй руки внизу.",
+  "exercisePullS3PullupTip": "Сводя лопатки — тянешь спиной, а не руками.",
+
+  "exercisePullS4CloseGripName": "Подтягивания узким хватом",
+  "exercisePullS4CloseGripDesc": "Хват уже плеч, ладони к себе или от себя. Акцент на бицепс и нижнюю часть широчайших. Подтягивай грудь к перекладине.",
+  "exercisePullS4CloseGripTip": "Локти прижимай к корпусу для максимальной нагрузки на бицепс.",
+
+  "exercisePullS5ArcherName": "Подтягивания лучника",
+  "exercisePullS5ArcherDesc": "Широкий хват. Тяни тело в сторону одной руки, вторую держи прямой. Поочерёдно на каждую сторону.",
+  "exercisePullS5ArcherTip": "Прямая рука — вспомогательная, рабочая — полный диапазон.",
+
+  "exercisePullS6OneArmName": "Подтягивание на одной руке",
+  "exercisePullS6OneArmDesc": "Одна рука держит перекладину, вторая — на запястье или свободна. Полный диапазон движения рабочей рукой.",
+  "exercisePullS6OneArmTip": "Держи корпус стабильным — не раскачивайся.",
+
+  "exerciseWarmupDeadHangName": "Вис на перекладине",
+  "exerciseWarmupDeadHangDesc": "Повисни на перекладине прямым хватом, руки полностью выпрямлены. Расслабь плечи и удержи вис.",
+
+  "exerciseCooldownLatStretchName": "Растяжка широчайших",
+  "exerciseCooldownLatStretchDesc": "Встань боком к стене, подними руку вверх и упрись в стену. Наклонись в сторону, чувствуя растяжку сбоку.",
+
+  "exerciseLegsS1SquatName": "Приседания",
+  "exerciseLegsS1SquatDesc": "Ноги на ширине плеч, носки чуть развёрнуты. Приседай до параллели бёдер с полом, колени над носками. Выпрямляй ноги в верхней точке.",
+  "exerciseLegsS1SquatTip": "Пятки не отрывай от пола, грудь держи прямо.",
+
+  "exerciseLegsS2LungeName": "Выпады",
+  "exerciseLegsS2LungeDesc": "Шаг вперёд, опусти заднее колено к полу, не касаясь. Оба колена под углом 90°. Оттолкнись передней ногой и вернись в исходное.",
+  "exerciseLegsS2LungeTip": "Переднее колено не уходи за носок.",
+
+  "exerciseLegsS3BulgarianName": "Болгарские сплит-приседания",
+  "exerciseLegsS3BulgarianDesc": "Задняя нога на возвышении (стул, диван). Опускай переднюю ногу до параллели бедра с полом. Торс прямой.",
+  "exerciseLegsS3BulgarianTip": "Чем дальше передняя нога — тем больше нагрузка на ягодицы.",
+
+  "exerciseLegsS4AssistedPistolName": "Пистолетик с опорой",
+  "exerciseLegsS4AssistedPistolDesc": "Держись за дверной косяк или стойку. Приседай на одной ноге, вторую держи прямой перед собой. Опора снижает нагрузку.",
+  "exerciseLegsS4AssistedPistolTip": "Постепенно уменьшай помощь рук по мере роста силы.",
+
+  "exerciseLegsS5PistolName": "Пистолетик",
+  "exerciseLegsS5PistolDesc": "Приседание на одной ноге без опоры. Вторая нога прямая перед собой. Полная амплитуда до пола и обратно.",
+  "exerciseLegsS5PistolTip": "Руки вперёд для противовеса — помогает с балансом.",
+
+  "exerciseWarmupLegSwingsName": "Махи ногами",
+  "exerciseWarmupLegSwingsDesc": "Стоя у стены, делай маховые движения прямой ногой вперёд-назад и в стороны. Разминает тазобедренный сустав.",
+
+  "exerciseCooldownQuadStretchName": "Растяжка квадрицепса",
+  "exerciseCooldownQuadStretchDesc": "Стоя на одной ноге, согни вторую назад и удержи стопу рукой. Почувствуй растяжку передней поверхности бедра.",
+
+  "exerciseBalS1OneLegStandName": "Стойка на одной ноге",
+  "exerciseBalS1OneLegStandDesc": "Стой на одной ноге, вторую слегка согни и удержи в воздухе. Руки можно держать в стороны для баланса.",
+  "exerciseBalS1OneLegStandTip": "Фиксируй взгляд на точке — это сильно улучшает баланс.",
+
+  "exerciseBalS2OneArmPlankName": "Планка на одной руке",
+  "exerciseBalS2OneArmPlankDesc": "Классическая планка на вытянутых руках. Оторви одну руку от пола и удержи позицию, тело параллельно полу.",
+  "exerciseBalS2OneArmPlankTip": "Бёдра держи параллельно полу — не разворачивай корпус.",
+
+  "exerciseBalS3CrowPrepName": "Подготовка к позе ворона",
+  "exerciseBalS3CrowPrepDesc": "Присядь, колени на трицепсах. Перенеси вес на руки, слегка отрывая ноги. Удержи баланс на руках.",
+  "exerciseBalS3CrowPrepTip": "Взгляд вперёд-вниз, не прямо вниз — иначе упадёшь.",
+
+  "exerciseBalS4CrowPoseName": "Поза ворона (Kakasana)",
+  "exerciseBalS4CrowPoseDesc": "Оба колена на трицепсах, полный баланс на руках. Руки слегка согнуты, пальцы широко расставлены.",
+  "exerciseBalS4CrowPoseTip": "Округли спину — это активирует корпус и даёт баланс.",
+
+  "exerciseBalS5WallHsName": "Стойка на руках у стены",
+  "exerciseBalS5WallHsDesc": "Встань на руки спиной к стене. Пятки касаются стены для опоры. Удержи стойку, тело вытянуто в линию.",
+  "exerciseBalS5WallHsTip": "Пальцы широко, надавливай на подушечки — это баланс.",
+
+  "exerciseBalS6FreeHsName": "Свободная стойка на руках",
+  "exerciseBalS6FreeHsDesc": "Стойка на руках без опоры. Контролируй баланс мелкими движениями пальцев и запястий.",
+  "exerciseBalS6FreeHsTip": "Смотри в пол на 30–40 см перед руками, не между руками.",
+
+  "exerciseWarmupWristCirclesName": "Круговые вращения запястьями",
+  "exerciseWarmupWristCirclesDesc": "Вращай запястьями по часовой и против часовой стрелки. Подготавливает суставы к нагрузке на руках.",
+
+  "exerciseCooldownDownwardDogName": "Собака мордой вниз",
+  "exerciseCooldownDownwardDogDesc": "На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног."
 }

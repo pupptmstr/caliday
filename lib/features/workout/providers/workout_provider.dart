@@ -166,10 +166,10 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     if (challengeBranch != null) {
       return generator.generateChallenge(challengeBranch);
     }
+    final profile = ref.read(userRepositoryProvider).getProfile();
     return generator.generateDaily(
-      preferredMinutes:
-          ref.read(userRepositoryProvider).getProfile().preferredWorkoutMinutes ??
-              10,
+      activeBranches: profile.activeBranches,
+      preferredMinutes: profile.preferredWorkoutMinutes ?? 10,
     );
   }
 

@@ -28,7 +28,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get homeBranchPush => 'Толкай';
 
   @override
+  String get homeBranchPull => 'Тяга';
+
+  @override
   String get homeBranchCore => 'Кор';
+
+  @override
+  String get homeBranchLegs => 'Ноги';
+
+  @override
+  String get homeBranchBalance => 'Баланс';
 
   @override
   String homeStage(int stage, int total) {
@@ -241,6 +250,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsThemeDark => 'Тёмная';
 
   @override
+  String get settingsSectionEquipment => 'ОБОРУДОВАНИЕ';
+
+  @override
+  String get settingsEquipmentPullUpBar => 'Турник дома';
+
+  @override
+  String get settingsEquipmentPullUpBarSubtitle =>
+      'Открывает ветку прогрессии «Тяга»';
+
+  @override
   String get settingsSectionWorkout => 'ТРЕНИРОВКА';
 
   @override
@@ -297,7 +316,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get onboardingQ4 => 'К чему ты стремишься?';
 
   @override
-  String get onboardingQ5 => 'Во сколько напомнить о тренировке?';
+  String get onboardingQ5 => 'Есть ли у тебя турник или кольца дома?';
+
+  @override
+  String get onboardingEquipmentYes => 'Да, есть';
+
+  @override
+  String get onboardingEquipmentNo => 'Нет';
+
+  @override
+  String get onboardingQ6 => 'Во сколько напомнить о тренировке?';
 
   @override
   String get frequencyNeverLabel => 'Никогда';
@@ -543,4 +571,232 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get exerciseCooldownCatCowDesc =>
       'На четвереньках: на вдохе прогибай спину вниз (корова), на выдохе округляй вверх (кошка). Расслабляет поясницу и пресс.';
+
+  @override
+  String get exercisePullS1AustralianName => 'Австралийское подтягивание';
+
+  @override
+  String get exercisePullS1AustralianDesc =>
+      'Лёжа под перекладиной, хват чуть шире плеч. Тяни грудь к перекладине, держа тело прямой линией. Контролируй опускание.';
+
+  @override
+  String get exercisePullS1AustralianTip =>
+      'Чем ниже опускаешь перекладину, тем сложнее упражнение.';
+
+  @override
+  String get exercisePullS2NegativeName => 'Негативные подтягивания';
+
+  @override
+  String get exercisePullS2NegativeDesc =>
+      'Запрыгни на перекладину с подбородком выше неё. Медленно опускайся в течение 3–5 секунд до полного выпрямления рук.';
+
+  @override
+  String get exercisePullS2NegativeTip =>
+      'Чем медленнее опускаешься — тем лучше. Цель: 5 сек вниз.';
+
+  @override
+  String get exercisePullS3PullupName => 'Подтягивания';
+
+  @override
+  String get exercisePullS3PullupDesc =>
+      'Хват на ширине плеч или чуть шире. Тяни грудь к перекладине, пока подбородок не окажется выше неё. Полностью выпрямляй руки внизу.';
+
+  @override
+  String get exercisePullS3PullupTip =>
+      'Сводя лопатки — тянешь спиной, а не руками.';
+
+  @override
+  String get exercisePullS4CloseGripName => 'Подтягивания узким хватом';
+
+  @override
+  String get exercisePullS4CloseGripDesc =>
+      'Хват уже плеч, ладони к себе или от себя. Акцент на бицепс и нижнюю часть широчайших. Подтягивай грудь к перекладине.';
+
+  @override
+  String get exercisePullS4CloseGripTip =>
+      'Локти прижимай к корпусу для максимальной нагрузки на бицепс.';
+
+  @override
+  String get exercisePullS5ArcherName => 'Подтягивания лучника';
+
+  @override
+  String get exercisePullS5ArcherDesc =>
+      'Широкий хват. Тяни тело в сторону одной руки, вторую держи прямой. Поочерёдно на каждую сторону.';
+
+  @override
+  String get exercisePullS5ArcherTip =>
+      'Прямая рука — вспомогательная, рабочая — полный диапазон.';
+
+  @override
+  String get exercisePullS6OneArmName => 'Подтягивание на одной руке';
+
+  @override
+  String get exercisePullS6OneArmDesc =>
+      'Одна рука держит перекладину, вторая — на запястье или свободна. Полный диапазон движения рабочей рукой.';
+
+  @override
+  String get exercisePullS6OneArmTip =>
+      'Держи корпус стабильным — не раскачивайся.';
+
+  @override
+  String get exerciseWarmupDeadHangName => 'Вис на перекладине';
+
+  @override
+  String get exerciseWarmupDeadHangDesc =>
+      'Повисни на перекладине прямым хватом, руки полностью выпрямлены. Расслабь плечи и удержи вис.';
+
+  @override
+  String get exerciseCooldownLatStretchName => 'Растяжка широчайших';
+
+  @override
+  String get exerciseCooldownLatStretchDesc =>
+      'Встань боком к стене, подними руку вверх и упрись в стену. Наклонись в сторону, чувствуя растяжку сбоку.';
+
+  @override
+  String get exerciseLegsS1SquatName => 'Приседания';
+
+  @override
+  String get exerciseLegsS1SquatDesc =>
+      'Ноги на ширине плеч, носки чуть развёрнуты. Приседай до параллели бёдер с полом, колени над носками. Выпрямляй ноги в верхней точке.';
+
+  @override
+  String get exerciseLegsS1SquatTip =>
+      'Пятки не отрывай от пола, грудь держи прямо.';
+
+  @override
+  String get exerciseLegsS2LungeName => 'Выпады';
+
+  @override
+  String get exerciseLegsS2LungeDesc =>
+      'Шаг вперёд, опусти заднее колено к полу, не касаясь. Оба колена под углом 90°. Оттолкнись передней ногой и вернись в исходное.';
+
+  @override
+  String get exerciseLegsS2LungeTip => 'Переднее колено не уходи за носок.';
+
+  @override
+  String get exerciseLegsS3BulgarianName => 'Болгарские сплит-приседания';
+
+  @override
+  String get exerciseLegsS3BulgarianDesc =>
+      'Задняя нога на возвышении (стул, диван). Опускай переднюю ногу до параллели бедра с полом. Торс прямой.';
+
+  @override
+  String get exerciseLegsS3BulgarianTip =>
+      'Чем дальше передняя нога — тем больше нагрузка на ягодицы.';
+
+  @override
+  String get exerciseLegsS4AssistedPistolName => 'Пистолетик с опорой';
+
+  @override
+  String get exerciseLegsS4AssistedPistolDesc =>
+      'Держись за дверной косяк или стойку. Приседай на одной ноге, вторую держи прямой перед собой. Опора снижает нагрузку.';
+
+  @override
+  String get exerciseLegsS4AssistedPistolTip =>
+      'Постепенно уменьшай помощь рук по мере роста силы.';
+
+  @override
+  String get exerciseLegsS5PistolName => 'Пистолетик';
+
+  @override
+  String get exerciseLegsS5PistolDesc =>
+      'Приседание на одной ноге без опоры. Вторая нога прямая перед собой. Полная амплитуда до пола и обратно.';
+
+  @override
+  String get exerciseLegsS5PistolTip =>
+      'Руки вперёд для противовеса — помогает с балансом.';
+
+  @override
+  String get exerciseWarmupLegSwingsName => 'Махи ногами';
+
+  @override
+  String get exerciseWarmupLegSwingsDesc =>
+      'Стоя у стены, делай маховые движения прямой ногой вперёд-назад и в стороны. Разминает тазобедренный сустав.';
+
+  @override
+  String get exerciseCooldownQuadStretchName => 'Растяжка квадрицепса';
+
+  @override
+  String get exerciseCooldownQuadStretchDesc =>
+      'Стоя на одной ноге, согни вторую назад и удержи стопу рукой. Почувствуй растяжку передней поверхности бедра.';
+
+  @override
+  String get exerciseBalS1OneLegStandName => 'Стойка на одной ноге';
+
+  @override
+  String get exerciseBalS1OneLegStandDesc =>
+      'Стой на одной ноге, вторую слегка согни и удержи в воздухе. Руки можно держать в стороны для баланса.';
+
+  @override
+  String get exerciseBalS1OneLegStandTip =>
+      'Фиксируй взгляд на точке — это сильно улучшает баланс.';
+
+  @override
+  String get exerciseBalS2OneArmPlankName => 'Планка на одной руке';
+
+  @override
+  String get exerciseBalS2OneArmPlankDesc =>
+      'Классическая планка на вытянутых руках. Оторви одну руку от пола и удержи позицию, тело параллельно полу.';
+
+  @override
+  String get exerciseBalS2OneArmPlankTip =>
+      'Бёдра держи параллельно полу — не разворачивай корпус.';
+
+  @override
+  String get exerciseBalS3CrowPrepName => 'Подготовка к позе ворона';
+
+  @override
+  String get exerciseBalS3CrowPrepDesc =>
+      'Присядь, колени на трицепсах. Перенеси вес на руки, слегка отрывая ноги. Удержи баланс на руках.';
+
+  @override
+  String get exerciseBalS3CrowPrepTip =>
+      'Взгляд вперёд-вниз, не прямо вниз — иначе упадёшь.';
+
+  @override
+  String get exerciseBalS4CrowPoseName => 'Поза ворона (Kakasana)';
+
+  @override
+  String get exerciseBalS4CrowPoseDesc =>
+      'Оба колена на трицепсах, полный баланс на руках. Руки слегка согнуты, пальцы широко расставлены.';
+
+  @override
+  String get exerciseBalS4CrowPoseTip =>
+      'Округли спину — это активирует корпус и даёт баланс.';
+
+  @override
+  String get exerciseBalS5WallHsName => 'Стойка на руках у стены';
+
+  @override
+  String get exerciseBalS5WallHsDesc =>
+      'Встань на руки спиной к стене. Пятки касаются стены для опоры. Удержи стойку, тело вытянуто в линию.';
+
+  @override
+  String get exerciseBalS5WallHsTip =>
+      'Пальцы широко, надавливай на подушечки — это баланс.';
+
+  @override
+  String get exerciseBalS6FreeHsName => 'Свободная стойка на руках';
+
+  @override
+  String get exerciseBalS6FreeHsDesc =>
+      'Стойка на руках без опоры. Контролируй баланс мелкими движениями пальцев и запястий.';
+
+  @override
+  String get exerciseBalS6FreeHsTip =>
+      'Смотри в пол на 30–40 см перед руками, не между руками.';
+
+  @override
+  String get exerciseWarmupWristCirclesName => 'Круговые вращения запястьями';
+
+  @override
+  String get exerciseWarmupWristCirclesDesc =>
+      'Вращай запястьями по часовой и против часовой стрелки. Подготавливает суставы к нагрузке на руках.';
+
+  @override
+  String get exerciseCooldownDownwardDogName => 'Собака мордой вниз';
+
+  @override
+  String get exerciseCooldownDownwardDogDesc =>
+      'На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног.';
 }

@@ -58,6 +58,7 @@ class OnboardingState {
     this.pushupCount,
     this.workoutMinutes,
     this.fitnessGoal,
+    this.hasPullUpBar,
     this.reminderHour = 9,
     this.reminderMinute = 0,
     this.isSaving = false,
@@ -68,12 +69,16 @@ class OnboardingState {
   final PushupCount? pushupCount;
   final WorkoutMinutes? workoutMinutes;
   final FitnessGoal? fitnessGoal;
+
+  /// null = not yet answered; true = has bar; false = no bar.
+  final bool? hasPullUpBar;
   final int reminderHour;
   final int reminderMinute;
   final bool isSaving;
 
-  // Steps: 0=welcome  1=frequency  2=pushups  3=minutes  4=goal  5=reminder
-  static const int lastStep = 5;
+  // Steps: 0=welcome  1=frequency  2=pushups  3=minutes  4=goal
+  //        5=pullupbar  6=reminder
+  static const int lastStep = 6;
 
   bool get canAdvance {
     switch (step) {
@@ -88,6 +93,8 @@ class OnboardingState {
       case 4:
         return fitnessGoal != null;
       case 5:
+        return hasPullUpBar != null;
+      case 6:
         return true; // reminder has a sensible default
       default:
         return false;
@@ -102,6 +109,7 @@ class OnboardingState {
     PushupCount? pushupCount,
     WorkoutMinutes? workoutMinutes,
     FitnessGoal? fitnessGoal,
+    bool? hasPullUpBar,
     int? reminderHour,
     int? reminderMinute,
     bool? isSaving,
@@ -112,11 +120,25 @@ class OnboardingState {
       pushupCount: pushupCount ?? this.pushupCount,
       workoutMinutes: workoutMinutes ?? this.workoutMinutes,
       fitnessGoal: fitnessGoal ?? this.fitnessGoal,
+      hasPullUpBar: hasPullUpBar ?? this.hasPullUpBar,
       reminderHour: reminderHour ?? this.reminderHour,
       reminderMinute: reminderMinute ?? this.reminderMinute,
       isSaving: isSaving ?? this.isSaving,
     );
   }
+
+  /// Returns a copy with [hasPullUpBar] set to [value], allowing null.
+  OnboardingState withHasPullUpBar(bool value) => OnboardingState(
+        step: step,
+        fitnessFrequency: fitnessFrequency,
+        pushupCount: pushupCount,
+        workoutMinutes: workoutMinutes,
+        fitnessGoal: fitnessGoal,
+        hasPullUpBar: value,
+        reminderHour: reminderHour,
+        reminderMinute: reminderMinute,
+        isSaving: isSaving,
+      );
 }
 
 // ── Notifier ─────────────────────────────────────────────────────────────────
@@ -137,6 +159,9 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 
   void selectFitnessGoal(FitnessGoal value) =>
       state = state.copyWith(fitnessGoal: value);
+
+  void selectHasPullUpBar(bool value) =>
+      state = state.withHasPullUpBar(value);
 
   void selectReminderTime(int hour, int minute) =>
       state = state.copyWith(reminderHour: hour, reminderMinute: minute);
@@ -159,6 +184,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 
     final userRepo = _ref.read(userRepositoryProvider);
     final progressRepo = _ref.read(skillProgressRepositoryProvider);
+    final hasPullUpBar = state.hasPullUpBar ?? false;
 
     // Create user profile with notification preferences and selected locale.
     await userRepo.saveProfile(
@@ -168,6 +194,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         locale: _ref.read(localeProvider),
         preferredWorkoutMinutes: state.workoutMinutes?.minutes,
         fitnessGoal: state.fitnessGoal,
+        hasPullUpBar: hasPullUpBar,
       ),
     );
 
@@ -184,6 +211,41 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         currentRestSec: 45,
       ),
     );
+
+    // Legs always starts at stage 1.
+    await progressRepo.saveProgress(
+      SkillProgress(
+        branchId: BranchId.legs,
+        currentStage: 1,
+        currentReps: 10,
+        currentSets: 1,
+        currentRestSec: 45,
+      ),
+    );
+
+    // Balance always starts at stage 1.
+    await progressRepo.saveProgress(
+      SkillProgress(
+        branchId: BranchId.balance,
+        currentStage: 1,
+        currentReps: 20,
+        currentSets: 1,
+        currentRestSec: 30,
+      ),
+    );
+
+    // Pull starts at stage 1 only if user has a pull-up bar.
+    if (hasPullUpBar) {
+      await progressRepo.saveProgress(
+        SkillProgress(
+          branchId: BranchId.pull,
+          currentStage: 1,
+          currentReps: 5,
+          currentSets: 1,
+          currentRestSec: 60,
+        ),
+      );
+    }
 
     // Signal the router to redirect to /home.
     _ref.read(isOnboardingCompleteProvider.notifier).state = true;

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/models/enums.dart';
@@ -7,83 +9,87 @@ import '../models/workout_plan.dart';
 
 /// Assembles a [WorkoutPlan] for the current user state.
 ///
-/// For MVP v1.0 the daily set structure is:
-///   1. Warmup   (1 exercise, stage 0)
-///   2. Push     (current stage/reps/sets/rest from SkillProgress)
-///   3. Core     (current stage/reps/sets/rest from SkillProgress)
-///   4. Cooldown (1–2 exercises, stage 0)
+/// Daily set structure:
+///   1. Warmup   (1 exercise, stage 0, from the first today-branch)
+///   2. Main block (one exercise per today-branch, rotated by day index)
+///   3. Cooldown (max 2 distinct cooldowns from today-branches, stage 0)
 class WorkoutGeneratorService {
   const WorkoutGeneratorService(this._progressRepo);
 
   final SkillProgressRepository _progressRepo;
 
-  /// Generates a [SetType.daily] plan for the given active [branches].
+  /// Generates a [SetType.daily] plan for the given active [activeBranches].
   ///
-  /// [preferredMinutes] comes from [UserProfile.preferredWorkoutMinutes] and
-  /// controls workout volume:
-  /// - ≤ 5 min  → 1 set per exercise (quick session)
-  /// - 10 min   → standard (sets as stored in progress)
-  /// - ≥ 15 min → +1 set per exercise, capped at 3
+  /// Branch rotation is deterministic: based on the number of days since
+  /// 2020-01-01. [preferredMinutes] controls how many branches to train today:
+  /// - ≤ 5 min  → min(2, total) branches
+  /// - 10 min   → min(3, total) branches
+  /// - ≥ 15 min → all branches
+  ///
+  /// Sets per exercise always come from [SkillProgress.currentSets].
   WorkoutPlan generateDaily({
-    List<BranchId> branches = const [BranchId.push, BranchId.core],
+    required List<BranchId> activeBranches,
     int preferredMinutes = 10,
+    int? dayIndexOverride,
   }) {
+    if (activeBranches.isEmpty) {
+      return WorkoutPlan(setType: SetType.daily, exercises: const []);
+    }
+
+    final dayIdx = dayIndexOverride ??
+        DateTime.now().toUtc().difference(DateTime.utc(2020, 1, 1)).inDays;
+    final total = activeBranches.length;
+    final n = preferredMinutes <= 5
+        ? min(2, total)
+        : preferredMinutes >= 15
+            ? total
+            : min(3, total);
+    final startIdx = dayIdx % total;
+    final todayBranches = List.generate(
+        n, (i) => activeBranches[(startIdx + i) % total]);
+
     final exercises = <PlannedExercise>[];
 
-    // ── 1. Warmup ────────────────────────────────────────────────────────────
-    final warmup = branches.contains(BranchId.push)
-        ? ExerciseCatalog.warmupArmRotations
-        : ExerciseCatalog.warmupJumpingJacks;
-
-    exercises.add(PlannedExercise(
-      exercise: warmup,
-      targetAmount: warmup.startReps,
-      sets: 1,
-      restSec: 0,
-    ));
+    // ── 1. Warmup (from the first branch) ────────────────────────────────────
+    final warmup = ExerciseCatalog.warmupFor(todayBranches.first);
+    if (warmup != null) {
+      exercises.add(PlannedExercise(
+        exercise: warmup,
+        targetAmount: warmup.startReps,
+        sets: 1,
+        restSec: 0,
+      ));
+    }
 
     // ── 2. Main block (one exercise per branch) ───────────────────────────────
-    for (final branch in branches) {
+    for (final branch in todayBranches) {
       final progress = _progressRepo.getProgress(branch);
       final exercise = ExerciseCatalog.forStage(branch, progress.currentStage);
-      if (exercise == null) continue; // branch fully completed (all stages done)
-
-      final int sets;
-      if (preferredMinutes <= 5) {
-        sets = 1;
-      } else if (preferredMinutes >= 15) {
-        sets = (progress.currentSets + 1).clamp(1, 3);
-      } else {
-        sets = progress.currentSets;
-      }
+      if (exercise == null) continue;
 
       exercises.add(PlannedExercise(
         exercise: exercise,
         targetAmount: progress.currentReps,
-        sets: sets,
+        sets: progress.currentSets,
         restSec: progress.currentRestSec,
       ));
     }
 
-    // ── 3. Cooldown ───────────────────────────────────────────────────────────
-    if (branches.contains(BranchId.push)) {
-      final cooldown = ExerciseCatalog.cooldownShoulderStretch;
-      exercises.add(PlannedExercise(
-        exercise: cooldown,
-        targetAmount: cooldown.startReps,
-        sets: 1,
-        restSec: 0,
-      ));
-    }
-
-    if (branches.contains(BranchId.core)) {
-      final cooldown = ExerciseCatalog.cooldownCatCow;
-      exercises.add(PlannedExercise(
-        exercise: cooldown,
-        targetAmount: cooldown.startReps,
-        sets: 1,
-        restSec: 0,
-      ));
+    // ── 3. Cooldowns (max 2, from different branches) ─────────────────────────
+    final addedIds = <String>{};
+    for (final branch in todayBranches) {
+      for (final c in ExerciseCatalog.cooldownsFor(branch)) {
+        if (addedIds.add(c.id)) {
+          exercises.add(PlannedExercise(
+            exercise: c,
+            targetAmount: c.startReps,
+            sets: 1,
+            restSec: 0,
+          ));
+        }
+        if (addedIds.length >= 2) break;
+      }
+      if (addedIds.length >= 2) break;
     }
 
     return WorkoutPlan(setType: SetType.daily, exercises: exercises);
@@ -98,20 +104,22 @@ class WorkoutGeneratorService {
     final progress = _progressRepo.getProgress(branch);
     final current = ExerciseCatalog.forStage(branch, progress.currentStage);
     final next = ExerciseCatalog.forStage(branch, progress.currentStage + 1);
-    if (current == null || next == null) return generateDaily(branches: [branch]);
+    if (current == null || next == null) {
+      return generateDaily(activeBranches: [branch]);
+    }
 
     final exercises = <PlannedExercise>[];
 
     // 1. Warmup
-    final warmup = branch == BranchId.push
-        ? ExerciseCatalog.warmupArmRotations
-        : ExerciseCatalog.warmupJumpingJacks;
-    exercises.add(PlannedExercise(
-      exercise: warmup,
-      targetAmount: warmup.startReps,
-      sets: 1,
-      restSec: 0,
-    ));
+    final warmup = ExerciseCatalog.warmupFor(branch);
+    if (warmup != null) {
+      exercises.add(PlannedExercise(
+        exercise: warmup,
+        targetAmount: warmup.startReps,
+        sets: 1,
+        restSec: 0,
+      ));
+    }
 
     // 2. Current stage — 1 light set as movement warm-up
     exercises.add(PlannedExercise(
@@ -129,19 +137,13 @@ class WorkoutGeneratorService {
       restSec: next.startRestSec,
     ));
 
-    // 4. Cooldown
-    if (branch == BranchId.push) {
+    // 4. Cooldown (first cooldown for this branch)
+    final cooldowns = ExerciseCatalog.cooldownsFor(branch);
+    if (cooldowns.isNotEmpty) {
+      final cooldown = cooldowns.first;
       exercises.add(PlannedExercise(
-        exercise: ExerciseCatalog.cooldownShoulderStretch,
-        targetAmount: ExerciseCatalog.cooldownShoulderStretch.startReps,
-        sets: 1,
-        restSec: 0,
-      ));
-    }
-    if (branch == BranchId.core) {
-      exercises.add(PlannedExercise(
-        exercise: ExerciseCatalog.cooldownCatCow,
-        targetAmount: ExerciseCatalog.cooldownCatCow.startReps,
+        exercise: cooldown,
+        targetAmount: cooldown.startReps,
         sets: 1,
         restSec: 0,
       ));

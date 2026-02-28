@@ -7,7 +7,10 @@
   "homeDays": "days",
   "homeBranchesTitle": "Skill Branches",
   "homeBranchPush": "Push",
+  "homeBranchPull": "Pull",
   "homeBranchCore": "Core",
+  "homeBranchLegs": "Legs",
+  "homeBranchBalance": "Balance",
   "homeStage": "Stage {stage}/{total}",
   "homeChallengeUnlocked": "🏆 Challenge Ready",
   "homeChallengeButton": "Accept Challenge",
@@ -78,6 +81,10 @@
   "settingsThemeLight": "Light",
   "settingsThemeDark": "Dark",
 
+  "settingsSectionEquipment": "EQUIPMENT",
+  "settingsEquipmentPullUpBar": "Pull-up bar at home",
+  "settingsEquipmentPullUpBarSubtitle": "Enables the Pull skill progression branch",
+
   "settingsSectionWorkout": "WORKOUT",
   "settingsWorkoutDurationTitle": "Session length",
   "settingsWorkoutDurationSubtitle": "How many minutes to spend on the daily workout",
@@ -98,7 +105,10 @@
   "onboardingQ2": "How many push-ups can you do?",
   "onboardingQ3": "How many minutes a day are you ready to spend?",
   "onboardingQ4": "What's your goal?",
-  "onboardingQ5": "When should we remind you to work out?",
+  "onboardingQ5": "Do you have a pull-up bar or rings at home?",
+  "onboardingEquipmentYes": "Yes, I do",
+  "onboardingEquipmentNo": "No",
+  "onboardingQ6": "When should we remind you to work out?",
 
   "frequencyNeverLabel": "Never",
   "frequencyNeverDesc": "Just starting out",
@@ -191,5 +201,91 @@
   "exerciseCooldownShoulderStretchDesc": "Clasp your hands behind your back and pull your shoulders back and down. Hold for 30 seconds.",
 
   "exerciseCooldownCatCowName": "Cat-Cow",
-  "exerciseCooldownCatCowDesc": "On all fours: inhale and arch your back down (cow), exhale and round it up (cat). Releases tension in the lower back and abs."
+  "exerciseCooldownCatCowDesc": "On all fours: inhale and arch your back down (cow), exhale and round it up (cat). Releases tension in the lower back and abs.",
+
+  "exercisePullS1AustralianName": "Australian Pull-up",
+  "exercisePullS1AustralianDesc": "Lie under a bar with a slightly wider than shoulder-width grip. Pull your chest to the bar, keeping your body in a straight line. Control the descent.",
+  "exercisePullS1AustralianTip": "The lower the bar, the harder the exercise.",
+
+  "exercisePullS2NegativeName": "Negative Pull-up",
+  "exercisePullS2NegativeDesc": "Jump up with your chin above the bar. Slowly lower yourself over 3–5 seconds until your arms are fully extended.",
+  "exercisePullS2NegativeTip": "The slower you lower — the better. Aim for 5 seconds down.",
+
+  "exercisePullS3PullupName": "Pull-up",
+  "exercisePullS3PullupDesc": "Shoulder-width or slightly wider grip. Pull your chest to the bar until your chin is above it. Fully extend your arms at the bottom.",
+  "exercisePullS3PullupTip": "Squeeze your shoulder blades — you're pulling with your back, not your arms.",
+
+  "exercisePullS4CloseGripName": "Close-Grip Pull-up",
+  "exercisePullS4CloseGripDesc": "Grip narrower than shoulder-width, palms facing you or away. Targets the biceps and lower lats. Pull your chest to the bar.",
+  "exercisePullS4CloseGripTip": "Keep elbows tucked in for maximum bicep engagement.",
+
+  "exercisePullS5ArcherName": "Archer Pull-up",
+  "exercisePullS5ArcherDesc": "Wide grip. Pull your body toward one arm while keeping the other arm straight. Alternate each side.",
+  "exercisePullS5ArcherTip": "Straight arm is for support; working arm goes full range.",
+
+  "exercisePullS6OneArmName": "One-Arm Pull-up",
+  "exercisePullS6OneArmDesc": "One hand on the bar, the other on your wrist or free. Full range of motion with the working arm.",
+  "exercisePullS6OneArmTip": "Keep your core tight — don't swing.",
+
+  "exerciseWarmupDeadHangName": "Dead Hang",
+  "exerciseWarmupDeadHangDesc": "Hang from the bar with an overhand grip, arms fully extended. Relax your shoulders and hold the hang.",
+
+  "exerciseCooldownLatStretchName": "Lat Stretch",
+  "exerciseCooldownLatStretchDesc": "Stand sideways to a wall, raise one arm and press against it. Lean into the stretch to feel it along your side.",
+
+  "exerciseLegsS1SquatName": "Squat",
+  "exerciseLegsS1SquatDesc": "Feet shoulder-width apart, toes slightly turned out. Squat until thighs are parallel to the floor, knees over toes. Extend fully at the top.",
+  "exerciseLegsS1SquatTip": "Keep heels on the floor and chest upright.",
+
+  "exerciseLegsS2LungeName": "Lunge",
+  "exerciseLegsS2LungeDesc": "Step forward and lower your back knee toward the floor without touching it. Both knees at 90°. Push off with the front foot to return.",
+  "exerciseLegsS2LungeTip": "Keep your front knee behind your toes.",
+
+  "exerciseLegsS3BulgarianName": "Bulgarian Split Squat",
+  "exerciseLegsS3BulgarianDesc": "Rear foot elevated on a chair or couch. Lower your front leg until your thigh is parallel to the floor. Keep your torso upright.",
+  "exerciseLegsS3BulgarianTip": "The further your front foot, the more glute activation.",
+
+  "exerciseLegsS4AssistedPistolName": "Assisted Pistol Squat",
+  "exerciseLegsS4AssistedPistolDesc": "Hold a door frame or pole for support. Squat on one leg while keeping the other straight in front of you. Use the support to reduce load.",
+  "exerciseLegsS4AssistedPistolTip": "Gradually reduce hand assistance as you get stronger.",
+
+  "exerciseLegsS5PistolName": "Pistol Squat",
+  "exerciseLegsS5PistolDesc": "Single-leg squat without support. Other leg straight in front. Full range of motion to the floor and back up.",
+  "exerciseLegsS5PistolTip": "Arms forward as a counterweight — it helps with balance.",
+
+  "exerciseWarmupLegSwingsName": "Leg Swings",
+  "exerciseWarmupLegSwingsDesc": "Standing by a wall, swing one leg forward and back, then side to side. Warms up the hip joint.",
+
+  "exerciseCooldownQuadStretchName": "Quad Stretch",
+  "exerciseCooldownQuadStretchDesc": "Stand on one leg, bend the other back and hold your foot with your hand. Feel the stretch along the front of your thigh.",
+
+  "exerciseBalS1OneLegStandName": "One-Leg Stand",
+  "exerciseBalS1OneLegStandDesc": "Stand on one leg, keep the other slightly bent and off the ground. Arms can be out for balance.",
+  "exerciseBalS1OneLegStandTip": "Fix your gaze on a point — it greatly improves balance.",
+
+  "exerciseBalS2OneArmPlankName": "One-Arm Plank",
+  "exerciseBalS2OneArmPlankDesc": "Classic straight-arm plank. Lift one hand off the floor and hold the position, body parallel to the floor.",
+  "exerciseBalS2OneArmPlankTip": "Keep your hips parallel to the floor — don't rotate your torso.",
+
+  "exerciseBalS3CrowPrepName": "Crow Pose Prep",
+  "exerciseBalS3CrowPrepDesc": "Squat with knees on your triceps. Shift weight onto your hands, gently lifting your feet. Hold the balance.",
+  "exerciseBalS3CrowPrepTip": "Look forward-down, not straight down — or you'll tip over.",
+
+  "exerciseBalS4CrowPoseName": "Crow Pose (Kakasana)",
+  "exerciseBalS4CrowPoseDesc": "Both knees on your triceps, full balance on your hands. Arms slightly bent, fingers spread wide.",
+  "exerciseBalS4CrowPoseTip": "Round your back — it engages your core and provides balance.",
+
+  "exerciseBalS5WallHsName": "Wall Handstand",
+  "exerciseBalS5WallHsDesc": "Kick up into a handstand with your back to the wall. Heels touch the wall for support. Hold the position, body in a straight line.",
+  "exerciseBalS5WallHsTip": "Spread fingers wide and press through the pads — that's your balance control.",
+
+  "exerciseBalS6FreeHsName": "Free Handstand",
+  "exerciseBalS6FreeHsDesc": "Handstand without wall support. Control balance with small finger and wrist movements.",
+  "exerciseBalS6FreeHsTip": "Look at the floor 30–40 cm in front of your hands, not between them.",
+
+  "exerciseWarmupWristCirclesName": "Wrist Circles",
+  "exerciseWarmupWristCirclesDesc": "Rotate your wrists clockwise and counter-clockwise. Prepares your joints for weight-bearing on your hands.",
+
+  "exerciseCooldownDownwardDogName": "Downward Dog",
+  "exerciseCooldownDownwardDogDesc": "From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs."
 }
