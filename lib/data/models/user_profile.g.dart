@@ -31,13 +31,14 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       locale: fields[11] as String?,
       preferredWorkoutMinutes: fields[12] as int?,
       fitnessGoal: fields[13] as FitnessGoal?,
+      themeModeName: fields[14] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProfile obj) {
     writer
-      ..writeByte(14)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.rank)
       ..writeByte(1)
@@ -65,7 +66,9 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..writeByte(12)
       ..write(obj.preferredWorkoutMinutes)
       ..writeByte(13)
-      ..write(obj.fitnessGoal);
+      ..write(obj.fitnessGoal)
+      ..writeByte(14)
+      ..write(obj.themeModeName);
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'core/providers/locale_provider.dart';
+import 'core/providers/theme_provider.dart';
 import 'core/router/app_router.dart';
 import 'core/services/notification_service.dart';
 import 'data/models/enums.dart';
@@ -83,6 +84,7 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
   Widget build(BuildContext context) {
     final router = ref.watch(routerProvider);
     final locale = ref.watch(localeProvider);
+    final themeMode = ref.watch(themeProvider);
 
     return MaterialApp.router(
       title: 'CaliDay',
@@ -94,6 +96,14 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
         colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF4DA6FF)),
         useMaterial3: true,
       ),
+      darkTheme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF4DA6FF),
+          brightness: Brightness.dark,
+        ),
+        useMaterial3: true,
+      ),
+      themeMode: themeMode,
       routerConfig: router,
     );
   }

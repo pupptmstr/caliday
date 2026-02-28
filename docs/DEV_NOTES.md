@@ -808,11 +808,7 @@ final detectedLocale = systemLocale.languageCode == 'ru' ? 'ru' : 'en';
   используется пакет `home_widget`. Приоритет: высокий — повышает ежедневную
   вовлечённость без открытия приложения.
 
-- **Тёмная тема** — поддержка тёмного режима с автоматическим определением из
-  системной темы устройства. Реализуется через `themeMode: ThemeMode.system` в
-  `MaterialApp.router` + добавление `darkTheme: ThemeData(...)` рядом с `theme`.
-  Цветовая схема: `ColorScheme.fromSeed(..., brightness: Brightness.dark)`.
-  Приоритет: высокий — базовое ожидание пользователей в 2026 году.
+- ~~**Тёмная тема**~~ ✅ сессия 22
 
 - **Анимация упражнения** — на экране выполнения упражнения показывать простую
   анимацию человечка, демонстрирующую технику. Простая CSS/Lottie/Rive анимация.
@@ -821,6 +817,26 @@ final detectedLocale = systemLocale.languageCode == 'ru' ? 'ru' : 'en';
 ---
 
 ## История изменений
+
+### 2026-02-28 — сессия 22 (тёмная тема + ручное переключение)
+
+**Поддержка тёмной темы** с возможностью ручного выбора в настройках.
+
+- **`darkTheme`** в `main.dart`: `ColorScheme.fromSeed(seedColor: 0xFF4DA6FF, brightness: Brightness.dark)`. Все экраны уже использовали `colorScheme.*` — дополнительных изменений не потребовалось. Намеренный хардкодный `#5C1A1A` (фон Скалы) оставлен.
+- **`UserProfile.themeModeName`** — `@HiveField(14) String?` (null = системная, 'light', 'dark'). `user_profile.g.dart` обновлён вручную (writeByte 14→15).
+- **`lib/core/providers/theme_provider.dart`** — `themeProvider = StateProvider<ThemeMode>`, `themeModeFromString`/`themeModeToString`.
+- **`settingsProvider`** — новое поле `themeMode: ThemeMode`, метод `setThemeMode(ThemeMode)` сохраняет в профиль и обновляет `themeProvider`.
+- **Settings screen** — новая секция «ТЕМА» с `SegmentedButton<ThemeMode>` (Системная / Светлая / Тёмная), расположена выше секции «ЯЗЫК».
+- **l10n** — 4 новых ключа: `settingsSectionTheme`, `settingsThemeSystem`, `settingsThemeLight`, `settingsThemeDark`.
+
+**Изменённые файлы:**
+`lib/main.dart`, `lib/data/models/user_profile.dart`, `lib/data/models/user_profile.g.dart`,
+`lib/core/providers/theme_provider.dart` (NEW), `lib/features/settings/providers/settings_provider.dart`,
+`lib/features/settings/screens/settings_screen.dart`, `l10n/app_ru.arb`, `l10n/app_en.arb`
+
+**Следующий шаг:** новые ветки прогрессии (Pull, Legs, Balance) или Home Screen Widget.
+
+---
 
 ### 2026-02-28 — сессия 21 (система выражений Горо + Скала на Challenge-экране)
 

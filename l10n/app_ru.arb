@@ -140,6 +140,11 @@
   "settingsStreakThreatSubtitle": "Предупредить, когда серия под угрозой",
   "settingsLanguageTitle": "Язык приложения",
 
+  "settingsSectionTheme": "ТЕМА",
+  "settingsThemeSystem": "Системная",
+  "settingsThemeLight": "Светлая",
+  "settingsThemeDark": "Тёмная",
+
   "settingsSectionWorkout": "ТРЕНИРОВКА",
   "settingsWorkoutDurationTitle": "Длительность сета",
   "settingsWorkoutDurationSubtitle": "Сколько минут уделять ежедневной тренировке",

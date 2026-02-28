@@ -24,6 +24,7 @@ class UserProfile extends HiveObject {
     this.locale,
     this.preferredWorkoutMinutes,
     this.fitnessGoal,
+    this.themeModeName,
   });
 
   @HiveField(0)
@@ -79,4 +80,9 @@ class UserProfile extends HiveObject {
   /// Stored for future use (branch selection, personalised tips).
   @HiveField(13)
   FitnessGoal? fitnessGoal;
+
+  /// User-selected theme mode. null means follow the system setting.
+  /// Stored as a string key: 'light' | 'dark' | null (system).
+  @HiveField(14)
+  String? themeModeName;
 }

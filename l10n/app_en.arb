@@ -73,6 +73,11 @@
   "settingsStreakThreatSubtitle": "Warn when your streak is at risk",
   "settingsLanguageTitle": "App language",
 
+  "settingsSectionTheme": "THEME",
+  "settingsThemeSystem": "System",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+
   "settingsSectionWorkout": "WORKOUT",
   "settingsWorkoutDurationTitle": "Session length",
   "settingsWorkoutDurationSubtitle": "How many minutes to spend on the daily workout",

@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers/locale_provider.dart';
+import '../../../core/providers/theme_provider.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../data/repositories/user_repository.dart';
 
@@ -15,6 +17,7 @@ class SettingsState {
     required this.notificationMinute,
     required this.locale,
     required this.preferredWorkoutMinutes,
+    required this.themeMode,
   });
 
   final bool notificationsEnabled;
@@ -24,6 +27,7 @@ class SettingsState {
   final int notificationMinute;
   final String locale;
   final int preferredWorkoutMinutes;
+  final ThemeMode themeMode;
 
   /// Notification time as a zero-padded string, e.g. "09:00".
   String get timeLabel {
@@ -40,6 +44,7 @@ class SettingsState {
     int? notificationMinute,
     String? locale,
     int? preferredWorkoutMinutes,
+    ThemeMode? themeMode,
   }) {
     return SettingsState(
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
@@ -51,6 +56,7 @@ class SettingsState {
       locale: locale ?? this.locale,
       preferredWorkoutMinutes:
           preferredWorkoutMinutes ?? this.preferredWorkoutMinutes,
+      themeMode: themeMode ?? this.themeMode,
     );
   }
 }
@@ -73,6 +79,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       notificationMinute: p.notificationMinute,
       locale: p.locale ?? 'ru',
       preferredWorkoutMinutes: p.preferredWorkoutMinutes ?? 10,
+      themeMode: themeModeFromString(p.themeModeName),
     );
   }
 
@@ -109,6 +116,13 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
     final p = _userRepo.getProfile()..locale = locale;
     _userRepo.saveProfile(p);
     _ref.read(localeProvider.notifier).state = locale;
+  }
+
+  void setThemeMode(ThemeMode mode) {
+    state = state.copyWith(themeMode: mode);
+    final p = _userRepo.getProfile()..themeModeName = themeModeToString(mode);
+    _userRepo.saveProfile(p);
+    _ref.read(themeProvider.notifier).state = mode;
   }
 
   void _save() {

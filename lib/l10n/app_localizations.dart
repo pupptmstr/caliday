@@ -488,6 +488,30 @@ abstract class AppLocalizations {
   /// **'Язык приложения'**
   String get settingsLanguageTitle;
 
+  /// No description provided for @settingsSectionTheme.
+  ///
+  /// In ru, this message translates to:
+  /// **'ТЕМА'**
+  String get settingsSectionTheme;
+
+  /// No description provided for @settingsThemeSystem.
+  ///
+  /// In ru, this message translates to:
+  /// **'Системная'**
+  String get settingsThemeSystem;
+
+  /// No description provided for @settingsThemeLight.
+  ///
+  /// In ru, this message translates to:
+  /// **'Светлая'**
+  String get settingsThemeLight;
+
+  /// No description provided for @settingsThemeDark.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тёмная'**
+  String get settingsThemeDark;
+
   /// No description provided for @settingsSectionWorkout.
   ///
   /// In ru, this message translates to:

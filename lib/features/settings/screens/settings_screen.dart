@@ -24,6 +24,45 @@ class SettingsScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 12),
           children: [
+            // ── Theme section ─────────────────────────────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Text(
+                l10n.settingsSectionTheme,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                  color: scheme.primary,
+                ),
+              ),
+            ),
+
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
+              child: SegmentedButton<ThemeMode>(
+                segments: [
+                  ButtonSegment(
+                    value: ThemeMode.system,
+                    icon: const Icon(Icons.brightness_auto_rounded),
+                    label: Text(l10n.settingsThemeSystem),
+                  ),
+                  ButtonSegment(
+                    value: ThemeMode.light,
+                    icon: const Icon(Icons.light_mode_rounded),
+                    label: Text(l10n.settingsThemeLight),
+                  ),
+                  ButtonSegment(
+                    value: ThemeMode.dark,
+                    icon: const Icon(Icons.dark_mode_rounded),
+                    label: Text(l10n.settingsThemeDark),
+                  ),
+                ],
+                selected: {state.themeMode},
+                onSelectionChanged: (s) => notifier.setThemeMode(s.first),
+              ),
+            ),
+
             // ── Language section ────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
