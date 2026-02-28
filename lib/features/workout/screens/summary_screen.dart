@@ -44,7 +44,7 @@ class SummaryScreen extends StatelessWidget {
             children: [
               Center(
                 child: SvgPicture.asset(
-                  'assets/goro/goro_flex.svg',
+                  'assets/goro/goro_flex_v2.svg',
                   height: 120,
                 ),
               ),

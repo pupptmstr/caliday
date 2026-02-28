@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
@@ -50,6 +51,15 @@ class ProfileScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              // ── Goro mascot ───────────────────────────────────────────
+              Center(
+                child: SvgPicture.asset(
+                  'assets/goro/goro_idle_v2.svg',
+                  height: 100,
+                ),
+              ),
+              const SizedBox(height: 16),
+
               // ── Rank card ──────────────────────────────────────────────
               _RankCard(
                 rank: profile.rank,

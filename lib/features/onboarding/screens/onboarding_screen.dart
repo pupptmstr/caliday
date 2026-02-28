@@ -281,7 +281,7 @@ class _WelcomeStep extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SvgPicture.asset('assets/goro/goro_face.svg', height: 120),
+          SvgPicture.asset('assets/goro/goro_face_happy.svg', height: 120),
           const SizedBox(height: 24),
           Text(
             l10n.onboardingWelcomeTitle,

@@ -487,7 +487,7 @@ Dynamic: #layer-brows (#brow-left / #brow-right)
 рога `#8B7355→#A89060`, нос-кольцо `#C8A040` (золото),
 **фон `#5C1A1A→#3A0C0C`** (тёмно-красный — «арена испытания», отличается от синего Горо).
 
-### Система выражений Горо — план интеграции (v1.1)
+### ~~Система выражений Горо — план интеграции~~ ✅ сессия 21
 
 **Шаг 1 — скопировать ассеты:**
 - `assets/goro/` ← 6 face SVG + `goro_flex_v2.svg` + `goro_idle_v2.svg`
@@ -821,6 +821,46 @@ final detectedLocale = systemLocale.languageCode == 'ru' ? 'ru' : 'en';
 ---
 
 ## История изменений
+
+### 2026-02-28 — сессия 21 (система выражений Горо + Скала на Challenge-экране)
+
+**Интегрированы новые дизайн-ассеты v1.1 и реализована динамическая система выражений Горо.**
+
+**Новые ассеты:**
+- `assets/goro/` ← 6 face SVG (`goro_face_happy/sad/angry/sleeping/excited/supportive.svg`) + `goro_flex_v2.svg` + `goro_idle_v2.svg`
+- `assets/skala/` ← `skala_neutral.svg` + `skala_approve.svg` (новая папка, добавлена в pubspec.yaml)
+
+**Новый провайдер — `GoroExpressionProvider`** (`lib/core/providers/goro_expression_provider.dart`):
+- `enum GoroExpression { happy, sad, angry, sleeping, excited, supportive }`
+- `extension GoroExpressionAsset` → `assetPath` (путь к SVG)
+- `goroExpressionProvider = Provider.autoDispose<GoroExpression>` — вычисляет выражение по:
+  - 23:00–06:00 → sleeping
+  - hasWorkoutToday → happy
+  - hour ≥ 22 && displayStreak > 0 → angry (стрик горит)
+  - hour ≥ 20 → sad (вечер без тренировки)
+  - daysSince ≥ 2 → supportive (возврат после пропуска)
+  - default → happy
+- Зависит от `userRepositoryProvider`, `workoutRepositoryProvider`, `displayStreakProvider`, `streakServiceProvider` (только data/domain слой, без импорта features)
+
+**Изменения экранов:**
+- **Home screen** — `goro_flex.svg` заменён на `AnimatedSwitcher` + `goroExpressionProvider` (динамическое выражение с анимацией 400ms)
+- **Summary screen** — `goro_flex.svg` заменён на `goro_flex_v2.svg` (улучшенная анатомия)
+- **Profile screen** — добавлен `goro_idle_v2.svg` (height=100) над картой ранга; добавлен импорт `flutter_svg`
+- **Onboarding welcome** — `goro_face.svg` заменён на `goro_face_happy.svg`
+- **Workout screen** — добавлен `_SkalaDisplay` виджет для Challenge-тренировок:
+  - Показывается только когда `plan.setType == SetType.challenge`
+  - `skala_neutral.svg` во время фазы упражнений, `skala_approve.svg` в фазе отдыха (AnimatedSwitcher)
+  - Тёмно-красный контейнер-фон `#5C1A1A`, height=140
+
+**Изменённые файлы:**
+`pubspec.yaml`, `lib/core/providers/goro_expression_provider.dart` (NEW),
+`lib/features/home/screens/home_screen.dart`, `lib/features/workout/screens/summary_screen.dart`,
+`lib/features/profile/screens/profile_screen.dart`, `lib/features/onboarding/screens/onboarding_screen.dart`,
+`lib/features/workout/screens/workout_screen.dart`
+
+**Следующий шаг:** новые ветки прогрессии (Pull, Legs, Balance) или тёмная тема.
+
+---
 
 ### 2026-02-28 — сессия 20 (редизайн системы Challenge)
 

@@ -8,6 +8,7 @@ import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
 import '../../../data/static/exercise_catalog.dart';
+import '../../../core/providers/goro_expression_provider.dart';
 import '../../workout/providers/workout_provider.dart';
 import '../providers/home_provider.dart';
 
@@ -17,6 +18,7 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(homeDataProvider);
+    final expression = ref.watch(goroExpressionProvider);
     final scheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
 
@@ -89,9 +91,13 @@ class HomeScreen extends ConsumerWidget {
 
               // ── Goro mascot ───────────────────────────────────────────
               Center(
-                child: SvgPicture.asset(
-                  'assets/goro/goro_flex.svg',
-                  height: 140,
+                child: AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 400),
+                  child: SvgPicture.asset(
+                    expression.assetPath,
+                    key: ValueKey(expression),
+                    height: 140,
+                  ),
                 ),
               ),
               const SizedBox(height: 16),

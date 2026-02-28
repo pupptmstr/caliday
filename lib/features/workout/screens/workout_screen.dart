@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
@@ -117,9 +118,45 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
           ),
         ),
         body: SafeArea(
-          child: state.phase == WorkoutPhase.rest
-              ? _RestView(state: state, notifier: notifier)
-              : _ExerciseView(state: state, notifier: notifier),
+          child: Column(
+            children: [
+              if (state.plan.setType == SetType.challenge)
+                _SkalaDisplay(isRest: state.phase == WorkoutPhase.rest),
+              Expanded(
+                child: state.phase == WorkoutPhase.rest
+                    ? _RestView(state: state, notifier: notifier)
+                    : _ExerciseView(state: state, notifier: notifier),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Challenge mascot (Скала) ──────────────────────────────────────────────────
+
+class _SkalaDisplay extends StatelessWidget {
+  const _SkalaDisplay({required this.isRest});
+
+  final bool isRest;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: const Color(0xFF5C1A1A),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: Center(
+        child: AnimatedSwitcher(
+          duration: const Duration(milliseconds: 400),
+          child: SvgPicture.asset(
+            isRest
+                ? 'assets/skala/skala_approve.svg'
+                : 'assets/skala/skala_neutral.svg',
+            key: ValueKey(isRest),
+            height: 140,
+          ),
         ),
       ),
     );

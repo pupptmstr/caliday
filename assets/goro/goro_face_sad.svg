@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <!--
+    GORO FACE — SAD
+    Generated from base template. Dynamic layers: #layer-brows, #layer-eyes, #layer-mouth
+    Static layers: #layer-bg, #layer-head, #layer-face-skin, #layer-ears, #layer-nose, #layer-headband
+  -->
+
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4DA6FF"/>
+      <stop offset="100%" style="stop-color:#2B7DE9"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="45%">
+      <stop offset="0%" style="stop-color:#A8D8FF;stop-opacity:0.2"/>
+      <stop offset="100%" style="stop-color:#4DA6FF;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="faceGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C4A882"/>
+      <stop offset="100%" style="stop-color:#A8896A"/>
+    </linearGradient>
+    <linearGradient id="muzzleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#B89870"/>
+      <stop offset="100%" style="stop-color:#9A7E5A"/>
+    </linearGradient>
+  </defs>
+
+
+  <!-- ==================== STATIC LAYERS ==================== -->
+
+  <!-- #layer-bg -->
+  <g id="layer-bg">
+    <rect width="1024" height="1024" rx="224" fill="url(#bgGrad)"/>
+    <circle cx="512" cy="530" r="420" fill="url(#glow)"/>
+  </g>
+
+  <!-- #layer-head: голова, гребень, надбровные дуги -->
+  <g id="layer-head">
+    <!-- Head shape -->
+    <ellipse cx="512" cy="540" rx="318" ry="345" fill="#38384C"/>
+    <!-- Sagittal crest (prominent 3-level ridge) -->
+    <ellipse cx="512" cy="220" rx="118" ry="68" fill="#38384C"/>
+    <ellipse cx="512" cy="188" rx="88" ry="56" fill="#353548"/>
+    <ellipse cx="512" cy="160" rx="58" ry="38" fill="#2E2E42"/>
+    <path d="M485 172 Q512 148 539 172 Q512 158 485 172Z" fill="#1A1A30" opacity="0.55"/>
+    <!-- Heavy brow ridge (overhanging - eyes look deep set) -->
+    <path d="M224 488 Q322 398 512 388 Q702 398 800 488 Q702 448 512 436 Q322 448 224 488Z" fill="#2E2E42"/>
+    <ellipse cx="512" cy="462" rx="285" ry="52" fill="#2E2E42" opacity="0.65"/>
+    <!-- Shadow under brow (depth) -->
+    <ellipse cx="512" cy="490" rx="260" ry="22" fill="#1A1A30" opacity="0.45"/>
+  </g>
+
+  <!-- #layer-face-skin: бежевая зона + мордочка -->
+  <g id="layer-face-skin">
+    <path d="M306 502 Q306 436 512 418 Q718 436 718 502 L718 690 Q718 800 512 820 Q306 800 306 690Z" fill="url(#faceGrad)"/>
+    <!-- Muzzle protrusion (lower face juts forward — gorilla feature) -->
+    <ellipse cx="512" cy="760" rx="118" ry="62" fill="url(#muzzleGrad)"/>
+    <ellipse cx="512" cy="752" rx="95" ry="48" fill="#C4A882" opacity="0.3"/>
+  </g>
+
+  <!-- #layer-ears -->
+  <g id="layer-ears">
+    <ellipse cx="198" cy="535" rx="58" ry="68" fill="#38384C"/>
+    <ellipse cx="204" cy="535" rx="37" ry="47" fill="#A8896A"/>
+    <ellipse cx="826" cy="535" rx="58" ry="68" fill="#38384C"/>
+    <ellipse cx="820" cy="535" rx="37" ry="47" fill="#A8896A"/>
+  </g>
+
+  <!-- #layer-nose -->
+  <g id="layer-nose">
+    <ellipse cx="512" cy="648" rx="80" ry="52" fill="#967756"/>
+    <!-- Wide gorilla nostrils -->
+    <ellipse cx="478" cy="655" rx="24" ry="20" fill="#7A6045"/>
+    <ellipse cx="546" cy="655" rx="24" ry="20" fill="#7A6045"/>
+    <!-- Nose bridge -->
+    <path d="M497 616 Q512 607 527 616" stroke="#B09070" stroke-width="5" fill="none" opacity="0.45"/>
+    <!-- Nose highlight -->
+    <ellipse cx="512" cy="634" rx="26" ry="13" fill="#A88866" opacity="0.28"/>
+  </g>
+
+  <!-- #layer-headband -->
+  <g id="layer-headband">
+    <path d="M208 392 Q368 308 512 303 Q656 308 816 392" stroke="#A8D8FF" stroke-width="34" stroke-linecap="round" fill="none"/>
+    <path d="M252 381 Q388 306 512 302 Q636 306 772 381" stroke="white" stroke-width="9" stroke-linecap="round" fill="none" opacity="0.25"/>
+    <g transform="translate(196, 408)">
+      <path d="M0,0 Q-22,34 -38,86 Q-30,50 -11,24Z" fill="#A8D8FF"/>
+      <path d="M-5,-2 Q-32,24 -54,76 Q-38,42 -20,16Z" fill="#A8D8FF"/>
+    </g>
+  </g>
+
+  <!-- ==================== DYNAMIC LAYERS ==================== -->
+
+  <!-- #layer-brows -->
+  <g id="layer-brows">
+    
+    <!-- Inner ends raised — classic sad brow (house-shape) -->
+    <path id="brow-left"  d="M326 476 Q366 492 436 476" stroke="#1A1A2A" stroke-width="17" stroke-linecap="round" fill="none"/>
+    <path id="brow-right" d="M698 476 Q658 492 588 476" stroke="#1A1A2A" stroke-width="17" stroke-linecap="round" fill="none"/>
+    
+  </g>
+
+  <!-- #layer-eyes -->
+  <g id="layer-eyes">
+    
+    <ellipse id="eye-left-socket"  cx="410" cy="526" rx="85" ry="60" fill="#2E2E42" opacity="0.28"/>
+    <ellipse id="eye-right-socket" cx="614" cy="526" rx="85" ry="60" fill="#2E2E42" opacity="0.28"/>
+    <!-- Left eye — pupils looking slightly down -->
+    <ellipse id="eye-left-white"   cx="410" cy="532" rx="68" ry="55" fill="white"/>
+    <ellipse id="eye-left-pupil"   cx="416" cy="548" rx="35" ry="40" fill="#1A1A2A"/>
+    <circle  id="eye-left-shine1"  cx="424" cy="535" r="13" fill="white"/>
+    <circle  id="eye-left-shine2"  cx="410" cy="556"  r="6"  fill="white" opacity="0.45"/>
+    <!-- Right eye -->
+    <ellipse id="eye-right-white"  cx="614" cy="532" rx="68" ry="55" fill="white"/>
+    <ellipse id="eye-right-pupil"  cx="608" cy="548" rx="35" ry="40" fill="#1A1A2A"/>
+    <circle  id="eye-right-shine1" cx="616" cy="535" r="13" fill="white"/>
+    <circle  id="eye-right-shine2" cx="602" cy="556"  r="6"  fill="white" opacity="0.45"/>
+    
+  </g>
+
+  <!-- #layer-mouth -->
+  <g id="layer-mouth">
+    
+    <!-- Downturned corners — sadness -->
+    <path id="mouth-line-upper" d="M418 720 Q464 712 512 714 Q560 712 606 720" stroke="#7A6045" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <path id="mouth-curve"      d="M410 716 Q460 680 512 676 Q564 680 614 716" stroke="#7A6045" stroke-width="8" stroke-linecap="round" fill="none"/>
+    <path id="mouth-fill"       d="M418 717 Q462 686 512 682 Q562 686 606 717 Q512 706 418 717Z" fill="#7A6045" opacity="0.22"/>
+    <path id="mouth-lowerlip"   d="M458 700 Q512 693 566 700" stroke="#B09070" stroke-width="3" fill="none" opacity="0.25"/>
+    
+  </g>
+
+</svg>
