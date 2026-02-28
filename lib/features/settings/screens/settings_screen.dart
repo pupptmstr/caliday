@@ -2,12 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
-import '../../../core/services/notification_service.dart';
-import '../../../data/repositories/user_repository.dart';
-import '../../../data/repositories/workout_repository.dart';
-import '../../home/providers/home_provider.dart';
 import '../providers/settings_provider.dart' show settingsProvider;
 
 class SettingsScreen extends ConsumerWidget {
@@ -147,87 +144,10 @@ class SettingsScreen extends ConsumerWidget {
             if (kDebugMode) ...[
               const Divider(indent: 20, endIndent: 20, height: 1),
               _SettingsTile(
-                title: '[DEBUG] Тест уведомления',
-                subtitle: 'Показать уведомление немедленно',
-                trailing: const Icon(Icons.science_outlined),
-                onTap: () async {
-                  final messenger = ScaffoldMessenger.of(context);
-                  final ok = await NotificationService.instance.debugShowNow();
-                  messenger.showSnackBar(
-                    SnackBar(
-                      content: Text(
-                        ok ? 'Уведомление отправлено!' : 'Ошибка — нет разрешения?',
-                      ),
-                    ),
-                  );
-                },
-              ),
-              const Divider(indent: 20, endIndent: 20, height: 1),
-              _SettingsTile(
-                title: '[DEBUG] Симулировать пропуск дня',
-                subtitle: 'lastWorkoutDate = позавчера → заморозка потратится',
-                trailing: const Icon(Icons.ac_unit_outlined),
-                onTap: () async {
-                  final messenger = ScaffoldMessenger.of(context);
-                  final userRepo = ref.read(userRepositoryProvider);
-                  final workoutRepo = ref.read(workoutRepositoryProvider);
-
-                  final profile = userRepo.getProfile();
-                  final twoDaysAgo = DateTime.now().subtract(
-                    const Duration(days: 2),
-                  );
-                  profile.lastWorkoutDate = DateTime(
-                    twoDaysAgo.year,
-                    twoDaysAgo.month,
-                    twoDaysAgo.day,
-                  );
-                  userRepo.saveProfile(profile);
-
-                  await workoutRepo.deleteForDate(DateTime.now());
-
-                  ref.invalidate(homeDataProvider);
-
-                  messenger.showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Пропуск симулирован — пройди тренировку, заморозка потратится ✓',
-                      ),
-                    ),
-                  );
-                },
-              ),
-              const Divider(indent: 20, endIndent: 20, height: 1),
-              _SettingsTile(
-                title: '[DEBUG] Стрик → 6, сброс тренировки',
-                subtitle: 'Стрик = 6 вчера, сегодняшняя тренировка удалена',
-                trailing: const Icon(Icons.replay_outlined),
-                onTap: () async {
-                  final messenger = ScaffoldMessenger.of(context);
-                  final userRepo = ref.read(userRepositoryProvider);
-                  final workoutRepo = ref.read(workoutRepositoryProvider);
-
-                  final profile = userRepo.getProfile();
-                  final yesterday = DateTime.now().subtract(
-                    const Duration(days: 1),
-                  );
-                  profile.currentStreak = 6;
-                  profile.lastWorkoutDate = DateTime(
-                    yesterday.year,
-                    yesterday.month,
-                    yesterday.day,
-                  );
-                  userRepo.saveProfile(profile);
-
-                  await workoutRepo.deleteForDate(DateTime.now());
-
-                  ref.invalidate(homeDataProvider);
-
-                  messenger.showSnackBar(
-                    const SnackBar(
-                      content: Text('Стрик = 6, тренировка сброшена ✓'),
-                    ),
-                  );
-                },
+                title: '[DEBUG] Возможности разработчика',
+                subtitle: 'Прямое управление состоянием приложения',
+                trailing: const Icon(Icons.developer_mode_rounded),
+                onTap: () => context.push('/dev-options'),
               ),
             ],
           ],

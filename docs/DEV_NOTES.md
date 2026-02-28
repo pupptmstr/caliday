@@ -814,7 +814,31 @@ final detectedLocale = systemLocale.languageCode == 'ru' ? 'ru' : 'en';
 **Изменённые файлы:**
 `locale_provider.dart`, `streak_service.dart`, `home_provider.dart`, `profile_provider.dart`, `profile_screen.dart`, `home_screen.dart`, `notification_service.dart`, `workout_provider.dart`, `user_profile.dart`, `user_profile.g.dart`, `enums.dart`, `enums.g.dart`, `main.dart`, `onboarding_provider.dart`, `onboarding_screen.dart`, `settings_provider.dart`, `settings_screen.dart`, `l10n/app_ru.arb`, `l10n/app_en.arb`
 
-**Следующий шаг:** система выражений Горо (шаги 1–5) или `DeveloperOptionsScreen`.
+**Следующий шаг:** система выражений Горо (шаги 1–5) или редизайн Challenge-системы.
+
+---
+
+### 2026-02-28 — сессия 19 (DeveloperOptionsScreen)
+
+**Реализован экран «Возможности разработчика»** (только `kDebugMode`), доступный из Settings через плитку «Возможности разработчика».
+
+**Новый файл:**
+- `lib/features/settings/screens/developer_options_screen.dart` — `ConsumerStatefulWidget`, 5 секций
+
+**Секции экрана:**
+- **ПРОФИЛЬ:** степпер стрика (0-365), чипы lastWorkoutDate (Сегодня/Вчера/2 дня/3 дня/Никогда), степпер SP (шаг 100, tap-to-edit), чипы заморозок (0-3), dropdown ранга + кнопка «Сохранить профиль»
+- **ПРОГРЕСС ВЕТОК:** для каждой ветки — степпер этапа (max: Push=7, Core=6, остальные=5-6), степпер повторений, чипы подходов 1/2/3, switch challenge + кнопка «Сохранить»
+- **ЖУРНАЛ ТРЕНИРОВОК:** счётчик, удалить сегодня, добавить фейковую (date picker), удалить все (с подтверждением)
+- **УВЕДОМЛЕНИЯ:** 4 кнопки «→ сейчас» (утро/вечер/угроза/потеря стрика), показать запланированные
+- **ПРИЛОЖЕНИЕ:** дамп состояния (диалог), полный сброс → онбординг (с подтверждением, очищает все Hive-боксы)
+
+**Изменённые файлы:**
+- `workout_repository.dart` — добавлен `deleteAll()`
+- `notification_service.dart` — добавлены `debugShowMorning/Evening/StreakThreat/StreakLost(profile)`, приватный `_debugFireNow(...)`, публичный `pendingRequests()`
+- `app_router.dart` — маршрут `/dev-options` под `if (kDebugMode)`
+- `settings_screen.dart` — 3 старых debug-тайла заменены одним; удалены ненужные импорты
+
+**Следующий шаг:** система выражений Горо (шаги 1–5) или редизайн Challenge-системы.
 
 ---
 

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -6,6 +7,7 @@ import '../../data/repositories/user_repository.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
+import '../../features/settings/screens/developer_options_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
 import '../../features/workout/screens/summary_screen.dart';
 import '../../features/workout/screens/workout_screen.dart';
@@ -88,6 +90,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         path: '/settings',
         builder: (_, _) => const SettingsScreen(),
       ),
+      if (kDebugMode)
+        GoRoute(
+          path: '/dev-options',
+          builder: (_, _) => const DeveloperOptionsScreen(),
+        ),
     ],
   );
 });

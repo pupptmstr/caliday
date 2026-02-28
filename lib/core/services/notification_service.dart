@@ -198,6 +198,41 @@ class NotificationService {
     }
   }
 
+  /// Fires one of the four real notification types immediately for testing.
+  /// Only call from debug code.
+  Future<bool> debugShowMorning(UserProfile p) =>
+      _debugFireNow(_idMorning, 'morningTitle', 'morningBody', p);
+
+  Future<bool> debugShowEvening(UserProfile p) =>
+      _debugFireNow(_idEvening, 'eveningTitle', 'eveningBody', p);
+
+  Future<bool> debugShowStreakThreat(UserProfile p) =>
+      _debugFireNow(_idStreakThreat, 'streakTitle', 'streakBody', p);
+
+  Future<bool> debugShowStreakLost(UserProfile p) =>
+      _debugFireNow(_idStreakLost, 'streakLostTitle', 'streakLostBody', p);
+
+  Future<bool> _debugFireNow(
+      int id, String titleKey, String bodyKey, UserProfile p) async {
+    if (!_initialized) await init();
+    try {
+      final strings = _notifStrings[p.locale ?? 'ru'] ?? _notifStrings['ru']!;
+      var body = strings[bodyKey]!;
+      if (bodyKey == 'streakLostBody') {
+        body = body.replaceAll('{days}', '${p.currentStreak}');
+      }
+      await _plugin.show(id, strings[titleKey]!, body,
+          _details(channelId: 'debug', channelName: 'Debug'));
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  /// Returns all currently pending (scheduled) notification requests.
+  Future<List<PendingNotificationRequest>> pendingRequests() =>
+      _plugin.pendingNotificationRequests();
+
   // ── Private helpers ───────────────────────────────────────────────────────
 
   Future<void> _scheduleMorning(

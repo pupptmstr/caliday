@@ -62,6 +62,9 @@ class WorkoutRepository {
     if (key != null) await _box.delete(key);
   }
 
+  /// Deletes every logged workout from the box.
+  Future<void> deleteAll() => _box.clear();
+
   /// Total number of logged workouts.
   int get totalCount => _box.length;
 
