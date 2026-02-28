@@ -750,6 +750,18 @@ final detectedLocale = systemLocale.languageCode == 'ru' ? 'ru' : 'en';
 
 ### v1.2 — Идеи
 
+#### Адаптивный UI для горизонтальной ориентации
+
+Сейчас все экраны рассчитаны только на portrait. В `main.dart` вызывается
+`SystemChrome.setPreferredOrientations([portraitUp, portraitDown])` — блокировка включена.
+
+Когда потребуется поддержка landscape:
+1. Убрать блокировку в `main.dart`
+2. Переработать раскладки ключевых экранов (Home, Workout, Summary) под широкий экран,
+   например через `LayoutBuilder` + двухколоночный layout при `maxWidth > 600`
+3. Особое внимание: `_TimedDisplay` (круговой таймер), `_RepsDisplay` (±-счётчик)
+   и карточки Home — они могут обрезаться на низком landscape-экране
+
 #### Экран «Путь прогрессии» ветки (Branch Journey Screen)
 
 Сейчас `_BranchProgressCard` — полностью не интерактивная. Нет `onTap`, нельзя узнать
