@@ -82,10 +82,10 @@ class _DeveloperOptionsScreenState
           ),
         ),
 
-        // Last workout date chips
+        // Last workout date dropdown
         _DevRow(
           label: 'Последняя тренировка',
-          child: _ChipRow<int>(
+          child: _DevDropdown<int>(
             values: const [0, 1, 2, 3, -1],
             selected: _lastWorkoutDaysAgo(),
             label: (v) => switch (v) {
@@ -120,10 +120,10 @@ class _DeveloperOptionsScreenState
           ),
         ),
 
-        // Freeze chips
+        // Freeze dropdown
         _DevRow(
           label: 'Заморозки',
-          child: _ChipRow<int>(
+          child: _DevDropdown<int>(
             values: const [0, 1, 2, 3],
             selected: _profile.streakFreezeCount,
             label: (v) => '$v',
@@ -261,7 +261,7 @@ class _DeveloperOptionsScreenState
               ),
               _DevRow(
                 label: 'Подходы',
-                child: _ChipRow<int>(
+                child: _DevDropdown<int>(
                   values: const [1, 2, 3],
                   selected: progress.currentSets,
                   label: (v) => '$v',
@@ -582,15 +582,14 @@ class _DevRow extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 4),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Row(
         children: [
           Text(
             label,
             style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
           ),
-          const SizedBox(height: 4),
-          Align(alignment: Alignment.centerRight, child: child),
+          const Spacer(),
+          child,
         ],
       ),
     );
@@ -710,9 +709,9 @@ class _StepBtn extends StatelessWidget {
   }
 }
 
-/// Horizontal row of tappable chips.
-class _ChipRow<T> extends StatelessWidget {
-  const _ChipRow({
+/// Compact dropdown for selecting one value from a short list.
+class _DevDropdown<T> extends StatelessWidget {
+  const _DevDropdown({
     required this.values,
     required this.selected,
     required this.label,
@@ -726,39 +725,19 @@ class _ChipRow<T> extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: values.map((v) {
-        final isSelected = v == selected;
-        return Padding(
-          padding: const EdgeInsets.only(left: 4),
-          child: GestureDetector(
-            onTap: () => onSelect(v),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 150),
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? scheme.primary
-                    : scheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(8),
-              ),
-              child: Text(
-                label(v),
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: isSelected
-                      ? scheme.onPrimary
-                      : scheme.onSurfaceVariant,
-                ),
-              ),
-            ),
-          ),
-        );
-      }).toList(),
+    return DropdownButton<T>(
+      value: selected,
+      isDense: true,
+      underline: const SizedBox.shrink(),
+      items: values
+          .map((v) => DropdownMenuItem<T>(
+                value: v,
+                child: Text(label(v), style: const TextStyle(fontSize: 13)),
+              ))
+          .toList(),
+      onChanged: (v) {
+        if (v != null) onSelect(v);
+      },
     );
   }
 }
