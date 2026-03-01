@@ -87,6 +87,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
             'newStageExerciseId': s.newStageExerciseId,
             'isPrimary': s.isPrimary,
             'workoutsToday': s.workoutsToday,
+            'newAchievementIds': s.newAchievementIds,
           });
         }
       },

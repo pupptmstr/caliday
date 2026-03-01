@@ -5,10 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/exercise_result.dart';
 import '../../../data/models/workout_log.dart';
+import '../../../data/repositories/achievement_repository.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../data/repositories/workout_repository.dart';
 import '../../../domain/models/workout_plan.dart';
+import '../../../domain/services/achievement_service.dart';
 import '../../../domain/services/progression_service.dart';
 import '../../../domain/services/sp_service.dart';
 import '../../../domain/services/streak_service.dart';
@@ -48,6 +50,7 @@ class WorkoutState {
     this.newStageExerciseId,
     this.isPrimary = true,
     this.workoutsToday = 1,
+    this.newAchievementIds = const [],
   });
 
   final WorkoutPlan plan;
@@ -102,6 +105,9 @@ class WorkoutState {
   /// Total workouts completed today (including this one).
   final int workoutsToday;
 
+  /// IDs of achievements newly earned during this workout.
+  final List<String> newAchievementIds;
+
   // ── Convenience ───────────────────────────────────────────────────────────
 
   PlannedExercise get currentPlanned => plan.exercises[exerciseIndex];
@@ -125,6 +131,7 @@ class WorkoutState {
     String? newStageExerciseId,
     bool? isPrimary,
     int? workoutsToday,
+    List<String>? newAchievementIds,
   }) {
     return WorkoutState(
       plan: plan,
@@ -145,6 +152,7 @@ class WorkoutState {
       newStageExerciseId: newStageExerciseId ?? this.newStageExerciseId,
       isPrimary: isPrimary ?? this.isPrimary,
       workoutsToday: workoutsToday ?? this.workoutsToday,
+      newAchievementIds: newAchievementIds ?? this.newAchievementIds,
     );
   }
 
@@ -373,6 +381,9 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     bool challengePassed = false;
     String? newStageExerciseId;
 
+    BranchId? advancedBranch;
+    int advancedToStage = 0;
+
     if (isPrimary) {
       for (var i = 0; i < state.plan.exercises.length; i++) {
         final planned = state.plan.exercises[i];
@@ -391,6 +402,8 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
             progressionService.advanceStage(progress, exercise);
             challengePassed = true;
             newStageExerciseId = exercise.id;
+            advancedBranch = planned.exercise.branch;
+            advancedToStage = progress.currentStage;
           }
           // If failed: isChallengeUnlocked stays true, progress unchanged.
         } else {
@@ -406,6 +419,8 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     _ref.read(challengeBranchProvider.notifier).state = null;
 
     // ── Workout log ───────────────────────────────────────────────────────
+    // workoutsToday captured before addLog to avoid relying on Hive sync timing.
+    final workoutsToday = workoutRepo.getCountForDate(now) + 1;
     // Fire-and-forget: Hive write is async but nearly instantaneous locally.
     unawaited(workoutRepo.addLog(WorkoutLog(
       date: now,
@@ -416,7 +431,34 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       isPrimary: isPrimary,
     )));
 
-    final workoutsToday = workoutRepo.getCountForDate(now) + 1;
+    // ── Achievements ──────────────────────────────────────────────────────
+    final achievementRepo = _ref.read(achievementRepositoryProvider);
+    final achievementService = _ref.read(achievementServiceProvider);
+    final alreadyEarned = Set<String>.from(achievementRepo.getAllEarnedIds());
+    final newAchievements = <String>[];
+
+    if (isPrimary && challengePassed && advancedBranch != null) {
+      final allProgress = {
+        for (final b in BranchId.values) b: progressRepo.getProgress(b),
+      };
+      final stageAchievements = achievementService.checkAfterStageAdvance(
+        branch: advancedBranch,
+        newStage: advancedToStage,
+        allProgress: allProgress,
+        alreadyEarned: alreadyEarned,
+      );
+      newAchievements.addAll(stageAchievements);
+    }
+
+    newAchievements.addAll(achievementService.checkAfterWorkout(
+      profile: profile,
+      totalWorkouts: workoutRepo.totalCount,
+      alreadyEarned: alreadyEarned,
+    ));
+
+    for (final id in newAchievements) {
+      unawaited(achievementRepo.markEarned(id));
+    }
 
     // Cancel today's evening / streak-threat / streak-lost notifications.
     unawaited(NotificationService.instance.cancelDayReminders());
@@ -439,6 +481,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       newStageExerciseId: newStageExerciseId,
       isPrimary: isPrimary,
       workoutsToday: workoutsToday,
+      newAchievementIds: newAchievements,
     );
   }
 }

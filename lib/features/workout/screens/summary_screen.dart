@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
+import '../../../data/static/achievement_catalog.dart';
 
 /// Post-workout summary screen.
 ///
@@ -29,6 +31,9 @@ class SummaryScreen extends StatelessWidget {
     final newStageExerciseId = extras['newStageExerciseId'] as String?;
     final isBonus = !(extras['isPrimary'] as bool? ?? true);
     final workoutsToday = extras['workoutsToday'] as int? ?? 1;
+    final rawIds = extras['newAchievementIds'];
+    final newAchievementIds =
+        rawIds is List ? rawIds.cast<String>() : <String>[];
 
     final mins = durationSec ~/ 60;
     final secs = durationSec % 60;
@@ -81,6 +86,10 @@ class SummaryScreen extends StatelessWidget {
 
               const SizedBox(height: 24),
 
+              if (newAchievementIds.isNotEmpty) ...[
+                _AchievementsEarnedBanner(ids: newAchievementIds),
+                const SizedBox(height: 10),
+              ],
               if (isBonus) _BonusWorkoutBanner(workoutsToday: workoutsToday),
               if (isBonus && (freezeUsed || freezeEarned || challengeUnlocked))
                 const SizedBox(height: 10),
@@ -239,6 +248,107 @@ class _ChallengeUnlockedBanner extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _AchievementsEarnedBanner extends StatelessWidget {
+  const _AchievementsEarnedBanner({required this.ids});
+
+  final List<String> ids;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final l = context.l10n;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: scheme.primaryContainer,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l.summaryAchievementsTitle,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  fontWeight: FontWeight.w700,
+                  color: scheme.onPrimaryContainer,
+                ),
+          ),
+          const SizedBox(height: 10),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: ids.map((id) {
+              final a = AchievementCatalog.byId(id);
+              return GestureDetector(
+                onTap: () => _showSheet(context, id),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  decoration: BoxDecoration(
+                    color: scheme.primary,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(a?.emoji ?? '🏅',
+                          style: const TextStyle(fontSize: 16)),
+                      const SizedBox(width: 6),
+                      Text(
+                        AchievementL10n.name(l, id),
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: scheme.onPrimary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showSheet(BuildContext context, String id) {
+    final l = context.l10n;
+    final a = AchievementCatalog.byId(id);
+    showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.fromLTRB(24, 20, 24, 36),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(a?.emoji ?? '🏅', style: const TextStyle(fontSize: 48)),
+            const SizedBox(height: 12),
+            Text(
+              AchievementL10n.name(l, id),
+              style: const TextStyle(
+                  fontSize: 20, fontWeight: FontWeight.w800),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              AchievementL10n.desc(l, id),
+              style: TextStyle(
+                  fontSize: 15,
+                  color: Theme.of(context).colorScheme.onSurfaceVariant),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -607,7 +607,7 @@ lib/features/settings/screens/
 
 | Версия | Фича | Статус |
 |--------|------|--------|
-| **v1.1** | Достижения (27 штук) | ⚠️ спроектировано, код не написан |
+| **v1.1** | Достижения (27 штук) | ✅ реализовано |
 | **v1.1** | Бонусные тренировки (multiple per day) | ✅ реализовано |
 | **v1.1** | Анимации упражнений (Lottie) | 🔒 ждёт ассетов от дизайнера |
 | **v1.2** | Звук + вибрация во время тренировки | 📐 спроектировано сессии 2026-03-02 |
@@ -817,7 +817,7 @@ Branch Journey и запустить Challenge на переход к следу
 
 ---
 
-### Достижения (achievements) — спроектировано, не реализовано
+### Достижения (achievements) — ✅ реализовано
 
 #### Концепция
 
@@ -1391,6 +1391,31 @@ Apple Watch и Wear OS автоматически отражают уведом�
 ---
 
 ## История изменений
+
+### 2026-03-02 — сессия 29 (Достижения — 27 achievements)
+
+**Реализована полная система достижений.**
+
+**Новые файлы:**
+- `lib/data/repositories/achievement_repository.dart` — `Box<DateTime>('achievements')`, ключ=id, значение=earnedAt
+- `lib/data/static/achievement_catalog.dart` — 27 статических `Achievement` (id, emoji, isSecret)
+- `lib/domain/services/achievement_service.dart` — pure service: `checkAfterWorkout`, `checkAfterStageAdvance` (принимают `Set<String> alreadyEarned`, возвращают новые IDs)
+- `lib/core/extensions/achievement_l10n.dart` — switch-based name/desc helper
+- `lib/features/profile/screens/achievements_screen.dart` — экран `/achievements` (секции Получено/Заблокировано, тап→BottomSheet)
+
+**Изменённые файлы:**
+- `lib/main.dart` — `Hive.openBox<DateTime>('achievements')`
+- `lib/features/workout/providers/workout_provider.dart` — `WorkoutState.newAchievementIds`, вызов сервиса в `_finishWorkout`; исправлен порядок `workoutsToday` (до addLog)
+- `lib/features/workout/screens/workout_screen.dart` — передаёт `newAchievementIds` в extras
+- `lib/features/workout/screens/summary_screen.dart` — `_AchievementsEarnedBanner` (badge chips, тап→BottomSheet)
+- `lib/features/profile/providers/profile_provider.dart` — `ProfileData.recentAchievementIds` (последние 5)
+- `lib/features/profile/screens/profile_screen.dart` — секция Достижения с `_AchievementBadgeRow`, кнопка «Все достижения →»
+- `lib/core/router/app_router.dart` — маршрут `/achievements`
+- `l10n/app_ru.arb`, `l10n/app_en.arb` — 27×2 имён+описаний + 6 UI строк
+
+**Архитектурная деталь:** `AchievementService` чисто вычислительный (no side effects). Persistence (`markEarned`) делает `WorkoutNotifier`. `alreadyEarned: Set<String>` обновляется между двумя вызовами, чтобы не дублировать.
+
+**Hive:** `Box<DateTime>` — нативная поддержка, адаптер не нужен. Инициализация добавлена в `main.dart`.
 
 ### 2026-03-02 — сессия 28 (Бонусные тренировки)
 

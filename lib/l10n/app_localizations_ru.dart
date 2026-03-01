@@ -181,6 +181,226 @@ class AppLocalizationsRu extends AppLocalizations {
   String get summaryFreezeEarnedBody => 'Используй, если пропустишь день';
 
   @override
+  String get achievementsTitle => 'Достижения';
+
+  @override
+  String get achievementsEarnedSection => 'Получено';
+
+  @override
+  String get achievementsLockedSection => 'Заблокировано';
+
+  @override
+  String get achievementsSecret => '🔒 ???';
+
+  @override
+  String get achievementsSecretDesc => 'Выполни особое условие, чтобы раскрыть';
+
+  @override
+  String achievementsEarnedOn(String date) {
+    return 'Получено: $date';
+  }
+
+  @override
+  String get profileAchievementsTitle => 'Достижения';
+
+  @override
+  String get profileAchievementsAll => 'Все достижения →';
+
+  @override
+  String get profileNoAchievements => 'Ещё нет достижений';
+
+  @override
+  String get summaryAchievementsTitle => 'Новые достижения! 🏅';
+
+  @override
+  String get achievementFirstWorkoutName => 'Первый шаг';
+
+  @override
+  String get achievementFirstWorkoutDesc =>
+      'Ты сделал первую тренировку — начало положено!';
+
+  @override
+  String get achievementFirstChallengeName => 'Принял вызов';
+
+  @override
+  String get achievementFirstChallengeDesc =>
+      'Первый пройденный Challenge — теперь ты знаешь, на что способен';
+
+  @override
+  String get achievementStreak3Name => 'Три в ряд';
+
+  @override
+  String get achievementStreak3Desc =>
+      '3 дня подряд без пропусков — привычка начинает формироваться';
+
+  @override
+  String get achievementStreak7Name => 'Неделя без пропусков';
+
+  @override
+  String get achievementStreak7Desc => 'Целая неделя — ты уже выше большинства';
+
+  @override
+  String get achievementStreak30Name => 'Марафонец';
+
+  @override
+  String get achievementStreak30Desc =>
+      '30 дней подряд — это настоящая дисциплина';
+
+  @override
+  String get achievementStreak100Name => 'Железная воля';
+
+  @override
+  String get achievementStreak100Desc =>
+      '100 дней без пропусков — легендарное достижение';
+
+  @override
+  String get achievementWorkouts10Name => 'Десятка';
+
+  @override
+  String get achievementWorkouts10Desc =>
+      '10 завершённых тренировок — твёрдый старт';
+
+  @override
+  String get achievementWorkouts50Name => 'Полсотни';
+
+  @override
+  String get achievementWorkouts50Desc =>
+      '50 тренировок — ты серьёзно настроен';
+
+  @override
+  String get achievementWorkouts100Name => 'Центурион';
+
+  @override
+  String get achievementWorkouts100Desc => '100 тренировок — ты в элите';
+
+  @override
+  String get achievementRankAmateurName => 'Любитель';
+
+  @override
+  String get achievementRankAmateurDesc =>
+      'Достигнут ранг Любитель — SP накапливаются';
+
+  @override
+  String get achievementRankSportsmanName => 'Спортсмен';
+
+  @override
+  String get achievementRankSportsmanDesc =>
+      'Ранг Спортсмен — ты уже не просто любитель';
+
+  @override
+  String get achievementRankAthleteName => 'Атлет';
+
+  @override
+  String get achievementRankAthleteDesc => 'Ранг Атлет — серьёзный уровень';
+
+  @override
+  String get achievementRankMasterName => 'Мастер';
+
+  @override
+  String get achievementRankMasterDesc =>
+      'Ранг Мастер — единицы добираются сюда';
+
+  @override
+  String get achievementRankLegendName => 'Легенда';
+
+  @override
+  String get achievementRankLegendDesc => 'Максимальный ранг. Ты — легенда.';
+
+  @override
+  String get achievementPushS3Name => 'Полное отжимание';
+
+  @override
+  String get achievementPushS3Desc => 'Освоены классические отжимания от пола';
+
+  @override
+  String get achievementPushS6Name => 'Одна рука';
+
+  @override
+  String get achievementPushS6Desc => 'Отжимания на одной руке — элита Push';
+
+  @override
+  String get achievementPushCompleteName => 'Властелин Push';
+
+  @override
+  String get achievementPushCompleteDesc =>
+      'Все 7 этапов Push пройдены. Горо гордится.';
+
+  @override
+  String get achievementCoreS2Name => 'Железная доска';
+
+  @override
+  String get achievementCoreS2Desc => 'Планка освоена — основа всего кора';
+
+  @override
+  String get achievementCoreS5Name => 'Уголок';
+
+  @override
+  String get achievementCoreS5Desc => 'L-sit — истинная проверка силы пресса';
+
+  @override
+  String get achievementCoreCompleteName => 'Железный кор';
+
+  @override
+  String get achievementCoreCompleteDesc =>
+      'Все 6 этапов Core пройдены. Твой кор — как сталь.';
+
+  @override
+  String get achievementPullS3Name => 'Первое подтягивание';
+
+  @override
+  String get achievementPullS3Desc =>
+      'Подбородок выше перекладины — это победа';
+
+  @override
+  String get achievementPullCompleteName => 'Король перекладины';
+
+  @override
+  String get achievementPullCompleteDesc =>
+      'Все 6 этапов Pull пройдены. Ты повелеваешь перекладиной.';
+
+  @override
+  String get achievementLegsS5Name => 'Пистолетик';
+
+  @override
+  String get achievementLegsS5Desc =>
+      'Приседание на одной ноге — баланс и сила';
+
+  @override
+  String get achievementLegsCompleteName => 'Стальные ноги';
+
+  @override
+  String get achievementLegsCompleteDesc =>
+      'Все 5 этапов Legs пройдены. Твои ноги из стали.';
+
+  @override
+  String get achievementBalanceS4Name => 'Поза ворона';
+
+  @override
+  String get achievementBalanceS4Desc =>
+      'Kakasana держится — ты управляешь балансом';
+
+  @override
+  String get achievementBalanceS6Name => 'Свободная стойка';
+
+  @override
+  String get achievementBalanceS6Desc =>
+      'Стойка на руках без стены — вершина баланса';
+
+  @override
+  String get achievementBalanceCompleteName => 'Мастер равновесия';
+
+  @override
+  String get achievementBalanceCompleteDesc =>
+      'Все 6 этапов Balance пройдены. Ты — эквилибрист.';
+
+  @override
+  String get achievementAllCompleteName => 'Полный комплект';
+
+  @override
+  String get achievementAllCompleteDesc =>
+      'Все 5 веток пройдены до конца. Абсолютный чемпион.';
+
+  @override
   String get summaryBonusTitle => 'Бонусная тренировка 💪';
 
   @override

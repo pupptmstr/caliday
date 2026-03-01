@@ -43,6 +43,7 @@ Future<void> main() async {
     Hive.openBox<UserProfile>('user_profile'),
     Hive.openBox<SkillProgress>('skill_progress'),
     Hive.openBox<WorkoutLog>('workout_log'),
+    Hive.openBox<DateTime>('achievements'),
   ]);
 
   // Initialise notification plugin and reschedule daily reminders.

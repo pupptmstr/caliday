@@ -181,6 +181,226 @@ class AppLocalizationsEn extends AppLocalizations {
   String get summaryFreezeEarnedBody => 'Use it if you miss a day';
 
   @override
+  String get achievementsTitle => 'Achievements';
+
+  @override
+  String get achievementsEarnedSection => 'Earned';
+
+  @override
+  String get achievementsLockedSection => 'Locked';
+
+  @override
+  String get achievementsSecret => '🔒 ???';
+
+  @override
+  String get achievementsSecretDesc => 'Complete a special condition to unlock';
+
+  @override
+  String achievementsEarnedOn(String date) {
+    return 'Earned: $date';
+  }
+
+  @override
+  String get profileAchievementsTitle => 'Achievements';
+
+  @override
+  String get profileAchievementsAll => 'All achievements →';
+
+  @override
+  String get profileNoAchievements => 'No achievements yet';
+
+  @override
+  String get summaryAchievementsTitle => 'New achievements! 🏅';
+
+  @override
+  String get achievementFirstWorkoutName => 'First Step';
+
+  @override
+  String get achievementFirstWorkoutDesc =>
+      'You completed your first workout — the journey begins!';
+
+  @override
+  String get achievementFirstChallengeName => 'Challenge Accepted';
+
+  @override
+  String get achievementFirstChallengeDesc =>
+      'First challenge passed — now you know what you\'re capable of';
+
+  @override
+  String get achievementStreak3Name => 'Three in a Row';
+
+  @override
+  String get achievementStreak3Desc => '3 days in a row — the habit is forming';
+
+  @override
+  String get achievementStreak7Name => 'Full Week';
+
+  @override
+  String get achievementStreak7Desc =>
+      'A whole week — you\'re already above most';
+
+  @override
+  String get achievementStreak30Name => 'Marathoner';
+
+  @override
+  String get achievementStreak30Desc =>
+      '30 days straight — that\'s real discipline';
+
+  @override
+  String get achievementStreak100Name => 'Iron Will';
+
+  @override
+  String get achievementStreak100Desc =>
+      '100 days without a break — a legendary achievement';
+
+  @override
+  String get achievementWorkouts10Name => 'Ten';
+
+  @override
+  String get achievementWorkouts10Desc =>
+      '10 workouts completed — a solid start';
+
+  @override
+  String get achievementWorkouts50Name => 'Fifty';
+
+  @override
+  String get achievementWorkouts50Desc => '50 workouts — you mean business';
+
+  @override
+  String get achievementWorkouts100Name => 'Centurion';
+
+  @override
+  String get achievementWorkouts100Desc =>
+      '100 workouts — you\'re in the elite';
+
+  @override
+  String get achievementRankAmateurName => 'Amateur';
+
+  @override
+  String get achievementRankAmateurDesc =>
+      'Amateur rank reached — SP are accumulating';
+
+  @override
+  String get achievementRankSportsmanName => 'Sportsman';
+
+  @override
+  String get achievementRankSportsmanDesc =>
+      'Sportsman rank — you\'re more than just a hobbyist';
+
+  @override
+  String get achievementRankAthleteName => 'Athlete';
+
+  @override
+  String get achievementRankAthleteDesc => 'Athlete rank — a serious level';
+
+  @override
+  String get achievementRankMasterName => 'Master';
+
+  @override
+  String get achievementRankMasterDesc =>
+      'Master rank — only a few get this far';
+
+  @override
+  String get achievementRankLegendName => 'Legend';
+
+  @override
+  String get achievementRankLegendDesc => 'Max rank. You are a legend.';
+
+  @override
+  String get achievementPushS3Name => 'Full Push-up';
+
+  @override
+  String get achievementPushS3Desc => 'Classic floor push-ups mastered';
+
+  @override
+  String get achievementPushS6Name => 'One Arm';
+
+  @override
+  String get achievementPushS6Desc => 'One-arm push-ups — Push elite';
+
+  @override
+  String get achievementPushCompleteName => 'Push Master';
+
+  @override
+  String get achievementPushCompleteDesc =>
+      'All 7 Push stages cleared. Goro is proud.';
+
+  @override
+  String get achievementCoreS2Name => 'Iron Plank';
+
+  @override
+  String get achievementCoreS2Desc =>
+      'Plank mastered — the foundation of all core work';
+
+  @override
+  String get achievementCoreS5Name => 'L-sit';
+
+  @override
+  String get achievementCoreS5Desc => 'L-sit — the ultimate core strength test';
+
+  @override
+  String get achievementCoreCompleteName => 'Iron Core';
+
+  @override
+  String get achievementCoreCompleteDesc =>
+      'All 6 Core stages cleared. Your core is steel.';
+
+  @override
+  String get achievementPullS3Name => 'First Pull-up';
+
+  @override
+  String get achievementPullS3Desc => 'Chin above the bar — that\'s a win';
+
+  @override
+  String get achievementPullCompleteName => 'Bar King';
+
+  @override
+  String get achievementPullCompleteDesc =>
+      'All 6 Pull stages cleared. You rule the bar.';
+
+  @override
+  String get achievementLegsS5Name => 'Pistol Squat';
+
+  @override
+  String get achievementLegsS5Desc =>
+      'Single-leg squat — balance and strength combined';
+
+  @override
+  String get achievementLegsCompleteName => 'Steel Legs';
+
+  @override
+  String get achievementLegsCompleteDesc =>
+      'All 5 Legs stages cleared. Your legs are steel.';
+
+  @override
+  String get achievementBalanceS4Name => 'Crow Pose';
+
+  @override
+  String get achievementBalanceS4Desc =>
+      'Kakasana holds — you command your balance';
+
+  @override
+  String get achievementBalanceS6Name => 'Free Handstand';
+
+  @override
+  String get achievementBalanceS6Desc =>
+      'Wall-free handstand — the peak of balance';
+
+  @override
+  String get achievementBalanceCompleteName => 'Balance Master';
+
+  @override
+  String get achievementBalanceCompleteDesc =>
+      'All 6 Balance stages cleared. You are an equilibrist.';
+
+  @override
+  String get achievementAllCompleteName => 'Full Collection';
+
+  @override
+  String get achievementAllCompleteDesc =>
+      'All 5 branches completed. Absolute champion.';
+
+  @override
   String get summaryBonusTitle => 'Bonus Workout 💪';
 
   @override

@@ -398,6 +398,402 @@ abstract class AppLocalizations {
   /// **'Используй, если пропустишь день'**
   String get summaryFreezeEarnedBody;
 
+  /// No description provided for @achievementsTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Достижения'**
+  String get achievementsTitle;
+
+  /// No description provided for @achievementsEarnedSection.
+  ///
+  /// In ru, this message translates to:
+  /// **'Получено'**
+  String get achievementsEarnedSection;
+
+  /// No description provided for @achievementsLockedSection.
+  ///
+  /// In ru, this message translates to:
+  /// **'Заблокировано'**
+  String get achievementsLockedSection;
+
+  /// No description provided for @achievementsSecret.
+  ///
+  /// In ru, this message translates to:
+  /// **'🔒 ???'**
+  String get achievementsSecret;
+
+  /// No description provided for @achievementsSecretDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Выполни особое условие, чтобы раскрыть'**
+  String get achievementsSecretDesc;
+
+  /// No description provided for @achievementsEarnedOn.
+  ///
+  /// In ru, this message translates to:
+  /// **'Получено: {date}'**
+  String achievementsEarnedOn(String date);
+
+  /// No description provided for @profileAchievementsTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Достижения'**
+  String get profileAchievementsTitle;
+
+  /// No description provided for @profileAchievementsAll.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все достижения →'**
+  String get profileAchievementsAll;
+
+  /// No description provided for @profileNoAchievements.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ещё нет достижений'**
+  String get profileNoAchievements;
+
+  /// No description provided for @summaryAchievementsTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Новые достижения! 🏅'**
+  String get summaryAchievementsTitle;
+
+  /// No description provided for @achievementFirstWorkoutName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Первый шаг'**
+  String get achievementFirstWorkoutName;
+
+  /// No description provided for @achievementFirstWorkoutDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ты сделал первую тренировку — начало положено!'**
+  String get achievementFirstWorkoutDesc;
+
+  /// No description provided for @achievementFirstChallengeName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Принял вызов'**
+  String get achievementFirstChallengeName;
+
+  /// No description provided for @achievementFirstChallengeDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Первый пройденный Challenge — теперь ты знаешь, на что способен'**
+  String get achievementFirstChallengeDesc;
+
+  /// No description provided for @achievementStreak3Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Три в ряд'**
+  String get achievementStreak3Name;
+
+  /// No description provided for @achievementStreak3Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'3 дня подряд без пропусков — привычка начинает формироваться'**
+  String get achievementStreak3Desc;
+
+  /// No description provided for @achievementStreak7Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Неделя без пропусков'**
+  String get achievementStreak7Name;
+
+  /// No description provided for @achievementStreak7Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Целая неделя — ты уже выше большинства'**
+  String get achievementStreak7Desc;
+
+  /// No description provided for @achievementStreak30Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Марафонец'**
+  String get achievementStreak30Name;
+
+  /// No description provided for @achievementStreak30Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'30 дней подряд — это настоящая дисциплина'**
+  String get achievementStreak30Desc;
+
+  /// No description provided for @achievementStreak100Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Железная воля'**
+  String get achievementStreak100Name;
+
+  /// No description provided for @achievementStreak100Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'100 дней без пропусков — легендарное достижение'**
+  String get achievementStreak100Desc;
+
+  /// No description provided for @achievementWorkouts10Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Десятка'**
+  String get achievementWorkouts10Name;
+
+  /// No description provided for @achievementWorkouts10Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'10 завершённых тренировок — твёрдый старт'**
+  String get achievementWorkouts10Desc;
+
+  /// No description provided for @achievementWorkouts50Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Полсотни'**
+  String get achievementWorkouts50Name;
+
+  /// No description provided for @achievementWorkouts50Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'50 тренировок — ты серьёзно настроен'**
+  String get achievementWorkouts50Desc;
+
+  /// No description provided for @achievementWorkouts100Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Центурион'**
+  String get achievementWorkouts100Name;
+
+  /// No description provided for @achievementWorkouts100Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'100 тренировок — ты в элите'**
+  String get achievementWorkouts100Desc;
+
+  /// No description provided for @achievementRankAmateurName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Любитель'**
+  String get achievementRankAmateurName;
+
+  /// No description provided for @achievementRankAmateurDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Достигнут ранг Любитель — SP накапливаются'**
+  String get achievementRankAmateurDesc;
+
+  /// No description provided for @achievementRankSportsmanName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Спортсмен'**
+  String get achievementRankSportsmanName;
+
+  /// No description provided for @achievementRankSportsmanDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ранг Спортсмен — ты уже не просто любитель'**
+  String get achievementRankSportsmanDesc;
+
+  /// No description provided for @achievementRankAthleteName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Атлет'**
+  String get achievementRankAthleteName;
+
+  /// No description provided for @achievementRankAthleteDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ранг Атлет — серьёзный уровень'**
+  String get achievementRankAthleteDesc;
+
+  /// No description provided for @achievementRankMasterName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Мастер'**
+  String get achievementRankMasterName;
+
+  /// No description provided for @achievementRankMasterDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ранг Мастер — единицы добираются сюда'**
+  String get achievementRankMasterDesc;
+
+  /// No description provided for @achievementRankLegendName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Легенда'**
+  String get achievementRankLegendName;
+
+  /// No description provided for @achievementRankLegendDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Максимальный ранг. Ты — легенда.'**
+  String get achievementRankLegendDesc;
+
+  /// No description provided for @achievementPushS3Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Полное отжимание'**
+  String get achievementPushS3Name;
+
+  /// No description provided for @achievementPushS3Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Освоены классические отжимания от пола'**
+  String get achievementPushS3Desc;
+
+  /// No description provided for @achievementPushS6Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Одна рука'**
+  String get achievementPushS6Name;
+
+  /// No description provided for @achievementPushS6Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Отжимания на одной руке — элита Push'**
+  String get achievementPushS6Desc;
+
+  /// No description provided for @achievementPushCompleteName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Властелин Push'**
+  String get achievementPushCompleteName;
+
+  /// No description provided for @achievementPushCompleteDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все 7 этапов Push пройдены. Горо гордится.'**
+  String get achievementPushCompleteDesc;
+
+  /// No description provided for @achievementCoreS2Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Железная доска'**
+  String get achievementCoreS2Name;
+
+  /// No description provided for @achievementCoreS2Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Планка освоена — основа всего кора'**
+  String get achievementCoreS2Desc;
+
+  /// No description provided for @achievementCoreS5Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Уголок'**
+  String get achievementCoreS5Name;
+
+  /// No description provided for @achievementCoreS5Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'L-sit — истинная проверка силы пресса'**
+  String get achievementCoreS5Desc;
+
+  /// No description provided for @achievementCoreCompleteName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Железный кор'**
+  String get achievementCoreCompleteName;
+
+  /// No description provided for @achievementCoreCompleteDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все 6 этапов Core пройдены. Твой кор — как сталь.'**
+  String get achievementCoreCompleteDesc;
+
+  /// No description provided for @achievementPullS3Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Первое подтягивание'**
+  String get achievementPullS3Name;
+
+  /// No description provided for @achievementPullS3Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Подбородок выше перекладины — это победа'**
+  String get achievementPullS3Desc;
+
+  /// No description provided for @achievementPullCompleteName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Король перекладины'**
+  String get achievementPullCompleteName;
+
+  /// No description provided for @achievementPullCompleteDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все 6 этапов Pull пройдены. Ты повелеваешь перекладиной.'**
+  String get achievementPullCompleteDesc;
+
+  /// No description provided for @achievementLegsS5Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пистолетик'**
+  String get achievementLegsS5Name;
+
+  /// No description provided for @achievementLegsS5Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Приседание на одной ноге — баланс и сила'**
+  String get achievementLegsS5Desc;
+
+  /// No description provided for @achievementLegsCompleteName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Стальные ноги'**
+  String get achievementLegsCompleteName;
+
+  /// No description provided for @achievementLegsCompleteDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все 5 этапов Legs пройдены. Твои ноги из стали.'**
+  String get achievementLegsCompleteDesc;
+
+  /// No description provided for @achievementBalanceS4Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Поза ворона'**
+  String get achievementBalanceS4Name;
+
+  /// No description provided for @achievementBalanceS4Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Kakasana держится — ты управляешь балансом'**
+  String get achievementBalanceS4Desc;
+
+  /// No description provided for @achievementBalanceS6Name.
+  ///
+  /// In ru, this message translates to:
+  /// **'Свободная стойка'**
+  String get achievementBalanceS6Name;
+
+  /// No description provided for @achievementBalanceS6Desc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Стойка на руках без стены — вершина баланса'**
+  String get achievementBalanceS6Desc;
+
+  /// No description provided for @achievementBalanceCompleteName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Мастер равновесия'**
+  String get achievementBalanceCompleteName;
+
+  /// No description provided for @achievementBalanceCompleteDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все 6 этапов Balance пройдены. Ты — эквилибрист.'**
+  String get achievementBalanceCompleteDesc;
+
+  /// No description provided for @achievementAllCompleteName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Полный комплект'**
+  String get achievementAllCompleteName;
+
+  /// No description provided for @achievementAllCompleteDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Все 5 веток пройдены до конца. Абсолютный чемпион.'**
+  String get achievementAllCompleteDesc;
+
   /// No description provided for @summaryBonusTitle.
   ///
   /// In ru, this message translates to:

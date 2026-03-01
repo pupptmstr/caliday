@@ -4,9 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
+import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/workout_log.dart';
+import '../../../data/repositories/achievement_repository.dart';
+import '../../../data/static/achievement_catalog.dart';
 import '../providers/profile_provider.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -15,6 +18,7 @@ class ProfileScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(profileDataProvider);
+    final achievementRepo = ref.watch(achievementRepositoryProvider);
     final profile = data.profile;
     final scheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
@@ -77,6 +81,40 @@ class ProfileScreen extends ConsumerWidget {
                 totalWorkouts: data.totalWorkouts,
                 streakFreezes: profile.streakFreezeCount,
               ),
+
+              const SizedBox(height: 24),
+
+              // ── Achievements ───────────────────────────────────────────
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    l10n.profileAchievementsTitle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                  TextButton(
+                    onPressed: () => context.push('/achievements'),
+                    child: Text(l10n.profileAchievementsAll),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 8),
+              if (data.recentAchievementIds.isEmpty)
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 8),
+                  child: Text(
+                    l10n.profileNoAchievements,
+                    style: TextStyle(color: scheme.onSurfaceVariant),
+                  ),
+                )
+              else
+                _AchievementBadgeRow(
+                  ids: data.recentAchievementIds,
+                  achievementRepo: achievementRepo,
+                ),
 
               const SizedBox(height: 24),
 
@@ -353,6 +391,94 @@ class _WorkoutLogTile extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+// ── Achievement badge row ─────────────────────────────────────────────────────
+
+class _AchievementBadgeRow extends StatelessWidget {
+  const _AchievementBadgeRow({
+    required this.ids,
+    required this.achievementRepo,
+  });
+
+  final List<String> ids;
+  final AchievementRepository achievementRepo;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
+    final locale = Localizations.localeOf(context).languageCode;
+
+    return Wrap(
+      spacing: 10,
+      runSpacing: 10,
+      children: ids.map((id) {
+        final a = AchievementCatalog.byId(id);
+        return GestureDetector(
+          onTap: () {
+            final earnedAt = achievementRepo.earnedAt(id);
+            final dateStr = earnedAt != null
+                ? DateFormat('d MMMM yyyy', locale).format(earnedAt)
+                : null;
+            showModalBottomSheet<void>(
+              context: context,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+              ),
+              builder: (_) => Padding(
+                padding: const EdgeInsets.fromLTRB(24, 20, 24, 36),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(a?.emoji ?? '🏅',
+                        style: const TextStyle(fontSize: 48)),
+                    const SizedBox(height: 12),
+                    Text(
+                      AchievementL10n.name(l10n, id),
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.w800),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      AchievementL10n.desc(l10n, id),
+                      style: TextStyle(
+                        fontSize: 15,
+                        color: scheme.onSurfaceVariant,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    if (dateStr != null) ...[
+                      const SizedBox(height: 8),
+                      Text(
+                        l10n.achievementsEarnedOn(dateStr),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: scheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+            );
+          },
+          child: Container(
+            width: 52,
+            height: 52,
+            decoration: BoxDecoration(
+              color: scheme.primaryContainer,
+              borderRadius: BorderRadius.circular(14),
+            ),
+            alignment: Alignment.center,
+            child: Text(a?.emoji ?? '🏅',
+                style: const TextStyle(fontSize: 26)),
+          ),
+        );
+      }).toList(),
     );
   }
 }
