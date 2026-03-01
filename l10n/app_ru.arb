@@ -50,6 +50,7 @@
       "rest": {"type": "int"}
     }
   },
+  "branchJourneyStartChallenge": "🏆 Пройти испытание",
 
   "homeStage": "Этап {stage}/{total}",
   "@homeStage": {

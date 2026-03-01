@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
@@ -8,6 +9,7 @@ import '../../../data/models/exercise.dart';
 import '../../../data/models/skill_progress.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/static/exercise_catalog.dart';
+import '../../workout/providers/workout_provider.dart';
 
 // ── Stage state ───────────────────────────────────────────────────────────────
 
@@ -36,6 +38,7 @@ class BranchJourneyScreen extends ConsumerWidget {
 
     final stages = ExerciseCatalog.progressionFor(branchId);
     final completedCount = (progress.currentStage - 1).clamp(0, branchId.stageCount);
+    final canChallenge = progress.currentStage < branchId.stageCount;
 
     return Scaffold(
       appBar: AppBar(
@@ -71,6 +74,12 @@ class BranchJourneyScreen extends ConsumerWidget {
                   stageState: stageState,
                   progress: stageState == _StageState.current ? progress : null,
                   isLast: i == stages.length - 1,
+                  onChallengeTap: stageState == _StageState.current && canChallenge
+                      ? () {
+                          ref.read(challengeBranchProvider.notifier).state = branchId;
+                          context.push('/workout');
+                        }
+                      : null,
                 );
               },
             ),
@@ -89,12 +98,14 @@ class _StageRow extends StatelessWidget {
     required this.stageState,
     required this.isLast,
     this.progress,
+    this.onChallengeTap,
   });
 
   final Exercise exercise;
   final _StageState stageState;
   final bool isLast;
   final SkillProgress? progress;
+  final VoidCallback? onChallengeTap;
 
   @override
   Widget build(BuildContext context) {
@@ -223,6 +234,23 @@ class _StageRow extends StatelessWidget {
                             AlwaysStoppedAnimation<Color>(scheme.primary),
                       ),
                     ),
+                    if (onChallengeTap != null) ...[
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        width: double.infinity,
+                        child: FilledButton(
+                          onPressed: onChallengeTap,
+                          style: FilledButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            textStyle: const TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          child: Text(l10n.branchJourneyStartChallenge),
+                        ),
+                      ),
+                    ],
                   ] else if (isLocked)
                     Text(
                       l10n.branchJourneyStageLocked,

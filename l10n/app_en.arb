@@ -18,6 +18,7 @@
   "branchJourneyStageLocked": "Locked",
   "branchJourneyParams": "{reps} reps × {sets} sets  ·  Rest {rest} s",
   "branchJourneyParamsTimed": "{secs} s × {sets} sets  ·  Rest {rest} s",
+  "branchJourneyStartChallenge": "🏆 Take the Challenge",
 
   "homeStage": "Stage {stage}/{total}",
   "homeChallengeUnlocked": "🏆 Challenge Ready",
