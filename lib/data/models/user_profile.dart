@@ -26,6 +26,8 @@ class UserProfile extends HiveObject {
     this.fitnessGoal,
     this.themeModeName,
     this.hasPullUpBar,
+    this.soundEnabled,
+    this.hapticEnabled,
   });
 
   @HiveField(0)
@@ -91,6 +93,14 @@ class UserProfile extends HiveObject {
   /// null means the question was not yet asked (treated as false).
   @HiveField(15)
   bool? hasPullUpBar;
+
+  /// Whether workout sound effects are enabled. null → true (default on).
+  @HiveField(19)
+  bool? soundEnabled;
+
+  /// Whether haptic feedback is enabled during workouts. null → true (default on).
+  @HiveField(20)
+  bool? hapticEnabled;
 
   /// Ordered list of branches active for this user.
   List<BranchId> get activeBranches => [

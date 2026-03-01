@@ -528,6 +528,18 @@ class AppLocalizationsEn extends AppLocalizations {
       'How many minutes to spend on the daily workout';
 
   @override
+  String get settingsSoundTitle => 'Sounds';
+
+  @override
+  String get settingsSoundSubtitle => 'Audio feedback during workouts';
+
+  @override
+  String get settingsHapticTitle => 'Haptics';
+
+  @override
+  String get settingsHapticSubtitle => 'Tactile feedback during workouts';
+
+  @override
   String get rankBeginner => 'Beginner';
 
   @override

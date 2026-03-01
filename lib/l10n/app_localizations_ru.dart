@@ -531,6 +531,19 @@ class AppLocalizationsRu extends AppLocalizations {
       'Сколько минут уделять ежедневной тренировке';
 
   @override
+  String get settingsSoundTitle => 'Звуки';
+
+  @override
+  String get settingsSoundSubtitle =>
+      'Звуки обратной связи во время тренировки';
+
+  @override
+  String get settingsHapticTitle => 'Вибрация';
+
+  @override
+  String get settingsHapticSubtitle => 'Тактильные сигналы во время тренировки';
+
+  @override
   String get rankBeginner => 'Новичок';
 
   @override

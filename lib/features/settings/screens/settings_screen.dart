@@ -130,6 +130,28 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
 
+            const Divider(indent: 20, endIndent: 20, height: 1),
+
+            _SettingsTile(
+              title: l10n.settingsSoundTitle,
+              subtitle: l10n.settingsSoundSubtitle,
+              trailing: Switch(
+                value: state.soundEnabled,
+                onChanged: notifier.setSoundEnabled,
+              ),
+            ),
+
+            const Divider(indent: 20, endIndent: 20, height: 1),
+
+            _SettingsTile(
+              title: l10n.settingsHapticTitle,
+              subtitle: l10n.settingsHapticSubtitle,
+              trailing: Switch(
+                value: state.hapticEnabled,
+                onChanged: notifier.setHapticEnabled,
+              ),
+            ),
+
             // ── Notifications section ────────────────────────────────────
             Padding(
               padding:

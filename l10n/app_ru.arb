@@ -266,6 +266,10 @@
   "settingsSectionWorkout": "ТРЕНИРОВКА",
   "settingsWorkoutDurationTitle": "Длительность сета",
   "settingsWorkoutDurationSubtitle": "Сколько минут уделять ежедневной тренировке",
+  "settingsSoundTitle": "Звуки",
+  "settingsSoundSubtitle": "Звуки обратной связи во время тренировки",
+  "settingsHapticTitle": "Вибрация",
+  "settingsHapticSubtitle": "Тактильные сигналы во время тренировки",
 
   "rankBeginner": "Новичок",
   "rankAmateur": "Любитель",

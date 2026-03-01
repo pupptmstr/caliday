@@ -1028,6 +1028,30 @@ abstract class AppLocalizations {
   /// **'Сколько минут уделять ежедневной тренировке'**
   String get settingsWorkoutDurationSubtitle;
 
+  /// No description provided for @settingsSoundTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Звуки'**
+  String get settingsSoundTitle;
+
+  /// No description provided for @settingsSoundSubtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Звуки обратной связи во время тренировки'**
+  String get settingsSoundSubtitle;
+
+  /// No description provided for @settingsHapticTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Вибрация'**
+  String get settingsHapticTitle;
+
+  /// No description provided for @settingsHapticSubtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тактильные сигналы во время тренировки'**
+  String get settingsHapticSubtitle;
+
   /// No description provided for @rankBeginner.
   ///
   /// In ru, this message translates to:

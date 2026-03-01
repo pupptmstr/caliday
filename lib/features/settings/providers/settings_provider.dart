@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/providers/theme_provider.dart';
 import '../../../core/services/notification_service.dart';
+import '../../../core/services/sound_service.dart';
 import '../../../data/repositories/user_repository.dart';
 
 // ── State ─────────────────────────────────────────────────────────────────────
@@ -19,6 +20,8 @@ class SettingsState {
     required this.preferredWorkoutMinutes,
     required this.themeMode,
     required this.hasPullUpBar,
+    required this.soundEnabled,
+    required this.hapticEnabled,
   });
 
   final bool notificationsEnabled;
@@ -30,6 +33,8 @@ class SettingsState {
   final int preferredWorkoutMinutes;
   final ThemeMode themeMode;
   final bool hasPullUpBar;
+  final bool soundEnabled;
+  final bool hapticEnabled;
 
   /// Notification time as a zero-padded string, e.g. "09:00".
   String get timeLabel {
@@ -48,6 +53,8 @@ class SettingsState {
     int? preferredWorkoutMinutes,
     ThemeMode? themeMode,
     bool? hasPullUpBar,
+    bool? soundEnabled,
+    bool? hapticEnabled,
   }) {
     return SettingsState(
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
@@ -61,6 +68,8 @@ class SettingsState {
           preferredWorkoutMinutes ?? this.preferredWorkoutMinutes,
       themeMode: themeMode ?? this.themeMode,
       hasPullUpBar: hasPullUpBar ?? this.hasPullUpBar,
+      soundEnabled: soundEnabled ?? this.soundEnabled,
+      hapticEnabled: hapticEnabled ?? this.hapticEnabled,
     );
   }
 }
@@ -75,6 +84,9 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
 
   static SettingsState _load(UserRepository repo) {
     final p = repo.getProfile();
+    final sound = p.soundEnabled ?? true;
+    final haptic = p.hapticEnabled ?? true;
+    SoundService.instance.configure(soundEnabled: sound, hapticEnabled: haptic);
     return SettingsState(
       notificationsEnabled: p.notificationsEnabled,
       eveningReminderEnabled: p.eveningReminderEnabled,
@@ -85,6 +97,8 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       preferredWorkoutMinutes: p.preferredWorkoutMinutes ?? 10,
       themeMode: themeModeFromString(p.themeModeName),
       hasPullUpBar: p.hasPullUpBar ?? false,
+      soundEnabled: sound,
+      hapticEnabled: haptic,
     );
   }
 
@@ -133,6 +147,26 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
   void setHasPullUpBar(bool value) {
     state = state.copyWith(hasPullUpBar: value);
     final p = _userRepo.getProfile()..hasPullUpBar = value;
+    _userRepo.saveProfile(p);
+  }
+
+  void setSoundEnabled(bool value) {
+    state = state.copyWith(soundEnabled: value);
+    SoundService.instance.configure(
+      soundEnabled: value,
+      hapticEnabled: state.hapticEnabled,
+    );
+    final p = _userRepo.getProfile()..soundEnabled = value;
+    _userRepo.saveProfile(p);
+  }
+
+  void setHapticEnabled(bool value) {
+    state = state.copyWith(hapticEnabled: value);
+    SoundService.instance.configure(
+      soundEnabled: state.soundEnabled,
+      hapticEnabled: value,
+    );
+    final p = _userRepo.getProfile()..hapticEnabled = value;
     _userRepo.saveProfile(p);
   }
 

@@ -180,6 +180,10 @@
   "settingsSectionWorkout": "WORKOUT",
   "settingsWorkoutDurationTitle": "Session length",
   "settingsWorkoutDurationSubtitle": "How many minutes to spend on the daily workout",
+  "settingsSoundTitle": "Sounds",
+  "settingsSoundSubtitle": "Audio feedback during workouts",
+  "settingsHapticTitle": "Haptics",
+  "settingsHapticSubtitle": "Tactile feedback during workouts",
 
   "rankBeginner": "Beginner",
   "rankAmateur": "Amateur",

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
+import '../../../core/services/sound_service.dart';
 import '../../../data/models/enums.dart';
 import '../providers/workout_provider.dart';
 
@@ -25,7 +26,16 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     super.initState();
     _timer = Timer.periodic(
       const Duration(seconds: 1),
-      (_) => ref.read(workoutProvider.notifier).tick(),
+      (_) {
+        final s = ref.read(workoutProvider);
+        // Play tick sound for the last 3 seconds of rest.
+        if (s.phase == WorkoutPhase.rest &&
+            s.timerSec >= 1 &&
+            s.timerSec <= 3) {
+          unawaited(SoundService.instance.tick());
+        }
+        ref.read(workoutProvider.notifier).tick();
+      },
     );
   }
 
@@ -92,6 +102,29 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         }
       },
     );
+
+    // Sound and haptic feedback on phase transitions.
+    ref.listen<WorkoutState>(workoutProvider, (prev, next) {
+      if (prev == null) return;
+      final svc = SoundService.instance;
+      if (next.phase == WorkoutPhase.done) {
+        // Workout complete.
+        unawaited(svc.complete());
+      } else if (prev.phase == WorkoutPhase.rest &&
+          next.phase == WorkoutPhase.exercise) {
+        // Rest ended → exercise begins.
+        unawaited(svc.ding());
+      } else if (prev.phase == WorkoutPhase.exercise &&
+          next.phase == WorkoutPhase.rest) {
+        // Set confirmed → rest begins.
+        unawaited(svc.pop());
+      } else if (prev.phase == WorkoutPhase.exercise &&
+          next.phase == WorkoutPhase.exercise &&
+          prev.exerciseIndex != next.exerciseIndex) {
+        // Set confirmed → next exercise (no rest between them).
+        unawaited(svc.pop());
+      }
+    });
 
     if (state.phase == WorkoutPhase.done) {
       return const Scaffold(body: SizedBox.shrink());
