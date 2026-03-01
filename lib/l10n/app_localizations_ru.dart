@@ -94,6 +94,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get homeWorkoutStart => 'Тренировка дня';
 
   @override
+  String get homeWorkoutAgain => 'Ещё раз';
+
+  @override
   String get workoutTitle => 'Тренировка';
 
   @override
@@ -176,6 +179,17 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get summaryFreezeEarnedBody => 'Используй, если пропустишь день';
+
+  @override
+  String get summaryBonusTitle => 'Бонусная тренировка 💪';
+
+  @override
+  String get summaryBonusBody => '×½ SP · прогрессия уже сохранена';
+
+  @override
+  String summaryBonusCount(int count) {
+    return 'Сегодня ты уже потренировался $count раза!';
+  }
 
   @override
   String get summaryChallengeUnlockedTitle => 'Испытание ждёт! 🏆';

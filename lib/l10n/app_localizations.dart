@@ -236,6 +236,12 @@ abstract class AppLocalizations {
   /// **'Тренировка дня'**
   String get homeWorkoutStart;
 
+  /// No description provided for @homeWorkoutAgain.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ещё раз'**
+  String get homeWorkoutAgain;
+
   /// No description provided for @workoutTitle.
   ///
   /// In ru, this message translates to:
@@ -391,6 +397,24 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Используй, если пропустишь день'**
   String get summaryFreezeEarnedBody;
+
+  /// No description provided for @summaryBonusTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Бонусная тренировка 💪'**
+  String get summaryBonusTitle;
+
+  /// No description provided for @summaryBonusBody.
+  ///
+  /// In ru, this message translates to:
+  /// **'×½ SP · прогрессия уже сохранена'**
+  String get summaryBonusBody;
+
+  /// No description provided for @summaryBonusCount.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сегодня ты уже потренировался {count} раза!'**
+  String summaryBonusCount(int count);
 
   /// No description provided for @summaryChallengeUnlockedTitle.
   ///

@@ -27,6 +27,7 @@
   "homeChallengeNormSec": "Goal: {n} sec",
   "homeWorkoutDone": "Workout done",
   "homeWorkoutStart": "Today's workout",
+  "homeWorkoutAgain": "Again",
 
   "workoutTitle": "Workout",
   "workoutExitTitle": "Quit workout?",
@@ -55,6 +56,15 @@
   "summaryFreezeUsedBody": "Streak continues — keep it up",
   "summaryFreezeEarnedTitle": "Streak freeze earned!",
   "summaryFreezeEarnedBody": "Use it if you miss a day",
+
+  "summaryBonusTitle": "Bonus Workout 💪",
+  "summaryBonusBody": "×½ SP · progression already saved",
+  "summaryBonusCount": "You've trained {count} times today!",
+  "@summaryBonusCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
 
   "summaryChallengeUnlockedTitle": "Challenge awaits! 🏆",
   "summaryChallengeUnlockedBody": "Tap «Accept Challenge» on the Home screen when you're ready",

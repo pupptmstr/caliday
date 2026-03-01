@@ -52,6 +52,19 @@ class WorkoutRepository {
   /// True if at least one workout was logged on today's date.
   bool hasWorkoutToday() => getForDate(DateTime.now()) != null;
 
+  /// Number of workouts logged for the given date.
+  int getCountForDate(DateTime date) {
+    final target = _dateOnly(date);
+    return _box.values.where((log) => _dateOnly(log.date) == target).length;
+  }
+
+  /// True if a primary (first-of-day) workout exists for today.
+  bool hasPrimaryWorkoutToday() {
+    final target = _dateOnly(DateTime.now());
+    return _box.values
+        .any((log) => _dateOnly(log.date) == target && log.isPrimary);
+  }
+
   /// Deletes the log for [date] (time component ignored), if one exists.
   Future<void> deleteForDate(DateTime date) async {
     final target = _dateOnly(date);

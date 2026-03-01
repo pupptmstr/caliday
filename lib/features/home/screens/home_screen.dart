@@ -417,7 +417,7 @@ class _WorkoutButton extends StatelessWidget {
           style: const TextStyle(fontSize: 22),
         ),
         label: Text(
-          done ? l10n.homeWorkoutDone : l10n.homeWorkoutStart,
+          done ? l10n.homeWorkoutAgain : l10n.homeWorkoutStart,
           style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
         ),
         style: FilledButton.styleFrom(
@@ -429,7 +429,7 @@ class _WorkoutButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(18),
           ),
         ),
-        onPressed: done ? null : onTap,
+        onPressed: onTap,
       ),
     );
   }

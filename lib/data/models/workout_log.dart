@@ -14,6 +14,7 @@ class WorkoutLog extends HiveObject {
     required this.exercises,
     required this.spEarned,
     required this.durationSec,
+    this.isPrimary = true,
   });
 
   /// The calendar date the workout was performed (time component zeroed).
@@ -33,4 +34,9 @@ class WorkoutLog extends HiveObject {
   /// Total workout duration in seconds.
   @HiveField(4)
   final int durationSec;
+
+  /// True if this is the first (primary) workout of the day.
+  /// Bonus workouts earn ×0.5 SP and do not advance progression or streak.
+  @HiveField(5)
+  final bool isPrimary;
 }

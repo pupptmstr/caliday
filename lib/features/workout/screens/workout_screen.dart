@@ -85,6 +85,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
             'challengeUnlocked': s.challengeUnlocked,
             'challengePassed': s.challengePassed,
             'newStageExerciseId': s.newStageExerciseId,
+            'isPrimary': s.isPrimary,
+            'workoutsToday': s.workoutsToday,
           });
         }
       },

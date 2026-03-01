@@ -46,6 +46,8 @@ class WorkoutState {
     this.challengeUnlocked = false,
     this.challengePassed = false,
     this.newStageExerciseId,
+    this.isPrimary = true,
+    this.workoutsToday = 1,
   });
 
   final WorkoutPlan plan;
@@ -94,6 +96,12 @@ class WorkoutState {
   /// Exercise id of the newly reached stage (if [challengePassed]).
   final String? newStageExerciseId;
 
+  /// True if this is the first (primary) workout of the day.
+  final bool isPrimary;
+
+  /// Total workouts completed today (including this one).
+  final int workoutsToday;
+
   // ── Convenience ───────────────────────────────────────────────────────────
 
   PlannedExercise get currentPlanned => plan.exercises[exerciseIndex];
@@ -115,6 +123,8 @@ class WorkoutState {
     bool? challengeUnlocked,
     bool? challengePassed,
     String? newStageExerciseId,
+    bool? isPrimary,
+    int? workoutsToday,
   }) {
     return WorkoutState(
       plan: plan,
@@ -133,6 +143,8 @@ class WorkoutState {
       challengeUnlocked: challengeUnlocked ?? this.challengeUnlocked,
       challengePassed: challengePassed ?? this.challengePassed,
       newStageExerciseId: newStageExerciseId ?? this.newStageExerciseId,
+      isPrimary: isPrimary ?? this.isPrimary,
+      workoutsToday: workoutsToday ?? this.workoutsToday,
     );
   }
 
@@ -328,56 +340,66 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       }
     }
 
+    // ── Determine primary vs bonus ─────────────────────────────────────────
+    final workoutRepo = _ref.read(workoutRepositoryProvider);
+    final isPrimary = !workoutRepo.hasPrimaryWorkoutToday();
+
     // ── SP ────────────────────────────────────────────────────────────────
     final spService = _ref.read(spServiceProvider);
-    final workoutRepo = _ref.read(workoutRepositoryProvider);
-    final isFirstToday = !workoutRepo.hasWorkoutToday();
-    final spEarned = spService.forWorkout(
+    final rawSP = spService.forWorkout(
       results: matchedResults,
       exercises: List.from(matchedExercises),
-      isFirstToday: isFirstToday,
+      isFirstToday: isPrimary,
     );
+    final spEarned = isPrimary ? rawSP : (rawSP * 0.5).round();
 
-    // ── Profile (SP + streak) ─────────────────────────────────────────────
+    // ── Profile (SP + streak) — primary only ──────────────────────────────
     final userRepo = _ref.read(userRepositoryProvider);
     final profile = userRepo.getProfile();
     spService.applyToProfile(profile, spEarned);
     final streakService = _ref.read(streakServiceProvider);
-    final freezeUsed = streakService.applyWorkout(profile, now);
-    final freezeEarned = streakService.tryAwardFreeze(profile);
+    bool freezeUsed = false;
+    bool freezeEarned = false;
+    if (isPrimary) {
+      freezeUsed = streakService.applyWorkout(profile, now);
+      freezeEarned = streakService.tryAwardFreeze(profile);
+    }
     userRepo.saveProfile(profile);
 
-    // ── Progression ───────────────────────────────────────────────────────
+    // ── Progression — primary only ────────────────────────────────────────
     final progressionService = _ref.read(progressionServiceProvider);
     final progressRepo = _ref.read(skillProgressRepositoryProvider);
     bool challengeUnlocked = false;
     bool challengePassed = false;
     String? newStageExerciseId;
 
-    for (var i = 0; i < state.plan.exercises.length; i++) {
-      final planned = state.plan.exercises[i];
-      final result = results[i];
-      if (result == null || planned.exercise.stage == 0) continue;
+    if (isPrimary) {
+      for (var i = 0; i < state.plan.exercises.length; i++) {
+        final planned = state.plan.exercises[i];
+        final result = results[i];
+        if (result == null || planned.exercise.stage == 0) continue;
 
-      final progress = progressRepo.getProgress(planned.exercise.branch);
+        final progress = progressRepo.getProgress(planned.exercise.branch);
 
-      if (planned.exercise.stage > progress.currentStage) {
-        // Challenge exercise: check result against challengeTargetReps.
-        final exercise = planned.exercise;
-        final passed = exercise.type == ExerciseType.timed
-            ? (result.actualDurationSec ?? 0) >= exercise.challengeTargetReps
-            : result.completedReps >= exercise.challengeTargetReps;
-        if (passed) {
-          progressionService.advanceStage(progress, exercise);
-          challengePassed = true;
-          newStageExerciseId = exercise.id;
+        if (planned.exercise.stage > progress.currentStage) {
+          // Challenge exercise: check result against challengeTargetReps.
+          final exercise = planned.exercise;
+          final passed = exercise.type == ExerciseType.timed
+              ? (result.actualDurationSec ?? 0) >= exercise.challengeTargetReps
+              : result.completedReps >= exercise.challengeTargetReps;
+          if (passed) {
+            progressionService.advanceStage(progress, exercise);
+            challengePassed = true;
+            newStageExerciseId = exercise.id;
+          }
+          // If failed: isChallengeUnlocked stays true, progress unchanged.
+        } else {
+          final unlocked =
+              progressionService.applyResult(progress, planned.exercise, result);
+          if (unlocked) challengeUnlocked = true;
         }
-        // If failed: isChallengeUnlocked stays true, progress unchanged.
-      } else {
-        final unlocked = progressionService.applyResult(progress, planned.exercise, result);
-        if (unlocked) challengeUnlocked = true;
+        progressRepo.saveProgress(progress);
       }
-      progressRepo.saveProgress(progress);
     }
 
     // Reset challenge branch after workout.
@@ -391,7 +413,10 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       exercises: matchedResults,
       spEarned: spEarned,
       durationSec: durationSec,
+      isPrimary: isPrimary,
     )));
+
+    final workoutsToday = workoutRepo.getCountForDate(now) + 1;
 
     // Cancel today's evening / streak-threat / streak-lost notifications.
     unawaited(NotificationService.instance.cancelDayReminders());
@@ -412,6 +437,8 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       challengeUnlocked: challengeUnlocked,
       challengePassed: challengePassed,
       newStageExerciseId: newStageExerciseId,
+      isPrimary: isPrimary,
+      workoutsToday: workoutsToday,
     );
   }
 }

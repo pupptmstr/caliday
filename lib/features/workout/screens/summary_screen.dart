@@ -27,6 +27,8 @@ class SummaryScreen extends StatelessWidget {
     final challengeUnlocked = extras['challengeUnlocked'] as bool? ?? false;
     final challengePassed = extras['challengePassed'] as bool? ?? false;
     final newStageExerciseId = extras['newStageExerciseId'] as String?;
+    final isBonus = !(extras['isPrimary'] as bool? ?? true);
+    final workoutsToday = extras['workoutsToday'] as int? ?? 1;
 
     final mins = durationSec ~/ 60;
     final secs = durationSec % 60;
@@ -79,6 +81,9 @@ class SummaryScreen extends StatelessWidget {
 
               const SizedBox(height: 24),
 
+              if (isBonus) _BonusWorkoutBanner(workoutsToday: workoutsToday),
+              if (isBonus && (freezeUsed || freezeEarned || challengeUnlocked))
+                const SizedBox(height: 10),
               if (freezeUsed) const _FreezeUsedBanner(),
               if (freezeUsed && freezeEarned) const SizedBox(height: 10),
               if (freezeEarned) const _FreezeEarnedBanner(),
@@ -225,6 +230,60 @@ class _ChallengeUnlockedBanner extends StatelessWidget {
                 ),
                 Text(
                   l.summaryChallengeUnlockedBody,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: scheme.onTertiaryContainer.withAlpha(180),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _BonusWorkoutBanner extends StatelessWidget {
+  const _BonusWorkoutBanner({required this.workoutsToday});
+
+  final int workoutsToday;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final l = context.l10n;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: scheme.tertiaryContainer,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          const Text('💪', style: TextStyle(fontSize: 28)),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l.summaryBonusTitle,
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                        fontWeight: FontWeight.w700,
+                        color: scheme.onTertiaryContainer,
+                      ),
+                ),
+                Text(
+                  l.summaryBonusBody,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: scheme.onTertiaryContainer.withAlpha(180),
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  l.summaryBonusCount(workoutsToday),
                   style: TextStyle(
                     fontSize: 12,
                     color: scheme.onTertiaryContainer.withAlpha(180),
