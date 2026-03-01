@@ -77,8 +77,9 @@ State management — Riverpod providers в каждой фиче.
 - Onboarding-опрос
 - Локальное хранение (Hive)
 
-## Стиль кода
+## Стиль кода и коммиты
 
+- **Commit messages — всегда на английском.**
 - Dart — следовать official Dart style guide
 - Виджеты — предпочитать StatelessWidget + Riverpod ConsumerWidget
 - Именование файлов: snake_case
