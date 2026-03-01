@@ -58,7 +58,6 @@ class SoundService {
 
   Future<void> _play(AudioPlayer player, String asset) async {
     try {
-      await player.stop();
       await player.play(AssetSource(asset));
     } catch (_) {
       // Asset missing or playback error — fail silently.
