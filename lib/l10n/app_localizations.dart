@@ -188,6 +188,12 @@ abstract class AppLocalizations {
   /// **'{secs} с × {sets} подх.  ·  Отдых {rest} с'**
   String branchJourneyParamsTimed(int secs, int sets, int rest);
 
+  /// No description provided for @branchJourneyStartChallenge.
+  ///
+  /// In ru, this message translates to:
+  /// **'🏆 Пройти испытание'**
+  String get branchJourneyStartChallenge;
+
   /// No description provided for @homeStage.
   ///
   /// In ru, this message translates to:

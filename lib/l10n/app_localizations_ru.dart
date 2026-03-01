@@ -64,6 +64,9 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get branchJourneyStartChallenge => '🏆 Пройти испытание';
+
+  @override
   String homeStage(int stage, int total) {
     return 'Этап $stage/$total';
   }
