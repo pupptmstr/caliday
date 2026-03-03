@@ -1074,4 +1074,31 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get exerciseCooldownDownwardDogDesc =>
       'На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног.';
+
+  @override
+  String get aboutTitle => 'О приложении';
+
+  @override
+  String get aboutVersion => 'Версия';
+
+  @override
+  String get aboutSectionSupport => 'ПОДДЕРЖКА';
+
+  @override
+  String get aboutContactUs => 'Написать нам';
+
+  @override
+  String get aboutContactUsSubtitle => 'Сообщить об ошибке или задать вопрос';
+
+  @override
+  String get aboutPrivacyPolicy => 'Политика конфиденциальности';
+
+  @override
+  String get aboutBuiltWith => 'СДЕЛАНО НА';
+
+  @override
+  String get aboutCopyright => '© 2026 pupptmstr';
+
+  @override
+  String get settingsAbout => 'О приложении';
 }

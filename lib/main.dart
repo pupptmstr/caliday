@@ -46,13 +46,6 @@ Future<void> main() async {
     Hive.openBox<DateTime>('achievements'),
   ]);
 
-  // Initialise notification plugin and reschedule daily reminders.
-  // Rescheduling on every cold start keeps the schedule intact after reboots.
-  final ns = NotificationService.instance;
-  await ns.init();
-  final profile = UserRepository().getProfile();
-  await ns.scheduleAll(profile);
-
   runApp(const ProviderScope(child: CaliDayApp()));
 }
 
@@ -67,17 +60,19 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
   @override
   void initState() {
     super.initState();
-    // Request notification permission after the first frame so that
-    // an Android Activity is fully active before we call the plugin.
+    // Initialise notifications after the first frame so that the Android
+    // Activity is fully active before we call any platform channel methods.
+    // This also ensures scheduleAll runs after permission is granted.
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final ns = NotificationService.instance;
+      await ns.init();
+      final profile = UserRepository().getProfile();
+      // Reschedule on every cold start to survive device reboots.
+      await ns.scheduleAll(profile);
+      // Request permission if not yet granted; re-schedule on success
+      // (on Android 13+ scheduleAll above silently fails without permission).
       final granted = await ns.requestPermissionIfNeeded();
-      // On Android 13+, scheduleAll in main() runs before permission is
-      // granted and silently fails. Re-schedule now that we have permission.
-      if (granted) {
-        final profile = UserRepository().getProfile();
-        await ns.scheduleAll(profile);
-      }
+      if (granted) await ns.scheduleAll(profile);
     });
   }
 

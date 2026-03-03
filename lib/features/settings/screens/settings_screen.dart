@@ -224,6 +224,14 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
 
+            // ── About section ─────────────────────────────────────────────
+            const Divider(indent: 20, endIndent: 20, height: 1),
+            _SettingsTile(
+              title: l10n.settingsAbout,
+              trailing: const Icon(Icons.info_outlined),
+              onTap: () => context.push('/about'),
+            ),
+
             // ── Debug section (only in debug builds) ─────────────────────
             if (kDebugMode) ...[
               const Divider(indent: 20, endIndent: 20, height: 1),

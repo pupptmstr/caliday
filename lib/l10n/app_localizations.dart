@@ -1969,6 +1969,60 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног.'**
   String get exerciseCooldownDownwardDogDesc;
+
+  /// No description provided for @aboutTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'О приложении'**
+  String get aboutTitle;
+
+  /// No description provided for @aboutVersion.
+  ///
+  /// In ru, this message translates to:
+  /// **'Версия'**
+  String get aboutVersion;
+
+  /// No description provided for @aboutSectionSupport.
+  ///
+  /// In ru, this message translates to:
+  /// **'ПОДДЕРЖКА'**
+  String get aboutSectionSupport;
+
+  /// No description provided for @aboutContactUs.
+  ///
+  /// In ru, this message translates to:
+  /// **'Написать нам'**
+  String get aboutContactUs;
+
+  /// No description provided for @aboutContactUsSubtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сообщить об ошибке или задать вопрос'**
+  String get aboutContactUsSubtitle;
+
+  /// No description provided for @aboutPrivacyPolicy.
+  ///
+  /// In ru, this message translates to:
+  /// **'Политика конфиденциальности'**
+  String get aboutPrivacyPolicy;
+
+  /// No description provided for @aboutBuiltWith.
+  ///
+  /// In ru, this message translates to:
+  /// **'СДЕЛАНО НА'**
+  String get aboutBuiltWith;
+
+  /// No description provided for @aboutCopyright.
+  ///
+  /// In ru, this message translates to:
+  /// **'© 2026 pupptmstr'**
+  String get aboutCopyright;
+
+  /// No description provided for @settingsAbout.
+  ///
+  /// In ru, this message translates to:
+  /// **'О приложении'**
+  String get settingsAbout;
 }
 
 class _AppLocalizationsDelegate

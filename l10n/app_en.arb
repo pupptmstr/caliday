@@ -383,5 +383,15 @@
   "exerciseWarmupWristCirclesDesc": "Rotate your wrists clockwise and counter-clockwise. Prepares your joints for weight-bearing on your hands.",
 
   "exerciseCooldownDownwardDogName": "Downward Dog",
-  "exerciseCooldownDownwardDogDesc": "From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs."
+  "exerciseCooldownDownwardDogDesc": "From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs.",
+
+  "aboutTitle": "About",
+  "aboutVersion": "Version",
+  "aboutSectionSupport": "SUPPORT",
+  "aboutContactUs": "Contact Us",
+  "aboutContactUsSubtitle": "Report a bug or ask a question",
+  "aboutPrivacyPolicy": "Privacy Policy",
+  "aboutBuiltWith": "BUILT WITH",
+  "aboutCopyright": "© 2026 pupptmstr",
+  "settingsAbout": "About"
 }

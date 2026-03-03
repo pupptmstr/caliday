@@ -1436,6 +1436,62 @@ Flutter-пакет: [`in_app_purchase`](https://pub.dev/packages/in_app_purchase
 - `l10n/app_ru.arb`, `l10n/app_en.arb` — новые ключи s5/s6 + achievement pushS6
 - `lib/features/workout/screens/workout_screen.dart` — Lottie widget
 
+### 2026-03-04 — сессия 34 (фикс: Challenge в бонусной тренировке)
+
+**Баг:** если пользователь уже сделал дневную тренировку, а потом запускал Challenge,
+прогресс ветки не продвигался — потому что вся прогрессия была внутри `if (isPrimary)`.
+
+**Фикс** в `lib/features/workout/providers/workout_provider.dart` (`_finishWorkout`):
+- `advanceStage` для challenge-упражнений (`stage > currentStage`) теперь вызывается
+  **всегда**, независимо от isPrimary/bonus.
+- `applyResult` для обычной прогрессии (`stage == currentStage`) по-прежнему только primary.
+- Достижения за переход этапа (`checkAfterStageAdvance`) тоже убраны из-под `isPrimary`.
+
+Изменены файлы:
+- `lib/features/workout/providers/workout_provider.dart`
+
+### 2026-03-04 — сессия 33 (фикс release-сборки Android)
+
+**Два критических бага release APK, не воспроизводившихся в debug:**
+
+**1. Drawable `ic_goro_notif` выбрасывался R8-шринкером.**
+R8 не видит строковые ссылки из Dart-кода и считал drawable неиспользуемым.
+Фикс: `android/app/src/main/res/raw/keep.xml` с `tools:keep="@drawable/ic_goro_notif"`.
+
+**2. `flutter_local_notifications` — "Missing type parameter" из-за R8.**
+Плагин использует Gson+TypeToken для сериализации запланированных уведомлений. R8 срезал
+generic type parameters, вызывая RuntimeException при `zonedSchedule`.
+Фикс: `android/app/proguard-rules.pro` с `-keep class com.dexterous.**` + `-keep... TypeToken`.
+`android/app/build.gradle.kts` — добавлена ссылка на `proguardFiles(...)`.
+
+**3. Инициализация уведомлений в `main()` до `runApp()`.**
+На реальных устройствах platform channel вызовы до первого фрейма могут зависнуть.
+Фикс: вся инициализация NotificationService перенесена в `postFrameCallback` в `initState`.
+
+Изменены файлы:
+- `lib/main.dart` — убраны `ns.init()` + `ns.scheduleAll()` из `main()`, перенесены в `postFrameCallback`
+- `android/app/src/main/res/raw/keep.xml` — новый файл (keep drawable для R8)
+- `android/app/proguard-rules.pro` — новый файл (ProGuard rules для flutter_local_notifications)
+- `android/app/build.gradle.kts` — добавлен `proguardFiles` в release build type
+
+### 2026-03-03 — сессия 32 (экран «О приложении»)
+
+Добавлен экран `/about`, доступный из Settings → плитка «О приложении».
+
+**Новая зависимость:** `url_launcher: ^6.3.0` (открытие mailto: и https: ссылок).
+
+**Новые файлы:**
+- `lib/features/settings/screens/about_screen.dart` — `StatelessWidget`, Горо idle v2 (h=120), версия 1.1.0, секции «ПОДДЕРЖКА» и «СДЕЛАНО НА», copyright «© 2026 pupptmstr»
+
+**Изменённые файлы:**
+- `pubspec.yaml` — добавлен `url_launcher: ^6.3.0`
+- `android/app/src/main/AndroidManifest.xml` — добавлены `<queries>` для `mailto:` и `https:` (Android 11+)
+- `lib/core/router/app_router.dart` — маршрут `/about` + import
+- `lib/features/settings/screens/settings_screen.dart` — плитка «О приложении» перед debug-секцией
+- `l10n/app_ru.arb`, `l10n/app_en.arb` — 9 новых ключей (`aboutTitle`, `aboutVersion`, `aboutSectionSupport`, `aboutContactUs`, `aboutContactUsSubtitle`, `aboutPrivacyPolicy`, `aboutBuiltWith`, `aboutCopyright`, `settingsAbout`)
+
+**APK:** пересобран → `build/app/outputs/flutter-apk/caliday.apk` (57.7 MB)
+
 ### 2026-03-03 — сессия 31 (идеи: донат + экран «О приложении»)
 
 Зафиксированы две новые идеи в разделе «Идеи для будущих версий»:

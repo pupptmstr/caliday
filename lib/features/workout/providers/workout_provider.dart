@@ -384,33 +384,33 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     BranchId? advancedBranch;
     int advancedToStage = 0;
 
-    if (isPrimary) {
-      for (var i = 0; i < state.plan.exercises.length; i++) {
-        final planned = state.plan.exercises[i];
-        final result = results[i];
-        if (result == null || planned.exercise.stage == 0) continue;
+    for (var i = 0; i < state.plan.exercises.length; i++) {
+      final planned = state.plan.exercises[i];
+      final result = results[i];
+      if (result == null || planned.exercise.stage == 0) continue;
 
-        final progress = progressRepo.getProgress(planned.exercise.branch);
+      final progress = progressRepo.getProgress(planned.exercise.branch);
 
-        if (planned.exercise.stage > progress.currentStage) {
-          // Challenge exercise: check result against challengeTargetReps.
-          final exercise = planned.exercise;
-          final passed = exercise.type == ExerciseType.timed
-              ? (result.actualDurationSec ?? 0) >= exercise.challengeTargetReps
-              : result.completedReps >= exercise.challengeTargetReps;
-          if (passed) {
-            progressionService.advanceStage(progress, exercise);
-            challengePassed = true;
-            newStageExerciseId = exercise.id;
-            advancedBranch = planned.exercise.branch;
-            advancedToStage = progress.currentStage;
-          }
-          // If failed: isChallengeUnlocked stays true, progress unchanged.
-        } else {
-          final unlocked =
-              progressionService.applyResult(progress, planned.exercise, result);
-          if (unlocked) challengeUnlocked = true;
+      if (planned.exercise.stage > progress.currentStage) {
+        // Challenge exercise: always advance stage even in bonus workouts.
+        final exercise = planned.exercise;
+        final passed = exercise.type == ExerciseType.timed
+            ? (result.actualDurationSec ?? 0) >= exercise.challengeTargetReps
+            : result.completedReps >= exercise.challengeTargetReps;
+        if (passed) {
+          progressionService.advanceStage(progress, exercise);
+          challengePassed = true;
+          newStageExerciseId = exercise.id;
+          advancedBranch = planned.exercise.branch;
+          advancedToStage = progress.currentStage;
         }
+        // If failed: isChallengeUnlocked stays true, progress unchanged.
+        progressRepo.saveProgress(progress);
+      } else if (isPrimary) {
+        // Regular progression: primary workouts only.
+        final unlocked =
+            progressionService.applyResult(progress, planned.exercise, result);
+        if (unlocked) challengeUnlocked = true;
         progressRepo.saveProgress(progress);
       }
     }
@@ -437,7 +437,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     final alreadyEarned = Set<String>.from(achievementRepo.getAllEarnedIds());
     final newAchievements = <String>[];
 
-    if (isPrimary && challengePassed && advancedBranch != null) {
+    if (challengePassed && advancedBranch != null) {
       final allProgress = {
         for (final b in BranchId.values) b: progressRepo.getProgress(b),
       };

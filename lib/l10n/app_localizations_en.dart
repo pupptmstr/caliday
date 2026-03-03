@@ -1069,4 +1069,31 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get exerciseCooldownDownwardDogDesc =>
       'From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs.';
+
+  @override
+  String get aboutTitle => 'About';
+
+  @override
+  String get aboutVersion => 'Version';
+
+  @override
+  String get aboutSectionSupport => 'SUPPORT';
+
+  @override
+  String get aboutContactUs => 'Contact Us';
+
+  @override
+  String get aboutContactUsSubtitle => 'Report a bug or ask a question';
+
+  @override
+  String get aboutPrivacyPolicy => 'Privacy Policy';
+
+  @override
+  String get aboutBuiltWith => 'BUILT WITH';
+
+  @override
+  String get aboutCopyright => '© 2026 pupptmstr';
+
+  @override
+  String get settingsAbout => 'About';
 }

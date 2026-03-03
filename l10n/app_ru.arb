@@ -475,5 +475,15 @@
   "exerciseWarmupWristCirclesDesc": "Вращай запястьями по часовой и против часовой стрелки. Подготавливает суставы к нагрузке на руках.",
 
   "exerciseCooldownDownwardDogName": "Собака мордой вниз",
-  "exerciseCooldownDownwardDogDesc": "На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног."
+  "exerciseCooldownDownwardDogDesc": "На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног.",
+
+  "aboutTitle": "О приложении",
+  "aboutVersion": "Версия",
+  "aboutSectionSupport": "ПОДДЕРЖКА",
+  "aboutContactUs": "Написать нам",
+  "aboutContactUsSubtitle": "Сообщить об ошибке или задать вопрос",
+  "aboutPrivacyPolicy": "Политика конфиденциальности",
+  "aboutBuiltWith": "СДЕЛАНО НА",
+  "aboutCopyright": "© 2026 pupptmstr",
+  "settingsAbout": "О приложении"
 }
