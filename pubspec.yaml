@@ -23,8 +23,8 @@ dependencies:
   flutter_svg: ^2.0.16
   audioplayers: ^6.1.0
 
-  # Анимации (для v1.1)
-  # lottie: ^3.3.1
+  # Анимации
+  lottie: ^3.3.1
 
 dev_dependencies:
   flutter_test:
@@ -52,3 +52,4 @@ flutter:
     - assets/goro/
     - assets/skala/
     - assets/sounds/
+    - assets/animations/

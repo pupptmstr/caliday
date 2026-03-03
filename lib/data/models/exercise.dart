@@ -23,6 +23,7 @@ class Exercise {
     this.requiresEquipment = false,
     this.techniqueTip,
     this.imagePath,
+    this.animationPath,
   });
 
   /// Unique identifier, e.g. "push_s1_wall_pushup".
@@ -75,4 +76,7 @@ class Exercise {
 
   /// Asset path for the exercise illustration image.
   final String? imagePath;
+
+  /// Asset path for the Lottie exercise animation (e.g. "assets/animations/push_s1_wall_pushup.json").
+  final String? animationPath;
 }

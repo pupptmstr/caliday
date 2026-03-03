@@ -641,13 +641,13 @@ abstract class AppLocalizations {
   /// No description provided for @achievementPushS6Name.
   ///
   /// In ru, this message translates to:
-  /// **'Одна рука'**
+  /// **'Лучник'**
   String get achievementPushS6Name;
 
   /// No description provided for @achievementPushS6Desc.
   ///
   /// In ru, this message translates to:
-  /// **'Отжимания на одной руке — элита Push'**
+  /// **'Освоил отжимания лучника — до стойки на руках рукой подать'**
   String get achievementPushS6Desc;
 
   /// No description provided for @achievementPushCompleteName.
@@ -1382,41 +1382,41 @@ abstract class AppLocalizations {
   /// **'Локти не разводи — они должны скользить вдоль тела.'**
   String get exercisePushS4DiamondPushupTip;
 
-  /// No description provided for @exercisePushS5ArcherPushupName.
+  /// No description provided for @exercisePushS5WidePushupName.
+  ///
+  /// In ru, this message translates to:
+  /// **'Широкие отжимания'**
+  String get exercisePushS5WidePushupName;
+
+  /// No description provided for @exercisePushS5WidePushupDesc.
+  ///
+  /// In ru, this message translates to:
+  /// **'Руки значительно шире плеч. Опускайся медленно, сохраняя прямую линию тела. Оба трицепса и грудь работают в широкой амплитуде.'**
+  String get exercisePushS5WidePushupDesc;
+
+  /// No description provided for @exercisePushS5WidePushupTip.
+  ///
+  /// In ru, this message translates to:
+  /// **'Чем шире руки — тем больше нагрузка на грудь и меньше на трицепс.'**
+  String get exercisePushS5WidePushupTip;
+
+  /// No description provided for @exercisePushS6ArcherPushupName.
   ///
   /// In ru, this message translates to:
   /// **'Отжимания лучника'**
-  String get exercisePushS5ArcherPushupName;
+  String get exercisePushS6ArcherPushupName;
 
-  /// No description provided for @exercisePushS5ArcherPushupDesc.
+  /// No description provided for @exercisePushS6ArcherPushupDesc.
   ///
   /// In ru, this message translates to:
   /// **'Широкая постановка рук. Опускайся в сторону одной руки, держа вторую прямой. Поочерёдно на каждую сторону.'**
-  String get exercisePushS5ArcherPushupDesc;
+  String get exercisePushS6ArcherPushupDesc;
 
-  /// No description provided for @exercisePushS5ArcherPushupTip.
+  /// No description provided for @exercisePushS6ArcherPushupTip.
   ///
   /// In ru, this message translates to:
   /// **'Рабочая рука — полный диапазон, прямая рука на полу — поддержка.'**
-  String get exercisePushS5ArcherPushupTip;
-
-  /// No description provided for @exercisePushS6OneArmPushupName.
-  ///
-  /// In ru, this message translates to:
-  /// **'Отжимания на одной руке'**
-  String get exercisePushS6OneArmPushupName;
-
-  /// No description provided for @exercisePushS6OneArmPushupDesc.
-  ///
-  /// In ru, this message translates to:
-  /// **'Одна рука за спиной или сбоку. Ноги шире плеч для баланса. Полный диапазон движения рабочей рукой.'**
-  String get exercisePushS6OneArmPushupDesc;
-
-  /// No description provided for @exercisePushS6OneArmPushupTip.
-  ///
-  /// In ru, this message translates to:
-  /// **'Начинай с наклонной поверхности — так легче освоить технику.'**
-  String get exercisePushS6OneArmPushupTip;
+  String get exercisePushS6ArcherPushupTip;
 
   /// No description provided for @exercisePushS7HandstandPushupName.
   ///

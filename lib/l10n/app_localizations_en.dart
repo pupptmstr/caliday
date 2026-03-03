@@ -313,10 +313,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get achievementPushS3Desc => 'Classic floor push-ups mastered';
 
   @override
-  String get achievementPushS6Name => 'One Arm';
+  String get achievementPushS6Name => 'Archer';
 
   @override
-  String get achievementPushS6Desc => 'One-arm push-ups — Push elite';
+  String get achievementPushS6Desc =>
+      'Mastered archer push-ups — handstand is within reach';
 
   @override
   String get achievementPushCompleteName => 'Push Master';
@@ -716,26 +717,26 @@ class AppLocalizationsEn extends AppLocalizations {
       'Don\'t flare your elbows — let them glide along your body.';
 
   @override
-  String get exercisePushS5ArcherPushupName => 'Archer Push-up';
+  String get exercisePushS5WidePushupName => 'Wide Push-up';
 
   @override
-  String get exercisePushS5ArcherPushupDesc =>
+  String get exercisePushS5WidePushupDesc =>
+      'Hands placed significantly wider than shoulder-width. Lower slowly while keeping your body in a straight line. Both chest and triceps work through a wide range of motion.';
+
+  @override
+  String get exercisePushS5WidePushupTip =>
+      'The wider your hands, the more the chest is targeted and the less the triceps.';
+
+  @override
+  String get exercisePushS6ArcherPushupName => 'Archer Push-up';
+
+  @override
+  String get exercisePushS6ArcherPushupDesc =>
       'Wide hand placement. Lower toward one arm while keeping the other arm straight. Alternate each side.';
 
   @override
-  String get exercisePushS5ArcherPushupTip =>
+  String get exercisePushS6ArcherPushupTip =>
       'Working arm goes full range; straight arm stays on the floor for support.';
-
-  @override
-  String get exercisePushS6OneArmPushupName => 'One-Arm Push-up';
-
-  @override
-  String get exercisePushS6OneArmPushupDesc =>
-      'One hand behind your back or to the side. Feet wider than shoulder-width for balance. Full range of motion with the working arm.';
-
-  @override
-  String get exercisePushS6OneArmPushupTip =>
-      'Start on an incline — it\'s easier to learn the technique there.';
 
   @override
   String get exercisePushS7HandstandPushupName => 'Handstand Push-up';

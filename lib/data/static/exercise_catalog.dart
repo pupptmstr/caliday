@@ -32,6 +32,7 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 1,
     techniqueTip: 'Держи тело прямым, не прогибай поясницу.',
+    animationPath: 'assets/animations/push_s1_wall_pushup.json',
   );
 
   static const Exercise pushS2KneePushup = Exercise(
@@ -52,6 +53,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 3,
     techniqueTip: 'Не опускай бёдра — держи прямую линию от колен до плеч.',
+    animationPath: 'assets/animations/push_s2_knee_pushup.json',
   );
 
   static const Exercise pushS3FullPushup = Exercise(
@@ -72,6 +74,7 @@ class ExerciseCatalog {
     spBase: 2,
     challengeTargetReps: 3,
     techniqueTip: 'Напрягай пресс и ягодицы, чтобы не провисали бёдра.',
+    animationPath: 'assets/animations/push_s3_full_pushup.json',
   );
 
   static const Exercise pushS4DiamondPushup = Exercise(
@@ -92,16 +95,38 @@ class ExerciseCatalog {
     spBase: 2,
     challengeTargetReps: 5,
     techniqueTip: 'Локти не разводи — они должны скользить вдоль тела.',
+    animationPath: 'assets/animations/push_s4_diamond_pushup.json',
   );
 
-  static const Exercise pushS5ArcherPushup = Exercise(
-    id: 'push_s5_archer_pushup',
+  static const Exercise pushS5WidePushup = Exercise(
+    id: 'push_s5_wide_pushup',
+    name: 'Широкие отжимания',
+    description:
+        'Руки значительно шире плеч. Опускайся медленно, сохраняя прямую '
+        'линию тела. Оба трицепса и грудь работают в широкой амплитуде.',
+    branch: BranchId.push,
+    stage: 5,
+    type: ExerciseType.reps,
+    startReps: 5,
+    targetReps: 15,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 3,
+    challengeTargetReps: 3,
+    techniqueTip: 'Чем шире руки — тем больше нагрузка на грудь и меньше на трицепс.',
+    animationPath: 'assets/animations/push_s5_wide_pushup.json',
+  );
+
+  static const Exercise pushS6ArcherPushup = Exercise(
+    id: 'push_s6_archer_pushup',
     name: 'Отжимания лучника',
     description:
         'Широкая постановка рук. Опускайся в сторону одной руки, '
         'держа вторую прямой. Поочерёдно на каждую сторону.',
     branch: BranchId.push,
-    stage: 5,
+    stage: 6,
     type: ExerciseType.reps,
     startReps: 2,
     targetReps: 10,
@@ -109,29 +134,10 @@ class ExerciseCatalog {
     targetSets: 3,
     startRestSec: 90,
     targetRestSec: 45,
-    spBase: 3,
+    spBase: 5,
     challengeTargetReps: 2,
     techniqueTip: 'Рабочая рука — полный диапазон, прямая рука на полу — поддержка.',
-  );
-
-  static const Exercise pushS6OneArmPushup = Exercise(
-    id: 'push_s6_one_arm_pushup',
-    name: 'Отжимания на одной руке',
-    description:
-        'Одна рука за спиной или сбоку. Ноги шире плеч для баланса. '
-        'Полный диапазон движения рабочей рукой.',
-    branch: BranchId.push,
-    stage: 6,
-    type: ExerciseType.reps,
-    startReps: 1,
-    targetReps: 5,
-    startSets: 1,
-    targetSets: 3,
-    startRestSec: 90,
-    targetRestSec: 60,
-    spBase: 5,
-    challengeTargetReps: 1,
-    techniqueTip: 'Начинай с наклонной поверхности — так легче освоить технику.',
+    animationPath: 'assets/animations/push_s6_archer_pushup.json',
   );
 
   static const Exercise pushS7HandstandPushup = Exercise(
@@ -151,6 +157,7 @@ class ExerciseCatalog {
     targetRestSec: 60,
     spBase: 5,
     techniqueTip: 'Пальцы широко расставлены — так стабильнее. Взгляд между рук.',
+    animationPath: 'assets/animations/push_s7_handstand_pushup.json',
   );
 
   // ── CORE ──────────────────────────────────────────────────────────────────
@@ -817,8 +824,8 @@ class ExerciseCatalog {
     pushS2KneePushup,
     pushS3FullPushup,
     pushS4DiamondPushup,
-    pushS5ArcherPushup,
-    pushS6OneArmPushup,
+    pushS5WidePushup,
+    pushS6ArcherPushup,
     pushS7HandstandPushup,
   ];
 

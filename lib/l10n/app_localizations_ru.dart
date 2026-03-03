@@ -313,10 +313,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get achievementPushS3Desc => 'Освоены классические отжимания от пола';
 
   @override
-  String get achievementPushS6Name => 'Одна рука';
+  String get achievementPushS6Name => 'Лучник';
 
   @override
-  String get achievementPushS6Desc => 'Отжимания на одной руке — элита Push';
+  String get achievementPushS6Desc =>
+      'Освоил отжимания лучника — до стойки на руках рукой подать';
 
   @override
   String get achievementPushCompleteName => 'Властелин Push';
@@ -720,26 +721,26 @@ class AppLocalizationsRu extends AppLocalizations {
       'Локти не разводи — они должны скользить вдоль тела.';
 
   @override
-  String get exercisePushS5ArcherPushupName => 'Отжимания лучника';
+  String get exercisePushS5WidePushupName => 'Широкие отжимания';
 
   @override
-  String get exercisePushS5ArcherPushupDesc =>
+  String get exercisePushS5WidePushupDesc =>
+      'Руки значительно шире плеч. Опускайся медленно, сохраняя прямую линию тела. Оба трицепса и грудь работают в широкой амплитуде.';
+
+  @override
+  String get exercisePushS5WidePushupTip =>
+      'Чем шире руки — тем больше нагрузка на грудь и меньше на трицепс.';
+
+  @override
+  String get exercisePushS6ArcherPushupName => 'Отжимания лучника';
+
+  @override
+  String get exercisePushS6ArcherPushupDesc =>
       'Широкая постановка рук. Опускайся в сторону одной руки, держа вторую прямой. Поочерёдно на каждую сторону.';
 
   @override
-  String get exercisePushS5ArcherPushupTip =>
+  String get exercisePushS6ArcherPushupTip =>
       'Рабочая рука — полный диапазон, прямая рука на полу — поддержка.';
-
-  @override
-  String get exercisePushS6OneArmPushupName => 'Отжимания на одной руке';
-
-  @override
-  String get exercisePushS6OneArmPushupDesc =>
-      'Одна рука за спиной или сбоку. Ноги шире плеч для баланса. Полный диапазон движения рабочей рукой.';
-
-  @override
-  String get exercisePushS6OneArmPushupTip =>
-      'Начинай с наклонной поверхности — так легче освоить технику.';
 
   @override
   String get exercisePushS7HandstandPushupName => 'Отжимания в стойке на руках';

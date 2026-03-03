@@ -609,12 +609,12 @@ lib/features/settings/screens/
 |--------|------|--------|
 | **v1.1** | Достижения (27 штук) | ✅ реализовано |
 | **v1.1** | Бонусные тренировки (multiple per day) | ✅ реализовано |
-| **v1.1** | Анимации упражнений (Lottie) | 🔒 ждёт ассетов от дизайнера |
+| **v1.1** | Анимации упражнений (Lottie) — Push ветка | ✅ реализовано (7/7 этапов) |
 | **v1.2** | Звук + вибрация во время тренировки | ✅ реализовано |
 | **v1.2** | Home Screen Widget (iOS + Android) | ⚠️ спроектировано, код не написан |
 | **v1.2** | Адаптивный UI для landscape | 💡 идея |
 | ~~**v1.2**~~ | ~~Заморозки стрика~~ | ✅ реализовано (earn каждые 7 дней, auto-spend при пропуске 1 дня, cap=3) |
-| **v1.2** | Анимации Lottie на Branch Journey Screen | 🔒 ждёт ассетов |
+| **v1.2** | Анимации Lottie на Branch Journey Screen | 💡 идея (ждёт других веток) |
 | **v1.3** | Друзья (Bluetooth / QR-обмен, без сервера) | 📐 спроектировано сессии 2026-03-02 |
 | **v1.3** | Интеграция Apple Health / Health Connect | 📐 спроектировано сессии 2026-03-02 |
 | **v1.3** | Базовая интеграция со смарт-часами | 📐 спроектировано сессии 2026-03-02 |
@@ -1411,6 +1411,30 @@ Flutter-пакет: [`in_app_purchase`](https://pub.dev/packages/in_app_purchase
 ---
 
 ## История изменений
+
+### 2026-03-03 — сессия 31 (Lottie анимации Push ветки + рефакторинг прогрессии)
+
+**Интегрированы анимации Lottie для всех 7 этапов Push-ветки.**
+
+**Каталог упражнений:** прогрессия Push приведена в соответствие с ассетами дизайнера:
+- Stage 5: Archer Pushup → **Wide Pushup** (id: `push_s5_wide_pushup`)
+- Stage 6: One-Arm Pushup → **Archer Pushup** (id: `push_s6_archer_pushup`)
+- Stage 7: Handstand Pushup — без изменений
+
+**Достижение `push_s6`:** переименовано «Одна рука» → «Лучник» (RU) / «Archer» (EN).
+
+**Новые зависимости:** `lottie: ^3.3.2` (раскомментировано в pubspec.yaml).
+**Новые ассеты:** `assets/animations/` (7 JSON файлов Push ветки).
+**Поле модели:** `Exercise.animationPath: String?` добавлено.
+**WorkoutScreen:** Lottie-анимация показывается выше названия упражнения, когда `animationPath != null`.
+
+Изменены файлы:
+- `pubspec.yaml` — lottie + assets/animations/
+- `lib/data/models/exercise.dart` — поле animationPath
+- `lib/data/static/exercise_catalog.dart` — Push s5/s6 + animationPath для s1-s7
+- `lib/core/extensions/exercise_l10n.dart` — новые ID для s5/s6
+- `l10n/app_ru.arb`, `l10n/app_en.arb` — новые ключи s5/s6 + achievement pushS6
+- `lib/features/workout/screens/workout_screen.dart` — Lottie widget
 
 ### 2026-03-03 — сессия 31 (идеи: донат + экран «О приложении»)
 

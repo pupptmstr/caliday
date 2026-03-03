@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
@@ -225,6 +226,15 @@ class _ExerciseView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
+                // Lottie animation (shown when available)
+                if (exercise.animationPath != null)
+                  Lottie.asset(
+                    exercise.animationPath!,
+                    height: 200,
+                    repeat: true,
+                    fit: BoxFit.contain,
+                  ),
+
                 // Set indicator
                 Text(
                   l10n.workoutSetProgress(state.setIndex + 1, planned.sets),
