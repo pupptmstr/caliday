@@ -32,7 +32,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressInfo =>
-      'Skill branches are your personal journey, not mandatory tasks. Train at your own pace and advance to the next stage when you feel ready.';
+      'Just keep training — the app advances you through the branches automatically. Here you can track how far you\'ve come. And if you feel ready to push ahead early, take the Challenge and move forward yourself.';
 
   @override
   String get homeDays => 'days';
