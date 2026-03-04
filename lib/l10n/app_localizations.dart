@@ -2089,6 +2089,42 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'О приложении'**
   String get settingsAbout;
+
+  /// No description provided for @settingsSectionHealth.
+  ///
+  /// In ru, this message translates to:
+  /// **'ЗДОРОВЬЕ'**
+  String get settingsSectionHealth;
+
+  /// No description provided for @settingsHealthWorkoutsTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Записывать тренировки'**
+  String get settingsHealthWorkoutsTitle;
+
+  /// No description provided for @settingsHealthWorkoutsSubtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранять в Apple Health / Health Connect'**
+  String get settingsHealthWorkoutsSubtitle;
+
+  /// No description provided for @settingsHealthWeightTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Читать массу тела'**
+  String get settingsHealthWeightTitle;
+
+  /// No description provided for @settingsHealthWeightSubtitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Для точного расчёта калорий (иначе 70 кг)'**
+  String get settingsHealthWeightSubtitle;
+
+  /// No description provided for @summaryHealthSaved.
+  ///
+  /// In ru, this message translates to:
+  /// **'Сохранено в Health ✓'**
+  String get summaryHealthSaved;
 }
 
 class _AppLocalizationsDelegate

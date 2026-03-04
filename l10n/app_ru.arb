@@ -508,5 +508,12 @@
   "aboutPrivacyPolicy": "Политика конфиденциальности",
   "aboutBuiltWith": "СДЕЛАНО НА",
   "aboutCopyright": "© 2026 pupptmstr",
-  "settingsAbout": "О приложении"
+  "settingsAbout": "О приложении",
+
+  "settingsSectionHealth": "ЗДОРОВЬЕ",
+  "settingsHealthWorkoutsTitle": "Записывать тренировки",
+  "settingsHealthWorkoutsSubtitle": "Сохранять в Apple Health / Health Connect",
+  "settingsHealthWeightTitle": "Читать массу тела",
+  "settingsHealthWeightSubtitle": "Для точного расчёта калорий (иначе 70 кг)",
+  "summaryHealthSaved": "Сохранено в Health ✓"
 }

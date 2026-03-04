@@ -28,6 +28,8 @@ class UserProfile extends HiveObject {
     this.hasPullUpBar,
     this.soundEnabled,
     this.hapticEnabled,
+    this.healthWorkoutsEnabled,
+    this.healthWeightEnabled,
   });
 
   @HiveField(0)
@@ -101,6 +103,16 @@ class UserProfile extends HiveObject {
   /// Whether haptic feedback is enabled during workouts. null → true (default on).
   @HiveField(20)
   bool? hapticEnabled;
+
+  /// Whether CaliDay writes workouts to Apple Health / Health Connect.
+  /// null → false (opt-in feature).
+  @HiveField(21)
+  bool? healthWorkoutsEnabled;
+
+  /// Whether CaliDay reads body weight from Health for calorie calculations.
+  /// null → false (opt-in feature).
+  @HiveField(22)
+  bool? healthWeightEnabled;
 
   /// Ordered list of branches active for this user.
   List<BranchId> get activeBranches => [

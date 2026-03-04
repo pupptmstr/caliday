@@ -16,10 +16,12 @@ import '../../../domain/services/sp_service.dart';
 import '../../../domain/services/streak_service.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../../core/providers/locale_provider.dart';
+import '../../../core/services/health_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/services/widget_service.dart';
 import '../../home/providers/home_provider.dart';
 import '../../profile/providers/profile_provider.dart';
+import '../../settings/providers/settings_provider.dart';
 
 // ── Challenge branch selector ──────────────────────────────────────────────────
 
@@ -54,6 +56,7 @@ class WorkoutState {
     this.isPrimary = true,
     this.workoutsToday = 1,
     this.newAchievementIds = const [],
+    this.healthSaved = false,
   });
 
   final WorkoutPlan plan;
@@ -111,6 +114,9 @@ class WorkoutState {
   /// IDs of achievements newly earned during this workout.
   final List<String> newAchievementIds;
 
+  /// True when the workout was successfully written to Apple Health / Health Connect.
+  final bool healthSaved;
+
   // ── Convenience ───────────────────────────────────────────────────────────
 
   PlannedExercise get currentPlanned => plan.exercises[exerciseIndex];
@@ -135,6 +141,7 @@ class WorkoutState {
     bool? isPrimary,
     int? workoutsToday,
     List<String>? newAchievementIds,
+    bool? healthSaved,
   }) {
     return WorkoutState(
       plan: plan,
@@ -156,6 +163,7 @@ class WorkoutState {
       isPrimary: isPrimary ?? this.isPrimary,
       workoutsToday: workoutsToday ?? this.workoutsToday,
       newAchievementIds: newAchievementIds ?? this.newAchievementIds,
+      healthSaved: healthSaved ?? this.healthSaved,
     );
   }
 
@@ -240,7 +248,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       newResults[state.exerciseIndex] = completedResult!;
 
       if (state.isLastExercise) {
-        _finishWorkout(newResults);
+        unawaited(_finishWorkout(newResults));
       } else {
         final nextIdx = state.exerciseIndex + 1;
         final next = state.plan.exercises[nextIdx];
@@ -336,7 +344,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     }
   }
 
-  void _finishWorkout(List<ExerciseResult?> results) {
+  Future<void> _finishWorkout(List<ExerciseResult?> results) async {
     final now = DateTime.now();
     final durationSec = now.difference(state.startedAt).inSeconds;
 
@@ -434,6 +442,26 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       isPrimary: isPrimary,
     )));
 
+    // ── Health (Apple Health / Health Connect) ────────────────────────────
+    var healthSaved = false;
+    final settings = _ref.read(settingsProvider);
+    if (settings.healthWorkoutsEnabled) {
+      final workoutStart = state.startedAt;
+      final workoutEnd = workoutStart.add(Duration(seconds: durationSec));
+      final weightKg = settings.healthWeightEnabled
+          ? (await HealthService.instance.readBodyWeight() ?? 70.0)
+          : 70.0;
+      final calories = HealthService.instance.calculateCalories(
+        durationSec: durationSec,
+        weightKg: weightKg,
+      );
+      healthSaved = await HealthService.instance.writeWorkout(
+        start: workoutStart,
+        end: workoutEnd,
+        calories: calories,
+      );
+    }
+
     // ── Achievements ──────────────────────────────────────────────────────
     final achievementRepo = _ref.read(achievementRepositoryProvider);
     final achievementService = _ref.read(achievementServiceProvider);
@@ -494,6 +522,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       isPrimary: isPrimary,
       workoutsToday: workoutsToday,
       newAchievementIds: newAchievements,
+      healthSaved: healthSaved,
     );
   }
 }

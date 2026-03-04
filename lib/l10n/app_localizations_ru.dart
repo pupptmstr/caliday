@@ -1139,4 +1139,24 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settingsAbout => 'О приложении';
+
+  @override
+  String get settingsSectionHealth => 'ЗДОРОВЬЕ';
+
+  @override
+  String get settingsHealthWorkoutsTitle => 'Записывать тренировки';
+
+  @override
+  String get settingsHealthWorkoutsSubtitle =>
+      'Сохранять в Apple Health / Health Connect';
+
+  @override
+  String get settingsHealthWeightTitle => 'Читать массу тела';
+
+  @override
+  String get settingsHealthWeightSubtitle =>
+      'Для точного расчёта калорий (иначе 70 кг)';
+
+  @override
+  String get summaryHealthSaved => 'Сохранено в Health ✓';
 }

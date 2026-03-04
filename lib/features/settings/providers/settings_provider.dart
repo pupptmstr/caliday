@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/providers/theme_provider.dart';
+import '../../../core/services/health_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/services/sound_service.dart';
 import '../../../data/repositories/user_repository.dart';
@@ -22,6 +23,8 @@ class SettingsState {
     required this.hasPullUpBar,
     required this.soundEnabled,
     required this.hapticEnabled,
+    required this.healthWorkoutsEnabled,
+    required this.healthWeightEnabled,
   });
 
   final bool notificationsEnabled;
@@ -35,6 +38,8 @@ class SettingsState {
   final bool hasPullUpBar;
   final bool soundEnabled;
   final bool hapticEnabled;
+  final bool healthWorkoutsEnabled;
+  final bool healthWeightEnabled;
 
   /// Notification time as a zero-padded string, e.g. "09:00".
   String get timeLabel {
@@ -55,6 +60,8 @@ class SettingsState {
     bool? hasPullUpBar,
     bool? soundEnabled,
     bool? hapticEnabled,
+    bool? healthWorkoutsEnabled,
+    bool? healthWeightEnabled,
   }) {
     return SettingsState(
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
@@ -70,6 +77,9 @@ class SettingsState {
       hasPullUpBar: hasPullUpBar ?? this.hasPullUpBar,
       soundEnabled: soundEnabled ?? this.soundEnabled,
       hapticEnabled: hapticEnabled ?? this.hapticEnabled,
+      healthWorkoutsEnabled:
+          healthWorkoutsEnabled ?? this.healthWorkoutsEnabled,
+      healthWeightEnabled: healthWeightEnabled ?? this.healthWeightEnabled,
     );
   }
 }
@@ -99,6 +109,8 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       hasPullUpBar: p.hasPullUpBar ?? false,
       soundEnabled: sound,
       hapticEnabled: haptic,
+      healthWorkoutsEnabled: p.healthWorkoutsEnabled ?? false,
+      healthWeightEnabled: p.healthWeightEnabled ?? false,
     );
   }
 
@@ -168,6 +180,24 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
     );
     final p = _userRepo.getProfile()..hapticEnabled = value;
     _userRepo.saveProfile(p);
+  }
+
+  Future<void> setHealthWorkoutsEnabled(bool value) async {
+    if (value) {
+      final granted = await HealthService.instance.requestPermissions(
+        readWeight: state.healthWeightEnabled,
+      );
+      if (!granted) return;
+    }
+    final p = _userRepo.getProfile()..healthWorkoutsEnabled = value;
+    _userRepo.saveProfile(p);
+    state = state.copyWith(healthWorkoutsEnabled: value);
+  }
+
+  Future<void> setHealthWeightEnabled(bool value) async {
+    final p = _userRepo.getProfile()..healthWeightEnabled = value;
+    _userRepo.saveProfile(p);
+    state = state.copyWith(healthWeightEnabled: value);
   }
 
   void _save() {

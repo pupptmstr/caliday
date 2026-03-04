@@ -35,13 +35,15 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       hasPullUpBar: fields[15] as bool?,
       soundEnabled: fields[19] as bool?,
       hapticEnabled: fields[20] as bool?,
+      healthWorkoutsEnabled: fields[21] as bool?,
+      healthWeightEnabled: fields[22] as bool?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProfile obj) {
     writer
-      ..writeByte(18)
+      ..writeByte(20)
       ..writeByte(0)
       ..write(obj.rank)
       ..writeByte(1)
@@ -77,7 +79,11 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..writeByte(19)
       ..write(obj.soundEnabled)
       ..writeByte(20)
-      ..write(obj.hapticEnabled);
+      ..write(obj.hapticEnabled)
+      ..writeByte(21)
+      ..write(obj.healthWorkoutsEnabled)
+      ..writeByte(22)
+      ..write(obj.healthWeightEnabled);
   }
 
   @override

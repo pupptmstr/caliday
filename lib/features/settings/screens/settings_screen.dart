@@ -152,6 +152,43 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
 
+            // ── Health section ───────────────────────────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Text(
+                l10n.settingsSectionHealth,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                  color: scheme.primary,
+                ),
+              ),
+            ),
+
+            _SettingsTile(
+              title: l10n.settingsHealthWorkoutsTitle,
+              subtitle: l10n.settingsHealthWorkoutsSubtitle,
+              trailing: Switch(
+                value: state.healthWorkoutsEnabled,
+                onChanged: notifier.setHealthWorkoutsEnabled,
+              ),
+            ),
+
+            const Divider(indent: 20, endIndent: 20, height: 1),
+
+            _SettingsTile(
+              enabled: state.healthWorkoutsEnabled,
+              title: l10n.settingsHealthWeightTitle,
+              subtitle: l10n.settingsHealthWeightSubtitle,
+              trailing: Switch(
+                value: state.healthWeightEnabled,
+                onChanged: state.healthWorkoutsEnabled
+                    ? notifier.setHealthWeightEnabled
+                    : null,
+              ),
+            ),
+
             // ── Notifications section ────────────────────────────────────
             Padding(
               padding:

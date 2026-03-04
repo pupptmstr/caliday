@@ -58,6 +58,10 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSHealthUpdateUsageDescription</key>
+	<string>CaliDay записывает ваши тренировки и калории в Apple Health.</string>
+	<key>NSHealthShareUsageDescription</key>
+	<string>CaliDay считывает массу тела из Apple Health для точного расчёта калорий.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

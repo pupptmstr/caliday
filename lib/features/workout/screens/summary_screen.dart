@@ -34,6 +34,7 @@ class SummaryScreen extends StatelessWidget {
     final rawIds = extras['newAchievementIds'];
     final newAchievementIds =
         rawIds is List ? rawIds.cast<String>() : <String>[];
+    final healthSaved = extras['healthSaved'] as bool? ?? false;
 
     final mins = durationSec ~/ 60;
     final secs = durationSec % 60;
@@ -103,6 +104,10 @@ class SummaryScreen extends StatelessWidget {
                 const SizedBox(height: 10),
               if (challengePassed && newStageExerciseId != null)
                 _ChallengePassedBanner(exerciseId: newStageExerciseId),
+              if (healthSaved) ...[
+                const SizedBox(height: 10),
+                const _HealthSavedBadge(),
+              ],
 
               const SizedBox(height: 28),
 
@@ -447,6 +452,31 @@ class _ChallengePassedBanner extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _HealthSavedBadge extends StatelessWidget {
+  const _HealthSavedBadge();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(14),
+      ),
+      child: Row(
+        children: [
+          const Icon(Icons.favorite, size: 22, color: Color(0xFFFF2D55)),
+          const SizedBox(width: 12),
+          Text(
+            context.l10n.summaryHealthSaved,
+            style: const TextStyle(fontWeight: FontWeight.w600),
           ),
         ],
       ),

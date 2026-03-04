@@ -1134,4 +1134,24 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsAbout => 'About';
+
+  @override
+  String get settingsSectionHealth => 'HEALTH';
+
+  @override
+  String get settingsHealthWorkoutsTitle => 'Record workouts';
+
+  @override
+  String get settingsHealthWorkoutsSubtitle =>
+      'Save to Apple Health / Health Connect';
+
+  @override
+  String get settingsHealthWeightTitle => 'Read body weight';
+
+  @override
+  String get settingsHealthWeightSubtitle =>
+      'For accurate calorie estimates (default 70 kg)';
+
+  @override
+  String get summaryHealthSaved => 'Saved to Health ✓';
 }

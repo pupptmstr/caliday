@@ -10,6 +10,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'core/providers/locale_provider.dart';
 import 'core/providers/theme_provider.dart';
 import 'core/router/app_router.dart';
+import 'core/services/health_service.dart';
 import 'core/services/notification_service.dart';
 import 'core/services/widget_service.dart';
 import 'data/models/enums.dart';
@@ -81,6 +82,9 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
       // (on Android 13+ scheduleAll above silently fails without permission).
       final granted = await ns.requestPermissionIfNeeded();
       if (granted) await ns.scheduleAll(profile);
+
+      // Initialise Health SDK (Apple Health / Health Connect).
+      await HealthService.instance.configure();
 
       // Initialise the Home Screen Widget and push current data.
       await WidgetService.instance.init();

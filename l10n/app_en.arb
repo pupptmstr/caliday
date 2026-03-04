@@ -416,5 +416,12 @@
   "aboutPrivacyPolicy": "Privacy Policy",
   "aboutBuiltWith": "BUILT WITH",
   "aboutCopyright": "© 2026 pupptmstr",
-  "settingsAbout": "About"
+  "settingsAbout": "About",
+
+  "settingsSectionHealth": "HEALTH",
+  "settingsHealthWorkoutsTitle": "Record workouts",
+  "settingsHealthWorkoutsSubtitle": "Save to Apple Health / Health Connect",
+  "settingsHealthWeightTitle": "Read body weight",
+  "settingsHealthWeightSubtitle": "For accurate calorie estimates (default 70 kg)",
+  "summaryHealthSaved": "Saved to Health ✓"
 }

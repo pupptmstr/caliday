@@ -617,11 +617,11 @@ lib/features/settings/screens/
 | **v1.2** | Home экран: переделать иерархию — тренировка дня в фокусе, ветки вторичны | ✅ реализовано (bottom nav: Тренировка / Прогресс / Профиль)             |
 | **v1.2** | Замена эмодзи на Material Icons (рендеринг одинаков на всех устройствах)  | ✅ реализовано                                                            |
 | **v1.2** | Инфо-баннер на экране Прогресса (ветки — необязательные)                  | ✅ реализовано                                                            |
-| **v1.2** | Адаптивный UI для landscape                                               | 💡 идея                                                                  |
+| **v1.2** | Адаптивный UI для landscape                                               | ❌ won't do (ориентация заблокирована в main.dart)                        |
 | **v1.2** | Заморозки стрика                                                          | ✅ реализовано (earn каждые 7 дней, auto-spend при пропуске 1 дня, cap=3) |
 | **v1.2** | Анимации Lottie на Branch Journey Screen                                  | 💡 идея (ждёт других веток)                                              |
 | **v1.3** | Home Screen Widget (iOS + Android)                                        | ✅ реализовано (Flutter+Android полностью; iOS требует Xcode target)     |
-| **v1.3** | Интеграция Apple Health / Health Connect                                  | 📐 спроектировано сессии 2026-03-02                                      |
+| **v1.3** | Интеграция Apple Health / Health Connect                                  | ✅ реализовано (сессия 39; iOS требует HealthKit capability в Xcode)     |
 | **v1.4** | Друзья (Bluetooth / QR-обмен, без сервера)                                | 📐 спроектировано сессии 2026-03-02                                      |
 | **v1.4** | Базовая интеграция со смарт-часами                                        | 📐 спроектировано сессии 2026-03-02                                      |
 | **v1.5** | Полноценное приложение на часы (WatchKit / Wear OS)                       | 💡 идея                                                                  |
@@ -1499,6 +1499,41 @@ Flutter-пакет: [`in_app_purchase`](https://pub.dev/packages/in_app_purchase
 
 ## История изменений
 
+### 2026-03-05 — сессия 39 (Health Integration: HealthKit / Health Connect)
+
+**Реализована интеграция с Apple Health (iOS) и Google Health Connect (Android). После завершения тренировки CaliDay записывает сессию силовой тренировки + сожжённые калории (MET-формула). Функция opt-in через Настройки → ЗДОРОВЬЕ.**
+
+**Новые зависимости:**
+- `health: ^12.0.0` (resolved: 12.2.1) — единый Flutter API для HealthKit и Health Connect
+
+**Новые файлы:**
+- `lib/core/services/health_service.dart` — `HealthService` singleton: `configure()`, `requestPermissions()`, `writeWorkout()`, `readBodyWeight()`, `calculateCalories()`
+
+**Изменённые файлы:**
+- `pubspec.yaml` — добавлен `health: ^12.0.0`
+- `lib/data/models/user_profile.dart` — HiveField(21) `healthWorkoutsEnabled`, HiveField(22) `healthWeightEnabled`
+- `lib/data/models/user_profile.g.dart` — writeByte 18→20, added read/write for fields 21 и 22
+- `lib/features/settings/providers/settings_provider.dart` — `healthWorkoutsEnabled/healthWeightEnabled` + setters с запросом разрешений
+- `lib/features/settings/screens/settings_screen.dart` — раздел ЗДОРОВЬЕ между ТРЕНИРОВКА и УВЕДОМЛЕНИЯ
+- `lib/features/workout/providers/workout_provider.dart` — `healthSaved: bool` в WorkoutState; после завершения тренировки вызывает `HealthService`
+- `lib/features/workout/screens/workout_screen.dart` — `'healthSaved': s.healthSaved` в extras map
+- `lib/features/workout/screens/summary_screen.dart` — `_HealthSavedBadge` (значок ❤ + «Сохранено в Health ✓»)
+- `lib/main.dart` — `HealthService.instance.configure()` в postFrameCallback
+- `ios/Runner/Info.plist` — `NSHealthUpdateUsageDescription`, `NSHealthShareUsageDescription`
+- `android/app/src/main/AndroidManifest.xml` — Health Connect permissions (`READ_WEIGHT`, `WRITE_EXERCISE`, `WRITE_TOTAL_CALORIES_BURNED`), `<package android:name="com.google.android.apps.healthdata"/>`, activity-alias `ViewPermissionUsageActivity` (нужен для диалога разрешений Health Connect)
+- `android/app/build.gradle.kts` — `minSdk = 26` (health package требует API 26+)
+- `android/app/src/main/kotlin/com/pupptmstr/caliday/MainActivity.kt` — `FlutterActivity` → `FlutterFragmentActivity` (health plugin требует `ComponentActivity`)
+- `l10n/app_ru.arb`, `l10n/app_en.arb` — 6 новых строк (settingsSectionHealth, settingsHealthWorkoutsTitle/Subtitle, settingsHealthWeightTitle/Subtitle, summaryHealthSaved)
+
+**Архитектурные решения:**
+- `MainActivity` должна расширять `FlutterFragmentActivity` (→`FragmentActivity`→`ComponentActivity`), иначе `HealthPlugin.onAttachedToActivity` падает с `ClassCastException`
+- `configure()` обёрнут в `.timeout(5s)` + catch — без таймаута зависает на splash при повторном запуске если Health Connect в плохом состоянии
+- Разрешение для записи калорий: `TOTAL_CALORIES_BURNED` (не `ACTIVE_ENERGY_BURNED`) — `writeWorkoutData` создаёт `TotalCaloriesBurnedRecord`
+- `activity-alias` с `HEALTH_PERMISSIONS` обязателен для отображения диалога разрешений Health Connect (без него — моргание экрана, разрешения не выдаются)
+- iOS: требуется ручной шаг в Xcode — добавить capability HealthKit в Runner target
+
+**iOS:** `NSHealth*UsageDescription` добавлены в Info.plist, но capability HealthKit нужно добавить вручную в Xcode (Runner → Signing & Capabilities → + → HealthKit). На Android всё работает без дополнительных шагов.
+
 ### 2026-03-05 — сессия 38b (Medium виджет 4×2)
 
 **Добавлен второй виджет: 4 колонки × 2 строки. Layout: Горо слева + стрик + SP + статус «Готово» справа.**
@@ -1590,6 +1625,41 @@ Flutter-пакет: [`in_app_purchase`](https://pub.dev/packages/in_app_purchase
 **Дополнительный fix 2:** `GoError: There is nothing to pop` при прерывании тренировки запущенной с виджета.
 Причина: deep link открывает `/workout` через `go()` (замена стека), поэтому `pop()` падал без предшествующего роута.
 Решение: `_confirmExit` в `workout_screen.dart` — `context.canPop() ? context.pop() : context.go('/home')`.
+
+### 2026-03-05 — сессия 39 (Health Integration: Apple Health / Health Connect)
+
+**Реализована интеграция с Apple Health (iOS) и Google Health Connect (Android).**
+После завершения тренировки CaliDay записывает сессию силовой тренировки + сожжённые калории (MET 5.5 × вес × часы). Опционально читает массу тела из Health для точного расчёта калорий (fallback: 70 кг). Все данные — opt-in через настройки.
+
+**Новые зависимости:**
+- `health: ^12.0.0` (разрешилось как 12.2.1)
+
+**Новые файлы:**
+- `lib/core/services/health_service.dart` — `HealthService.instance` singleton: `configure()`, `requestPermissions()`, `writeWorkout()`, `readBodyWeight()`, `calculateCalories()`
+
+**Изменённые файлы:**
+- `pubspec.yaml` — `health: ^12.0.0`
+- `lib/data/models/user_profile.dart` — `@HiveField(21) bool? healthWorkoutsEnabled`, `@HiveField(22) bool? healthWeightEnabled`
+- `lib/data/models/user_profile.g.dart` — writeByte 18→20; добавлены read/write для fields 21 и 22
+- `lib/features/settings/providers/settings_provider.dart` — `healthWorkoutsEnabled/healthWeightEnabled` в `SettingsState`; `setHealthWorkoutsEnabled(bool)` + `setHealthWeightEnabled(bool)` в `SettingsNotifier`; `_load()` читает новые поля
+- `lib/features/settings/screens/settings_screen.dart` — раздел ЗДОРОВЬЕ между ТРЕНИРОВКА и УВЕДОМЛЕНИЯ (два Switch)
+- `lib/features/workout/providers/workout_provider.dart` — `healthSaved: bool` в `WorkoutState`; `_finishWorkout` стал `async`; после записи лога вызывает `HealthService` если включено
+- `lib/features/workout/screens/workout_screen.dart` — `'healthSaved': s.healthSaved` в extras map (~строка 108)
+- `lib/features/workout/screens/summary_screen.dart` — читает `healthSaved` из extras; `_HealthSavedBadge` виджет с иконкой ♥
+- `lib/main.dart` — `await HealthService.instance.configure()` в postFrameCallback рядом с WidgetService
+- `ios/Runner/Info.plist` — `NSHealthUpdateUsageDescription` + `NSHealthShareUsageDescription`
+- `android/app/src/main/AndroidManifest.xml` — `android.permission.health.READ_WEIGHT`, `WRITE_EXERCISE`, `WRITE_TOTAL_CALORIES_BURNED`; `<package android:name="com.google.android.apps.healthdata"/>` в queries
+- `l10n/app_ru.arb` + `l10n/app_en.arb` — 6 новых строк: `settingsSectionHealth`, `settingsHealthWorkoutsTitle/Subtitle`, `settingsHealthWeightTitle/Subtitle`, `summaryHealthSaved`
+
+**iOS:** требует ручного шага в Xcode: Runner → Signing & Capabilities → + → HealthKit.
+
+**Ключевые решения:**
+- `_finishWorkout` — теперь `async`/`await` (но вызывается через `unawaited()` чтобы не блокировать UI)
+- MET фиксирован: 5.5 (средняя интенсивность калистеники); усложнение по этапам — идея для v1.4
+- Вес тела читается из Health только если `healthWeightEnabled == true`; никогда не хранится в профиле (только из Health на лету)
+- Разрешения запрашиваются при включении тоггла (не при старте приложения)
+
+**`flutter analyze`:** 3 pre-existing info в generated/assets.dart — без новых предупреждений.
 
 ### 2026-03-03 — сессия 31 (Lottie анимации Push ветки + рефакторинг прогрессии)
 
