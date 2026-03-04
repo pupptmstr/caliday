@@ -45,6 +45,9 @@ class _RouterNotifier extends ChangeNotifier {
   final Ref _ref;
 
   String? redirect(BuildContext context, GoRouterState state) {
+    // Handle deep links from the home screen widget (caliday://workout).
+    if (state.uri.scheme == 'caliday') return '/workout';
+
     final done = _ref.read(isOnboardingCompleteProvider);
     final onOnboarding = state.uri.path.startsWith('/onboarding');
 

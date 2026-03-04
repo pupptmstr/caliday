@@ -437,7 +437,7 @@ class _WorkoutLogTile extends StatelessWidget {
                 controller: scrollController,
                 padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
                 itemCount: log.exercises.length,
-                separatorBuilder: (_, _i) => const SizedBox(height: 10),
+                separatorBuilder: (_, i) => const SizedBox(height: 10),
                 itemBuilder: (_, i) {
                   final ex = log.exercises[i];
                   final name = ExerciseL10n.name(l10n, ex.exerciseId);

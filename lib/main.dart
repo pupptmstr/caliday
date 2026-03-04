@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:app_links/app_links.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:caliday/l10n/app_localizations.dart';
@@ -8,12 +11,15 @@ import 'core/providers/locale_provider.dart';
 import 'core/providers/theme_provider.dart';
 import 'core/router/app_router.dart';
 import 'core/services/notification_service.dart';
+import 'core/services/widget_service.dart';
 import 'data/models/enums.dart';
 import 'data/models/exercise_result.dart';
 import 'data/models/skill_progress.dart';
 import 'data/models/user_profile.dart';
 import 'data/models/workout_log.dart';
 import 'data/repositories/user_repository.dart';
+import 'data/repositories/workout_repository.dart';
+import 'domain/services/streak_service.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -57,6 +63,8 @@ class CaliDayApp extends ConsumerStatefulWidget {
 }
 
 class _CaliDayAppState extends ConsumerState<CaliDayApp> {
+  StreamSubscription<Uri>? _linkSub;
+
   @override
   void initState() {
     super.initState();
@@ -73,7 +81,40 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
       // (on Android 13+ scheduleAll above silently fails without permission).
       final granted = await ns.requestPermissionIfNeeded();
       if (granted) await ns.scheduleAll(profile);
+
+      // Initialise the Home Screen Widget and push current data.
+      await WidgetService.instance.init();
+      final workoutRepo = WorkoutRepository();
+      final streakService = const StreakService();
+      final days = streakService.daysSinceLastWorkout(profile);
+      final displayStreak = (days <= 1 ||
+              (days == 2 && profile.streakFreezeCount > 0))
+          ? profile.currentStreak
+          : 0;
+      unawaited(WidgetService.instance.update(
+        streak: displayStreak,
+        totalSP: profile.totalSP,
+        workoutDoneToday: workoutRepo.hasWorkoutToday(),
+      ));
+
+      // Handle deep links from the Home Screen Widget tap (caliday://workout).
+      final appLinks = AppLinks();
+      final initialLink = await appLinks.getInitialLink();
+      if (initialLink != null && initialLink.scheme == 'caliday') {
+        ref.read(routerProvider).go('/workout');
+      }
+      _linkSub = appLinks.uriLinkStream.listen((uri) {
+        if (uri.scheme == 'caliday') {
+          ref.read(routerProvider).go('/workout');
+        }
+      });
     });
+  }
+
+  @override
+  void dispose() {
+    _linkSub?.cancel();
+    super.dispose();
   }
 
   @override

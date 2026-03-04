@@ -16,6 +16,7 @@ import '../../../domain/services/sp_service.dart';
 import '../../../domain/services/streak_service.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../../core/services/notification_service.dart';
+import '../../../core/services/widget_service.dart';
 import '../../home/providers/home_provider.dart';
 import '../../profile/providers/profile_provider.dart';
 
@@ -470,6 +471,13 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     // Invalidate home and profile data so both tabs reflect the new state.
     _ref.invalidate(homeDataProvider);
     _ref.invalidate(profileDataProvider);
+
+    // Push fresh data to the Home Screen Widget.
+    unawaited(WidgetService.instance.update(
+      streak: _ref.read(displayStreakProvider),
+      totalSP: profile.totalSP,
+      workoutDoneToday: true,
+    ));
 
     state = state.copyWith(
       phase: WorkoutPhase.done,

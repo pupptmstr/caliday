@@ -71,7 +71,11 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
     if (confirmed == true && context.mounted) {
       _timer?.cancel();
       ref.read(challengeBranchProvider.notifier).state = null;
-      context.pop();
+      if (context.canPop()) {
+        context.pop();
+      } else {
+        context.go('/home');
+      }
     }
   }
 

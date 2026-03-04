@@ -620,7 +620,7 @@ lib/features/settings/screens/
 | **v1.2** | Адаптивный UI для landscape                                               | 💡 идея                                                                  |
 | **v1.2** | Заморозки стрика                                                          | ✅ реализовано (earn каждые 7 дней, auto-spend при пропуске 1 дня, cap=3) |
 | **v1.2** | Анимации Lottie на Branch Journey Screen                                  | 💡 идея (ждёт других веток)                                              |
-| **v1.3** | Home Screen Widget (iOS + Android)                                        | ⚠️ спроектировано, код не написан                                        |
+| **v1.3** | Home Screen Widget (iOS + Android)                                        | ✅ реализовано (Flutter+Android полностью; iOS требует Xcode target)     |
 | **v1.3** | Интеграция Apple Health / Health Connect                                  | 📐 спроектировано сессии 2026-03-02                                      |
 | **v1.4** | Друзья (Bluetooth / QR-обмен, без сервера)                                | 📐 спроектировано сессии 2026-03-02                                      |
 | **v1.4** | Базовая интеграция со смарт-часами                                        | 📐 спроектировано сессии 2026-03-02                                      |
@@ -1498,6 +1498,80 @@ Flutter-пакет: [`in_app_purchase`](https://pub.dev/packages/in_app_purchase
 ---
 
 ## История изменений
+
+### 2026-03-05 — сессия 37 (Home Screen Widget: Flutter + Android + iOS swift-файлы)
+
+**Реализован Home Screen Widget (Small 2×2): Горо (idle/flex) + стрик + SP. Тап → `caliday://workout`.**
+
+**Новые зависимости:**
+- `home_widget: ^0.9.0` — Flutter ↔ нативный виджет (SharedPreferences Android / UserDefaults AppGroup iOS)
+- `app_links: ^6.4.1` — обработка deep link `caliday://workout`
+- `androidx.glance:glance-appwidget:1.1.0` — Android нативный виджет (Compose Glance)
+
+**PNG-ассеты:** сконвертированы `goro_idle_v2.svg` и `goro_flex_v2.svg` через sharp (Node.js):
+- Android: `drawable-mdpi/hdpi/xhdpi/xxhdpi/goro_{idle,flex}.png` (80/120/160/240px)
+- iOS: `ios/CaliDayWidget/Assets.xcassets/Goro{Idle,Flex}.imageset/` (1x/2x/3x: 80/160/240px)
+
+**Новые файлы:**
+- `lib/core/services/widget_service.dart` — `WidgetService.instance` singleton: `init()` + `update({streak, totalSP, workoutDoneToday})`
+- ~~`android/app/src/main/kotlin/com/pupptmstr/caliday/CaliDayWidget.kt`~~ — **удалён** (см. сессию 38)
+- `android/app/src/main/kotlin/com/pupptmstr/caliday/CaliDayWidgetReceiver.kt` — изначально `GlanceAppWidgetReceiver`, **переписан** в сессии 38 как классический `AppWidgetProvider`
+- `android/app/src/main/res/xml/caliday_widget_info.xml` — `AppWidgetProviderInfo` (110dp×110dp, 2×2)
+- `android/app/src/main/res/drawable/ic_widget_fire.xml` — оранжевый огонь для стрика
+- `android/app/src/main/res/drawable/ic_widget_bolt.xml` — жёлтая молния для SP
+- `ios/CaliDayWidget/CaliDayWidget.swift` — SwiftUI WidgetKit: `StaticConfiguration`, `TimelineProvider` (30-мин обновление), читает `UserDefaults(suiteName: "group.com.pupptmstr.caliday")`
+- `ios/CaliDayWidget/Assets.xcassets/GoroIdle.imageset/Contents.json` + PNG x3
+- `ios/CaliDayWidget/Assets.xcassets/GoroFlex.imageset/Contents.json` + PNG x3
+- `ios/CaliDayWidget/Assets.xcassets/Contents.json`
+
+**Изменённые файлы:**
+- `pubspec.yaml` — `home_widget`, `app_links`
+- `lib/main.dart` — import `app_links`, `widget_service`, `workout_repository`, `streak_service`; `WidgetService.instance.init()` + начальный `update()` в postFrameCallback; `AppLinks().uriLinkStream` → `router.go('/workout')`; `dispose()` → `_linkSub?.cancel()`
+- `lib/features/workout/providers/workout_provider.dart` — `unawaited(WidgetService.instance.update(...))` после `_finishWorkout` (streak=displayStreak, workoutDoneToday=true)
+- `android/app/src/main/AndroidManifest.xml` — deep link intent-filter (`caliday://`), widget receiver
+- `android/app/build.gradle.kts` — ~~`implementation("androidx.glance:glance-appwidget:1.1.0")`~~ — **удалено** в сессии 38
+- `android/app/proguard-rules.pro` — keep CaliDayWidgetReceiver (Glance rule убрана в сессии 38)
+- `ios/Runner/Info.plist` — `CFBundleURLTypes` → scheme `caliday`
+- `lib/features/profile/screens/profile_screen.dart` — lint fix: `_i` → `i` в separatorBuilder
+
+**Ключевые параметры:**
+- App Group ID: `group.com.pupptmstr.caliday`
+- SharedPreferences name: `HomeWidgetPreferences` (home_widget default)
+- Widget kind (iOS): `CaliDayWidget`
+- Widget receiver (Android): `com.pupptmstr.caliday.CaliDayWidgetReceiver`
+- Deep link: `caliday://workout`
+
+**iOS: требует ручной настройки в Xcode (на Mac):**
+1. File → New → Target → Widget Extension → `CaliDayWidget`
+2. Заменить сгенерированный `.swift` файлом из `ios/CaliDayWidget/CaliDayWidget.swift`
+3. Добавить PNG-ассеты из `ios/CaliDayWidget/Assets.xcassets/` в Asset Catalog виджета
+4. Runner target → Signing & Capabilities → App Groups → `group.com.pupptmstr.caliday`
+5. CaliDayWidget target → то же App Group
+
+### 2026-03-05 — сессия 38 (Android виджет: Glance → AppWidgetProvider, fix NoSuchMethodError)
+
+**Исправлен рантайм-краш Android-виджета. Заменена Glance-реализация на классический AppWidgetProvider + RemoteViews.**
+
+**Проблема:** `java.lang.NoSuchMethodError: No static method provideContent(GlanceAppWidget, Function0, Continuation)` при открытии виджета.
+
+**Причина:** Flutter-проект не подключает Compose Compiler Plugin (`buildFeatures.compose = false` по умолчанию). Без этого плагина лямбда в `provideContent { }` не трансформируется Compose-компилятором: генерируется `Function0` вместо `Function2<Composer, Int, Unit>`, которого ожидает `glance-appwidget:1.2.0-rc01` (версия, разрешённая Gradle через `1.+` из home_widget). Результат — несоответствие сигнатур → `NoSuchMethodError` в рантайме.
+
+**Решение:** Переход на классический `AppWidgetProvider` + `RemoteViews` (не требует Compose Compiler Plugin):
+- **Удалён** `android/app/src/main/kotlin/com/pupptmstr/caliday/CaliDayWidget.kt` (GlanceAppWidget)
+- **Переписан** `CaliDayWidgetReceiver.kt`: `AppWidgetProvider`, читает SharedPreferences `HomeWidgetPreferences`, строит `RemoteViews` из XML-layout, ставит `PendingIntent` на тап → `caliday://workout`
+- **Создан** `android/app/src/main/res/layout/caliday_widget_layout.xml` — LinearLayout: ImageView(Горо) + Row(огонь + streak) + Row(молния + SP)
+- **Убрана** зависимость `glance-appwidget` из `build.gradle.kts` (приходит транзитивно из home_widget)
+- **Обновлён** `proguard-rules.pro` — убрано keep-правило Glance
+
+**Итог:** `flutter build apk --debug` — успех, `flutter analyze` — 3 pre-existing info (без новых).
+
+**Дополнительный fix (в той же сессии):** Тап на виджет вызывал `GoException: no routes for location: caliday://workout/`.
+Причина: Flutter Router передаёт full URI deep link'а в go_router, который пытается его матчить как путь.
+Решение: добавлен guard `if (state.uri.scheme == 'caliday') return '/workout';` в redirect функцию `_RouterNotifier` (`lib/core/router/app_router.dart`).
+
+**Дополнительный fix 2:** `GoError: There is nothing to pop` при прерывании тренировки запущенной с виджета.
+Причина: deep link открывает `/workout` через `go()` (замена стека), поэтому `pop()` падал без предшествующего роута.
+Решение: `_confirmExit` в `workout_screen.dart` — `context.canPop() ? context.pop() : context.go('/home')`.
 
 ### 2026-03-03 — сессия 31 (Lottie анимации Push ветки + рефакторинг прогрессии)
 
