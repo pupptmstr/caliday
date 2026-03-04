@@ -132,7 +132,7 @@ class AchievementsScreen extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text('🔒', style: TextStyle(fontSize: 48)),
+            Icon(Icons.lock_outline, size: 48, color: scheme.onSurfaceVariant),
             const SizedBox(height: 12),
             Text(
               l.achievementsSecret,
@@ -196,7 +196,7 @@ class _AchievementTile extends StatelessWidget {
     final l = context.l10n;
     final isHiddenSecret = achievement.isSecret && !earned;
 
-    final emoji = isHiddenSecret ? '🔒' : achievement.emoji;
+    final emoji = isHiddenSecret ? null : achievement.emoji;
     final title =
         isHiddenSecret ? l.achievementsSecret : AchievementL10n.name(l, achievement.id);
     final desc = isHiddenSecret
@@ -217,7 +217,10 @@ class _AchievementTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         alignment: Alignment.center,
-        child: Text(emoji, style: const TextStyle(fontSize: 24)),
+        child: emoji != null
+            ? Text(emoji, style: const TextStyle(fontSize: 24))
+            : Icon(Icons.lock_outline, size: 24,
+                color: scheme.onSurfaceVariant),
       ),
       title: Text(
         title,

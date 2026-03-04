@@ -19,6 +19,22 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get navHome => 'Тренировка';
+
+  @override
+  String get navProgress => 'Прогресс';
+
+  @override
+  String get navProfile => 'Профиль';
+
+  @override
+  String get progressTitle => 'Мой прогресс';
+
+  @override
+  String get progressInfo =>
+      'Ветки прогрессии — это ваш путь, а не обязательные задания. Тренируйтесь в своём темпе и переходите на следующий этап когда будете готовы.';
+
+  @override
   String get homeDays => 'дней';
 
   @override
@@ -64,7 +80,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get branchJourneyStartChallenge => '🏆 Пройти испытание';
+  String get branchJourneyStartChallenge => 'Пройти испытание';
 
   @override
   String homeStage(int stage, int total) {
@@ -72,7 +88,7 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get homeChallengeUnlocked => '🏆 Испытание доступно';
+  String get homeChallengeUnlocked => 'Испытание доступно';
 
   @override
   String get homeChallengeButton => 'Принять вызов';
@@ -157,7 +173,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get summaryTitle => 'Отличная тренировка!';
 
   @override
-  String get summarySubtitle => 'Так держать — ещё один шаг вперёд 💪';
+  String get summarySubtitle => 'Так держать — ещё один шаг вперёд';
 
   @override
   String get summaryLabelTime => 'Время';
@@ -190,7 +206,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get achievementsLockedSection => 'Заблокировано';
 
   @override
-  String get achievementsSecret => '🔒 ???';
+  String get achievementsSecret => '???';
 
   @override
   String get achievementsSecretDesc => 'Выполни особое условие, чтобы раскрыть';
@@ -210,7 +226,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get profileNoAchievements => 'Ещё нет достижений';
 
   @override
-  String get summaryAchievementsTitle => 'Новые достижения! 🏅';
+  String get summaryAchievementsTitle => 'Новые достижения!';
 
   @override
   String get achievementFirstWorkoutName => 'Первый шаг';
@@ -402,7 +418,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'Все 5 веток пройдены до конца. Абсолютный чемпион.';
 
   @override
-  String get summaryBonusTitle => 'Бонусная тренировка 💪';
+  String get summaryBonusTitle => 'Бонусная тренировка';
 
   @override
   String get summaryBonusBody => '×½ SP · прогрессия уже сохранена';
@@ -413,14 +429,14 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get summaryChallengeUnlockedTitle => 'Испытание ждёт! 🏆';
+  String get summaryChallengeUnlockedTitle => 'Испытание ждёт!';
 
   @override
   String get summaryChallengeUnlockedBody =>
       'Нажми «Принять вызов» на главном экране когда будешь готов';
 
   @override
-  String get summaryChallengePassedTitle => 'Новый этап! 🎉';
+  String get summaryChallengePassedTitle => 'Новый этап!';
 
   @override
   String summaryChallengePassedBody(String exercise) {
@@ -455,6 +471,28 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get profileNoHistory => 'Ещё нет завершённых тренировок';
+
+  @override
+  String get historyTypeDaily => 'Тренировка дня';
+
+  @override
+  String get historyTypeChallenge => 'Испытание';
+
+  @override
+  String get historyTypeBonus => 'Бонусная';
+
+  @override
+  String get historyDetailExercises => 'Упражнения';
+
+  @override
+  String historyDetailReps(int completed, int target) {
+    return '$completed / $target повт.';
+  }
+
+  @override
+  String historyDetailSec(int completed, int target) {
+    return '$completed / $target сек';
+  }
 
   @override
   String get settingsTitle => 'Настройки';

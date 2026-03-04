@@ -6,8 +6,10 @@ import 'package:intl/intl.dart';
 
 import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
+import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/workout_log.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../../data/repositories/achievement_repository.dart';
 import '../../../data/static/achievement_catalog.dart';
 import '../providers/profile_provider.dart';
@@ -162,13 +164,13 @@ class _RankCard extends StatelessWidget {
   final double rankProgress;
   final String rankProgressLabel;
 
-  static String _emoji(Rank r) => switch (r) {
-        Rank.beginner => '🌱',
-        Rank.amateur => '💪',
-        Rank.sportsman => '🏃',
-        Rank.athlete => '⚡',
-        Rank.master => '🔥',
-        Rank.legend => '👑',
+  static IconData _icon(Rank r) => switch (r) {
+        Rank.beginner => Icons.eco,
+        Rank.amateur => Icons.fitness_center,
+        Rank.sportsman => Icons.directions_run,
+        Rank.athlete => Icons.bolt,
+        Rank.master => Icons.local_fire_department,
+        Rank.legend => Icons.workspace_premium,
       };
 
   @override
@@ -187,9 +189,10 @@ class _RankCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              Text(
-                _emoji(rank),
-                style: const TextStyle(fontSize: 40),
+              Icon(
+                _icon(rank),
+                size: 40,
+                color: scheme.onPrimaryContainer,
               ),
               const SizedBox(width: 14),
               Column(
@@ -264,13 +267,13 @@ class _StatsGrid extends StatelessWidget {
     final l10n = context.l10n;
     return Row(
       children: [
-        Expanded(child: _StatCell(emoji: '🔥', value: '$currentStreak', label: l10n.profileStatDays)),
+        Expanded(child: _StatCell(icon: Icons.local_fire_department, value: '$currentStreak', label: l10n.profileStatDays)),
         const SizedBox(width: 10),
-        Expanded(child: _StatCell(emoji: '🏆', value: '$longestStreak', label: l10n.profileStatRecord)),
+        Expanded(child: _StatCell(icon: Icons.emoji_events, value: '$longestStreak', label: l10n.profileStatRecord)),
         const SizedBox(width: 10),
-        Expanded(child: _StatCell(emoji: '💪', value: '$totalWorkouts', label: l10n.profileStatWorkouts)),
+        Expanded(child: _StatCell(icon: Icons.fitness_center, value: '$totalWorkouts', label: l10n.profileStatWorkouts)),
         const SizedBox(width: 10),
-        Expanded(child: _StatCell(emoji: '❄️', value: '$streakFreezes', label: l10n.profileStatFreezes)),
+        Expanded(child: _StatCell(icon: Icons.ac_unit, value: '$streakFreezes', label: l10n.profileStatFreezes)),
       ],
     );
   }
@@ -278,12 +281,12 @@ class _StatsGrid extends StatelessWidget {
 
 class _StatCell extends StatelessWidget {
   const _StatCell({
-    required this.emoji,
+    required this.icon,
     required this.value,
     required this.label,
   });
 
-  final String emoji;
+  final IconData icon;
   final String value;
   final String label;
 
@@ -299,7 +302,7 @@ class _StatCell extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(emoji, style: const TextStyle(fontSize: 22)),
+          Icon(icon, size: 22, color: scheme.primary),
           const SizedBox(height: 4),
           Text(
             value,
@@ -329,6 +332,156 @@ class _WorkoutLogTile extends StatelessWidget {
 
   final WorkoutLog log;
 
+  String _typeLabel(AppLocalizations l10n) {
+    if (!log.isPrimary) return l10n.historyTypeBonus;
+    if (log.setType == SetType.challenge) return l10n.historyTypeChallenge;
+    return l10n.historyTypeDaily;
+  }
+
+  void _showDetail(BuildContext context) {
+    final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+    final locale = Localizations.localeOf(context).languageCode;
+    final dateStr = DateFormat('d MMMM yyyy', locale).format(log.date);
+    final m = log.durationSec ~/ 60;
+    final s = log.durationSec % 60;
+    final durationStr = m > 0 ? l10n.durationMin(m, s) : l10n.durationSec(s);
+
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (_) => DraggableScrollableSheet(
+        initialChildSize: 0.6,
+        minChildSize: 0.4,
+        maxChildSize: 0.9,
+        expand: false,
+        builder: (_, scrollController) => Column(
+          children: [
+            // Drag handle
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Container(
+                width: 36,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: scheme.outlineVariant,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            // Header
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 4),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          dateStr,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                            _Chip(
+                              label: _typeLabel(l10n),
+                              color: scheme.primaryContainer,
+                              textColor: scheme.onPrimaryContainer,
+                            ),
+                            const SizedBox(width: 8),
+                            _Chip(
+                              label: '+${log.spEarned} SP',
+                              color: scheme.secondaryContainer,
+                              textColor: scheme.onSecondaryContainer,
+                            ),
+                            const SizedBox(width: 8),
+                            _Chip(
+                              label: durationStr,
+                              color: scheme.surfaceContainerHighest,
+                              textColor: scheme.onSurfaceVariant,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            const Divider(height: 24),
+            // Exercise list header
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  l10n.historyDetailExercises,
+                  style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ),
+            // Exercise list
+            Expanded(
+              child: ListView.separated(
+                controller: scrollController,
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
+                itemCount: log.exercises.length,
+                separatorBuilder: (_, _i) => const SizedBox(height: 10),
+                itemBuilder: (_, i) {
+                  final ex = log.exercises[i];
+                  final name = ExerciseL10n.name(l10n, ex.exerciseId);
+                  final String resultStr;
+                  if (ex.targetDurationSec != null && ex.targetDurationSec! > 0) {
+                    resultStr = l10n.historyDetailSec(
+                      ex.actualDurationSec ?? 0,
+                      ex.targetDurationSec!,
+                    );
+                  } else if (ex.targetReps > 0) {
+                    resultStr = l10n.historyDetailReps(
+                      ex.completedReps,
+                      ex.targetReps,
+                    );
+                  } else {
+                    resultStr = '—';
+                  }
+                  return Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          name,
+                          style: const TextStyle(fontSize: 14),
+                        ),
+                      ),
+                      Text(
+                        resultStr,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: scheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
@@ -336,60 +489,105 @@ class _WorkoutLogTile extends StatelessWidget {
     final locale = Localizations.localeOf(context).languageCode;
 
     final dateStr = DateFormat('d MMMM', locale).format(log.date);
-
     final m = log.durationSec ~/ 60;
     final s = log.durationSec % 60;
     final durationStr = m > 0 ? l10n.durationMin(m, s) : l10n.durationSec(s);
+    final typeLabel = _typeLabel(l10n);
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-      decoration: BoxDecoration(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Material(
         color: scheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(14),
-      ),
-      child: Row(
-        children: [
-          const Text('🏋️', style: TextStyle(fontSize: 22)),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(14),
+          onTap: () => _showDetail(context),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            child: Row(
               children: [
-                Text(
-                  dateStr,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 15,
+                Icon(Icons.fitness_center, size: 22, color: scheme.onSurfaceVariant),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        dateStr,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w600,
+                          fontSize: 15,
+                        ),
+                      ),
+                      const SizedBox(height: 2),
+                      Text(
+                        '$typeLabel · $durationStr',
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: scheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const SizedBox(height: 2),
-                Text(
-                  durationStr,
-                  style: TextStyle(
-                    fontSize: 13,
-                    color: scheme.onSurfaceVariant,
+                Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: scheme.primaryContainer,
+                    borderRadius: BorderRadius.circular(10),
                   ),
+                  child: Text(
+                    '+${log.spEarned} SP',
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: scheme.onPrimaryContainer,
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 4),
+                Icon(
+                  Icons.chevron_right,
+                  size: 18,
+                  color: scheme.onSurfaceVariant,
                 ),
               ],
             ),
           ),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: scheme.primaryContainer,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Text(
-              '+${log.spEarned} SP',
-              style: TextStyle(
-                fontSize: 13,
-                fontWeight: FontWeight.w700,
-                color: scheme.onPrimaryContainer,
-              ),
-            ),
-          ),
-        ],
+        ),
+      ),
+    );
+  }
+}
+
+// ── Small chip ────────────────────────────────────────────────────────────────
+
+class _Chip extends StatelessWidget {
+  const _Chip({
+    required this.label,
+    required this.color,
+    required this.textColor,
+  });
+
+  final String label;
+  final Color color;
+  final Color textColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w600,
+          color: textColor,
+        ),
       ),
     );
   }

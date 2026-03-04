@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/extensions/build_context_l10n.dart';
 import '../../data/models/enums.dart';
 import '../../data/repositories/user_repository.dart';
 import '../../features/home/screens/branch_journey_screen.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../features/home/screens/progress_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/profile/screens/achievements_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
@@ -71,10 +73,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         builder: (_, _) => const OnboardingScreen(),
       ),
       GoRoute(
-        path: '/home',
-        builder: (_, _) => const HomeScreen(),
-      ),
-      GoRoute(
         path: '/workout',
         builder: (_, _) => const WorkoutScreen(),
       ),
@@ -98,10 +96,6 @@ final routerProvider = Provider<GoRouter>((ref) {
         },
       ),
       GoRoute(
-        path: '/profile',
-        builder: (_, _) => const ProfileScreen(),
-      ),
-      GoRoute(
         path: '/achievements',
         builder: (_, _) => const AchievementsScreen(),
       ),
@@ -118,6 +112,78 @@ final routerProvider = Provider<GoRouter>((ref) {
           path: '/dev-options',
           builder: (_, _) => const DeveloperOptionsScreen(),
         ),
+
+      // ── Main shell with bottom navigation ──────────────────────────────
+      StatefulShellRoute.indexedStack(
+        builder: (_, _, shell) => _AppShell(navigationShell: shell),
+        branches: [
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/home',
+                builder: (_, _) => const HomeScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/progress',
+                builder: (_, _) => const ProgressScreen(),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            routes: [
+              GoRoute(
+                path: '/profile',
+                builder: (_, _) => const ProfileScreen(),
+              ),
+            ],
+          ),
+        ],
+      ),
     ],
   );
 });
+
+// ── App shell with bottom navigation bar ─────────────────────────────────────
+
+class _AppShell extends StatelessWidget {
+  const _AppShell({required this.navigationShell});
+
+  final StatefulNavigationShell navigationShell;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+
+    return Scaffold(
+      body: navigationShell,
+      bottomNavigationBar: NavigationBar(
+        selectedIndex: navigationShell.currentIndex,
+        onDestinationSelected: (index) => navigationShell.goBranch(
+          index,
+          initialLocation: index == navigationShell.currentIndex,
+        ),
+        destinations: [
+          NavigationDestination(
+            icon: const Icon(Icons.fitness_center_outlined),
+            selectedIcon: const Icon(Icons.fitness_center),
+            label: l10n.navHome,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.trending_up_outlined),
+            selectedIcon: const Icon(Icons.trending_up),
+            label: l10n.navProgress,
+          ),
+          NavigationDestination(
+            icon: const Icon(Icons.person_outline_rounded),
+            selectedIcon: const Icon(Icons.person_rounded),
+            label: l10n.navProfile,
+          ),
+        ],
+      ),
+    );
+  }
+}

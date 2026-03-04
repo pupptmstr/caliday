@@ -4,6 +4,11 @@
   "durationMin": "{mins} min {secs} sec",
   "durationSec": "{secs} sec",
 
+  "navHome": "Workout",
+  "navProgress": "Progress",
+  "navProfile": "Profile",
+  "progressTitle": "My Progress",
+  "progressInfo": "Skill branches are your personal journey, not mandatory tasks. Train at your own pace and advance to the next stage when you feel ready.",
   "homeDays": "days",
   "homeBranchesTitle": "Skill Branches",
   "homeBranchPush": "Push",
@@ -18,10 +23,10 @@
   "branchJourneyStageLocked": "Locked",
   "branchJourneyParams": "{reps} reps × {sets} sets  ·  Rest {rest} s",
   "branchJourneyParamsTimed": "{secs} s × {sets} sets  ·  Rest {rest} s",
-  "branchJourneyStartChallenge": "🏆 Take the Challenge",
+  "branchJourneyStartChallenge": "Take the Challenge",
 
   "homeStage": "Stage {stage}/{total}",
-  "homeChallengeUnlocked": "🏆 Challenge Ready",
+  "homeChallengeUnlocked": "Challenge Ready",
   "homeChallengeButton": "Accept Challenge",
   "homeChallengeNormReps": "Goal: {n} reps",
   "homeChallengeNormSec": "Goal: {n} sec",
@@ -48,7 +53,7 @@
   "workoutNextSet": "Next: set {setNum} • {amount} {unit}",
 
   "summaryTitle": "Great workout!",
-  "summarySubtitle": "Keep it up — one more step forward 💪",
+  "summarySubtitle": "Keep it up — one more step forward",
   "summaryLabelTime": "Time",
   "summaryLabelExercises": "Exer.",
   "summaryHome": "Home",
@@ -60,7 +65,7 @@
   "achievementsTitle": "Achievements",
   "achievementsEarnedSection": "Earned",
   "achievementsLockedSection": "Locked",
-  "achievementsSecret": "🔒 ???",
+  "achievementsSecret": "???",
   "achievementsSecretDesc": "Complete a special condition to unlock",
   "achievementsEarnedOn": "Earned: {date}",
   "@achievementsEarnedOn": {
@@ -71,7 +76,7 @@
   "profileAchievementsTitle": "Achievements",
   "profileAchievementsAll": "All achievements →",
   "profileNoAchievements": "No achievements yet",
-  "summaryAchievementsTitle": "New achievements! 🏅",
+  "summaryAchievementsTitle": "New achievements!",
 
   "achievementFirstWorkoutName": "First Step",
   "achievementFirstWorkoutDesc": "You completed your first workout — the journey begins!",
@@ -130,7 +135,7 @@
   "achievementAllCompleteName": "Full Collection",
   "achievementAllCompleteDesc": "All 5 branches completed. Absolute champion.",
 
-  "summaryBonusTitle": "Bonus Workout 💪",
+  "summaryBonusTitle": "Bonus Workout",
   "summaryBonusBody": "×½ SP · progression already saved",
   "summaryBonusCount": "You've trained {count} times today!",
   "@summaryBonusCount": {
@@ -139,9 +144,9 @@
     }
   },
 
-  "summaryChallengeUnlockedTitle": "Challenge awaits! 🏆",
+  "summaryChallengeUnlockedTitle": "Challenge awaits!",
   "summaryChallengeUnlockedBody": "Tap «Accept Challenge» on the Home screen when you're ready",
-  "summaryChallengePassedTitle": "New stage! 🎉",
+  "summaryChallengePassedTitle": "New stage!",
   "summaryChallengePassedBody": "You've unlocked: {exercise}",
 
   "profileTitle": "Profile",
@@ -153,6 +158,24 @@
   "profileStatFreezes": "freezes",
   "profileHistoryTitle": "Workout history",
   "profileNoHistory": "No completed workouts yet",
+  "historyTypeDaily": "Daily Workout",
+  "historyTypeChallenge": "Challenge",
+  "historyTypeBonus": "Bonus",
+  "historyDetailExercises": "Exercises",
+  "historyDetailReps": "{completed} / {target} reps",
+  "@historyDetailReps": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "target": { "type": "int" }
+    }
+  },
+  "historyDetailSec": "{completed} / {target} sec",
+  "@historyDetailSec": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "target": { "type": "int" }
+    }
+  },
 
   "settingsTitle": "Settings",
   "settingsSectionNotifications": "NOTIFICATIONS",

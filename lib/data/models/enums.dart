@@ -1,4 +1,5 @@
 import 'package:caliday/l10n/app_localizations.dart';
+import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
 part 'enums.g.dart';
@@ -149,6 +150,14 @@ extension BranchIdExtension on BranchId {
         BranchId.core => '🎯',
         BranchId.legs => '🦵',
         BranchId.balance => '⚖️',
+      };
+
+  IconData get icon => switch (this) {
+        BranchId.push => Icons.fitness_center,
+        BranchId.pull => Icons.sports_gymnastics,
+        BranchId.core => Icons.accessibility_new,
+        BranchId.legs => Icons.directions_run,
+        BranchId.balance => Icons.balance,
       };
 
   String localizedName(AppLocalizations l10n) => switch (this) {

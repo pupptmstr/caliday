@@ -29,10 +29,13 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       const Duration(seconds: 1),
       (_) {
         final s = ref.read(workoutProvider);
-        // Play tick sound for the last 3 seconds of rest.
-        if (s.phase == WorkoutPhase.rest &&
-            s.timerSec >= 1 &&
-            s.timerSec <= 3) {
+        // Play tick for the last 5 seconds of rest and timed exercises
+        // (not on the final second). Reps exercises have timerSec=0 so they
+        // are naturally excluded by the timerSec >= 2 guard.
+        if ((s.phase == WorkoutPhase.rest ||
+                s.phase == WorkoutPhase.exercise) &&
+            s.timerSec >= 2 &&
+            s.timerSec <= 6) {
           unawaited(SoundService.instance.tick());
         }
         ref.read(workoutProvider.notifier).tick();
@@ -277,7 +280,7 @@ class _ExerciseView extends StatelessWidget {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('💡', style: TextStyle(fontSize: 14)),
+                        Icon(Icons.lightbulb_outline, size: 14, color: scheme.onPrimaryContainer),
                         const SizedBox(width: 8),
                         Expanded(
                           child: Text(

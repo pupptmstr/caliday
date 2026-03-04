@@ -42,7 +42,14 @@ class BranchJourneyScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('${branchId.emoji}  ${branchId.localizedName(l10n)}'),
+        title: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(branchId.icon, size: 20),
+            const SizedBox(width: 8),
+            Text(branchId.localizedName(l10n)),
+          ],
+        ),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

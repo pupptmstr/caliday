@@ -259,7 +259,7 @@ Future<void> _showLanguagePicker(
   await showDialog<void>(
     context: context,
     builder: (ctx) => SimpleDialog(
-      title: const Text('🌐  Язык / Language'),
+      title: const Text('Язык / Language'),
       children: [
         RadioGroup<String>(
           groupValue: currentLocale,

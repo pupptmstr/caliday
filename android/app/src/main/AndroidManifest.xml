@@ -1,4 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Required for haptic feedback (HapticFeedback.lightImpact / mediumImpact / heavyImpact) -->
+    <uses-permission android:name="android.permission.VIBRATE"/>
     <!-- Required for local notifications on Android 13+ (API 33+) -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <!-- Required to reschedule notifications after device reboot -->

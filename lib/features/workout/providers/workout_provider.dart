@@ -17,6 +17,7 @@ import '../../../domain/services/streak_service.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../home/providers/home_provider.dart';
+import '../../profile/providers/profile_provider.dart';
 
 // ── Challenge branch selector ──────────────────────────────────────────────────
 
@@ -466,8 +467,9 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     // misses the next workout. Cancelled automatically on the next completion.
     unawaited(NotificationService.instance.scheduleStreakLost(profile));
 
-    // Invalidate home data so the Home screen reflects the new state.
+    // Invalidate home and profile data so both tabs reflect the new state.
     _ref.invalidate(homeDataProvider);
+    _ref.invalidate(profileDataProvider);
 
     state = state.copyWith(
       phase: WorkoutPhase.done,

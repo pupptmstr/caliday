@@ -110,6 +110,36 @@ abstract class AppLocalizations {
   /// **'{secs} сек'**
   String durationSec(int secs);
 
+  /// No description provided for @navHome.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тренировка'**
+  String get navHome;
+
+  /// No description provided for @navProgress.
+  ///
+  /// In ru, this message translates to:
+  /// **'Прогресс'**
+  String get navProgress;
+
+  /// No description provided for @navProfile.
+  ///
+  /// In ru, this message translates to:
+  /// **'Профиль'**
+  String get navProfile;
+
+  /// No description provided for @progressTitle.
+  ///
+  /// In ru, this message translates to:
+  /// **'Мой прогресс'**
+  String get progressTitle;
+
+  /// No description provided for @progressInfo.
+  ///
+  /// In ru, this message translates to:
+  /// **'Ветки прогрессии — это ваш путь, а не обязательные задания. Тренируйтесь в своём темпе и переходите на следующий этап когда будете готовы.'**
+  String get progressInfo;
+
   /// No description provided for @homeDays.
   ///
   /// In ru, this message translates to:
@@ -191,7 +221,7 @@ abstract class AppLocalizations {
   /// No description provided for @branchJourneyStartChallenge.
   ///
   /// In ru, this message translates to:
-  /// **'🏆 Пройти испытание'**
+  /// **'Пройти испытание'**
   String get branchJourneyStartChallenge;
 
   /// No description provided for @homeStage.
@@ -203,7 +233,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeChallengeUnlocked.
   ///
   /// In ru, this message translates to:
-  /// **'🏆 Испытание доступно'**
+  /// **'Испытание доступно'**
   String get homeChallengeUnlocked;
 
   /// No description provided for @homeChallengeButton.
@@ -353,7 +383,7 @@ abstract class AppLocalizations {
   /// No description provided for @summarySubtitle.
   ///
   /// In ru, this message translates to:
-  /// **'Так держать — ещё один шаг вперёд 💪'**
+  /// **'Так держать — ещё один шаг вперёд'**
   String get summarySubtitle;
 
   /// No description provided for @summaryLabelTime.
@@ -419,7 +449,7 @@ abstract class AppLocalizations {
   /// No description provided for @achievementsSecret.
   ///
   /// In ru, this message translates to:
-  /// **'🔒 ???'**
+  /// **'???'**
   String get achievementsSecret;
 
   /// No description provided for @achievementsSecretDesc.
@@ -455,7 +485,7 @@ abstract class AppLocalizations {
   /// No description provided for @summaryAchievementsTitle.
   ///
   /// In ru, this message translates to:
-  /// **'Новые достижения! 🏅'**
+  /// **'Новые достижения!'**
   String get summaryAchievementsTitle;
 
   /// No description provided for @achievementFirstWorkoutName.
@@ -797,7 +827,7 @@ abstract class AppLocalizations {
   /// No description provided for @summaryBonusTitle.
   ///
   /// In ru, this message translates to:
-  /// **'Бонусная тренировка 💪'**
+  /// **'Бонусная тренировка'**
   String get summaryBonusTitle;
 
   /// No description provided for @summaryBonusBody.
@@ -815,7 +845,7 @@ abstract class AppLocalizations {
   /// No description provided for @summaryChallengeUnlockedTitle.
   ///
   /// In ru, this message translates to:
-  /// **'Испытание ждёт! 🏆'**
+  /// **'Испытание ждёт!'**
   String get summaryChallengeUnlockedTitle;
 
   /// No description provided for @summaryChallengeUnlockedBody.
@@ -827,7 +857,7 @@ abstract class AppLocalizations {
   /// No description provided for @summaryChallengePassedTitle.
   ///
   /// In ru, this message translates to:
-  /// **'Новый этап! 🎉'**
+  /// **'Новый этап!'**
   String get summaryChallengePassedTitle;
 
   /// No description provided for @summaryChallengePassedBody.
@@ -889,6 +919,42 @@ abstract class AppLocalizations {
   /// In ru, this message translates to:
   /// **'Ещё нет завершённых тренировок'**
   String get profileNoHistory;
+
+  /// No description provided for @historyTypeDaily.
+  ///
+  /// In ru, this message translates to:
+  /// **'Тренировка дня'**
+  String get historyTypeDaily;
+
+  /// No description provided for @historyTypeChallenge.
+  ///
+  /// In ru, this message translates to:
+  /// **'Испытание'**
+  String get historyTypeChallenge;
+
+  /// No description provided for @historyTypeBonus.
+  ///
+  /// In ru, this message translates to:
+  /// **'Бонусная'**
+  String get historyTypeBonus;
+
+  /// No description provided for @historyDetailExercises.
+  ///
+  /// In ru, this message translates to:
+  /// **'Упражнения'**
+  String get historyDetailExercises;
+
+  /// No description provided for @historyDetailReps.
+  ///
+  /// In ru, this message translates to:
+  /// **'{completed} / {target} повт.'**
+  String historyDetailReps(int completed, int target);
+
+  /// No description provided for @historyDetailSec.
+  ///
+  /// In ru, this message translates to:
+  /// **'{completed} / {target} сек'**
+  String historyDetailSec(int completed, int target);
 
   /// No description provided for @settingsTitle.
   ///

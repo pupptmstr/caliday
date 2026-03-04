@@ -16,6 +16,11 @@
     }
   },
 
+  "navHome": "Тренировка",
+  "navProgress": "Прогресс",
+  "navProfile": "Профиль",
+  "progressTitle": "Мой прогресс",
+  "progressInfo": "Ветки прогрессии — это ваш путь, а не обязательные задания. Тренируйтесь в своём темпе и переходите на следующий этап когда будете готовы.",
   "homeDays": "дней",
   "homeBranchesTitle": "Ветки прогрессии",
   "homeBranchPush": "Толкай",
@@ -50,7 +55,7 @@
       "rest": {"type": "int"}
     }
   },
-  "branchJourneyStartChallenge": "🏆 Пройти испытание",
+  "branchJourneyStartChallenge": "Пройти испытание",
 
   "homeStage": "Этап {stage}/{total}",
   "@homeStage": {
@@ -60,7 +65,7 @@
     }
   },
 
-  "homeChallengeUnlocked": "🏆 Испытание доступно",
+  "homeChallengeUnlocked": "Испытание доступно",
   "homeChallengeButton": "Принять вызов",
   "homeChallengeNormReps": "Норматив: {n} повт.",
   "@homeChallengeNormReps": {
@@ -121,7 +126,7 @@
   },
 
   "summaryTitle": "Отличная тренировка!",
-  "summarySubtitle": "Так держать — ещё один шаг вперёд 💪",
+  "summarySubtitle": "Так держать — ещё один шаг вперёд",
   "summaryLabelTime": "Время",
   "summaryLabelExercises": "Упр.",
   "summaryHome": "Домой",
@@ -133,7 +138,7 @@
   "achievementsTitle": "Достижения",
   "achievementsEarnedSection": "Получено",
   "achievementsLockedSection": "Заблокировано",
-  "achievementsSecret": "🔒 ???",
+  "achievementsSecret": "???",
   "achievementsSecretDesc": "Выполни особое условие, чтобы раскрыть",
   "achievementsEarnedOn": "Получено: {date}",
   "@achievementsEarnedOn": {
@@ -144,7 +149,7 @@
   "profileAchievementsTitle": "Достижения",
   "profileAchievementsAll": "Все достижения →",
   "profileNoAchievements": "Ещё нет достижений",
-  "summaryAchievementsTitle": "Новые достижения! 🏅",
+  "summaryAchievementsTitle": "Новые достижения!",
 
   "achievementFirstWorkoutName": "Первый шаг",
   "achievementFirstWorkoutDesc": "Ты сделал первую тренировку — начало положено!",
@@ -203,7 +208,7 @@
   "achievementAllCompleteName": "Полный комплект",
   "achievementAllCompleteDesc": "Все 5 веток пройдены до конца. Абсолютный чемпион.",
 
-  "summaryBonusTitle": "Бонусная тренировка 💪",
+  "summaryBonusTitle": "Бонусная тренировка",
   "summaryBonusBody": "×½ SP · прогрессия уже сохранена",
   "summaryBonusCount": "Сегодня ты уже потренировался {count} раза!",
   "@summaryBonusCount": {
@@ -212,9 +217,9 @@
     }
   },
 
-  "summaryChallengeUnlockedTitle": "Испытание ждёт! 🏆",
+  "summaryChallengeUnlockedTitle": "Испытание ждёт!",
   "summaryChallengeUnlockedBody": "Нажми «Принять вызов» на главном экране когда будешь готов",
-  "summaryChallengePassedTitle": "Новый этап! 🎉",
+  "summaryChallengePassedTitle": "Новый этап!",
   "summaryChallengePassedBody": "Ты перешёл на: {exercise}",
   "@summaryChallengePassedBody": {
     "placeholders": {
@@ -239,6 +244,24 @@
   "profileStatFreezes": "заморозок",
   "profileHistoryTitle": "История тренировок",
   "profileNoHistory": "Ещё нет завершённых тренировок",
+  "historyTypeDaily": "Тренировка дня",
+  "historyTypeChallenge": "Испытание",
+  "historyTypeBonus": "Бонусная",
+  "historyDetailExercises": "Упражнения",
+  "historyDetailReps": "{completed} / {target} повт.",
+  "@historyDetailReps": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "target": { "type": "int" }
+    }
+  },
+  "historyDetailSec": "{completed} / {target} сек",
+  "@historyDetailSec": {
+    "placeholders": {
+      "completed": { "type": "int" },
+      "target": { "type": "int" }
+    }
+  },
 
   "settingsTitle": "Настройки",
   "settingsSectionNotifications": "УВЕДОМЛЕНИЯ",

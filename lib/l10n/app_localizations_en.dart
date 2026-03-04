@@ -19,6 +19,22 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get navHome => 'Workout';
+
+  @override
+  String get navProgress => 'Progress';
+
+  @override
+  String get navProfile => 'Profile';
+
+  @override
+  String get progressTitle => 'My Progress';
+
+  @override
+  String get progressInfo =>
+      'Skill branches are your personal journey, not mandatory tasks. Train at your own pace and advance to the next stage when you feel ready.';
+
+  @override
   String get homeDays => 'days';
 
   @override
@@ -64,7 +80,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get branchJourneyStartChallenge => '🏆 Take the Challenge';
+  String get branchJourneyStartChallenge => 'Take the Challenge';
 
   @override
   String homeStage(int stage, int total) {
@@ -72,7 +88,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get homeChallengeUnlocked => '🏆 Challenge Ready';
+  String get homeChallengeUnlocked => 'Challenge Ready';
 
   @override
   String get homeChallengeButton => 'Accept Challenge';
@@ -157,7 +173,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get summaryTitle => 'Great workout!';
 
   @override
-  String get summarySubtitle => 'Keep it up — one more step forward 💪';
+  String get summarySubtitle => 'Keep it up — one more step forward';
 
   @override
   String get summaryLabelTime => 'Time';
@@ -190,7 +206,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get achievementsLockedSection => 'Locked';
 
   @override
-  String get achievementsSecret => '🔒 ???';
+  String get achievementsSecret => '???';
 
   @override
   String get achievementsSecretDesc => 'Complete a special condition to unlock';
@@ -210,7 +226,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileNoAchievements => 'No achievements yet';
 
   @override
-  String get summaryAchievementsTitle => 'New achievements! 🏅';
+  String get summaryAchievementsTitle => 'New achievements!';
 
   @override
   String get achievementFirstWorkoutName => 'First Step';
@@ -402,7 +418,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'All 5 branches completed. Absolute champion.';
 
   @override
-  String get summaryBonusTitle => 'Bonus Workout 💪';
+  String get summaryBonusTitle => 'Bonus Workout';
 
   @override
   String get summaryBonusBody => '×½ SP · progression already saved';
@@ -413,14 +429,14 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get summaryChallengeUnlockedTitle => 'Challenge awaits! 🏆';
+  String get summaryChallengeUnlockedTitle => 'Challenge awaits!';
 
   @override
   String get summaryChallengeUnlockedBody =>
       'Tap «Accept Challenge» on the Home screen when you\'re ready';
 
   @override
-  String get summaryChallengePassedTitle => 'New stage! 🎉';
+  String get summaryChallengePassedTitle => 'New stage!';
 
   @override
   String summaryChallengePassedBody(String exercise) {
@@ -455,6 +471,28 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get profileNoHistory => 'No completed workouts yet';
+
+  @override
+  String get historyTypeDaily => 'Daily Workout';
+
+  @override
+  String get historyTypeChallenge => 'Challenge';
+
+  @override
+  String get historyTypeBonus => 'Bonus';
+
+  @override
+  String get historyDetailExercises => 'Exercises';
+
+  @override
+  String historyDetailReps(int completed, int target) {
+    return '$completed / $target reps';
+  }
+
+  @override
+  String historyDetailSec(int completed, int target) {
+    return '$completed / $target sec';
+  }
 
   @override
   String get settingsTitle => 'Settings';

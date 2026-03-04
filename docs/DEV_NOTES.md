@@ -605,22 +605,28 @@ lib/features/settings/screens/
 
 ### Сводный backlog по версиям
 
-| Версия | Фича | Статус |
-|--------|------|--------|
-| **v1.1** | Достижения (27 штук) | ✅ реализовано |
-| **v1.1** | Бонусные тренировки (multiple per day) | ✅ реализовано |
-| **v1.1** | Анимации упражнений (Lottie) — Push ветка | ✅ реализовано (7/7 этапов) |
-| **v1.2** | Звук + вибрация во время тренировки | ✅ реализовано |
-| **v1.2** | Home Screen Widget (iOS + Android) | ⚠️ спроектировано, код не написан |
-| **v1.2** | Адаптивный UI для landscape | 💡 идея |
-| ~~**v1.2**~~ | ~~Заморозки стрика~~ | ✅ реализовано (earn каждые 7 дней, auto-spend при пропуске 1 дня, cap=3) |
-| **v1.2** | Анимации Lottie на Branch Journey Screen | 💡 идея (ждёт других веток) |
-| **v1.3** | Друзья (Bluetooth / QR-обмен, без сервера) | 📐 спроектировано сессии 2026-03-02 |
-| **v1.3** | Интеграция Apple Health / Health Connect | 📐 спроектировано сессии 2026-03-02 |
-| **v1.3** | Базовая интеграция со смарт-часами | 📐 спроектировано сессии 2026-03-02 |
-| **v1.5** | Полноценное приложение на часы (WatchKit / Wear OS) | 💡 идея |
-| **?** | Экран «О приложении» (версия, донат, ссылки, копирайт) | 💡 идея |
-| **?** | Кнопка «Поддержать автора» (донаты через Apple Pay / Google Pay) | 💡 идея |
+| Версия   | Фича                                                                      | Статус                                                                   |
+|----------|---------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| **v1.1** | Достижения (27 штук)                                                      | ✅ реализовано                                                            |
+| **v1.1** | Бонусные тренировки (multiple per day)                                    | ✅ реализовано                                                            |
+| **v1.1** | Анимации упражнений (Lottie) — Push ветка                                 | ✅ реализовано (7/7 этапов)                                               |
+| **v1.2** | Звук + вибрация во время тренировки                                       | ✅ реализовано                                                            |
+| **v1.2** | Вибрация на Android (не работает, нужен фикс)                             | ✅ реализовано (VIBRATE permission)                                      |
+| **v1.2** | Таймер обратного отсчёта: увеличить до 5 сек, изменить поведение          | ✅ реализовано                                                            |
+| **v1.2** | История тренировок: детальный просмотр (открыть запись)                   | ✅ реализовано (bottom sheet)                                             |
+| **v1.2** | Home экран: переделать иерархию — тренировка дня в фокусе, ветки вторичны | ✅ реализовано (bottom nav: Тренировка / Прогресс / Профиль)             |
+| **v1.2** | Замена эмодзи на Material Icons (рендеринг одинаков на всех устройствах)  | ✅ реализовано                                                            |
+| **v1.2** | Инфо-баннер на экране Прогресса (ветки — необязательные)                  | ✅ реализовано                                                            |
+| **v1.2** | Адаптивный UI для landscape                                               | 💡 идея                                                                  |
+| **v1.2** | Заморозки стрика                                                          | ✅ реализовано (earn каждые 7 дней, auto-spend при пропуске 1 дня, cap=3) |
+| **v1.2** | Анимации Lottie на Branch Journey Screen                                  | 💡 идея (ждёт других веток)                                              |
+| **v1.3** | Home Screen Widget (iOS + Android)                                        | ⚠️ спроектировано, код не написан                                        |
+| **v1.3** | Интеграция Apple Health / Health Connect                                  | 📐 спроектировано сессии 2026-03-02                                      |
+| **v1.4** | Друзья (Bluetooth / QR-обмен, без сервера)                                | 📐 спроектировано сессии 2026-03-02                                      |
+| **v1.4** | Базовая интеграция со смарт-часами                                        | 📐 спроектировано сессии 2026-03-02                                      |
+| **v1.5** | Полноценное приложение на часы (WatchKit / Wear OS)                       | 💡 идея                                                                  |
+| **v1.2** | Экран «О приложении» (версия, донат, ссылки, копирайт)                    | ✅ реализовано                                                            |
+| **?**    | Кнопка «Поддержать автора» (донаты через Apple Pay / Google Pay)          | 💡 идея                                                                  |
 
 Обозначения: ✅ сделано · ⚠️ спроектировано · 🔒 ждёт внешнего ресурса · 💡 идея · 📐 спроектировано в сессии
 
@@ -1410,6 +1416,87 @@ Flutter-пакет: [`in_app_purchase`](https://pub.dev/packages/in_app_purchase
 
 ---
 
+### Идеи из тестирования (2026-03-04)
+
+#### 🐛 Вибрация на Android не работает
+
+**Проблема:** `SoundService` вызывает вибрацию через `vibration` пакет, но на Android устройствах вибрация не срабатывает.
+
+**Вероятные причины:**
+- Отсутствует `VIBRATE` permission в `AndroidManifest.xml`
+- Пакет `vibration` требует нативного вызова через channel, который мог не инициализироваться до первого использования
+- Возможно, нужен fallback через `HapticFeedback` из Flutter (работает без разрешений)
+
+**План фикса:**
+1. Проверить `AndroidManifest.xml` на наличие `<uses-permission android:name="android.permission.VIBRATE"/>`
+2. Проверить логику `SoundService` — если `vibration` пакет возвращает `hasVibrator() == false`, вибрация молча пропускается
+3. Добавить fallback: если `hasVibrator()` вернул `false` → попробовать `HapticFeedback.mediumImpact()` из `flutter/services.dart`
+4. Протестировать на реальном Android устройстве (не эмуляторе — эмулятор может не поддерживать вибрацию)
+
+---
+
+#### ⏱️ Таймер обратного отсчёта: изменить длину и поведение
+
+**Текущее поведение:** 3 → tick → 2 → tick → 1 → tick+completed → 0
+
+**Желаемое поведение:** 6 → tick → 5 → tick → 4 → tick → 3 → tick → 2 → tick → 1 → completed → 0
+
+**Изменения:**
+- Увеличить начальное значение с 3 до 5 секунд (отображается 5, тикает до 1, затем сигнал завершения)
+- Убрать tick-звук на последнем шаге (1 → 0) — вместо него только сигнал завершения
+- Т.е. ticks звучат на: 6→5, 5→4, 4→3, 3→2, 2→1; сигнал completed звучит один раз после «1»
+
+**Файлы для изменения:**
+- `lib/features/workout/screens/workout_screen.dart` — константа начального значения таймера
+- `lib/core/services/sound_service.dart` — логика когда играть tick vs completed
+
+---
+
+#### 📋 История тренировок: детальный просмотр
+
+**Проблема:** в Profile → история показаны карточки тренировок, но нельзя открыть и посмотреть что было внутри (какие упражнения, сколько повторений).
+
+**Идея:** при тапе на карточку тренировки в истории открывается детальный экран с:
+- Дата, тип тренировки (Daily/Challenge/Bonus), SP заработанные
+- Список упражнений с результатами: название, целевые повторения, выполненные повторения
+- Длительность общая
+
+**UX варианты:**
+- A) Modal bottom sheet (проще, достаточно для MVP)
+- B) Отдельный экран `/workout-log/:id` (лучше для длинных тренировок)
+
+**Файлы:** `lib/features/profile/` — ProfileScreen, добавить WorkoutLogDetailSheet или WorkoutLogDetailScreen.
+Данные уже есть в `WorkoutLog.exercises` (список `ExerciseResult`).
+
+---
+
+#### 🏠 Home экран: ветки прогрессии не должны конкурировать с тренировкой дня
+
+**Проблема:** сейчас на Home экране ветки прогрессии (BranchProgressCard) занимают много места и визуально «требуют» нажатия. Пользователи воспринимают их как обязательные задачи, хотя это опциональный инструмент для сознательного продвижения по этапам.
+
+**Основная механика:** тренировка дня — это главное. Ветки — вспомогательный инструмент.
+
+**Варианты редизайна Home:**
+
+**Вариант A — Кнопка в фокусе:**
+- Кнопка «Начать тренировку» занимает большую часть экрана (hero-блок с Горо)
+- Ветки убраны в коллапсируемую секцию «Прогрессия» (по умолчанию свёрнута)
+- Или ветки перенесены на отдельную вкладку/экран
+
+**Вариант B — Разделение экранов:**
+- Home = только тренировка дня + стрик + SP
+- Отдельная иконка/вкладка «Прогрессия» в bottom nav — там ветки
+- Bottom nav: Home | Progress | Profile (3 пункта вместо 2)
+
+**Вариант C — Переформулировка:**
+- Оставить ветки на Home, но переименовать: «Прогрессия (по желанию)» + добавить подзаголовок «Для осознанного развития»
+- Визуально сделать их менее яркими (серый border вместо цветного, меньше размер)
+- Кнопка тренировки — более крупная, занимает верхнюю треть
+
+**Рекомендуемый вариант:** B (отдельная вкладка), если добавляем bottom nav; или A (hero-блок) если навигацию менять не хотим.
+
+---
+
 ## История изменений
 
 ### 2026-03-03 — сессия 31 (Lottie анимации Push ветки + рефакторинг прогрессии)
@@ -1435,6 +1522,76 @@ Flutter-пакет: [`in_app_purchase`](https://pub.dev/packages/in_app_purchase
 - `lib/core/extensions/exercise_l10n.dart` — новые ID для s5/s6
 - `l10n/app_ru.arb`, `l10n/app_en.arb` — новые ключи s5/s6 + achievement pushS6
 - `lib/features/workout/screens/workout_screen.dart` — Lottie widget
+
+### 2026-03-04 — сессия 36 (инфо-баннер на Progress + замена эмодзи на иконки)
+
+**1. Инфо-баннер на экране Прогресса.**
+Добавлена карточка-подсказка вверху вкладки «Прогресс», объясняющая что ветки прогрессии —
+это необязательный личный путь, а не обязательные задания. Пользователь тренируется в своём
+темпе и сам решает когда принимать Испытание.
+
+**2. Замена эмодзи на Material Icons по всему приложению.**
+Мотивация: эмодзи рендерятся по-разному на разных устройствах/ОС; иконки — одинаковые везде.
+
+Заменены:
+- Home → stat chips: 🔥→`local_fire_department`, ⚡→`bolt`, 🏅→`military_tech`
+- Home → workout button: ✅/🏋️ → `check_circle_outline`/`fitness_center`
+- Progress → branch card: branch.emoji → `Icon(branch.icon)`
+- BranchJourney → AppBar title: emoji убран, добавлен `Icon(branch.icon)`
+- Profile → rank card: 🌱💪🏃⚡🔥👑 → `eco/fitness_center/directions_run/bolt/local_fire_department/workspace_premium`
+- Profile → stats grid: 🔥🏆💪❄️ → `local_fire_department/emoji_events/fitness_center/ac_unit`
+- Profile → workout log tile: 🏋️ → `fitness_center`
+- Summary → banners: ❄️→`ac_unit`, 🏆→`emoji_events`, 💪→`fitness_center`, 🎉→`celebration`
+- Workout → tip: 💡 → `lightbulb_outline`
+- Achievements → locked: 🔒 → `lock_outline`
+- Settings → language dialog title: убран 🌐
+
+**Добавлен `IconData icon` геттер в `BranchIdExtension` (enums.dart).**
+**`BranchId.emoji` — сохранён** (используется в achievement_catalog.dart как контент).
+**Флаги 🇷🇺/🇬🇧 в диалоге языка — сохранены** (интенциональные маркеры locale).
+**Achievement emoji — сохранены** (часть игровой механики/контента).
+**Toast-строки ✅ (`workoutSetDone`, `workoutExerciseDone`) — сохранены** (праздничный фидбек).
+
+**L10n:** убраны эмодзи из 9 строк (`homeChallengeUnlocked`, `branchJourneyStartChallenge`,
+`summarySubtitle`, `achievementsSecret`, `summaryAchievementsTitle`, `summaryBonusTitle`,
+`summaryChallengeUnlockedTitle`, `summaryChallengePassedTitle`, `historyTypeChallenge`).
+Добавлен ключ `progressInfo` (RU + EN).
+
+Изменены файлы:
+- `l10n/app_ru.arb`, `l10n/app_en.arb`
+- `lib/data/models/enums.dart` — `IconData icon` геттер + `import flutter/material.dart`
+- `lib/features/home/screens/home_screen.dart`
+- `lib/features/home/screens/progress_screen.dart`
+- `lib/features/home/screens/branch_journey_screen.dart`
+- `lib/features/profile/screens/profile_screen.dart`
+- `lib/features/profile/screens/achievements_screen.dart`
+- `lib/features/workout/screens/summary_screen.dart`
+- `lib/features/workout/screens/workout_screen.dart`
+- `lib/features/settings/screens/settings_screen.dart`
+
+### 2026-03-04 — сессия 35 (Android-вибрация, таймер, детали истории, редизайн Home + фиксы)
+
+**1. Фикс вибрации на Android** — добавлено `<uses-permission android:name="android.permission.VIBRATE"/>` в `AndroidManifest.xml`.
+
+**2. Таймер обратного отсчёта** — увеличен с 3 до 5 отображаемых секунд. Tick-звуки при `timerSec ∈ [2..6]` (без tick на последнем шаге), добавлены tick-звуки для timed-упражнений (не только rest).
+
+**3. Детали истории тренировок** — тайлы в Profile → история стали тапабельными. Modal bottom sheet показывает: дата, тип, SP, длительность, список упражнений с результатами. Добавлены l10n ключи `historyDetailExercises`, `historyDetailReps`, `historyDetailSec`.
+
+**4. Редизайн Home → bottom nav 3 вкладки** — `StatefulShellRoute.indexedStack` с вкладками: Тренировка (`/home`), Прогресс (`/progress`), Профиль (`/profile`). Создан `progress_screen.dart` с ветками прогрессии и challenge-карточками. Home упрощён до hero-блока с Горо и кнопкой тренировки.
+
+**5. Тик-звуки для timed-упражнений** — добавлен `WorkoutPhase.exercise` в условие tick.
+
+**6. Баг: данные профиля устаревали** — `StatefulShellRoute.indexedStack` хранит все вкладки живыми → `profileDataProvider` (autoDispose) не сбрасывался. Фикс: `_ref.invalidate(profileDataProvider)` добавлен в `_finishWorkout()`.
+
+Изменены файлы:
+- `android/app/src/main/AndroidManifest.xml` — VIBRATE permission
+- `lib/features/workout/screens/workout_screen.dart` — tick condition
+- `l10n/app_ru.arb`, `l10n/app_en.arb` — nav keys, progressTitle, history detail keys
+- `lib/features/profile/screens/profile_screen.dart` — tappable tiles + detail bottom sheet
+- `lib/features/home/screens/home_screen.dart` — полный редизайн (hero layout)
+- `lib/features/home/screens/progress_screen.dart` — новый файл (ветки + challenge)
+- `lib/core/router/app_router.dart` — StatefulShellRoute + _AppShell + /progress route
+- `lib/features/workout/providers/workout_provider.dart` — invalidate profileDataProvider
 
 ### 2026-03-04 — сессия 34 (фикс: Challenge в бонусной тренировке)
 

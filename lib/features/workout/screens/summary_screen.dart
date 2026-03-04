@@ -142,7 +142,7 @@ class _FreezeUsedBanner extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Text('❄️', style: TextStyle(fontSize: 28)),
+          Icon(Icons.ac_unit, size: 28, color: scheme.primary),
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -183,7 +183,7 @@ class _FreezeEarnedBanner extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Text('❄️', style: TextStyle(fontSize: 28)),
+          Icon(Icons.ac_unit, size: 28, color: scheme.primary),
           const SizedBox(width: 12),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -224,7 +224,7 @@ class _ChallengeUnlockedBanner extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Text('🏆', style: TextStyle(fontSize: 28)),
+          Icon(Icons.emoji_events, size: 28, color: scheme.onTertiaryContainer),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -371,7 +371,7 @@ class _BonusWorkoutBanner extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Text('💪', style: TextStyle(fontSize: 28)),
+          Icon(Icons.fitness_center, size: 28, color: scheme.onTertiaryContainer),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -425,7 +425,7 @@ class _ChallengePassedBanner extends StatelessWidget {
       ),
       child: Row(
         children: [
-          const Text('🎉', style: TextStyle(fontSize: 28)),
+          Icon(Icons.celebration, size: 28, color: scheme.onTertiaryContainer),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
