@@ -1499,6 +1499,24 @@ Flutter-пакет: [`in_app_purchase`](https://pub.dev/packages/in_app_purchase
 
 ## История изменений
 
+### 2026-03-05 — сессия 38b (Medium виджет 4×2)
+
+**Добавлен второй виджет: 4 колонки × 2 строки. Layout: Горо слева + стрик + SP + статус «Готово» справа.**
+
+**Новые файлы:**
+- `android/app/src/main/res/xml/caliday_widget_medium_info.xml` — 4×2, minWidth=250dp
+- `android/app/src/main/res/layout/caliday_widget_medium_layout.xml` — горизонтальный layout (Горо + разделитель + статистика)
+- `android/app/src/main/kotlin/com/pupptmstr/caliday/CaliDayWidgetMediumReceiver.kt` — `AppWidgetProvider`, читает SharedPreferences, строит RemoteViews, показывает/скрывает `widget_status_row`
+
+**Изменённые файлы:**
+- `android/app/src/main/AndroidManifest.xml` — добавлен receiver `.CaliDayWidgetMediumReceiver` с `@xml/caliday_widget_medium_info`
+- `lib/core/services/widget_service.dart` — добавлена константа `_androidNameMedium`; `update()` теперь вызывает `updateWidget` дважды (small + medium); добавлен параметр `rankName` + статический helper `rankLabel(rank, locale)` без BuildContext
+- `ios/CaliDayWidget/CaliDayWidget.swift` — добавлены `CaliDaySmallView`, `CaliDayMediumView`, `CaliDayWidgetEntryView` (диспетчер по `@Environment(\.widgetFamily)`); `supportedFamilies` = [.systemSmall, .systemMedium]; ранг в medium view: ⭐ + rankName
+
+**Ранг в medium виджете:** `WidgetService.rankLabel(rank, locale)` — статический метод, не требует BuildContext; маппинг Rank → строку для ru/en. Ключ SharedPreferences: `rankName` (String). Отображается как ⭐ Атлет (жёлтый цвет).
+
+**Fix: виджет не обновлялся на лету.** `HomeWidget.updateWidget(androidName: qualifiedName)` не работал: плагин добавляет `context.packageName` как префикс к `androidName`, поэтому `"com.pupptmstr.caliday.CaliDayWidgetReceiver"` превращалось в `"com.pupptmstr.caliday.com.pupptmstr.caliday.CaliDayWidgetReceiver"` → ClassNotFoundException (тихо проглатывался в `catch (_) {}`). Исправлено: использовать `qualifiedAndroidName:` вместо `androidName:` (uses the name as-is).
+
 ### 2026-03-05 — сессия 37 (Home Screen Widget: Flutter + Android + iOS swift-файлы)
 
 **Реализован Home Screen Widget (Small 2×2): Горо (idle/flex) + стрик + SP. Тап → `caliday://workout`.**

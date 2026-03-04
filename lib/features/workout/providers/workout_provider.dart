@@ -15,6 +15,7 @@ import '../../../domain/services/progression_service.dart';
 import '../../../domain/services/sp_service.dart';
 import '../../../domain/services/streak_service.dart';
 import '../../../domain/services/workout_generator_service.dart';
+import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/services/widget_service.dart';
 import '../../home/providers/home_provider.dart';
@@ -477,6 +478,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       streak: _ref.read(displayStreakProvider),
       totalSP: profile.totalSP,
       workoutDoneToday: true,
+      rankName: WidgetService.rankLabel(profile.rank, _ref.read(localeProvider)),
     ));
 
     state = state.copyWith(

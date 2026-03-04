@@ -41,7 +41,7 @@
                 <data android:scheme="caliday"/>
             </intent-filter>
         </activity>
-        <!-- Home Screen Widget receiver (Compose Glance) -->
+        <!-- Home Screen Widget: 2×2 small -->
         <receiver
             android:name=".CaliDayWidgetReceiver"
             android:exported="true">
@@ -51,6 +51,17 @@
             <meta-data
                 android:name="android.appwidget.provider"
                 android:resource="@xml/caliday_widget_info"/>
+        </receiver>
+        <!-- Home Screen Widget: 4×2 medium -->
+        <receiver
+            android:name=".CaliDayWidgetMediumReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/caliday_widget_medium_info"/>
         </receiver>
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->
