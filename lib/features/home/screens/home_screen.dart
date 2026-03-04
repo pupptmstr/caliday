@@ -171,12 +171,7 @@ class _WorkoutButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       height: 64,
-      child: FilledButton.icon(
-        icon: Icon(done ? Icons.check_circle_outline : Icons.fitness_center),
-        label: Text(
-          done ? l10n.homeWorkoutAgain : l10n.homeWorkoutStart,
-          style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w700),
-        ),
+      child: FilledButton(
         style: FilledButton.styleFrom(
           backgroundColor: done ? scheme.secondaryContainer : scheme.primary,
           foregroundColor:
@@ -186,6 +181,42 @@ class _WorkoutButton extends StatelessWidget {
           ),
         ),
         onPressed: onTap,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              width: 26,
+              height: 26,
+              child: Stack(
+                clipBehavior: Clip.none,
+                children: [
+                  Icon(Icons.fitness_center, size: 22),
+                  if (done)
+                    Positioned(
+                      right: -4,
+                      top: -4,
+                      child: Container(
+                        width: 13,
+                        height: 13,
+                        decoration: BoxDecoration(
+                          color: scheme.secondary,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Icon(Icons.add,
+                            size: 9, color: scheme.onSecondary),
+                      ),
+                    ),
+                ],
+              ),
+            ),
+            const SizedBox(width: 8),
+            Text(
+              done ? l10n.homeWorkoutAgain : l10n.homeWorkoutStart,
+              style: const TextStyle(
+                  fontSize: 19, fontWeight: FontWeight.w700),
+            ),
+          ],
+        ),
       ),
     );
   }
