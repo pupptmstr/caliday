@@ -506,7 +506,32 @@ class _WorkoutLogTile extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
             child: Row(
               children: [
-                Icon(Icons.fitness_center, size: 22, color: scheme.onSurfaceVariant),
+                SizedBox(
+                  width: 26,
+                  height: 26,
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Icon(Icons.fitness_center,
+                          size: 22, color: scheme.onSurfaceVariant),
+                      if (!log.isPrimary)
+                        Positioned(
+                          right: -4,
+                          top: -4,
+                          child: Container(
+                            width: 13,
+                            height: 13,
+                            decoration: BoxDecoration(
+                              color: scheme.primary,
+                              shape: BoxShape.circle,
+                            ),
+                            child: Icon(Icons.add,
+                                size: 9, color: scheme.onPrimary),
+                          ),
+                        ),
+                    ],
+                  ),
+                ),
                 const SizedBox(width: 12),
                 Expanded(
                   child: Column(
