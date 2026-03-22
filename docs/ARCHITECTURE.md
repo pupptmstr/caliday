@@ -414,11 +414,11 @@ Placement:
 - App Group ID (iOS): `group.com.pupptmstr.caliday`
 - Android receivers: `CaliDayWidgetReceiver` (small), `CaliDayWidgetMediumReceiver` (medium)
 
-**iOS requires manual steps in Xcode:**
-1. File → New → Target → Widget Extension → `CaliDayWidget`
-2. Replace `.swift` from `ios/CaliDayWidget/CaliDayWidget.swift`
-3. Add PNG assets from `ios/CaliDayWidget/Assets.xcassets/`
-4. Runner target → Signing & Capabilities → App Groups → `group.com.pupptmstr.caliday`
+**iOS Xcode setup (one remaining manual step):**
+- Target `CaliDayWidget` is already registered in `project.pbxproj` (added via `ios/add_widget_target.rb`)
+- Only manual step: CaliDayWidget target → **Signing & Capabilities → App Groups → `group.com.pupptmstr.caliday`** (updates provisioning profile via Apple Developer Portal)
+- Runner already has App Groups + HealthKit in `Runner.entitlements`
+- Widget entitlements: `ios/CaliDayWidget/CaliDayWidget.entitlements` (App Group only)
 
 ---
 
@@ -473,6 +473,8 @@ Placement:
 ### Key Patterns
 
 - `homeDataProvider = Provider.autoDispose` + `_ref.invalidate(homeDataProvider)` after workout
+- **Always invalidate `displayStreakProvider` before `homeDataProvider`** — `goroExpressionProvider` keeps it alive via `ref.watch`, so `homeDataProvider`'s `ref.read(displayStreakProvider)` would return a stale cached value otherwise
+- **`setHasPullUpBar` must invalidate `homeDataProvider`** — `activeBranches` is computed from `hasPullUpBar`; without invalidation Pull branch appears only after restart
 - `workoutProvider = StateNotifierProvider.autoDispose` — plan is generated on screen open
 - Services mutate HiveObjects in place; persistence is the responsibility of the caller
 - `ExerciseResult.completedReps` = rep count from the **last** set (MVP)

@@ -7,6 +7,7 @@ import '../../../core/services/health_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/services/sound_service.dart';
 import '../../../data/repositories/user_repository.dart';
+import '../../home/providers/home_provider.dart';
 
 // ── State ─────────────────────────────────────────────────────────────────────
 
@@ -160,6 +161,7 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
     state = state.copyWith(hasPullUpBar: value);
     final p = _userRepo.getProfile()..hasPullUpBar = value;
     _userRepo.saveProfile(p);
+    _ref.invalidate(homeDataProvider);
   }
 
   void setSoundEnabled(bool value) {

@@ -1,6 +1,6 @@
 # CALIDAY
 
-_Геймифицированные домашние тренировки_
+_Gamified Home Workouts_
 
 **Design Document v1.0** | February 2026
 
@@ -8,279 +8,275 @@ _Геймифицированные домашние тренировки_
 
 ## 1. Vision & Overview
 
-CaliDay — мобильное приложение для домашних тренировок с игровой механикой прогрессии. Приложение
-проводит пользователя от абсолютного нуля до продвинутых элементов калистеники через короткие ежедневные занятия,
-постепенно увеличивая сложность и нагрузку.
+CaliDay is a mobile app for home workouts with game-like progression mechanics. The app guides the
+user from absolute zero to advanced calisthenics skills through short daily sessions, gradually
+increasing difficulty and load.
 
-### 1.1 Ключевые игровые механики
+### 1.1 Core Game Mechanics
 
-| Механика          | Как работает в CaliDay                                  |
-| ----------------- | ------------------------------------------------------- |
-| Навык / ветка     | Группа мышц / навык (отжимания, пресс, баланс)          |
-| Сессия            | Сет (короткая тренировка на 5–15 минут)                 |
-| Этап прогрессии   | Уровень упражнения (с колен → полные → алмазные)        |
-| Серия             | Streak / Серия тренировок                               |
-| Очки опыта        | Очки силы (SP — Strength Points)                        |
-| Уровни игрока     | Ранги (Новичок → Атлет → Мастер)                        |
-| Карта прогрессий  | Дерево упражнений с разблокировкой этапов               |
+| Mechanic          | How it works in CaliDay                                    |
+| ----------------- | ---------------------------------------------------------- |
+| Skill / Branch    | Muscle group / skill (push-ups, core, balance)             |
+| Session           | Set (short workout: 5–15 minutes)                          |
+| Progression Stage | Exercise level (knee → full → diamond push-ups)            |
+| Streak            | Consecutive days of at least one completed set             |
+| XP                | Strength Points (SP)                                       |
+| Player Levels     | Ranks (Beginner → Athlete → Master)                        |
+| Progression Map   | Exercise tree with stage unlocking                         |
 
-### 1.2 Принципы
+### 1.2 Principles
 
-- **Минимальный порог входа:** начать может любой человек без подготовки и оборудования
-- **Микро-тренировки:** одно занятие занимает 5–15 минут
-- **Постепенная прогрессия:** нагрузка растёт плавно, незаметно для пользователя
-- **Геймификация:** стрики, очки, ранги, достижения — всё для поддержания мотивации
-- **100% оффлайн:** никакого сервера, все данные локально
-- **Бесплатно:** нет подписок, нет рекламы, нет покупок
-
----
-
-## 2. Целевая аудитория
-
-Приложение ориентировано на людей, которые хотят начать заниматься физическими упражнениями дома, но не знают с чего
-начать или испытывают трудности с регулярностью:
-
-- **Новички без спортивного опыта** — те, кому сложно сделать даже одно полное отжимание
-- **Офисные работники и разработчики** — сидячий образ жизни, нет времени на зал
-- **Люди, которым нужна система и геймификация** для поддержания мотивации
-- **Те, кто хочет освоить элементы калистеники**, но не знает правильную прогрессию
+- **Low barrier to entry:** anyone can start with no experience or equipment
+- **Micro-workouts:** a single session takes 5–15 minutes
+- **Gradual progression:** load increases smoothly, almost imperceptibly
+- **Gamification:** streaks, points, ranks, achievements — all to sustain motivation
+- **100% offline:** no server, all data stored locally
+- **Free:** no subscriptions, no ads, no purchases
 
 ---
 
-## 3. Основной игровой цикл
+## 2. Target Audience
 
-### 3.1 Ежедневный поток
+The app targets people who want to start exercising at home but don't know where to begin or struggle
+with consistency:
 
-1. Пользователь открывает приложение (или получает пуш-уведомление)
-2. Видит главный экран с картой прогрессий и кнопкой «Сегодняшняя тренировка»
-3. Нажимает «Начать» — приложение показывает упражнения одно за другим
-4. Каждое упражнение: анимация/иллюстрация + таймер/счётчик повторений
-5. После выполнения — экран результатов: SP, стрик, прогресс
-6. Опционально: выбрать дополнительный сет или свободную тренировку
-
-### 3.2 Структура сета (занятия)
-
-Каждый сет состоит из 3–6 упражнений и занимает 5–15 минут:
-
-- **Разминка (30–60 сек)** — лёгкие движения для подготовки тела
-- **Основной блок (3–5 упражнений)** — целевые упражнения по текущему уровню
-- **Заминка/растяжка (30–60 сек)** — лёгкая растяжка рабочих групп мышц
-
-**Пример сета для новичка (уровень 1):**
-
-| № | Упражнение                 | Повторы / Время     | Отдых  |
-|---|----------------------------|---------------------|--------|
-| 1 | Круговые вращения руками   | 10 в каждую сторону | —      |
-| 2 | Отжимания с колен          | 5 раз               | 30 сек |
-| 3 | Полное отжимание (попытка) | 1 раз               | 30 сек |
-| 4 | Планка                     | 15 сек              | 20 сек |
-| 5 | Скручивания на пресс       | 8 раз               | 20 сек |
-| 6 | Растяжка плеч и груди      | 30 сек              | —      |
-
-### 3.3 Типы сетов
-
-**Ежедневный сет (Daily Set)** — генерируется автоматически на основе текущего уровня. Смешивает упражнения из разных
-веток прогрессии. Это основной режим.
-
-**Сет прогрессии (Skill Set)** — привязан к конкретной ветке навыка. Пользователь сам выбирает, над чем работать (
-например, только отжимания).
-
-**Тестовый сет (Challenge)** — проверка готовности к переходу на следующий этап. Например: «Сделай 10 полных отжиманий
-без остановки».
+- **Complete beginners** — those who can't yet do a single full push-up
+- **Office workers and developers** — sedentary lifestyle, no time for a gym
+- **People who need a system and gamification** to stay motivated
+- **Those who want to learn calisthenics skills** but don't know the right progression
 
 ---
 
-## 4. Система прогрессии
+## 3. Core Game Loop
 
-### 4.1 Карта навыков (Skill Map)
+### 3.1 Daily Flow
 
-Карта навыков — главный экран приложения. Каждая ветка — это линейка прогрессии от простого к сложному.
-Ветки могут иметь пред-условия (prerequisite): например, стойка на руках требует определённого уровня
-в отжиманиях и балансе.
+1. User opens the app (or receives a push notification)
+2. Sees the home screen with the progression map and a "Today's Workout" button
+3. Taps "Start" — the app shows exercises one by one
+4. Each exercise: animation/illustration + timer/rep counter
+5. After completion — results screen: SP, streak, progress
+6. Optionally: pick an additional set or a free workout
 
-### 4.2 Ветки прогрессии
+### 3.2 Set (Session) Structure
 
-Ниже представлены основные ветки прогрессии с этапами от начального до продвинутого уровня:
+Each set consists of 3–6 exercises and takes 5–15 minutes:
 
-#### 4.2.1 Толкай (Push)
+- **Warm-up (30–60 sec)** — light movement to prepare the body
+- **Main block (3–5 exercises)** — target exercises at the current level
+- **Cool-down/stretch (30–60 sec)** — light stretching for the worked muscle groups
 
-| Этап | Упражнение                            | Цель для перехода |
-|------|---------------------------------------|-------------------|
-| 1    | Отжимания от стены                    | 3×10              |
-| 2    | Отжимания с колен                     | 3×15              |
-| 3    | Полные отжимания                      | 3×20              |
-| 4    | Алмазные отжимания                    | 3×15              |
-| 5    | Отжимания лучника (Archer)            | 3×10 на сторону   |
-| 6    | Отжимания на одной руке               | 3×5 на сторону    |
-| 7    | Отжимания в стойке на руках (у стены) | 3×10              |
+**Example set for a beginner (level 1):**
 
-#### 4.2.2 Тяни (Pull)
+| # | Exercise                    | Reps / Time         | Rest   |
+|---|-----------------------------|---------------------|--------|
+| 1 | Arm circles                 | 10 each direction   | —      |
+| 2 | Knee push-ups               | 5 reps              | 30 sec |
+| 3 | Full push-up (attempt)      | 1 rep               | 30 sec |
+| 4 | Plank                       | 15 sec              | 20 sec |
+| 5 | Crunches                    | 8 reps              | 20 sec |
+| 6 | Shoulder and chest stretch  | 30 sec              | —      |
 
-| Этап | Упражнение                                               | Цель для перехода |
-|------|----------------------------------------------------------|-------------------|
-| 1    | Австралийские подтягивания (на низкой перекладине/столе) | 3×15              |
-| 2    | Негативные подтягивания                                  | 3×8               |
-| 3    | Подтягивания                                             | 3×10              |
-| 4    | Подтягивания узким хватом                                | 3×10              |
-| 5    | Подтягивания лучника                                     | 3×6 на сторону    |
-| 6    | Подтягивания на одной руке                               | 3×3 на сторону    |
+### 3.3 Set Types
 
-#### 4.2.3 Кор (Core)
+**Daily Set** — generated automatically based on the current level. Mixes exercises from different
+progression branches. This is the primary mode.
 
-| Этап | Упражнение                    | Цель для перехода |
-|------|-------------------------------|-------------------|
-| 1    | Скручивания (Crunches)        | 3×20              |
-| 2    | Планка                        | 3×60 сек          |
-| 3    | Подъёмы ног лёжа              | 3×15              |
-| 4    | Подъёмы ног в висе            | 3×10              |
-| 5    | Уголок (L-sit) на полу        | 3×20 сек          |
-| 6    | Драконовый флаг (Dragon Flag) | 3×5               |
+**Skill Set** — tied to a specific skill branch. The user chooses what to focus on (e.g. push-ups only).
 
-#### 4.2.4 Ноги (Legs)
-
-| Этап | Упражнение                          | Цель для перехода |
-|------|-------------------------------------|-------------------|
-| 1    | Приседания                          | 3×20              |
-| 2    | Выпады (Lunges)                     | 3×12 на ногу      |
-| 3    | Болгарские приседания               | 3×10 на ногу      |
-| 4    | Приседания на одной ноге (с опорой) | 3×8 на ногу       |
-| 5    | Пистолетик (Pistol Squat)           | 3×5 на ногу       |
-
-#### 4.2.5 Баланс и гибкость
-
-| Этап | Упражнение                                 | Цель для перехода   |
-|------|--------------------------------------------|---------------------|
-| 1    | Стойка на одной ноге                       | 3×60 сек            |
-| 2    | Планка на одной руке                       | 3×30 сек на сторону |
-| 3    | Стойка на руках у стены (Crow Pose подвод) | 3×30 сек            |
-| 4    | Поза ворона (Crow Pose)                    | 3×15 сек            |
-| 5    | Стойка на руках у стены                    | 3×30 сек            |
-| 6    | Свободная стойка на руках                  | 30 сек              |
-
-### 4.3 Механика прогрессии
-
-Прогрессия внутри одного этапа происходит по схеме:
-
-1. Увеличение повторений: 5 → 8 → 10 → 12 → 15
-2. Увеличение подходов: 1 → 2 → 3
-3. Уменьшение отдыха: 60с → 45с → 30с
-4. Когда цель достигнута — открывается Challenge-тест
-5. После успешного теста — разблокировка следующего этапа
-
-Важно: если пользователь пропускает дни, приложение немного откатывает нагрузку назад,
-чтобы избежать травм. Это дополнительно мотивирует не пропускать занятия.
+**Challenge Set** — tests readiness to advance to the next stage. Example: "Do 10 full push-ups without stopping."
 
 ---
 
-## 5. Геймификация
+## 4. Progression System
+
+### 4.1 Skill Map
+
+The Skill Map is the main screen of the app. Each branch is a progression ladder from simple to
+advanced. Branches can have prerequisites: for example, handstand push-ups require a certain level
+in Push and Balance.
+
+### 4.2 Progression Branches
+
+The main branches with stages from beginner to advanced level:
+
+#### 4.2.1 Push
+
+| Stage | Exercise                              | Goal to advance     |
+|-------|---------------------------------------|---------------------|
+| 1     | Wall push-ups                         | 3×10                |
+| 2     | Knee push-ups                         | 3×15                |
+| 3     | Full push-ups                         | 3×20                |
+| 4     | Diamond push-ups                      | 3×15                |
+| 5     | Archer push-ups                       | 3×10 per side       |
+| 6     | One-arm push-ups                      | 3×5 per side        |
+| 7     | Handstand push-ups (against the wall) | 3×10                |
+
+#### 4.2.2 Pull
+
+| Stage | Exercise                                          | Goal to advance    |
+|-------|---------------------------------------------------|--------------------|
+| 1     | Australian pull-ups (low bar / table)             | 3×15               |
+| 2     | Negative pull-ups                                 | 3×8                |
+| 3     | Pull-ups                                          | 3×10               |
+| 4     | Close-grip pull-ups                               | 3×10               |
+| 5     | Archer pull-ups                                   | 3×6 per side       |
+| 6     | One-arm pull-ups                                  | 3×3 per side       |
+
+#### 4.2.3 Core
+
+| Stage | Exercise                       | Goal to advance |
+|-------|--------------------------------|-----------------|
+| 1     | Crunches                       | 3×20            |
+| 2     | Plank                          | 3×60 sec        |
+| 3     | Lying leg raises               | 3×15            |
+| 4     | Hanging leg raises             | 3×10            |
+| 5     | L-sit (on the floor)           | 3×20 sec        |
+| 6     | Dragon Flag                    | 3×5             |
+
+#### 4.2.4 Legs
+
+| Stage | Exercise                               | Goal to advance |
+|-------|----------------------------------------|-----------------|
+| 1     | Squats                                 | 3×20            |
+| 2     | Lunges                                 | 3×12 per leg    |
+| 3     | Bulgarian split squats                 | 3×10 per leg    |
+| 4     | Assisted pistol squats                 | 3×8 per leg     |
+| 5     | Pistol squats                          | 3×5 per leg     |
+
+#### 4.2.5 Balance
+
+| Stage | Exercise                                  | Goal to advance      |
+|-------|-------------------------------------------|----------------------|
+| 1     | One-leg stand                             | 3×60 sec             |
+| 2     | One-arm plank                             | 3×30 sec per side    |
+| 3     | Crow pose prep (handstand approach)       | 3×30 sec             |
+| 4     | Crow pose                                 | 3×15 sec             |
+| 5     | Wall handstand                            | 3×30 sec             |
+| 6     | Freestanding handstand                    | 30 sec               |
+
+### 4.3 Progression Mechanics
+
+In-stage progression follows this pattern:
+
+1. Increase reps: 5 → 8 → 10 → 12 → 15
+2. Increase sets: 1 → 2 → 3
+3. Reduce rest: 60s → 45s → 30s
+4. When the goal is reached — a Challenge test unlocks
+5. After a successful test — the next stage unlocks
+
+Note: if the user skips days, the app slightly rolls back the load to avoid injury. This further
+motivates not missing sessions.
+
+---
+
+## 5. Gamification
 
 ### 5.1 Strength Points (SP)
 
-Очки силы начисляются за каждое выполненное упражнение. Более сложные упражнения дают больше SP. Бонус за завершение
-полного сета. Бонус за первый сет дня.
+Points are awarded for every completed exercise. More difficult exercises yield more SP. Bonus for
+completing a full set. Bonus for the first set of the day.
 
-### 5.2 Streak (Серия)
+### 5.2 Streak
 
-Количество дней подряд, когда пользователь выполнил хотя бы один сет. Отображается на главном экране. Можно добавить
-механику «streak freeze» — одноразовая защита стрика при пропуске дня (зарабатывается за достижения).
+The number of consecutive days the user completed at least one set. Displayed on the home screen.
+A "streak freeze" mechanic is available — a one-time streak shield for a missed day (earned via achievements).
 
-### 5.3 Ранги
+### 5.3 Ranks
 
-| Ранг      | Требование | Награда               |
-|-----------|------------|-----------------------|
-| Новичок   | Старт      | —                     |
-| Любитель  | 500 SP     | Новые иконки          |
-| Спортсмен | 2000 SP    | Streak Freeze ×2      |
-| Атлет     | 5000 SP    | Новые темы оформления |
-| Мастер    | 15000 SP   | Золотой бейдж         |
-| Легенда   | 50000 SP   | Секретная тема        |
+| Rank      | Requirement | Reward                   |
+|-----------|-------------|--------------------------|
+| Beginner  | Start        | —                        |
+| Amateur   | 500 SP       | New icons                |
+| Athlete   | 2,000 SP     | Streak Freeze ×2         |
+| Champion  | 5,000 SP     | New themes               |
+| Master    | 15,000 SP    | Gold badge               |
+| Legend    | 50,000 SP    | Secret theme             |
 
-### 5.4 Достижения
+### 5.4 Achievements
 
-Примеры достижений:
+Example achievements:
 
-- **«Первый шаг»** — завершить первый сет
-- **«Неделя без пропусков»** — 7-дневный стрик
-- **«Первое полное отжимание»** — разблокировать этап 3 в Push
-- **«Железный кор»** — планка 60 секунд
-- **«Марафонец»** — 30 дней подряд
-- **«На вершине»** — разблокировать стойку на руках
+- **"First Step"** — complete the first set
+- **"One Week Streak"** — 7-day streak
+- **"First Full Push-up"** — unlock stage 3 in Push
+- **"Iron Core"** — plank for 60 seconds
+- **"Marathoner"** — 30 days in a row
+- **"On Top"** — unlock freestanding handstand
 
-### 5.5 Календарь активности
+### 5.5 Activity Calendar
 
-Сетка дней в стиле GitHub contribution graph, где интенсивность цвета отражает количество заработанных SP в этот день.
-Помогает визуализировать регулярность тренировок.
-
----
-
-## 6. Система уведомлений
-
-Уведомления — ключевой инструмент удержания пользователя:
-
-**Утреннее напоминание** — настраиваемое время (по умолчанию 9:00). Тексты ротируются: «Время для тренировки! Твой
-стрик: 12 дней 🔥».
-
-**Вечернее напоминание** — если не занимался сегодня (20:00): «Не забудь про тренировку! Всего 5 минут — и стрик
-сохранён».
-
-**Угроза потери стрика** — за 2 часа до конца дня (22:00): «Твой стрик в 12 дней под угрозой! Успей до полуночи!».
-
-**Мотивационные** — при достижении вех: «Поздравляем! Ты разблокировал полные отжимания! 🎉».
-
-Пользователь может настроить время уведомлений или отключить отдельные типы в настройках.
+A grid of days in the style of a GitHub contribution graph, where colour intensity reflects the SP
+earned on that day. Helps visualise workout consistency.
 
 ---
 
-## 7. UI/UX концепция
+## 6. Notification System
 
-### 7.1 Основные экраны
+Notifications are a key retention tool:
 
-**Главный экран (Home)** — карта прогрессий (вертикальный скролл), кнопка «Тренировка дня», стрик и SP в шапке.
+**Morning reminder** — configurable time (default 9:00). Texts rotate: "Time to work out! Your streak: 12 days 🔥".
 
-**Экран тренировки (Workout)** — последовательный показ упражнений с анимациями, таймером, прогресс-баром. Кнопка
-«Готово» для перехода к следующему.
+**Evening reminder** — if no workout today (20:00): "Don't forget your workout! Just 5 minutes — streak saved."
 
-**Экран результатов (Summary)** — сколько SP заработано, текущий стрик, прогресс по веткам, достижения. Кнопки «Ещё сет»
-и «На главную».
+**Streak threat** — 2 hours before end of day (22:00): "Your 12-day streak is at risk! Beat the clock before midnight!".
 
-**Профиль (Profile)** — статистика, календарь активности, достижения, ранг, настройки.
+**Motivational** — on milestones: "Congratulations! You unlocked full push-ups! 🎉".
 
-### 7.2 Дизайн-язык
-
-- Яркие, дружелюбные цвета: зелёный, оранжевый, синий
-- Минималистичные иллюстрации упражнений (векторные фигуры с анимацией)
-- Крупные кнопки, удобные для нажатия во время тренировки
-- Поддержка тёмной темы
+The user can configure notification times or disable specific types in Settings.
 
 ---
 
-## 8. Техническая архитектура
+## 7. UI/UX Concept
 
-### 8.1 Платформа
+### 7.1 Main Screens
 
-Первичная цель — iOS (App Store). Стек: Flutter (Dart) для кросс-платформенного покрытия iOS и Android.
+**Home** — progression map (vertical scroll), "Today's Workout" button, streak and SP in the header.
 
-### 8.2 Хранение данных
+**Workout Screen** — sequential display of exercises with animations, timer, progress bar. "Done" button
+to advance to the next exercise.
 
-Все данные хранятся локально на устройстве. Никакого бэкенда.
+**Summary Screen** — SP earned, current streak, branch progress, achievements. "Another Set" and "Home"
+buttons.
 
-**Статические данные (вшиты в приложение):**
+**Profile** — stats, activity calendar, achievements, rank, settings.
 
-- Каталог упражнений с описаниями, анимациями и подсказками
-- Дерево прогрессий (ветки, этапы, цели перехода)
-- Логика генерации сетов
-- Список достижений
+### 7.2 Design Language
 
-**Пользовательские данные (Hive):**
+- Bright, friendly colours: green, orange, blue
+- Minimalist exercise illustrations (vector shapes with animation)
+- Large buttons, easy to tap during a workout
+- Dark theme support
 
-- Профиль пользователя
-- Прогресс по каждому этапу каждой ветки
-- История тренировок (workout_log)
-- Стрики и SP
-- Полученные достижения
-- Настройки (уведомления, тема)
+---
 
-### 8.3 Модель данных (схематично)
+## 8. Technical Architecture
+
+### 8.1 Platform
+
+Primary target — iOS (App Store). Stack: Flutter (Dart) for cross-platform iOS and Android coverage.
+
+### 8.2 Data Storage
+
+All data is stored locally on the device. No backend.
+
+**Static data (bundled with the app):**
+
+- Exercise catalogue with descriptions, animations, and tips
+- Progression tree (branches, stages, advancement goals)
+- Set generation logic
+- Achievement list
+
+**User data (Hive):**
+
+- User profile
+- Progress per stage per branch
+- Workout history (workout_log)
+- Streaks and SP
+- Earned achievements
+- Settings (notifications, theme)
+
+### 8.3 Data Model (outline)
 
 **`UserProfile`**
 
@@ -316,70 +312,71 @@ CaliDay — мобильное приложение для домашних тр
 
 ---
 
-## 9. Onboarding (первый запуск)
+## 9. Onboarding (First Launch)
 
-При первом запуске приложение проводит короткий опрос для калибровки начального уровня:
+On the first launch the app runs a short survey to calibrate the starting level:
 
-1. «Как часто ты занимаешься спортом?» — Никогда / Иногда / Регулярно
-2. «Сколько отжиманий можешь сделать?» — 0 / 1–5 / 5–15 / 15+
-3. «Сколько минут в день готов уделять?» — 5 / 10 / 15
-4. «К чему стремишься?» — Общая форма / Отжимания и сила / Калистеника и трюки
-5. Выбор времени напоминания
-6. Первый пробный сет (сразу после onboarding!)
+1. "How often do you exercise?" — Never / Sometimes / Regularly
+2. "How many push-ups can you do?" — 0 / 1–5 / 5–15 / 15+
+3. "How many minutes per day can you spare?" — 5 / 10 / 15
+4. "What is your goal?" — General fitness / Push strength / Calisthenics & skills
+5. Notification time selection
+6. First trial set (immediately after onboarding!)
 
 ---
 
-## 10. MVP (минимальный продукт)
+## 10. MVP
 
-### 10.1 MVP v1.0 — первый релиз
+### 10.1 MVP v1.0 — First Release
 
-1. 2 ветки прогрессии: Толкай (Push) и Кор (Core)
-2. Ежедневные сеты с автогенерацией
-3. Прогрессия внутри этапов (повторения и подходы)
-4. Стрики и SP
-5. Пуш-уведомления (утреннее + вечернее)
-6. Статические иллюстрации упражнений
-7. Onboarding-опрос
-8. Локальное хранение данных
+1. 2 progression branches: Push and Core
+2. Daily sets with auto-generation
+3. In-stage progression (reps and sets)
+4. Streaks and SP
+5. Push notifications (morning + evening)
+6. Static exercise illustrations
+7. Onboarding survey
+8. Local data storage
 
-### 10.2 v1.1 — расширение
+### 10.2 v1.1 — Expansion
 
-1. Ветки: Тяни, Ноги, Баланс
-2. Анимированные иллюстрации (Lottie)
-3. Достижения
-4. Календарь активности
-5. Challenge-тесты
-6. Тёмная тема
-7. Ранги
+1. Branches: Pull, Legs, Balance
+2. Animated illustrations (Lottie)
+3. Achievements
+4. Activity calendar
+5. Challenge tests
+6. Dark theme
+7. Ranks
 8. Streak Freeze
 
-### 10.3 v2.0 — перспектива
+### 10.3 v2.0 — Long-term Vision
 
-- Android-версия
-- Пользовательские сеты (создание своих тренировок)
-- Интеграция с Apple Health / Google Fit
-- Apple Watch companion (таймер на запястье)
-- Локализация (русский, английский и др.)
-- Видео-демонстрации упражнений
-
----
-
-## 11. Риски и ограничения
-
-| Риск                                  | Смягчение                                                                   |
-|---------------------------------------|-----------------------------------------------------------------------------|
-| Пользователь может травмироваться     | Обязательный disclaimer, плавная прогрессия, разминка/заминка в каждом сете |
-| Потеря данных при удалении приложения | Экспорт данных в JSON, iCloud backup                                        |
-| Неправильная техника упражнений       | Подробные иллюстрации и советы по технике                                   |
-| Надоедает однообразие                 | Вариативность сетов, геймификация, новые ветки в обновлениях                |
-| Нет оборудования для Pull             | Пометка о необходимости перекладины, альтернативы с дверью/столом           |
+- Android release
+- Custom sets (user-created workouts)
+- Apple Health / Google Fit integration
+- Apple Watch companion (wrist timer)
+- Localisation (Russian, English, and more)
+- Video demonstrations of exercises
 
 ---
 
-## 12. Итог
+## 11. Risks and Constraints
 
-CaliDay закрывает нишу между «не могу начать» и «хочу стоять на руках». Механика коротких сессий,
-стриков и прокачки навыков переносится на физические тренировки с минимальным порогом входа.
-Офлайн-архитектура исключает расходы на инфраструктуру и упрощает разработку.
+| Risk                                  | Mitigation                                                                    |
+|---------------------------------------|-------------------------------------------------------------------------------|
+| User may injure themselves            | Mandatory disclaimer, gradual progression, warm-up/cool-down in every set     |
+| Data loss if the app is deleted       | JSON data export, iCloud backup                                               |
+| Incorrect exercise technique          | Detailed illustrations and technique tips                                     |
+| Monotony sets in                      | Set variety, gamification, new branches in updates                            |
+| No equipment for Pull                 | Bar requirement labelled clearly, door/table alternatives suggested           |
 
-**Следующий шаг:** создание прототипа MVP с двумя ветками (Push + Core) и базовой геймификацией.
+---
+
+## 12. Summary
+
+CaliDay fills the gap between "can't get started" and "want to do a handstand." The mechanics of
+short sessions, streaks, and skill levelling are applied to physical training with the lowest
+possible barrier to entry. The offline architecture eliminates infrastructure costs and simplifies
+development.
+
+**Next step:** build the MVP prototype with two branches (Push + Core) and basic gamification.

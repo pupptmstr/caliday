@@ -498,6 +498,9 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     unawaited(NotificationService.instance.scheduleStreakLost(profile));
 
     // Invalidate home and profile data so both tabs reflect the new state.
+    // displayStreakProvider must be invalidated first so the next read (widget
+    // update below) and homeDataProvider both get fresh post-workout values.
+    _ref.invalidate(displayStreakProvider);
     _ref.invalidate(homeDataProvider);
     _ref.invalidate(profileDataProvider);
 

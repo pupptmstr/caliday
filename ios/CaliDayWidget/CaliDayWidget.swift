@@ -184,7 +184,7 @@ struct CaliDayWidget: Widget {
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: CaliDayProvider()) { entry in
             CaliDayWidgetEntryView(entry: entry)
-                .containerBackground(.fill.tertiary, for: .widget)
+                .modifier(WidgetBackgroundModifier())
         }
         .configurationDisplayName("CaliDay")
         .description("Стрик и SP одним взглядом.")
@@ -192,18 +192,34 @@ struct CaliDayWidget: Widget {
     }
 }
 
-// MARK: - Previews
+private let widgetBackground = Color(red: 0.102, green: 0.145, blue: 0.204)
 
-#Preview(as: .systemSmall) {
-    CaliDayWidget()
-} timeline: {
-    CaliDayEntry(date: .now, streak: 12, totalSP: 340, workoutDoneToday: false, rankName: "Атлет")
-    CaliDayEntry(date: .now, streak: 12, totalSP: 380, workoutDoneToday: true, rankName: "Атлет")
+// containerBackground (iOS 17+) fills the system-managed container including
+// rounded corners. On iOS 14–16 the ZStack background color does the same job.
+private struct WidgetBackgroundModifier: ViewModifier {
+    func body(content: Content) -> some View {
+        if #available(iOS 17.0, *) {
+            content.containerBackground(widgetBackground, for: .widget)
+        } else {
+            content
+        }
+    }
 }
 
-#Preview(as: .systemMedium) {
-    CaliDayWidget()
-} timeline: {
-    CaliDayEntry(date: .now, streak: 12, totalSP: 340, workoutDoneToday: false, rankName: "Атлет")
-    CaliDayEntry(date: .now, streak: 12, totalSP: 380, workoutDoneToday: true, rankName: "Мастер")
+// MARK: - Previews
+
+struct CaliDayWidget_Previews: PreviewProvider {
+    static var previews: some View {
+        Group {
+            CaliDayWidgetEntryView(
+                entry: CaliDayEntry(date: Date(), streak: 12, totalSP: 340, workoutDoneToday: false, rankName: "Атлет")
+            )
+            .previewContext(WidgetPreviewContext(family: .systemSmall))
+
+            CaliDayWidgetEntryView(
+                entry: CaliDayEntry(date: Date(), streak: 12, totalSP: 380, workoutDoneToday: true, rankName: "Мастер")
+            )
+            .previewContext(WidgetPreviewContext(family: .systemMedium))
+        }
+    }
 }
