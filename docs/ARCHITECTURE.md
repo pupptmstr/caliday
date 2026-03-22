@@ -563,9 +563,14 @@ flutter build ipa                 # iOS archive
 | v1.2 | About screen | ✅ |
 | v1.3 | Home Screen Widget (iOS + Android) | ✅ |
 | v1.3 | Apple Health / Health Connect | ✅ |
-| v1.4 | Friends (BLE/QR, no server) | ✅ |
+| v1.4 | Friends — QR + BLE scan (Central role) | ✅ |
+| v1.4 | Friends — BLE advertising (Peripheral role) | 💡 idea (нужно для полноты фичи) |
+| v1.4 | Friends — BLE GATT server (обмен профилем без QR) | 💡 idea (нужно для полноты фичи) |
 | v1.4 | Basic smartwatch integration (notifications) | 📐 designed |
 | v1.5 | Full smartwatch app | 💡 idea |
+| ? | Flexibility & Mobility branch | 📐 designed |
+| ? | Supplementary exercise pool (random, no progression) | 📐 designed |
+| ? | Privacy Policy (GitHub Markdown → ссылка в приложении) | 📐 designed |
 | ? | Lottie animations for Core branch | 🔒 waiting for assets |
 | ? | "Support the author" button (IAP) | 💡 idea |
 

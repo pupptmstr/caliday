@@ -37,6 +37,48 @@ Latest APK build: `build/app/outputs/flutter-apk/caliday.apk` (~57 MB)
 
 ## Active Specs (ideas in progress)
 
+### v1.4 — Friends — нужно протестировать на реальных устройствах
+
+Фича реализована, но **не тестировалась на физических устройствах**. Требует проверки вдвоём (два телефона).
+
+#### Чеклист тестирования
+
+**QR (iOS + Android):**
+- [ ] Открыть экран Friends → появляется QR-код своего профиля
+- [ ] Сканировать QR другого человека → диалог подтверждения показывает имя + SP + streak
+- [ ] Подтвердить → друг появляется в списке
+- [ ] Повторно сканировать того же человека → обновляет данные (не дублирует)
+- [ ] Открыть карточку друга → показывает ранг, ветки, дату синхронизации
+- [ ] Удалить друга → исчезает из списка
+- [ ] Невалидный QR → показывает snackbar с ошибкой (не крашится)
+
+**BLE — сканирование (требует двух устройств):**
+- [ ] iOS → iOS: обнаружение работает
+- [ ] Android → Android: обнаружение работает
+- [ ] iOS → Android: обнаружение работает (и наоборот)
+- [ ] BLE выключен → секция "Nearby" показывает сообщение "Bluetooth выключен"
+- [ ] Кнопка Refresh → запускает повторное сканирование
+- [ ] Tile "Connect" → открывает QR-сканер (GATT-обмен не реализован, QR — основной путь)
+
+**BLE — разрешения:**
+- [ ] Android: при первом открытии Friends появляется запрос `BLUETOOTH_SCAN` + `BLUETOOTH_CONNECT`
+- [ ] iOS: при первом открытии появляется запрос `NSBluetoothAlwaysUsageDescription`
+- [ ] Отказ от разрешений → приложение не крашится, показывает "Bluetooth выключен"
+
+**Специфично для iOS:**
+- [ ] BLE-сканирование работает на iOS 14+ (минимальная поддерживаемая версия)
+- [ ] QR-сканер запрашивает разрешение камеры при первом использовании
+
+**Специфично для Android:**
+- [ ] BLE-разрешения правильно запрашиваются на Android 12+ (API 31+) через `BLUETOOTH_SCAN` (neverForLocation)
+- [ ] На Android 11 и ниже — legacy разрешения `BLUETOOTH` + `BLUETOOTH_ADMIN` работают
+
+#### Известные ограничения (не баги)
+- **BLE advertising не реализован** — устройство не рекламирует себя в BLE. Соседи не обнаружат твоё устройство, пока не реализован peripheral-режим (TODO: platform channel). Основной путь обмена — QR.
+- **GATT-обмен не реализован** — кнопка "Connect" у BLE-устройства открывает QR-сканер (это задуманное поведение до реализации GATT-сервера).
+
+---
+
 ### v1.4 — Basic Watch Integration (notifications) — designed
 
 #### Concept
@@ -56,6 +98,196 @@ Apple Watch and Wear OS automatically mirror notifications from the phone.
    - "Push · Diamond Push-ups · 3 × 8"
 
 3. `WorkoutNotifier` → `NotificationService.showRestTimer(durationSec, nextExercise)`
+
+---
+
+### v1.4 — Friends: BLE Peripheral + GATT Server — idea (нужно для полноты фичи)
+
+#### Что реализовано
+
+- ✅ BLE Central (сканирование) — устройство видит других пользователей CaliDay поблизости
+- ✅ QR-обмен профилем — основной путь
+- ✅ GATT Client — может прочитать профиль с удалённого устройства (если у того есть GATT-сервер)
+
+#### Что не реализовано (фича неполная без этого)
+
+- ❌ **BLE Peripheral / Advertising** — устройство не рекламирует себя. Другие не могут обнаружить тебя по BLE.
+- ❌ **GATT Server** — нет сервера, раздающего профиль. Кнопка "Connect" у BLE-устройства сейчас просто открывает QR-сканер как fallback.
+
+Без этих двух пунктов BLE-обнаружение работает только при условии, что **оба** пользователя одновременно открыли экран Friends — один видит другого, но не наоборот. На практике это ненадёжно.
+
+#### Технические варианты реализации
+
+**Вариант A — пакет `ble_peripheral`:**
+- Pub: `ble_peripheral` (отдельный от flutter_blue_plus)
+- Плюс: чистый Dart-API
+- Минус: менее популярен, возможны баги на конкретных устройствах
+
+**Вариант B — platform channel (нативный код):**
+- iOS: `CBPeripheralManager` (CoreBluetooth)
+- Android: `BluetoothLeAdvertiser` + `BluetoothGattServer`
+- Плюс: полный контроль, стабильность
+- Минус: нужно писать Swift/Kotlin код
+
+**Рекомендация:** сначала попробовать `ble_peripheral` (быстрее), при проблемах — platform channel.
+
+#### GATT Server структура
+
+```
+Service UUID:        ca11da00-0000-0000-0000-000000000001
+Characteristic UUID: ca11da00-0000-0000-0000-000000000002
+  Properties: READ
+  Value: JSON профиля (UTF-8, <512 bytes)
+```
+
+#### Technical Tasks
+
+| # | Task |
+|---|------|
+| 1 | Добавить `ble_peripheral` (или написать platform channel) |
+| 2 | `BleService.startAdvertising(peerId, displayName)` — реализовать (сейчас stub) |
+| 3 | `BleService.stopAdvertising()` — реализовать |
+| 4 | Запускать advertising при открытии FriendsScreen (если `bleDiscoverable == true`) |
+| 5 | GATT Server: зарегистрировать сервис + характеристику, отдавать JSON профиля по READ |
+| 6 | Протестировать iOS↔Android |
+
+#### When to tackle
+
+После базовой watch-интеграции. Требует реального тестирования на двух физических устройствах одновременно.
+
+---
+
+### ? — Privacy Policy — designed
+
+#### Concept
+
+App Store и Google Play оба **требуют** ссылку на Privacy Policy при публикации (особенно если приложение собирает любые данные или имеет health-интеграцию).
+
+Хостинг на GitHub в виде Markdown-файла — стандартная практика для инди-приложений. Apple и Google принимают любой публично доступный URL.
+
+#### Что писать в политике
+
+Ключевые тезисы для CaliDay:
+- Все данные хранятся **локально** на устройстве (Hive)
+- Никаких серверов, никакой передачи данных третьим сторонам
+- Health-данные (Apple Health / Google Health Connect) — только read/write на устройстве, не передаются
+- Камера — только для сканирования QR, фото не сохраняются
+- Bluetooth — только для обнаружения устройств в локальной сети, ничего не отправляется в интернет
+
+#### Реализация
+
+1. Создать `PRIVACY_POLICY.md` в репозитории (в корне или `/docs/`)
+2. Включить GitHub Pages для repo ИЛИ использовать raw-ссылку: `https://raw.githubusercontent.com/...`
+   - Лучше GitHub Pages (`https://username.github.io/caliday/privacy`) — выглядит профессиональнее
+   - raw-ссылка тоже принимается обоими сторонами
+3. Добавить ссылку в `AboutScreen` (уже есть `url_launcher`)
+4. Добавить ссылку в метаданные App Store Connect и Google Play Console при публикации
+
+#### Technical Tasks
+
+| # | Task |
+|---|------|
+| 1 | Написать `PRIVACY_POLICY.md` (EN + RU секции или отдельные файлы) |
+| 2 | Настроить GitHub Pages или использовать raw URL |
+| 3 | Добавить `privacyPolicyUrl` константу в `about_screen.dart` |
+| 4 | Добавить плашку «Privacy Policy» в `AboutScreen` рядом с существующими ссылками |
+
+#### When to tackle
+
+До первой публикации в App Store / Google Play. Блокирует публикацию.
+
+---
+
+### ? — Flexibility & Mobility Branch — designed
+
+#### Concept
+
+Новая прогрессионная ветка — растяжка и подвижность суставов. По механике аналогична существующим веткам (Push, Core, etc.): пользователь проходит стадии от простых упражнений к сложным. Ветка всегда доступна без дополнительного оборудования.
+
+Особенность по сравнению с силовыми ветками: упражнения в основном тimed (удержание позы в секундах), а не reps. Тип упражнения `ExerciseType.timed` уже существует.
+
+#### UX / Mechanics
+
+- Отображается на экране прогресса наряду с остальными ветками
+- Иконка: `self_improvement` (Material Icons) или аналог
+- SP за тренировку — меньше, чем за силовые (растяжка менее интенсивна). Предложение: базовый множитель 0.7 от обычного, либо просто меньше повторений в SPService
+- Challenge-механика та же: дойти до цели по времени удержания
+
+#### Catalog (примерный, 6 стадий)
+
+| Stage | Упражнение | Тип |
+|-------|-----------|-----|
+| 1 | Hip Flexor Stretch | timed |
+| 2 | World's Greatest Stretch | reps |
+| 3 | 90/90 Hip Mobility | timed |
+| 4 | Thoracic Bridge | reps |
+| 5 | Deep Squat Hold | timed |
+| 6 | Pike Stretch / Jefferson Curl | timed |
+
+#### Technical Tasks
+
+| # | Task |
+|---|------|
+| 1 | Добавить `flex` в `BranchId` enum (новый typeId не нужен, это значение существующего enum) |
+| 2 | Добавить упражнения в `exercise_catalog.dart` |
+| 3 | `BranchId.icon`, `BranchId.emoji` для flex |
+| 4 | L10n: названия упражнений + ветки |
+| 5 | Обновить `activeBranches` если нужно (ветка без equipmentRequirement) |
+| 6 | `dart run build_runner build` (enum изменился → `.g.dart`) |
+
+#### Technical Details
+
+`BranchId` — это Hive-сохраняемый enum (typeId=4). Добавление нового значения безопасно — Hive хранит индекс, новые значения добавляются в конец. Существующие данные пользователей не ломаются.
+
+SP-начисление: рассмотреть передачу `isFlexibility: true` в `SPService.forExercise` для уменьшения коэффициента, либо просто задать меньше таргетных повторений/секунд в каталоге.
+
+#### When to tackle
+
+После реализации базового watch-уведомления. Не требует внешних ресурсов.
+
+---
+
+### ? — Supplementary Exercise Pool — designed
+
+#### Concept
+
+Пул «вспомогательных» упражнений без прогрессии — боковой пресс (obliques), икры, шея, запястья и прочие мышечные группы, которые не вписываются в основные 5 веток, но полезны.
+
+Упражнения из пула **добавляются в программу бонусных тренировок** (не основных) — 1–2 случайных упражнения добавляются к обычному плану дня как бонус. Прогрессии нет — каждый раз просто рандомная выборка.
+
+#### UX / Mechanics
+
+- Упражнения из пула не отображаются отдельной веткой на экране прогресса
+- В экране бонусной тренировки секция "EXTRA" с 1–2 упражнениями из пула
+- Либо альтернатива: в настройках чекбокс «Добавлять бонусные упражнения»
+- SP за них начисляется как обычно (уже через существующий `isPrimary=false` коэффициент 0.5)
+
+#### Technical Tasks
+
+| # | Task |
+|---|------|
+| 1 | Создать `supplementary_exercise_catalog.dart` — список `Exercise` (статические const, без stage/branch) |
+| 2 | `WorkoutGeneratorService.generateBonus()` или доработать `generateDaily()` — добавлять 1–2 рандомных упражнения из пула если `isPrimary=false` |
+| 3 | Возможно: поле `isSupplementary: bool` в `Exercise` для разграничения |
+| 4 | L10n: названия новых упражнений |
+| 5 | (опционально) Настройка: «Добавлять вспомогательные упражнения» в UserProfile |
+
+#### Technical Details
+
+**Пул упражнений (примерный):**
+- Oblique Crunch, Russian Twists, Side Plank — боковой кор
+- Standing Calf Raise, Single-Leg Calf Raise — икры
+- Neck Isometrics — шея
+- Wrist Circles, Wrist Push-ups — запястья и предплечья
+- Dead Bug, Bird-Dog — глубокий кор/стабилизация
+
+**Важно:** `Exercise` — статическая const-модель, не хранится в Hive. Отдельного каталога (`supplementary_exercise_catalog.dart`) достаточно. Для рандомной выборки: `(list..shuffle(Random())).take(2)`.
+
+Если `stage = 0` будет использоваться — это уже соглашение warmup/cooldown, лучше ввести `stage = -1` или новый флаг `isSupplementary`.
+
+#### When to tackle
+
+Можно реализовать независимо от других фич. Небольшой объём работы.
 
 ---
 
