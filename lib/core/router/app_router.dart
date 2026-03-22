@@ -12,6 +12,7 @@ import '../../features/home/screens/progress_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/profile/screens/achievements_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
+import '../../features/friends/screens/friends_screen.dart';
 import '../../features/settings/screens/about_screen.dart';
 import '../../features/settings/screens/developer_options_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
@@ -109,6 +110,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/about',
         builder: (_, _) => const AboutScreen(),
+      ),
+      GoRoute(
+        path: '/friends',
+        builder: (_, _) => const FriendsScreen(),
       ),
       if (kDebugMode)
         GoRoute(

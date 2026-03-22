@@ -1175,4 +1175,109 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get summaryHealthSaved => 'Saved to Health ✓';
+
+  @override
+  String get friendsTitle => 'Friends';
+
+  @override
+  String get friendsMyQrTitle => 'My Profile';
+
+  @override
+  String get friendsShareHint =>
+      'Show this code to a friend to share your profile';
+
+  @override
+  String get friendsScanQr => 'Scan QR Code';
+
+  @override
+  String get friendsSectionNearby => 'NEARBY';
+
+  @override
+  String get friendsSectionList => 'FRIENDS';
+
+  @override
+  String get friendsNearbyEmpty => 'No CaliDay users found nearby';
+
+  @override
+  String get friendsNearbyScanning => 'Scanning…';
+
+  @override
+  String get friendsNearbyBleOff => 'Bluetooth is off';
+
+  @override
+  String get friendsNearbyConnect => 'Get profile';
+
+  @override
+  String get friendsEmpty =>
+      'No friends yet. Scan a QR code to add your first friend.';
+
+  @override
+  String get friendsAdded => 'Friend added!';
+
+  @override
+  String get friendsUpdated => 'Profile updated!';
+
+  @override
+  String get friendsScanError => 'Invalid QR code';
+
+  @override
+  String friendsScanConfirmBody(int sp, int streak) {
+    return '$sp SP · $streak-day streak';
+  }
+
+  @override
+  String get friendsCancel => 'Cancel';
+
+  @override
+  String get friendsAdd => 'Add';
+
+  @override
+  String friendsDetailLastSynced(String date) {
+    return 'Synced: $date';
+  }
+
+  @override
+  String get friendsDeleteTitle => 'Remove friend';
+
+  @override
+  String friendsDeleteBody(String name) {
+    return 'Remove $name from friends?';
+  }
+
+  @override
+  String get friendsDeleteConfirm => 'Remove';
+
+  @override
+  String get settingsSectionFriends => 'FRIENDS';
+
+  @override
+  String get settingsFriendsNameTitle => 'Display name';
+
+  @override
+  String get settingsFriendsNameSubtitle =>
+      'Shown to friends when sharing your profile';
+
+  @override
+  String get settingsFriendsNamePlaceholder => 'Enter your name';
+
+  @override
+  String get settingsFriendsDiscoverableTitle => 'Discoverable via Bluetooth';
+
+  @override
+  String get settingsFriendsDiscoverableSubtitle =>
+      'Other CaliDay users can find you nearby';
+
+  @override
+  String get profileFriendsTitle => 'Friends';
+
+  @override
+  String get profileFriendsAll => 'All friends →';
+
+  @override
+  String get profileFriendsEmpty => 'No friends yet';
+
+  @override
+  String profileFriendsCount(int count) {
+    return '$count friends';
+  }
 }

@@ -6,6 +6,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
+import '../../friends/providers/friends_provider.dart';
 import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/workout_log.dart';
@@ -21,6 +22,7 @@ class ProfileScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(profileDataProvider);
     final achievementRepo = ref.watch(achievementRepositoryProvider);
+    final friendsCount = ref.watch(friendsCountProvider);
     final profile = data.profile;
     final scheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
@@ -82,6 +84,33 @@ class ProfileScreen extends ConsumerWidget {
                 longestStreak: profile.longestStreak,
                 totalWorkouts: data.totalWorkouts,
                 streakFreezes: profile.streakFreezeCount,
+              ),
+
+              const SizedBox(height: 24),
+
+              // ── Friends ────────────────────────────────────────────────
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    l10n.profileFriendsTitle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                  TextButton(
+                    onPressed: () => context.push('/friends'),
+                    child: Text(l10n.profileFriendsAll),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 4),
+              Text(
+                friendsCount == 0
+                    ? l10n.profileFriendsEmpty
+                    : l10n.profileFriendsCount(friendsCount),
+                style: TextStyle(color: scheme.onSurfaceVariant),
               ),
 
               const SizedBox(height: 24),

@@ -515,5 +515,60 @@
   "settingsHealthWorkoutsSubtitle": "Сохранять в Apple Health / Health Connect",
   "settingsHealthWeightTitle": "Читать массу тела",
   "settingsHealthWeightSubtitle": "Для точного расчёта калорий (иначе 70 кг)",
-  "summaryHealthSaved": "Сохранено в Health ✓"
+  "summaryHealthSaved": "Сохранено в Health ✓",
+
+  "friendsTitle": "Друзья",
+  "friendsMyQrTitle": "Мой профиль",
+  "friendsShareHint": "Покажи этот код другу, чтобы поделиться профилем",
+  "friendsScanQr": "Сканировать QR-код",
+  "friendsSectionNearby": "РЯДОМ",
+  "friendsSectionList": "ДРУЗЬЯ",
+  "friendsNearbyEmpty": "Пользователей CaliDay рядом нет",
+  "friendsNearbyScanning": "Поиск…",
+  "friendsNearbyBleOff": "Bluetooth выключен",
+  "friendsNearbyConnect": "Получить профиль",
+  "friendsEmpty": "Друзей пока нет. Отсканируй QR-код, чтобы добавить первого.",
+  "friendsAdded": "Друг добавлен!",
+  "friendsUpdated": "Профиль обновлён!",
+  "friendsScanError": "Неверный QR-код",
+  "friendsScanConfirmBody": "{sp} SP · стрик {streak} дней",
+  "@friendsScanConfirmBody": {
+    "placeholders": {
+      "sp": {"type": "int"},
+      "streak": {"type": "int"}
+    }
+  },
+  "friendsCancel": "Отмена",
+  "friendsAdd": "Добавить",
+  "friendsDetailLastSynced": "Синхронизировано: {date}",
+  "@friendsDetailLastSynced": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "friendsDeleteTitle": "Удалить друга",
+  "friendsDeleteBody": "Удалить {name} из друзей?",
+  "@friendsDeleteBody": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "friendsDeleteConfirm": "Удалить",
+
+  "settingsSectionFriends": "ДРУЗЬЯ",
+  "settingsFriendsNameTitle": "Имя для друзей",
+  "settingsFriendsNameSubtitle": "Отображается при обмене профилем",
+  "settingsFriendsNamePlaceholder": "Введи своё имя",
+  "settingsFriendsDiscoverableTitle": "Виден через Bluetooth",
+  "settingsFriendsDiscoverableSubtitle": "Другие пользователи CaliDay смогут найти тебя рядом",
+
+  "profileFriendsTitle": "Друзья",
+  "profileFriendsAll": "Все друзья →",
+  "profileFriendsEmpty": "Друзей пока нет",
+  "profileFriendsCount": "{count} друзей",
+  "@profileFriendsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

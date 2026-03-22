@@ -8,6 +8,17 @@
     <!-- Allows exact alarm scheduling on Android 12+ (API 31+); optional —
          the app falls back to inexact alarms if not granted -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <!-- BLE scanning (Android 12+) -->
+    <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" />
+    <!-- BLE legacy (Android 11 and below) -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+    <!-- Camera (QR scanning) -->
+    <uses-permission android:name="android.permission.CAMERA" />
     <!-- Health Connect permissions (Android 14+ built-in; older = separate app) -->
     <uses-permission android:name="android.permission.health.READ_WEIGHT"/>
     <uses-permission android:name="android.permission.health.WRITE_EXERCISE"/>

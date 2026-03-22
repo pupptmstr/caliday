@@ -261,6 +261,41 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
 
+            // ── Friends section ──────────────────────────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Text(
+                l10n.settingsSectionFriends,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                  color: scheme.primary,
+                ),
+              ),
+            ),
+
+            _SettingsTile(
+              title: l10n.settingsFriendsNameTitle,
+              subtitle: state.displayName.isEmpty
+                  ? l10n.settingsFriendsNamePlaceholder
+                  : state.displayName,
+              trailing: const Icon(Icons.edit_outlined),
+              onTap: () => _showNameEditor(
+                  context, state.displayName, notifier.setDisplayName),
+            ),
+
+            const Divider(indent: 20, endIndent: 20, height: 1),
+
+            _SettingsTile(
+              title: l10n.settingsFriendsDiscoverableTitle,
+              subtitle: l10n.settingsFriendsDiscoverableSubtitle,
+              trailing: Switch(
+                value: state.bleDiscoverable,
+                onChanged: notifier.setBleDiscoverable,
+              ),
+            ),
+
             // ── About section ─────────────────────────────────────────────
             const Divider(indent: 20, endIndent: 20, height: 1),
             _SettingsTile(
@@ -446,6 +481,43 @@ class _MinuteChips extends StatelessWidget {
       }).toList(),
     );
   }
+}
+
+// ── Display name editor ───────────────────────────────────────────────────────
+
+Future<void> _showNameEditor(
+  BuildContext context,
+  String current,
+  void Function(String) onSaved,
+) async {
+  final controller = TextEditingController(text: current);
+  final result = await showDialog<String>(
+    context: context,
+    builder: (ctx) => AlertDialog(
+      title: Text(context.l10n.settingsFriendsNameTitle),
+      content: TextField(
+        controller: controller,
+        maxLength: 30,
+        autofocus: true,
+        textCapitalization: TextCapitalization.words,
+        decoration: InputDecoration(
+          hintText: context.l10n.settingsFriendsNamePlaceholder,
+        ),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(ctx).pop(null),
+          child: Text(context.l10n.friendsCancel),
+        ),
+        FilledButton(
+          onPressed: () => Navigator.of(ctx).pop(controller.text.trim()),
+          child: Text(context.l10n.settingsTimePickerDone),
+        ),
+      ],
+    ),
+  );
+  controller.dispose();
+  if (result != null) onSaved(result);
 }
 
 // ── Time picker (Cupertino scroll wheels) ─────────────────────────────────────

@@ -30,6 +30,9 @@ class UserProfile extends HiveObject {
     this.hapticEnabled,
     this.healthWorkoutsEnabled,
     this.healthWeightEnabled,
+    this.peerId,
+    this.displayName,
+    this.bleDiscoverable,
   });
 
   @HiveField(0)
@@ -113,6 +116,21 @@ class UserProfile extends HiveObject {
   /// null → false (opt-in feature).
   @HiveField(22)
   bool? healthWeightEnabled;
+
+  /// Unique peer identifier used for friend QR/BLE exchange.
+  /// Generated on first use; stored as a 32-char hex string.
+  @HiveField(17)
+  String? peerId;
+
+  /// Name shown to friends when sharing the profile.
+  /// null = not set; falls back to rank name in the QR payload.
+  @HiveField(18)
+  String? displayName;
+
+  /// Whether the app advertises itself via BLE so nearby users can discover it.
+  /// null → false (opt-in).
+  @HiveField(23)
+  bool? bleDiscoverable;
 
   /// Ordered list of branches active for this user.
   List<BranchId> get activeBranches => [

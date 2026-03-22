@@ -2161,6 +2161,192 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved to Health ✓'**
   String get summaryHealthSaved;
+
+  /// No description provided for @friendsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get friendsTitle;
+
+  /// No description provided for @friendsMyQrTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'My Profile'**
+  String get friendsMyQrTitle;
+
+  /// No description provided for @friendsShareHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Show this code to a friend to share your profile'**
+  String get friendsShareHint;
+
+  /// No description provided for @friendsScanQr.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan QR Code'**
+  String get friendsScanQr;
+
+  /// No description provided for @friendsSectionNearby.
+  ///
+  /// In en, this message translates to:
+  /// **'NEARBY'**
+  String get friendsSectionNearby;
+
+  /// No description provided for @friendsSectionList.
+  ///
+  /// In en, this message translates to:
+  /// **'FRIENDS'**
+  String get friendsSectionList;
+
+  /// No description provided for @friendsNearbyEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No CaliDay users found nearby'**
+  String get friendsNearbyEmpty;
+
+  /// No description provided for @friendsNearbyScanning.
+  ///
+  /// In en, this message translates to:
+  /// **'Scanning…'**
+  String get friendsNearbyScanning;
+
+  /// No description provided for @friendsNearbyBleOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Bluetooth is off'**
+  String get friendsNearbyBleOff;
+
+  /// No description provided for @friendsNearbyConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Get profile'**
+  String get friendsNearbyConnect;
+
+  /// No description provided for @friendsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No friends yet. Scan a QR code to add your first friend.'**
+  String get friendsEmpty;
+
+  /// No description provided for @friendsAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Friend added!'**
+  String get friendsAdded;
+
+  /// No description provided for @friendsUpdated.
+  ///
+  /// In en, this message translates to:
+  /// **'Profile updated!'**
+  String get friendsUpdated;
+
+  /// No description provided for @friendsScanError.
+  ///
+  /// In en, this message translates to:
+  /// **'Invalid QR code'**
+  String get friendsScanError;
+
+  /// No description provided for @friendsScanConfirmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{sp} SP · {streak}-day streak'**
+  String friendsScanConfirmBody(int sp, int streak);
+
+  /// No description provided for @friendsCancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get friendsCancel;
+
+  /// No description provided for @friendsAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get friendsAdd;
+
+  /// No description provided for @friendsDetailLastSynced.
+  ///
+  /// In en, this message translates to:
+  /// **'Synced: {date}'**
+  String friendsDetailLastSynced(String date);
+
+  /// No description provided for @friendsDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove friend'**
+  String get friendsDeleteTitle;
+
+  /// No description provided for @friendsDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {name} from friends?'**
+  String friendsDeleteBody(String name);
+
+  /// No description provided for @friendsDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get friendsDeleteConfirm;
+
+  /// No description provided for @settingsSectionFriends.
+  ///
+  /// In en, this message translates to:
+  /// **'FRIENDS'**
+  String get settingsSectionFriends;
+
+  /// No description provided for @settingsFriendsNameTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Display name'**
+  String get settingsFriendsNameTitle;
+
+  /// No description provided for @settingsFriendsNameSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Shown to friends when sharing your profile'**
+  String get settingsFriendsNameSubtitle;
+
+  /// No description provided for @settingsFriendsNamePlaceholder.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get settingsFriendsNamePlaceholder;
+
+  /// No description provided for @settingsFriendsDiscoverableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discoverable via Bluetooth'**
+  String get settingsFriendsDiscoverableTitle;
+
+  /// No description provided for @settingsFriendsDiscoverableSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Other CaliDay users can find you nearby'**
+  String get settingsFriendsDiscoverableSubtitle;
+
+  /// No description provided for @profileFriendsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends'**
+  String get profileFriendsTitle;
+
+  /// No description provided for @profileFriendsAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All friends →'**
+  String get profileFriendsAll;
+
+  /// No description provided for @profileFriendsEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No friends yet'**
+  String get profileFriendsEmpty;
+
+  /// No description provided for @profileFriendsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} friends'**
+  String profileFriendsCount(int count);
 }
 
 class _AppLocalizationsDelegate

@@ -1180,4 +1180,108 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get summaryHealthSaved => 'Сохранено в Health ✓';
+
+  @override
+  String get friendsTitle => 'Друзья';
+
+  @override
+  String get friendsMyQrTitle => 'Мой профиль';
+
+  @override
+  String get friendsShareHint =>
+      'Покажи этот код другу, чтобы поделиться профилем';
+
+  @override
+  String get friendsScanQr => 'Сканировать QR-код';
+
+  @override
+  String get friendsSectionNearby => 'РЯДОМ';
+
+  @override
+  String get friendsSectionList => 'ДРУЗЬЯ';
+
+  @override
+  String get friendsNearbyEmpty => 'Пользователей CaliDay рядом нет';
+
+  @override
+  String get friendsNearbyScanning => 'Поиск…';
+
+  @override
+  String get friendsNearbyBleOff => 'Bluetooth выключен';
+
+  @override
+  String get friendsNearbyConnect => 'Получить профиль';
+
+  @override
+  String get friendsEmpty =>
+      'Друзей пока нет. Отсканируй QR-код, чтобы добавить первого.';
+
+  @override
+  String get friendsAdded => 'Друг добавлен!';
+
+  @override
+  String get friendsUpdated => 'Профиль обновлён!';
+
+  @override
+  String get friendsScanError => 'Неверный QR-код';
+
+  @override
+  String friendsScanConfirmBody(int sp, int streak) {
+    return '$sp SP · стрик $streak дней';
+  }
+
+  @override
+  String get friendsCancel => 'Отмена';
+
+  @override
+  String get friendsAdd => 'Добавить';
+
+  @override
+  String friendsDetailLastSynced(String date) {
+    return 'Синхронизировано: $date';
+  }
+
+  @override
+  String get friendsDeleteTitle => 'Удалить друга';
+
+  @override
+  String friendsDeleteBody(String name) {
+    return 'Удалить $name из друзей?';
+  }
+
+  @override
+  String get friendsDeleteConfirm => 'Удалить';
+
+  @override
+  String get settingsSectionFriends => 'ДРУЗЬЯ';
+
+  @override
+  String get settingsFriendsNameTitle => 'Имя для друзей';
+
+  @override
+  String get settingsFriendsNameSubtitle => 'Отображается при обмене профилем';
+
+  @override
+  String get settingsFriendsNamePlaceholder => 'Введи своё имя';
+
+  @override
+  String get settingsFriendsDiscoverableTitle => 'Виден через Bluetooth';
+
+  @override
+  String get settingsFriendsDiscoverableSubtitle =>
+      'Другие пользователи CaliDay смогут найти тебя рядом';
+
+  @override
+  String get profileFriendsTitle => 'Друзья';
+
+  @override
+  String get profileFriendsAll => 'Все друзья →';
+
+  @override
+  String get profileFriendsEmpty => 'Друзей пока нет';
+
+  @override
+  String profileFriendsCount(int count) {
+    return '$count друзей';
+  }
 }

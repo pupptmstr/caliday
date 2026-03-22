@@ -15,6 +15,7 @@ import 'core/services/notification_service.dart';
 import 'core/services/widget_service.dart';
 import 'data/models/enums.dart';
 import 'data/models/exercise_result.dart';
+import 'data/models/friend_profile.dart';
 import 'data/models/skill_progress.dart';
 import 'data/models/user_profile.dart';
 import 'data/models/workout_log.dart';
@@ -43,7 +44,8 @@ Future<void> main() async {
     ..registerAdapter(UserProfileAdapter())
     ..registerAdapter(SkillProgressAdapter())
     ..registerAdapter(ExerciseResultAdapter())
-    ..registerAdapter(WorkoutLogAdapter());
+    ..registerAdapter(WorkoutLogAdapter())
+    ..registerAdapter(FriendProfileAdapter());
 
   // Open persistent boxes.
   await Future.wait([
@@ -51,6 +53,7 @@ Future<void> main() async {
     Hive.openBox<SkillProgress>('skill_progress'),
     Hive.openBox<WorkoutLog>('workout_log'),
     Hive.openBox<DateTime>('achievements'),
+    Hive.openBox<FriendProfile>('friends'),
   ]);
 
   runApp(const ProviderScope(child: CaliDayApp()));

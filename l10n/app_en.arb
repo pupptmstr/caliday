@@ -517,5 +517,60 @@
   "settingsHealthWorkoutsSubtitle": "Save to Apple Health / Health Connect",
   "settingsHealthWeightTitle": "Read body weight",
   "settingsHealthWeightSubtitle": "For accurate calorie estimates (default 70 kg)",
-  "summaryHealthSaved": "Saved to Health ✓"
+  "summaryHealthSaved": "Saved to Health ✓",
+
+  "friendsTitle": "Friends",
+  "friendsMyQrTitle": "My Profile",
+  "friendsShareHint": "Show this code to a friend to share your profile",
+  "friendsScanQr": "Scan QR Code",
+  "friendsSectionNearby": "NEARBY",
+  "friendsSectionList": "FRIENDS",
+  "friendsNearbyEmpty": "No CaliDay users found nearby",
+  "friendsNearbyScanning": "Scanning…",
+  "friendsNearbyBleOff": "Bluetooth is off",
+  "friendsNearbyConnect": "Get profile",
+  "friendsEmpty": "No friends yet. Scan a QR code to add your first friend.",
+  "friendsAdded": "Friend added!",
+  "friendsUpdated": "Profile updated!",
+  "friendsScanError": "Invalid QR code",
+  "friendsScanConfirmBody": "{sp} SP · {streak}-day streak",
+  "@friendsScanConfirmBody": {
+    "placeholders": {
+      "sp": {"type": "int"},
+      "streak": {"type": "int"}
+    }
+  },
+  "friendsCancel": "Cancel",
+  "friendsAdd": "Add",
+  "friendsDetailLastSynced": "Synced: {date}",
+  "@friendsDetailLastSynced": {
+    "placeholders": {
+      "date": {"type": "String"}
+    }
+  },
+  "friendsDeleteTitle": "Remove friend",
+  "friendsDeleteBody": "Remove {name} from friends?",
+  "@friendsDeleteBody": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "friendsDeleteConfirm": "Remove",
+
+  "settingsSectionFriends": "FRIENDS",
+  "settingsFriendsNameTitle": "Display name",
+  "settingsFriendsNameSubtitle": "Shown to friends when sharing your profile",
+  "settingsFriendsNamePlaceholder": "Enter your name",
+  "settingsFriendsDiscoverableTitle": "Discoverable via Bluetooth",
+  "settingsFriendsDiscoverableSubtitle": "Other CaliDay users can find you nearby",
+
+  "profileFriendsTitle": "Friends",
+  "profileFriendsAll": "All friends →",
+  "profileFriendsEmpty": "No friends yet",
+  "profileFriendsCount": "{count} friends",
+  "@profileFriendsCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  }
 }

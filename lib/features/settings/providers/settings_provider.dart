@@ -26,6 +26,8 @@ class SettingsState {
     required this.hapticEnabled,
     required this.healthWorkoutsEnabled,
     required this.healthWeightEnabled,
+    required this.displayName,
+    required this.bleDiscoverable,
   });
 
   final bool notificationsEnabled;
@@ -41,6 +43,8 @@ class SettingsState {
   final bool hapticEnabled;
   final bool healthWorkoutsEnabled;
   final bool healthWeightEnabled;
+  final String displayName;
+  final bool bleDiscoverable;
 
   /// Notification time as a zero-padded string, e.g. "09:00".
   String get timeLabel {
@@ -63,6 +67,8 @@ class SettingsState {
     bool? hapticEnabled,
     bool? healthWorkoutsEnabled,
     bool? healthWeightEnabled,
+    String? displayName,
+    bool? bleDiscoverable,
   }) {
     return SettingsState(
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
@@ -81,6 +87,8 @@ class SettingsState {
       healthWorkoutsEnabled:
           healthWorkoutsEnabled ?? this.healthWorkoutsEnabled,
       healthWeightEnabled: healthWeightEnabled ?? this.healthWeightEnabled,
+      displayName: displayName ?? this.displayName,
+      bleDiscoverable: bleDiscoverable ?? this.bleDiscoverable,
     );
   }
 }
@@ -112,6 +120,8 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       hapticEnabled: haptic,
       healthWorkoutsEnabled: p.healthWorkoutsEnabled ?? false,
       healthWeightEnabled: p.healthWeightEnabled ?? false,
+      displayName: p.displayName ?? '',
+      bleDiscoverable: p.bleDiscoverable ?? false,
     );
   }
 
@@ -200,6 +210,18 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
     final p = _userRepo.getProfile()..healthWeightEnabled = value;
     _userRepo.saveProfile(p);
     state = state.copyWith(healthWeightEnabled: value);
+  }
+
+  void setDisplayName(String value) {
+    state = state.copyWith(displayName: value);
+    final p = _userRepo.getProfile()..displayName = value;
+    _userRepo.saveProfile(p);
+  }
+
+  void setBleDiscoverable(bool value) {
+    state = state.copyWith(bleDiscoverable: value);
+    final p = _userRepo.getProfile()..bleDiscoverable = value;
+    _userRepo.saveProfile(p);
   }
 
   void _save() {

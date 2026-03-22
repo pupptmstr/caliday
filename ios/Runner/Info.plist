@@ -58,6 +58,10 @@
 			</array>
 		</dict>
 	</array>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>CaliDay uses Bluetooth to discover nearby friends and exchange fitness profiles.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>CaliDay uses the camera to scan QR codes for adding friends.</string>
 	<key>NSHealthUpdateUsageDescription</key>
 	<string>CaliDay записывает ваши тренировки и калории в Apple Health.</string>
 	<key>NSHealthShareUsageDescription</key>

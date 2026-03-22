@@ -7,8 +7,8 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v1.3 (implemented)
-**Next priority:** v1.4 — Friends (BLE/QR)
+**Version:** v1.4 (implemented)
+**Next priority:** v1.4 — Basic Watch Integration (notifications)
 
 Latest APK build: `build/app/outputs/flutter-apk/caliday.apk` (~57 MB)
 
@@ -30,79 +30,12 @@ Latest APK build: `build/app/outputs/flutter-apk/caliday.apk` (~57 MB)
 | Sound + haptics | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
+| Friends (BLE/QR, v1.4) | ✅ |
 | L10n (RU + EN) | ✅ |
 
 ---
 
 ## Active Specs (ideas in progress)
-
-### v1.4 — Friends — designed
-
-#### Concept
-
-A social feature without a server. Data is stored locally; peer-to-peer exchange happens during in-person meetings via QR code or Bluetooth LE. With each new encounter, the friend's snapshot is updated.
-
-#### Exchange Mechanism
-
-**A. QR code** — a QR is generated with a JSON profile snapshot; the friend scans it.
-
-**B. Bluetooth LE** — the app advertises a BLE service `caliday-peer` in the background.
-When the Friends screen is opened — a 30-second scan runs, and discovered CaliDay devices appear in "Nearby now".
-
-#### Snapshot Data (FriendProfile)
-
-```dart
-// HiveType 9 — typeId reserved
-@HiveType(typeId: 9)
-class FriendProfile {
-  @HiveField(0) final String id;              // UUID
-  @HiveField(1) final String displayName;
-  @HiveField(2) final int totalSP;
-  @HiveField(3) final int currentStreak;
-  @HiveField(4) final int longestStreak;
-  @HiveField(5) final int rankIndex;
-  @HiveField(6) final Map<String, int> branchStages;
-  @HiveField(7) final DateTime profileDate;
-  @HiveField(8) final DateTime lastSynced;
-}
-```
-
-Hive box: `'friends'` (`Box<FriendProfile>`).
-
-#### QR Format (< 1KB)
-
-```json
-{
-  "v": 1, "id": "uuid", "name": "Name",
-  "sp": 3400, "streak": 14, "longestStreak": 28, "rank": 2,
-  "stages": {"push": 3, "core": 2}, "date": 1740000000
-}
-```
-
-URL scheme: `caliday://friend?data=<base64url>`
-
-#### Technical Tasks
-
-| # | Task |
-|---|------|
-| 1 | `FriendProfile` model + Hive adapter (typeId=9) |
-| 2 | `UserProfile.peerId` (@HiveField(17)) + `displayName` (@HiveField(18)) — fields already exist |
-| 3 | `FriendRepository` — Hive box `'friends'` |
-| 4 | QR generation: `qr_flutter` |
-| 5 | QR scanning: `mobile_scanner` |
-| 6 | BLE scanning: `flutter_blue_plus` |
-| 7 | BLE-GATT data exchange |
-| 8 | `FriendsScreen` + `FriendDetailBottomSheet` |
-| 9 | Profile: Friends section |
-| 10 | Settings: Name field + visibility toggle |
-| 11 | l10n strings |
-| 12 | `app_router.dart`: `/friends` route |
-
-Permissions:
-- iOS: `NSBluetoothAlwaysUsageDescription`, `NSCameraUsageDescription`
-- Android: `BLUETOOTH_SCAN`, `BLUETOOTH_CONNECT`, `CAMERA`
-
----
 
 ### v1.4 — Basic Watch Integration (notifications) — designed
 
@@ -158,6 +91,40 @@ Integration is analogous to the Push branch — `Exercise.animationPath` already
 ---
 
 ## Change History
+
+### 2026-03-22 — v1.4 Friends feature (QR + BLE)
+
+**What was done:** Implemented full Friends feature — QR code profile sharing, QR scanning, BLE device discovery, friends list with detail view, friends count in Profile, display name + BLE discoverability in Settings. No server required; all data is local and exchanged peer-to-peer in person.
+
+**New files:**
+- `lib/data/models/friend_profile.dart` — `FriendProfile` HiveObject (typeId=9), `fromQrJson` factory
+- `lib/data/models/friend_profile.g.dart` — generated Hive adapter
+- `lib/data/repositories/friend_repository.dart` — Hive box `'friends'`, keyed by friend.id
+- `lib/core/services/ble_service.dart` — BLE Central: scan, GATT read; advertising is a stub (TODO: platform channel)
+- `lib/features/friends/providers/friends_provider.dart` — `FriendsNotifier`, `friendsCountProvider`
+- `lib/features/friends/screens/friends_screen.dart` — main screen: QR button, BLE nearby, friends list
+- `lib/features/friends/screens/qr_scan_screen.dart` — camera QR scanner with confirmation dialog
+- `lib/features/friends/widgets/friend_detail_bottom_sheet.dart` — stats + delete confirmation
+
+**Modified files:**
+- `pubspec.yaml` — `qr_flutter ^4.1.0`, `mobile_scanner ^5.2.3`, `flutter_blue_plus ^1.35.3`
+- `lib/data/models/user_profile.dart` — `@HiveField(23) bool? bleDiscoverable` (peerId @17 and displayName @18 were already present)
+- `lib/data/models/user_profile.g.dart` — adapter regenerated
+- `lib/features/settings/providers/settings_provider.dart` — `displayName`, `bleDiscoverable` fields + setters
+- `lib/features/settings/screens/settings_screen.dart` — FRIENDS section (display name editor + discoverable toggle)
+- `lib/features/profile/screens/profile_screen.dart` — Friends section with count and navigation
+- `lib/core/router/app_router.dart` — `/friends` route
+- `lib/main.dart` — `FriendProfileAdapter` registered, `'friends'` box opened
+- `l10n/app_en.arb`, `l10n/app_ru.arb` — 32 new strings for Friends + Settings FRIENDS section
+- `ios/Runner/Info.plist` — `NSBluetoothAlwaysUsageDescription`, `NSCameraUsageDescription`
+- `android/app/src/main/AndroidManifest.xml` — BLE + CAMERA permissions
+
+**Key issues and solutions:**
+1. **BLE advertising not possible via flutter_blue_plus** — the package is Central-only (scanner + GATT client). Peripheral role (advertising) requires a dedicated package or a native platform channel. Advertising is stubbed as empty methods with a TODO comment.
+2. **`use_build_context_synchronously`** — after `await addOrUpdate()` in `_openScanner()`, context could be stale. Fixed by capturing `ScaffoldMessenger.of(context)` and `context.l10n` into local variables before the first await.
+3. **`advName` vs deprecated `localName`** — `flutter_blue_plus` deprecated `advertisementData.localName`; use `advName` instead.
+
+---
 
 ### 2026-03-22 — iOS Widget Extension + bug fixes + doc translations
 

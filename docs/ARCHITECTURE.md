@@ -32,6 +32,9 @@ calisthenics (handstand push-ups) through short daily sets of 5–15 minutes.
 | Home screen widget | `home_widget: ^0.9.0` |
 | Deep links | `app_links: ^6.4.1` |
 | Health | `health: ^12.0.0` |
+| QR generation | `qr_flutter: ^4.1.0` |
+| QR scanning | `mobile_scanner: ^5.2.3` |
+| BLE | `flutter_blue_plus: ^1.35.3` (Central / scanner only) |
 | Target platforms | iOS (primary), Android (secondary) |
 
 ---
@@ -50,7 +53,8 @@ lib/
 │   │   ├── notification_service.dart  ← NotificationService singleton
 │   │   ├── sound_service.dart         ← SoundService singleton
 │   │   ├── health_service.dart        ← HealthService singleton
-│   │   └── widget_service.dart        ← WidgetService singleton
+│   │   ├── widget_service.dart        ← WidgetService singleton
+│   │   └── ble_service.dart           ← BleService singleton (Central: scan + GATT read)
 │   ├── providers/
 │   │   ├── locale_provider.dart       ← StateProvider<String>
 │   │   └── goro_expression_provider.dart
@@ -69,7 +73,8 @@ lib/
 │   │   ├── user_repository.dart
 │   │   ├── skill_progress_repository.dart
 │   │   ├── workout_repository.dart
-│   │   └── achievement_repository.dart
+│   │   ├── achievement_repository.dart
+│   │   └── friend_repository.dart     ← Box<FriendProfile> 'friends', keyed by friend.id
 │   └── static/
 │       ├── exercise_catalog.dart      ← Push(7)+Pull(6)+Core(6)+Legs(5)+Balance(6) + warmup/cooldown
 │       └── achievement_catalog.dart   ← 27 achievements
@@ -99,6 +104,12 @@ lib/
     │   └── screens/
     │       ├── settings_screen.dart
     │       └── developer_options_screen.dart ← kDebugMode only
+    ├── friends/
+    │   ├── providers/friends_provider.dart  ← FriendsNotifier, friendsCountProvider
+    │   ├── screens/
+    │   │   ├── friends_screen.dart          ← /friends: QR, BLE nearby, list
+    │   │   └── qr_scan_screen.dart          ← Navigator.push modal (not go_router)
+    │   └── widgets/friend_detail_bottom_sheet.dart
     ├── onboarding/screens/onboarding_screen.dart
     └── about/screens/about_screen.dart ← /about
 ```
@@ -146,7 +157,7 @@ Determined at start: if a `WorkoutLog` already exists for today → `isPrimary =
 | 6 | `ExerciseType` (enum) |
 | 7 | `Rank` (enum) |
 | 8 | `FitnessGoal` (enum) |
-| 9 | `FriendProfile` (reserved, v1.4) |
+| 9 | `FriendProfile` |
 
 ### UserProfile HiveFields
 
@@ -162,6 +173,7 @@ Determined at start: if a `WorkoutLog` already exists for today → `isPrimary =
 | @20 | bool? | hapticEnabled (null → true) |
 | @21 | bool? | healthWorkoutsEnabled |
 | @22 | bool? | healthWeightEnabled |
+| @23 | bool? | bleDiscoverable (v1.4 Friends) |
 
 ### WorkoutLog HiveFields
 | Field | Type | Description |
@@ -169,11 +181,26 @@ Determined at start: if a `WorkoutLog` already exists for today → `isPrimary =
 | @0..4 | base | date, setType, exercises, spEarned, durationSec |
 | @5 | bool | isPrimary — false = bonus workout |
 
+### FriendProfile HiveFields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| @0 | String | id — random hex peer ID |
+| @1 | String | displayName |
+| @2 | int | totalSP |
+| @3 | int | currentStreak |
+| @4 | int | longestStreak |
+| @5 | int | rankIndex (index into Rank.values) |
+| @6 | Map<String,int> | branchStages — branch name → current stage |
+| @7 | DateTime | profileDate — when snapshot was taken on friend's device |
+| @8 | DateTime | lastSynced — when we last received an update |
+
 ### Hive boxes
 - `'user'` — `Box<UserProfile>`
 - `'skill_progress'` — `Box<SkillProgress>`
 - `'workout_log'` — `Box<WorkoutLog>`
 - `'achievements'` — `Box<int>` (millisecondsSinceEpoch, key = achievementId)
+- `'friends'` — `Box<FriendProfile>` (key = friend.id)
 
 ### Exercise Model
 `Exercise` is a static `const` model, **not stored in Hive**.
@@ -279,6 +306,24 @@ otherwise                          → 0
 - `checkAfterWorkout({profile, log, totalWorkouts, achievementRepo})` → `List<String>` new ones
 - `checkAfterStageAdvance({branch, newStage, allProgress, achievementRepo})` → `List<String>` new ones
 
+### BleService (singleton)
+- `startDiscovery()` — 30s BLE scan filtered by service UUID `ca11da00-...-0001`; updates `nearbyStream`
+- `stopDiscovery()` — stops scan
+- `nearbyStream` — `Stream<List<NearbyDevice>>` broadcast
+- `readProfileJson(NearbyDevice)` — GATT client read of characteristic `ca11da00-...-0002`; returns null if remote has no GATT server
+- `startAdvertising()` / `stopAdvertising()` — stubs; **Peripheral role not yet implemented** (requires platform channel or ble_peripheral package)
+
+### FriendsNotifier (StateNotifier)
+- `addOrUpdate(FriendProfile)` → `bool` (true = new friend)
+- `remove(String id)`
+- Provider: `friendsProvider` (`StateNotifierProvider<FriendsNotifier, List<FriendProfile>>`)
+- `friendsCountProvider` — derived `Provider<int>` for Profile screen badge
+
+### QR Profile Exchange
+- QR payload: `caliday://friend?data=<base64url_json>`
+- JSON fields: `v, id, name, sp, streak, longestStreak, rank, stages, date`
+- `FriendProfile.fromQrJson()` parses the decoded JSON
+
 ### SoundService (singleton)
 - Methods: `tick()`, `ding()`, `pop()`, `complete()`
 - **Do NOT use `await player.stop()` before play()** — causes Android MediaPlayer reset (~100–200ms). `player.play()` handles restart on its own.
@@ -305,6 +350,7 @@ Persistence is the responsibility of the calling code via repositories.
 - `/achievements` — all achievements
 - `/settings` — settings
 - `/about` — about the app
+- `/friends` — friends list + QR + BLE nearby
 - `/dev-options` — devtools (`kDebugMode` only)
 
 ### Workout Flow
@@ -517,7 +563,7 @@ flutter build ipa                 # iOS archive
 | v1.2 | About screen | ✅ |
 | v1.3 | Home Screen Widget (iOS + Android) | ✅ |
 | v1.3 | Apple Health / Health Connect | ✅ |
-| v1.4 | Friends (BLE/QR, no server) | 📐 designed |
+| v1.4 | Friends (BLE/QR, no server) | ✅ |
 | v1.4 | Basic smartwatch integration (notifications) | 📐 designed |
 | v1.5 | Full smartwatch app | 💡 idea |
 | ? | Lottie animations for Core branch | 🔒 waiting for assets |
