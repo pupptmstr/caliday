@@ -1,8 +1,8 @@
 arb-dir: l10n
-template-arb-file: app_ru.arb
+template-arb-file: app_en.arb
 output-localization-file: app_localizations.dart
 output-class: AppLocalizations
 output-dir: lib/l10n
 preferred-supported-locales:
-  - ru
   - en
+  - ru

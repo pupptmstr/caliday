@@ -5,64 +5,64 @@ description: Workflow for documenting a new product idea or feature proposal in 
 
 # Document Idea Workflow
 
-Идеи фиксируются в двух местах с разным уровнем детализации:
-- **ARCHITECTURE.md** — сама идея (одна строка в backlog)
-- **DEV_NOTES.md** — проработка реализации (детальный спек)
+Ideas are recorded in two places with different levels of detail:
+- **ARCHITECTURE.md** — the idea itself (one line in the backlog)
+- **DEV_NOTES.md** — implementation elaboration (detailed spec)
 
-## Шаг 1 — Добавить в backlog ARCHITECTURE.md
+## Step 1 — Add to ARCHITECTURE.md backlog
 
-Найди раздел «Backlog фич» в `docs/ARCHITECTURE.md` и добавь строку в таблицу:
+Find the "Feature Backlog" section in `docs/ARCHITECTURE.md` and add a row to the table:
 
 ```markdown
-| v?.? | Название фичи | 💡 идея |
+| v?.? | Feature name | 💡 idea |
 ```
 
-Статусы:
-- `💡 идея` — идея, не проработана
-- `📐 спроектировано` — есть детальный спек в DEV_NOTES
-- `🔒 ждёт ресурса` — ждёт ассетов, решений, внешних условий
-- `✅` — реализовано
+Statuses:
+- `💡 idea` — idea, not yet elaborated
+- `📐 designed` — has a detailed spec in DEV_NOTES
+- `🔒 waiting` — waiting for assets, decisions, or external conditions
+- `✅` — implemented
 
-## Шаг 2 — Создать спек в DEV_NOTES.md
+## Step 2 — Create a spec in DEV_NOTES.md
 
-Если идея проработана или требует планирования — добавь раздел в `docs/DEV_NOTES.md`
-в секцию «Активные спеки (идеи в проработке)».
+If the idea is elaborated or requires planning — add a section to `docs/DEV_NOTES.md`
+in the "Active Specs" section.
 
-Структура спека:
+Spec structure:
 ```markdown
-### v?.? — Название фичи — спроектировано / идея
+### v?.? — Feature name — designed / idea
 
-#### Концепция
-[1-2 параграфа: что это, зачем, ключевые принципы]
+#### Concept
+[1-2 paragraphs: what it is, why, key principles]
 
-#### UX / Механика
-[Как это выглядит и работает для пользователя]
+#### UX / Mechanics
+[How it looks and works for the user]
 
-#### Технические задачи
-| # | Задача |
-|---|--------|
+#### Technical Tasks
+| # | Task |
+|---|------|
 | 1 | ... |
 
-#### Технические детали
-[Модели данных, алгоритмы, пакеты]
+#### Technical Details
+[Data models, algorithms, packages]
 
-#### Когда браться
-[Условия/приоритет]
+#### When to tackle
+[Conditions/priority]
 ```
 
-Не надо описывать то, что очевидно из кода или уже есть в ARCHITECTURE.md.
-Фокус на: нетривиальных технических решениях, UX-сценариях, зависимостях.
+Don't describe what is obvious from the code or already in ARCHITECTURE.md.
+Focus on: non-trivial technical decisions, UX scenarios, dependencies.
 
-## Шаг 3 — Обновить статус в ARCHITECTURE.md
+## Step 3 — Update status in ARCHITECTURE.md
 
-Если уровень проработки повысился (идея → спроектировано):
+If the elaboration level increased (idea → designed):
 ```markdown
-| v?.? | Название фичи | 📐 спроектировано |
+| v?.? | Feature name | 📐 designed |
 ```
 
-## После реализации фичи
+## After implementing a feature
 
-Когда фича реализована:
-1. В ARCHITECTURE.md: статус → `✅`, добавить финальные решения в соответствующие разделы
-2. В DEV_NOTES.md: удалить спек из «Активных спеков», добавить запись в «Историю изменений»
-3. Запустить скилл `pre-commit`
+When a feature is implemented:
+1. In ARCHITECTURE.md: status → `✅`, add final decisions to relevant sections
+2. In DEV_NOTES.md: remove spec from "Active Specs", add entry to "Change History"
+3. Run the `pre-commit` skill

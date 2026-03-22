@@ -44,7 +44,7 @@ class HealthService {
   }) async {
     try {
       return await _health.writeWorkoutData(
-        activityType: HealthWorkoutActivityType.STRENGTH_TRAINING,
+        activityType: HealthWorkoutActivityType.TRADITIONAL_STRENGTH_TRAINING,
         start: start,
         end: end,
         totalEnergyBurned: calories.round(),

@@ -1029,6 +1029,20 @@ class AppLocalizationsEn extends AppLocalizations {
       'Stand on one leg, bend the other back and hold your foot with your hand. Feel the stretch along the front of your thigh.';
 
   @override
+  String get exerciseWarmupHipCirclesName => 'Hip Circles';
+
+  @override
+  String get exerciseWarmupHipCirclesDesc =>
+      'Stand with feet shoulder-width apart and rotate your hips in large circles. Warms up the hip joints before leg exercises.';
+
+  @override
+  String get exerciseCooldownHipFlexorName => 'Hip Flexor Stretch';
+
+  @override
+  String get exerciseCooldownHipFlexorDesc =>
+      'Step into a lunge position. Lower your back knee to the floor and push your hips forward. Hold for 30 seconds per side.';
+
+  @override
   String get exerciseBalS1OneLegStandName => 'One-Leg Stand';
 
   @override
@@ -1107,6 +1121,13 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get exerciseCooldownDownwardDogDesc =>
       'From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs.';
+
+  @override
+  String get exerciseCooldownWristStretchName => 'Wrist Stretch';
+
+  @override
+  String get exerciseCooldownWristStretchDesc =>
+      'Extend one arm forward, palm up. Use your other hand to gently pull the fingers down. Hold for 30 seconds per side.';
 
   @override
   String get aboutTitle => 'About';

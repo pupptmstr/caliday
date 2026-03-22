@@ -94,2036 +94,2072 @@ abstract class AppLocalizations {
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
-    Locale('ru'),
     Locale('en'),
+    Locale('ru'),
   ];
 
   /// No description provided for @durationMin.
   ///
-  /// In ru, this message translates to:
-  /// **'{mins} мин {secs} сек'**
+  /// In en, this message translates to:
+  /// **'{mins} min {secs} sec'**
   String durationMin(int mins, int secs);
 
   /// No description provided for @durationSec.
   ///
-  /// In ru, this message translates to:
-  /// **'{secs} сек'**
+  /// In en, this message translates to:
+  /// **'{secs} sec'**
   String durationSec(int secs);
 
   /// No description provided for @navHome.
   ///
-  /// In ru, this message translates to:
-  /// **'Тренировка'**
+  /// In en, this message translates to:
+  /// **'Workout'**
   String get navHome;
 
   /// No description provided for @navProgress.
   ///
-  /// In ru, this message translates to:
-  /// **'Прогресс'**
+  /// In en, this message translates to:
+  /// **'Progress'**
   String get navProgress;
 
   /// No description provided for @navProfile.
   ///
-  /// In ru, this message translates to:
-  /// **'Профиль'**
+  /// In en, this message translates to:
+  /// **'Profile'**
   String get navProfile;
 
   /// No description provided for @progressTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Мой прогресс'**
+  /// In en, this message translates to:
+  /// **'My Progress'**
   String get progressTitle;
 
   /// No description provided for @progressInfo.
   ///
-  /// In ru, this message translates to:
-  /// **'Просто тренируйтесь — приложение само продвигает вас вперёд по веткам. Здесь можно отследить пройденный путь. А если чувствуете, что готовы к большему раньше времени — принимайте Испытание и переходите сами.'**
+  /// In en, this message translates to:
+  /// **'Just keep training — the app advances you through the branches automatically. Here you can track how far you\'ve come. And if you feel ready to push ahead early, take the Challenge and move forward yourself.'**
   String get progressInfo;
 
   /// No description provided for @homeDays.
   ///
-  /// In ru, this message translates to:
-  /// **'дней'**
+  /// In en, this message translates to:
+  /// **'days'**
   String get homeDays;
 
   /// No description provided for @homeBranchesTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Ветки прогрессии'**
+  /// In en, this message translates to:
+  /// **'Skill Branches'**
   String get homeBranchesTitle;
 
   /// No description provided for @homeBranchPush.
   ///
-  /// In ru, this message translates to:
-  /// **'Толкай'**
+  /// In en, this message translates to:
+  /// **'Push'**
   String get homeBranchPush;
 
   /// No description provided for @homeBranchPull.
   ///
-  /// In ru, this message translates to:
-  /// **'Тяга'**
+  /// In en, this message translates to:
+  /// **'Pull'**
   String get homeBranchPull;
 
   /// No description provided for @homeBranchCore.
   ///
-  /// In ru, this message translates to:
-  /// **'Кор'**
+  /// In en, this message translates to:
+  /// **'Core'**
   String get homeBranchCore;
 
   /// No description provided for @homeBranchLegs.
   ///
-  /// In ru, this message translates to:
-  /// **'Ноги'**
+  /// In en, this message translates to:
+  /// **'Legs'**
   String get homeBranchLegs;
 
   /// No description provided for @homeBranchBalance.
   ///
-  /// In ru, this message translates to:
-  /// **'Баланс'**
+  /// In en, this message translates to:
+  /// **'Balance'**
   String get homeBranchBalance;
 
   /// No description provided for @branchJourneyProgress.
   ///
-  /// In ru, this message translates to:
-  /// **'Пройдено {done} из {total} этапов'**
+  /// In en, this message translates to:
+  /// **'{done} of {total} stages completed'**
   String branchJourneyProgress(int done, int total);
 
   /// No description provided for @branchJourneyStageCompleted.
   ///
-  /// In ru, this message translates to:
-  /// **'✓ Пройдено'**
+  /// In en, this message translates to:
+  /// **'✓ Completed'**
   String get branchJourneyStageCompleted;
 
   /// No description provided for @branchJourneyStageCurrent.
   ///
-  /// In ru, this message translates to:
-  /// **'Текущий этап'**
+  /// In en, this message translates to:
+  /// **'Current stage'**
   String get branchJourneyStageCurrent;
 
   /// No description provided for @branchJourneyStageLocked.
   ///
-  /// In ru, this message translates to:
-  /// **'Заблокировано'**
+  /// In en, this message translates to:
+  /// **'Locked'**
   String get branchJourneyStageLocked;
 
   /// No description provided for @branchJourneyParams.
   ///
-  /// In ru, this message translates to:
-  /// **'{reps} повт. × {sets} подх.  ·  Отдых {rest} с'**
+  /// In en, this message translates to:
+  /// **'{reps} reps × {sets} sets  ·  Rest {rest} s'**
   String branchJourneyParams(int reps, int sets, int rest);
 
   /// No description provided for @branchJourneyParamsTimed.
   ///
-  /// In ru, this message translates to:
-  /// **'{secs} с × {sets} подх.  ·  Отдых {rest} с'**
+  /// In en, this message translates to:
+  /// **'{secs} s × {sets} sets  ·  Rest {rest} s'**
   String branchJourneyParamsTimed(int secs, int sets, int rest);
 
   /// No description provided for @branchJourneyStartChallenge.
   ///
-  /// In ru, this message translates to:
-  /// **'Пройти испытание'**
+  /// In en, this message translates to:
+  /// **'Take the Challenge'**
   String get branchJourneyStartChallenge;
 
   /// No description provided for @homeStage.
   ///
-  /// In ru, this message translates to:
-  /// **'Этап {stage}/{total}'**
+  /// In en, this message translates to:
+  /// **'Stage {stage}/{total}'**
   String homeStage(int stage, int total);
 
   /// No description provided for @homeChallengeUnlocked.
   ///
-  /// In ru, this message translates to:
-  /// **'Испытание доступно'**
+  /// In en, this message translates to:
+  /// **'Challenge Ready'**
   String get homeChallengeUnlocked;
 
   /// No description provided for @homeChallengeButton.
   ///
-  /// In ru, this message translates to:
-  /// **'Принять вызов'**
+  /// In en, this message translates to:
+  /// **'Accept Challenge'**
   String get homeChallengeButton;
 
   /// No description provided for @homeChallengeNormReps.
   ///
-  /// In ru, this message translates to:
-  /// **'Норматив: {n} повт.'**
+  /// In en, this message translates to:
+  /// **'Goal: {n} reps'**
   String homeChallengeNormReps(int n);
 
   /// No description provided for @homeChallengeNormSec.
   ///
-  /// In ru, this message translates to:
-  /// **'Норматив: {n} сек'**
+  /// In en, this message translates to:
+  /// **'Goal: {n} sec'**
   String homeChallengeNormSec(int n);
 
   /// No description provided for @homeWorkoutDone.
   ///
-  /// In ru, this message translates to:
-  /// **'Тренировка выполнена'**
+  /// In en, this message translates to:
+  /// **'Workout done'**
   String get homeWorkoutDone;
 
   /// No description provided for @homeWorkoutStart.
   ///
-  /// In ru, this message translates to:
-  /// **'Тренировка дня'**
+  /// In en, this message translates to:
+  /// **'Today\'s workout'**
   String get homeWorkoutStart;
 
   /// No description provided for @homeWorkoutAgain.
   ///
-  /// In ru, this message translates to:
-  /// **'Ещё раз'**
+  /// In en, this message translates to:
+  /// **'Again'**
   String get homeWorkoutAgain;
 
   /// No description provided for @workoutTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Тренировка'**
+  /// In en, this message translates to:
+  /// **'Workout'**
   String get workoutTitle;
 
   /// No description provided for @workoutExitTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Прервать тренировку?'**
+  /// In en, this message translates to:
+  /// **'Quit workout?'**
   String get workoutExitTitle;
 
   /// No description provided for @workoutExitBody.
   ///
-  /// In ru, this message translates to:
-  /// **'Прогресс текущей тренировки не сохранится.'**
+  /// In en, this message translates to:
+  /// **'Your progress will not be saved.'**
   String get workoutExitBody;
 
   /// No description provided for @workoutContinue.
   ///
-  /// In ru, this message translates to:
-  /// **'Продолжить'**
+  /// In en, this message translates to:
+  /// **'Continue'**
   String get workoutContinue;
 
   /// No description provided for @workoutAbort.
   ///
-  /// In ru, this message translates to:
-  /// **'Прервать'**
+  /// In en, this message translates to:
+  /// **'Quit'**
   String get workoutAbort;
 
   /// No description provided for @workoutSetProgress.
   ///
-  /// In ru, this message translates to:
-  /// **'Подход {current} из {total}'**
+  /// In en, this message translates to:
+  /// **'Set {current} of {total}'**
   String workoutSetProgress(int current, int total);
 
   /// No description provided for @workoutSec.
   ///
-  /// In ru, this message translates to:
-  /// **'сек'**
+  /// In en, this message translates to:
+  /// **'sec'**
   String get workoutSec;
 
   /// No description provided for @workoutRestLabel.
   ///
-  /// In ru, this message translates to:
-  /// **'отдых'**
+  /// In en, this message translates to:
+  /// **'rest'**
   String get workoutRestLabel;
 
   /// No description provided for @workoutReps.
   ///
-  /// In ru, this message translates to:
-  /// **'Повторения'**
+  /// In en, this message translates to:
+  /// **'Reps'**
   String get workoutReps;
 
   /// No description provided for @workoutStop.
   ///
-  /// In ru, this message translates to:
-  /// **'⏹  Стоп'**
+  /// In en, this message translates to:
+  /// **'⏹  Stop'**
   String get workoutStop;
 
   /// No description provided for @workoutDone.
   ///
-  /// In ru, this message translates to:
-  /// **'✓  Готово'**
+  /// In en, this message translates to:
+  /// **'✓  Done'**
   String get workoutDone;
 
   /// No description provided for @workoutSkipRest.
   ///
-  /// In ru, this message translates to:
-  /// **'Пропустить'**
+  /// In en, this message translates to:
+  /// **'Skip'**
   String get workoutSkipRest;
 
   /// No description provided for @workoutSetDone.
   ///
-  /// In ru, this message translates to:
-  /// **'✅  Подход выполнен!'**
+  /// In en, this message translates to:
+  /// **'✅  Set done!'**
   String get workoutSetDone;
 
   /// No description provided for @workoutExerciseDone.
   ///
-  /// In ru, this message translates to:
-  /// **'✅  Упражнение выполнено!'**
+  /// In en, this message translates to:
+  /// **'✅  Exercise done!'**
   String get workoutExerciseDone;
 
   /// No description provided for @workoutUnitReps.
   ///
-  /// In ru, this message translates to:
-  /// **'повт.'**
+  /// In en, this message translates to:
+  /// **'reps'**
   String get workoutUnitReps;
 
   /// No description provided for @workoutNextExercise.
   ///
-  /// In ru, this message translates to:
-  /// **'Следующее: {name} • {amount} {unit}'**
+  /// In en, this message translates to:
+  /// **'Next: {name} • {amount} {unit}'**
   String workoutNextExercise(String name, int amount, String unit);
 
   /// No description provided for @workoutNextSet.
   ///
-  /// In ru, this message translates to:
-  /// **'Следующий: подход {setNum} • {amount} {unit}'**
+  /// In en, this message translates to:
+  /// **'Next: set {setNum} • {amount} {unit}'**
   String workoutNextSet(int setNum, int amount, String unit);
 
   /// No description provided for @summaryTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Отличная тренировка!'**
+  /// In en, this message translates to:
+  /// **'Great workout!'**
   String get summaryTitle;
 
   /// No description provided for @summarySubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Так держать — ещё один шаг вперёд'**
+  /// In en, this message translates to:
+  /// **'Keep it up — one more step forward'**
   String get summarySubtitle;
 
   /// No description provided for @summaryLabelTime.
   ///
-  /// In ru, this message translates to:
-  /// **'Время'**
+  /// In en, this message translates to:
+  /// **'Time'**
   String get summaryLabelTime;
 
   /// No description provided for @summaryLabelExercises.
   ///
-  /// In ru, this message translates to:
-  /// **'Упр.'**
+  /// In en, this message translates to:
+  /// **'Exer.'**
   String get summaryLabelExercises;
 
   /// No description provided for @summaryHome.
   ///
-  /// In ru, this message translates to:
-  /// **'Домой'**
+  /// In en, this message translates to:
+  /// **'Home'**
   String get summaryHome;
 
   /// No description provided for @summaryFreezeUsedTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Заморозка сохранила стрик!'**
+  /// In en, this message translates to:
+  /// **'Freeze saved your streak!'**
   String get summaryFreezeUsedTitle;
 
   /// No description provided for @summaryFreezeUsedBody.
   ///
-  /// In ru, this message translates to:
-  /// **'Серия продолжается — так держать'**
+  /// In en, this message translates to:
+  /// **'Streak continues — keep it up'**
   String get summaryFreezeUsedBody;
 
   /// No description provided for @summaryFreezeEarnedTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Получена заморозка стрика!'**
+  /// In en, this message translates to:
+  /// **'Streak freeze earned!'**
   String get summaryFreezeEarnedTitle;
 
   /// No description provided for @summaryFreezeEarnedBody.
   ///
-  /// In ru, this message translates to:
-  /// **'Используй, если пропустишь день'**
+  /// In en, this message translates to:
+  /// **'Use it if you miss a day'**
   String get summaryFreezeEarnedBody;
 
   /// No description provided for @achievementsTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Достижения'**
+  /// In en, this message translates to:
+  /// **'Achievements'**
   String get achievementsTitle;
 
   /// No description provided for @achievementsEarnedSection.
   ///
-  /// In ru, this message translates to:
-  /// **'Получено'**
+  /// In en, this message translates to:
+  /// **'Earned'**
   String get achievementsEarnedSection;
 
   /// No description provided for @achievementsLockedSection.
   ///
-  /// In ru, this message translates to:
-  /// **'Заблокировано'**
+  /// In en, this message translates to:
+  /// **'Locked'**
   String get achievementsLockedSection;
 
   /// No description provided for @achievementsSecret.
   ///
-  /// In ru, this message translates to:
+  /// In en, this message translates to:
   /// **'???'**
   String get achievementsSecret;
 
   /// No description provided for @achievementsSecretDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Выполни особое условие, чтобы раскрыть'**
+  /// In en, this message translates to:
+  /// **'Complete a special condition to unlock'**
   String get achievementsSecretDesc;
 
   /// No description provided for @achievementsEarnedOn.
   ///
-  /// In ru, this message translates to:
-  /// **'Получено: {date}'**
+  /// In en, this message translates to:
+  /// **'Earned: {date}'**
   String achievementsEarnedOn(String date);
 
   /// No description provided for @profileAchievementsTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Достижения'**
+  /// In en, this message translates to:
+  /// **'Achievements'**
   String get profileAchievementsTitle;
 
   /// No description provided for @profileAchievementsAll.
   ///
-  /// In ru, this message translates to:
-  /// **'Все достижения →'**
+  /// In en, this message translates to:
+  /// **'All achievements →'**
   String get profileAchievementsAll;
 
   /// No description provided for @profileNoAchievements.
   ///
-  /// In ru, this message translates to:
-  /// **'Ещё нет достижений'**
+  /// In en, this message translates to:
+  /// **'No achievements yet'**
   String get profileNoAchievements;
 
   /// No description provided for @summaryAchievementsTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Новые достижения!'**
+  /// In en, this message translates to:
+  /// **'New achievements!'**
   String get summaryAchievementsTitle;
 
   /// No description provided for @achievementFirstWorkoutName.
   ///
-  /// In ru, this message translates to:
-  /// **'Первый шаг'**
+  /// In en, this message translates to:
+  /// **'First Step'**
   String get achievementFirstWorkoutName;
 
   /// No description provided for @achievementFirstWorkoutDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Ты сделал первую тренировку — начало положено!'**
+  /// In en, this message translates to:
+  /// **'You completed your first workout — the journey begins!'**
   String get achievementFirstWorkoutDesc;
 
   /// No description provided for @achievementFirstChallengeName.
   ///
-  /// In ru, this message translates to:
-  /// **'Принял вызов'**
+  /// In en, this message translates to:
+  /// **'Challenge Accepted'**
   String get achievementFirstChallengeName;
 
   /// No description provided for @achievementFirstChallengeDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Первый пройденный Challenge — теперь ты знаешь, на что способен'**
+  /// In en, this message translates to:
+  /// **'First challenge passed — now you know what you\'re capable of'**
   String get achievementFirstChallengeDesc;
 
   /// No description provided for @achievementStreak3Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Три в ряд'**
+  /// In en, this message translates to:
+  /// **'Three in a Row'**
   String get achievementStreak3Name;
 
   /// No description provided for @achievementStreak3Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'3 дня подряд без пропусков — привычка начинает формироваться'**
+  /// In en, this message translates to:
+  /// **'3 days in a row — the habit is forming'**
   String get achievementStreak3Desc;
 
   /// No description provided for @achievementStreak7Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Неделя без пропусков'**
+  /// In en, this message translates to:
+  /// **'Full Week'**
   String get achievementStreak7Name;
 
   /// No description provided for @achievementStreak7Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'Целая неделя — ты уже выше большинства'**
+  /// In en, this message translates to:
+  /// **'A whole week — you\'re already above most'**
   String get achievementStreak7Desc;
 
   /// No description provided for @achievementStreak30Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Марафонец'**
+  /// In en, this message translates to:
+  /// **'Marathoner'**
   String get achievementStreak30Name;
 
   /// No description provided for @achievementStreak30Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'30 дней подряд — это настоящая дисциплина'**
+  /// In en, this message translates to:
+  /// **'30 days straight — that\'s real discipline'**
   String get achievementStreak30Desc;
 
   /// No description provided for @achievementStreak100Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Железная воля'**
+  /// In en, this message translates to:
+  /// **'Iron Will'**
   String get achievementStreak100Name;
 
   /// No description provided for @achievementStreak100Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'100 дней без пропусков — легендарное достижение'**
+  /// In en, this message translates to:
+  /// **'100 days without a break — a legendary achievement'**
   String get achievementStreak100Desc;
 
   /// No description provided for @achievementWorkouts10Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Десятка'**
+  /// In en, this message translates to:
+  /// **'Ten'**
   String get achievementWorkouts10Name;
 
   /// No description provided for @achievementWorkouts10Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'10 завершённых тренировок — твёрдый старт'**
+  /// In en, this message translates to:
+  /// **'10 workouts completed — a solid start'**
   String get achievementWorkouts10Desc;
 
   /// No description provided for @achievementWorkouts50Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Полсотни'**
+  /// In en, this message translates to:
+  /// **'Fifty'**
   String get achievementWorkouts50Name;
 
   /// No description provided for @achievementWorkouts50Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'50 тренировок — ты серьёзно настроен'**
+  /// In en, this message translates to:
+  /// **'50 workouts — you mean business'**
   String get achievementWorkouts50Desc;
 
   /// No description provided for @achievementWorkouts100Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Центурион'**
+  /// In en, this message translates to:
+  /// **'Centurion'**
   String get achievementWorkouts100Name;
 
   /// No description provided for @achievementWorkouts100Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'100 тренировок — ты в элите'**
+  /// In en, this message translates to:
+  /// **'100 workouts — you\'re in the elite'**
   String get achievementWorkouts100Desc;
 
   /// No description provided for @achievementRankAmateurName.
   ///
-  /// In ru, this message translates to:
-  /// **'Любитель'**
+  /// In en, this message translates to:
+  /// **'Amateur'**
   String get achievementRankAmateurName;
 
   /// No description provided for @achievementRankAmateurDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Достигнут ранг Любитель — SP накапливаются'**
+  /// In en, this message translates to:
+  /// **'Amateur rank reached — SP are accumulating'**
   String get achievementRankAmateurDesc;
 
   /// No description provided for @achievementRankSportsmanName.
   ///
-  /// In ru, this message translates to:
-  /// **'Спортсмен'**
+  /// In en, this message translates to:
+  /// **'Sportsman'**
   String get achievementRankSportsmanName;
 
   /// No description provided for @achievementRankSportsmanDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Ранг Спортсмен — ты уже не просто любитель'**
+  /// In en, this message translates to:
+  /// **'Sportsman rank — you\'re more than just a hobbyist'**
   String get achievementRankSportsmanDesc;
 
   /// No description provided for @achievementRankAthleteName.
   ///
-  /// In ru, this message translates to:
-  /// **'Атлет'**
+  /// In en, this message translates to:
+  /// **'Athlete'**
   String get achievementRankAthleteName;
 
   /// No description provided for @achievementRankAthleteDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Ранг Атлет — серьёзный уровень'**
+  /// In en, this message translates to:
+  /// **'Athlete rank — a serious level'**
   String get achievementRankAthleteDesc;
 
   /// No description provided for @achievementRankMasterName.
   ///
-  /// In ru, this message translates to:
-  /// **'Мастер'**
+  /// In en, this message translates to:
+  /// **'Master'**
   String get achievementRankMasterName;
 
   /// No description provided for @achievementRankMasterDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Ранг Мастер — единицы добираются сюда'**
+  /// In en, this message translates to:
+  /// **'Master rank — only a few get this far'**
   String get achievementRankMasterDesc;
 
   /// No description provided for @achievementRankLegendName.
   ///
-  /// In ru, this message translates to:
-  /// **'Легенда'**
+  /// In en, this message translates to:
+  /// **'Legend'**
   String get achievementRankLegendName;
 
   /// No description provided for @achievementRankLegendDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Максимальный ранг. Ты — легенда.'**
+  /// In en, this message translates to:
+  /// **'Max rank. You are a legend.'**
   String get achievementRankLegendDesc;
 
   /// No description provided for @achievementPushS3Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Полное отжимание'**
+  /// In en, this message translates to:
+  /// **'Full Push-up'**
   String get achievementPushS3Name;
 
   /// No description provided for @achievementPushS3Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'Освоены классические отжимания от пола'**
+  /// In en, this message translates to:
+  /// **'Classic floor push-ups mastered'**
   String get achievementPushS3Desc;
 
   /// No description provided for @achievementPushS6Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Лучник'**
+  /// In en, this message translates to:
+  /// **'Archer'**
   String get achievementPushS6Name;
 
   /// No description provided for @achievementPushS6Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'Освоил отжимания лучника — до стойки на руках рукой подать'**
+  /// In en, this message translates to:
+  /// **'Mastered archer push-ups — handstand is within reach'**
   String get achievementPushS6Desc;
 
   /// No description provided for @achievementPushCompleteName.
   ///
-  /// In ru, this message translates to:
-  /// **'Властелин Push'**
+  /// In en, this message translates to:
+  /// **'Push Master'**
   String get achievementPushCompleteName;
 
   /// No description provided for @achievementPushCompleteDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Все 7 этапов Push пройдены. Горо гордится.'**
+  /// In en, this message translates to:
+  /// **'All 7 Push stages cleared. Goro is proud.'**
   String get achievementPushCompleteDesc;
 
   /// No description provided for @achievementCoreS2Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Железная доска'**
+  /// In en, this message translates to:
+  /// **'Iron Plank'**
   String get achievementCoreS2Name;
 
   /// No description provided for @achievementCoreS2Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'Планка освоена — основа всего кора'**
+  /// In en, this message translates to:
+  /// **'Plank mastered — the foundation of all core work'**
   String get achievementCoreS2Desc;
 
   /// No description provided for @achievementCoreS5Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Уголок'**
+  /// In en, this message translates to:
+  /// **'L-sit'**
   String get achievementCoreS5Name;
 
   /// No description provided for @achievementCoreS5Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'L-sit — истинная проверка силы пресса'**
+  /// In en, this message translates to:
+  /// **'L-sit — the ultimate core strength test'**
   String get achievementCoreS5Desc;
 
   /// No description provided for @achievementCoreCompleteName.
   ///
-  /// In ru, this message translates to:
-  /// **'Железный кор'**
+  /// In en, this message translates to:
+  /// **'Iron Core'**
   String get achievementCoreCompleteName;
 
   /// No description provided for @achievementCoreCompleteDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Все 6 этапов Core пройдены. Твой кор — как сталь.'**
+  /// In en, this message translates to:
+  /// **'All 6 Core stages cleared. Your core is steel.'**
   String get achievementCoreCompleteDesc;
 
   /// No description provided for @achievementPullS3Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Первое подтягивание'**
+  /// In en, this message translates to:
+  /// **'First Pull-up'**
   String get achievementPullS3Name;
 
   /// No description provided for @achievementPullS3Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'Подбородок выше перекладины — это победа'**
+  /// In en, this message translates to:
+  /// **'Chin above the bar — that\'s a win'**
   String get achievementPullS3Desc;
 
   /// No description provided for @achievementPullCompleteName.
   ///
-  /// In ru, this message translates to:
-  /// **'Король перекладины'**
+  /// In en, this message translates to:
+  /// **'Bar King'**
   String get achievementPullCompleteName;
 
   /// No description provided for @achievementPullCompleteDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Все 6 этапов Pull пройдены. Ты повелеваешь перекладиной.'**
+  /// In en, this message translates to:
+  /// **'All 6 Pull stages cleared. You rule the bar.'**
   String get achievementPullCompleteDesc;
 
   /// No description provided for @achievementLegsS5Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Пистолетик'**
+  /// In en, this message translates to:
+  /// **'Pistol Squat'**
   String get achievementLegsS5Name;
 
   /// No description provided for @achievementLegsS5Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'Приседание на одной ноге — баланс и сила'**
+  /// In en, this message translates to:
+  /// **'Single-leg squat — balance and strength combined'**
   String get achievementLegsS5Desc;
 
   /// No description provided for @achievementLegsCompleteName.
   ///
-  /// In ru, this message translates to:
-  /// **'Стальные ноги'**
+  /// In en, this message translates to:
+  /// **'Steel Legs'**
   String get achievementLegsCompleteName;
 
   /// No description provided for @achievementLegsCompleteDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Все 5 этапов Legs пройдены. Твои ноги из стали.'**
+  /// In en, this message translates to:
+  /// **'All 5 Legs stages cleared. Your legs are steel.'**
   String get achievementLegsCompleteDesc;
 
   /// No description provided for @achievementBalanceS4Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Поза ворона'**
+  /// In en, this message translates to:
+  /// **'Crow Pose'**
   String get achievementBalanceS4Name;
 
   /// No description provided for @achievementBalanceS4Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'Kakasana держится — ты управляешь балансом'**
+  /// In en, this message translates to:
+  /// **'Kakasana holds — you command your balance'**
   String get achievementBalanceS4Desc;
 
   /// No description provided for @achievementBalanceS6Name.
   ///
-  /// In ru, this message translates to:
-  /// **'Свободная стойка'**
+  /// In en, this message translates to:
+  /// **'Free Handstand'**
   String get achievementBalanceS6Name;
 
   /// No description provided for @achievementBalanceS6Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'Стойка на руках без стены — вершина баланса'**
+  /// In en, this message translates to:
+  /// **'Wall-free handstand — the peak of balance'**
   String get achievementBalanceS6Desc;
 
   /// No description provided for @achievementBalanceCompleteName.
   ///
-  /// In ru, this message translates to:
-  /// **'Мастер равновесия'**
+  /// In en, this message translates to:
+  /// **'Balance Master'**
   String get achievementBalanceCompleteName;
 
   /// No description provided for @achievementBalanceCompleteDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Все 6 этапов Balance пройдены. Ты — эквилибрист.'**
+  /// In en, this message translates to:
+  /// **'All 6 Balance stages cleared. You are an equilibrist.'**
   String get achievementBalanceCompleteDesc;
 
   /// No description provided for @achievementAllCompleteName.
   ///
-  /// In ru, this message translates to:
-  /// **'Полный комплект'**
+  /// In en, this message translates to:
+  /// **'Full Collection'**
   String get achievementAllCompleteName;
 
   /// No description provided for @achievementAllCompleteDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Все 5 веток пройдены до конца. Абсолютный чемпион.'**
+  /// In en, this message translates to:
+  /// **'All 5 branches completed. Absolute champion.'**
   String get achievementAllCompleteDesc;
 
   /// No description provided for @summaryBonusTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Бонусная тренировка'**
+  /// In en, this message translates to:
+  /// **'Bonus Workout'**
   String get summaryBonusTitle;
 
   /// No description provided for @summaryBonusBody.
   ///
-  /// In ru, this message translates to:
-  /// **'×½ SP · прогрессия уже сохранена'**
+  /// In en, this message translates to:
+  /// **'×½ SP · progression already saved'**
   String get summaryBonusBody;
 
   /// No description provided for @summaryBonusCount.
   ///
-  /// In ru, this message translates to:
-  /// **'Сегодня ты уже потренировался {count} раза!'**
+  /// In en, this message translates to:
+  /// **'You\'ve trained {count} times today!'**
   String summaryBonusCount(int count);
 
   /// No description provided for @summaryChallengeUnlockedTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Испытание ждёт!'**
+  /// In en, this message translates to:
+  /// **'Challenge awaits!'**
   String get summaryChallengeUnlockedTitle;
 
   /// No description provided for @summaryChallengeUnlockedBody.
   ///
-  /// In ru, this message translates to:
-  /// **'Нажми «Принять вызов» на главном экране когда будешь готов'**
+  /// In en, this message translates to:
+  /// **'Tap «Accept Challenge» on the Home screen when you\'re ready'**
   String get summaryChallengeUnlockedBody;
 
   /// No description provided for @summaryChallengePassedTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Новый этап!'**
+  /// In en, this message translates to:
+  /// **'New stage!'**
   String get summaryChallengePassedTitle;
 
   /// No description provided for @summaryChallengePassedBody.
   ///
-  /// In ru, this message translates to:
-  /// **'Ты перешёл на: {exercise}'**
+  /// In en, this message translates to:
+  /// **'You\'ve unlocked: {exercise}'**
   String summaryChallengePassedBody(String exercise);
 
   /// No description provided for @profileTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Профиль'**
+  /// In en, this message translates to:
+  /// **'Profile'**
   String get profileTitle;
 
   /// No description provided for @profileMaxRank.
   ///
-  /// In ru, this message translates to:
-  /// **'Максимальный ранг!'**
+  /// In en, this message translates to:
+  /// **'Max rank!'**
   String get profileMaxRank;
 
   /// No description provided for @profileRankProgress.
   ///
-  /// In ru, this message translates to:
-  /// **'{remaining} SP до {rankName}'**
+  /// In en, this message translates to:
+  /// **'{remaining} SP to {rankName}'**
   String profileRankProgress(int remaining, String rankName);
 
   /// No description provided for @profileStatDays.
   ///
-  /// In ru, this message translates to:
-  /// **'дней'**
+  /// In en, this message translates to:
+  /// **'days'**
   String get profileStatDays;
 
   /// No description provided for @profileStatRecord.
   ///
-  /// In ru, this message translates to:
-  /// **'рекорд'**
+  /// In en, this message translates to:
+  /// **'record'**
   String get profileStatRecord;
 
   /// No description provided for @profileStatWorkouts.
   ///
-  /// In ru, this message translates to:
-  /// **'трен.'**
+  /// In en, this message translates to:
+  /// **'workouts'**
   String get profileStatWorkouts;
 
   /// No description provided for @profileStatFreezes.
   ///
-  /// In ru, this message translates to:
-  /// **'заморозок'**
+  /// In en, this message translates to:
+  /// **'freezes'**
   String get profileStatFreezes;
 
   /// No description provided for @profileHistoryTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'История тренировок'**
+  /// In en, this message translates to:
+  /// **'Workout history'**
   String get profileHistoryTitle;
 
   /// No description provided for @profileNoHistory.
   ///
-  /// In ru, this message translates to:
-  /// **'Ещё нет завершённых тренировок'**
+  /// In en, this message translates to:
+  /// **'No completed workouts yet'**
   String get profileNoHistory;
 
   /// No description provided for @historyTypeDaily.
   ///
-  /// In ru, this message translates to:
-  /// **'Тренировка дня'**
+  /// In en, this message translates to:
+  /// **'Daily Workout'**
   String get historyTypeDaily;
 
   /// No description provided for @historyTypeChallenge.
   ///
-  /// In ru, this message translates to:
-  /// **'Испытание'**
+  /// In en, this message translates to:
+  /// **'Challenge'**
   String get historyTypeChallenge;
 
   /// No description provided for @historyTypeBonus.
   ///
-  /// In ru, this message translates to:
-  /// **'Бонусная'**
+  /// In en, this message translates to:
+  /// **'Bonus'**
   String get historyTypeBonus;
 
   /// No description provided for @historyDetailExercises.
   ///
-  /// In ru, this message translates to:
-  /// **'Упражнения'**
+  /// In en, this message translates to:
+  /// **'Exercises'**
   String get historyDetailExercises;
 
   /// No description provided for @historyDetailReps.
   ///
-  /// In ru, this message translates to:
-  /// **'{completed} / {target} повт.'**
+  /// In en, this message translates to:
+  /// **'{completed} / {target} reps'**
   String historyDetailReps(int completed, int target);
 
   /// No description provided for @historyDetailSec.
   ///
-  /// In ru, this message translates to:
-  /// **'{completed} / {target} сек'**
+  /// In en, this message translates to:
+  /// **'{completed} / {target} sec'**
   String historyDetailSec(int completed, int target);
 
   /// No description provided for @settingsTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Настройки'**
+  /// In en, this message translates to:
+  /// **'Settings'**
   String get settingsTitle;
 
   /// No description provided for @settingsSectionNotifications.
   ///
-  /// In ru, this message translates to:
-  /// **'УВЕДОМЛЕНИЯ'**
+  /// In en, this message translates to:
+  /// **'NOTIFICATIONS'**
   String get settingsSectionNotifications;
 
   /// No description provided for @settingsSectionLanguage.
   ///
-  /// In ru, this message translates to:
-  /// **'ЯЗЫК'**
+  /// In en, this message translates to:
+  /// **'LANGUAGE'**
   String get settingsSectionLanguage;
 
   /// No description provided for @settingsNotificationsTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Включить уведомления'**
+  /// In en, this message translates to:
+  /// **'Enable notifications'**
   String get settingsNotificationsTitle;
 
   /// No description provided for @settingsNotificationsSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Разрешить приложению присылать напоминания'**
+  /// In en, this message translates to:
+  /// **'Allow the app to send reminders'**
   String get settingsNotificationsSubtitle;
 
   /// No description provided for @settingsNotificationTimeTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Время напоминания'**
+  /// In en, this message translates to:
+  /// **'Reminder time'**
   String get settingsNotificationTimeTitle;
 
   /// No description provided for @settingsNotificationTimeSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Утреннее напоминание потренироваться'**
+  /// In en, this message translates to:
+  /// **'Morning workout reminder'**
   String get settingsNotificationTimeSubtitle;
 
   /// No description provided for @settingsTimePickerDone.
   ///
-  /// In ru, this message translates to:
-  /// **'Готово'**
+  /// In en, this message translates to:
+  /// **'Done'**
   String get settingsTimePickerDone;
 
   /// No description provided for @settingsEveningReminderTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Вечерний дожим'**
+  /// In en, this message translates to:
+  /// **'Evening reminder'**
   String get settingsEveningReminderTitle;
 
   /// No description provided for @settingsEveningReminderSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Напомнить вечером, если тренировка не выполнена'**
+  /// In en, this message translates to:
+  /// **'Remind in the evening if no workout done'**
   String get settingsEveningReminderSubtitle;
 
   /// No description provided for @settingsStreakThreatTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Угроза стрику'**
+  /// In en, this message translates to:
+  /// **'Streak threat'**
   String get settingsStreakThreatTitle;
 
   /// No description provided for @settingsStreakThreatSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Предупредить, когда серия под угрозой'**
+  /// In en, this message translates to:
+  /// **'Warn when your streak is at risk'**
   String get settingsStreakThreatSubtitle;
 
   /// No description provided for @settingsLanguageTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Язык приложения'**
+  /// In en, this message translates to:
+  /// **'App language'**
   String get settingsLanguageTitle;
 
   /// No description provided for @settingsSectionTheme.
   ///
-  /// In ru, this message translates to:
-  /// **'ТЕМА'**
+  /// In en, this message translates to:
+  /// **'THEME'**
   String get settingsSectionTheme;
 
   /// No description provided for @settingsThemeSystem.
   ///
-  /// In ru, this message translates to:
-  /// **'Системная'**
+  /// In en, this message translates to:
+  /// **'System'**
   String get settingsThemeSystem;
 
   /// No description provided for @settingsThemeLight.
   ///
-  /// In ru, this message translates to:
-  /// **'Светлая'**
+  /// In en, this message translates to:
+  /// **'Light'**
   String get settingsThemeLight;
 
   /// No description provided for @settingsThemeDark.
   ///
-  /// In ru, this message translates to:
-  /// **'Тёмная'**
+  /// In en, this message translates to:
+  /// **'Dark'**
   String get settingsThemeDark;
 
   /// No description provided for @settingsSectionEquipment.
   ///
-  /// In ru, this message translates to:
-  /// **'ОБОРУДОВАНИЕ'**
+  /// In en, this message translates to:
+  /// **'EQUIPMENT'**
   String get settingsSectionEquipment;
 
   /// No description provided for @settingsEquipmentPullUpBar.
   ///
-  /// In ru, this message translates to:
-  /// **'Турник дома'**
+  /// In en, this message translates to:
+  /// **'Pull-up bar at home'**
   String get settingsEquipmentPullUpBar;
 
   /// No description provided for @settingsEquipmentPullUpBarSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Открывает ветку прогрессии «Тяга»'**
+  /// In en, this message translates to:
+  /// **'Enables the Pull skill progression branch'**
   String get settingsEquipmentPullUpBarSubtitle;
 
   /// No description provided for @settingsSectionWorkout.
   ///
-  /// In ru, this message translates to:
-  /// **'ТРЕНИРОВКА'**
+  /// In en, this message translates to:
+  /// **'WORKOUT'**
   String get settingsSectionWorkout;
 
   /// No description provided for @settingsWorkoutDurationTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Длительность сета'**
+  /// In en, this message translates to:
+  /// **'Session length'**
   String get settingsWorkoutDurationTitle;
 
   /// No description provided for @settingsWorkoutDurationSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Сколько минут уделять ежедневной тренировке'**
+  /// In en, this message translates to:
+  /// **'How many minutes to spend on the daily workout'**
   String get settingsWorkoutDurationSubtitle;
 
   /// No description provided for @settingsSoundTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Звуки'**
+  /// In en, this message translates to:
+  /// **'Sounds'**
   String get settingsSoundTitle;
 
   /// No description provided for @settingsSoundSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Звуки обратной связи во время тренировки'**
+  /// In en, this message translates to:
+  /// **'Audio feedback during workouts'**
   String get settingsSoundSubtitle;
 
   /// No description provided for @settingsHapticTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Вибрация'**
+  /// In en, this message translates to:
+  /// **'Haptics'**
   String get settingsHapticTitle;
 
   /// No description provided for @settingsHapticSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Тактильные сигналы во время тренировки'**
+  /// In en, this message translates to:
+  /// **'Tactile feedback during workouts'**
   String get settingsHapticSubtitle;
 
   /// No description provided for @rankBeginner.
   ///
-  /// In ru, this message translates to:
-  /// **'Новичок'**
+  /// In en, this message translates to:
+  /// **'Beginner'**
   String get rankBeginner;
 
   /// No description provided for @rankAmateur.
   ///
-  /// In ru, this message translates to:
-  /// **'Любитель'**
+  /// In en, this message translates to:
+  /// **'Amateur'**
   String get rankAmateur;
 
   /// No description provided for @rankSportsman.
   ///
-  /// In ru, this message translates to:
-  /// **'Спортсмен'**
+  /// In en, this message translates to:
+  /// **'Athlete'**
   String get rankSportsman;
 
   /// No description provided for @rankAthlete.
   ///
-  /// In ru, this message translates to:
-  /// **'Атлет'**
+  /// In en, this message translates to:
+  /// **'Champion'**
   String get rankAthlete;
 
   /// No description provided for @rankMaster.
   ///
-  /// In ru, this message translates to:
-  /// **'Мастер'**
+  /// In en, this message translates to:
+  /// **'Master'**
   String get rankMaster;
 
   /// No description provided for @rankLegend.
   ///
-  /// In ru, this message translates to:
-  /// **'Легенда'**
+  /// In en, this message translates to:
+  /// **'Legend'**
   String get rankLegend;
 
   /// No description provided for @onboardingWelcomeTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Привет! Я Горо'**
+  /// In en, this message translates to:
+  /// **'Hi! I\'m Goro'**
   String get onboardingWelcomeTitle;
 
   /// No description provided for @onboardingWelcomeBody.
   ///
-  /// In ru, this message translates to:
-  /// **'Короткие сеты, прокачка навыков, стрики и очки.\nОт отжиманий с колен до стойки на руках — шаг за шагом.'**
+  /// In en, this message translates to:
+  /// **'Short sets, skill progression, streaks and points.\nFrom knee push-ups to handstand — step by step.'**
   String get onboardingWelcomeBody;
 
   /// No description provided for @onboardingWelcomeCta.
   ///
-  /// In ru, this message translates to:
-  /// **'Настроим всё под тебя за 1 минуту'**
+  /// In en, this message translates to:
+  /// **'Let\'s set everything up in 1 minute'**
   String get onboardingWelcomeCta;
 
   /// No description provided for @onboardingContinue.
   ///
-  /// In ru, this message translates to:
-  /// **'Продолжить'**
+  /// In en, this message translates to:
+  /// **'Continue'**
   String get onboardingContinue;
 
   /// No description provided for @onboardingStart.
   ///
-  /// In ru, this message translates to:
-  /// **'Начать тренировку 🔥'**
+  /// In en, this message translates to:
+  /// **'Start training 🔥'**
   String get onboardingStart;
 
   /// No description provided for @onboardingQ1.
   ///
-  /// In ru, this message translates to:
-  /// **'Как часто ты занимаешься спортом?'**
+  /// In en, this message translates to:
+  /// **'How often do you work out?'**
   String get onboardingQ1;
 
   /// No description provided for @onboardingQ2.
   ///
-  /// In ru, this message translates to:
-  /// **'Сколько отжиманий ты можешь сделать?'**
+  /// In en, this message translates to:
+  /// **'How many push-ups can you do?'**
   String get onboardingQ2;
 
   /// No description provided for @onboardingQ3.
   ///
-  /// In ru, this message translates to:
-  /// **'Сколько минут в день готов уделять?'**
+  /// In en, this message translates to:
+  /// **'How many minutes a day are you ready to spend?'**
   String get onboardingQ3;
 
   /// No description provided for @onboardingQ4.
   ///
-  /// In ru, this message translates to:
-  /// **'К чему ты стремишься?'**
+  /// In en, this message translates to:
+  /// **'What\'s your goal?'**
   String get onboardingQ4;
 
   /// No description provided for @onboardingQ5.
   ///
-  /// In ru, this message translates to:
-  /// **'Есть ли у тебя турник или кольца дома?'**
+  /// In en, this message translates to:
+  /// **'Do you have a pull-up bar or rings at home?'**
   String get onboardingQ5;
 
   /// No description provided for @onboardingEquipmentYes.
   ///
-  /// In ru, this message translates to:
-  /// **'Да, есть'**
+  /// In en, this message translates to:
+  /// **'Yes, I do'**
   String get onboardingEquipmentYes;
 
   /// No description provided for @onboardingEquipmentNo.
   ///
-  /// In ru, this message translates to:
-  /// **'Нет'**
+  /// In en, this message translates to:
+  /// **'No'**
   String get onboardingEquipmentNo;
 
   /// No description provided for @onboardingQ6.
   ///
-  /// In ru, this message translates to:
-  /// **'Во сколько напомнить о тренировке?'**
+  /// In en, this message translates to:
+  /// **'When should we remind you to work out?'**
   String get onboardingQ6;
 
   /// No description provided for @frequencyNeverLabel.
   ///
-  /// In ru, this message translates to:
-  /// **'Никогда'**
+  /// In en, this message translates to:
+  /// **'Never'**
   String get frequencyNeverLabel;
 
   /// No description provided for @frequencyNeverDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Только начинаю'**
+  /// In en, this message translates to:
+  /// **'Just starting out'**
   String get frequencyNeverDesc;
 
   /// No description provided for @frequencySometimesLabel.
   ///
-  /// In ru, this message translates to:
-  /// **'Иногда'**
+  /// In en, this message translates to:
+  /// **'Sometimes'**
   String get frequencySometimesLabel;
 
   /// No description provided for @frequencySometimesDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Тренируюсь время от времени'**
+  /// In en, this message translates to:
+  /// **'I train from time to time'**
   String get frequencySometimesDesc;
 
   /// No description provided for @frequencyRegularLabel.
   ///
-  /// In ru, this message translates to:
-  /// **'Регулярно'**
+  /// In en, this message translates to:
+  /// **'Regularly'**
   String get frequencyRegularLabel;
 
   /// No description provided for @frequencyRegularDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Занимаюсь несколько раз в неделю'**
+  /// In en, this message translates to:
+  /// **'I work out several times a week'**
   String get frequencyRegularDesc;
 
   /// No description provided for @pushupZeroDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Пока ни одного'**
+  /// In en, this message translates to:
+  /// **'Not yet'**
   String get pushupZeroDesc;
 
   /// No description provided for @pushupOneToFiveDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Совсем немного'**
+  /// In en, this message translates to:
+  /// **'Just a few'**
   String get pushupOneToFiveDesc;
 
   /// No description provided for @pushupFiveToFifteenDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Уже неплохо'**
+  /// In en, this message translates to:
+  /// **'Getting there'**
   String get pushupFiveToFifteenDesc;
 
   /// No description provided for @pushupMoreThan15Desc.
   ///
-  /// In ru, this message translates to:
-  /// **'Отличная база'**
+  /// In en, this message translates to:
+  /// **'Solid base'**
   String get pushupMoreThan15Desc;
 
   /// No description provided for @minutesLabel.
   ///
-  /// In ru, this message translates to:
-  /// **'{minutes} минут'**
+  /// In en, this message translates to:
+  /// **'{minutes} minutes'**
   String minutesLabel(int minutes);
 
   /// No description provided for @minutesFiveDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Быстро и эффективно'**
+  /// In en, this message translates to:
+  /// **'Quick and efficient'**
   String get minutesFiveDesc;
 
   /// No description provided for @minutesTenDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Оптимальный вариант'**
+  /// In en, this message translates to:
+  /// **'Optimal choice'**
   String get minutesTenDesc;
 
   /// No description provided for @minutesFifteenDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Полноценная тренировка'**
+  /// In en, this message translates to:
+  /// **'Full workout'**
   String get minutesFifteenDesc;
 
   /// No description provided for @goalGeneralLabel.
   ///
-  /// In ru, this message translates to:
-  /// **'Общая форма'**
+  /// In en, this message translates to:
+  /// **'General fitness'**
   String get goalGeneralLabel;
 
   /// No description provided for @goalGeneralDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Быть активным и здоровым'**
+  /// In en, this message translates to:
+  /// **'Stay active and healthy'**
   String get goalGeneralDesc;
 
   /// No description provided for @goalStrengthLabel.
   ///
-  /// In ru, this message translates to:
-  /// **'Отжимания и сила'**
+  /// In en, this message translates to:
+  /// **'Push-ups & strength'**
   String get goalStrengthLabel;
 
   /// No description provided for @goalStrengthDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Накачать грудь и трицепс'**
+  /// In en, this message translates to:
+  /// **'Build chest and triceps'**
   String get goalStrengthDesc;
 
   /// No description provided for @goalCalisthenicsLabel.
   ///
-  /// In ru, this message translates to:
-  /// **'Калистеника'**
+  /// In en, this message translates to:
+  /// **'Calisthenics'**
   String get goalCalisthenicsLabel;
 
   /// No description provided for @goalCalisthenicsDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Стойка на руках и трюки'**
+  /// In en, this message translates to:
+  /// **'Handstand and skills'**
   String get goalCalisthenicsDesc;
 
   /// No description provided for @timeOfDayMorning.
   ///
-  /// In ru, this message translates to:
-  /// **'Утро'**
+  /// In en, this message translates to:
+  /// **'Morning'**
   String get timeOfDayMorning;
 
   /// No description provided for @timeOfDayDay.
   ///
-  /// In ru, this message translates to:
-  /// **'День'**
+  /// In en, this message translates to:
+  /// **'Afternoon'**
   String get timeOfDayDay;
 
   /// No description provided for @timeOfDayLunch.
   ///
-  /// In ru, this message translates to:
-  /// **'Обед'**
+  /// In en, this message translates to:
+  /// **'Lunch'**
   String get timeOfDayLunch;
 
   /// No description provided for @timeOfDayEvening.
   ///
-  /// In ru, this message translates to:
-  /// **'Вечер'**
+  /// In en, this message translates to:
+  /// **'Evening'**
   String get timeOfDayEvening;
 
   /// No description provided for @exercisePushS1WallPushupName.
   ///
-  /// In ru, this message translates to:
-  /// **'Отжимания от стены'**
+  /// In en, this message translates to:
+  /// **'Wall Push-up'**
   String get exercisePushS1WallPushupName;
 
   /// No description provided for @exercisePushS1WallPushupDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Встань на расстоянии шага от стены, упрись ладонями на уровне груди. Сгибай руки, пока грудь не коснётся стены, затем выпрямляй.'**
+  /// In en, this message translates to:
+  /// **'Stand a step away from the wall and press your palms at chest height. Bend your arms until your chest touches the wall, then push back.'**
   String get exercisePushS1WallPushupDesc;
 
   /// No description provided for @exercisePushS1WallPushupTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Держи тело прямым, не прогибай поясницу.'**
+  /// In en, this message translates to:
+  /// **'Keep your body straight — don\'t arch your lower back.'**
   String get exercisePushS1WallPushupTip;
 
   /// No description provided for @exercisePushS2KneePushupName.
   ///
-  /// In ru, this message translates to:
-  /// **'Отжимания с колен'**
+  /// In en, this message translates to:
+  /// **'Knee Push-up'**
   String get exercisePushS2KneePushupName;
 
   /// No description provided for @exercisePushS2KneePushupDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Упор лёжа с опорой на колени. Тело от колен до головы — прямая линия. Опускайся грудью к полу, затем выжимай.'**
+  /// In en, this message translates to:
+  /// **'Push-up position with knees on the floor. Keep a straight line from knees to head. Lower your chest to the floor, then press up.'**
   String get exercisePushS2KneePushupDesc;
 
   /// No description provided for @exercisePushS2KneePushupTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Не опускай бёдра — держи прямую линию от колен до плеч.'**
+  /// In en, this message translates to:
+  /// **'Don\'t drop your hips — keep a straight line from knees to shoulders.'**
   String get exercisePushS2KneePushupTip;
 
   /// No description provided for @exercisePushS3FullPushupName.
   ///
-  /// In ru, this message translates to:
-  /// **'Полные отжимания'**
+  /// In en, this message translates to:
+  /// **'Full Push-up'**
   String get exercisePushS3FullPushupName;
 
   /// No description provided for @exercisePushS3FullPushupDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Классический упор лёжа. Тело — прямая линия от пяток до головы. Грудь касается пола или подходит на 2–3 см.'**
+  /// In en, this message translates to:
+  /// **'Classic push-up position. Body forms a straight line from heels to head. Chest touches or comes within 2–3 cm of the floor.'**
   String get exercisePushS3FullPushupDesc;
 
   /// No description provided for @exercisePushS3FullPushupTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Напрягай пресс и ягодицы, чтобы не провисали бёдра.'**
+  /// In en, this message translates to:
+  /// **'Brace your core and glutes to keep your hips from sagging.'**
   String get exercisePushS3FullPushupTip;
 
   /// No description provided for @exercisePushS4DiamondPushupName.
   ///
-  /// In ru, this message translates to:
-  /// **'Алмазные отжимания'**
+  /// In en, this message translates to:
+  /// **'Diamond Push-up'**
   String get exercisePushS4DiamondPushupName;
 
   /// No description provided for @exercisePushS4DiamondPushupDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Руки под грудью, большие и указательные пальцы образуют ромб. Акцент на трицепс. Локти прижаты к корпусу при опускании.'**
+  /// In en, this message translates to:
+  /// **'Hands under your chest with thumbs and index fingers forming a diamond. Targets the triceps. Keep elbows tucked on the way down.'**
   String get exercisePushS4DiamondPushupDesc;
 
   /// No description provided for @exercisePushS4DiamondPushupTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Локти не разводи — они должны скользить вдоль тела.'**
+  /// In en, this message translates to:
+  /// **'Don\'t flare your elbows — let them glide along your body.'**
   String get exercisePushS4DiamondPushupTip;
 
   /// No description provided for @exercisePushS5WidePushupName.
   ///
-  /// In ru, this message translates to:
-  /// **'Широкие отжимания'**
+  /// In en, this message translates to:
+  /// **'Wide Push-up'**
   String get exercisePushS5WidePushupName;
 
   /// No description provided for @exercisePushS5WidePushupDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Руки значительно шире плеч. Опускайся медленно, сохраняя прямую линию тела. Оба трицепса и грудь работают в широкой амплитуде.'**
+  /// In en, this message translates to:
+  /// **'Hands placed significantly wider than shoulder-width. Lower slowly while keeping your body in a straight line. Both chest and triceps work through a wide range of motion.'**
   String get exercisePushS5WidePushupDesc;
 
   /// No description provided for @exercisePushS5WidePushupTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Чем шире руки — тем больше нагрузка на грудь и меньше на трицепс.'**
+  /// In en, this message translates to:
+  /// **'The wider your hands, the more the chest is targeted and the less the triceps.'**
   String get exercisePushS5WidePushupTip;
 
   /// No description provided for @exercisePushS6ArcherPushupName.
   ///
-  /// In ru, this message translates to:
-  /// **'Отжимания лучника'**
+  /// In en, this message translates to:
+  /// **'Archer Push-up'**
   String get exercisePushS6ArcherPushupName;
 
   /// No description provided for @exercisePushS6ArcherPushupDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Широкая постановка рук. Опускайся в сторону одной руки, держа вторую прямой. Поочерёдно на каждую сторону.'**
+  /// In en, this message translates to:
+  /// **'Wide hand placement. Lower toward one arm while keeping the other arm straight. Alternate each side.'**
   String get exercisePushS6ArcherPushupDesc;
 
   /// No description provided for @exercisePushS6ArcherPushupTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Рабочая рука — полный диапазон, прямая рука на полу — поддержка.'**
+  /// In en, this message translates to:
+  /// **'Working arm goes full range; straight arm stays on the floor for support.'**
   String get exercisePushS6ArcherPushupTip;
 
   /// No description provided for @exercisePushS7HandstandPushupName.
   ///
-  /// In ru, this message translates to:
-  /// **'Отжимания в стойке на руках'**
+  /// In en, this message translates to:
+  /// **'Handstand Push-up'**
   String get exercisePushS7HandstandPushupName;
 
   /// No description provided for @exercisePushS7HandstandPushupDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Стойка на руках у стены (спиной). Медленно опускай голову к полу, затем выжимай корпус вверх.'**
+  /// In en, this message translates to:
+  /// **'Handstand against the wall (back to wall). Slowly lower your head toward the floor, then press your body back up.'**
   String get exercisePushS7HandstandPushupDesc;
 
   /// No description provided for @exercisePushS7HandstandPushupTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Пальцы широко расставлены — так стабильнее. Взгляд между рук.'**
+  /// In en, this message translates to:
+  /// **'Spread your fingers wide for stability. Look between your hands.'**
   String get exercisePushS7HandstandPushupTip;
 
   /// No description provided for @exerciseCoreS1CrunchesName.
   ///
-  /// In ru, this message translates to:
-  /// **'Скручивания'**
+  /// In en, this message translates to:
+  /// **'Crunches'**
   String get exerciseCoreS1CrunchesName;
 
   /// No description provided for @exerciseCoreS1CrunchesDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Лёжа на спине, колени согнуты. Руки за головой или скрещены на груди. Отрывай лопатки от пола, сокращая пресс.'**
+  /// In en, this message translates to:
+  /// **'Lie on your back with knees bent. Hands behind your head or crossed on your chest. Lift your shoulder blades off the floor by contracting your abs.'**
   String get exerciseCoreS1CrunchesDesc;
 
   /// No description provided for @exerciseCoreS1CrunchesTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Не тяни шею руками — тяни грудью к потолку.'**
+  /// In en, this message translates to:
+  /// **'Don\'t pull your neck with your hands — pull your chest toward the ceiling.'**
   String get exerciseCoreS1CrunchesTip;
 
   /// No description provided for @exerciseCoreS2PlankName.
   ///
-  /// In ru, this message translates to:
-  /// **'Планка'**
+  /// In en, this message translates to:
+  /// **'Plank'**
   String get exerciseCoreS2PlankName;
 
   /// No description provided for @exerciseCoreS2PlankDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Упор лёжа на предплечьях. Тело — прямая линия от пяток до головы. Не поднимай таз и не прогибай поясницу.'**
+  /// In en, this message translates to:
+  /// **'Forearm push-up position. Body forms a straight line from heels to head. Don\'t raise your hips or arch your lower back.'**
   String get exerciseCoreS2PlankDesc;
 
   /// No description provided for @exerciseCoreS2PlankTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Напрягай пресс и ягодицы. Дыши ровно — не задерживай.'**
+  /// In en, this message translates to:
+  /// **'Brace your core and glutes. Breathe steadily — don\'t hold your breath.'**
   String get exerciseCoreS2PlankTip;
 
   /// No description provided for @exerciseCoreS3LyingLegRaiseName.
   ///
-  /// In ru, this message translates to:
-  /// **'Подъёмы ног лёжа'**
+  /// In en, this message translates to:
+  /// **'Lying Leg Raise'**
   String get exerciseCoreS3LyingLegRaiseName;
 
   /// No description provided for @exerciseCoreS3LyingLegRaiseDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Лёжа на спине, руки под ягодицами. Прямые ноги поднимай до вертикали, затем медленно опускай не касаясь пола.'**
+  /// In en, this message translates to:
+  /// **'Lie on your back with hands under your glutes. Raise straight legs to vertical, then lower them slowly without touching the floor.'**
   String get exerciseCoreS3LyingLegRaiseDesc;
 
   /// No description provided for @exerciseCoreS3LyingLegRaiseTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Поясница прижата к полу на протяжении всего движения.'**
+  /// In en, this message translates to:
+  /// **'Keep your lower back pressed to the floor throughout the movement.'**
   String get exerciseCoreS3LyingLegRaiseTip;
 
   /// No description provided for @exerciseCoreS4HangingLegRaiseName.
   ///
-  /// In ru, this message translates to:
-  /// **'Подъёмы ног в висе'**
+  /// In en, this message translates to:
+  /// **'Hanging Leg Raise'**
   String get exerciseCoreS4HangingLegRaiseName;
 
   /// No description provided for @exerciseCoreS4HangingLegRaiseDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Повис на перекладине. Поднимай прямые ноги до параллели с полом или выше. Контролируй опускание.'**
+  /// In en, this message translates to:
+  /// **'Hang from a bar. Raise straight legs to parallel with the floor or higher. Control the descent.'**
   String get exerciseCoreS4HangingLegRaiseDesc;
 
   /// No description provided for @exerciseCoreS4HangingLegRaiseTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Не раскачивайся — движение только за счёт пресса.'**
+  /// In en, this message translates to:
+  /// **'Don\'t swing — the movement comes from your abs only.'**
   String get exerciseCoreS4HangingLegRaiseTip;
 
   /// No description provided for @exerciseCoreS5LSitName.
   ///
-  /// In ru, this message translates to:
-  /// **'Уголок (L-sit)'**
+  /// In en, this message translates to:
+  /// **'L-sit'**
   String get exerciseCoreS5LSitName;
 
   /// No description provided for @exerciseCoreS5LSitDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Упор на параллельных брусьях или полу. Ноги прямые, параллельны полу. Удерживай позицию как можно дольше.'**
+  /// In en, this message translates to:
+  /// **'Support on parallel bars or the floor. Legs straight and parallel to the floor. Hold the position as long as possible.'**
   String get exerciseCoreS5LSitDesc;
 
   /// No description provided for @exerciseCoreS5LSitTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Носки тяни на себя, плечи — вниз и назад.'**
+  /// In en, this message translates to:
+  /// **'Point toes toward you; pull shoulders down and back.'**
   String get exerciseCoreS5LSitTip;
 
   /// No description provided for @exerciseCoreS6DragonFlagName.
   ///
-  /// In ru, this message translates to:
-  /// **'Драконовый флаг'**
+  /// In en, this message translates to:
+  /// **'Dragon Flag'**
   String get exerciseCoreS6DragonFlagName;
 
   /// No description provided for @exerciseCoreS6DragonFlagDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Лёжа на скамье, держись за опору за головой. Подними тело в прямую линию на лопатках, затем медленно опускай.'**
+  /// In en, this message translates to:
+  /// **'Lie on a bench and grip a support behind your head. Lift your body into a straight line on your shoulder blades, then lower slowly.'**
   String get exerciseCoreS6DragonFlagDesc;
 
   /// No description provided for @exerciseCoreS6DragonFlagTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Начинай с негативной фазы (только опускание) — это проще.'**
+  /// In en, this message translates to:
+  /// **'Start with the negative phase (lowering only) — it\'s easier.'**
   String get exerciseCoreS6DragonFlagTip;
 
   /// No description provided for @exerciseWarmupArmRotationsName.
   ///
-  /// In ru, this message translates to:
-  /// **'Круговые вращения руками'**
+  /// In en, this message translates to:
+  /// **'Arm Circles'**
   String get exerciseWarmupArmRotationsName;
 
   /// No description provided for @exerciseWarmupArmRotationsDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Стоя, делай большие круговые движения руками вперёд и назад. Разминает плечевой пояс перед отжиманиями.'**
+  /// In en, this message translates to:
+  /// **'Standing, make large circular movements with your arms forward and backward. Warms up the shoulder girdle before push-ups.'**
   String get exerciseWarmupArmRotationsDesc;
 
   /// No description provided for @exerciseWarmupJumpingJacksName.
   ///
-  /// In ru, this message translates to:
-  /// **'Прыжки «Ноги вместе — врозь»'**
+  /// In en, this message translates to:
+  /// **'Jumping Jacks'**
   String get exerciseWarmupJumpingJacksName;
 
   /// No description provided for @exerciseWarmupJumpingJacksDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Классические jumping jacks. Повышают пульс и разогревают всё тело за 30–60 секунд.'**
+  /// In en, this message translates to:
+  /// **'Classic jumping jacks. Raises your heart rate and warms up your whole body in 30–60 seconds.'**
   String get exerciseWarmupJumpingJacksDesc;
 
   /// No description provided for @exerciseCooldownShoulderStretchName.
   ///
-  /// In ru, this message translates to:
-  /// **'Растяжка плеч и груди'**
+  /// In en, this message translates to:
+  /// **'Shoulder & Chest Stretch'**
   String get exerciseCooldownShoulderStretchName;
 
   /// No description provided for @exerciseCooldownShoulderStretchDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Заведи руки за спину, сцепи пальцы и потяни плечи назад-вниз. Удержи 30 секунд.'**
+  /// In en, this message translates to:
+  /// **'Clasp your hands behind your back and pull your shoulders back and down. Hold for 30 seconds.'**
   String get exerciseCooldownShoulderStretchDesc;
 
   /// No description provided for @exerciseCooldownCatCowName.
   ///
-  /// In ru, this message translates to:
-  /// **'Кошка-корова'**
+  /// In en, this message translates to:
+  /// **'Cat-Cow'**
   String get exerciseCooldownCatCowName;
 
   /// No description provided for @exerciseCooldownCatCowDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'На четвереньках: на вдохе прогибай спину вниз (корова), на выдохе округляй вверх (кошка). Расслабляет поясницу и пресс.'**
+  /// In en, this message translates to:
+  /// **'On all fours: inhale and arch your back down (cow), exhale and round it up (cat). Releases tension in the lower back and abs.'**
   String get exerciseCooldownCatCowDesc;
 
   /// No description provided for @exercisePullS1AustralianName.
   ///
-  /// In ru, this message translates to:
-  /// **'Австралийское подтягивание'**
+  /// In en, this message translates to:
+  /// **'Australian Pull-up'**
   String get exercisePullS1AustralianName;
 
   /// No description provided for @exercisePullS1AustralianDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Лёжа под перекладиной, хват чуть шире плеч. Тяни грудь к перекладине, держа тело прямой линией. Контролируй опускание.'**
+  /// In en, this message translates to:
+  /// **'Lie under a bar with a slightly wider than shoulder-width grip. Pull your chest to the bar, keeping your body in a straight line. Control the descent.'**
   String get exercisePullS1AustralianDesc;
 
   /// No description provided for @exercisePullS1AustralianTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Чем ниже опускаешь перекладину, тем сложнее упражнение.'**
+  /// In en, this message translates to:
+  /// **'The lower the bar, the harder the exercise.'**
   String get exercisePullS1AustralianTip;
 
   /// No description provided for @exercisePullS2NegativeName.
   ///
-  /// In ru, this message translates to:
-  /// **'Негативные подтягивания'**
+  /// In en, this message translates to:
+  /// **'Negative Pull-up'**
   String get exercisePullS2NegativeName;
 
   /// No description provided for @exercisePullS2NegativeDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Запрыгни на перекладину с подбородком выше неё. Медленно опускайся в течение 3–5 секунд до полного выпрямления рук.'**
+  /// In en, this message translates to:
+  /// **'Jump up with your chin above the bar. Slowly lower yourself over 3–5 seconds until your arms are fully extended.'**
   String get exercisePullS2NegativeDesc;
 
   /// No description provided for @exercisePullS2NegativeTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Чем медленнее опускаешься — тем лучше. Цель: 5 сек вниз.'**
+  /// In en, this message translates to:
+  /// **'The slower you lower — the better. Aim for 5 seconds down.'**
   String get exercisePullS2NegativeTip;
 
   /// No description provided for @exercisePullS3PullupName.
   ///
-  /// In ru, this message translates to:
-  /// **'Подтягивания'**
+  /// In en, this message translates to:
+  /// **'Pull-up'**
   String get exercisePullS3PullupName;
 
   /// No description provided for @exercisePullS3PullupDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Хват на ширине плеч или чуть шире. Тяни грудь к перекладине, пока подбородок не окажется выше неё. Полностью выпрямляй руки внизу.'**
+  /// In en, this message translates to:
+  /// **'Shoulder-width or slightly wider grip. Pull your chest to the bar until your chin is above it. Fully extend your arms at the bottom.'**
   String get exercisePullS3PullupDesc;
 
   /// No description provided for @exercisePullS3PullupTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Сводя лопатки — тянешь спиной, а не руками.'**
+  /// In en, this message translates to:
+  /// **'Squeeze your shoulder blades — you\'re pulling with your back, not your arms.'**
   String get exercisePullS3PullupTip;
 
   /// No description provided for @exercisePullS4CloseGripName.
   ///
-  /// In ru, this message translates to:
-  /// **'Подтягивания узким хватом'**
+  /// In en, this message translates to:
+  /// **'Close-Grip Pull-up'**
   String get exercisePullS4CloseGripName;
 
   /// No description provided for @exercisePullS4CloseGripDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Хват уже плеч, ладони к себе или от себя. Акцент на бицепс и нижнюю часть широчайших. Подтягивай грудь к перекладине.'**
+  /// In en, this message translates to:
+  /// **'Grip narrower than shoulder-width, palms facing you or away. Targets the biceps and lower lats. Pull your chest to the bar.'**
   String get exercisePullS4CloseGripDesc;
 
   /// No description provided for @exercisePullS4CloseGripTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Локти прижимай к корпусу для максимальной нагрузки на бицепс.'**
+  /// In en, this message translates to:
+  /// **'Keep elbows tucked in for maximum bicep engagement.'**
   String get exercisePullS4CloseGripTip;
 
   /// No description provided for @exercisePullS5ArcherName.
   ///
-  /// In ru, this message translates to:
-  /// **'Подтягивания лучника'**
+  /// In en, this message translates to:
+  /// **'Archer Pull-up'**
   String get exercisePullS5ArcherName;
 
   /// No description provided for @exercisePullS5ArcherDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Широкий хват. Тяни тело в сторону одной руки, вторую держи прямой. Поочерёдно на каждую сторону.'**
+  /// In en, this message translates to:
+  /// **'Wide grip. Pull your body toward one arm while keeping the other arm straight. Alternate each side.'**
   String get exercisePullS5ArcherDesc;
 
   /// No description provided for @exercisePullS5ArcherTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Прямая рука — вспомогательная, рабочая — полный диапазон.'**
+  /// In en, this message translates to:
+  /// **'Straight arm is for support; working arm goes full range.'**
   String get exercisePullS5ArcherTip;
 
   /// No description provided for @exercisePullS6OneArmName.
   ///
-  /// In ru, this message translates to:
-  /// **'Подтягивание на одной руке'**
+  /// In en, this message translates to:
+  /// **'One-Arm Pull-up'**
   String get exercisePullS6OneArmName;
 
   /// No description provided for @exercisePullS6OneArmDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Одна рука держит перекладину, вторая — на запястье или свободна. Полный диапазон движения рабочей рукой.'**
+  /// In en, this message translates to:
+  /// **'One hand on the bar, the other on your wrist or free. Full range of motion with the working arm.'**
   String get exercisePullS6OneArmDesc;
 
   /// No description provided for @exercisePullS6OneArmTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Держи корпус стабильным — не раскачивайся.'**
+  /// In en, this message translates to:
+  /// **'Keep your core tight — don\'t swing.'**
   String get exercisePullS6OneArmTip;
 
   /// No description provided for @exerciseWarmupDeadHangName.
   ///
-  /// In ru, this message translates to:
-  /// **'Вис на перекладине'**
+  /// In en, this message translates to:
+  /// **'Dead Hang'**
   String get exerciseWarmupDeadHangName;
 
   /// No description provided for @exerciseWarmupDeadHangDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Повисни на перекладине прямым хватом, руки полностью выпрямлены. Расслабь плечи и удержи вис.'**
+  /// In en, this message translates to:
+  /// **'Hang from the bar with an overhand grip, arms fully extended. Relax your shoulders and hold the hang.'**
   String get exerciseWarmupDeadHangDesc;
 
   /// No description provided for @exerciseCooldownLatStretchName.
   ///
-  /// In ru, this message translates to:
-  /// **'Растяжка широчайших'**
+  /// In en, this message translates to:
+  /// **'Lat Stretch'**
   String get exerciseCooldownLatStretchName;
 
   /// No description provided for @exerciseCooldownLatStretchDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Встань боком к стене, подними руку вверх и упрись в стену. Наклонись в сторону, чувствуя растяжку сбоку.'**
+  /// In en, this message translates to:
+  /// **'Stand sideways to a wall, raise one arm and press against it. Lean into the stretch to feel it along your side.'**
   String get exerciseCooldownLatStretchDesc;
 
   /// No description provided for @exerciseLegsS1SquatName.
   ///
-  /// In ru, this message translates to:
-  /// **'Приседания'**
+  /// In en, this message translates to:
+  /// **'Squat'**
   String get exerciseLegsS1SquatName;
 
   /// No description provided for @exerciseLegsS1SquatDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Ноги на ширине плеч, носки чуть развёрнуты. Приседай до параллели бёдер с полом, колени над носками. Выпрямляй ноги в верхней точке.'**
+  /// In en, this message translates to:
+  /// **'Feet shoulder-width apart, toes slightly turned out. Squat until thighs are parallel to the floor, knees over toes. Extend fully at the top.'**
   String get exerciseLegsS1SquatDesc;
 
   /// No description provided for @exerciseLegsS1SquatTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Пятки не отрывай от пола, грудь держи прямо.'**
+  /// In en, this message translates to:
+  /// **'Keep heels on the floor and chest upright.'**
   String get exerciseLegsS1SquatTip;
 
   /// No description provided for @exerciseLegsS2LungeName.
   ///
-  /// In ru, this message translates to:
-  /// **'Выпады'**
+  /// In en, this message translates to:
+  /// **'Lunge'**
   String get exerciseLegsS2LungeName;
 
   /// No description provided for @exerciseLegsS2LungeDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Шаг вперёд, опусти заднее колено к полу, не касаясь. Оба колена под углом 90°. Оттолкнись передней ногой и вернись в исходное.'**
+  /// In en, this message translates to:
+  /// **'Step forward and lower your back knee toward the floor without touching it. Both knees at 90°. Push off with the front foot to return.'**
   String get exerciseLegsS2LungeDesc;
 
   /// No description provided for @exerciseLegsS2LungeTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Переднее колено не уходи за носок.'**
+  /// In en, this message translates to:
+  /// **'Keep your front knee behind your toes.'**
   String get exerciseLegsS2LungeTip;
 
   /// No description provided for @exerciseLegsS3BulgarianName.
   ///
-  /// In ru, this message translates to:
-  /// **'Болгарские сплит-приседания'**
+  /// In en, this message translates to:
+  /// **'Bulgarian Split Squat'**
   String get exerciseLegsS3BulgarianName;
 
   /// No description provided for @exerciseLegsS3BulgarianDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Задняя нога на возвышении (стул, диван). Опускай переднюю ногу до параллели бедра с полом. Торс прямой.'**
+  /// In en, this message translates to:
+  /// **'Rear foot elevated on a chair or couch. Lower your front leg until your thigh is parallel to the floor. Keep your torso upright.'**
   String get exerciseLegsS3BulgarianDesc;
 
   /// No description provided for @exerciseLegsS3BulgarianTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Чем дальше передняя нога — тем больше нагрузка на ягодицы.'**
+  /// In en, this message translates to:
+  /// **'The further your front foot, the more glute activation.'**
   String get exerciseLegsS3BulgarianTip;
 
   /// No description provided for @exerciseLegsS4AssistedPistolName.
   ///
-  /// In ru, this message translates to:
-  /// **'Пистолетик с опорой'**
+  /// In en, this message translates to:
+  /// **'Assisted Pistol Squat'**
   String get exerciseLegsS4AssistedPistolName;
 
   /// No description provided for @exerciseLegsS4AssistedPistolDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Держись за дверной косяк или стойку. Приседай на одной ноге, вторую держи прямой перед собой. Опора снижает нагрузку.'**
+  /// In en, this message translates to:
+  /// **'Hold a door frame or pole for support. Squat on one leg while keeping the other straight in front of you. Use the support to reduce load.'**
   String get exerciseLegsS4AssistedPistolDesc;
 
   /// No description provided for @exerciseLegsS4AssistedPistolTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Постепенно уменьшай помощь рук по мере роста силы.'**
+  /// In en, this message translates to:
+  /// **'Gradually reduce hand assistance as you get stronger.'**
   String get exerciseLegsS4AssistedPistolTip;
 
   /// No description provided for @exerciseLegsS5PistolName.
   ///
-  /// In ru, this message translates to:
-  /// **'Пистолетик'**
+  /// In en, this message translates to:
+  /// **'Pistol Squat'**
   String get exerciseLegsS5PistolName;
 
   /// No description provided for @exerciseLegsS5PistolDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Приседание на одной ноге без опоры. Вторая нога прямая перед собой. Полная амплитуда до пола и обратно.'**
+  /// In en, this message translates to:
+  /// **'Single-leg squat without support. Other leg straight in front. Full range of motion to the floor and back up.'**
   String get exerciseLegsS5PistolDesc;
 
   /// No description provided for @exerciseLegsS5PistolTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Руки вперёд для противовеса — помогает с балансом.'**
+  /// In en, this message translates to:
+  /// **'Arms forward as a counterweight — it helps with balance.'**
   String get exerciseLegsS5PistolTip;
 
   /// No description provided for @exerciseWarmupLegSwingsName.
   ///
-  /// In ru, this message translates to:
-  /// **'Махи ногами'**
+  /// In en, this message translates to:
+  /// **'Leg Swings'**
   String get exerciseWarmupLegSwingsName;
 
   /// No description provided for @exerciseWarmupLegSwingsDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Стоя у стены, делай маховые движения прямой ногой вперёд-назад и в стороны. Разминает тазобедренный сустав.'**
+  /// In en, this message translates to:
+  /// **'Standing by a wall, swing one leg forward and back, then side to side. Warms up the hip joint.'**
   String get exerciseWarmupLegSwingsDesc;
 
   /// No description provided for @exerciseCooldownQuadStretchName.
   ///
-  /// In ru, this message translates to:
-  /// **'Растяжка квадрицепса'**
+  /// In en, this message translates to:
+  /// **'Quad Stretch'**
   String get exerciseCooldownQuadStretchName;
 
   /// No description provided for @exerciseCooldownQuadStretchDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Стоя на одной ноге, согни вторую назад и удержи стопу рукой. Почувствуй растяжку передней поверхности бедра.'**
+  /// In en, this message translates to:
+  /// **'Stand on one leg, bend the other back and hold your foot with your hand. Feel the stretch along the front of your thigh.'**
   String get exerciseCooldownQuadStretchDesc;
+
+  /// No description provided for @exerciseWarmupHipCirclesName.
+  ///
+  /// In en, this message translates to:
+  /// **'Hip Circles'**
+  String get exerciseWarmupHipCirclesName;
+
+  /// No description provided for @exerciseWarmupHipCirclesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with feet shoulder-width apart and rotate your hips in large circles. Warms up the hip joints before leg exercises.'**
+  String get exerciseWarmupHipCirclesDesc;
+
+  /// No description provided for @exerciseCooldownHipFlexorName.
+  ///
+  /// In en, this message translates to:
+  /// **'Hip Flexor Stretch'**
+  String get exerciseCooldownHipFlexorName;
+
+  /// No description provided for @exerciseCooldownHipFlexorDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Step into a lunge position. Lower your back knee to the floor and push your hips forward. Hold for 30 seconds per side.'**
+  String get exerciseCooldownHipFlexorDesc;
 
   /// No description provided for @exerciseBalS1OneLegStandName.
   ///
-  /// In ru, this message translates to:
-  /// **'Стойка на одной ноге'**
+  /// In en, this message translates to:
+  /// **'One-Leg Stand'**
   String get exerciseBalS1OneLegStandName;
 
   /// No description provided for @exerciseBalS1OneLegStandDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Стой на одной ноге, вторую слегка согни и удержи в воздухе. Руки можно держать в стороны для баланса.'**
+  /// In en, this message translates to:
+  /// **'Stand on one leg, keep the other slightly bent and off the ground. Arms can be out for balance.'**
   String get exerciseBalS1OneLegStandDesc;
 
   /// No description provided for @exerciseBalS1OneLegStandTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Фиксируй взгляд на точке — это сильно улучшает баланс.'**
+  /// In en, this message translates to:
+  /// **'Fix your gaze on a point — it greatly improves balance.'**
   String get exerciseBalS1OneLegStandTip;
 
   /// No description provided for @exerciseBalS2OneArmPlankName.
   ///
-  /// In ru, this message translates to:
-  /// **'Планка на одной руке'**
+  /// In en, this message translates to:
+  /// **'One-Arm Plank'**
   String get exerciseBalS2OneArmPlankName;
 
   /// No description provided for @exerciseBalS2OneArmPlankDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Классическая планка на вытянутых руках. Оторви одну руку от пола и удержи позицию, тело параллельно полу.'**
+  /// In en, this message translates to:
+  /// **'Classic straight-arm plank. Lift one hand off the floor and hold the position, body parallel to the floor.'**
   String get exerciseBalS2OneArmPlankDesc;
 
   /// No description provided for @exerciseBalS2OneArmPlankTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Бёдра держи параллельно полу — не разворачивай корпус.'**
+  /// In en, this message translates to:
+  /// **'Keep your hips parallel to the floor — don\'t rotate your torso.'**
   String get exerciseBalS2OneArmPlankTip;
 
   /// No description provided for @exerciseBalS3CrowPrepName.
   ///
-  /// In ru, this message translates to:
-  /// **'Подготовка к позе ворона'**
+  /// In en, this message translates to:
+  /// **'Crow Pose Prep'**
   String get exerciseBalS3CrowPrepName;
 
   /// No description provided for @exerciseBalS3CrowPrepDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Присядь, колени на трицепсах. Перенеси вес на руки, слегка отрывая ноги. Удержи баланс на руках.'**
+  /// In en, this message translates to:
+  /// **'Squat with knees on your triceps. Shift weight onto your hands, gently lifting your feet. Hold the balance.'**
   String get exerciseBalS3CrowPrepDesc;
 
   /// No description provided for @exerciseBalS3CrowPrepTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Взгляд вперёд-вниз, не прямо вниз — иначе упадёшь.'**
+  /// In en, this message translates to:
+  /// **'Look forward-down, not straight down — or you\'ll tip over.'**
   String get exerciseBalS3CrowPrepTip;
 
   /// No description provided for @exerciseBalS4CrowPoseName.
   ///
-  /// In ru, this message translates to:
-  /// **'Поза ворона (Kakasana)'**
+  /// In en, this message translates to:
+  /// **'Crow Pose (Kakasana)'**
   String get exerciseBalS4CrowPoseName;
 
   /// No description provided for @exerciseBalS4CrowPoseDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Оба колена на трицепсах, полный баланс на руках. Руки слегка согнуты, пальцы широко расставлены.'**
+  /// In en, this message translates to:
+  /// **'Both knees on your triceps, full balance on your hands. Arms slightly bent, fingers spread wide.'**
   String get exerciseBalS4CrowPoseDesc;
 
   /// No description provided for @exerciseBalS4CrowPoseTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Округли спину — это активирует корпус и даёт баланс.'**
+  /// In en, this message translates to:
+  /// **'Round your back — it engages your core and provides balance.'**
   String get exerciseBalS4CrowPoseTip;
 
   /// No description provided for @exerciseBalS5WallHsName.
   ///
-  /// In ru, this message translates to:
-  /// **'Стойка на руках у стены'**
+  /// In en, this message translates to:
+  /// **'Wall Handstand'**
   String get exerciseBalS5WallHsName;
 
   /// No description provided for @exerciseBalS5WallHsDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Встань на руки спиной к стене. Пятки касаются стены для опоры. Удержи стойку, тело вытянуто в линию.'**
+  /// In en, this message translates to:
+  /// **'Kick up into a handstand with your back to the wall. Heels touch the wall for support. Hold the position, body in a straight line.'**
   String get exerciseBalS5WallHsDesc;
 
   /// No description provided for @exerciseBalS5WallHsTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Пальцы широко, надавливай на подушечки — это баланс.'**
+  /// In en, this message translates to:
+  /// **'Spread fingers wide and press through the pads — that\'s your balance control.'**
   String get exerciseBalS5WallHsTip;
 
   /// No description provided for @exerciseBalS6FreeHsName.
   ///
-  /// In ru, this message translates to:
-  /// **'Свободная стойка на руках'**
+  /// In en, this message translates to:
+  /// **'Free Handstand'**
   String get exerciseBalS6FreeHsName;
 
   /// No description provided for @exerciseBalS6FreeHsDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Стойка на руках без опоры. Контролируй баланс мелкими движениями пальцев и запястий.'**
+  /// In en, this message translates to:
+  /// **'Handstand without wall support. Control balance with small finger and wrist movements.'**
   String get exerciseBalS6FreeHsDesc;
 
   /// No description provided for @exerciseBalS6FreeHsTip.
   ///
-  /// In ru, this message translates to:
-  /// **'Смотри в пол на 30–40 см перед руками, не между руками.'**
+  /// In en, this message translates to:
+  /// **'Look at the floor 30–40 cm in front of your hands, not between them.'**
   String get exerciseBalS6FreeHsTip;
 
   /// No description provided for @exerciseWarmupWristCirclesName.
   ///
-  /// In ru, this message translates to:
-  /// **'Круговые вращения запястьями'**
+  /// In en, this message translates to:
+  /// **'Wrist Circles'**
   String get exerciseWarmupWristCirclesName;
 
   /// No description provided for @exerciseWarmupWristCirclesDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'Вращай запястьями по часовой и против часовой стрелки. Подготавливает суставы к нагрузке на руках.'**
+  /// In en, this message translates to:
+  /// **'Rotate your wrists clockwise and counter-clockwise. Prepares your joints for weight-bearing on your hands.'**
   String get exerciseWarmupWristCirclesDesc;
 
   /// No description provided for @exerciseCooldownDownwardDogName.
   ///
-  /// In ru, this message translates to:
-  /// **'Собака мордой вниз'**
+  /// In en, this message translates to:
+  /// **'Downward Dog'**
   String get exerciseCooldownDownwardDogName;
 
   /// No description provided for @exerciseCooldownDownwardDogDesc.
   ///
-  /// In ru, this message translates to:
-  /// **'На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног.'**
+  /// In en, this message translates to:
+  /// **'From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs.'**
   String get exerciseCooldownDownwardDogDesc;
+
+  /// No description provided for @exerciseCooldownWristStretchName.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrist Stretch'**
+  String get exerciseCooldownWristStretchName;
+
+  /// No description provided for @exerciseCooldownWristStretchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Extend one arm forward, palm up. Use your other hand to gently pull the fingers down. Hold for 30 seconds per side.'**
+  String get exerciseCooldownWristStretchDesc;
 
   /// No description provided for @aboutTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'О приложении'**
+  /// In en, this message translates to:
+  /// **'About'**
   String get aboutTitle;
 
   /// No description provided for @aboutVersion.
   ///
-  /// In ru, this message translates to:
-  /// **'Версия'**
+  /// In en, this message translates to:
+  /// **'Version'**
   String get aboutVersion;
 
   /// No description provided for @aboutSectionSupport.
   ///
-  /// In ru, this message translates to:
-  /// **'ПОДДЕРЖКА'**
+  /// In en, this message translates to:
+  /// **'SUPPORT'**
   String get aboutSectionSupport;
 
   /// No description provided for @aboutContactUs.
   ///
-  /// In ru, this message translates to:
-  /// **'Написать нам'**
+  /// In en, this message translates to:
+  /// **'Contact Us'**
   String get aboutContactUs;
 
   /// No description provided for @aboutContactUsSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Сообщить об ошибке или задать вопрос'**
+  /// In en, this message translates to:
+  /// **'Report a bug or ask a question'**
   String get aboutContactUsSubtitle;
 
   /// No description provided for @aboutPrivacyPolicy.
   ///
-  /// In ru, this message translates to:
-  /// **'Политика конфиденциальности'**
+  /// In en, this message translates to:
+  /// **'Privacy Policy'**
   String get aboutPrivacyPolicy;
 
   /// No description provided for @aboutBuiltWith.
   ///
-  /// In ru, this message translates to:
-  /// **'СДЕЛАНО НА'**
+  /// In en, this message translates to:
+  /// **'BUILT WITH'**
   String get aboutBuiltWith;
 
   /// No description provided for @aboutCopyright.
   ///
-  /// In ru, this message translates to:
+  /// In en, this message translates to:
   /// **'© 2026 pupptmstr'**
   String get aboutCopyright;
 
   /// No description provided for @settingsAbout.
   ///
-  /// In ru, this message translates to:
-  /// **'О приложении'**
+  /// In en, this message translates to:
+  /// **'About'**
   String get settingsAbout;
 
   /// No description provided for @settingsSectionHealth.
   ///
-  /// In ru, this message translates to:
-  /// **'ЗДОРОВЬЕ'**
+  /// In en, this message translates to:
+  /// **'HEALTH'**
   String get settingsSectionHealth;
 
   /// No description provided for @settingsHealthWorkoutsTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Записывать тренировки'**
+  /// In en, this message translates to:
+  /// **'Record workouts'**
   String get settingsHealthWorkoutsTitle;
 
   /// No description provided for @settingsHealthWorkoutsSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Сохранять в Apple Health / Health Connect'**
+  /// In en, this message translates to:
+  /// **'Save to Apple Health / Health Connect'**
   String get settingsHealthWorkoutsSubtitle;
 
   /// No description provided for @settingsHealthWeightTitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Читать массу тела'**
+  /// In en, this message translates to:
+  /// **'Read body weight'**
   String get settingsHealthWeightTitle;
 
   /// No description provided for @settingsHealthWeightSubtitle.
   ///
-  /// In ru, this message translates to:
-  /// **'Для точного расчёта калорий (иначе 70 кг)'**
+  /// In en, this message translates to:
+  /// **'For accurate calorie estimates (default 70 kg)'**
   String get settingsHealthWeightSubtitle;
 
   /// No description provided for @summaryHealthSaved.
   ///
-  /// In ru, this message translates to:
-  /// **'Сохранено в Health ✓'**
+  /// In en, this message translates to:
+  /// **'Saved to Health ✓'**
   String get summaryHealthSaved;
 }
 

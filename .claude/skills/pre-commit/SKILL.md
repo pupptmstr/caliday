@@ -5,65 +5,65 @@ description: Pre-commit workflow for CaliDay project. Use before every git commi
 
 # Pre-Commit Workflow
 
-Выполни следующие шаги в указанном порядке перед каждым коммитом.
+Perform the following steps in order before every commit.
 
-## Шаг 1 — Обновить историю в DEV_NOTES.md
+## Step 1 — Update history in DEV_NOTES.md
 
-Добавь запись в раздел «История изменений» (`docs/DEV_NOTES.md`).
+Add an entry to the "Change History" section (`docs/DEV_NOTES.md`).
 
-Формат записи:
+Entry format:
 ```
-### YYYY-MM-DD — <краткое описание>
+### YYYY-MM-DD — <short description>
 
-**Что сделано:** [1-2 предложения]
+**What was done:** [1-2 sentences]
 
-**Новые файлы:**
-- `path/file.dart` — назначение
+**New files:**
+- `path/file.dart` — purpose
 
-**Изменённые файлы:**
-- `path/file.dart` — что изменено
+**Modified files:**
+- `path/file.dart` — what changed
 
-**Ключевые проблемы и решения:** [если были нетривиальные технические решения]
+**Key issues and solutions:** [if there were non-trivial technical decisions]
 ```
 
-Правила:
-- Размещай новую запись в самом начале раздела «История изменений» (новые записи сверху)
-- Для небольших фиксов можно объединить с предыдущей записью того же дня
-- Проблемы и решения — самая ценная часть: фиксируй только нетривиальные, не очевидные из кода
+Rules:
+- Place new entry at the top of "Change History" (newest first)
+- For small fixes, merge with a previous entry from the same day
+- Issues and solutions are the most valuable part: record only non-trivial, non-obvious ones
 
-## Шаг 2 — Обновить ARCHITECTURE.md (если нужно)
+## Step 2 — Update ARCHITECTURE.md (if needed)
 
-Обнови `docs/ARCHITECTURE.md` если изменения затрагивают:
-- Архитектурные решения или паттерны
-- Hive модели или typeIds (критично!)
-- API сервисов или репозиториев
-- Навигацию (маршруты, флоу)
-- Дизайн-систему (Горо, цвета, иконки)
-- Backlog фич (статус реализованной фичи → ✅)
-- Android/iOS специфику
-- Зависимости (pubspec.yaml)
+Update `docs/ARCHITECTURE.md` if the changes affect:
+- Architectural decisions or patterns
+- Hive models or typeIds (critical!)
+- Service or repository APIs
+- Navigation (routes, flows)
+- Design system (Goro, colors, icons)
+- Feature backlog (implemented feature status → ✅)
+- Android/iOS specifics
+- Dependencies (pubspec.yaml)
 
-Не обновляй если изменения — только UX, тексты, стили без архитектурных импликаций.
+Skip if changes are UI-only (texts, styles) with no architectural implications.
 
-## Шаг 3 — Очистить DEV_NOTES от реализованных спеков (если нужно)
+## Step 3 — Clean up implemented specs in DEV_NOTES (if needed)
 
-Если фича полностью реализована и в DEV_NOTES есть её подробная спека:
-- Удали спеку из раздела «Активные спеки»
-- Оставь только запись в «Истории изменений» (что было сделано, проблемы)
-- Финальные решения уже должны быть зафиксированы в ARCHITECTURE.md
+If a feature is fully implemented and DEV_NOTES has a detailed spec for it:
+- Remove the spec from "Active Specs"
+- Keep only the entry in "Change History" (what was done, problems)
+- Final decisions should already be captured in ARCHITECTURE.md
 
-## Шаг 4 — Обновить MEMORY.md
+## Step 4 — Update MEMORY.md
 
-Обнови автопамять (`.claude/projects/.../memory/MEMORY.md` и файлы памяти) если появились:
-- Новые архитектурные паттерны или ключевые решения
-- Критичные технические ограничения (особенно Android/iOS специфика)
-- Новые HiveField номера или typeIds
-- Изменения в backlog (что реализовано)
+Update auto-memory (`.claude/projects/.../memory/MEMORY.md` and memory files) if there are:
+- New architectural patterns or key decisions
+- Critical technical constraints (especially Android/iOS specifics)
+- New HiveField numbers or typeIds
+- Backlog changes (what was implemented)
 
-Не дублируй то, что уже есть в ARCHITECTURE.md — память для быстрого доступа к самому важному.
+Do not duplicate what is already in ARCHITECTURE.md — memory is for quick access to the most important things.
 
-## Шаг 5 — Создать коммит
+## Step 5 — Create the commit
 
-Только после обновления документации создавай коммит:
-- Сообщение на английском
-- Формат: `feat:` / `fix:` / `refactor:` / `docs:` / `chore:` + краткое описание
+Only after updating documentation, create the commit:
+- Message in English
+- Format: `feat:` / `fix:` / `refactor:` / `docs:` / `chore:` + short description

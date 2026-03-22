@@ -2,7 +2,19 @@
   "@@locale": "en",
 
   "durationMin": "{mins} min {secs} sec",
+  "@durationMin": {
+    "placeholders": {
+      "mins": {"type": "int"},
+      "secs": {"type": "int"}
+    }
+  },
+
   "durationSec": "{secs} sec",
+  "@durationSec": {
+    "placeholders": {
+      "secs": {"type": "int"}
+    }
+  },
 
   "navHome": "Workout",
   "navProgress": "Progress",
@@ -18,18 +30,55 @@
   "homeBranchBalance": "Balance",
 
   "branchJourneyProgress": "{done} of {total} stages completed",
+  "@branchJourneyProgress": {
+    "placeholders": {
+      "done": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
   "branchJourneyStageCompleted": "✓ Completed",
   "branchJourneyStageCurrent": "Current stage",
   "branchJourneyStageLocked": "Locked",
   "branchJourneyParams": "{reps} reps × {sets} sets  ·  Rest {rest} s",
+  "@branchJourneyParams": {
+    "placeholders": {
+      "reps": {"type": "int"},
+      "sets": {"type": "int"},
+      "rest": {"type": "int"}
+    }
+  },
   "branchJourneyParamsTimed": "{secs} s × {sets} sets  ·  Rest {rest} s",
+  "@branchJourneyParamsTimed": {
+    "placeholders": {
+      "secs": {"type": "int"},
+      "sets": {"type": "int"},
+      "rest": {"type": "int"}
+    }
+  },
   "branchJourneyStartChallenge": "Take the Challenge",
 
   "homeStage": "Stage {stage}/{total}",
+  "@homeStage": {
+    "placeholders": {
+      "stage": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+
   "homeChallengeUnlocked": "Challenge Ready",
   "homeChallengeButton": "Accept Challenge",
   "homeChallengeNormReps": "Goal: {n} reps",
+  "@homeChallengeNormReps": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
   "homeChallengeNormSec": "Goal: {n} sec",
+  "@homeChallengeNormSec": {
+    "placeholders": {
+      "n": {"type": "int"}
+    }
+  },
   "homeWorkoutDone": "Workout done",
   "homeWorkoutStart": "Today's workout",
   "homeWorkoutAgain": "Again",
@@ -40,6 +89,12 @@
   "workoutContinue": "Continue",
   "workoutAbort": "Quit",
   "workoutSetProgress": "Set {current} of {total}",
+  "@workoutSetProgress": {
+    "placeholders": {
+      "current": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
   "workoutSec": "sec",
   "workoutRestLabel": "rest",
   "workoutReps": "Reps",
@@ -50,7 +105,21 @@
   "workoutExerciseDone": "✅  Exercise done!",
   "workoutUnitReps": "reps",
   "workoutNextExercise": "Next: {name} • {amount} {unit}",
+  "@workoutNextExercise": {
+    "placeholders": {
+      "name": {"type": "String"},
+      "amount": {"type": "int"},
+      "unit": {"type": "String"}
+    }
+  },
   "workoutNextSet": "Next: set {setNum} • {amount} {unit}",
+  "@workoutNextSet": {
+    "placeholders": {
+      "setNum": {"type": "int"},
+      "amount": {"type": "int"},
+      "unit": {"type": "String"}
+    }
+  },
 
   "summaryTitle": "Great workout!",
   "summarySubtitle": "Keep it up — one more step forward",
@@ -148,10 +217,21 @@
   "summaryChallengeUnlockedBody": "Tap «Accept Challenge» on the Home screen when you're ready",
   "summaryChallengePassedTitle": "New stage!",
   "summaryChallengePassedBody": "You've unlocked: {exercise}",
+  "@summaryChallengePassedBody": {
+    "placeholders": {
+      "exercise": {"type": "String"}
+    }
+  },
 
   "profileTitle": "Profile",
   "profileMaxRank": "Max rank!",
   "profileRankProgress": "{remaining} SP to {rankName}",
+  "@profileRankProgress": {
+    "placeholders": {
+      "remaining": {"type": "int"},
+      "rankName": {"type": "String"}
+    }
+  },
   "profileStatDays": "days",
   "profileStatRecord": "record",
   "profileStatWorkouts": "workouts",
@@ -242,6 +322,11 @@
   "pushupMoreThan15Desc": "Solid base",
 
   "minutesLabel": "{minutes} minutes",
+  "@minutesLabel": {
+    "placeholders": {
+      "minutes": {"type": "int"}
+    }
+  },
   "minutesFiveDesc": "Quick and efficient",
   "minutesTenDesc": "Optimal choice",
   "minutesFifteenDesc": "Full workout",
@@ -378,6 +463,12 @@
   "exerciseCooldownQuadStretchName": "Quad Stretch",
   "exerciseCooldownQuadStretchDesc": "Stand on one leg, bend the other back and hold your foot with your hand. Feel the stretch along the front of your thigh.",
 
+  "exerciseWarmupHipCirclesName": "Hip Circles",
+  "exerciseWarmupHipCirclesDesc": "Stand with feet shoulder-width apart and rotate your hips in large circles. Warms up the hip joints before leg exercises.",
+
+  "exerciseCooldownHipFlexorName": "Hip Flexor Stretch",
+  "exerciseCooldownHipFlexorDesc": "Step into a lunge position. Lower your back knee to the floor and push your hips forward. Hold for 30 seconds per side.",
+
   "exerciseBalS1OneLegStandName": "One-Leg Stand",
   "exerciseBalS1OneLegStandDesc": "Stand on one leg, keep the other slightly bent and off the ground. Arms can be out for balance.",
   "exerciseBalS1OneLegStandTip": "Fix your gaze on a point — it greatly improves balance.",
@@ -407,6 +498,9 @@
 
   "exerciseCooldownDownwardDogName": "Downward Dog",
   "exerciseCooldownDownwardDogDesc": "From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs.",
+
+  "exerciseCooldownWristStretchName": "Wrist Stretch",
+  "exerciseCooldownWristStretchDesc": "Extend one arm forward, palm up. Use your other hand to gently pull the fingers down. Hold for 30 seconds per side.",
 
   "aboutTitle": "About",
   "aboutVersion": "Version",

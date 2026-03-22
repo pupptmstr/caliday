@@ -1,67 +1,72 @@
 # CaliDay
 
-**Геймифицированные домашние тренировки**
+**Gamified Home Workouts**
 
-CaliDay — мобильное приложение для калистеники с игровой механикой прогрессии.
-Проводит пользователя от самого нуля (отжимания от стены) до продвинутых элементов
-(стойка на руках, уголок, дракон) через короткие ежедневные сеты по 5–15 минут.
-Без оборудования, без подписок, без интернета.
+CaliDay is a mobile calisthenics app with a progression game mechanic.
+It guides the user from absolute zero (wall push-ups) to advanced skills
+(handstand push-ups, L-sit, dragon flag) through short daily sets of 5–15 minutes.
+No equipment required, no subscriptions, no internet.
 
 ---
 
-> **Дисклеймер**
+> **Disclaimer**
 >
-> Этот проект разрабатывается в основном совместно с [Claude](https://claude.ai)
-> (Anthropic) — AI-ассистентом, который помогает проектировать архитектуру,
-> писать код и документацию. Все технические решения проверяются и принимаются
-> человеком; Claude выступает в роли соавтора, а не автопилота.
+> This project is developed primarily in collaboration with [Claude](https://claude.ai)
+> (Anthropic) — an AI assistant that helps design architecture, write code, and
+> documentation. All technical decisions are reviewed and approved by a human;
+> Claude acts as a co-author, not an autopilot.
 
 ---
 
-## Концепция
+## Concept
 
-Приложение строится на проверенных игровых механиках обучения:
+The app is built on proven game-based learning mechanics:
 
-| Механика          | Как работает в CaliDay       |
-|-------------------|------------------------------|
-| Навык / ветка     | Группа мышц (Push, Core…)    |
-| Сессия            | Сет — 5–15 мин тренировка    |
-| Карта прогрессий  | Линейка этапов от простого   |
-| Очки опыта        | Strength Points (SP)         |
-| Серия             | Streak — дни подряд          |
-| Уровни игрока     | Ранги: Новичок → Легенда     |
+| Mechanic         | How it works in CaliDay            |
+|------------------|------------------------------------|
+| Skill / branch   | Muscle group (Push, Pull, Core…)   |
+| Session          | Set — 5–15 min workout             |
+| Progression map  | Linear stage ladder, easy to hard  |
+| Experience points| Strength Points (SP)               |
+| Streak           | Consecutive training days          |
+| Player levels    | Ranks: Beginner → Legend           |
 
-## Возможности MVP
+## Features (v1.3)
 
-- **2 ветки прогрессии:** Push (отжимания) и Core (пресс)
-- **Автогенерация ежедневного сета** на основе текущего уровня
-- **Плавная прогрессия:** повторения ↑ → подходы ↑ → отдых ↓ → Challenge-тест → следующий этап
-- **Геймификация:** Strength Points, стрики, ранги, streak freeze
-- **Пуш-уведомления:** утреннее напоминание, вечерний дожим, угроза стрику
-- **Онбординг-опрос** для калибровки стартового уровня
-- **100% офлайн** — никакого сервера, все данные локально (Hive)
+- **5 progression branches:** Push, Pull, Core, Legs, Balance
+- **Daily set auto-generation** based on current level and preferred duration
+- **Smooth progression:** reps ↑ → sets ↑ → rest ↓ → Challenge test → next stage
+- **Gamification:** Strength Points, streaks, ranks, streak freezes, 27 achievements
+- **Goro mascot** — gorilla with 6 animated expressions + Lottie animations (Push branch)
+- **Push notifications:** morning reminder, evening nudge, streak threat
+- **Dark theme** — follows system or manual override
+- **Onboarding survey** for calibrating starting level (7 steps incl. pull-up bar)
+- **Home screen widget** (iOS + Android): Goro + streak + SP — small (2×2) and medium (4×2)
+- **Health integration:** Apple Health (HealthKit) and Google Health Connect — writes strength workout + calories after each session
+- **Localization:** English (primary) + Russian
+- **100% offline** — no server, all data local (Hive)
 
-## Стек
+## Tech Stack
 
-| Слой               | Технология                  |
+| Layer              | Technology                  |
 |--------------------|-----------------------------|
-| Платформа          | Flutter (Dart)              |
-| Стейт-менеджмент   | Riverpod                    |
-| Локальное хранение | Hive                        |
-| Навигация          | go_router                   |
-| Уведомления        | flutter_local_notifications |
-| Целевые платформы  | iOS (первичная), Android    |
+| Platform           | Flutter (Dart)              |
+| State management   | Riverpod                    |
+| Local storage      | Hive                        |
+| Navigation         | go_router                   |
+| Notifications      | flutter_local_notifications |
+| Target platforms   | iOS (primary), Android      |
 
-## Структура проекта
+## Project Structure
 
 ```
 lib/
-├── main.dart                  # Точка входа, инициализация Hive
-├── core/                      # Тема, константы, переиспользуемые виджеты
+├── main.dart                  # Entry point, Hive init
+├── core/                      # Theme, constants, shared widgets, services
 ├── data/
-│   ├── models/                # Hive-модели: UserProfile, SkillProgress, WorkoutLog…
+│   ├── models/                # Hive models: UserProfile, SkillProgress, WorkoutLog…
 │   ├── repositories/          # UserRepository, SkillProgressRepository, WorkoutRepository
-│   └── static/                # Каталог упражнений (13 упражнений Push + Core)
+│   └── static/                # Exercise catalog (30 exercises across 5 branches)
 ├── domain/
 │   ├── models/                # WorkoutPlan, PlannedExercise
 │   └── services/              # SPService, StreakService, ProgressionService, WorkoutGeneratorService
@@ -70,81 +75,84 @@ lib/
     ├── home/
     ├── workout/
     ├── profile/
-    └── settings/
+    ├── settings/
+    └── achievements/
 ```
 
-## Быстрый старт
+## Quick Start
 
-**Требования:** Flutter SDK ≥ 3.11, Dart SDK ≥ 3.11
+**Requirements:** Flutter SDK ≥ 3.11, Dart SDK ≥ 3.11
 
 ```bash
-# Установить зависимости
+# Install dependencies
 flutter pub get
 
-# Сгенерировать Hive-адаптеры (нужно при первом клоне или изменении моделей)
+# Generate Hive adapters (required on first clone or after model changes)
 dart run build_runner build --delete-conflicting-outputs
 
-# Запустить
+# Generate localizations
+flutter gen-l10n
+
+# Run
 flutter run
 
-# Тесты
+# Tests
 flutter test
 
-# Линтер
+# Linter
 flutter analyze
 ```
 
-## Ветки прогрессии
+## Progression Branches
 
-### Push (Толкай)
-| Этап | Упражнение                     | Цель   |
-|------|--------------------------------|--------|
-| 1    | Отжимания от стены             | 3×10   |
-| 2    | Отжимания с колен              | 3×15   |
-| 3    | Полные отжимания               | 3×20   |
-| 4    | Алмазные отжимания             | 3×15   |
-| 5    | Отжимания лучника              | 3×10   |
-| 6    | Отжимания на одной руке        | 3×5    |
-| 7    | Отжимания в стойке на руках    | 3×10   |
+### Push
+| Stage | Exercise               | Goal   |
+|-------|------------------------|--------|
+| 1     | Wall Push-ups          | 3×10   |
+| 2     | Knee Push-ups          | 3×15   |
+| 3     | Full Push-ups          | 3×20   |
+| 4     | Diamond Push-ups       | 3×15   |
+| 5     | Wide Push-ups          | 3×12   |
+| 6     | Archer Push-ups        | 3×8    |
+| 7     | Handstand Push-ups     | 3×5    |
 
-### Core (Кор)
+### Core
+| Stage | Exercise               | Goal      |
+|-------|------------------------|-----------|
+| 1     | Crunches               | 3×20      |
+| 2     | Plank                  | 3×60 sec  |
+| 3     | Lying Leg Raises       | 3×15      |
+| 4     | Hanging Leg Raises     | 3×10      |
+| 5     | L-sit                  | 3×20 sec  |
+| 6     | Dragon Flag            | 3×5       |
 
-| Этап | Упражнение                     | Цель      |
-|------|--------------------------------|-----------|
-| 1    | Скручивания                    | 3×20      |
-| 2    | Планка                         | 3×60 сек  |
-| 3    | Подъёмы ног лёжа               | 3×15      |
-| 4    | Подъёмы ног в висе             | 3×10      |
-| 5    | Уголок (L-sit)                 | 3×20 сек  |
-| 6    | Драконовый флаг                | 3×5       |
+## Gamification
 
-## Геймификация
+**Strength Points (SP)** — awarded for each completed exercise.
++50% bonus for the first workout of the day, +10% for completing the full set.
 
-**Strength Points (SP)** — начисляются за каждое выполненное упражнение.
-Бонус +50% за первую тренировку дня, +10% за полное завершение сета.
+**Ranks:**
 
-**Ранги:**
+| Rank      | SP      |
+|-----------|---------|
+| Beginner  | 0       |
+| Amateur   | 500     |
+| Athlete   | 2,000   |
+| Champion  | 5,000   |
+| Master    | 15,000  |
+| Legend    | 50,000  |
 
-| Ранг       | SP      |
-|------------|---------|
-| Новичок    | 0       |
-| Любитель   | 500     |
-| Спортсмен  | 2 000   |
-| Атлет      | 5 000   |
-| Мастер     | 15 000  |
-| Легенда    | 50 000  |
+## Documentation
 
-## Документация
+- [Architecture](docs/ARCHITECTURE.md) — tech decisions, data models, service APIs, feature backlog
+- [Dev Notes](docs/DEV_NOTES.md) — current status, active feature specs, session history
 
-- [Дизайн-документ](docs/CaliDay_Design_Document.md) — полная спецификация продукта
-- [Заметки разработки](docs/DEV_NOTES.md) — архитектурные решения и прогресс
+## Roadmap
 
-## Роадмап
+- **v1.3 ✅:** Home screen widget, Health Connect / HealthKit integration
+- **v1.4:** Friends (BLE/QR peer-to-peer, no server), Watch notifications
+- **v1.5:** Full Watch App (Apple Watch + Wear OS, native)
 
-- **v1.0 (MVP):** Push + Core, ежедневные сеты, стрики, SP, уведомления *(в разработке)*
-- **v1.1:** Ветки Pull / Legs / Balance, достижения, тёмная тема, анимации
-- **v2.0:** Android, Apple Health, Apple Watch, пользовательские тренировки
+## License
 
-## Авторские права
-
-© 2026 CaliDay. Все права защищены.
+© 2026 CaliDay. All rights reserved.

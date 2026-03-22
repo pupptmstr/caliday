@@ -5,78 +5,78 @@ description: Step-by-step workflow for implementing a new feature or fixing a bu
 
 # Implement Feature Workflow
 
-## Шаг 1 — Загрузить контекст
+## Step 1 — Load context
 
-Прочитай в следующем порядке:
-1. `docs/ARCHITECTURE.md` — архитектура, Hive typeIds, API сервисов, паттерны
-2. `docs/DEV_NOTES.md` — текущий статус и спеку фичи (если она есть в «Активных спеках»)
-3. Релевантные файлы кода (найди через Glob/Grep)
+Read in this order:
+1. `docs/ARCHITECTURE.md` — architecture, Hive typeIds, service APIs, patterns
+2. `docs/DEV_NOTES.md` — current status and the feature spec (if it exists in "Active Specs")
+3. Relevant code files (find via Glob/Grep)
 
-**Ключевые паттерны из ARCHITECTURE.md** которые надо держать в голове:
-- Hive typeIds нельзя менять после релиза
-- UserProfile HiveField номера уже заняты до @22
-- Сервисы мутируют объекты на месте, сохранение — ответственность вызывающего
-- `homeDataProvider` и `profileDataProvider` нужно инвалидировать после тренировки
-- `context.canPop() ? context.pop() : context.go('/home')` при выходе из workout
+**Key patterns from ARCHITECTURE.md** to keep in mind:
+- Hive typeIds cannot be changed after release
+- UserProfile HiveField numbers are occupied up to @22
+- Services mutate objects in place; saving is the caller's responsibility
+- `homeDataProvider` and `profileDataProvider` must be invalidated after a workout
+- `context.canPop() ? context.pop() : context.go('/home')` when exiting workout
 
-## Шаг 2 — Спланировать реализацию
+## Step 2 — Plan the implementation
 
-Перед написанием кода сформулируй план:
-- Какие файлы будут изменены / созданы
-- Если добавляются Hive поля — какой следующий свободный `@HiveField` номер
-- Нужна ли кодогенерация (`dart run build_runner build`)
-- Нужны ли новые l10n ключи
-- Нужны ли изменения в `app_router.dart`
-- Есть ли Android/iOS специфика
+Before writing code, formulate a plan:
+- Which files will be modified / created
+- If adding Hive fields — what is the next free `@HiveField` number
+- Is code generation needed (`dart run build_runner build`)
+- Are new l10n keys needed
+- Are changes to `app_router.dart` needed
+- Any Android/iOS specifics
 
-Согласуй план с пользователем если изменения затрагивают архитектуру.
+Align the plan with the user if changes affect architecture.
 
-## Шаг 3 — Реализовать
+## Step 3 — Implement
 
-Принципы:
-- Минимум изменений для решения задачи — не рефакторить то, что не трогаешь
-- Не добавлять docstrings/комментарии к существующему коду
-- UI-строки — через l10n (не хардкодить в коде)
-- Следить за emoji policy: UI chrome → Material Icons, контент (achievements) → emoji можно
-- Новые HiveField: добавляй строго по порядку, документируй в ARCHITECTURE.md
+Principles:
+- Minimum changes to solve the task — don't refactor code you're not touching
+- Don't add docstrings/comments to existing code
+- UI strings via l10n (don't hardcode in code)
+- Follow emoji policy: UI chrome → Material Icons, content (achievements) → emoji OK
+- New HiveFields: add strictly in order, document in ARCHITECTURE.md
 
-## Шаг 4 — Проверить
+## Step 4 — Verify
 
 ```bash
-flutter analyze          # Обязательно, исправить все предупреждения
-flutter test             # Если есть тесты
+flutter analyze          # Required — fix all warnings
+flutter test             # If tests exist
 ```
 
-Для изменений Hive моделей:
+For Hive model changes:
 ```bash
-dart run build_runner build   # Регенерировать .g.dart файлы
+dart run build_runner build   # Regenerate .g.dart files
 ```
 
-## Шаг 5 — Задокументировать и закоммитить
+## Step 5 — Document and commit
 
-Используй скилл `pre-commit`:
-- История в DEV_NOTES
-- Обновить ARCHITECTURE.md (финальные решения, backlog статус → ✅)
-- Обновить MEMORY.md
-- Коммит на английском
+Use the `pre-commit` skill:
+- History in DEV_NOTES
+- Update ARCHITECTURE.md (final decisions, backlog status → ✅)
+- Update MEMORY.md
+- Commit in English
 
-## Чеклист для фич с Hive изменениями
+## Checklist for features with Hive changes
 
-- [ ] Следующий свободный @HiveField номер проверен
-- [ ] typeId не изменён для существующих классов
-- [ ] `.g.dart` файл регенерирован
-- [ ] Новые поля задокументированы в ARCHITECTURE.md → UserProfile HiveFields
-- [ ] `main.dart`: если новый Hive box — добавлен `await Hive.openBox<T>('name')`
+- [ ] Next free @HiveField number verified
+- [ ] typeId not changed for existing classes
+- [ ] `.g.dart` file regenerated
+- [ ] New fields documented in ARCHITECTURE.md → UserProfile HiveFields
+- [ ] `main.dart`: if new Hive box — added `await Hive.openBox<T>('name')`
 
-## Чеклист для фич с навигацией
+## Checklist for features with navigation changes
 
-- [ ] Маршрут добавлен в `app_router.dart`
-- [ ] При выходе из workout: `context.canPop() ? context.pop() : context.go('/home')`
-- [ ] Deep link guard в RouterNotifier если нужен
-- [ ] Маршрут добавлен в таблицу навигации в ARCHITECTURE.md
+- [ ] Route added to `app_router.dart`
+- [ ] On exit from workout: `context.canPop() ? context.pop() : context.go('/home')`
+- [ ] Deep link guard in RouterNotifier if needed
+- [ ] Route added to the navigation table in ARCHITECTURE.md
 
-## Чеклист для Android-специфики
+## Checklist for Android specifics
 
-- [ ] Новые разрешения добавлены в `AndroidManifest.xml`
-- [ ] Proguard правила обновлены если нужны (для Kotlin/Java классов без Flutter)
-- [ ] `postFrameCallback` для сервисов которые нельзя инициализировать в `main()` до `runApp()`
+- [ ] New permissions added to `AndroidManifest.xml`
+- [ ] Proguard rules updated if needed (for Kotlin/Java classes without Flutter)
+- [ ] `postFrameCallback` for services that cannot be initialized in `main()` before `runApp()`

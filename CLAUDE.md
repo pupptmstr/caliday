@@ -1,56 +1,56 @@
-# CaliDay — Инструкции для Claude
+# CaliDay — Instructions for Claude
 
-## Описание проекта
+## Project Description
 
-Мобильное Flutter-приложение для домашних тренировок с геймификацией.
-Все данные локально (Hive), нет бэкенда, бесплатное, без рекламы.
+Mobile Flutter app for home workouts with gamification.
+All data is stored locally (Hive), no backend, free, no ads.
 
-## Документация
+## Documentation
 
-| Документ | Содержание |
-|----------|-----------|
-| **`docs/ARCHITECTURE.md`** | Tech stack, архитектура, модели данных, Hive typeIds, сервисы, навигация, дизайн-система, code style, backlog. **Читать при старте сессии.** |
-| **`docs/DEV_NOTES.md`** | Текущий статус, спеки фич в проработке, история изменений сессий |
-| `docs/CaliDay_Design_Document.md` | Продуктовый дизайн-документ |
-| `docs/design-concept/caliday_design_concept.md` | Дизайн маскота Горо, цвета, иконки |
+| Document | Contents |
+|----------|----------|
+| **`docs/ARCHITECTURE.md`** | Tech stack, architecture, data models, Hive typeIds, services, navigation, design system, code style, backlog. **Read at session start.** |
+| **`docs/DEV_NOTES.md`** | Current status, active feature specs, session change history |
+| `docs/CaliDay_Design_Document.md` | Product design document |
+| `docs/design-concept/caliday_design_concept.md` | Goro mascot design, colors, icons |
 
-## Технический стек (кратко)
+## Tech Stack (brief)
 
-Flutter + Riverpod + Hive + go_router. iOS первичная, Android вторичная.
+Flutter + Riverpod + Hive + go_router. iOS primary, Android secondary.
 
-## Команды
+## Commands
 
 ```bash
-flutter run                       # Запуск
-flutter test                      # Тесты
-flutter analyze                   # Линтер
-dart run build_runner build       # Кодогенерация (Hive adapters)
-dart run flutter_launcher_icons   # Иконки
+flutter run                       # Run
+flutter test                      # Tests
+flutter analyze                   # Linter
+dart run build_runner build       # Code generation (Hive adapters)
+dart run flutter_launcher_icons   # Icons
 flutter gen-l10n                  # L10n
 ```
 
-## Стиль кода
+## Code Style
 
-- **Commit messages — всегда на английском**
-- Dart style guide, snake_case файлы, PascalCase классы
-- Виджеты: StatelessWidget + ConsumerWidget
-- Комментарии к API на английском, UI-строки через l10n
+- **Commit messages — always in English**
+- Dart style guide, snake_case files, PascalCase classes
+- Widgets: StatelessWidget + ConsumerWidget
+- API comments in English, UI strings via l10n
 
-## Скиллы (повторяющиеся операции)
+## Agent Skills (recurring operations)
 
-Agent Skills в `.claude/skills/`. Подхватываются автоматически по контексту.
+Agent Skills in `.claude/skills/`. Auto-triggered by context.
 
-| Скилл | Когда использовать |
-|-------|-------------------|
-| `pre-commit` | Перед каждым коммитом — обновление документации и памяти |
-| `implement-feature` | При начале реализации новой фичи или фикса |
-| `document-idea` | При появлении новой идеи или предложения по продукту |
+| Skill | When to use |
+|-------|-------------|
+| `pre-commit` | Before every commit — update documentation and memory |
+| `implement-feature` | When starting a new feature or bug fix |
+| `document-idea` | When a new product idea or proposal appears |
 
-## Обязательный процесс перед коммитом
+## Required Pre-Commit Process
 
-Используй скилл `/pre-commit` или выполни вручную:
+Use the `/pre-commit` skill or do manually:
 
-1. **Обновить `docs/DEV_NOTES.md`** — добавить запись в «История изменений»: что сделано, какие файлы изменены, какие проблемы возникли и как решены
-2. **Обновить `docs/ARCHITECTURE.md`** — если изменение затрагивает архитектурные решения, модели, API сервисов, или backlog
-3. **Обновить автопамять** (`MEMORY.md` в `.claude/projects/.../memory/`) — новые паттерны, ключевые решения
-4. Только после этого создавать коммит
+1. **Update `docs/DEV_NOTES.md`** — add entry to "Change History": what was done, which files changed, any non-trivial issues and how they were resolved
+2. **Update `docs/ARCHITECTURE.md`** — if the change affects architectural decisions, models, service APIs, or backlog
+3. **Update auto-memory** (`MEMORY.md` in `.claude/projects/.../memory/`) — new patterns, key decisions
+4. Only then create the commit
