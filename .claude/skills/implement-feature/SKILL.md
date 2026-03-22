@@ -39,6 +39,7 @@ Principles:
 - UI strings via l10n (don't hardcode in code)
 - Follow emoji policy: UI chrome → Material Icons, content (achievements) → emoji OK
 - New HiveFields: add strictly in order, document in ARCHITECTURE.md
+- **All project documentation (ARCHITECTURE.md, DEV_NOTES.md, skills, memory) is written in English**
 
 ## Step 4 — Verify
 

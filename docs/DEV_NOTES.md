@@ -313,6 +313,22 @@ Products (consumable):
 Placement: Settings → About.
 To be tackled after the first real release.
 
+#### ⚠️ Tax / Legal Prerequisite (Germany)
+
+Before implementing, the author must resolve the legal/tax setup for receiving income.
+Key points for Germany (discussed 2026-03-23, not a substitute for professional advice):
+
+- **Gewerbe registration** — file Gewerbeanmeldung at local Ordnungsamt (~€26).
+  Finanzamt will send a tax questionnaire (Fragebogen zur steuerlichen Erfassung) → get Steuernummer.
+- **Kleinunternehmerregelung** — if annual revenue < €25 000, no VAT obligations.
+  Apple/Google already act as marketplace facilitators and remit EU VAT themselves.
+- **Income tax (Einkommensteuer)** — profit (revenue − expenses) added to personal income.
+  Tax-free up to ~€12 000/year (Grundfreibetrag), then progressive 14–45%.
+  Filed annually via Einkommensteuererklärung (deadline: July 31 of following year).
+- **Gewerbesteuer** — only applies above ~€24 500 profit/year; unlikely at launch.
+- **Deductible expenses**: Apple/Google developer fees, hardware, courses, Steuerberater fees.
+- **Recommendation**: consult a Steuerberater before publishing paid features.
+
 ---
 
 ### Lottie Animations for Core Branch — waiting for designer assets
@@ -323,6 +339,16 @@ Integration is analogous to the Push branch — `Exercise.animationPath` already
 ---
 
 ## Change History
+
+### 2026-03-23 — Docs: tax note for IAP feature + English-only convention
+
+**What was done:** Added a tax/legal prerequisite block to the "Support the Author" IAP spec (Germany: Gewerbe, Kleinunternehmerregelung, Einkommensteuer). Updated skills and backlog with a warning to resolve this before implementing the feature. Established English-only rule for all project documentation.
+
+**Modified files:**
+- `docs/DEV_NOTES.md` — added Tax / Legal Prerequisite section under "Support the Author"
+- `docs/ARCHITECTURE.md` — added ⚠️ note to IAP backlog entry
+- `.claude/skills/implement-feature/SKILL.md` — added English-only rule
+- `.claude/skills/document-idea/SKILL.md` — added English-only rule
 
 ### 2026-03-22 — v1.4 Friends feature (QR + BLE)
 

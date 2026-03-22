@@ -5,6 +5,8 @@ description: Workflow for documenting a new product idea or feature proposal in 
 
 # Document Idea Workflow
 
+**All documentation must be written in English** (ARCHITECTURE.md, DEV_NOTES.md, specs, memory).
+
 Ideas are recorded in two places with different levels of detail:
 - **ARCHITECTURE.md** — the idea itself (one line in the backlog)
 - **DEV_NOTES.md** — implementation elaboration (detailed spec)
