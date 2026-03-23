@@ -572,6 +572,7 @@ flutter build ipa                 # iOS archive
 | ? | Supplementary exercise pool (random, no progression) | 📐 designed |
 | ? | Privacy Policy (GitHub Markdown → ссылка в приложении) | 📐 designed |
 | ? | Lottie animations for Core branch | 🔒 waiting for assets |
+| ? | Profile stat tooltips (tap streak / rank / freeze for explanation) | 📐 designed |
 | ? | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup before implementing (see DEV_NOTES § Tax / IAP income) |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea

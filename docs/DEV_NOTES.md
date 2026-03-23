@@ -338,6 +338,51 @@ Integration is analogous to the Push branch — `Exercise.animationPath` already
 
 ---
 
+### ? — Profile Stat Tooltips — designed
+
+#### Concept
+
+When the user taps any stat cell on the profile screen (streak, record, total workouts, freezes)
+or the rank card, a small bottom sheet or dialog pops up explaining what that metric is,
+how it is earned/spent, and why it matters. Helps new users understand the gamification system
+without cluttering the UI with permanent text.
+
+#### UX / Mechanics
+
+Tappable elements and their tooltip content:
+
+| Element | Trigger | Tooltip content |
+|---------|---------|-----------------|
+| 🔥 Current streak (`local_fire_department`) | tap _StatCell | What a streak is; how many days in a row the user has trained; resets if a day is skipped without a freeze |
+| 🏆 Longest streak (`emoji_events`) | tap _StatCell | Personal record — the longest unbroken streak ever |
+| 💪 Total workouts (`fitness_center`) | tap _StatCell | Total number of completed workout sessions since app start |
+| ❄️ Streak freezes (`ac_unit`) | tap _StatCell | What freezes are; automatically consumed on a missed day; earned by completing workouts (threshold-based) |
+| Rank card (`_RankCard`) | tap anywhere on card | What SP is; how rank levels work (Beginner → Legend); how SP is earned |
+
+Tooltip UI: `showModalBottomSheet` with a small rounded sheet — icon, title, 2-3 sentences of body text, and a "Got it" button (or dismiss by tapping outside). No extra navigation.
+
+#### Technical Tasks
+
+| # | Task |
+|---|------|
+| 1 | Add `onTap` callback parameter to `_StatCell` |
+| 2 | Wrap `_RankCard` in `GestureDetector` |
+| 3 | Add helper `_showInfoSheet(context, title, body)` — reusable bottom sheet |
+| 4 | Add l10n strings for each tooltip (title + body × 5 entries) |
+| 5 | Wire up taps in `_StatsGrid` and `_RankCard` call sites in `profile_screen.dart` |
+
+#### Technical Details
+
+- No new data models or providers needed — purely UI
+- Bottom sheet: `showModalBottomSheet`, `isScrollControlled: false`, standard `DraggableScrollableSheet` not needed (content is short)
+- Strings go into `app_en.arb` / `app_ru.arb` under keys like `profileTooltipStreakTitle`, `profileTooltipStreakBody`, etc.
+
+#### When to tackle
+
+Small, self-contained UX polish. Good candidate for a quiet session between bigger features.
+
+---
+
 ## Change History
 
 ### 2026-03-23 — Docs: tax note for IAP feature + English-only convention
