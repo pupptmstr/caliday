@@ -338,6 +338,85 @@ Integration is analogous to the Push branch — `Exercise.animationPath` already
 
 ---
 
+### v2.0 — Design Overhaul: Liquid Glass (iOS) / Frosted Glass (Android) — designed
+
+#### Concept
+
+A full visual refresh of the app to modernize the feel and align with platform design languages.
+On iOS: adopt Apple's **Liquid Glass** aesthetic introduced in iOS 26 / WWDC 2025 —
+translucent, dynamic, blurred-background surfaces with refraction-like depth.
+On Android: a **frosted / opaque glass** variant inspired by Material You — blurred panels
+with solid tint instead of full transparency, since Android lacks the system-level blur
+compositor that makes iOS Liquid Glass feel native.
+
+The mascot Goro and the color palette (#4DA6FF blue, #FF9500 energy orange) are preserved —
+they become anchors of brand identity on top of the new surfaces.
+
+#### UX / Mechanics
+
+**Overall direction:**
+- Replace flat `surfaceContainerHighest` cards with glass panels (blur + subtle border + gradient overlay)
+- Navigation bar: glass bar floating above content with blur bleed
+- App bar: transparent or ultra-thin glass, title large + collapsed state
+- Home screen: Goro on a blurred/gradient background, stat widgets as glass chips
+- Workout screen: dark immersive with glass overlay for set counter
+- Profile: rank card becomes a premium glass hero block
+- Modals / bottom sheets: deep glass with strong blur
+
+**iOS (Liquid Glass — full):**
+- Use `BackdropFilter(filter: ImageFilter.blur(...))` + semi-transparent `Container` on top of content
+- Target: native feel matching iOS 26 system UI
+- `ClipRRect` + frosted overlay with `Color(0xFFFFFFFF).withOpacity(0.12–0.18)` for light mode;
+  `Color(0xFF000000).withOpacity(0.25–0.35)` for dark mode
+- Subtle white border (1px, opacity ~0.3) around glass panels
+- Animated shimmer / refraction on hero elements (rank card, streak) — optional, phase 2
+
+**Android (Frosted / opaque glass):**
+- Same `BackdropFilter` blur but with higher opacity overlay (~0.55–0.65) so blur is secondary
+  and legibility is primary — avoids Android's inconsistent blur compositor across OEMs
+- Result: "tinted frosted" look rather than see-through glass
+- Fallback: if `BackdropFilter` performance is poor on low-end devices, drop blur entirely
+  and use elevated opaque surface with glass-style border + gradient
+
+**Platform branching in theme:**
+- `AppTheme` gains `isLiquidGlass` flag derived from `Platform.isIOS`
+- All glass widgets accept an `opacity` and `blurStrength` param so iOS/Android values differ
+- No conditional platform checks inside individual widgets — handled by theme tokens
+
+#### Technical Tasks
+
+| # | Task |
+|---|------|
+| 1 | Create `GlassCard` widget: `BackdropFilter` + blur + tint overlay + rounded border |
+| 2 | Create `GlassNavBar` / `GlassAppBar` replacements |
+| 3 | Define glass theme tokens in `AppTheme`: `glassOpacityLight/Dark`, `glassBlurStrength`, `glassBorderColor` — with iOS/Android presets |
+| 4 | Audit and rebuild `HomeScreen` with glass chips for streak/SP widgets |
+| 5 | Rebuild `_RankCard` as glass hero block |
+| 6 | Rebuild `_StatsGrid` cells as glass tiles |
+| 7 | Rebuild `WorkoutScreen` set counter overlay |
+| 8 | Rebuild all bottom sheets / modals with glass treatment |
+| 9 | Rebuild `SummaryScreen` with glass stat cards |
+| 10 | Performance pass: measure frame rate on mid-range Android; tune or disable blur if needed |
+| 11 | Design review: test light + dark mode on real devices (iPhone + Android) |
+
+#### Technical Details
+
+- Key Flutter APIs: `BackdropFilter`, `ImageFilter.blur(sigmaX, sigmaY)`, `ClipRRect`
+- `BackdropFilter` requires the widget tree below it to be rendered — wrap screen backgrounds
+  in `Stack` with a blurred layer on top
+- iOS: `sigmaX/Y = 20–30` feels native; Android: `10–15` with higher overlay opacity
+- Goro SVGs sit above glass layers — no changes to mascot assets
+- Color palette unchanged; glass tint uses existing `primary` with low alpha
+- This is a **breaking visual change** — ship as a dedicated release (v2.0), not incremental
+
+#### When to tackle
+
+After v1.4 milestones are complete and the app is stable in markets.
+Requires a design prototype pass (Figma or in-code) before full implementation.
+iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
+
+---
+
 ### ? — Profile Stat Tooltips — designed
 
 #### Concept
