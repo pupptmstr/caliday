@@ -2,10 +2,14 @@
 // ignore_for_file: dangling_library_doc_comments, implementation_imports
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:lottie/lottie.dart';
+import 'package:lottie/src/lottie_builder.dart';
+import 'package:lottie/src/composition.dart';
 
 class Assets {
   Assets._();
 
+  static const $AssetsAnimationsGen animations = $AssetsAnimationsGen();
   static const $AssetsGoroGen goro = $AssetsGoroGen();
   static const $AssetsSkalaGen skala = $AssetsSkalaGen();
   static const $AssetsSoundsGen sounds = $AssetsSoundsGen();
@@ -64,6 +68,41 @@ class $AssetsSoundsGen {
   final String ding = 'assets/sounds/ding.mp3';
   final String pop = 'assets/sounds/pop.mp3';
   final String tick = 'assets/sounds/tick.mp3';
+}
+
+class $AssetsAnimationsGen {
+  const $AssetsAnimationsGen();
+
+  final LottieGenImage coreS1Crunches = const LottieGenImage(
+    'assets/animations/core_s1_crunches.json',
+  );
+  final LottieGenImage coreS2Plank = const LottieGenImage(
+    'assets/animations/core_s2_plank.json',
+  );
+  final LottieGenImage coreS3LyingLegRaise = const LottieGenImage(
+    'assets/animations/core_s3_lying_leg_raise.json',
+  );
+  final LottieGenImage pushS1WallPushup = const LottieGenImage(
+    'assets/animations/push_s1_wall_pushup.json',
+  );
+  final LottieGenImage pushS2KneePushup = const LottieGenImage(
+    'assets/animations/push_s2_knee_pushup.json',
+  );
+  final LottieGenImage pushS3FullPushup = const LottieGenImage(
+    'assets/animations/push_s3_full_pushup.json',
+  );
+  final LottieGenImage pushS4DiamondPushup = const LottieGenImage(
+    'assets/animations/push_s4_diamond_pushup.json',
+  );
+  final LottieGenImage pushS5WidePushup = const LottieGenImage(
+    'assets/animations/push_s5_wide_pushup.json',
+  );
+  final LottieGenImage pushS6ArcherPushup = const LottieGenImage(
+    'assets/animations/push_s6_archer_pushup.json',
+  );
+  final LottieGenImage pushS7HandstandPushup = const LottieGenImage(
+    'assets/animations/push_s7_handstand_pushup.json',
+  );
 }
 
 class AssetGenImage {
@@ -211,6 +250,55 @@ class LottieGenImage {
   const LottieGenImage(this._assetName);
 
   final String _assetName;
+
+  LottieBuilder lottie({
+    Animation<double>? controller,
+    bool? animate,
+    FrameRate? frameRate,
+    bool? repeat,
+    bool? reverse,
+    LottieDelegates? delegates,
+    LottieOptions? options,
+    void Function(LottieComposition)? onLoaded,
+    LottieImageProviderFactory? imageProviderFactory,
+    Key? key,
+    AssetBundle? bundle,
+    LottieFrameBuilder? frameBuilder,
+    ImageErrorWidgetBuilder? errorBuilder,
+    double? width,
+    double? height,
+    BoxFit? fit,
+    AlignmentGeometry? alignment,
+    String? package,
+    bool? addRepaintBoundary,
+    FilterQuality? filterQuality,
+    WarningCallback? onWarning,
+  }) {
+    return Lottie.asset(
+      _assetName,
+      controller: controller,
+      animate: animate,
+      frameRate: frameRate,
+      repeat: repeat,
+      reverse: reverse,
+      delegates: delegates,
+      options: options,
+      onLoaded: onLoaded,
+      imageProviderFactory: imageProviderFactory,
+      key: key,
+      bundle: bundle,
+      frameBuilder: frameBuilder,
+      errorBuilder: errorBuilder,
+      width: width,
+      height: height,
+      fit: fit,
+      alignment: alignment,
+      package: package,
+      addRepaintBoundary: addRepaintBoundary,
+      filterQuality: filterQuality,
+      onWarning: onWarning,
+    );
+  }
 
   Widget custom({
     Key? key,

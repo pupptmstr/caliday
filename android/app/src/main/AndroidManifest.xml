@@ -5,8 +5,12 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <!-- Required to reschedule notifications after device reboot -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <!-- Allows exact alarm scheduling on Android 12+ (API 31+); optional —
-         the app falls back to inexact alarms if not granted -->
+    <!-- Exact alarm scheduling.
+         USE_EXACT_ALARM is auto-granted on Android 13+ (API 33+) — no user action needed.
+         SCHEDULE_EXACT_ALARM is the fallback for Android 12 (API 31-32); requires the user
+         to enable "Alarms & reminders" in system settings, but provides graceful degradation
+         to inexact alarms if not granted. -->
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <!-- BLE scanning (Android 12+) -->
     <uses-feature android:name="android.hardware.bluetooth_le" android:required="false" />
@@ -90,6 +94,22 @@
                 <category android:name="android.intent.category.HEALTH_PERMISSIONS"/>
             </intent-filter>
         </activity-alias>
+
+        <!-- flutter_local_notifications: required for scheduled notifications to fire.
+             ScheduledNotificationReceiver handles AlarmManager broadcasts → shows the notification.
+             ScheduledNotificationBootReceiver reschedules pending alarms after device reboot.
+             ActionBroadcastReceiver handles notification action button taps.
+             Without these, zonedSchedule() alarms fire silently with no visible notification. -->
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ActionBroadcastReceiver" />
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" />
+        <receiver android:exported="false" android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
+                <action android:name="com.htc.intent.action.QUICKBOOT_POWERON"/>
+            </intent-filter>
+        </receiver>
 
         <!-- Don't delete the meta-data below.
              This is used by the Flutter tool to generate GeneratedPluginRegistrant.java -->

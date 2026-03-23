@@ -295,6 +295,21 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-03-23 — Fix scheduled notifications (Android) + Core Lottie animations s1–s3
+
+**What was done:** Fixed scheduled notifications never firing on Android by adding missing `flutter_local_notifications` receivers to AndroidManifest. Added `USE_EXACT_ALARM` permission. Integrated Lottie animations for Core branch stages 1–3.
+
+**Modified files:**
+- `android/app/src/main/AndroidManifest.xml` — added `ScheduledNotificationReceiver`, `ScheduledNotificationBootReceiver`, `ActionBroadcastReceiver`; added `USE_EXACT_ALARM` permission
+- `lib/data/static/exercise_catalog.dart` — added `animationPath` to `coreS1Crunches`, `coreS2Plank`, `coreS3LyingLegRaise`
+
+**New files:**
+- `assets/animations/core_s1_crunches.json` — Lottie animation for Core s1
+- `assets/animations/core_s2_plank.json` — Lottie animation for Core s2
+- `assets/animations/core_s3_lying_leg_raise.json` — Lottie animation for Core s3
+
+**Key issues and solutions:** In `flutter_local_notifications` v17+, the plugin stopped auto-merging its BroadcastReceivers into the app manifest. Without `ScheduledNotificationReceiver`, AlarmManager fired alarms into the void — no notification was ever shown. Instant (test) notifications worked fine because they bypass AlarmManager entirely. Fixed by explicitly declaring all three receivers in the app's `AndroidManifest.xml`. Also added `USE_EXACT_ALARM` (auto-granted on Android 13+) alongside `SCHEDULE_EXACT_ALARM` so exact alarms work without requiring manual user action in system settings.
+
 ### 2026-03-23 — Flexibility branch + Supplementary pool + Profile stat tooltips
 
 **What was done:** Added a new BranchId.flex (Flexibility & Mobility, 6 stages of timed/reps stretching), a supplementary exercise pool injected into bonus workouts (2 random picks), and tappable stat chips on the Profile screen that show bottom-sheet explanations.

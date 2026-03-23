@@ -179,6 +179,7 @@ class ExerciseCatalog {
     targetRestSec: 20,
     spBase: 1,
     techniqueTip: 'Не тяни шею руками — тяни грудью к потолку.',
+    animationPath: 'assets/animations/core_s1_crunches.json',
   );
 
   static const Exercise coreS2Plank = Exercise(
@@ -199,6 +200,7 @@ class ExerciseCatalog {
     spBase: 2, // per 10 seconds
     challengeTargetReps: 30,
     techniqueTip: 'Напрягай пресс и ягодицы. Дыши ровно — не задерживай.',
+    animationPath: 'assets/animations/core_s2_plank.json',
   );
 
   static const Exercise coreS3LyingLegRaise = Exercise(
@@ -219,6 +221,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 5,
     techniqueTip: 'Поясница прижата к полу на протяжении всего движения.',
+    animationPath: 'assets/animations/core_s3_lying_leg_raise.json',
   );
 
   static const Exercise coreS4HangingLegRaise = Exercise(
