@@ -118,25 +118,31 @@ class _HeroZone extends StatelessWidget {
             // ── Stats row ─────────────────────────────────────────────────
             Row(
               children: [
-                _HeroStat(
-                  icon: Icons.local_fire_department,
-                  value: '$streak',
-                  label: l10n.homeDays,
-                  accentColor: AppTheme.energy,
+                Expanded(
+                  child: _HeroStat(
+                    icon: Icons.local_fire_department,
+                    value: '$streak',
+                    label: l10n.homeDays,
+                    accentColor: AppTheme.energy,
+                  ),
                 ),
                 const SizedBox(width: 10),
-                _HeroStat(
-                  icon: Icons.bolt,
-                  value: '$totalSP',
-                  label: 'SP',
-                  accentColor: Colors.white,
+                Expanded(
+                  child: _HeroStat(
+                    icon: Icons.bolt,
+                    value: '$totalSP',
+                    label: 'SP',
+                    accentColor: Colors.white,
+                  ),
                 ),
                 const SizedBox(width: 10),
-                _HeroStat(
-                  icon: Icons.military_tech,
-                  value: rank.localizedName(l10n),
-                  label: '',
-                  accentColor: Colors.white,
+                Expanded(
+                  child: _HeroStat(
+                    icon: Icons.military_tech,
+                    value: rank.localizedName(l10n),
+                    label: '',
+                    accentColor: Colors.white,
+                  ),
                 ),
               ],
             ),

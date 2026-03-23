@@ -617,7 +617,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get onboardingStart => 'Начать тренировку 🔥';
 
   @override
-  String get onboardingQ1 => 'Как часто ты занимаешься спортом?';
+  String get onboardingQ1 => 'Как тебя зовут?';
+
+  @override
+  String get onboardingQ1Hint => 'Твоё имя (необязательно)';
+
+  @override
+  String get onboardingQ1Body => 'Горо будет обращаться к тебе по имени';
 
   @override
   String get onboardingQ2 => 'Сколько отжиманий ты можешь сделать?';
@@ -638,25 +644,27 @@ class AppLocalizationsRu extends AppLocalizations {
   String get onboardingEquipmentNo => 'Нет';
 
   @override
-  String get onboardingQ6 => 'Во сколько напомнить о тренировке?';
+  String get onboardingQ6Health => 'Синхронизация с Health';
 
   @override
-  String get frequencyNeverLabel => 'Никогда';
+  String get onboardingHealthBody =>
+      'CaliDay может автоматически сохранять тренировки в Apple Health (iOS) или Health Connect (Android).';
 
   @override
-  String get frequencyNeverDesc => 'Только начинаю';
+  String get onboardingHealthEnable => 'Включить';
 
   @override
-  String get frequencySometimesLabel => 'Иногда';
+  String get onboardingHealthEnableDesc =>
+      'Тренировки будут сохраняться автоматически';
 
   @override
-  String get frequencySometimesDesc => 'Тренируюсь время от времени';
+  String get onboardingHealthSkip => 'Пропустить';
 
   @override
-  String get frequencyRegularLabel => 'Регулярно';
+  String get onboardingHealthSkipDesc => 'Можно включить позже в Настройках';
 
   @override
-  String get frequencyRegularDesc => 'Занимаюсь несколько раз в неделю';
+  String get onboardingQ7 => 'Во сколько напомнить о тренировке?';
 
   @override
   String get pushupZeroDesc => 'Пока ни одного';

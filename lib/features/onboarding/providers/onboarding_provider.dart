@@ -2,25 +2,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/router/app_router.dart';
+import '../../../core/services/health_service.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
 import '../../../data/models/user_profile.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
-
-// ── Answer enums ─────────────────────────────────────────────────────────────
-
-enum FitnessFrequency {
-  never('Никогда', 'Только начинаю', '🛋️'),
-  sometimes('Иногда', 'Тренируюсь время от времени', '🚶'),
-  regular('Регулярно', 'Занимаюсь несколько раз в неделю', '💪');
-
-  const FitnessFrequency(this.label, this.description, this.emoji);
-
-  final String label;
-  final String description;
-  final String emoji;
-}
 
 enum PushupCount {
   zero('0', 'Пока ни одного', '🌱'),
@@ -54,38 +41,42 @@ enum WorkoutMinutes {
 class OnboardingState {
   const OnboardingState({
     this.step = 0,
-    this.fitnessFrequency,
+    this.displayName = '',
     this.pushupCount,
     this.workoutMinutes,
     this.fitnessGoal,
     this.hasPullUpBar,
+    this.healthEnabled = false,
     this.reminderHour = 9,
     this.reminderMinute = 0,
     this.isSaving = false,
   });
 
   final int step;
-  final FitnessFrequency? fitnessFrequency;
+  final String displayName;
   final PushupCount? pushupCount;
   final WorkoutMinutes? workoutMinutes;
   final FitnessGoal? fitnessGoal;
 
   /// null = not yet answered; true = has bar; false = no bar.
   final bool? hasPullUpBar;
+
+  /// Whether user opted in to Health integration during onboarding.
+  final bool healthEnabled;
   final int reminderHour;
   final int reminderMinute;
   final bool isSaving;
 
-  // Steps: 0=welcome  1=frequency  2=pushups  3=minutes  4=goal
-  //        5=pullupbar  6=reminder
-  static const int lastStep = 6;
+  // Steps: 0=welcome  1=name  2=pushups  3=minutes  4=goal
+  //        5=pullupbar  6=health  7=reminder
+  static const int lastStep = 7;
 
   bool get canAdvance {
     switch (step) {
       case 0:
         return true;
       case 1:
-        return fitnessFrequency != null;
+        return true; // name is optional
       case 2:
         return pushupCount != null;
       case 3:
@@ -95,6 +86,8 @@ class OnboardingState {
       case 5:
         return hasPullUpBar != null;
       case 6:
+        return true; // health is optional
+      case 7:
         return true; // reminder has a sensible default
       default:
         return false;
@@ -105,22 +98,24 @@ class OnboardingState {
 
   OnboardingState copyWith({
     int? step,
-    FitnessFrequency? fitnessFrequency,
+    String? displayName,
     PushupCount? pushupCount,
     WorkoutMinutes? workoutMinutes,
     FitnessGoal? fitnessGoal,
     bool? hasPullUpBar,
+    bool? healthEnabled,
     int? reminderHour,
     int? reminderMinute,
     bool? isSaving,
   }) {
     return OnboardingState(
       step: step ?? this.step,
-      fitnessFrequency: fitnessFrequency ?? this.fitnessFrequency,
+      displayName: displayName ?? this.displayName,
       pushupCount: pushupCount ?? this.pushupCount,
       workoutMinutes: workoutMinutes ?? this.workoutMinutes,
       fitnessGoal: fitnessGoal ?? this.fitnessGoal,
       hasPullUpBar: hasPullUpBar ?? this.hasPullUpBar,
+      healthEnabled: healthEnabled ?? this.healthEnabled,
       reminderHour: reminderHour ?? this.reminderHour,
       reminderMinute: reminderMinute ?? this.reminderMinute,
       isSaving: isSaving ?? this.isSaving,
@@ -130,11 +125,12 @@ class OnboardingState {
   /// Returns a copy with [hasPullUpBar] set to [value], allowing null.
   OnboardingState withHasPullUpBar(bool value) => OnboardingState(
         step: step,
-        fitnessFrequency: fitnessFrequency,
+        displayName: displayName,
         pushupCount: pushupCount,
         workoutMinutes: workoutMinutes,
         fitnessGoal: fitnessGoal,
         hasPullUpBar: value,
+        healthEnabled: healthEnabled,
         reminderHour: reminderHour,
         reminderMinute: reminderMinute,
         isSaving: isSaving,
@@ -148,8 +144,8 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 
   final Ref _ref;
 
-  void selectFitnessFrequency(FitnessFrequency value) =>
-      state = state.copyWith(fitnessFrequency: value);
+  void setDisplayName(String value) =>
+      state = state.copyWith(displayName: value.trim());
 
   void selectPushupCount(PushupCount value) =>
       state = state.copyWith(pushupCount: value);
@@ -162,6 +158,9 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 
   void selectHasPullUpBar(bool value) =>
       state = state.withHasPullUpBar(value);
+
+  void selectHealthEnabled(bool value) =>
+      state = state.copyWith(healthEnabled: value);
 
   void selectReminderTime(int hour, int minute) =>
       state = state.copyWith(reminderHour: hour, reminderMinute: minute);
@@ -186,7 +185,15 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     final progressRepo = _ref.read(skillProgressRepositoryProvider);
     final hasPullUpBar = state.hasPullUpBar ?? false;
 
+    // Request Health permissions if the user opted in.
+    bool healthGranted = false;
+    if (state.healthEnabled) {
+      healthGranted =
+          await HealthService.instance.requestPermissions(readWeight: false);
+    }
+
     // Create user profile with notification preferences and selected locale.
+    final name = state.displayName.isNotEmpty ? state.displayName : null;
     await userRepo.saveProfile(
       UserProfile(
         notificationHour: state.reminderHour,
@@ -195,6 +202,8 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
         preferredWorkoutMinutes: state.workoutMinutes?.minutes,
         fitnessGoal: state.fitnessGoal,
         hasPullUpBar: hasPullUpBar,
+        displayName: name,
+        healthWorkoutsEnabled: state.healthEnabled && healthGranted,
       ),
     );
 

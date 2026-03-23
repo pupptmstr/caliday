@@ -19,7 +19,7 @@ Latest APK build: `build/app/outputs/flutter-apk/caliday.apk` (~57 MB)
 | Repositories (User, SkillProgress, Workout, Achievement) | ✅ |
 | Domain services | ✅ |
 | Navigation (GoRouter + bottom nav) | ✅ |
-| Onboarding (7 steps) | ✅ |
+| Onboarding (8 steps) | ✅ |
 | Home / Progress / Profile / Settings | ✅ |
 | Workout / Summary | ✅ |
 | BranchJourney / Achievements / About / DevOptions | ✅ |
@@ -463,6 +463,21 @@ Small, self-contained UX polish. Good candidate for a quiet session between bigg
 ---
 
 ## Change History
+
+### 2026-03-23 — Onboarding redesign + bugfixes
+
+**What was done:** Replaced the useless "fitness frequency" step with a name input step and a Health integration opt-in step. Fixed a `TextEditingController` use-after-dispose crash in the settings name editor. Fixed a 1.2px RenderFlex overflow in the Home hero stats row.
+
+**Modified files:**
+- `lib/features/onboarding/providers/onboarding_provider.dart` — removed `FitnessFrequency` enum and state field; added `displayName` (String) and `healthEnabled` (bool); `lastStep` 6→7; `completeOnboarding` now saves `displayName` + requests Health permissions when opted in
+- `lib/features/onboarding/screens/onboarding_screen.dart` — replaced `_FrequencyStep` with `_NameStep` (TextField, step 1) and `_HealthStep` (opt-in step, step 6); updated `_StepScaffold` with optional `body` subtitle; removed `FitnessFrequencyL10n` extension; updated reminder step to `onboardingQ7`
+- `l10n/app_en.arb` / `l10n/app_ru.arb` — added `onboardingQ1Hint`, `onboardingQ1Body`, `onboardingQ6Health`, `onboardingHealthBody/Enable/EnableDesc/Skip/SkipDesc`, `onboardingQ7`; removed unused `onboardingQ1` (frequency)
+- `lib/features/settings/screens/settings_screen.dart` — removed `controller.dispose()` after `showDialog` in `_showNameEditor` to prevent use-after-dispose crash during closing animation
+- `lib/features/home/screens/home_screen.dart` — wrapped each `_HeroStat` in `Expanded` to fix 1.2px overflow on narrow screens
+
+**Key issues and solutions:**
+- `TextEditingController` disposed while dialog closing animation was still running → removed explicit `dispose()` call; inline controllers created for one-off dialogs are GC'd when they go out of scope.
+- `fitnessFrequency` was collected in onboarding but never written to `UserProfile` → removed entirely.
 
 ### 2026-03-23 — Design polish (AppTheme, Home hero zone, Profile stats) + fix mobile_scanner Xcode 26 build
 

@@ -1187,8 +1187,20 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingQ1.
   ///
   /// In en, this message translates to:
-  /// **'How often do you work out?'**
+  /// **'What\'s your name?'**
   String get onboardingQ1;
+
+  /// No description provided for @onboardingQ1Hint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your name (optional)'**
+  String get onboardingQ1Hint;
+
+  /// No description provided for @onboardingQ1Body.
+  ///
+  /// In en, this message translates to:
+  /// **'Goro will use it to cheer you on'**
+  String get onboardingQ1Body;
 
   /// No description provided for @onboardingQ2.
   ///
@@ -1226,47 +1238,47 @@ abstract class AppLocalizations {
   /// **'No'**
   String get onboardingEquipmentNo;
 
-  /// No description provided for @onboardingQ6.
+  /// No description provided for @onboardingQ6Health.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync with Health'**
+  String get onboardingQ6Health;
+
+  /// No description provided for @onboardingHealthBody.
+  ///
+  /// In en, this message translates to:
+  /// **'CaliDay can automatically save your workouts to Apple Health (iOS) or Health Connect (Android).'**
+  String get onboardingHealthBody;
+
+  /// No description provided for @onboardingHealthEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Enable'**
+  String get onboardingHealthEnable;
+
+  /// No description provided for @onboardingHealthEnableDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Save workouts automatically'**
+  String get onboardingHealthEnableDesc;
+
+  /// No description provided for @onboardingHealthSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Not now'**
+  String get onboardingHealthSkip;
+
+  /// No description provided for @onboardingHealthSkipDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'You can enable it later in Settings'**
+  String get onboardingHealthSkipDesc;
+
+  /// No description provided for @onboardingQ7.
   ///
   /// In en, this message translates to:
   /// **'When should we remind you to work out?'**
-  String get onboardingQ6;
-
-  /// No description provided for @frequencyNeverLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Never'**
-  String get frequencyNeverLabel;
-
-  /// No description provided for @frequencyNeverDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Just starting out'**
-  String get frequencyNeverDesc;
-
-  /// No description provided for @frequencySometimesLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Sometimes'**
-  String get frequencySometimesLabel;
-
-  /// No description provided for @frequencySometimesDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'I train from time to time'**
-  String get frequencySometimesDesc;
-
-  /// No description provided for @frequencyRegularLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Regularly'**
-  String get frequencyRegularLabel;
-
-  /// No description provided for @frequencyRegularDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'I work out several times a week'**
-  String get frequencyRegularDesc;
+  String get onboardingQ7;
 
   /// No description provided for @pushupZeroDesc.
   ///

@@ -613,7 +613,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingStart => 'Start training 🔥';
 
   @override
-  String get onboardingQ1 => 'How often do you work out?';
+  String get onboardingQ1 => 'What\'s your name?';
+
+  @override
+  String get onboardingQ1Hint => 'Your name (optional)';
+
+  @override
+  String get onboardingQ1Body => 'Goro will use it to cheer you on';
 
   @override
   String get onboardingQ2 => 'How many push-ups can you do?';
@@ -634,25 +640,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingEquipmentNo => 'No';
 
   @override
-  String get onboardingQ6 => 'When should we remind you to work out?';
+  String get onboardingQ6Health => 'Sync with Health';
 
   @override
-  String get frequencyNeverLabel => 'Never';
+  String get onboardingHealthBody =>
+      'CaliDay can automatically save your workouts to Apple Health (iOS) or Health Connect (Android).';
 
   @override
-  String get frequencyNeverDesc => 'Just starting out';
+  String get onboardingHealthEnable => 'Enable';
 
   @override
-  String get frequencySometimesLabel => 'Sometimes';
+  String get onboardingHealthEnableDesc => 'Save workouts automatically';
 
   @override
-  String get frequencySometimesDesc => 'I train from time to time';
+  String get onboardingHealthSkip => 'Not now';
 
   @override
-  String get frequencyRegularLabel => 'Regularly';
+  String get onboardingHealthSkipDesc => 'You can enable it later in Settings';
 
   @override
-  String get frequencyRegularDesc => 'I work out several times a week';
+  String get onboardingQ7 => 'When should we remind you to work out?';
 
   @override
   String get pushupZeroDesc => 'Not yet';

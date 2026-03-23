@@ -58,11 +58,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                     physics: const NeverScrollableScrollPhysics(),
                     children: [
                       _WelcomeStep(),
-                      _FrequencyStep(),
+                      _NameStep(),
                       _PushupStep(),
                       _DurationStep(),
                       _GoalStep(),
                       _PullUpBarStep(),
+                      _HealthStep(),
                       _ReminderStep(),
                     ],
                   ),
@@ -315,29 +316,78 @@ class _WelcomeStep extends StatelessWidget {
   }
 }
 
-// ── Step 1: Fitness frequency ─────────────────────────────────────────────────
+// ── Step 1: Display name ──────────────────────────────────────────────────────
 
-class _FrequencyStep extends ConsumerWidget {
+class _NameStep extends ConsumerStatefulWidget {
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final selected = ref.watch(
-        onboardingProvider.select((s) => s.fitnessFrequency));
-    final notifier = ref.read(onboardingProvider.notifier);
-    final l10n = context.l10n;
+  ConsumerState<_NameStep> createState() => _NameStepState();
+}
 
-    return _StepScaffold(
-      question: l10n.onboardingQ1,
-      children: FitnessFrequency.values
-          .map(
-            (v) => OptionCard(
-              emoji: v.emoji,
-              label: v.localizedLabel(l10n),
-              description: v.localizedDescription(l10n),
-              isSelected: selected == v,
-              onTap: () => notifier.selectFitnessFrequency(v),
+class _NameStepState extends ConsumerState<_NameStep> {
+  late final TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController(
+      text: ref.read(onboardingProvider).displayName,
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final notifier = ref.read(onboardingProvider.notifier);
+    final scheme = Theme.of(context).colorScheme;
+
+    return SingleChildScrollView(
+      padding: const EdgeInsets.fromLTRB(24, 8, 24, 8),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.onboardingQ1,
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            l10n.onboardingQ1Body,
+            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: scheme.onSurfaceVariant,
+                ),
+          ),
+          const SizedBox(height: 28),
+          TextField(
+            controller: _controller,
+            maxLength: 30,
+            autofocus: true,
+            textCapitalization: TextCapitalization.words,
+            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+            decoration: InputDecoration(
+              hintText: l10n.onboardingQ1Hint,
+              counterText: '',
+              filled: true,
+              fillColor: scheme.surfaceContainerHighest,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14),
+                borderSide: BorderSide.none,
+              ),
+              contentPadding:
+                  const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
             ),
-          )
-          .toList(),
+            onChanged: (v) => notifier.setDisplayName(v),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -455,7 +505,40 @@ class _PullUpBarStep extends ConsumerWidget {
   }
 }
 
-// ── Step 6: Reminder time ─────────────────────────────────────────────────────
+// ── Step 6: Health integration ────────────────────────────────────────────────
+
+class _HealthStep extends ConsumerWidget {
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final enabled =
+        ref.watch(onboardingProvider.select((s) => s.healthEnabled));
+    final notifier = ref.read(onboardingProvider.notifier);
+    final l10n = context.l10n;
+
+    return _StepScaffold(
+      question: l10n.onboardingQ6Health,
+      body: l10n.onboardingHealthBody,
+      children: [
+        OptionCard(
+          emoji: '❤️',
+          label: l10n.onboardingHealthEnable,
+          description: l10n.onboardingHealthEnableDesc,
+          isSelected: enabled,
+          onTap: () => notifier.selectHealthEnabled(true),
+        ),
+        OptionCard(
+          emoji: '⏭️',
+          label: l10n.onboardingHealthSkip,
+          description: l10n.onboardingHealthSkipDesc,
+          isSelected: !enabled,
+          onTap: () => notifier.selectHealthEnabled(false),
+        ),
+      ],
+    );
+  }
+}
+
+// ── Step 7: Reminder time ─────────────────────────────────────────────────────
 
 class _ReminderStep extends ConsumerWidget {
   static const _presets = [
@@ -477,7 +560,7 @@ class _ReminderStep extends ConsumerWidget {
     final l10n = context.l10n;
 
     return _StepScaffold(
-      question: l10n.onboardingQ6,
+      question: l10n.onboardingQ7,
       children: _presets.map((p) {
         final isSelected = hour == p.$1 && minute == p.$2;
         return OptionCard(
@@ -509,9 +592,11 @@ class _StepScaffold extends StatelessWidget {
   const _StepScaffold({
     required this.question,
     required this.children,
+    this.body,
   });
 
   final String question;
+  final String? body;
   final List<Widget> children;
 
   @override
@@ -527,6 +612,15 @@ class _StepScaffold extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
           ),
+          if (body != null) ...[
+            const SizedBox(height: 8),
+            Text(
+              body!,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
+            ),
+          ],
           const SizedBox(height: 24),
           ...children.map((child) => Padding(
                 padding: const EdgeInsets.only(bottom: 12),
@@ -539,20 +633,6 @@ class _StepScaffold extends StatelessWidget {
 }
 
 // ── Localization extensions for onboarding enums ──────────────────────────────
-
-extension FitnessFrequencyL10n on FitnessFrequency {
-  String localizedLabel(AppLocalizations l10n) => switch (this) {
-        FitnessFrequency.never => l10n.frequencyNeverLabel,
-        FitnessFrequency.sometimes => l10n.frequencySometimesLabel,
-        FitnessFrequency.regular => l10n.frequencyRegularLabel,
-      };
-
-  String localizedDescription(AppLocalizations l10n) => switch (this) {
-        FitnessFrequency.never => l10n.frequencyNeverDesc,
-        FitnessFrequency.sometimes => l10n.frequencySometimesDesc,
-        FitnessFrequency.regular => l10n.frequencyRegularDesc,
-      };
-}
 
 extension PushupCountL10n on PushupCount {
   String localizedDescription(AppLocalizations l10n) => switch (this) {

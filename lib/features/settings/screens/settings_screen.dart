@@ -516,7 +516,6 @@ Future<void> _showNameEditor(
       ],
     ),
   );
-  controller.dispose();
   if (result != null) onSaved(result);
 }
 
