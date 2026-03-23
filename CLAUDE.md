@@ -11,6 +11,9 @@ All data is stored locally (Hive), no backend, free, no ads.
 |----------|----------|
 | **`docs/ARCHITECTURE.md`** | Tech stack, architecture, data models, Hive typeIds, services, navigation, design system, code style, backlog. **Read at session start.** |
 | **`docs/DEV_NOTES.md`** | Current status, active feature specs, session change history |
+| **`design-system/caliday/BRAND.md`** | Brand & character reference — Goro, Skala, colors, gradients, animations, anti-patterns. **Read before any UI task.** |
+| `design-system/caliday/MASTER.md` | UX style rules (Vibrant & Block-based), spacing, component specs |
+| `design-system/caliday/pages/` | Per-screen design rules (home.md, profile.md) |
 | `docs/CaliDay_Design_Document.md` | Product design document |
 | `docs/design-concept/caliday_design_concept.md` | Goro mascot design, colors, icons |
 

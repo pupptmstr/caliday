@@ -10,7 +10,8 @@ description: Step-by-step workflow for implementing a new feature or fixing a bu
 Read in this order:
 1. `docs/ARCHITECTURE.md` — architecture, Hive typeIds, service APIs, patterns
 2. `docs/DEV_NOTES.md` — current status and the feature spec (if it exists in "Active Specs")
-3. Relevant code files (find via Glob/Grep)
+3. **If the task involves UI:** read `design-system/caliday/BRAND.md` (colors, Goro, gradients, anti-patterns) and the relevant page file in `design-system/caliday/pages/` if it exists
+4. Relevant code files (find via Glob/Grep)
 
 **Key patterns from ARCHITECTURE.md** to keep in mind:
 - Hive typeIds cannot be changed after release
@@ -60,6 +61,17 @@ Use the `pre-commit` skill:
 - Update ARCHITECTURE.md (final decisions, backlog status → ✅)
 - Update MEMORY.md
 - Commit in English
+
+## Checklist for UI changes
+
+- [ ] Read `design-system/caliday/BRAND.md` before making visual decisions
+- [ ] Check `design-system/caliday/pages/[screen].md` for screen-specific rules
+- [ ] Streak elements use `AppTheme.energy` (#FF9500) — never grey or blue
+- [ ] New cards have `AppTheme.cardShadowLight/Dark` — no flat cards
+- [ ] CTA buttons use gradient (`AppTheme.heroGradient` / `AppTheme.rankGradient`) not flat fill
+- [ ] Colors only via `AppTheme` tokens — no hardcoded hex in widget code
+- [ ] Use `ui-ux-pro-max` skill for style decisions: `--domain ux`, `--domain style`, `--design-system`
+- [ ] Run `flutter analyze` — no warnings
 
 ## Checklist for features with Hive changes
 
