@@ -11,6 +11,7 @@ import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/workout_log.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../../core/theme/app_theme.dart';
 import '../../../data/repositories/achievement_repository.dart';
 import '../../../data/static/achievement_catalog.dart';
 import '../providers/profile_provider.dart';
@@ -204,69 +205,78 @@ class _RankCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Container(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.all(22),
       decoration: BoxDecoration(
-        color: scheme.primaryContainer,
-        borderRadius: BorderRadius.circular(20),
+        gradient: AppTheme.rankGradient,
+        borderRadius: BorderRadius.circular(22),
+        boxShadow: isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
-              Icon(
-                _icon(rank),
-                size: 40,
-                color: scheme.onPrimaryContainer,
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: Colors.white.withAlpha(35),
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Icon(_icon(rank), size: 28, color: Colors.white),
               ),
-              const SizedBox(width: 14),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    rank.localizedName(l10n),
-                    style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                          fontWeight: FontWeight.w800,
-                          color: scheme.onPrimaryContainer,
-                        ),
-                  ),
-                  Text(
-                    '$totalSP SP',
-                    style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: scheme.onPrimaryContainer,
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      rank.localizedName(l10n),
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                        color: Colors.white,
+                        letterSpacing: -0.3,
+                      ),
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 2),
+                    Text(
+                      '$totalSP SP',
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white.withAlpha(200),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ],
           ),
 
-          const SizedBox(height: 16),
+          const SizedBox(height: 18),
 
           ClipRRect(
-            borderRadius: BorderRadius.circular(4),
+            borderRadius: BorderRadius.circular(6),
             child: LinearProgressIndicator(
               value: rankProgress,
               minHeight: 8,
-              backgroundColor: scheme.primary.withAlpha(40),
-              valueColor:
-                  AlwaysStoppedAnimation<Color>(scheme.onPrimaryContainer),
+              backgroundColor: Colors.white.withAlpha(45),
+              valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
             ),
           ),
 
-          const SizedBox(height: 6),
+          const SizedBox(height: 8),
 
           Text(
             rankProgressLabel,
             style: TextStyle(
               fontSize: 12,
-              color: scheme.onPrimaryContainer,
+              color: Colors.white.withAlpha(200),
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -296,7 +306,7 @@ class _StatsGrid extends StatelessWidget {
     final l10n = context.l10n;
     return Row(
       children: [
-        Expanded(child: _StatCell(icon: Icons.local_fire_department, value: '$currentStreak', label: l10n.profileStatDays)),
+        Expanded(child: _StatCell(icon: Icons.local_fire_department, value: '$currentStreak', label: l10n.profileStatDays, isStreak: true)),
         const SizedBox(width: 10),
         Expanded(child: _StatCell(icon: Icons.emoji_events, value: '$longestStreak', label: l10n.profileStatRecord)),
         const SizedBox(width: 10),
@@ -313,37 +323,60 @@ class _StatCell extends StatelessWidget {
     required this.icon,
     required this.value,
     required this.label,
+    this.isStreak = false,
   });
 
   final IconData icon;
   final String value;
   final String label;
+  final bool isStreak;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    final Color bgColor;
+    final Color iconColor;
+    final Color valueColor;
+
+    if (isStreak) {
+      bgColor = isDark ? AppTheme.energyContainerDark : AppTheme.energyContainer;
+      iconColor = AppTheme.energy;
+      valueColor = AppTheme.energy;
+    } else {
+      bgColor = scheme.surfaceContainerHighest;
+      iconColor = scheme.primary;
+      valueColor = scheme.onSurface;
+    }
+
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 14),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(14),
+        color: bgColor,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icon, size: 22, color: scheme.primary),
-          const SizedBox(height: 4),
+          Icon(icon, size: 22, color: iconColor),
+          const SizedBox(height: 6),
           Text(
             value,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w800,
+            style: TextStyle(
+              fontSize: 26,
+              fontWeight: FontWeight.w900,
+              color: valueColor,
+              letterSpacing: -0.5,
             ),
           ),
+          const SizedBox(height: 2),
           Text(
             label,
             style: TextStyle(
               fontSize: 11,
+              fontWeight: FontWeight.w500,
               color: scheme.onSurfaceVariant,
             ),
             overflow: TextOverflow.ellipsis,

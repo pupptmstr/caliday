@@ -464,6 +464,25 @@ Small, self-contained UX polish. Good candidate for a quiet session between bigg
 
 ## Change History
 
+### 2026-03-23 — Design polish (AppTheme, Home hero zone, Profile stats) + fix mobile_scanner Xcode 26 build
+
+**What was done:** Added `AppTheme` brand token class; redesigned Home screen with gradient hero zone and energetic CTA button; updated Profile stats with orange streak cell and larger display numbers; upgraded `mobile_scanner` 5.x→7.x to fix iOS simulator build failure on Xcode 26.
+
+**New files:**
+- `lib/core/theme/app_theme.dart` — brand color tokens, shadow helpers, gradient constants, `ThemeData` factory for light/dark
+
+**Modified files:**
+- `lib/main.dart` — replaced inline `ThemeData` with `AppTheme.light` / `AppTheme.dark`
+- `lib/features/home/screens/home_screen.dart` — gradient `_HeroZone`, redesigned stat chips, green done-banner, gradient CTA button
+- `lib/features/profile/screens/profile_screen.dart` — `_RankCard` with gradient bg; `_StatCell` with 26sp display numbers and orange streak highlight
+- `pubspec.yaml` — `mobile_scanner: ^5.2.3` → `^7.2.0`
+- `ios/Podfile` — removed obsolete `EXCLUDED_ARCHS[sdk=iphonesimulator*]` workaround
+- `ios/Podfile.lock` — updated after pod install
+
+**Key issues and solutions:**
+- `CardTheme` vs `CardThemeData`: Flutter renamed the type; using `CardTheme` in `ThemeData.cardTheme` caused a type error → fixed with `CardThemeData`.
+- Xcode 26 simulator build failure: `MLImage.framework` (pulled in by `mobile_scanner 5.x` → `GoogleMLKit`) ships only iOS-device arm64 slices; Xcode 26 treats `EXCLUDED_ARCHS` arm64 exclusion as a hard violation. Upgrading to `mobile_scanner 7.x` dropped the `GoogleMLKit` dependency entirely — `MLImage` is no longer in the pod graph, build failure resolved.
+
 ### 2026-03-23 — Docs: tax note for IAP feature + English-only convention
 
 **What was done:** Added a tax/legal prerequisite block to the "Support the Author" IAP spec (Germany: Gewerbe, Kleinunternehmerregelung, Einkommensteuer). Updated skills and backlog with a warning to resolve this before implementing the feature. Established English-only rule for all project documentation.

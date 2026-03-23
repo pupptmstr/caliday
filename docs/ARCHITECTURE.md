@@ -33,7 +33,7 @@ calisthenics (handstand push-ups) through short daily sets of 5–15 minutes.
 | Deep links | `app_links: ^6.4.1` |
 | Health | `health: ^12.0.0` |
 | QR generation | `qr_flutter: ^4.1.0` |
-| QR scanning | `mobile_scanner: ^5.2.3` |
+| QR scanning | `mobile_scanner: ^7.2.0` |
 | BLE | `flutter_blue_plus: ^1.35.3` (Central / scanner only) |
 | Target platforms | iOS (primary), Android (secondary) |
 
@@ -400,7 +400,7 @@ A flat-style gorilla with a blue headband. Assets in `assets/goro/`:
 - `goro_idle_v2.svg` — idle
 
 Placement:
-- **Home** — AnimatedSwitcher by expression (h=140)
+- **Home** — AnimatedSwitcher by expression inside gradient hero zone (h=200)
 - **Summary** — `goro_flex_v2` (h=120)
 - **Profile** — `goro_idle_v2` (h=100)
 - **Onboarding welcome** — `goro_face_happy` (h=120)
@@ -412,16 +412,22 @@ Placement:
 ### Skala (Bull)
 `assets/skala/skala_neutral.svg` + `skala_approve.svg` — shown on WorkoutScreen during the Challenge phase, background `#5C1A1A`.
 
-### Color Palette
+### Theme & Color Palette
 
-| Role | HEX |
-|------|-----|
-| Primary | `#4DA6FF` |
-| Primary Dark | `#2B7DE9` |
-| Primary Light (Goro's headband) | `#A8D8FF` |
-| Energy (streaks) | `#FF9500` |
-| Success (progress) | `#34C759` |
-| Challenge bg | `#5C1A1A` |
+Brand tokens are centralised in `lib/core/theme/app_theme.dart` (`abstract final class AppTheme`).
+`MaterialApp` consumes `AppTheme.light` / `AppTheme.dark` — no inline `ThemeData` in `main.dart`.
+
+| Role | Token | HEX |
+|------|-------|-----|
+| Primary | `AppTheme.brandBlue` | `#4DA6FF` |
+| Primary Dark | `AppTheme.brandBlueDark` | `#2B7DE9` |
+| Primary Deep | `AppTheme.brandBlueDeep` | `#1A5FA8` |
+| Primary Light (Goro's headband) | — | `#A8D8FF` |
+| Energy (streaks) | `AppTheme.energy` | `#FF9500` |
+| Success (progress) | `AppTheme.success` | `#34C759` |
+| Challenge bg | — | `#5C1A1A` |
+
+Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.cardShadowLight/Dark`.
 
 ### App Icon
 - `assets/icon/icon.png` — 1024×1024 (iOS)
