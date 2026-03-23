@@ -7,12 +7,13 @@
 ---
 
 **Project:** CaliDay
-**Generated:** 2026-03-23 12:02:47
 **Category:** Fitness/Gym App — Flutter (iOS primary, Android secondary)
 
-> **CaliDay Override:** This is a Flutter app, not a web app. CSS variables and web CSS snippets below are
-> **reference only**. Actual implementation uses `lib/core/theme/app_theme.dart` (AppTheme).
+> **CaliDay Override:** This is a Flutter app, not a web app. CSS variables and web CSS snippets
+> below are **reference only**. Actual implementation uses `lib/core/theme/app_theme.dart`.
 > Use the "CaliDay Brand Overrides" section below instead of the generic palette.
+>
+> **Brand & character reference** (Goro, Skala, colors, animations, anti-patterns) → `BRAND.md`
 
 ---
 
@@ -22,24 +23,23 @@
 |------|---------------|-----|-------|
 | Primary | `AppTheme.brandBlue` | `#4DA6FF` | Buttons, hero zone, accents |
 | Primary Dark | `AppTheme.brandBlueDark` | `#2B7DE9` | Gradient stop, pressed states |
-| Primary Deep | `AppTheme.brandBlueDeep` | `#1A5FA8` | Gradient bottom stop, hero bg |
-| Energy (streak) | `AppTheme.energy` | `#FF9500` | Streak counter, fire icon |
+| Primary Deep | `AppTheme.brandBlueDeep` | `#1A5FA8` | Gradient bottom stop |
+| Energy (streak) | `AppTheme.energy` | `#FF9500` | Streak counter, fire icon — always orange |
 | Success | `AppTheme.success` | `#34C759` | Workout done, progress |
-| Challenge bg | — | `#5C1A1A` | Skala (bull) screen only |
-| Energy container light | `AppTheme.energyContainer` | `#FFF0D9` | Streak cell bg (light mode) |
-| Energy container dark | `AppTheme.energyContainerDark` | `#3D2800` | Streak cell bg (dark mode) |
+| Challenge bg | — | `#5C1A1A` | Skala screen only |
+| Energy container light | `AppTheme.energyContainer` | `#FFF0D9` | Streak cell bg (light) |
+| Energy container dark | `AppTheme.energyContainerDark` | `#3D2800` | Streak cell bg (dark) |
 
-**Typography:** Flutter system fonts (San Francisco on iOS, Roboto on Android).
-Recommended future direction: `Barlow Condensed` (headings) + `Barlow` (body) — athletic, energetic feel.
-To apply: add `google_fonts` package and reference in `AppTheme`.
+**Typography:** System fonts (SF Pro on iOS, Roboto on Android).
+Recommended direction: `Barlow Condensed` (headings) + `Barlow` (body) — athletic, energetic.
 
-**Gradients:** `AppTheme.heroGradient` (brandBlue → brandBlueDeep), `AppTheme.rankGradient` (brandBlue → brandBlueDark)
+**Gradients:** `AppTheme.heroGradient` (brandBlue→brandBlueDeep), `AppTheme.rankGradient` (brandBlue→brandBlueDark)
 
 **Shadows:** `AppTheme.cardShadowLight` / `AppTheme.cardShadowDark`
 
 ---
 
-## Global Rules (generic template — see overrides above for Flutter/CaliDay specifics)
+## Global Rules
 
 ### Color Palette
 
