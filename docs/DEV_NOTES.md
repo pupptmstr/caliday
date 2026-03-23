@@ -8,7 +8,7 @@ A living document. Contains current status, active feature specs in progress, an
 ## Current Status
 
 **Version:** v1.4 (implemented)
-**Next priority:** v1.4 — Basic Watch Integration (notifications)
+**Next priority:** TBD — see Active Specs below
 
 Latest APK build: `build/app/outputs/flutter-apk/caliday.apk` (~57 MB)
 
@@ -76,28 +76,6 @@ Latest APK build: `build/app/outputs/flutter-apk/caliday.apk` (~57 MB)
 #### Известные ограничения (не баги)
 - **BLE advertising не реализован** — устройство не рекламирует себя в BLE. Соседи не обнаружат твоё устройство, пока не реализован peripheral-режим (TODO: platform channel). Основной путь обмена — QR.
 - **GATT-обмен не реализован** — кнопка "Connect" у BLE-устройства открывает QR-сканер (это задуманное поведение до реализации GATT-сервера).
-
----
-
-### v1.4 — Basic Watch Integration (notifications) — designed
-
-#### Concept
-
-Not a standalone app — a "mirror" via notifications.
-Apple Watch and Wear OS automatically mirror notifications from the phone.
-
-#### Implementation
-
-1. **Rest timer notification** (ID 5) — `ongoing` notification during rest:
-   - Title: "Rest: X sec", Body: next exercise
-   - Android: `setOngoing(true)` + `setUsesChronometer(true)`
-   - iOS: `interruptionLevel = timeSensitive`
-   - Dismissed when the user taps "Done"
-
-2. **Current exercise notification** — when an exercise starts:
-   - "Push · Diamond Push-ups · 3 × 8"
-
-3. `WorkoutNotifier` → `NotificationService.showRestTimer(durationSec, nextExercise)`
 
 ---
 
@@ -195,108 +173,6 @@ App Store и Google Play оба **требуют** ссылку на Privacy Pol
 #### When to tackle
 
 До первой публикации в App Store / Google Play. Блокирует публикацию.
-
----
-
-### ? — Flexibility & Mobility Branch — designed
-
-#### Concept
-
-Новая прогрессионная ветка — растяжка и подвижность суставов. По механике аналогична существующим веткам (Push, Core, etc.): пользователь проходит стадии от простых упражнений к сложным. Ветка всегда доступна без дополнительного оборудования.
-
-Особенность по сравнению с силовыми ветками: упражнения в основном тimed (удержание позы в секундах), а не reps. Тип упражнения `ExerciseType.timed` уже существует.
-
-#### UX / Mechanics
-
-- Отображается на экране прогресса наряду с остальными ветками
-- Иконка: `self_improvement` (Material Icons) или аналог
-- SP за тренировку — меньше, чем за силовые (растяжка менее интенсивна). Предложение: базовый множитель 0.7 от обычного, либо просто меньше повторений в SPService
-- Challenge-механика та же: дойти до цели по времени удержания
-
-#### Catalog (примерный, 6 стадий)
-
-| Stage | Упражнение | Тип |
-|-------|-----------|-----|
-| 1 | Hip Flexor Stretch | timed |
-| 2 | World's Greatest Stretch | reps |
-| 3 | 90/90 Hip Mobility | timed |
-| 4 | Thoracic Bridge | reps |
-| 5 | Deep Squat Hold | timed |
-| 6 | Pike Stretch / Jefferson Curl | timed |
-
-#### Technical Tasks
-
-| # | Task |
-|---|------|
-| 1 | Добавить `flex` в `BranchId` enum (новый typeId не нужен, это значение существующего enum) |
-| 2 | Добавить упражнения в `exercise_catalog.dart` |
-| 3 | `BranchId.icon`, `BranchId.emoji` для flex |
-| 4 | L10n: названия упражнений + ветки |
-| 5 | Обновить `activeBranches` если нужно (ветка без equipmentRequirement) |
-| 6 | `dart run build_runner build` (enum изменился → `.g.dart`) |
-
-#### Technical Details
-
-`BranchId` — это Hive-сохраняемый enum (typeId=4). Добавление нового значения безопасно — Hive хранит индекс, новые значения добавляются в конец. Существующие данные пользователей не ломаются.
-
-SP-начисление: рассмотреть передачу `isFlexibility: true` в `SPService.forExercise` для уменьшения коэффициента, либо просто задать меньше таргетных повторений/секунд в каталоге.
-
-#### When to tackle
-
-После реализации базового watch-уведомления. Не требует внешних ресурсов.
-
----
-
-### ? — Supplementary Exercise Pool — designed
-
-#### Concept
-
-Пул «вспомогательных» упражнений без прогрессии — боковой пресс (obliques), икры, шея, запястья и прочие мышечные группы, которые не вписываются в основные 5 веток, но полезны.
-
-Упражнения из пула **добавляются в программу бонусных тренировок** (не основных) — 1–2 случайных упражнения добавляются к обычному плану дня как бонус. Прогрессии нет — каждый раз просто рандомная выборка.
-
-#### UX / Mechanics
-
-- Упражнения из пула не отображаются отдельной веткой на экране прогресса
-- В экране бонусной тренировки секция "EXTRA" с 1–2 упражнениями из пула
-- Либо альтернатива: в настройках чекбокс «Добавлять бонусные упражнения»
-- SP за них начисляется как обычно (уже через существующий `isPrimary=false` коэффициент 0.5)
-
-#### Technical Tasks
-
-| # | Task |
-|---|------|
-| 1 | Создать `supplementary_exercise_catalog.dart` — список `Exercise` (статические const, без stage/branch) |
-| 2 | `WorkoutGeneratorService.generateBonus()` или доработать `generateDaily()` — добавлять 1–2 рандомных упражнения из пула если `isPrimary=false` |
-| 3 | Возможно: поле `isSupplementary: bool` в `Exercise` для разграничения |
-| 4 | L10n: названия новых упражнений |
-| 5 | (опционально) Настройка: «Добавлять вспомогательные упражнения» в UserProfile |
-
-#### Technical Details
-
-**Пул упражнений (примерный):**
-- Oblique Crunch, Russian Twists, Side Plank — боковой кор
-- Standing Calf Raise, Single-Leg Calf Raise — икры
-- Neck Isometrics — шея
-- Wrist Circles, Wrist Push-ups — запястья и предплечья
-- Dead Bug, Bird-Dog — глубокий кор/стабилизация
-
-**Важно:** `Exercise` — статическая const-модель, не хранится в Hive. Отдельного каталога (`supplementary_exercise_catalog.dart`) достаточно. Для рандомной выборки: `(list..shuffle(Random())).take(2)`.
-
-Если `stage = 0` будет использоваться — это уже соглашение warmup/cooldown, лучше ввести `stage = -1` или новый флаг `isSupplementary`.
-
-#### When to tackle
-
-Можно реализовать независимо от других фич. Небольшой объём работы.
-
----
-
-### v1.5 — Full Watch App — idea
-
-Apple Watch (WatchKit + SwiftUI) + Wear OS (Compose for Wear OS).
-Workout launch, rep counter (Crown), timer, heart rate (HealthKit).
-**Not Flutter** — native code + Method Channel.
-To be tackled after the Health integration has stabilised and an audience has grown.
 
 ---
 
@@ -417,52 +293,34 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ---
 
-### ? — Profile Stat Tooltips — designed
+## Change History
 
-#### Concept
+### 2026-03-23 — Flexibility branch + Supplementary pool + Profile stat tooltips
 
-When the user taps any stat cell on the profile screen (streak, record, total workouts, freezes)
-or the rank card, a small bottom sheet or dialog pops up explaining what that metric is,
-how it is earned/spent, and why it matters. Helps new users understand the gamification system
-without cluttering the UI with permanent text.
+**What was done:** Added a new BranchId.flex (Flexibility & Mobility, 6 stages of timed/reps stretching), a supplementary exercise pool injected into bonus workouts (2 random picks), and tappable stat chips on the Profile screen that show bottom-sheet explanations.
 
-#### UX / Mechanics
+**New files:**
+- `lib/data/static/supplementary_exercise_catalog.dart` — 9 supplementary exercises (obliques, calves, neck, wrists, core stability)
 
-Tappable elements and their tooltip content:
+**Modified files:**
+- `lib/data/models/enums.dart` — added `BranchId.flex` (@HiveField 5), updated all BranchIdExtension switches
+- `lib/data/models/user_profile.dart` — added `BranchId.flex` to `activeBranches`
+- `lib/data/static/exercise_catalog.dart` — 6 flex exercises + flexProgression list + updated progressionFor/forStage/warmupFor/cooldownsFor/all
+- `lib/core/extensions/exercise_l10n.dart` — added flex + supp exercise ID mappings
+- `lib/domain/services/workout_generator_service.dart` — added `isPrimary` param; bonus workouts get 2 random supp exercises
+- `lib/features/workout/providers/workout_provider.dart` — `_buildPlan` computes `isPrimary` from repo and passes to generator
+- `lib/features/profile/screens/profile_screen.dart` — `_StatCell` and `_RankCard` now accept `onTap`; `_showStatSheet` helper added
+- `lib/data/repositories/skill_progress_repository.dart` — added `BranchId.flex` default progress
+- `lib/domain/services/achievement_service.dart` — added `BranchId.flex` switch case
+- `lib/features/settings/screens/developer_options_screen.dart` — added flex to `_maxStage` / `_branchLabel`
+- `l10n/app_en.arb`, `l10n/app_ru.arb` — flex branch name, 6 flex exercises, 9 supp exercises, 5 tooltip strings
 
-| Element | Trigger | Tooltip content |
-|---------|---------|-----------------|
-| 🔥 Current streak (`local_fire_department`) | tap _StatCell | What a streak is; how many days in a row the user has trained; resets if a day is skipped without a freeze |
-| 🏆 Longest streak (`emoji_events`) | tap _StatCell | Personal record — the longest unbroken streak ever |
-| 💪 Total workouts (`fitness_center`) | tap _StatCell | Total number of completed workout sessions since app start |
-| ❄️ Streak freezes (`ac_unit`) | tap _StatCell | What freezes are; automatically consumed on a missed day; earned by completing workouts (threshold-based) |
-| Rank card (`_RankCard`) | tap anywhere on card | What SP is; how rank levels work (Beginner → Legend); how SP is earned |
-
-Tooltip UI: `showModalBottomSheet` with a small rounded sheet — icon, title, 2-3 sentences of body text, and a "Got it" button (or dismiss by tapping outside). No extra navigation.
-
-#### Technical Tasks
-
-| # | Task |
-|---|------|
-| 1 | Add `onTap` callback parameter to `_StatCell` |
-| 2 | Wrap `_RankCard` in `GestureDetector` |
-| 3 | Add helper `_showInfoSheet(context, title, body)` — reusable bottom sheet |
-| 4 | Add l10n strings for each tooltip (title + body × 5 entries) |
-| 5 | Wire up taps in `_StatsGrid` and `_RankCard` call sites in `profile_screen.dart` |
-
-#### Technical Details
-
-- No new data models or providers needed — purely UI
-- Bottom sheet: `showModalBottomSheet`, `isScrollControlled: false`, standard `DraggableScrollableSheet` not needed (content is short)
-- Strings go into `app_en.arb` / `app_ru.arb` under keys like `profileTooltipStreakTitle`, `profileTooltipStreakBody`, etc.
-
-#### When to tackle
-
-Small, self-contained UX polish. Good candidate for a quiet session between bigger features.
+**Key issues and solutions:**
+- `activeBranches` in `UserProfile` lists branches explicitly — flex was missing, so the branch never appeared in Progress tab. Fixed by adding `BranchId.flex` to the list.
+- `_` used as builder parameter name and then referenced in `Theme.of(_)` fails in Dart 3 (discard identifier). Fixed by renaming to `sheetCtx`.
+- `build_runner` reported error in `friends_screen.dart:283` (`?action` syntax) — pre-existing bug unrelated to this session; Hive adapter for `BranchId.flex` was still generated correctly.
 
 ---
-
-## Change History
 
 ### 2026-03-23 — Onboarding redesign + bugfixes
 

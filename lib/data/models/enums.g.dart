@@ -23,6 +23,8 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
         return BranchId.legs;
       case 4:
         return BranchId.balance;
+      case 5:
+        return BranchId.flex;
       default:
         return BranchId.push;
     }
@@ -45,6 +47,9 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
         break;
       case BranchId.balance:
         writer.writeByte(4);
+        break;
+      case BranchId.flex:
+        writer.writeByte(5);
         break;
     }
   }

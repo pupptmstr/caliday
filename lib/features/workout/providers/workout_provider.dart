@@ -198,9 +198,12 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       return generator.generateChallenge(challengeBranch);
     }
     final profile = ref.read(userRepositoryProvider).getProfile();
+    final workoutRepo = ref.read(workoutRepositoryProvider);
+    final isPrimary = !workoutRepo.hasPrimaryWorkoutToday();
     return generator.generateDaily(
       activeBranches: profile.activeBranches,
       preferredMinutes: profile.preferredWorkoutMinutes ?? 10,
+      isPrimary: isPrimary,
     );
   }
 

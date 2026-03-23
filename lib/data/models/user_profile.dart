@@ -139,5 +139,6 @@ class UserProfile extends HiveObject {
         BranchId.core,
         BranchId.legs,
         BranchId.balance,
+        BranchId.flex,
       ];
 }

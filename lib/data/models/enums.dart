@@ -20,6 +20,9 @@ enum BranchId {
 
   @HiveField(4)
   balance,
+
+  @HiveField(5)
+  flex,
 }
 
 @HiveType(typeId: 5)
@@ -150,6 +153,7 @@ extension BranchIdExtension on BranchId {
         BranchId.core => '🎯',
         BranchId.legs => '🦵',
         BranchId.balance => '⚖️',
+        BranchId.flex => '🧘',
       };
 
   IconData get icon => switch (this) {
@@ -158,6 +162,7 @@ extension BranchIdExtension on BranchId {
         BranchId.core => Icons.accessibility_new,
         BranchId.legs => Icons.directions_run,
         BranchId.balance => Icons.balance,
+        BranchId.flex => Icons.self_improvement,
       };
 
   String localizedName(AppLocalizations l10n) => switch (this) {
@@ -166,6 +171,7 @@ extension BranchIdExtension on BranchId {
         BranchId.core => l10n.homeBranchCore,
         BranchId.legs => l10n.homeBranchLegs,
         BranchId.balance => l10n.homeBranchBalance,
+        BranchId.flex => l10n.homeBranchFlex,
       };
 
   int get stageCount => switch (this) {
@@ -174,6 +180,7 @@ extension BranchIdExtension on BranchId {
         BranchId.core => 6,
         BranchId.legs => 5,
         BranchId.balance => 6,
+        BranchId.flex => 6,
       };
 
   bool get requiresEquipment => this == BranchId.pull;

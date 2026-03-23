@@ -2359,6 +2359,324 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} friends'**
   String profileFriendsCount(int count);
+
+  /// No description provided for @homeBranchFlex.
+  ///
+  /// In en, this message translates to:
+  /// **'Flexibility'**
+  String get homeBranchFlex;
+
+  /// No description provided for @exerciseFlexS1HipFlexorStretchName.
+  ///
+  /// In en, this message translates to:
+  /// **'Hip Flexor Stretch'**
+  String get exerciseFlexS1HipFlexorStretchName;
+
+  /// No description provided for @exerciseFlexS1HipFlexorStretchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Step into a lunge and lower your back knee to the floor. Push your hips forward to feel the stretch at the front of your hip. Hold each side.'**
+  String get exerciseFlexS1HipFlexorStretchDesc;
+
+  /// No description provided for @exerciseFlexS1HipFlexorStretchTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your back straight and push hips forward — feel the stretch in the front of your hip.'**
+  String get exerciseFlexS1HipFlexorStretchTip;
+
+  /// No description provided for @exerciseFlexS2WorldsGreatestStretchName.
+  ///
+  /// In en, this message translates to:
+  /// **'World\'s Greatest Stretch'**
+  String get exerciseFlexS2WorldsGreatestStretchName;
+
+  /// No description provided for @exerciseFlexS2WorldsGreatestStretchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'From a lunge, place the same-side hand on the floor. Rotate your upper body and reach the other arm toward the ceiling. Flow through the movement.'**
+  String get exerciseFlexS2WorldsGreatestStretchDesc;
+
+  /// No description provided for @exerciseFlexS2WorldsGreatestStretchTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Move slowly through each position — this is a flow, not a race.'**
+  String get exerciseFlexS2WorldsGreatestStretchTip;
+
+  /// No description provided for @exerciseFlexS3Hip9090Name.
+  ///
+  /// In en, this message translates to:
+  /// **'90/90 Hip Mobility'**
+  String get exerciseFlexS3Hip9090Name;
+
+  /// No description provided for @exerciseFlexS3Hip9090Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sit on the floor with both legs bent at 90°, one in front and one to the side. Hold the position and switch sides.'**
+  String get exerciseFlexS3Hip9090Desc;
+
+  /// No description provided for @exerciseFlexS3Hip9090Tip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep both sit bones on the floor. Rotate from the hip, not the lower back.'**
+  String get exerciseFlexS3Hip9090Tip;
+
+  /// No description provided for @exerciseFlexS4ThoracicBridgeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Thoracic Bridge'**
+  String get exerciseFlexS4ThoracicBridgeName;
+
+  /// No description provided for @exerciseFlexS4ThoracicBridgeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'From a seated position with hands behind you, lift your hips and rotate your upper spine to open the chest toward the ceiling.'**
+  String get exerciseFlexS4ThoracicBridgeDesc;
+
+  /// No description provided for @exerciseFlexS4ThoracicBridgeTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus movement in the upper back — avoid hinging in the lower back.'**
+  String get exerciseFlexS4ThoracicBridgeTip;
+
+  /// No description provided for @exerciseFlexS5DeepSquatHoldName.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep Squat Hold'**
+  String get exerciseFlexS5DeepSquatHoldName;
+
+  /// No description provided for @exerciseFlexS5DeepSquatHoldDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Feet shoulder-width apart, toes slightly out. Squat all the way down and hold. Use a door frame for support as needed.'**
+  String get exerciseFlexS5DeepSquatHoldDesc;
+
+  /// No description provided for @exerciseFlexS5DeepSquatHoldTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Use a doorframe or pole for support at first. Heels flat on the floor is the goal.'**
+  String get exerciseFlexS5DeepSquatHoldTip;
+
+  /// No description provided for @exerciseFlexS6PikeStretchName.
+  ///
+  /// In en, this message translates to:
+  /// **'Pike Stretch'**
+  String get exerciseFlexS6PikeStretchName;
+
+  /// No description provided for @exerciseFlexS6PikeStretchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sit on the floor with legs straight in front of you. Reach your hands toward your feet, hinging at the hips. Hold the position.'**
+  String get exerciseFlexS6PikeStretchDesc;
+
+  /// No description provided for @exerciseFlexS6PikeStretchTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach forward from your hips, not your waist. Keep legs straight.'**
+  String get exerciseFlexS6PikeStretchTip;
+
+  /// No description provided for @exerciseSuppObliqueCrunchName.
+  ///
+  /// In en, this message translates to:
+  /// **'Oblique Crunch'**
+  String get exerciseSuppObliqueCrunchName;
+
+  /// No description provided for @exerciseSuppObliqueCrunchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, knees bent. Bring your right elbow toward your left knee, then left to right. Alternate.'**
+  String get exerciseSuppObliqueCrunchDesc;
+
+  /// No description provided for @exerciseSuppRussianTwistsName.
+  ///
+  /// In en, this message translates to:
+  /// **'Russian Twists'**
+  String get exerciseSuppRussianTwistsName;
+
+  /// No description provided for @exerciseSuppRussianTwistsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sit with knees slightly raised and torso leaned back. Rotate your torso left and right — each rotation counts as one rep.'**
+  String get exerciseSuppRussianTwistsDesc;
+
+  /// No description provided for @exerciseSuppRussianTwistsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your back straight, don\'t hunch.'**
+  String get exerciseSuppRussianTwistsTip;
+
+  /// No description provided for @exerciseSuppSidePlankName.
+  ///
+  /// In en, this message translates to:
+  /// **'Side Plank'**
+  String get exerciseSuppSidePlankName;
+
+  /// No description provided for @exerciseSuppSidePlankDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Forearm side plank — body in a straight line from head to feet. Hold the position, then repeat on the other side.'**
+  String get exerciseSuppSidePlankDesc;
+
+  /// No description provided for @exerciseSuppSidePlankTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t let your hips drop — keep the line straight.'**
+  String get exerciseSuppSidePlankTip;
+
+  /// No description provided for @exerciseSuppStandingCalfRaiseName.
+  ///
+  /// In en, this message translates to:
+  /// **'Standing Calf Raise'**
+  String get exerciseSuppStandingCalfRaiseName;
+
+  /// No description provided for @exerciseSuppStandingCalfRaiseDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall and slowly rise onto your toes for 2–3 seconds, then lower down. Hold a wall for balance if needed.'**
+  String get exerciseSuppStandingCalfRaiseDesc;
+
+  /// No description provided for @exerciseSuppSingleLegCalfRaiseName.
+  ///
+  /// In en, this message translates to:
+  /// **'Single-Leg Calf Raise'**
+  String get exerciseSuppSingleLegCalfRaiseName;
+
+  /// No description provided for @exerciseSuppSingleLegCalfRaiseDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand on one foot. Slowly rise onto your toes and lower back down. Repeat on the other leg.'**
+  String get exerciseSuppSingleLegCalfRaiseDesc;
+
+  /// No description provided for @exerciseSuppSingleLegCalfRaiseTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Slow tempo — more benefit.'**
+  String get exerciseSuppSingleLegCalfRaiseTip;
+
+  /// No description provided for @exerciseSuppDeadBugName.
+  ///
+  /// In en, this message translates to:
+  /// **'Dead Bug'**
+  String get exerciseSuppDeadBugName;
+
+  /// No description provided for @exerciseSuppDeadBugDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, arms pointing up, knees bent 90°. Simultaneously lower your right arm overhead and extend your left leg — almost to the floor. Return. Alternate.'**
+  String get exerciseSuppDeadBugDesc;
+
+  /// No description provided for @exerciseSuppDeadBugTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your lower back pressed to the floor throughout.'**
+  String get exerciseSuppDeadBugTip;
+
+  /// No description provided for @exerciseSuppBirdDogName.
+  ///
+  /// In en, this message translates to:
+  /// **'Bird-Dog'**
+  String get exerciseSuppBirdDogName;
+
+  /// No description provided for @exerciseSuppBirdDogDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'On all fours: simultaneously extend your right arm forward and left leg back. Hold 2 seconds, return. Alternate sides.'**
+  String get exerciseSuppBirdDogDesc;
+
+  /// No description provided for @exerciseSuppBirdDogTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t rotate your pelvis — keep it level.'**
+  String get exerciseSuppBirdDogTip;
+
+  /// No description provided for @exerciseSuppNeckIsometricsName.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck Isometrics'**
+  String get exerciseSuppNeckIsometricsName;
+
+  /// No description provided for @exerciseSuppNeckIsometricsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Press your palm against your forehead and resist — neck pushes back. Then against the back of the head and each temple. Hold 5–10 seconds each direction.'**
+  String get exerciseSuppNeckIsometricsDesc;
+
+  /// No description provided for @exerciseSuppNeckIsometricsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Gentle pressure — don\'t force it.'**
+  String get exerciseSuppNeckIsometricsTip;
+
+  /// No description provided for @exerciseSuppWristCirclesName.
+  ///
+  /// In en, this message translates to:
+  /// **'Wrist Circles'**
+  String get exerciseSuppWristCirclesName;
+
+  /// No description provided for @exerciseSuppWristCirclesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Clench your fists and slowly rotate your wrists clockwise and counter-clockwise. Strengthens forearms and tendons.'**
+  String get exerciseSuppWristCirclesDesc;
+
+  /// No description provided for @tooltipStreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Current Streak'**
+  String get tooltipStreakTitle;
+
+  /// No description provided for @tooltipStreakBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The number of days in a row you\'ve trained. Miss a day without a streak freeze and it resets to zero. Keep the fire burning — Goro is watching!'**
+  String get tooltipStreakBody;
+
+  /// No description provided for @tooltipLongestStreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Record'**
+  String get tooltipLongestStreakTitle;
+
+  /// No description provided for @tooltipLongestStreakBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your all-time longest unbroken training streak. Once set, this record stays forever — even if your current streak resets.'**
+  String get tooltipLongestStreakBody;
+
+  /// No description provided for @tooltipTotalWorkoutsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Total Workouts'**
+  String get tooltipTotalWorkoutsTitle;
+
+  /// No description provided for @tooltipTotalWorkoutsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The total number of workout sessions you\'ve completed since you started. Every session counts — even bonus workouts stack up here.'**
+  String get tooltipTotalWorkoutsBody;
+
+  /// No description provided for @tooltipFreezesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak Freezes'**
+  String get tooltipFreezesTitle;
+
+  /// No description provided for @tooltipFreezesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Freezes protect your streak when you miss a day. They are earned automatically as you train consistently. You can hold up to 3 freezes at once.'**
+  String get tooltipFreezesBody;
+
+  /// No description provided for @tooltipRankTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rank & Strength Points'**
+  String get tooltipRankTitle;
+
+  /// No description provided for @tooltipRankBody.
+  ///
+  /// In en, this message translates to:
+  /// **'SP (Strength Points) are earned every time you complete a workout. As you collect SP your rank climbs from Beginner all the way to Legend. The more you train, the higher you rise.'**
+  String get tooltipRankBody;
 }
 
 class _AppLocalizationsDelegate

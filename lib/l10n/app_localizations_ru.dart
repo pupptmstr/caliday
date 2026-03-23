@@ -1292,4 +1292,194 @@ class AppLocalizationsRu extends AppLocalizations {
   String profileFriendsCount(int count) {
     return '$count друзей';
   }
+
+  @override
+  String get homeBranchFlex => 'Гибкость';
+
+  @override
+  String get exerciseFlexS1HipFlexorStretchName => 'Растяжка сгибателей бедра';
+
+  @override
+  String get exerciseFlexS1HipFlexorStretchDesc =>
+      'Встань в выпад, опусти заднее колено на пол. Толкай бёдра вперёд, чтобы почувствовать растяжку в передней части бедра. Удержи каждую сторону.';
+
+  @override
+  String get exerciseFlexS1HipFlexorStretchTip =>
+      'Держи спину прямо и толкай бёдра вперёд — почувствуй растяжку в передней части бедра.';
+
+  @override
+  String get exerciseFlexS2WorldsGreatestStretchName =>
+      'Лучшая растяжка в мире';
+
+  @override
+  String get exerciseFlexS2WorldsGreatestStretchDesc =>
+      'Из выпада поставь одноимённую руку на пол. Поверни верхнюю часть тела и потянись другой рукой к потолку. Выполняй плавно.';
+
+  @override
+  String get exerciseFlexS2WorldsGreatestStretchTip =>
+      'Двигайся медленно через каждую позицию — это поток, а не гонка.';
+
+  @override
+  String get exerciseFlexS3Hip9090Name => 'Мобильность бёдер 90/90';
+
+  @override
+  String get exerciseFlexS3Hip9090Desc =>
+      'Сядь на пол, обе ноги согнуты под 90°: одна спереди, другая сбоку. Удержи положение и смени сторону.';
+
+  @override
+  String get exerciseFlexS3Hip9090Tip =>
+      'Держи обе седалищные кости на полу. Вращай из бедра, а не из поясницы.';
+
+  @override
+  String get exerciseFlexS4ThoracicBridgeName => 'Торакальный мост';
+
+  @override
+  String get exerciseFlexS4ThoracicBridgeDesc =>
+      'Из положения сидя с руками позади подними бёдра и поверни верхнюю часть позвоночника, открывая грудь к потолку.';
+
+  @override
+  String get exerciseFlexS4ThoracicBridgeTip =>
+      'Сосредоточь движение в верхней части спины — избегай сгибания в пояснице.';
+
+  @override
+  String get exerciseFlexS5DeepSquatHoldName => 'Глубокий присед (удержание)';
+
+  @override
+  String get exerciseFlexS5DeepSquatHoldDesc =>
+      'Ноги на ширине плеч, носки чуть развёрнуты. Опустись в глубокий присед и удержи. При необходимости держись за дверной косяк.';
+
+  @override
+  String get exerciseFlexS5DeepSquatHoldTip =>
+      'Поначалу используй косяк двери или стойку. Цель — пятки на полу.';
+
+  @override
+  String get exerciseFlexS6PikeStretchName => 'Растяжка в наклоне вперёд';
+
+  @override
+  String get exerciseFlexS6PikeStretchDesc =>
+      'Сядь на пол, ноги прямые перед собой. Потянись руками к стопам, сгибаясь в бёдрах. Удержи положение.';
+
+  @override
+  String get exerciseFlexS6PikeStretchTip =>
+      'Тянись вперёд из бёдер, а не из поясницы. Держи ноги прямыми.';
+
+  @override
+  String get exerciseSuppObliqueCrunchName => 'Косые скручивания';
+
+  @override
+  String get exerciseSuppObliqueCrunchDesc =>
+      'Лёжа на спине, ноги согнуты. Тянись правым локтем к левому колену, затем левым к правому. Поочерёдно.';
+
+  @override
+  String get exerciseSuppRussianTwistsName => 'Русские скручивания';
+
+  @override
+  String get exerciseSuppRussianTwistsDesc =>
+      'Сядь, слегка отклонись назад, ноги чуть приподними. Поворачивай корпус вправо и влево — каждый поворот = один повтор.';
+
+  @override
+  String get exerciseSuppRussianTwistsTip => 'Держи спину прямой, не горби.';
+
+  @override
+  String get exerciseSuppSidePlankName => 'Боковая планка';
+
+  @override
+  String get exerciseSuppSidePlankDesc =>
+      'Упор на предплечье сбоку, тело вытянуто в прямую линию. Удержи позицию, затем повтори на другой стороне.';
+
+  @override
+  String get exerciseSuppSidePlankTip =>
+      'Не опускай бёдра — держи прямую линию.';
+
+  @override
+  String get exerciseSuppStandingCalfRaiseName => 'Подъёмы на носки';
+
+  @override
+  String get exerciseSuppStandingCalfRaiseDesc =>
+      'Встань ровно, медленно поднимись на носки на 2–3 секунды, затем опустись. Можно придерживаться за стену для баланса.';
+
+  @override
+  String get exerciseSuppSingleLegCalfRaiseName =>
+      'Подъём на носок (одна нога)';
+
+  @override
+  String get exerciseSuppSingleLegCalfRaiseDesc =>
+      'Встань на одну ногу. Медленно поднимись на носок и опустись. Повтори на другой ноге.';
+
+  @override
+  String get exerciseSuppSingleLegCalfRaiseTip =>
+      'Медленный темп — больше пользы.';
+
+  @override
+  String get exerciseSuppDeadBugName => 'Мёртвый жук';
+
+  @override
+  String get exerciseSuppDeadBugDesc =>
+      'Лёжа на спине, руки вертикально вверх, колени 90°. Одновременно опускай правую руку назад и выпрямляй левую ногу. Поочерёдно.';
+
+  @override
+  String get exerciseSuppDeadBugTip =>
+      'Поясница прижата к полу на протяжении всего упражнения.';
+
+  @override
+  String get exerciseSuppBirdDogName => 'Птица-пёс';
+
+  @override
+  String get exerciseSuppBirdDogDesc =>
+      'На четвереньках: вытяни правую руку вперёд и левую ногу назад одновременно. Удержи 2 секунды, вернись. Поочерёдно.';
+
+  @override
+  String get exerciseSuppBirdDogTip => 'Не поворачивай таз — держи его ровно.';
+
+  @override
+  String get exerciseSuppNeckIsometricsName => 'Изометрия шеи';
+
+  @override
+  String get exerciseSuppNeckIsometricsDesc =>
+      'Упрись ладонью в лоб и надавливай — шея сопротивляется. Затем в затылок и в каждый висок. По 5–10 секунд.';
+
+  @override
+  String get exerciseSuppNeckIsometricsTip => 'Мягкое давление — не форсируй.';
+
+  @override
+  String get exerciseSuppWristCirclesName => 'Вращения запястьями';
+
+  @override
+  String get exerciseSuppWristCirclesDesc =>
+      'Сожми руки в кулаки и медленно вращай запястьями по часовой и против часовой стрелки. Укрепляет предплечья и сухожилия.';
+
+  @override
+  String get tooltipStreakTitle => 'Текущая серия';
+
+  @override
+  String get tooltipStreakBody =>
+      'Количество дней подряд, в которые ты тренировался. Пропусти день без заморозки — и серия сбросится. Не давай огню погаснуть — Горо следит!';
+
+  @override
+  String get tooltipLongestStreakTitle => 'Личный рекорд';
+
+  @override
+  String get tooltipLongestStreakBody =>
+      'Твоя самая длинная непрерывная серия тренировок за всё время. Этот рекорд хранится вечно — даже если текущая серия оборвётся.';
+
+  @override
+  String get tooltipTotalWorkoutsTitle => 'Всего тренировок';
+
+  @override
+  String get tooltipTotalWorkoutsBody =>
+      'Общее количество завершённых тренировок с момента старта. Каждая сессия в счёт — бонусные тренировки тоже суммируются.';
+
+  @override
+  String get tooltipFreezesTitle => 'Заморозки серии';
+
+  @override
+  String get tooltipFreezesBody =>
+      'Заморозки защищают серию, если пропустил день. Зарабатываются автоматически при регулярных тренировках. Максимум — 3 заморозки одновременно.';
+
+  @override
+  String get tooltipRankTitle => 'Ранг и очки силы';
+
+  @override
+  String get tooltipRankBody =>
+      'SP (очки силы) начисляются за каждую завершённую тренировку. Накапливая SP, ты поднимаешься от Новичка до Легенды. Чем больше тренируешься — тем выше ранг.';
 }

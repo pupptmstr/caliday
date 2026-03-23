@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/enums.dart';
 import '../../data/repositories/skill_progress_repository.dart';
 import '../../data/static/exercise_catalog.dart';
+import '../../data/static/supplementary_exercise_catalog.dart';
 import '../models/workout_plan.dart';
 
 /// Assembles a [WorkoutPlan] for the current user state.
@@ -31,6 +32,7 @@ class WorkoutGeneratorService {
     required List<BranchId> activeBranches,
     int preferredMinutes = 10,
     int? dayIndexOverride,
+    bool isPrimary = true,
   }) {
     if (activeBranches.isEmpty) {
       return WorkoutPlan(setType: SetType.daily, exercises: const []);
@@ -90,6 +92,19 @@ class WorkoutGeneratorService {
         if (addedIds.length >= 2) break;
       }
       if (addedIds.length >= 2) break;
+    }
+
+    // ── 4. Supplementary block (bonus workouts only) ──────────────────────────
+    if (!isPrimary && SupplementaryExerciseCatalog.all.isNotEmpty) {
+      final pool = [...SupplementaryExerciseCatalog.all]..shuffle(Random());
+      for (final supp in pool.take(2)) {
+        exercises.add(PlannedExercise(
+          exercise: supp,
+          targetAmount: supp.startReps,
+          sets: supp.startSets,
+          restSec: supp.startRestSec,
+        ));
+      }
     }
 
     return WorkoutPlan(setType: SetType.daily, exercises: exercises);

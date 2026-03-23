@@ -94,6 +94,8 @@ class AchievementService {
         check('balance_s4', newStage >= 4);
         check('balance_s6', newStage >= 6);
         check('balance_complete', newStage >= BranchId.balance.stageCount);
+      case BranchId.flex:
+        check('flex_complete', newStage >= BranchId.flex.stageCount);
     }
 
     // all_complete: every branch at max stage

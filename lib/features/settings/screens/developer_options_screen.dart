@@ -207,6 +207,7 @@ class _DeveloperOptionsScreenState
         BranchId.pull => 6,
         BranchId.legs => 5,
         BranchId.balance => 6,
+        BranchId.flex => 6,
       };
 
   static String _branchLabel(BranchId b) => switch (b) {
@@ -215,6 +216,7 @@ class _DeveloperOptionsScreenState
         BranchId.pull => 'Pull',
         BranchId.legs => 'Legs',
         BranchId.balance => 'Balance',
+        BranchId.flex => 'Flex',
       };
 
   Widget _buildBranchCard(BranchId branch) {

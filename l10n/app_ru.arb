@@ -571,5 +571,79 @@
     "placeholders": {
       "count": {"type": "int"}
     }
-  }
+  },
+
+  "homeBranchFlex": "Гибкость",
+
+  "exerciseFlexS1HipFlexorStretchName": "Растяжка сгибателей бедра",
+  "exerciseFlexS1HipFlexorStretchDesc": "Встань в выпад, опусти заднее колено на пол. Толкай бёдра вперёд, чтобы почувствовать растяжку в передней части бедра. Удержи каждую сторону.",
+  "exerciseFlexS1HipFlexorStretchTip": "Держи спину прямо и толкай бёдра вперёд — почувствуй растяжку в передней части бедра.",
+
+  "exerciseFlexS2WorldsGreatestStretchName": "Лучшая растяжка в мире",
+  "exerciseFlexS2WorldsGreatestStretchDesc": "Из выпада поставь одноимённую руку на пол. Поверни верхнюю часть тела и потянись другой рукой к потолку. Выполняй плавно.",
+  "exerciseFlexS2WorldsGreatestStretchTip": "Двигайся медленно через каждую позицию — это поток, а не гонка.",
+
+  "exerciseFlexS3Hip9090Name": "Мобильность бёдер 90/90",
+  "exerciseFlexS3Hip9090Desc": "Сядь на пол, обе ноги согнуты под 90°: одна спереди, другая сбоку. Удержи положение и смени сторону.",
+  "exerciseFlexS3Hip9090Tip": "Держи обе седалищные кости на полу. Вращай из бедра, а не из поясницы.",
+
+  "exerciseFlexS4ThoracicBridgeName": "Торакальный мост",
+  "exerciseFlexS4ThoracicBridgeDesc": "Из положения сидя с руками позади подними бёдра и поверни верхнюю часть позвоночника, открывая грудь к потолку.",
+  "exerciseFlexS4ThoracicBridgeTip": "Сосредоточь движение в верхней части спины — избегай сгибания в пояснице.",
+
+  "exerciseFlexS5DeepSquatHoldName": "Глубокий присед (удержание)",
+  "exerciseFlexS5DeepSquatHoldDesc": "Ноги на ширине плеч, носки чуть развёрнуты. Опустись в глубокий присед и удержи. При необходимости держись за дверной косяк.",
+  "exerciseFlexS5DeepSquatHoldTip": "Поначалу используй косяк двери или стойку. Цель — пятки на полу.",
+
+  "exerciseFlexS6PikeStretchName": "Растяжка в наклоне вперёд",
+  "exerciseFlexS6PikeStretchDesc": "Сядь на пол, ноги прямые перед собой. Потянись руками к стопам, сгибаясь в бёдрах. Удержи положение.",
+  "exerciseFlexS6PikeStretchTip": "Тянись вперёд из бёдер, а не из поясницы. Держи ноги прямыми.",
+
+  "exerciseSuppObliqueCrunchName": "Косые скручивания",
+  "exerciseSuppObliqueCrunchDesc": "Лёжа на спине, ноги согнуты. Тянись правым локтем к левому колену, затем левым к правому. Поочерёдно.",
+
+  "exerciseSuppRussianTwistsName": "Русские скручивания",
+  "exerciseSuppRussianTwistsDesc": "Сядь, слегка отклонись назад, ноги чуть приподними. Поворачивай корпус вправо и влево — каждый поворот = один повтор.",
+  "exerciseSuppRussianTwistsTip": "Держи спину прямой, не горби.",
+
+  "exerciseSuppSidePlankName": "Боковая планка",
+  "exerciseSuppSidePlankDesc": "Упор на предплечье сбоку, тело вытянуто в прямую линию. Удержи позицию, затем повтори на другой стороне.",
+  "exerciseSuppSidePlankTip": "Не опускай бёдра — держи прямую линию.",
+
+  "exerciseSuppStandingCalfRaiseName": "Подъёмы на носки",
+  "exerciseSuppStandingCalfRaiseDesc": "Встань ровно, медленно поднимись на носки на 2–3 секунды, затем опустись. Можно придерживаться за стену для баланса.",
+
+  "exerciseSuppSingleLegCalfRaiseName": "Подъём на носок (одна нога)",
+  "exerciseSuppSingleLegCalfRaiseDesc": "Встань на одну ногу. Медленно поднимись на носок и опустись. Повтори на другой ноге.",
+  "exerciseSuppSingleLegCalfRaiseTip": "Медленный темп — больше пользы.",
+
+  "exerciseSuppDeadBugName": "Мёртвый жук",
+  "exerciseSuppDeadBugDesc": "Лёжа на спине, руки вертикально вверх, колени 90°. Одновременно опускай правую руку назад и выпрямляй левую ногу. Поочерёдно.",
+  "exerciseSuppDeadBugTip": "Поясница прижата к полу на протяжении всего упражнения.",
+
+  "exerciseSuppBirdDogName": "Птица-пёс",
+  "exerciseSuppBirdDogDesc": "На четвереньках: вытяни правую руку вперёд и левую ногу назад одновременно. Удержи 2 секунды, вернись. Поочерёдно.",
+  "exerciseSuppBirdDogTip": "Не поворачивай таз — держи его ровно.",
+
+  "exerciseSuppNeckIsometricsName": "Изометрия шеи",
+  "exerciseSuppNeckIsometricsDesc": "Упрись ладонью в лоб и надавливай — шея сопротивляется. Затем в затылок и в каждый висок. По 5–10 секунд.",
+  "exerciseSuppNeckIsometricsTip": "Мягкое давление — не форсируй.",
+
+  "exerciseSuppWristCirclesName": "Вращения запястьями",
+  "exerciseSuppWristCirclesDesc": "Сожми руки в кулаки и медленно вращай запястьями по часовой и против часовой стрелки. Укрепляет предплечья и сухожилия.",
+
+  "tooltipStreakTitle": "Текущая серия",
+  "tooltipStreakBody": "Количество дней подряд, в которые ты тренировался. Пропусти день без заморозки — и серия сбросится. Не давай огню погаснуть — Горо следит!",
+
+  "tooltipLongestStreakTitle": "Личный рекорд",
+  "tooltipLongestStreakBody": "Твоя самая длинная непрерывная серия тренировок за всё время. Этот рекорд хранится вечно — даже если текущая серия оборвётся.",
+
+  "tooltipTotalWorkoutsTitle": "Всего тренировок",
+  "tooltipTotalWorkoutsBody": "Общее количество завершённых тренировок с момента старта. Каждая сессия в счёт — бонусные тренировки тоже суммируются.",
+
+  "tooltipFreezesTitle": "Заморозки серии",
+  "tooltipFreezesBody": "Заморозки защищают серию, если пропустил день. Зарабатываются автоматически при регулярных тренировках. Максимум — 3 заморозки одновременно.",
+
+  "tooltipRankTitle": "Ранг и очки силы",
+  "tooltipRankBody": "SP (очки силы) начисляются за каждую завершённую тренировку. Накапливая SP, ты поднимаешься от Новичка до Легенды. Чем больше тренируешься — тем выше ранг."
 }

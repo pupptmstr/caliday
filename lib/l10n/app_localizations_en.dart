@@ -1287,4 +1287,195 @@ class AppLocalizationsEn extends AppLocalizations {
   String profileFriendsCount(int count) {
     return '$count friends';
   }
+
+  @override
+  String get homeBranchFlex => 'Flexibility';
+
+  @override
+  String get exerciseFlexS1HipFlexorStretchName => 'Hip Flexor Stretch';
+
+  @override
+  String get exerciseFlexS1HipFlexorStretchDesc =>
+      'Step into a lunge and lower your back knee to the floor. Push your hips forward to feel the stretch at the front of your hip. Hold each side.';
+
+  @override
+  String get exerciseFlexS1HipFlexorStretchTip =>
+      'Keep your back straight and push hips forward — feel the stretch in the front of your hip.';
+
+  @override
+  String get exerciseFlexS2WorldsGreatestStretchName =>
+      'World\'s Greatest Stretch';
+
+  @override
+  String get exerciseFlexS2WorldsGreatestStretchDesc =>
+      'From a lunge, place the same-side hand on the floor. Rotate your upper body and reach the other arm toward the ceiling. Flow through the movement.';
+
+  @override
+  String get exerciseFlexS2WorldsGreatestStretchTip =>
+      'Move slowly through each position — this is a flow, not a race.';
+
+  @override
+  String get exerciseFlexS3Hip9090Name => '90/90 Hip Mobility';
+
+  @override
+  String get exerciseFlexS3Hip9090Desc =>
+      'Sit on the floor with both legs bent at 90°, one in front and one to the side. Hold the position and switch sides.';
+
+  @override
+  String get exerciseFlexS3Hip9090Tip =>
+      'Keep both sit bones on the floor. Rotate from the hip, not the lower back.';
+
+  @override
+  String get exerciseFlexS4ThoracicBridgeName => 'Thoracic Bridge';
+
+  @override
+  String get exerciseFlexS4ThoracicBridgeDesc =>
+      'From a seated position with hands behind you, lift your hips and rotate your upper spine to open the chest toward the ceiling.';
+
+  @override
+  String get exerciseFlexS4ThoracicBridgeTip =>
+      'Focus movement in the upper back — avoid hinging in the lower back.';
+
+  @override
+  String get exerciseFlexS5DeepSquatHoldName => 'Deep Squat Hold';
+
+  @override
+  String get exerciseFlexS5DeepSquatHoldDesc =>
+      'Feet shoulder-width apart, toes slightly out. Squat all the way down and hold. Use a door frame for support as needed.';
+
+  @override
+  String get exerciseFlexS5DeepSquatHoldTip =>
+      'Use a doorframe or pole for support at first. Heels flat on the floor is the goal.';
+
+  @override
+  String get exerciseFlexS6PikeStretchName => 'Pike Stretch';
+
+  @override
+  String get exerciseFlexS6PikeStretchDesc =>
+      'Sit on the floor with legs straight in front of you. Reach your hands toward your feet, hinging at the hips. Hold the position.';
+
+  @override
+  String get exerciseFlexS6PikeStretchTip =>
+      'Reach forward from your hips, not your waist. Keep legs straight.';
+
+  @override
+  String get exerciseSuppObliqueCrunchName => 'Oblique Crunch';
+
+  @override
+  String get exerciseSuppObliqueCrunchDesc =>
+      'Lie on your back, knees bent. Bring your right elbow toward your left knee, then left to right. Alternate.';
+
+  @override
+  String get exerciseSuppRussianTwistsName => 'Russian Twists';
+
+  @override
+  String get exerciseSuppRussianTwistsDesc =>
+      'Sit with knees slightly raised and torso leaned back. Rotate your torso left and right — each rotation counts as one rep.';
+
+  @override
+  String get exerciseSuppRussianTwistsTip =>
+      'Keep your back straight, don\'t hunch.';
+
+  @override
+  String get exerciseSuppSidePlankName => 'Side Plank';
+
+  @override
+  String get exerciseSuppSidePlankDesc =>
+      'Forearm side plank — body in a straight line from head to feet. Hold the position, then repeat on the other side.';
+
+  @override
+  String get exerciseSuppSidePlankTip =>
+      'Don\'t let your hips drop — keep the line straight.';
+
+  @override
+  String get exerciseSuppStandingCalfRaiseName => 'Standing Calf Raise';
+
+  @override
+  String get exerciseSuppStandingCalfRaiseDesc =>
+      'Stand tall and slowly rise onto your toes for 2–3 seconds, then lower down. Hold a wall for balance if needed.';
+
+  @override
+  String get exerciseSuppSingleLegCalfRaiseName => 'Single-Leg Calf Raise';
+
+  @override
+  String get exerciseSuppSingleLegCalfRaiseDesc =>
+      'Stand on one foot. Slowly rise onto your toes and lower back down. Repeat on the other leg.';
+
+  @override
+  String get exerciseSuppSingleLegCalfRaiseTip => 'Slow tempo — more benefit.';
+
+  @override
+  String get exerciseSuppDeadBugName => 'Dead Bug';
+
+  @override
+  String get exerciseSuppDeadBugDesc =>
+      'Lie on your back, arms pointing up, knees bent 90°. Simultaneously lower your right arm overhead and extend your left leg — almost to the floor. Return. Alternate.';
+
+  @override
+  String get exerciseSuppDeadBugTip =>
+      'Keep your lower back pressed to the floor throughout.';
+
+  @override
+  String get exerciseSuppBirdDogName => 'Bird-Dog';
+
+  @override
+  String get exerciseSuppBirdDogDesc =>
+      'On all fours: simultaneously extend your right arm forward and left leg back. Hold 2 seconds, return. Alternate sides.';
+
+  @override
+  String get exerciseSuppBirdDogTip =>
+      'Don\'t rotate your pelvis — keep it level.';
+
+  @override
+  String get exerciseSuppNeckIsometricsName => 'Neck Isometrics';
+
+  @override
+  String get exerciseSuppNeckIsometricsDesc =>
+      'Press your palm against your forehead and resist — neck pushes back. Then against the back of the head and each temple. Hold 5–10 seconds each direction.';
+
+  @override
+  String get exerciseSuppNeckIsometricsTip =>
+      'Gentle pressure — don\'t force it.';
+
+  @override
+  String get exerciseSuppWristCirclesName => 'Wrist Circles';
+
+  @override
+  String get exerciseSuppWristCirclesDesc =>
+      'Clench your fists and slowly rotate your wrists clockwise and counter-clockwise. Strengthens forearms and tendons.';
+
+  @override
+  String get tooltipStreakTitle => 'Current Streak';
+
+  @override
+  String get tooltipStreakBody =>
+      'The number of days in a row you\'ve trained. Miss a day without a streak freeze and it resets to zero. Keep the fire burning — Goro is watching!';
+
+  @override
+  String get tooltipLongestStreakTitle => 'Personal Record';
+
+  @override
+  String get tooltipLongestStreakBody =>
+      'Your all-time longest unbroken training streak. Once set, this record stays forever — even if your current streak resets.';
+
+  @override
+  String get tooltipTotalWorkoutsTitle => 'Total Workouts';
+
+  @override
+  String get tooltipTotalWorkoutsBody =>
+      'The total number of workout sessions you\'ve completed since you started. Every session counts — even bonus workouts stack up here.';
+
+  @override
+  String get tooltipFreezesTitle => 'Streak Freezes';
+
+  @override
+  String get tooltipFreezesBody =>
+      'Freezes protect your streak when you miss a day. They are earned automatically as you train consistently. You can hold up to 3 freezes at once.';
+
+  @override
+  String get tooltipRankTitle => 'Rank & Strength Points';
+
+  @override
+  String get tooltipRankBody =>
+      'SP (Strength Points) are earned every time you complete a workout. As you collect SP your rank climbs from Beginner all the way to Legend. The more you train, the higher you rise.';
 }

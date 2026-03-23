@@ -19,6 +19,57 @@ import '../providers/profile_provider.dart';
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
 
+  static void _showStatSheet(
+    BuildContext context, {
+    required IconData icon,
+    required Color iconColor,
+    required String title,
+    required String body,
+  }) {
+    final scheme = Theme.of(context).colorScheme;
+    showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+      backgroundColor: scheme.surface,
+      builder: (sheetCtx) => Padding(
+        padding: const EdgeInsets.fromLTRB(24, 20, 24, 32),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(0.4),
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Icon(icon, size: 32, color: iconColor),
+            const SizedBox(height: 12),
+            Text(
+              title,
+              style: Theme.of(sheetCtx).textTheme.titleMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              body,
+              style: Theme.of(sheetCtx).textTheme.bodyMedium?.copyWith(
+                    color: scheme.onSurfaceVariant,
+                  ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(profileDataProvider);
@@ -75,6 +126,13 @@ class ProfileScreen extends ConsumerWidget {
                 totalSP: profile.totalSP,
                 rankProgress: rankProgress,
                 rankProgressLabel: rankProgressLabel,
+                onTap: () => _showStatSheet(
+                  context,
+                  icon: Icons.workspace_premium,
+                  iconColor: scheme.primary,
+                  title: l10n.tooltipRankTitle,
+                  body: l10n.tooltipRankBody,
+                ),
               ),
 
               const SizedBox(height: 20),
@@ -85,6 +143,34 @@ class ProfileScreen extends ConsumerWidget {
                 longestStreak: profile.longestStreak,
                 totalWorkouts: data.totalWorkouts,
                 streakFreezes: profile.streakFreezeCount,
+                onTapStreak: () => _showStatSheet(
+                  context,
+                  icon: Icons.local_fire_department,
+                  iconColor: AppTheme.energy,
+                  title: l10n.tooltipStreakTitle,
+                  body: l10n.tooltipStreakBody,
+                ),
+                onTapLongestStreak: () => _showStatSheet(
+                  context,
+                  icon: Icons.emoji_events,
+                  iconColor: scheme.primary,
+                  title: l10n.tooltipLongestStreakTitle,
+                  body: l10n.tooltipLongestStreakBody,
+                ),
+                onTapTotalWorkouts: () => _showStatSheet(
+                  context,
+                  icon: Icons.fitness_center,
+                  iconColor: scheme.primary,
+                  title: l10n.tooltipTotalWorkoutsTitle,
+                  body: l10n.tooltipTotalWorkoutsBody,
+                ),
+                onTapFreezes: () => _showStatSheet(
+                  context,
+                  icon: Icons.ac_unit,
+                  iconColor: scheme.primary,
+                  title: l10n.tooltipFreezesTitle,
+                  body: l10n.tooltipFreezesBody,
+                ),
               ),
 
               const SizedBox(height: 24),
@@ -187,12 +273,14 @@ class _RankCard extends StatelessWidget {
     required this.totalSP,
     required this.rankProgress,
     required this.rankProgressLabel,
+    this.onTap,
   });
 
   final Rank rank;
   final int totalSP;
   final double rankProgress;
   final String rankProgressLabel;
+  final VoidCallback? onTap;
 
   static IconData _icon(Rank r) => switch (r) {
         Rank.beginner => Icons.eco,
@@ -208,79 +296,82 @@ class _RankCard extends StatelessWidget {
     final l10n = context.l10n;
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    return Container(
-      padding: const EdgeInsets.all(22),
-      decoration: BoxDecoration(
-        gradient: AppTheme.rankGradient,
-        borderRadius: BorderRadius.circular(22),
-        boxShadow: isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 52,
-                height: 52,
-                decoration: BoxDecoration(
-                  color: Colors.white.withAlpha(35),
-                  borderRadius: BorderRadius.circular(14),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.all(22),
+        decoration: BoxDecoration(
+          gradient: AppTheme.rankGradient,
+          borderRadius: BorderRadius.circular(22),
+          boxShadow: isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
+                  width: 52,
+                  height: 52,
+                  decoration: BoxDecoration(
+                    color: Colors.white.withAlpha(35),
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: Icon(_icon(rank), size: 28, color: Colors.white),
                 ),
-                child: Icon(_icon(rank), size: 28, color: Colors.white),
-              ),
-              const SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      rank.localizedName(l10n),
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white,
-                        letterSpacing: -0.3,
+                const SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        rank.localizedName(l10n),
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w900,
+                          color: Colors.white,
+                          letterSpacing: -0.3,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      '$totalSP SP',
-                      style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white.withAlpha(200),
+                      const SizedBox(height: 2),
+                      Text(
+                        '$totalSP SP',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white.withAlpha(200),
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+              ],
+            ),
+
+            const SizedBox(height: 18),
+
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: LinearProgressIndicator(
+                value: rankProgress,
+                minHeight: 8,
+                backgroundColor: Colors.white.withAlpha(45),
+                valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
               ),
-            ],
-          ),
-
-          const SizedBox(height: 18),
-
-          ClipRRect(
-            borderRadius: BorderRadius.circular(6),
-            child: LinearProgressIndicator(
-              value: rankProgress,
-              minHeight: 8,
-              backgroundColor: Colors.white.withAlpha(45),
-              valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
             ),
-          ),
 
-          const SizedBox(height: 8),
+            const SizedBox(height: 8),
 
-          Text(
-            rankProgressLabel,
-            style: TextStyle(
-              fontSize: 12,
-              color: Colors.white.withAlpha(200),
-              fontWeight: FontWeight.w500,
+            Text(
+              rankProgressLabel,
+              style: TextStyle(
+                fontSize: 12,
+                color: Colors.white.withAlpha(200),
+                fontWeight: FontWeight.w500,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -294,25 +385,33 @@ class _StatsGrid extends StatelessWidget {
     required this.longestStreak,
     required this.totalWorkouts,
     required this.streakFreezes,
+    this.onTapStreak,
+    this.onTapLongestStreak,
+    this.onTapTotalWorkouts,
+    this.onTapFreezes,
   });
 
   final int currentStreak;
   final int longestStreak;
   final int totalWorkouts;
   final int streakFreezes;
+  final VoidCallback? onTapStreak;
+  final VoidCallback? onTapLongestStreak;
+  final VoidCallback? onTapTotalWorkouts;
+  final VoidCallback? onTapFreezes;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     return Row(
       children: [
-        Expanded(child: _StatCell(icon: Icons.local_fire_department, value: '$currentStreak', label: l10n.profileStatDays, isStreak: true)),
+        Expanded(child: _StatCell(icon: Icons.local_fire_department, value: '$currentStreak', label: l10n.profileStatDays, isStreak: true, onTap: onTapStreak)),
         const SizedBox(width: 10),
-        Expanded(child: _StatCell(icon: Icons.emoji_events, value: '$longestStreak', label: l10n.profileStatRecord)),
+        Expanded(child: _StatCell(icon: Icons.emoji_events, value: '$longestStreak', label: l10n.profileStatRecord, onTap: onTapLongestStreak)),
         const SizedBox(width: 10),
-        Expanded(child: _StatCell(icon: Icons.fitness_center, value: '$totalWorkouts', label: l10n.profileStatWorkouts)),
+        Expanded(child: _StatCell(icon: Icons.fitness_center, value: '$totalWorkouts', label: l10n.profileStatWorkouts, onTap: onTapTotalWorkouts)),
         const SizedBox(width: 10),
-        Expanded(child: _StatCell(icon: Icons.ac_unit, value: '$streakFreezes', label: l10n.profileStatFreezes)),
+        Expanded(child: _StatCell(icon: Icons.ac_unit, value: '$streakFreezes', label: l10n.profileStatFreezes, onTap: onTapFreezes)),
       ],
     );
   }
@@ -324,12 +423,14 @@ class _StatCell extends StatelessWidget {
     required this.value,
     required this.label,
     this.isStreak = false,
+    this.onTap,
   });
 
   final IconData icon;
   final String value;
   final String label;
   final bool isStreak;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -350,38 +451,41 @@ class _StatCell extends StatelessWidget {
       valueColor = scheme.onSurface;
     }
 
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 22, color: iconColor),
-          const SizedBox(height: 6),
-          Text(
-            value,
-            style: TextStyle(
-              fontSize: 26,
-              fontWeight: FontWeight.w900,
-              color: valueColor,
-              letterSpacing: -0.5,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        decoration: BoxDecoration(
+          color: bgColor,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 22, color: iconColor),
+            const SizedBox(height: 6),
+            Text(
+              value,
+              style: TextStyle(
+                fontSize: 26,
+                fontWeight: FontWeight.w900,
+                color: valueColor,
+                letterSpacing: -0.5,
+              ),
             ),
-          ),
-          const SizedBox(height: 2),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-              color: scheme.onSurfaceVariant,
+            const SizedBox(height: 2),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+                color: scheme.onSurfaceVariant,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

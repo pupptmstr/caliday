@@ -66,6 +66,14 @@ class SkillProgressRepository {
           currentSets: 1,
           currentRestSec: 60,
         );
+      case BranchId.flex:
+        return SkillProgress(
+          branchId: branch,
+          currentStage: 1,
+          currentReps: 20, // seconds for timed hold
+          currentSets: 1,
+          currentRestSec: 30,
+        );
     }
   }
 }

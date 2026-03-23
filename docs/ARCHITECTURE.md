@@ -576,13 +576,11 @@ flutter build ipa                 # iOS archive
 | v1.4 | Friends — QR + BLE scan (Central role) | ✅ |
 | v1.4 | Friends — BLE advertising (Peripheral role) | 💡 idea (нужно для полноты фичи) |
 | v1.4 | Friends — BLE GATT server (обмен профилем без QR) | 💡 idea (нужно для полноты фичи) |
-| v1.4 | Basic smartwatch integration (notifications) | 📐 designed |
-| v1.5 | Full smartwatch app | 💡 idea |
-| ? | Flexibility & Mobility branch | 📐 designed |
-| ? | Supplementary exercise pool (random, no progression) | 📐 designed |
+| ? | Flexibility & Mobility branch | ✅ |
+| ? | Supplementary exercise pool (random, no progression) | ✅ |
+| ? | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |
 | ? | Privacy Policy (GitHub Markdown → ссылка в приложении) | 📐 designed |
 | ? | Lottie animations for Core branch | 🔒 waiting for assets |
-| ? | Profile stat tooltips (tap streak / rank / freeze for explanation) | 📐 designed |
 | v2.0 | Design overhaul — Liquid Glass (iOS) / frosted glass (Android) | 📐 designed |
 | ? | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup before implementing (see DEV_NOTES § Tax / IAP income) |
 

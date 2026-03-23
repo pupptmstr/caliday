@@ -629,6 +629,127 @@ class ExerciseCatalog {
     techniqueTip: 'Смотри в пол на 30–40 см перед руками, не между руками.',
   );
 
+  // ── FLEX ──────────────────────────────────────────────────────────────────
+
+  static const Exercise flexS1HipFlexorStretch = Exercise(
+    id: 'flex_s1_hip_flexor_stretch',
+    name: 'Hip Flexor Stretch',
+    description:
+        'Step into a lunge and lower your back knee to the floor. '
+        'Push your hips forward to feel the stretch at the front of your hip. Hold each side.',
+    branch: BranchId.flex,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 30,
+    targetRestSec: 15,
+    spBase: 1,
+    challengeTargetReps: 20,
+    techniqueTip: 'Keep your back straight and push hips forward — feel the stretch in the front of your hip.',
+  );
+
+  static const Exercise flexS2WorldsGreatestStretch = Exercise(
+    id: 'flex_s2_worlds_greatest_stretch',
+    name: "World's Greatest Stretch",
+    description:
+        'From a lunge, place the same-side hand on the floor. '
+        'Rotate your upper body and reach the other arm toward the ceiling. Flow through the movement.',
+    branch: BranchId.flex,
+    stage: 2,
+    type: ExerciseType.reps,
+    startReps: 3,
+    targetReps: 8,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 30,
+    targetRestSec: 15,
+    spBase: 1,
+    challengeTargetReps: 3,
+    techniqueTip: 'Move slowly through each position — this is a flow, not a race.',
+  );
+
+  static const Exercise flexS3Hip9090 = Exercise(
+    id: 'flex_s3_hip_9090',
+    name: '90/90 Hip Mobility',
+    description:
+        'Sit on the floor with both legs bent at 90°, one in front and one to the side. '
+        'Hold the position and switch sides.',
+    branch: BranchId.flex,
+    stage: 3,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 30,
+    targetRestSec: 15,
+    spBase: 1,
+    challengeTargetReps: 20,
+    techniqueTip: 'Keep both sit bones on the floor. Rotate from the hip, not the lower back.',
+  );
+
+  static const Exercise flexS4ThoracicBridge = Exercise(
+    id: 'flex_s4_thoracic_bridge',
+    name: 'Thoracic Bridge',
+    description:
+        'From a seated position with hands behind you, lift your hips and rotate '
+        'your upper spine to open the chest toward the ceiling.',
+    branch: BranchId.flex,
+    stage: 4,
+    type: ExerciseType.reps,
+    startReps: 3,
+    targetReps: 8,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 45,
+    targetRestSec: 20,
+    spBase: 2,
+    challengeTargetReps: 3,
+    techniqueTip: 'Focus movement in the upper back — avoid hinging in the lower back.',
+  );
+
+  static const Exercise flexS5DeepSquatHold = Exercise(
+    id: 'flex_s5_deep_squat_hold',
+    name: 'Deep Squat Hold',
+    description:
+        'Feet shoulder-width apart, toes slightly out. Squat all the way down and hold. '
+        'Use a door frame for support as needed.',
+    branch: BranchId.flex,
+    stage: 5,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 90,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 30,
+    targetRestSec: 15,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Use a doorframe or pole for support at first. Heels flat on the floor is the goal.',
+  );
+
+  static const Exercise flexS6PikeStretch = Exercise(
+    id: 'flex_s6_pike_stretch',
+    name: 'Pike Stretch',
+    description:
+        'Sit on the floor with legs straight in front of you. '
+        'Reach your hands toward your feet, hinging at the hips. Hold the position.',
+    branch: BranchId.flex,
+    stage: 6,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 30,
+    targetRestSec: 15,
+    spBase: 1,
+    techniqueTip: 'Reach forward from your hips, not your waist. Keep legs straight.',
+  );
+
   // ── WARMUP / COOLDOWN (stage 0) ──────────────────────────────────────────
   //
   // These are accessories used at the start and end of any session.
@@ -868,6 +989,16 @@ class ExerciseCatalog {
     balS6FreeHs,
   ];
 
+  /// All Flex progression exercises ordered by stage.
+  static const List<Exercise> flexProgression = [
+    flexS1HipFlexorStretch,
+    flexS2WorldsGreatestStretch,
+    flexS3Hip9090,
+    flexS4ThoracicBridge,
+    flexS5DeepSquatHold,
+    flexS6PikeStretch,
+  ];
+
   /// Warmup exercises (stage = 0).
   static const List<Exercise> warmups = [
     warmupArmRotations,
@@ -893,6 +1024,7 @@ class ExerciseCatalog {
     ...pullProgression,
     ...legsProgression,
     ...balanceProgression,
+    ...flexProgression,
     ...warmups,
     ...cooldowns,
   ];
@@ -904,6 +1036,7 @@ class ExerciseCatalog {
         BranchId.core => coreProgression,
         BranchId.legs => legsProgression,
         BranchId.balance => balanceProgression,
+        BranchId.flex => flexProgression,
       };
 
   /// Returns the exercise for [branch] at [stage], or null if not found.
@@ -921,6 +1054,9 @@ class ExerciseCatalog {
             .where((e) => e.stage == stage)
             .firstOrNull,
         BranchId.balance => balanceProgression
+            .where((e) => e.stage == stage)
+            .firstOrNull,
+        BranchId.flex => flexProgression
             .where((e) => e.stage == stage)
             .firstOrNull,
       };
@@ -941,6 +1077,7 @@ class ExerciseCatalog {
         BranchId.core => warmupJumpingJacks,
         BranchId.legs => warmupLegSwings,
         BranchId.balance => warmupWristCircles,
+        BranchId.flex => warmupLegSwings,
       };
 
   /// Returns the cooldown exercise(s) for the given [branch].
@@ -950,5 +1087,6 @@ class ExerciseCatalog {
         BranchId.core => [cooldownCatCow],
         BranchId.legs => [cooldownQuadStretch],
         BranchId.balance => [cooldownDownwardDog],
+        BranchId.flex => [cooldownCatCow],
       };
 }
