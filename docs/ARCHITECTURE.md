@@ -393,6 +393,10 @@ Both entry points lead to the same flow: `challengeBranchProvider = branch` → 
 
 ## Design System
 
+> Full design system (style guide, UX rules, typography, anti-patterns) is in
+> `design-system/caliday/MASTER.md`. Page-specific overrides in `design-system/caliday/pages/`.
+> **Style:** Vibrant & Block-based — bold, energetic, gamified. No static/flat visuals.
+
 ### Mascot Goro
 A flat-style gorilla with a blue headband. Assets in `assets/goro/`:
 - `goro_face_[happy/sad/angry/sleeping/excited/supportive].svg` — 6 expressions
