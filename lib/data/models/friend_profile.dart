@@ -47,6 +47,10 @@ class FriendProfile extends HiveObject {
   @HiveField(8)
   DateTime lastSynced;
 
+  /// Parse from a BLE GATT read (raw UTF-8 JSON, same structure as QR payload).
+  static FriendProfile fromBleJson(Map<String, dynamic> json) =>
+      fromQrJson(json);
+
   /// Parse from the QR JSON payload (caliday://friend?data=BASE64URL).
   static FriendProfile fromQrJson(Map<String, dynamic> json) => FriendProfile(
         id: json['id'] as String,

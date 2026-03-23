@@ -36,12 +36,14 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
       if (mounted) setState(() => _nearby = devices);
     });
     _startScan();
+    _startAdvertising();
   }
 
   @override
   void dispose() {
     _bleSub?.cancel();
     BleService.instance.stopDiscovery();
+    BleService.instance.stopAdvertising();
     super.dispose();
   }
 
@@ -61,14 +63,24 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
     if (mounted) setState(() => _scanning = false);
   }
 
-  String _buildQrPayload() {
+  Future<void> _startAdvertising() async {
+    final profile = ref.read(userRepositoryProvider).getProfile();
+    if (profile.bleDiscoverable != true) return;
+    final payload = _buildProfileJson();
+    final name = (profile.displayName?.isNotEmpty == true)
+        ? profile.displayName!
+        : profile.rank.name;
+    await BleService.instance.startAdvertising(payload, name);
+  }
+
+  Map<String, dynamic> _buildProfileJson() {
     final profile = ref.read(userRepositoryProvider).getProfile();
     final skillRepo = ref.read(skillProgressRepositoryProvider);
     final stages = {
       for (final b in BranchId.values)
         b.name: skillRepo.getProgress(b).currentStage,
     };
-    final data = {
+    return {
       'v': 1,
       'id': profile.peerId ?? '',
       'name': (profile.displayName?.isNotEmpty == true)
@@ -81,6 +93,39 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
       'stages': stages,
       'date': DateTime.now().millisecondsSinceEpoch ~/ 1000,
     };
+  }
+
+  Future<void> _connectViaBle(NearbyDevice device) async {
+    final messenger = ScaffoldMessenger.of(context);
+    final l10n = context.l10n;
+
+    final json = await BleService.instance.readProfileJson(device);
+    if (!mounted) return;
+
+    if (json != null) {
+      try {
+        final friend = FriendProfile.fromBleJson(json);
+        final isNew =
+            await ref.read(friendsProvider.notifier).addOrUpdate(friend);
+        if (mounted) {
+          messenger.showSnackBar(
+            SnackBar(
+              content: Text(isNew ? l10n.friendsAdded : l10n.friendsUpdated),
+            ),
+          );
+        }
+        return;
+      } catch (_) {
+        // Malformed JSON — fall through to QR
+      }
+    }
+
+    // Fallback: open QR scanner
+    if (mounted) _openScanner(context);
+  }
+
+  String _buildQrPayload() {
+    final data = _buildProfileJson();
     final encoded = base64Url.encode(utf8.encode(jsonEncode(data)));
     return 'caliday://friend?data=$encoded';
   }
@@ -225,7 +270,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
             ..._nearby.map(
               (d) => _NearbyTile(
                 device: d,
-                onTap: () => _openScanner(context),
+                onTap: () => _connectViaBle(d),
               ),
             ),
 

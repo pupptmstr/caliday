@@ -79,60 +79,6 @@ Latest APK build: `build/app/outputs/flutter-apk/caliday.apk` (~57 MB)
 
 ---
 
-### v1.4 — Friends: BLE Peripheral + GATT Server — idea (нужно для полноты фичи)
-
-#### Что реализовано
-
-- ✅ BLE Central (сканирование) — устройство видит других пользователей CaliDay поблизости
-- ✅ QR-обмен профилем — основной путь
-- ✅ GATT Client — может прочитать профиль с удалённого устройства (если у того есть GATT-сервер)
-
-#### Что не реализовано (фича неполная без этого)
-
-- ❌ **BLE Peripheral / Advertising** — устройство не рекламирует себя. Другие не могут обнаружить тебя по BLE.
-- ❌ **GATT Server** — нет сервера, раздающего профиль. Кнопка "Connect" у BLE-устройства сейчас просто открывает QR-сканер как fallback.
-
-Без этих двух пунктов BLE-обнаружение работает только при условии, что **оба** пользователя одновременно открыли экран Friends — один видит другого, но не наоборот. На практике это ненадёжно.
-
-#### Технические варианты реализации
-
-**Вариант A — пакет `ble_peripheral`:**
-- Pub: `ble_peripheral` (отдельный от flutter_blue_plus)
-- Плюс: чистый Dart-API
-- Минус: менее популярен, возможны баги на конкретных устройствах
-
-**Вариант B — platform channel (нативный код):**
-- iOS: `CBPeripheralManager` (CoreBluetooth)
-- Android: `BluetoothLeAdvertiser` + `BluetoothGattServer`
-- Плюс: полный контроль, стабильность
-- Минус: нужно писать Swift/Kotlin код
-
-**Рекомендация:** сначала попробовать `ble_peripheral` (быстрее), при проблемах — platform channel.
-
-#### GATT Server структура
-
-```
-Service UUID:        ca11da00-0000-0000-0000-000000000001
-Characteristic UUID: ca11da00-0000-0000-0000-000000000002
-  Properties: READ
-  Value: JSON профиля (UTF-8, <512 bytes)
-```
-
-#### Technical Tasks
-
-| # | Task |
-|---|------|
-| 1 | Добавить `ble_peripheral` (или написать platform channel) |
-| 2 | `BleService.startAdvertising(peerId, displayName)` — реализовать (сейчас stub) |
-| 3 | `BleService.stopAdvertising()` — реализовать |
-| 4 | Запускать advertising при открытии FriendsScreen (если `bleDiscoverable == true`) |
-| 5 | GATT Server: зарегистрировать сервис + характеристику, отдавать JSON профиля по READ |
-| 6 | Протестировать iOS↔Android |
-
-#### When to tackle
-
-После базовой watch-интеграции. Требует реального тестирования на двух физических устройствах одновременно.
-
 ---
 
 ### ? — Privacy Policy — designed
@@ -294,6 +240,25 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 ---
 
 ## Change History
+
+### 2026-03-23 — BLE Peripheral + GATT Server for Friends
+
+**What was done:** Implemented full BLE Peripheral role so that a device running CaliDay advertises itself and serves its profile over GATT, enabling other nearby users to add friends without QR scanning. The "Connect" button on Nearby tiles now attempts a GATT read first and falls back to QR only if the remote has no GATT server.
+
+**New files:** none
+
+**Modified files:**
+- `pubspec.yaml` — added `ble_peripheral: ^2.4.0`
+- `lib/core/services/ble_service.dart` — replaced stubs: `startAdvertising(profileJson, displayName)` initializes `BlePeripheral`, registers service UUID + READ characteristic, sets read callback, starts advertising; `stopAdvertising()` stops and clears services; `readProfileJson` now returns `Map<String,dynamic>` (decoded JSON) instead of `{'_raw':…}`
+- `lib/data/models/friend_profile.dart` — added `fromBleJson()` factory (alias for `fromQrJson`, same JSON structure)
+- `lib/features/friends/screens/friends_screen.dart` — `initState` calls `_startAdvertising()`; `dispose` calls `stopAdvertising()`; Nearby tile "Connect" calls `_connectViaBle()` which tries GATT, adds friend on success, falls back to QR on failure; `_buildQrPayload` refactored to use shared `_buildProfileJson()`
+
+**Key issues and solutions:**
+- `ble_peripheral` name conflict: the package exports a class also named `BleService`. Resolved by importing the package with prefix `blep` (`import 'package:ble_peripheral/ble_peripheral.dart' as blep`).
+- Published version is `2.4.0`, not `0.3.x` as listed in DEV_NOTES — version constraint updated accordingly.
+- `ReadRequestCallback` in v2.x is synchronous: `ReadRequestResult? Function(String deviceId, String characteristicId, int offset, Uint8List? value)` — no `async` allowed in the callback.
+
+---
 
 ### 2026-03-23 — Fix scheduled notifications (Android) + Core Lottie animations s1–s3
 

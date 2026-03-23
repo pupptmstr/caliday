@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:typed_data';
 
+import 'package:ble_peripheral/ble_peripheral.dart' as blep;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 
 /// Snapshot of a nearby CaliDay user discovered via BLE scan.
@@ -15,11 +18,8 @@ class NearbyDevice {
   final int rssi;
 }
 
-/// Manages BLE discovery of nearby CaliDay users.
-///
-/// Central role only (scanning + GATT client).
-/// Advertising (Peripheral role) is not yet implemented — it requires a
-/// dedicated peripheral-mode package or a native platform channel.
+/// Manages BLE Central (scan + GATT client) and Peripheral (advertising +
+/// GATT server) roles for CaliDay peer discovery and profile exchange.
 class BleService {
   static final instance = BleService._();
   BleService._();
@@ -38,8 +38,15 @@ class BleService {
   final _found = <String, NearbyDevice>{};
   StreamSubscription? _scanSub;
 
+  bool _peripheralInitialized = false;
+
+  // Latest profile JSON bytes to serve over GATT READ.
+  Uint8List _profileBytes = Uint8List(0);
+
   bool get isBluetoothOn =>
       FlutterBluePlus.adapterStateNow == BluetoothAdapterState.on;
+
+  // ── Central: scan ────────────────────────────────────────────────────────
 
   /// Start a 30-second BLE scan for CaliDay peer devices.
   Future<void> startDiscovery() async {
@@ -81,11 +88,12 @@ class BleService {
     _scanSub = null;
   }
 
-  /// Attempt to read a [FriendProfile] from a nearby device via GATT.
+  // ── Central: GATT client ─────────────────────────────────────────────────
+
+  /// Attempt to read a profile from a nearby device via GATT.
   ///
-  /// Returns null if the connection or characteristic read fails.
-  /// This only works when the remote device has a GATT server set up
-  /// (i.e., it is running CaliDay with peripheral advertising enabled).
+  /// Returns parsed JSON map on success, null if the remote has no GATT server
+  /// or if the connection fails.
   Future<Map<String, dynamic>?> readProfileJson(NearbyDevice nearby) async {
     final device =
         BluetoothDevice(remoteId: DeviceIdentifier(nearby.deviceId));
@@ -99,14 +107,14 @@ class BleService {
                 char.properties.read) {
               final bytes = await char.read();
               await device.disconnect();
-              // Caller is responsible for parsing bytes → JSON → FriendProfile
-              return {'_raw': String.fromCharCodes(bytes)};
+              final raw = utf8.decode(bytes);
+              return jsonDecode(raw) as Map<String, dynamic>;
             }
           }
         }
       }
     } catch (_) {
-      // ignore — GATT server not available on the remote side
+      // GATT server not available on the remote side — caller will fall back to QR
     }
     try {
       await device.disconnect();
@@ -114,9 +122,66 @@ class BleService {
     return null;
   }
 
-  // TODO: implement startAdvertising + GATT server via platform channel
-  // or the ble_peripheral package so that other devices can discover us.
+  // ── Peripheral: advertising + GATT server ────────────────────────────────
+
+  /// Start BLE advertising so nearby CaliDay users can discover this device.
+  ///
+  /// [profileJson] is the same map used for QR payloads (keys: v, id, name,
+  /// sp, streak, longestStreak, rank, stages, date). It is serialised to UTF-8
+  /// and served over GATT READ on the profile characteristic.
   Future<void> startAdvertising(
-      String peerId, String displayName) async {}
-  void stopAdvertising() {}
+      Map<String, dynamic> profileJson, String displayName) async {
+    if (!isBluetoothOn) return;
+
+    _profileBytes = Uint8List.fromList(utf8.encode(jsonEncode(profileJson)));
+
+    try {
+      if (!_peripheralInitialized) {
+        await blep.BlePeripheral.initialize();
+        _peripheralInitialized = true;
+      }
+
+      await blep.BlePeripheral.clearServices();
+
+      await blep.BlePeripheral.addService(
+        blep.BleService(
+          uuid: _serviceUuid,
+          primary: true,
+          characteristics: [
+            blep.BleCharacteristic(
+              uuid: _profileCharUuid,
+              properties: [blep.CharacteristicProperties.read.index],
+              permissions: [blep.AttributePermissions.readable.index],
+              value: _profileBytes,
+            ),
+          ],
+        ),
+      );
+
+      blep.BlePeripheral.setReadRequestCallback(
+          (String deviceId, String characteristicId, int offset,
+              Uint8List? value) {
+        if (characteristicId.toLowerCase() ==
+            _profileCharUuid.toLowerCase()) {
+          return blep.ReadRequestResult(value: _profileBytes);
+        }
+        return blep.ReadRequestResult(value: Uint8List(0));
+      });
+
+      await blep.BlePeripheral.startAdvertising(
+        services: [_serviceUuid],
+        localName: displayName,
+      );
+    } catch (_) {
+      // Advertising not supported or permission denied — silently skip
+    }
+  }
+
+  /// Stop BLE advertising and remove the GATT service.
+  Future<void> stopAdvertising() async {
+    try {
+      await blep.BlePeripheral.stopAdvertising();
+      await blep.BlePeripheral.clearServices();
+    } catch (_) {}
+  }
 }

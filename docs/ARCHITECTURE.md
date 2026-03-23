@@ -34,7 +34,8 @@ calisthenics (handstand push-ups) through short daily sets of 5–15 minutes.
 | Health | `health: ^12.0.0` |
 | QR generation | `qr_flutter: ^4.1.0` |
 | QR scanning | `mobile_scanner: ^7.2.0` |
-| BLE | `flutter_blue_plus: ^1.35.3` (Central / scanner only) |
+| BLE Central | `flutter_blue_plus: ^1.35.3` (scan + GATT client) |
+| BLE Peripheral | `ble_peripheral: ^2.4.0` (advertising + GATT server) |
 | Target platforms | iOS (primary), Android (secondary) |
 
 ---
@@ -310,8 +311,11 @@ otherwise                          → 0
 - `startDiscovery()` — 30s BLE scan filtered by service UUID `ca11da00-...-0001`; updates `nearbyStream`
 - `stopDiscovery()` — stops scan
 - `nearbyStream` — `Stream<List<NearbyDevice>>` broadcast
-- `readProfileJson(NearbyDevice)` — GATT client read of characteristic `ca11da00-...-0002`; returns null if remote has no GATT server
-- `startAdvertising()` / `stopAdvertising()` — stubs; **Peripheral role not yet implemented** (requires platform channel or ble_peripheral package)
+- `readProfileJson(NearbyDevice)` — GATT client read of characteristic `ca11da00-...-0002`; returns decoded `Map<String,dynamic>` or null if remote has no GATT server
+- `startAdvertising(profileJson, displayName)` — initializes `BlePeripheral`, registers GATT service + READ characteristic serving profile JSON bytes, starts BLE advertising with `displayName` as local name
+- `stopAdvertising()` — stops advertising and clears GATT services
+
+**Import note:** `ble_peripheral` exports a class `BleService` — import the package with prefix `blep` to avoid name collision with our `BleService` singleton.
 
 ### FriendsNotifier (StateNotifier)
 - `addOrUpdate(FriendProfile)` → `bool` (true = new friend)
@@ -574,8 +578,8 @@ flutter build ipa                 # iOS archive
 | v1.3 | Home Screen Widget (iOS + Android) | ✅ |
 | v1.3 | Apple Health / Health Connect | ✅ |
 | v1.4 | Friends — QR + BLE scan (Central role) | ✅ |
-| v1.4 | Friends — BLE advertising (Peripheral role) | 💡 idea (нужно для полноты фичи) |
-| v1.4 | Friends — BLE GATT server (обмен профилем без QR) | 💡 idea (нужно для полноты фичи) |
+| v1.4 | Friends — BLE advertising (Peripheral role) | ✅ |
+| v1.4 | Friends — BLE GATT server (обмен профилем без QR) | ✅ |
 | ? | Flexibility & Mobility branch | ✅ |
 | ? | Supplementary exercise pool (random, no progression) | ✅ |
 | ? | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |

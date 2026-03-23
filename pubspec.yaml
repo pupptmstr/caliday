@@ -40,6 +40,7 @@ dependencies:
   qr_flutter: ^4.1.0
   mobile_scanner: ^7.2.0
   flutter_blue_plus: ^1.35.3
+  ble_peripheral: ^2.4.0
 
 dev_dependencies:
   flutter_test:
