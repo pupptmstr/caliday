@@ -82,6 +82,15 @@ class $AssetsAnimationsGen {
   final LottieGenImage coreS3LyingLegRaise = const LottieGenImage(
     'assets/animations/core_s3_lying_leg_raise.json',
   );
+  final LottieGenImage coreS4HangingLegRaise = const LottieGenImage(
+    'assets/animations/core_s4_hanging_leg_raise.json',
+  );
+  final LottieGenImage coreS5LSit = const LottieGenImage(
+    'assets/animations/core_s5_l_sit.json',
+  );
+  final LottieGenImage coreS6DragonFlag = const LottieGenImage(
+    'assets/animations/core_s6_dragon_flag.json',
+  );
   final LottieGenImage pushS1WallPushup = const LottieGenImage(
     'assets/animations/push_s1_wall_pushup.json',
   );
