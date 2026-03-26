@@ -778,6 +778,7 @@ class ExerciseCatalog {
     startRestSec: 0,
     targetRestSec: 0,
     spBase: 0,
+    animationPath: 'assets/animations/warmup_arm_rotations.json',
   );
 
   static const Exercise warmupDeadHang = Exercise(
@@ -815,6 +816,7 @@ class ExerciseCatalog {
     startRestSec: 0,
     targetRestSec: 0,
     spBase: 0,
+    animationPath: 'assets/animations/warmup_jumping_jacks.json',
   );
 
   static const Exercise warmupLegSwings = Exercise(
@@ -869,6 +871,7 @@ class ExerciseCatalog {
     startRestSec: 0,
     targetRestSec: 0,
     spBase: 0,
+    animationPath: 'assets/animations/cooldown_shoulder_stretch.json',
   );
 
   static const Exercise cooldownLatStretch = Exercise(
@@ -905,6 +908,7 @@ class ExerciseCatalog {
     startRestSec: 0,
     targetRestSec: 0,
     spBase: 0,
+    animationPath: 'assets/animations/cooldown_cat_cow.json',
   );
 
   static const Exercise cooldownQuadStretch = Exercise(
