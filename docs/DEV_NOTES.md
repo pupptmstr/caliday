@@ -241,6 +241,15 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-03-26 — Core branch Lottie animations s4–s6
+
+**What was done:** Added animationPath to Core branch exercises s4 (Hanging Leg Raise), s5 (L-sit), and s6 (Dragon Flag). All 6 Core stages now have Lottie animations. Animation JSON files were already present in assets/animations/.
+
+**Modified files:**
+- `lib/data/static/exercise_catalog.dart` — added animationPath to coreS4HangingLegRaise, coreS5LSit, coreS6DragonFlag
+
+---
+
 ### 2026-03-23 — BLE Peripheral + GATT Server for Friends
 
 **What was done:** Implemented full BLE Peripheral role so that a device running CaliDay advertises itself and serves its profile over GATT, enabling other nearby users to add friends without QR scanning. The "Connect" button on Nearby tiles now attempts a GATT read first and falls back to QR only if the remote has no GATT server.

@@ -242,6 +242,7 @@ class ExerciseCatalog {
     spBase: 2,
     challengeTargetReps: 3,
     techniqueTip: 'Не раскачивайся — движение только за счёт пресса.',
+    animationPath: 'assets/animations/core_s4_hanging_leg_raise.json',
   );
 
   static const Exercise coreS5LSit = Exercise(
@@ -262,6 +263,7 @@ class ExerciseCatalog {
     spBase: 3, // per 10 seconds
     challengeTargetReps: 5,
     techniqueTip: 'Носки тяни на себя, плечи — вниз и назад.',
+    animationPath: 'assets/animations/core_s5_l_sit.json',
   );
 
   static const Exercise coreS6DragonFlag = Exercise(
@@ -281,6 +283,7 @@ class ExerciseCatalog {
     targetRestSec: 60,
     spBase: 5,
     techniqueTip: 'Начинай с негативной фазы (только опускание) — это проще.',
+    animationPath: 'assets/animations/core_s6_dragon_flag.json',
   );
 
   // ── PULL ──────────────────────────────────────────────────────────────────
