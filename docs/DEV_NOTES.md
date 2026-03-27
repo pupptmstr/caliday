@@ -241,6 +241,18 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-03-28 — Lottie animations: cooldown_lat_stretch + core_s4_flutter_kicks
+
+**What was done:** Added animationPath to `cooldownLatStretch` and `coreS4FlutterKicks`. Blocks B and D are now fully covered with Lottie animations. Updated designer TZ to v1.6 reflecting closed blocks.
+
+**New files:**
+- `assets/animations/cooldown_lat_stretch.json` — cooldown animation for Pull branch
+- `assets/animations/core_s4_flutter_kicks.json` — flutter kicks (Core S4 equipment-free alternative)
+
+**Modified files:**
+- `lib/data/static/exercise_catalog.dart` — added animationPath to cooldownLatStretch and coreS4FlutterKicks
+- `docs/tz_designer.md` — updated to v1.6: blocks B and D marked complete, next priority is E (Legs)
+
 ### 2026-03-27 — Core S4 equipment-free alternative + streak real-work fix
 
 **What was done:** Added flutter kicks (`core_s4_flutter_kicks`) as an equipment-free alternative for Core S4 (hanging leg raises require a pull-up bar). Users without a bar now get flutter kicks instead. Also fixed streak logic: streak no longer increments for warmup-only or all-zero-reps workouts — at least one real exercise (stage > 0, reps > 0 or duration > 0) is required.

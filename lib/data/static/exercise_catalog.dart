@@ -267,6 +267,7 @@ class ExerciseCatalog {
     challengeTargetReps: 10,
     requiresEquipment: false,
     techniqueTip: 'Поясница прижата к полу. Ноги не касаются пола между повторами.',
+    animationPath: 'assets/animations/core_s4_flutter_kicks.json',
   );
 
   static const Exercise coreS5LSit = Exercise(
@@ -921,6 +922,7 @@ class ExerciseCatalog {
     startRestSec: 0,
     targetRestSec: 0,
     spBase: 0,
+    animationPath: 'assets/animations/cooldown_lat_stretch.json',
   );
 
   static const Exercise cooldownCatCow = Exercise(
