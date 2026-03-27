@@ -844,6 +844,17 @@ class AppLocalizationsRu extends AppLocalizations {
       'Не раскачивайся — движение только за счёт пресса.';
 
   @override
+  String get exerciseCoreS4FlutterKicksName => 'Ножницы';
+
+  @override
+  String get exerciseCoreS4FlutterKicksDesc =>
+      'Лёжа на спине, руки под ягодицами. Подними ноги на 15–20 см от пола. Поочерёдно поднимай и опускай каждую ногу быстрыми небольшими движениями. Одно повторение — один цикл (правая вверх + левая вверх).';
+
+  @override
+  String get exerciseCoreS4FlutterKicksTip =>
+      'Поясница прижата к полу. Ноги не касаются пола между повторами.';
+
+  @override
   String get exerciseCoreS5LSitName => 'Уголок (L-sit)';
 
   @override

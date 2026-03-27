@@ -839,6 +839,17 @@ class AppLocalizationsEn extends AppLocalizations {
       'Don\'t swing — the movement comes from your abs only.';
 
   @override
+  String get exerciseCoreS4FlutterKicksName => 'Flutter Kicks';
+
+  @override
+  String get exerciseCoreS4FlutterKicksDesc =>
+      'Lie on your back, hands under your glutes. Lift both legs 15–20 cm off the floor. Alternate raising and lowering each leg in small quick movements. One rep = one cycle (right up + left up).';
+
+  @override
+  String get exerciseCoreS4FlutterKicksTip =>
+      'Keep your lower back pressed to the floor. Legs don\'t touch the floor between reps.';
+
+  @override
   String get exerciseCoreS5LSitName => 'L-sit';
 
   @override

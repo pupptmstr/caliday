@@ -1586,6 +1586,24 @@ abstract class AppLocalizations {
   /// **'Don\'t swing — the movement comes from your abs only.'**
   String get exerciseCoreS4HangingLegRaiseTip;
 
+  /// No description provided for @exerciseCoreS4FlutterKicksName.
+  ///
+  /// In en, this message translates to:
+  /// **'Flutter Kicks'**
+  String get exerciseCoreS4FlutterKicksName;
+
+  /// No description provided for @exerciseCoreS4FlutterKicksDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, hands under your glutes. Lift both legs 15–20 cm off the floor. Alternate raising and lowering each leg in small quick movements. One rep = one cycle (right up + left up).'**
+  String get exerciseCoreS4FlutterKicksDesc;
+
+  /// No description provided for @exerciseCoreS4FlutterKicksTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your lower back pressed to the floor. Legs don\'t touch the floor between reps.'**
+  String get exerciseCoreS4FlutterKicksTip;
+
   /// No description provided for @exerciseCoreS5LSitName.
   ///
   /// In en, this message translates to:
