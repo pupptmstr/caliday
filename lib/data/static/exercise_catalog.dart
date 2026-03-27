@@ -307,6 +307,7 @@ class ExerciseCatalog {
     challengeTargetReps: 2,
     requiresEquipment: true,
     techniqueTip: 'Чем ниже опускаешь перекладину, тем сложнее упражнение.',
+    animationPath: 'assets/animations/pull_s1_australian.json',
   );
 
   static const Exercise pullS2Negative = Exercise(
@@ -328,6 +329,7 @@ class ExerciseCatalog {
     challengeTargetReps: 1,
     requiresEquipment: true,
     techniqueTip: 'Чем медленнее опускаешься — тем лучше. Цель: 5 сек вниз.',
+    animationPath: 'assets/animations/pull_s2_negative.json',
   );
 
   static const Exercise pullS3Pullup = Exercise(
@@ -349,6 +351,7 @@ class ExerciseCatalog {
     challengeTargetReps: 3,
     requiresEquipment: true,
     techniqueTip: 'Сводя лопатки — тянешь спиной, а не руками.',
+    animationPath: 'assets/animations/pull_s3_pullup.json',
   );
 
   static const Exercise pullS4CloseGrip = Exercise(
@@ -370,6 +373,7 @@ class ExerciseCatalog {
     challengeTargetReps: 2,
     requiresEquipment: true,
     techniqueTip: 'Локти прижимай к корпусу для максимальной нагрузки на бицепс.',
+    animationPath: 'assets/animations/pull_s4_close_grip.json',
   );
 
   static const Exercise pullS5Archer = Exercise(
@@ -391,6 +395,7 @@ class ExerciseCatalog {
     challengeTargetReps: 1,
     requiresEquipment: true,
     techniqueTip: 'Прямая рука — вспомогательная, рабочая — полный диапазон.',
+    animationPath: 'assets/animations/pull_s5_archer.json',
   );
 
   static const Exercise pullS6OneArm = Exercise(
@@ -411,6 +416,7 @@ class ExerciseCatalog {
     spBase: 5,
     requiresEquipment: true,
     techniqueTip: 'Держи корпус стабильным — не раскачивайся.',
+    animationPath: 'assets/animations/pull_s6_one_arm.json',
   );
 
   // ── LEGS ──────────────────────────────────────────────────────────────────
@@ -798,6 +804,7 @@ class ExerciseCatalog {
     targetRestSec: 0,
     spBase: 0,
     requiresEquipment: true,
+    animationPath: 'assets/animations/warmup_dead_hang.json',
   );
 
   static const Exercise warmupJumpingJacks = Exercise(

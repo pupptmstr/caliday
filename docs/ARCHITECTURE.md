@@ -584,7 +584,8 @@ flutter build ipa                 # iOS archive
 | ? | Supplementary exercise pool (random, no progression) | ✅ |
 | ? | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |
 | ? | Privacy Policy (GitHub Markdown → ссылка в приложении) | 📐 designed |
-| ? | Lottie animations for Core branch | 🔒 waiting for assets |
+| ? | Lottie animations for Core branch (6/6) | ✅ |
+| ? | Lottie animations for Pull branch (6/6) | ✅ |
 | v2.0 | Design overhaul — Liquid Glass (iOS) / frosted glass (Android) | 📐 designed |
 | ? | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup before implementing (see DEV_NOTES § Tax / IAP income) |
 

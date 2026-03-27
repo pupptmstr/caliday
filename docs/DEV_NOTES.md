@@ -241,6 +241,24 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-03-27 — Pull branch + warmup_dead_hang Lottie animations
+
+**What was done:** Added animationPath to all 6 Pull branch exercises (s1–s6) and warmup_dead_hang. Pull branch now has full Lottie coverage. Animation JSON files were provided by the designer and registered in generated/assets.dart.
+
+**Modified files:**
+- `lib/data/static/exercise_catalog.dart` — added animationPath to pullS1Australian, pullS2Negative, pullS3Pullup, pullS4CloseGrip, pullS5Archer, pullS6OneArm, warmupDeadHang
+
+**New files:**
+- `assets/animations/pull_s1_australian.json`
+- `assets/animations/pull_s2_negative.json`
+- `assets/animations/pull_s3_pullup.json`
+- `assets/animations/pull_s4_close_grip.json`
+- `assets/animations/pull_s5_archer.json`
+- `assets/animations/pull_s6_one_arm.json`
+- `assets/animations/warmup_dead_hang.json`
+
+---
+
 ### 2026-03-26 — Core branch Lottie animations s4–s6
 
 **What was done:** Added animationPath to Core branch exercises s4 (Hanging Leg Raise), s5 (L-sit), and s6 (Dragon Flag). All 6 Core stages now have Lottie animations. Animation JSON files were already present in assets/animations/.
