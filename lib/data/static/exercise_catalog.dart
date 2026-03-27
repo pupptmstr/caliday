@@ -241,8 +241,32 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 2,
     challengeTargetReps: 3,
+    requiresEquipment: true,
     techniqueTip: 'Не раскачивайся — движение только за счёт пресса.',
     animationPath: 'assets/animations/core_s4_hanging_leg_raise.json',
+  );
+
+  /// Equipment-free alternative to [coreS4HangingLegRaise] for users without a pull-up bar.
+  static const Exercise coreS4FlutterKicks = Exercise(
+    id: 'core_s4_flutter_kicks',
+    name: 'Ножницы',
+    description:
+        'Лёжа на спине, руки под ягодицами. Подними ноги на 15–20 см от пола. '
+        'Поочерёдно поднимай и опускай каждую ногу быстрыми небольшими движениями. '
+        'Одно повторение — один цикл (правая вверх + левая вверх).',
+    branch: BranchId.core,
+    stage: 4,
+    type: ExerciseType.reps,
+    startReps: 10,
+    targetReps: 25,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 45,
+    targetRestSec: 20,
+    spBase: 1,
+    challengeTargetReps: 10,
+    requiresEquipment: false,
+    techniqueTip: 'Поясница прижата к полу. Ноги не касаются пола между повторами.',
   );
 
   static const Exercise coreS5LSit = Exercise(
@@ -1077,6 +1101,13 @@ class ExerciseCatalog {
             .where((e) => e.stage == stage)
             .firstOrNull,
       };
+
+  /// Returns an equipment-free alternative for [branch] at [stage], or null if
+  /// no alternative exists (exercise can be done without equipment as-is).
+  static Exercise? equipmentFreeForStage(BranchId branch, int stage) {
+    if (branch == BranchId.core && stage == 4) return coreS4FlutterKicks;
+    return null;
+  }
 
   /// Returns the exercise with [id], or null if not found.
   static Exercise? byId(String id) {

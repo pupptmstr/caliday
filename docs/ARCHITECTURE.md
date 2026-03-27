@@ -243,14 +243,14 @@ Loaded from `ExerciseCatalog`. `stage = 0` = warmup/cooldown.
 | 6 | `pull_s6_one_arm` | One-arm Pull-ups |
 
 ### Core Branch (6 stages)
-| Stage | ID | Name |
-|-------|----|------|
-| 1 | `core_s1_crunches` | Crunches |
-| 2 | `core_s2_plank` | Plank |
-| 3 | `core_s3_lying_leg_raise` | Lying Leg Raises |
-| 4 | `core_s4_hanging_leg_raise` | Hanging Leg Raises |
-| 5 | `core_s5_l_sit` | L-sit |
-| 6 | `core_s6_dragon_flag` | Dragon Flag |
+| Stage | ID | Name | Notes |
+|-------|----|------|-------|
+| 1 | `core_s1_crunches` | Crunches | |
+| 2 | `core_s2_plank` | Plank | |
+| 3 | `core_s3_lying_leg_raise` | Lying Leg Raises | |
+| 4 | `core_s4_hanging_leg_raise` | Hanging Leg Raises | `requiresEquipment=true`; alt: `core_s4_flutter_kicks` |
+| 5 | `core_s5_l_sit` | L-sit | |
+| 6 | `core_s6_dragon_flag` | Dragon Flag | |
 
 ### Legs Branch (5 stages)
 | Stage | ID | Name |
@@ -281,7 +281,7 @@ Loaded from `ExerciseCatalog`. `stage = 0` = warmup/cooldown.
 - `applyToProfile(profile, sp)` — mutates profile: SP + rank
 
 ### StreakService
-- `applyWorkout(profile, date)` → bool — updates streak; on a 1-day gap, uses a freeze
+- `applyWorkout(profile, date)` → bool — updates streak; on a 1-day gap, uses a freeze. Only called when at least one real exercise (stage > 0, reps > 0 or duration > 0) was performed — warmup-only workouts do not count.
 - `tryAwardFreeze(profile)` → bool — +1 freeze every 7 days (max 3)
 - `isStreakAtRisk(profile)` — true if no workout today
 - `daysSinceLastWorkout(profile)` — counter
@@ -300,7 +300,7 @@ otherwise                          → 0
 - `nextExercise(progress)` — next stage from catalog
 
 ### WorkoutGeneratorService
-- `generateDaily({activeBranches, preferredMinutes, dayIndexOverride?})` — rotates branches by dayIndex (days since 2020-01-01). N branches: min(2,total) at ≤5min, min(3,total) at 10min, total at ≥15min
+- `generateDaily({activeBranches, preferredMinutes, dayIndexOverride?, hasPullUpBar})` — rotates branches by dayIndex (days since 2020-01-01). N branches: min(2,total) at ≤5min, min(3,total) at 10min, total at ≥15min. When `hasPullUpBar=false` and an exercise has `requiresEquipment=true`, substitutes via `ExerciseCatalog.equipmentFreeForStage()`.
 - `generateChallenge(branch)` — warmup → current stage (1 easy set) → next stage (challengeTargetReps) → cooldown
 
 ### AchievementService

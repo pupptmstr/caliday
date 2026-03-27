@@ -33,6 +33,7 @@ class WorkoutGeneratorService {
     int preferredMinutes = 10,
     int? dayIndexOverride,
     bool isPrimary = true,
+    bool hasPullUpBar = false,
   }) {
     if (activeBranches.isEmpty) {
       return WorkoutPlan(setType: SetType.daily, exercises: const []);
@@ -66,8 +67,12 @@ class WorkoutGeneratorService {
     // ── 2. Main block (one exercise per branch) ───────────────────────────────
     for (final branch in todayBranches) {
       final progress = _progressRepo.getProgress(branch);
-      final exercise = ExerciseCatalog.forStage(branch, progress.currentStage);
+      var exercise = ExerciseCatalog.forStage(branch, progress.currentStage);
       if (exercise == null) continue;
+
+      if (exercise.requiresEquipment && !hasPullUpBar) {
+        exercise = ExerciseCatalog.equipmentFreeForStage(branch, progress.currentStage) ?? exercise;
+      }
 
       exercises.add(PlannedExercise(
         exercise: exercise,

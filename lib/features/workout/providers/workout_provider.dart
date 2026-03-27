@@ -204,10 +204,21 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       activeBranches: profile.activeBranches,
       preferredMinutes: profile.preferredWorkoutMinutes ?? 10,
       isPrimary: isPrimary,
+      hasPullUpBar: profile.hasPullUpBar == true,
     );
   }
 
   final Ref _ref;
+
+  bool _hasRealWork(List<ExerciseResult?> results) {
+    for (var i = 0; i < state.plan.exercises.length; i++) {
+      final planned = state.plan.exercises[i];
+      final r = results[i];
+      if (r == null || planned.exercise.stage == 0) continue;
+      if (r.completedReps > 0 || (r.actualDurationSec ?? 0) > 0) return true;
+    }
+    return false;
+  }
 
   /// Adjusts the reps counter (for reps exercises) by [delta].
   void adjustReps(int delta) {
@@ -382,7 +393,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     final streakService = _ref.read(streakServiceProvider);
     bool freezeUsed = false;
     bool freezeEarned = false;
-    if (isPrimary) {
+    if (isPrimary && _hasRealWork(results)) {
       freezeUsed = streakService.applyWorkout(profile, now);
       freezeEarned = streakService.tryAwardFreeze(profile);
     }

@@ -241,6 +241,19 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-03-27 — Core S4 equipment-free alternative + streak real-work fix
+
+**What was done:** Added flutter kicks (`core_s4_flutter_kicks`) as an equipment-free alternative for Core S4 (hanging leg raises require a pull-up bar). Users without a bar now get flutter kicks instead. Also fixed streak logic: streak no longer increments for warmup-only or all-zero-reps workouts — at least one real exercise (stage > 0, reps > 0 or duration > 0) is required.
+
+**Modified files:**
+- `lib/data/static/exercise_catalog.dart` — added `coreS4FlutterKicks`, `requiresEquipment: true` on `coreS4HangingLegRaise`, added `equipmentFreeForStage()` method
+- `lib/domain/services/workout_generator_service.dart` — added `hasPullUpBar` param to `generateDaily`; picks equipment-free alternative when user has no bar
+- `lib/features/workout/providers/workout_provider.dart` — passes `hasPullUpBar` to generator; added `_hasRealWork()` guard before `streakService.applyWorkout()`
+
+**Key issues and solutions:**
+- Flutter kicks are at stage 4 but easier than hanging leg raises. Compensated by higher rep counts (start 10, target 25 vs 3→10 for hanging). `SkillProgress.currentReps` still tracks progression normally since the alternative shares the same stage slot — no Hive changes needed.
+- `equipmentFreeForStage()` method keeps the generator logic simple: returns alternative only for the specific branch+stage pair, null otherwise. Easy to extend for future equipment alternatives.
+
 ### 2026-03-27 — Pull branch + warmup_dead_hang Lottie animations
 
 **What was done:** Added animationPath to all 6 Pull branch exercises (s1–s6) and warmup_dead_hang. Pull branch now has full Lottie coverage. Animation JSON files were provided by the designer and registered in generated/assets.dart.
