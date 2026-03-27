@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/models/enums.dart';
+import '../../data/models/exercise.dart';
 import '../../data/repositories/skill_progress_repository.dart';
 import '../../data/static/exercise_catalog.dart';
 import '../../data/static/supplementary_exercise_catalog.dart';
@@ -120,12 +121,20 @@ class WorkoutGeneratorService {
   /// Structure: warmup → current stage (1 light set) → next stage
   /// (challengeTargetReps) → cooldown.
   /// Returns a daily plan as fallback if challenge is not available.
-  WorkoutPlan generateChallenge(BranchId branch) {
+  WorkoutPlan generateChallenge(BranchId branch, {bool hasPullUpBar = false}) {
     final progress = _progressRepo.getProgress(branch);
-    final current = ExerciseCatalog.forStage(branch, progress.currentStage);
-    final next = ExerciseCatalog.forStage(branch, progress.currentStage + 1);
+    Exercise? resolve(Exercise? e) {
+      if (e == null) return null;
+      if (e.requiresEquipment && !hasPullUpBar) {
+        return ExerciseCatalog.equipmentFreeForStage(branch, e.stage) ?? e;
+      }
+      return e;
+    }
+
+    final current = resolve(ExerciseCatalog.forStage(branch, progress.currentStage));
+    final next = resolve(ExerciseCatalog.forStage(branch, progress.currentStage + 1));
     if (current == null || next == null) {
-      return generateDaily(activeBranches: [branch]);
+      return generateDaily(activeBranches: [branch], hasPullUpBar: hasPullUpBar);
     }
 
     final exercises = <PlannedExercise>[];

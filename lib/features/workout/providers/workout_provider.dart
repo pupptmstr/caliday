@@ -194,10 +194,13 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
   static WorkoutPlan _buildPlan(Ref ref) {
     final challengeBranch = ref.read(challengeBranchProvider);
     final generator = ref.read(workoutGeneratorServiceProvider);
-    if (challengeBranch != null) {
-      return generator.generateChallenge(challengeBranch);
-    }
     final profile = ref.read(userRepositoryProvider).getProfile();
+    if (challengeBranch != null) {
+      return generator.generateChallenge(
+        challengeBranch,
+        hasPullUpBar: profile.hasPullUpBar == true,
+      );
+    }
     final workoutRepo = ref.read(workoutRepositoryProvider);
     final isPrimary = !workoutRepo.hasPrimaryWorkoutToday();
     return generator.generateDaily(
