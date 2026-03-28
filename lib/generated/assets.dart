@@ -20,45 +20,34 @@ class $AssetsGoroGen {
 
   final SvgGenImage goroFace = const SvgGenImage('assets/goro/goro_face.svg');
   final SvgGenImage goroFaceAngry = const SvgGenImage(
-    'assets/goro/goro_face_angry.svg',
-  );
+      'assets/goro/goro_face_angry.svg');
   final SvgGenImage goroFaceExcited = const SvgGenImage(
-    'assets/goro/goro_face_excited.svg',
-  );
+      'assets/goro/goro_face_excited.svg');
   final SvgGenImage goroFaceHappy = const SvgGenImage(
-    'assets/goro/goro_face_happy.svg',
-  );
+      'assets/goro/goro_face_happy.svg');
   final SvgGenImage goroFaceSad = const SvgGenImage(
-    'assets/goro/goro_face_sad.svg',
-  );
+      'assets/goro/goro_face_sad.svg');
   final SvgGenImage goroFaceSleeping = const SvgGenImage(
-    'assets/goro/goro_face_sleeping.svg',
-  );
+      'assets/goro/goro_face_sleeping.svg');
   final SvgGenImage goroFaceSupportive = const SvgGenImage(
-    'assets/goro/goro_face_supportive.svg',
-  );
+      'assets/goro/goro_face_supportive.svg');
   final SvgGenImage goroFlex = const SvgGenImage('assets/goro/goro_flex.svg');
   final SvgGenImage goroFlexV2 = const SvgGenImage(
-    'assets/goro/goro_flex_v2.svg',
-  );
+      'assets/goro/goro_flex_v2.svg');
   final SvgGenImage goroIdle = const SvgGenImage('assets/goro/goro_idle.svg');
   final SvgGenImage goroIdleV2 = const SvgGenImage(
-    'assets/goro/goro_idle_v2.svg',
-  );
+      'assets/goro/goro_idle_v2.svg');
   final SvgGenImage goroNotification = const SvgGenImage(
-    'assets/goro/goro_notification.svg',
-  );
+      'assets/goro/goro_notification.svg');
 }
 
 class $AssetsSkalaGen {
   const $AssetsSkalaGen();
 
   final SvgGenImage skalaApprove = const SvgGenImage(
-    'assets/skala/skala_approve.svg',
-  );
+      'assets/skala/skala_approve.svg');
   final SvgGenImage skalaNeutral = const SvgGenImage(
-    'assets/skala/skala_neutral.svg',
-  );
+      'assets/skala/skala_neutral.svg');
 }
 
 class $AssetsSoundsGen {
@@ -74,86 +63,64 @@ class $AssetsAnimationsGen {
   const $AssetsAnimationsGen();
 
   final LottieGenImage cooldownCatCow = const LottieGenImage(
-    'assets/animations/cooldown_cat_cow.json',
-  );
+      'assets/animations/cooldown_cat_cow.json');
+  final LottieGenImage cooldownLatStretch = const LottieGenImage(
+      'assets/animations/cooldown_lat_stretch.json');
   final LottieGenImage cooldownShoulderStretch = const LottieGenImage(
-    'assets/animations/cooldown_shoulder_stretch.json',
-  );
+      'assets/animations/cooldown_shoulder_stretch.json');
   final LottieGenImage coreS1Crunches = const LottieGenImage(
-    'assets/animations/core_s1_crunches.json',
-  );
+      'assets/animations/core_s1_crunches.json');
   final LottieGenImage coreS2Plank = const LottieGenImage(
-    'assets/animations/core_s2_plank.json',
-  );
+      'assets/animations/core_s2_plank.json');
   final LottieGenImage coreS3LyingLegRaise = const LottieGenImage(
-    'assets/animations/core_s3_lying_leg_raise.json',
-  );
+      'assets/animations/core_s3_lying_leg_raise.json');
   final LottieGenImage coreS4FlutterKicks = const LottieGenImage(
-    'assets/animations/core_s4_flutter_kicks.json',
-  );
+      'assets/animations/core_s4_flutter_kicks.json');
   final LottieGenImage coreS4HangingLegRaise = const LottieGenImage(
-    'assets/animations/core_s4_hanging_leg_raise.json',
-  );
+      'assets/animations/core_s4_hanging_leg_raise.json');
   final LottieGenImage coreS5LSit = const LottieGenImage(
-    'assets/animations/core_s5_l_sit.json',
-  );
+      'assets/animations/core_s5_l_sit.json');
   final LottieGenImage coreS6DragonFlag = const LottieGenImage(
-    'assets/animations/core_s6_dragon_flag.json',
-  );
+      'assets/animations/core_s6_dragon_flag.json');
   final LottieGenImage pullS1Australian = const LottieGenImage(
-    'assets/animations/pull_s1_australian.json',
-  );
+      'assets/animations/pull_s1_australian.json');
   final LottieGenImage pullS2Negative = const LottieGenImage(
-    'assets/animations/pull_s2_negative.json',
-  );
+      'assets/animations/pull_s2_negative.json');
   final LottieGenImage pullS3Pullup = const LottieGenImage(
-    'assets/animations/pull_s3_pullup.json',
-  );
+      'assets/animations/pull_s3_pullup.json');
   final LottieGenImage pullS4CloseGrip = const LottieGenImage(
-    'assets/animations/pull_s4_close_grip.json',
-  );
+      'assets/animations/pull_s4_close_grip.json');
   final LottieGenImage pullS5Archer = const LottieGenImage(
-    'assets/animations/pull_s5_archer.json',
-  );
+      'assets/animations/pull_s5_archer.json');
   final LottieGenImage pullS6OneArm = const LottieGenImage(
-    'assets/animations/pull_s6_one_arm.json',
-  );
+      'assets/animations/pull_s6_one_arm.json');
   final LottieGenImage pushS1WallPushup = const LottieGenImage(
-    'assets/animations/push_s1_wall_pushup.json',
-  );
+      'assets/animations/push_s1_wall_pushup.json');
   final LottieGenImage pushS2KneePushup = const LottieGenImage(
-    'assets/animations/push_s2_knee_pushup.json',
-  );
+      'assets/animations/push_s2_knee_pushup.json');
   final LottieGenImage pushS3FullPushup = const LottieGenImage(
-    'assets/animations/push_s3_full_pushup.json',
-  );
+      'assets/animations/push_s3_full_pushup.json');
   final LottieGenImage pushS4DiamondPushup = const LottieGenImage(
-    'assets/animations/push_s4_diamond_pushup.json',
-  );
+      'assets/animations/push_s4_diamond_pushup.json');
   final LottieGenImage pushS5WidePushup = const LottieGenImage(
-    'assets/animations/push_s5_wide_pushup.json',
-  );
+      'assets/animations/push_s5_wide_pushup.json');
   final LottieGenImage pushS6ArcherPushup = const LottieGenImage(
-    'assets/animations/push_s6_archer_pushup.json',
-  );
+      'assets/animations/push_s6_archer_pushup.json');
   final LottieGenImage pushS7HandstandPushup = const LottieGenImage(
-    'assets/animations/push_s7_handstand_pushup.json',
-  );
+      'assets/animations/push_s7_handstand_pushup.json');
   final LottieGenImage warmupArmRotations = const LottieGenImage(
-    'assets/animations/warmup_arm_rotations.json',
-  );
+      'assets/animations/warmup_arm_rotations.json');
   final LottieGenImage warmupDeadHang = const LottieGenImage(
-    'assets/animations/warmup_dead_hang.json',
-  );
+      'assets/animations/warmup_dead_hang.json');
   final LottieGenImage warmupJumpingJacks = const LottieGenImage(
-    'assets/animations/warmup_jumping_jacks.json',
-  );
+      'assets/animations/warmup_jumping_jacks.json');
 }
 
 class AssetGenImage {
   const AssetGenImage(this._assetName, {this.size, this.flavors = const {}});
 
   final String _assetName;
+
 
   final Size? size;
   final Set<String> flavors;
@@ -211,8 +178,15 @@ class AssetGenImage {
     );
   }
 
-  ImageProvider provider({AssetBundle? bundle, String? package}) {
-    return AssetImage(_assetName, bundle: bundle, package: package);
+  ImageProvider provider({
+    AssetBundle? bundle,
+    String? package,
+  }) {
+    return AssetImage(
+      _assetName,
+      bundle: bundle,
+      package: package,
+    );
   }
 
   Widget custom({
@@ -359,3 +333,4 @@ class LottieGenImage {
 
   String get keyName => _assetName;
 }
+
