@@ -463,6 +463,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 5,
     techniqueTip: 'Пятки не отрывай от пола, грудь держи прямо.',
+    animationPath: 'assets/animations/legs_s1_squat.json',
   );
 
   static const Exercise legsS2Lunge = Exercise(
@@ -483,6 +484,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 3,
     techniqueTip: 'Переднее колено не уходи за носок.',
+    animationPath: 'assets/animations/legs_s2_lunge.json',
   );
 
   static const Exercise legsS3Bulgarian = Exercise(
@@ -503,6 +505,7 @@ class ExerciseCatalog {
     spBase: 2,
     challengeTargetReps: 3,
     techniqueTip: 'Чем дальше передняя нога — тем больше нагрузка на ягодицы.',
+    animationPath: 'assets/animations/legs_s3_bulgarian.json',
   );
 
   static const Exercise legsS4AssistedPistol = Exercise(
@@ -523,6 +526,7 @@ class ExerciseCatalog {
     spBase: 3,
     challengeTargetReps: 1,
     techniqueTip: 'Постепенно уменьшай помощь рук по мере роста силы.',
+    animationPath: 'assets/animations/legs_s4_pistol.json',
   );
 
   static const Exercise legsS5Pistol = Exercise(

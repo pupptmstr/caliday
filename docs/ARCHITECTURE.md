@@ -586,7 +586,9 @@ flutter build ipa                 # iOS archive
 | ? | Privacy Policy (GitHub Markdown → ссылка в приложении) | 📐 designed |
 | ? | Lottie animations for Core branch (6/6) | ✅ |
 | ? | Lottie animations for Pull branch (6/6) | ✅ |
+| ? | Lottie animations for Legs branch (4/5 — s1–s4) | ✅ |
 | v2.0 | Design overhaul — Liquid Glass (iOS) / frosted glass (Android) | 📐 designed |
+| ? | Animation shape redesign — replace rectangular containers with rounded/oval frames for all Lottie animations | 💡 idea |
 | ? | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup before implementing (see DEV_NOTES § Tax / IAP income) |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea

@@ -241,6 +241,25 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-04 — Legs branch Lottie animations (s1–s4) + version bump to 1.4.0
+
+**What was done:** Added Lottie animation files for Legs branch stages 1–4 (squat, lunge, bulgarian split squat, assisted pistol squat). Updated `pubspec.yaml` version to `1.4.0+5` and set a proper app description.
+
+**New files:**
+- `assets/animations/legs_s1_squat.json`
+- `assets/animations/legs_s2_lunge.json`
+- `assets/animations/legs_s3_bulgarian.json`
+- `assets/animations/legs_s4_pistol.json`
+
+**Modified files:**
+- `lib/data/static/exercise_catalog.dart` — added `animationPath` to `legsS1Squat`, `legsS2Lunge`, `legsS3Bulgarian`, `legsS4AssistedPistol`
+- `lib/generated/assets.dart` — added `legsS1Squat`, `legsS2Lunge`, `legsS3Bulgarian`, `legsS4Pistol` entries
+- `pubspec.yaml` — version `1.1.0+2` → `1.4.0+5`, updated description
+
+**Key issues and solutions:** `legs_s4_pistol.json` is named after the exercise shape (pistol squat), not the exact exercise id (`legs_s4_assisted_pistol`). This is intentional — the animation shows the pistol movement pattern used in both the assisted and full versions.
+
+---
+
 ### 2026-03-27 — Core S4 equipment-free alternative + streak real-work fix
 
 **What was done:** Added flutter kicks (`core_s4_flutter_kicks`) as an equipment-free alternative for Core S4 (hanging leg raises require a pull-up bar). Users without a bar now get flutter kicks instead. Also fixed streak logic: streak no longer increments for warmup-only or all-zero-reps workouts — at least one real exercise (stage > 0, reps > 0 or duration > 0) is required.
