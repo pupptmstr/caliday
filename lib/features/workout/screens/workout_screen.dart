@@ -243,6 +243,9 @@ class _ExerciseView extends StatelessWidget {
                     fit: BoxFit.contain,
                   ),
 
+                if (exercise.animationPath != null)
+                  const SizedBox(height: 16),
+
                 // Set indicator
                 Text(
                   l10n.workoutSetProgress(state.setIndex + 1, planned.sets),

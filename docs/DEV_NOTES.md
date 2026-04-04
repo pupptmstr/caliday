@@ -241,9 +241,9 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
-### 2026-04-04 — Legs branch Lottie animations (s1–s4) + version bump to 1.4.0
+### 2026-04-04 — Legs branch Lottie animations (s1–s4) + version bump to 1.4.0 + spacing tweak
 
-**What was done:** Added Lottie animation files for Legs branch stages 1–4 (squat, lunge, bulgarian split squat, assisted pistol squat). Updated `pubspec.yaml` version to `1.4.0+5` and set a proper app description.
+**What was done:** Added Lottie animation files for Legs branch stages 1–4 (squat, lunge, bulgarian split squat, assisted pistol squat). Updated `pubspec.yaml` version to `1.4.0+5` and set a proper app description. Also increased spacing between the exercise animation and the "set X of Y" label in the workout screen.
 
 **New files:**
 - `assets/animations/legs_s1_squat.json`
@@ -255,6 +255,7 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 - `lib/data/static/exercise_catalog.dart` — added `animationPath` to `legsS1Squat`, `legsS2Lunge`, `legsS3Bulgarian`, `legsS4AssistedPistol`
 - `lib/generated/assets.dart` — added `legsS1Squat`, `legsS2Lunge`, `legsS3Bulgarian`, `legsS4Pistol` entries
 - `pubspec.yaml` — version `1.1.0+2` → `1.4.0+5`, updated description
+- `lib/features/workout/screens/workout_screen.dart` — added `SizedBox(height: 16)` between Lottie animation and set indicator label
 
 **Key issues and solutions:** `legs_s4_pistol.json` is named after the exercise shape (pistol squat), not the exact exercise id (`legs_s4_assisted_pistol`). This is intentional — the animation shows the pistol movement pattern used in both the assisted and full versions.
 
