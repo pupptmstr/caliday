@@ -241,6 +241,22 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-05 — Lottie animations: Legs s5 (pistol free) + updated existing animation files
+
+**What was done:** Added `legs_s5_pistol_free.json` animation for the free pistol squat (Legs Stage 5) and wired it to `legsS5Pistol` in the exercise catalog. Also updated content of several previously stubbed animation files: `core_s6_dragon_flag`, `legs_s1–s3`, and all six Pull branch animations (`pull_s1–s6`).
+
+**New files:**
+- `assets/animations/legs_s5_pistol_free.json` — free pistol squat animation (Legs S5)
+
+**Modified files:**
+- `lib/data/static/exercise_catalog.dart` — added `animationPath` to `legsS5Pistol`
+- `lib/generated/assets.dart` — registered `legs_s5_pistol_free` asset
+- `assets/animations/core_s6_dragon_flag.json` — updated animation content
+- `assets/animations/legs_s1_squat.json`, `legs_s2_lunge.json`, `legs_s3_bulgarian.json` — updated animation content
+- `assets/animations/pull_s1_australian.json` through `pull_s6_one_arm.json` — updated animation content
+
+---
+
 ### 2026-04-04 — Legs branch Lottie animations (s1–s4) + version bump to 1.4.0 + spacing tweak
 
 **What was done:** Added Lottie animation files for Legs branch stages 1–4 (squat, lunge, bulgarian split squat, assisted pistol squat). Updated `pubspec.yaml` version to `1.4.0+5` and set a proper app description. Also increased spacing between the exercise animation and the "set X of Y" label in the workout screen.

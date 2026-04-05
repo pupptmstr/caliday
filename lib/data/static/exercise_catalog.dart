@@ -547,6 +547,7 @@ class ExerciseCatalog {
     targetRestSec: 45,
     spBase: 5,
     techniqueTip: 'Руки вперёд для противовеса — помогает с балансом.',
+    animationPath: 'assets/animations/legs_s5_pistol_free.json',
   );
 
   // ── BALANCE ───────────────────────────────────────────────────────────────
