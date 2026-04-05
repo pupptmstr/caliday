@@ -241,6 +241,23 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-06 — Lottie animations: Legs warmup/cooldown accessories (Block E complete)
+
+**What was done:** Integrated 4 new Lottie animations for Legs branch accessories: `warmup_leg_swings`, `warmup_hip_circles`, `cooldown_quad_stretch`, `cooldown_hip_flexor`. Added `warmupHipCircles` and `cooldownHipFlexor` as new exercises in the catalog; added `animationPath` to existing `warmupLegSwings` and `cooldownQuadStretch`. Updated warmup/cooldown routing: Legs now uses `warmupHipCircles` as its warmup (Flex keeps `warmupLegSwings`), and gets two cooldowns `[cooldownQuadStretch, cooldownHipFlexor]`. Updated designer TZ to v1.8 — Block E fully closed, Block F (Balance) is next priority.
+
+**New files:**
+- `assets/animations/warmup_leg_swings.json` — leg swings warmup animation
+- `assets/animations/warmup_hip_circles.json` — hip circles warmup animation
+- `assets/animations/cooldown_quad_stretch.json` — quad stretch cooldown animation
+- `assets/animations/cooldown_hip_flexor.json` — hip flexor stretch cooldown animation
+
+**Modified files:**
+- `lib/data/static/exercise_catalog.dart` — added `warmupHipCircles` + `cooldownHipFlexor` exercises; added `animationPath` to `warmupLegSwings` + `cooldownQuadStretch`; updated `warmupFor(legs)` → `warmupHipCircles`; updated `cooldownsFor(legs)` → two cooldowns
+- `lib/generated/assets.dart` — already registered (auto)
+- `docs/tz_designer.md` — bumped to v1.8, Block E marked complete, Block F set as first priority
+
+---
+
 ### 2026-04-05 — Lottie animations: Legs s5 (pistol free) + updated existing animation files
 
 **What was done:** Added `legs_s5_pistol_free.json` animation for the free pistol squat (Legs Stage 5) and wired it to `legsS5Pistol` in the exercise catalog. Also updated content of several previously stubbed animation files: `core_s6_dragon_flag`, `legs_s1–s3`, and all six Pull branch animations (`pull_s1–s6`).

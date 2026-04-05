@@ -76,8 +76,14 @@ class $AssetsAnimationsGen {
   final LottieGenImage cooldownCatCow = const LottieGenImage(
     'assets/animations/cooldown_cat_cow.json',
   );
+  final LottieGenImage cooldownHipFlexor = const LottieGenImage(
+    'assets/animations/cooldown_hip_flexor.json',
+  );
   final LottieGenImage cooldownLatStretch = const LottieGenImage(
     'assets/animations/cooldown_lat_stretch.json',
+  );
+  final LottieGenImage cooldownQuadStretch = const LottieGenImage(
+    'assets/animations/cooldown_quad_stretch.json',
   );
   final LottieGenImage cooldownShoulderStretch = const LottieGenImage(
     'assets/animations/cooldown_shoulder_stretch.json',
@@ -163,8 +169,14 @@ class $AssetsAnimationsGen {
   final LottieGenImage warmupDeadHang = const LottieGenImage(
     'assets/animations/warmup_dead_hang.json',
   );
+  final LottieGenImage warmupHipCircles = const LottieGenImage(
+    'assets/animations/warmup_hip_circles.json',
+  );
   final LottieGenImage warmupJumpingJacks = const LottieGenImage(
     'assets/animations/warmup_jumping_jacks.json',
+  );
+  final LottieGenImage warmupLegSwings = const LottieGenImage(
+    'assets/animations/warmup_leg_swings.json',
   );
 }
 

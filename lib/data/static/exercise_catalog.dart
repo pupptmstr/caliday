@@ -872,6 +872,26 @@ class ExerciseCatalog {
     startRestSec: 0,
     targetRestSec: 0,
     spBase: 0,
+    animationPath: 'assets/animations/warmup_leg_swings.json',
+  );
+
+  static const Exercise warmupHipCircles = Exercise(
+    id: 'warmup_hip_circles',
+    name: 'Вращения тазом',
+    description:
+        'Стоя, ноги на ширине плеч, руки на бёдрах. Делай широкие круговые '
+        'движения тазом по и против часовой стрелки. Разогревает тазобедренные суставы.',
+    branch: BranchId.legs,
+    stage: 0,
+    type: ExerciseType.reps,
+    startReps: 10,
+    targetReps: 10,
+    startSets: 1,
+    targetSets: 1,
+    startRestSec: 0,
+    targetRestSec: 0,
+    spBase: 0,
+    animationPath: 'assets/animations/warmup_hip_circles.json',
   );
 
   static const Exercise warmupWristCircles = Exercise(
@@ -965,6 +985,26 @@ class ExerciseCatalog {
     startRestSec: 0,
     targetRestSec: 0,
     spBase: 0,
+    animationPath: 'assets/animations/cooldown_quad_stretch.json',
+  );
+
+  static const Exercise cooldownHipFlexor = Exercise(
+    id: 'cooldown_hip_flexor',
+    name: 'Растяжка сгибателей бедра',
+    description:
+        'Стань в выпад, опусти заднее колено на пол. Держи корпус прямо '
+        'и почувствуй растяжку в передней части бедра задней ноги.',
+    branch: BranchId.legs,
+    stage: 0,
+    type: ExerciseType.timed,
+    startReps: 30,
+    targetReps: 30,
+    startSets: 1,
+    targetSets: 1,
+    startRestSec: 0,
+    targetRestSec: 0,
+    spBase: 0,
+    animationPath: 'assets/animations/cooldown_hip_flexor.json',
   );
 
   static const Exercise cooldownDownwardDog = Exercise(
@@ -1053,6 +1093,7 @@ class ExerciseCatalog {
     warmupDeadHang,
     warmupJumpingJacks,
     warmupLegSwings,
+    warmupHipCircles,
     warmupWristCircles,
   ];
 
@@ -1062,6 +1103,7 @@ class ExerciseCatalog {
     cooldownLatStretch,
     cooldownCatCow,
     cooldownQuadStretch,
+    cooldownHipFlexor,
     cooldownDownwardDog,
   ];
 
@@ -1130,7 +1172,7 @@ class ExerciseCatalog {
         BranchId.push => warmupArmRotations,
         BranchId.pull => warmupDeadHang,
         BranchId.core => warmupJumpingJacks,
-        BranchId.legs => warmupLegSwings,
+        BranchId.legs => warmupHipCircles,
         BranchId.balance => warmupWristCircles,
         BranchId.flex => warmupLegSwings,
       };
@@ -1140,7 +1182,7 @@ class ExerciseCatalog {
         BranchId.push => [cooldownShoulderStretch],
         BranchId.pull => [cooldownLatStretch],
         BranchId.core => [cooldownCatCow],
-        BranchId.legs => [cooldownQuadStretch],
+        BranchId.legs => [cooldownQuadStretch, cooldownHipFlexor],
         BranchId.balance => [cooldownDownwardDog],
         BranchId.flex => [cooldownCatCow],
       };
