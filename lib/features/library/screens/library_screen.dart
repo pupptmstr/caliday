@@ -6,8 +6,10 @@ import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
+import '../../../data/models/user_profile.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
+import '../../../data/static/course_catalog.dart';
 import '../../../data/static/exercise_catalog.dart';
 import '../../home/providers/home_provider.dart';
 import '../../workout/providers/workout_provider.dart';
@@ -32,6 +34,13 @@ class LibraryScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.libraryTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: l10n.onboardingQ4Courses,
+            onPressed: () => _showCourseSheet(context, ref, profile),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Column(
@@ -141,6 +150,211 @@ class LibraryScreen extends ConsumerWidget {
         ),
       ),
     );
+  }
+
+  void _showCourseSheet(
+      BuildContext context, WidgetRef ref, UserProfile profile) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => _CourseEnrollSheet(profile: profile, ref: ref),
+    );
+  }
+}
+
+// ── Course enroll bottom sheet ────────────────────────────────────────────────
+
+class _CourseEnrollSheet extends ConsumerStatefulWidget {
+  const _CourseEnrollSheet({required this.profile, required this.ref});
+
+  final UserProfile profile;
+  final WidgetRef ref;
+
+  @override
+  ConsumerState<_CourseEnrollSheet> createState() => _CourseEnrollSheetState();
+}
+
+class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
+  late Set<CourseId> _selected;
+
+  @override
+  void initState() {
+    super.initState();
+    _selected = widget.profile.enrolledCourses.toSet();
+  }
+
+  void _toggle(CourseId course) {
+    setState(() {
+      if (_selected.contains(course)) {
+        if (_selected.length > 1) _selected.remove(course);
+      } else {
+        _selected.add(course);
+      }
+    });
+  }
+
+  Future<void> _save() async {
+    final profile = widget.profile;
+    final newIds = _selected.map((c) => c.index).toList();
+    profile.activeCourseIds = newIds;
+
+    // If the currently active course was removed, reset to first.
+    final activeCourse = widget.ref.read(activeCourseProvider);
+    if (!_selected.contains(activeCourse)) {
+      profile.activeCourseIndex = 0;
+      widget.ref.read(activeCourseProvider.notifier).state = _selected.first;
+    }
+
+    await widget.ref.read(userRepositoryProvider).saveProfile(profile);
+    widget.ref.invalidate(homeDataProvider);
+
+    if (mounted) Navigator.of(context).pop();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Handle
+          Center(
+            child: Container(
+              width: 36,
+              height: 4,
+              decoration: BoxDecoration(
+                color: scheme.outlineVariant,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l10n.onboardingQ4Courses,
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            l10n.onboardingQ4CoursesBody,
+            style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
+          ),
+          const SizedBox(height: 16),
+          for (final course in CourseId.values) ...[
+            _CourseOptionTile(
+              course: course,
+              selected: _selected.contains(course),
+              onTap: () => _toggle(course),
+            ),
+            if (course != CourseId.values.last) const SizedBox(height: 8),
+          ],
+          const SizedBox(height: 20),
+          SizedBox(
+            width: double.infinity,
+            child: FilledButton(
+              onPressed: _save,
+              style: FilledButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+              ),
+              child: Text(
+                l10n.onboardingContinue,
+                style: const TextStyle(
+                    fontSize: 16, fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CourseOptionTile extends StatelessWidget {
+  const _CourseOptionTile({
+    required this.course,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final CourseId course;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: selected
+              ? scheme.primaryContainer
+              : scheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: selected ? scheme.primary : Colors.transparent,
+            width: 2,
+          ),
+        ),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    course.localizedName(l10n),
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: selected
+                          ? scheme.onPrimaryContainer
+                          : scheme.onSurface,
+                    ),
+                  ),
+                  const SizedBox(height: 2),
+                  Text(
+                    _branchSummary(context, course),
+                    style: TextStyle(
+                      fontSize: 12,
+                      color: selected
+                          ? scheme.onPrimaryContainer.withAlpha(180)
+                          : scheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            if (selected)
+              Icon(Icons.check_circle, color: scheme.primary, size: 22),
+          ],
+        ),
+      ),
+    );
+  }
+
+  String _branchSummary(BuildContext context, CourseId course) {
+    final l10n = context.l10n;
+    return CourseCatalog.branchesFor(course)
+        .map((b) => b.localizedName(l10n))
+        .join(' · ');
   }
 }
 
