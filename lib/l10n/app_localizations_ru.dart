@@ -28,7 +28,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get navProfile => 'Профиль';
 
   @override
-  String get libraryTitle => 'Библиотека';
+  String get libraryTitle => 'Курсы';
 
   @override
   String get progressTitle => 'Мой прогресс';

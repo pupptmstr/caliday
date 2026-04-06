@@ -28,7 +28,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navProfile => 'Profile';
 
   @override
-  String get libraryTitle => 'Library';
+  String get libraryTitle => 'Courses';
 
   @override
   String get progressTitle => 'My Progress';

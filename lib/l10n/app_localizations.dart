@@ -131,7 +131,7 @@ abstract class AppLocalizations {
   /// No description provided for @libraryTitle.
   ///
   /// In en, this message translates to:
-  /// **'Library'**
+  /// **'Courses'**
   String get libraryTitle;
 
   /// No description provided for @progressTitle.
