@@ -15,6 +15,7 @@ class WorkoutLog extends HiveObject {
     required this.spEarned,
     required this.durationSec,
     this.isPrimary = true,
+    this.courseIdIndex,
   });
 
   /// The calendar date the workout was performed (time component zeroed).
@@ -39,4 +40,8 @@ class WorkoutLog extends HiveObject {
   /// Bonus workouts earn ×0.5 SP and do not advance progression or streak.
   @HiveField(5)
   final bool isPrimary;
+
+  /// Index of [CourseId] this workout belongs to. null → 0 (calisthenics).
+  @HiveField(6)
+  final int? courseIdIndex;
 }

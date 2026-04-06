@@ -61,7 +61,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       _NameStep(),
                       _PushupStep(),
                       _DurationStep(),
-                      _GoalStep(),
+                      _CourseStep(),
                       _PullUpBarStep(),
                       _HealthStep(),
                       _ReminderStep(),
@@ -446,26 +446,27 @@ class _DurationStep extends ConsumerWidget {
   }
 }
 
-// ── Step 4: Fitness goal ──────────────────────────────────────────────────────
+// ── Step 4: Course selection ──────────────────────────────────────────────────
 
-class _GoalStep extends ConsumerWidget {
+class _CourseStep extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selected =
-        ref.watch(onboardingProvider.select((s) => s.fitnessGoal));
+        ref.watch(onboardingProvider.select((s) => s.selectedCourseIds));
     final notifier = ref.read(onboardingProvider.notifier);
     final l10n = context.l10n;
 
     return _StepScaffold(
-      question: l10n.onboardingQ4,
-      children: FitnessGoal.values
+      question: l10n.onboardingQ4Courses,
+      body: l10n.onboardingQ4CoursesBody,
+      children: CourseId.values
           .map(
-            (v) => OptionCard(
-              emoji: v.emoji,
-              label: v.localizedLabel(l10n),
-              description: v.localizedDescription(l10n),
-              isSelected: selected == v,
-              onTap: () => notifier.selectFitnessGoal(v),
+            (course) => OptionCard(
+              emoji: course.emoji,
+              label: course.localizedName(l10n),
+              description: course.localizedDescription(l10n),
+              isSelected: selected.contains(course),
+              onTap: () => notifier.toggleCourse(course),
             ),
           )
           .toList(),
@@ -651,24 +652,14 @@ extension WorkoutMinutesL10n on WorkoutMinutes {
       };
 }
 
-extension FitnessGoalEmoji on FitnessGoal {
+extension CourseIdOnboarding on CourseId {
   String get emoji => switch (this) {
-        FitnessGoal.generalFitness => '🏃',
-        FitnessGoal.strengthPush => '💪',
-        FitnessGoal.calisthenics => '🤸',
-      };
-}
-
-extension FitnessGoalL10n on FitnessGoal {
-  String localizedLabel(AppLocalizations l10n) => switch (this) {
-        FitnessGoal.generalFitness => l10n.goalGeneralLabel,
-        FitnessGoal.strengthPush => l10n.goalStrengthLabel,
-        FitnessGoal.calisthenics => l10n.goalCalisthenicsLabel,
+        CourseId.calisthenics => '🦍',
+        CourseId.healthyBody => '🌿',
       };
 
   String localizedDescription(AppLocalizations l10n) => switch (this) {
-        FitnessGoal.generalFitness => l10n.goalGeneralDesc,
-        FitnessGoal.strengthPush => l10n.goalStrengthDesc,
-        FitnessGoal.calisthenics => l10n.goalCalisthenicsDesc,
+        CourseId.calisthenics => l10n.courseDescCalisthenics,
+        CourseId.healthyBody => l10n.courseDescHealthyBody,
       };
 }

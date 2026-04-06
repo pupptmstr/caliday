@@ -25,6 +25,10 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
         return BranchId.balance;
       case 5:
         return BranchId.flex;
+      case 6:
+        return BranchId.posture;
+      case 7:
+        return BranchId.neck;
       default:
         return BranchId.push;
     }
@@ -50,6 +54,12 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
         break;
       case BranchId.flex:
         writer.writeByte(5);
+        break;
+      case BranchId.posture:
+        writer.writeByte(6);
+        break;
+      case BranchId.neck:
+        writer.writeByte(7);
         break;
     }
   }
@@ -203,6 +213,45 @@ class RankAdapter extends TypeAdapter<Rank> {
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is RankAdapter &&
+          runtimeType == other.runtimeType &&
+          typeId == other.typeId;
+}
+
+class CourseIdAdapter extends TypeAdapter<CourseId> {
+  @override
+  final int typeId = 10;
+
+  @override
+  CourseId read(BinaryReader reader) {
+    switch (reader.readByte()) {
+      case 0:
+        return CourseId.calisthenics;
+      case 1:
+        return CourseId.healthyBody;
+      default:
+        return CourseId.calisthenics;
+    }
+  }
+
+  @override
+  void write(BinaryWriter writer, CourseId obj) {
+    switch (obj) {
+      case CourseId.calisthenics:
+        writer.writeByte(0);
+        break;
+      case CourseId.healthyBody:
+        writer.writeByte(1);
+        break;
+    }
+  }
+
+  @override
+  int get hashCode => typeId.hashCode;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is CourseIdAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

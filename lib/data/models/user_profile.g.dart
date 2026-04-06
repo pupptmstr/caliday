@@ -40,13 +40,15 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       peerId: fields[17] as String?,
       displayName: fields[18] as String?,
       bleDiscoverable: fields[23] as bool?,
+      activeCourseIds: (fields[24] as List?)?.cast<int>(),
+      activeCourseIndex: fields[25] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProfile obj) {
     writer
-      ..writeByte(23)
+      ..writeByte(25)
       ..writeByte(0)
       ..write(obj.rank)
       ..writeByte(1)
@@ -92,7 +94,11 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..writeByte(18)
       ..write(obj.displayName)
       ..writeByte(23)
-      ..write(obj.bleDiscoverable);
+      ..write(obj.bleDiscoverable)
+      ..writeByte(24)
+      ..write(obj.activeCourseIds)
+      ..writeByte(25)
+      ..write(obj.activeCourseIndex);
   }
 
   @override

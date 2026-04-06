@@ -17,8 +17,9 @@
   },
 
   "navHome": "Workout",
-  "navProgress": "Progress",
+  "navLibrary": "Courses",
   "navProfile": "Profile",
+  "libraryTitle": "Library",
   "progressTitle": "My Progress",
   "progressInfo": "Just keep training — the app advances you through the branches automatically. Here you can track how far you've come. And if you feel ready to push ahead early, take the Challenge and move forward yourself.",
   "homeDays": "days",
@@ -28,6 +29,15 @@
   "homeBranchCore": "Core",
   "homeBranchLegs": "Legs",
   "homeBranchBalance": "Balance",
+  "homeBranchFlex": "Flexibility",
+  "homeBranchPosture": "Posture",
+  "homeBranchNeck": "Neck",
+  "courseNameCalisthenics": "Calisthenics",
+  "courseNameHealthyBody": "Healthy Body",
+  "courseDescCalisthenics": "Bodyweight exercises from basic to advanced. Build strength, endurance, and body control.",
+  "courseDescHealthyBody": "Exercises for desk workers. Fix posture, release neck tension, and improve flexibility — joint-friendly.",
+  "onboardingQ4Courses": "Choose a Course",
+  "onboardingQ4CoursesBody": "You can start with one or pick both — the programs are independent.",
 
   "branchJourneyProgress": "{done} of {total} stages completed",
   "@branchJourneyProgress": {
@@ -579,8 +589,6 @@
     }
   },
 
-  "homeBranchFlex": "Flexibility",
-
   "exerciseFlexS1HipFlexorStretchName": "Hip Flexor Stretch",
   "exerciseFlexS1HipFlexorStretchDesc": "Step into a lunge and lower your back knee to the floor. Push your hips forward to feel the stretch at the front of your hip. Hold each side.",
   "exerciseFlexS1HipFlexorStretchTip": "Keep your back straight and push hips forward — feel the stretch in the front of your hip.",
@@ -637,6 +645,59 @@
 
   "exerciseSuppWristCirclesName": "Wrist Circles",
   "exerciseSuppWristCirclesDesc": "Clench your fists and slowly rotate your wrists clockwise and counter-clockwise. Strengthens forearms and tendons.",
+
+  "exerciseWarmupHipCirclesName": "Hip Circles",
+  "exerciseWarmupHipCirclesDesc": "Stand with feet shoulder-width apart. Make slow circular movements with your hips clockwise then counter-clockwise. Warms up the hip joints.",
+
+  "exerciseWarmupNeckRollsName": "Neck Rolls",
+  "exerciseWarmupNeckRollsDesc": "Slowly tilt your head forward, back, and to each side, then make a gentle half-circle from shoulder to shoulder. Warms up neck muscles.",
+
+  "exerciseCooldownHipFlexorName": "Hip Flexor Stretch",
+  "exerciseCooldownHipFlexorDesc": "Step into a lunge and lower your back knee to the floor. Press your hips forward and down to feel the stretch in your hip. Hold each side.",
+
+  "exercisePostureS1PelvicTiltName": "Pelvic Tilt",
+  "exercisePostureS1PelvicTiltDesc": "Lie on your back with knees bent. Slowly press your lower back into the floor by engaging your abs. Hold 5 seconds, relax.",
+  "exercisePostureS1PelvicTiltTip": "Don't hold your breath — move smoothly.",
+
+  "exercisePostureS2DeadBugName": "Dead Bug",
+  "exercisePostureS2DeadBugDesc": "Lie on your back, arms pointing up, knees at 90°. Slowly lower one arm and the opposite leg without letting your lower back arch.",
+  "exercisePostureS2DeadBugTip": "Move slowly — this is about control, not speed. Keep your lower back pressed flat the whole time.",
+
+  "exercisePostureS3GluteBridgeName": "Glute Bridge",
+  "exercisePostureS3GluteBridgeDesc": "Lie on your back, knees bent, feet flat on floor. Drive your hips up by squeezing your glutes, hold briefly, lower down.",
+  "exercisePostureS3GluteBridgeTip": "Squeeze your glutes hard at the top — avoid pushing with your lower back.",
+
+  "exercisePostureS4HipMarchName": "Standing Hip March",
+  "exercisePostureS4HipMarchDesc": "Stand tall. Slowly lift one knee to hip height and lower it. Alternate sides. Keep your torso upright and still.",
+  "exercisePostureS4HipMarchTip": "Lift each knee to hip height without leaning your torso — focus on the hip flexor doing the work, not momentum.",
+
+  "exercisePostureS5KneelingLungeName": "Kneeling Hip Flexor Stretch",
+  "exercisePostureS5KneelingLungeDesc": "Kneel on one knee, other foot in front. Push your hips forward until you feel a stretch at the front of your rear hip. Hold.",
+  "exercisePostureS5KneelingLungeTip": "Keep your back straight and gently tuck your pelvis under to deepen the stretch.",
+
+  "exercisePostureS6PigeonPoseName": "Pigeon Pose",
+  "exercisePostureS6PigeonPoseDesc": "From all fours, bring your right leg forward bent at 90°. Extend the left leg back. Lower your hips toward the floor and hold the position.",
+  "exercisePostureS6PigeonPoseTip": "Breathe deeply — the pose opens the hip gradually.",
+
+  "exerciseNeckS1NeckTiltName": "Neck Tilt",
+  "exerciseNeckS1NeckTiltDesc": "Slowly tilt your head toward your right shoulder — without raising the shoulder. Hold 5 seconds, return. Alternate sides.",
+  "exerciseNeckS1NeckTiltTip": "Let the shoulder drop down — that deepens the stretch.",
+
+  "exerciseNeckS2ChestOpenerName": "Chest Opener",
+  "exerciseNeckS2ChestOpenerDesc": "Stand tall, clasp your hands behind your back. Squeeze your shoulder blades together and gently lift your arms while opening your chest.",
+  "exerciseNeckS2ChestOpenerTip": "Focus on squeezing your shoulder blades — do not arch your lower back.",
+
+  "exerciseNeckS3ShoulderRollName": "Shoulder Circles",
+  "exerciseNeckS3ShoulderRollDesc": "Roll your shoulders in large, slow circles — forward 5 times, then backward 5 times. Keep your neck relaxed throughout.",
+  "exerciseNeckS3ShoulderRollTip": "Make the circles as big as possible — exaggerate the movement.",
+
+  "exerciseNeckS4WallAngelName": "Wall Angels",
+  "exerciseNeckS4WallAngelDesc": "Stand with your back, head and arms flat against a wall. Slide your arms up overhead while keeping contact with the wall. Slowly lower back down.",
+  "exerciseNeckS4WallAngelTip": "Keep your lower back flat against the wall the whole time — this is harder than it looks.",
+
+  "exerciseNeckS5DoorwayStretchName": "Doorway Pec Stretch",
+  "exerciseNeckS5DoorwayStretchDesc": "Stand in a doorway. Place both forearms on the door frame at shoulder height. Lean forward gently until you feel a stretch across your chest and shoulders. Hold.",
+  "exerciseNeckS5DoorwayStretchTip": "Keep your core engaged and don't arch your lower back as you lean forward.",
 
   "tooltipStreakTitle": "Current Streak",
   "tooltipStreakBody": "The number of days in a row you've trained. Miss a day without a streak freeze and it resets to zero. Keep the fire burning — Goro is watching!",

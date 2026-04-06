@@ -22,14 +22,15 @@ class WorkoutLogAdapter extends TypeAdapter<WorkoutLog> {
       exercises: (fields[2] as List).cast<ExerciseResult>(),
       spEarned: fields[3] as int,
       durationSec: fields[4] as int,
-      isPrimary: fields[5] as bool,
+      isPrimary: fields[5] as bool? ?? true,
+      courseIdIndex: fields[6] as int?,
     );
   }
 
   @override
   void write(BinaryWriter writer, WorkoutLog obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.date)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class WorkoutLogAdapter extends TypeAdapter<WorkoutLog> {
       ..writeByte(4)
       ..write(obj.durationSec)
       ..writeByte(5)
-      ..write(obj.isPrimary);
+      ..write(obj.isPrimary)
+      ..writeByte(6)
+      ..write(obj.courseIdIndex);
   }
 
   @override

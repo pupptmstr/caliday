@@ -19,7 +19,7 @@ import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/services/widget_service.dart';
-import '../../home/providers/home_provider.dart';
+import '../../home/providers/home_provider.dart' show activeCourseProvider, homeDataProvider;
 import '../../profile/providers/profile_provider.dart';
 import '../../settings/providers/settings_provider.dart';
 
@@ -195,6 +195,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     final challengeBranch = ref.read(challengeBranchProvider);
     final generator = ref.read(workoutGeneratorServiceProvider);
     final profile = ref.read(userRepositoryProvider).getProfile();
+    final course = ref.read(activeCourseProvider);
     if (challengeBranch != null) {
       return generator.generateChallenge(
         challengeBranch,
@@ -203,8 +204,9 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     }
     final workoutRepo = ref.read(workoutRepositoryProvider);
     final isPrimary = !workoutRepo.hasPrimaryWorkoutToday();
-    return generator.generateDaily(
-      activeBranches: profile.activeBranches,
+    return generator.generateDailyForCourse(
+      course: course,
+      courseBranches: profile.branchesForCourse(course),
       preferredMinutes: profile.preferredWorkoutMinutes ?? 10,
       isPrimary: isPrimary,
       hasPullUpBar: profile.hasPullUpBar == true,
@@ -364,6 +366,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
   Future<void> _finishWorkout(List<ExerciseResult?> results) async {
     final now = DateTime.now();
     final durationSec = now.difference(state.startedAt).inSeconds;
+    final course = _ref.read(activeCourseProvider);
 
     // Build parallel lists of matched results and exercises (skip nulls).
     final matchedResults = <ExerciseResult>[];
@@ -417,7 +420,10 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       final result = results[i];
       if (result == null || planned.exercise.stage == 0) continue;
 
-      final progress = progressRepo.getProgress(planned.exercise.branch);
+      final progress = progressRepo.getProgress(
+        planned.exercise.branch,
+        course: course,
+      );
 
       if (planned.exercise.stage > progress.currentStage) {
         // Challenge exercise: always advance stage even in bonus workouts.
@@ -433,13 +439,13 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
           advancedToStage = progress.currentStage;
         }
         // If failed: isChallengeUnlocked stays true, progress unchanged.
-        progressRepo.saveProgress(progress);
+        progressRepo.saveProgress(progress, course: course);
       } else if (isPrimary) {
         // Regular progression: primary workouts only.
         final unlocked =
             progressionService.applyResult(progress, planned.exercise, result);
         if (unlocked) challengeUnlocked = true;
-        progressRepo.saveProgress(progress);
+        progressRepo.saveProgress(progress, course: course);
       }
     }
 
@@ -457,6 +463,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       spEarned: spEarned,
       durationSec: durationSec,
       isPrimary: isPrimary,
+      courseIdIndex: course.index,
     )));
 
     // ── Health (Apple Health / Health Connect) ────────────────────────────

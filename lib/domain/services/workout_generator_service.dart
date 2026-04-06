@@ -20,37 +20,36 @@ class WorkoutGeneratorService {
 
   final SkillProgressRepository _progressRepo;
 
-  /// Generates a [SetType.daily] plan for the given active [activeBranches].
+  /// Generates a [SetType.daily] plan for the given [course] and its branches.
   ///
   /// Branch rotation is deterministic: based on the number of days since
   /// 2020-01-01. [preferredMinutes] controls how many branches to train today:
   /// - ≤ 5 min  → min(2, total) branches
   /// - 10 min   → min(3, total) branches
   /// - ≥ 15 min → all branches
-  ///
-  /// Sets per exercise always come from [SkillProgress.currentSets].
-  WorkoutPlan generateDaily({
-    required List<BranchId> activeBranches,
+  WorkoutPlan generateDailyForCourse({
+    required CourseId course,
+    required List<BranchId> courseBranches,
     int preferredMinutes = 10,
     int? dayIndexOverride,
     bool isPrimary = true,
     bool hasPullUpBar = false,
   }) {
-    if (activeBranches.isEmpty) {
+    if (courseBranches.isEmpty) {
       return WorkoutPlan(setType: SetType.daily, exercises: const []);
     }
 
     final dayIdx = dayIndexOverride ??
         DateTime.now().toUtc().difference(DateTime.utc(2020, 1, 1)).inDays;
-    final total = activeBranches.length;
+    final total = courseBranches.length;
     final n = preferredMinutes <= 5
         ? min(2, total)
         : preferredMinutes >= 15
             ? total
             : min(3, total);
     final startIdx = dayIdx % total;
-    final todayBranches = List.generate(
-        n, (i) => activeBranches[(startIdx + i) % total]);
+    final todayBranches =
+        List.generate(n, (i) => courseBranches[(startIdx + i) % total]);
 
     final exercises = <PlannedExercise>[];
 
@@ -67,12 +66,14 @@ class WorkoutGeneratorService {
 
     // ── 2. Main block (one exercise per branch) ───────────────────────────────
     for (final branch in todayBranches) {
-      final progress = _progressRepo.getProgress(branch);
+      final progress = _progressRepo.getProgress(branch, course: course);
       var exercise = ExerciseCatalog.forStage(branch, progress.currentStage);
       if (exercise == null) continue;
 
       if (exercise.requiresEquipment && !hasPullUpBar) {
-        exercise = ExerciseCatalog.equipmentFreeForStage(branch, progress.currentStage) ?? exercise;
+        exercise =
+            ExerciseCatalog.equipmentFreeForStage(branch, progress.currentStage) ??
+                exercise;
       }
 
       exercises.add(PlannedExercise(
@@ -115,6 +116,23 @@ class WorkoutGeneratorService {
 
     return WorkoutPlan(setType: SetType.daily, exercises: exercises);
   }
+
+  /// Legacy wrapper that defaults to [CourseId.calisthenics].
+  WorkoutPlan generateDaily({
+    required List<BranchId> activeBranches,
+    int preferredMinutes = 10,
+    int? dayIndexOverride,
+    bool isPrimary = true,
+    bool hasPullUpBar = false,
+  }) =>
+      generateDailyForCourse(
+        course: CourseId.calisthenics,
+        courseBranches: activeBranches,
+        preferredMinutes: preferredMinutes,
+        dayIndexOverride: dayIndexOverride,
+        isPrimary: isPrimary,
+        hasPullUpBar: hasPullUpBar,
+      );
 
   /// Generates a [SetType.challenge] plan for [branch].
   ///

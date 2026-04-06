@@ -6,29 +6,54 @@ import '../models/skill_progress.dart';
 
 /// Provides access to per-branch [SkillProgress] records stored in Hive.
 ///
-/// Each branch gets its own entry keyed by [BranchId.name].
-/// If no record exists for a branch yet, [getProgress] returns a sensible
-/// default that the domain layer can use immediately.
+/// Keys are course-scoped: `"${course.name}_${branch.name}"` (e.g. "calisthenics_push").
+/// [getProgress] defaults to [CourseId.calisthenics] for backward compatibility.
 class SkillProgressRepository {
   static const _boxName = 'skill_progress';
 
   Box<SkillProgress> get _box => Hive.box<SkillProgress>(_boxName);
 
-  /// Returns the progress for [branch], or a default starting value.
-  SkillProgress getProgress(BranchId branch) {
-    return _box.get(branch.name) ?? _defaultFor(branch);
+  String _key(BranchId branch, CourseId course) =>
+      '${course.name}_${branch.name}';
+
+  /// Returns the progress for [branch] in [course], or a default starting value.
+  SkillProgress getProgress(
+    BranchId branch, {
+    CourseId course = CourseId.calisthenics,
+  }) {
+    return _box.get(_key(branch, course)) ?? _defaultFor(branch);
   }
 
-  /// Persists [progress] for its branch.
-  Future<void> saveProgress(SkillProgress progress) {
-    return _box.put(progress.branchId.name, progress);
+  /// Persists [progress] for its branch in [course].
+  Future<void> saveProgress(
+    SkillProgress progress, {
+    CourseId course = CourseId.calisthenics,
+  }) {
+    return _box.put(_key(progress.branchId, course), progress);
   }
 
   /// Returns progress for every branch that has been persisted so far.
   List<SkillProgress> getAll() => _box.values.toList();
 
-  /// Returns true if a record exists for [branch].
-  bool hasProgress(BranchId branch) => _box.containsKey(branch.name);
+  /// Returns true if a record exists for [branch] in [course].
+  bool hasProgress(
+    BranchId branch, {
+    CourseId course = CourseId.calisthenics,
+  }) =>
+      _box.containsKey(_key(branch, course));
+
+  /// Migrates legacy bare-branch keys (e.g. "push") to course-scoped keys
+  /// (e.g. "calisthenics_push"). Safe to call multiple times (idempotent).
+  Future<void> migrateToCourseScopedKeys() async {
+    for (final branch in BranchId.values) {
+      final oldKey = branch.name;
+      final newKey = _key(branch, CourseId.calisthenics);
+      if (_box.containsKey(oldKey) && !_box.containsKey(newKey)) {
+        await _box.put(newKey, _box.get(oldKey)!);
+        await _box.delete(oldKey);
+      }
+    }
+  }
 
   SkillProgress _defaultFor(BranchId branch) {
     // Starting values vary slightly by branch difficulty.
@@ -70,9 +95,25 @@ class SkillProgressRepository {
         return SkillProgress(
           branchId: branch,
           currentStage: 1,
-          currentReps: 20, // seconds for timed hold
+          currentReps: 20,
           currentSets: 1,
           currentRestSec: 30,
+        );
+      case BranchId.posture:
+        return SkillProgress(
+          branchId: branch,
+          currentStage: 1,
+          currentReps: 10,
+          currentSets: 1,
+          currentRestSec: 30,
+        );
+      case BranchId.neck:
+        return SkillProgress(
+          branchId: branch,
+          currentStage: 1,
+          currentReps: 15,
+          currentSets: 1,
+          currentRestSec: 15,
         );
     }
   }

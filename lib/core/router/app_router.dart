@@ -8,7 +8,7 @@ import '../../data/models/enums.dart';
 import '../../data/repositories/user_repository.dart';
 import '../../features/home/screens/branch_journey_screen.dart';
 import '../../features/home/screens/home_screen.dart';
-import '../../features/home/screens/progress_screen.dart';
+import '../../features/library/screens/library_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/profile/screens/achievements_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
@@ -136,8 +136,8 @@ final routerProvider = Provider<GoRouter>((ref) {
           StatefulShellBranch(
             routes: [
               GoRoute(
-                path: '/progress',
-                builder: (_, _) => const ProgressScreen(),
+                path: '/library',
+                builder: (_, _) => const LibraryScreen(),
               ),
             ],
           ),
@@ -181,9 +181,9 @@ class _AppShell extends StatelessWidget {
             label: l10n.navHome,
           ),
           NavigationDestination(
-            icon: const Icon(Icons.trending_up_outlined),
-            selectedIcon: const Icon(Icons.trending_up),
-            label: l10n.navProgress,
+            icon: const Icon(Icons.menu_book_outlined),
+            selectedIcon: const Icon(Icons.menu_book),
+            label: l10n.navLibrary,
           ),
           NavigationDestination(
             icon: const Icon(Icons.person_outline_rounded),

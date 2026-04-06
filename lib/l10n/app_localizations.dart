@@ -116,17 +116,23 @@ abstract class AppLocalizations {
   /// **'Workout'**
   String get navHome;
 
-  /// No description provided for @navProgress.
+  /// No description provided for @navLibrary.
   ///
   /// In en, this message translates to:
-  /// **'Progress'**
-  String get navProgress;
+  /// **'Courses'**
+  String get navLibrary;
 
   /// No description provided for @navProfile.
   ///
   /// In en, this message translates to:
   /// **'Profile'**
   String get navProfile;
+
+  /// No description provided for @libraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Library'**
+  String get libraryTitle;
 
   /// No description provided for @progressTitle.
   ///
@@ -181,6 +187,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Balance'**
   String get homeBranchBalance;
+
+  /// No description provided for @homeBranchFlex.
+  ///
+  /// In en, this message translates to:
+  /// **'Flexibility'**
+  String get homeBranchFlex;
+
+  /// No description provided for @homeBranchPosture.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture'**
+  String get homeBranchPosture;
+
+  /// No description provided for @homeBranchNeck.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck'**
+  String get homeBranchNeck;
+
+  /// No description provided for @courseNameCalisthenics.
+  ///
+  /// In en, this message translates to:
+  /// **'Calisthenics'**
+  String get courseNameCalisthenics;
+
+  /// No description provided for @courseNameHealthyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Healthy Body'**
+  String get courseNameHealthyBody;
+
+  /// No description provided for @courseDescCalisthenics.
+  ///
+  /// In en, this message translates to:
+  /// **'Bodyweight exercises from basic to advanced. Build strength, endurance, and body control.'**
+  String get courseDescCalisthenics;
+
+  /// No description provided for @courseDescHealthyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises for desk workers. Fix posture, release neck tension, and improve flexibility — joint-friendly.'**
+  String get courseDescHealthyBody;
+
+  /// No description provided for @onboardingQ4Courses.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a Course'**
+  String get onboardingQ4Courses;
+
+  /// No description provided for @onboardingQ4CoursesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You can start with one or pick both — the programs are independent.'**
+  String get onboardingQ4CoursesBody;
 
   /// No description provided for @branchJourneyProgress.
   ///
@@ -1943,7 +2003,7 @@ abstract class AppLocalizations {
   /// No description provided for @exerciseWarmupHipCirclesDesc.
   ///
   /// In en, this message translates to:
-  /// **'Stand with feet shoulder-width apart and rotate your hips in large circles. Warms up the hip joints before leg exercises.'**
+  /// **'Stand with feet shoulder-width apart. Make slow circular movements with your hips clockwise then counter-clockwise. Warms up the hip joints.'**
   String get exerciseWarmupHipCirclesDesc;
 
   /// No description provided for @exerciseCooldownHipFlexorName.
@@ -1955,7 +2015,7 @@ abstract class AppLocalizations {
   /// No description provided for @exerciseCooldownHipFlexorDesc.
   ///
   /// In en, this message translates to:
-  /// **'Step into a lunge position. Lower your back knee to the floor and push your hips forward. Hold for 30 seconds per side.'**
+  /// **'Step into a lunge and lower your back knee to the floor. Press your hips forward and down to feel the stretch in your hip. Hold each side.'**
   String get exerciseCooldownHipFlexorDesc;
 
   /// No description provided for @exerciseBalS1OneLegStandName.
@@ -2378,12 +2438,6 @@ abstract class AppLocalizations {
   /// **'{count} friends'**
   String profileFriendsCount(int count);
 
-  /// No description provided for @homeBranchFlex.
-  ///
-  /// In en, this message translates to:
-  /// **'Flexibility'**
-  String get homeBranchFlex;
-
   /// No description provided for @exerciseFlexS1HipFlexorStretchName.
   ///
   /// In en, this message translates to:
@@ -2635,6 +2689,216 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clench your fists and slowly rotate your wrists clockwise and counter-clockwise. Strengthens forearms and tendons.'**
   String get exerciseSuppWristCirclesDesc;
+
+  /// No description provided for @exerciseWarmupNeckRollsName.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck Rolls'**
+  String get exerciseWarmupNeckRollsName;
+
+  /// No description provided for @exerciseWarmupNeckRollsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Slowly tilt your head forward, back, and to each side, then make a gentle half-circle from shoulder to shoulder. Warms up neck muscles.'**
+  String get exerciseWarmupNeckRollsDesc;
+
+  /// No description provided for @exercisePostureS1PelvicTiltName.
+  ///
+  /// In en, this message translates to:
+  /// **'Pelvic Tilt'**
+  String get exercisePostureS1PelvicTiltName;
+
+  /// No description provided for @exercisePostureS1PelvicTiltDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back with knees bent. Slowly press your lower back into the floor by engaging your abs. Hold 5 seconds, relax.'**
+  String get exercisePostureS1PelvicTiltDesc;
+
+  /// No description provided for @exercisePostureS1PelvicTiltTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t hold your breath — move smoothly.'**
+  String get exercisePostureS1PelvicTiltTip;
+
+  /// No description provided for @exercisePostureS2DeadBugName.
+  ///
+  /// In en, this message translates to:
+  /// **'Dead Bug'**
+  String get exercisePostureS2DeadBugName;
+
+  /// No description provided for @exercisePostureS2DeadBugDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, arms pointing up, knees at 90°. Slowly lower one arm and the opposite leg without letting your lower back arch.'**
+  String get exercisePostureS2DeadBugDesc;
+
+  /// No description provided for @exercisePostureS2DeadBugTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Move slowly — this is about control, not speed. Keep your lower back pressed flat the whole time.'**
+  String get exercisePostureS2DeadBugTip;
+
+  /// No description provided for @exercisePostureS3GluteBridgeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Glute Bridge'**
+  String get exercisePostureS3GluteBridgeName;
+
+  /// No description provided for @exercisePostureS3GluteBridgeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, knees bent, feet flat on floor. Drive your hips up by squeezing your glutes, hold briefly, lower down.'**
+  String get exercisePostureS3GluteBridgeDesc;
+
+  /// No description provided for @exercisePostureS3GluteBridgeTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Squeeze your glutes hard at the top — avoid pushing with your lower back.'**
+  String get exercisePostureS3GluteBridgeTip;
+
+  /// No description provided for @exercisePostureS4HipMarchName.
+  ///
+  /// In en, this message translates to:
+  /// **'Standing Hip March'**
+  String get exercisePostureS4HipMarchName;
+
+  /// No description provided for @exercisePostureS4HipMarchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall. Slowly lift one knee to hip height and lower it. Alternate sides. Keep your torso upright and still.'**
+  String get exercisePostureS4HipMarchDesc;
+
+  /// No description provided for @exercisePostureS4HipMarchTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Lift each knee to hip height without leaning your torso — focus on the hip flexor doing the work, not momentum.'**
+  String get exercisePostureS4HipMarchTip;
+
+  /// No description provided for @exercisePostureS5KneelingLungeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Kneeling Hip Flexor Stretch'**
+  String get exercisePostureS5KneelingLungeName;
+
+  /// No description provided for @exercisePostureS5KneelingLungeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Kneel on one knee, other foot in front. Push your hips forward until you feel a stretch at the front of your rear hip. Hold.'**
+  String get exercisePostureS5KneelingLungeDesc;
+
+  /// No description provided for @exercisePostureS5KneelingLungeTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your back straight and gently tuck your pelvis under to deepen the stretch.'**
+  String get exercisePostureS5KneelingLungeTip;
+
+  /// No description provided for @exercisePostureS6PigeonPoseName.
+  ///
+  /// In en, this message translates to:
+  /// **'Pigeon Pose'**
+  String get exercisePostureS6PigeonPoseName;
+
+  /// No description provided for @exercisePostureS6PigeonPoseDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'From all fours, bring your right leg forward bent at 90°. Extend the left leg back. Lower your hips toward the floor and hold the position.'**
+  String get exercisePostureS6PigeonPoseDesc;
+
+  /// No description provided for @exercisePostureS6PigeonPoseTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathe deeply — the pose opens the hip gradually.'**
+  String get exercisePostureS6PigeonPoseTip;
+
+  /// No description provided for @exerciseNeckS1NeckTiltName.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck Tilt'**
+  String get exerciseNeckS1NeckTiltName;
+
+  /// No description provided for @exerciseNeckS1NeckTiltDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Slowly tilt your head toward your right shoulder — without raising the shoulder. Hold 5 seconds, return. Alternate sides.'**
+  String get exerciseNeckS1NeckTiltDesc;
+
+  /// No description provided for @exerciseNeckS1NeckTiltTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Let the shoulder drop down — that deepens the stretch.'**
+  String get exerciseNeckS1NeckTiltTip;
+
+  /// No description provided for @exerciseNeckS2ChestOpenerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest Opener'**
+  String get exerciseNeckS2ChestOpenerName;
+
+  /// No description provided for @exerciseNeckS2ChestOpenerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall, clasp your hands behind your back. Squeeze your shoulder blades together and gently lift your arms while opening your chest.'**
+  String get exerciseNeckS2ChestOpenerDesc;
+
+  /// No description provided for @exerciseNeckS2ChestOpenerTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Focus on squeezing your shoulder blades — do not arch your lower back.'**
+  String get exerciseNeckS2ChestOpenerTip;
+
+  /// No description provided for @exerciseNeckS3ShoulderRollName.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulder Circles'**
+  String get exerciseNeckS3ShoulderRollName;
+
+  /// No description provided for @exerciseNeckS3ShoulderRollDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Roll your shoulders in large, slow circles — forward 5 times, then backward 5 times. Keep your neck relaxed throughout.'**
+  String get exerciseNeckS3ShoulderRollDesc;
+
+  /// No description provided for @exerciseNeckS3ShoulderRollTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Make the circles as big as possible — exaggerate the movement.'**
+  String get exerciseNeckS3ShoulderRollTip;
+
+  /// No description provided for @exerciseNeckS4WallAngelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Wall Angels'**
+  String get exerciseNeckS4WallAngelName;
+
+  /// No description provided for @exerciseNeckS4WallAngelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with your back, head and arms flat against a wall. Slide your arms up overhead while keeping contact with the wall. Slowly lower back down.'**
+  String get exerciseNeckS4WallAngelDesc;
+
+  /// No description provided for @exerciseNeckS4WallAngelTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your lower back flat against the wall the whole time — this is harder than it looks.'**
+  String get exerciseNeckS4WallAngelTip;
+
+  /// No description provided for @exerciseNeckS5DoorwayStretchName.
+  ///
+  /// In en, this message translates to:
+  /// **'Doorway Pec Stretch'**
+  String get exerciseNeckS5DoorwayStretchName;
+
+  /// No description provided for @exerciseNeckS5DoorwayStretchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand in a doorway. Place both forearms on the door frame at shoulder height. Lean forward gently until you feel a stretch across your chest and shoulders. Hold.'**
+  String get exerciseNeckS5DoorwayStretchDesc;
+
+  /// No description provided for @exerciseNeckS5DoorwayStretchTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your core engaged and don\'t arch your lower back as you lean forward.'**
+  String get exerciseNeckS5DoorwayStretchTip;
 
   /// No description provided for @tooltipStreakTitle.
   ///

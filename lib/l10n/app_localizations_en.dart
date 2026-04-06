@@ -22,10 +22,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navHome => 'Workout';
 
   @override
-  String get navProgress => 'Progress';
+  String get navLibrary => 'Courses';
 
   @override
   String get navProfile => 'Profile';
+
+  @override
+  String get libraryTitle => 'Library';
 
   @override
   String get progressTitle => 'My Progress';
@@ -54,6 +57,36 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeBranchBalance => 'Balance';
+
+  @override
+  String get homeBranchFlex => 'Flexibility';
+
+  @override
+  String get homeBranchPosture => 'Posture';
+
+  @override
+  String get homeBranchNeck => 'Neck';
+
+  @override
+  String get courseNameCalisthenics => 'Calisthenics';
+
+  @override
+  String get courseNameHealthyBody => 'Healthy Body';
+
+  @override
+  String get courseDescCalisthenics =>
+      'Bodyweight exercises from basic to advanced. Build strength, endurance, and body control.';
+
+  @override
+  String get courseDescHealthyBody =>
+      'Exercises for desk workers. Fix posture, release neck tension, and improve flexibility — joint-friendly.';
+
+  @override
+  String get onboardingQ4Courses => 'Choose a Course';
+
+  @override
+  String get onboardingQ4CoursesBody =>
+      'You can start with one or pick both — the programs are independent.';
 
   @override
   String branchJourneyProgress(int done, int total) {
@@ -1051,14 +1084,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exerciseWarmupHipCirclesDesc =>
-      'Stand with feet shoulder-width apart and rotate your hips in large circles. Warms up the hip joints before leg exercises.';
+      'Stand with feet shoulder-width apart. Make slow circular movements with your hips clockwise then counter-clockwise. Warms up the hip joints.';
 
   @override
   String get exerciseCooldownHipFlexorName => 'Hip Flexor Stretch';
 
   @override
   String get exerciseCooldownHipFlexorDesc =>
-      'Step into a lunge position. Lower your back knee to the floor and push your hips forward. Hold for 30 seconds per side.';
+      'Step into a lunge and lower your back knee to the floor. Press your hips forward and down to feel the stretch in your hip. Hold each side.';
 
   @override
   String get exerciseBalS1OneLegStandName => 'One-Leg Stand';
@@ -1300,9 +1333,6 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get homeBranchFlex => 'Flexibility';
-
-  @override
   String get exerciseFlexS1HipFlexorStretchName => 'Hip Flexor Stretch';
 
   @override
@@ -1454,6 +1484,135 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get exerciseSuppWristCirclesDesc =>
       'Clench your fists and slowly rotate your wrists clockwise and counter-clockwise. Strengthens forearms and tendons.';
+
+  @override
+  String get exerciseWarmupNeckRollsName => 'Neck Rolls';
+
+  @override
+  String get exerciseWarmupNeckRollsDesc =>
+      'Slowly tilt your head forward, back, and to each side, then make a gentle half-circle from shoulder to shoulder. Warms up neck muscles.';
+
+  @override
+  String get exercisePostureS1PelvicTiltName => 'Pelvic Tilt';
+
+  @override
+  String get exercisePostureS1PelvicTiltDesc =>
+      'Lie on your back with knees bent. Slowly press your lower back into the floor by engaging your abs. Hold 5 seconds, relax.';
+
+  @override
+  String get exercisePostureS1PelvicTiltTip =>
+      'Don\'t hold your breath — move smoothly.';
+
+  @override
+  String get exercisePostureS2DeadBugName => 'Dead Bug';
+
+  @override
+  String get exercisePostureS2DeadBugDesc =>
+      'Lie on your back, arms pointing up, knees at 90°. Slowly lower one arm and the opposite leg without letting your lower back arch.';
+
+  @override
+  String get exercisePostureS2DeadBugTip =>
+      'Move slowly — this is about control, not speed. Keep your lower back pressed flat the whole time.';
+
+  @override
+  String get exercisePostureS3GluteBridgeName => 'Glute Bridge';
+
+  @override
+  String get exercisePostureS3GluteBridgeDesc =>
+      'Lie on your back, knees bent, feet flat on floor. Drive your hips up by squeezing your glutes, hold briefly, lower down.';
+
+  @override
+  String get exercisePostureS3GluteBridgeTip =>
+      'Squeeze your glutes hard at the top — avoid pushing with your lower back.';
+
+  @override
+  String get exercisePostureS4HipMarchName => 'Standing Hip March';
+
+  @override
+  String get exercisePostureS4HipMarchDesc =>
+      'Stand tall. Slowly lift one knee to hip height and lower it. Alternate sides. Keep your torso upright and still.';
+
+  @override
+  String get exercisePostureS4HipMarchTip =>
+      'Lift each knee to hip height without leaning your torso — focus on the hip flexor doing the work, not momentum.';
+
+  @override
+  String get exercisePostureS5KneelingLungeName =>
+      'Kneeling Hip Flexor Stretch';
+
+  @override
+  String get exercisePostureS5KneelingLungeDesc =>
+      'Kneel on one knee, other foot in front. Push your hips forward until you feel a stretch at the front of your rear hip. Hold.';
+
+  @override
+  String get exercisePostureS5KneelingLungeTip =>
+      'Keep your back straight and gently tuck your pelvis under to deepen the stretch.';
+
+  @override
+  String get exercisePostureS6PigeonPoseName => 'Pigeon Pose';
+
+  @override
+  String get exercisePostureS6PigeonPoseDesc =>
+      'From all fours, bring your right leg forward bent at 90°. Extend the left leg back. Lower your hips toward the floor and hold the position.';
+
+  @override
+  String get exercisePostureS6PigeonPoseTip =>
+      'Breathe deeply — the pose opens the hip gradually.';
+
+  @override
+  String get exerciseNeckS1NeckTiltName => 'Neck Tilt';
+
+  @override
+  String get exerciseNeckS1NeckTiltDesc =>
+      'Slowly tilt your head toward your right shoulder — without raising the shoulder. Hold 5 seconds, return. Alternate sides.';
+
+  @override
+  String get exerciseNeckS1NeckTiltTip =>
+      'Let the shoulder drop down — that deepens the stretch.';
+
+  @override
+  String get exerciseNeckS2ChestOpenerName => 'Chest Opener';
+
+  @override
+  String get exerciseNeckS2ChestOpenerDesc =>
+      'Stand tall, clasp your hands behind your back. Squeeze your shoulder blades together and gently lift your arms while opening your chest.';
+
+  @override
+  String get exerciseNeckS2ChestOpenerTip =>
+      'Focus on squeezing your shoulder blades — do not arch your lower back.';
+
+  @override
+  String get exerciseNeckS3ShoulderRollName => 'Shoulder Circles';
+
+  @override
+  String get exerciseNeckS3ShoulderRollDesc =>
+      'Roll your shoulders in large, slow circles — forward 5 times, then backward 5 times. Keep your neck relaxed throughout.';
+
+  @override
+  String get exerciseNeckS3ShoulderRollTip =>
+      'Make the circles as big as possible — exaggerate the movement.';
+
+  @override
+  String get exerciseNeckS4WallAngelName => 'Wall Angels';
+
+  @override
+  String get exerciseNeckS4WallAngelDesc =>
+      'Stand with your back, head and arms flat against a wall. Slide your arms up overhead while keeping contact with the wall. Slowly lower back down.';
+
+  @override
+  String get exerciseNeckS4WallAngelTip =>
+      'Keep your lower back flat against the wall the whole time — this is harder than it looks.';
+
+  @override
+  String get exerciseNeckS5DoorwayStretchName => 'Doorway Pec Stretch';
+
+  @override
+  String get exerciseNeckS5DoorwayStretchDesc =>
+      'Stand in a doorway. Place both forearms on the door frame at shoulder height. Lean forward gently until you feel a stretch across your chest and shoulders. Hold.';
+
+  @override
+  String get exerciseNeckS5DoorwayStretchTip =>
+      'Keep your core engaged and don\'t arch your lower back as you lean forward.';
 
   @override
   String get tooltipStreakTitle => 'Current Streak';

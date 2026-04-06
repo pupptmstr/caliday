@@ -77,7 +77,8 @@ lib/
 │   │   ├── achievement_repository.dart
 │   │   └── friend_repository.dart     ← Box<FriendProfile> 'friends', keyed by friend.id
 │   └── static/
-│       ├── exercise_catalog.dart      ← Push(7)+Pull(6)+Core(6)+Legs(5)+Balance(6) + warmup/cooldown
+│       ├── exercise_catalog.dart      ← Push(7)+Pull(6)+Core(6)+Legs(5)+Balance(6)+Flex(6)+Posture(6)+Neck(5) + warmup/cooldown
+│       ├── course_catalog.dart        ← CourseCatalog.branchesFor(CourseId)
 │       └── achievement_catalog.dart   ← 27 achievements
 ├── domain/
 │   ├── models/workout_plan.dart       ← WorkoutPlan, PlannedExercise
@@ -90,8 +91,9 @@ lib/
 └── features/
     ├── home/screens/
     │   ├── home_screen.dart           ← Workout tab
-    │   ├── progress_screen.dart       ← Progress tab (branches)
     │   └── branch_journey_screen.dart ← /branch/:branchId
+    ├── library/screens/
+    │   └── library_screen.dart        ← Library tab (course pills + branch progress)
     ├── workout/
     │   ├── providers/workout_provider.dart
     │   └── screens/
@@ -122,10 +124,18 @@ lib/
 ### Set (Set / Workout)
 A short session: 3–6 exercises, 5–15 minutes. Types: `Daily`, `Skill`, `Challenge`.
 
+### Courses
+CaliDay supports multiple **courses** (like Duolingo). Each course has its own branch set and progression:
+- `CourseId.calisthenics` → push, pull, core, legs, balance, flex
+- `CourseId.healthyBody` → posture, neck, flex
+
+**Progression is per-course:** `SkillProgress` keys are `"${courseId}_${branchId}"` (e.g. `"calisthenics_push"`).
+**Streak and SP are global.** Active course is stored in `UserProfile.activeCourse` (last selected).
+Switching courses happens in the Library tab via pill tabs.
+
 ### Progression Branches
-5 branches: Push, Pull, Core, Legs, Balance. Each is a progression ladder from simple to advanced.
-Pull requires a pull-up bar (`requiresEquipment = true`). `UserProfile.activeBranches` is a computed getter
-that filters out Pull if `hasPullUpBar == false`.
+8 branches total across all courses. Pull requires a pull-up bar (`requiresEquipment = true`).
+`UserProfile.activeBranches` deduplicates branches across all enrolled courses.
 
 ### In-Stage Progression
 Reps ↑ → Sets ↑ (with reps reset) → Rest ↓ → Challenge test → Next stage.
@@ -159,6 +169,8 @@ Determined at start: if a `WorkoutLog` already exists for today → `isPrimary =
 | 7 | `Rank` (enum) |
 | 8 | `FitnessGoal` (enum) |
 | 9 | `FriendProfile` |
+| 10 | `CourseId` (enum) |
+| 11 | reserved for `CustomRoutine` (v1.7) |
 
 ### UserProfile HiveFields
 
@@ -175,12 +187,15 @@ Determined at start: if a `WorkoutLog` already exists for today → `isPrimary =
 | @21 | bool? | healthWorkoutsEnabled |
 | @22 | bool? | healthWeightEnabled |
 | @23 | bool? | bleDiscoverable (v1.4 Friends) |
+| @24 | List<int>? | activeCourseIds — CourseId indices; null → [0] (calisthenics) |
+| @25 | int? | activeCourseIndex — index into activeCourseIds; null → 0 |
 
 ### WorkoutLog HiveFields
 | Field | Type | Description |
 |-------|------|-------------|
 | @0..4 | base | date, setType, exercises, spEarned, durationSec |
 | @5 | bool | isPrimary — false = bonus workout |
+| @6 | int? | courseIdIndex — CourseId.index; null → 0 (calisthenics) |
 
 ### FriendProfile HiveFields
 
@@ -271,6 +286,27 @@ Loaded from `ExerciseCatalog`. `stage = 0` = warmup/cooldown.
 | 5 | `bal_s5_wall_hs` | Wall Handstand |
 | 6 | `bal_s6_free_hs` | Freestanding Handstand |
 
+### Posture Branch — Healthy Body course (6 stages)
+Warmup: `warmup_hip_circles`. Cooldowns: `[cooldown_hip_flexor, cooldown_quad_stretch]`.
+| Stage | ID | Name | Type |
+|-------|----|------|------|
+| 1 | `posture_s1_pelvic_tilt` | Posterior Pelvic Tilt | timed |
+| 2 | `posture_s2_dead_bug` | Dead Bug | reps |
+| 3 | `posture_s3_glute_bridge` | Glute Bridge | reps |
+| 4 | `posture_s4_hip_march` | Standing Hip March | reps |
+| 5 | `posture_s5_kneeling_lunge` | Kneeling Hip Flexor Stretch | timed |
+| 6 | `posture_s6_pigeon_pose` | Pigeon Pose | timed |
+
+### Neck Branch — Healthy Body course (5 stages)
+Warmup: `warmup_neck_rolls`. Cooldown: `cooldown_cat_cow`.
+| Stage | ID | Name | Type |
+|-------|----|------|------|
+| 1 | `neck_s1_neck_tilt` | Neck Tilts | timed |
+| 2 | `neck_s2_chest_opener` | Chest Opener | timed |
+| 3 | `neck_s3_shoulder_roll` | Shoulder Circles | reps |
+| 4 | `neck_s4_wall_angel` | Wall Angels | reps |
+| 5 | `neck_s5_doorway_stretch` | Doorway Pec Stretch | timed |
+
 ---
 
 ## Services (Domain Layer)
@@ -300,7 +336,8 @@ otherwise                          → 0
 - `nextExercise(progress)` — next stage from catalog
 
 ### WorkoutGeneratorService
-- `generateDaily({activeBranches, preferredMinutes, dayIndexOverride?, hasPullUpBar})` — rotates branches by dayIndex (days since 2020-01-01). N branches: min(2,total) at ≤5min, min(3,total) at 10min, total at ≥15min. When `hasPullUpBar=false` and an exercise has `requiresEquipment=true`, substitutes via `ExerciseCatalog.equipmentFreeForStage()`.
+- `generateDailyForCourse({course, courseBranches, progressMap, preferredMinutes, hasPullUpBar})` — primary method; rotates branches by dayIndex (days since 2020-01-01). N branches: min(2,total) at ≤5min, min(3,total) at 10min, total at ≥15min. Passes `course:` to all `getProgress()` calls.
+- `generateDaily(...)` — legacy wrapper, calls `generateDailyForCourse` with `course: CourseId.calisthenics`.
 - `generateChallenge(branch)` — warmup → current stage (1 easy set) → next stage (challengeTargetReps) → cooldown
 
 ### AchievementService
@@ -343,7 +380,7 @@ Persistence is the responsibility of the calling code via repositories.
 
 ### Bottom nav (StatefulShellRoute.indexedStack)
 - `/home` — Workout (HomeScreen)
-- `/progress` — Progress (ProgressScreen with branches)
+- `/library` — Library (LibraryScreen: course pills + branch progress + challenge cards)
 - `/profile` — Profile (ProfileScreen)
 
 ### Top-level routes (no bottom nav)
@@ -379,19 +416,24 @@ Both entry points lead to the same flow: `challengeBranchProvider = branch` → 
 
 ---
 
-## Onboarding (7 steps)
+## Onboarding (8 steps)
 
 | Step | Content |
 |------|---------|
 | 0 | Welcome — Goro + description |
-| 1 | How often do you work out? |
+| 1 | Name (optional) |
 | 2 | How many push-ups can you do? (Push calibration) |
 | 3 | How many minutes per day? (→ `preferredWorkoutMinutes`) |
-| 4 | What is your goal? |
-| 5 | Do you have a pull-up bar at home? (→ `hasPullUpBar`) |
-| 6 | What time should we remind you? |
+| 4 | Choose course(s) — multi-select cards (Calisthenics / Healthy Body) |
+| 5 | Do you have a pull-up bar? (only shown if calisthenics selected; → `hasPullUpBar`) |
+| 6 | Health integration (opt-in) |
+| 7 | What time should we remind you? |
 
 **Push calibration:** 0 reps → s1 r3; 1–5 → s2 r5; 5–15 → s3 r5; 15+ → s3 r10 sets=2
+
+**Course initialization on completion:**
+- Calisthenics selected: push (calibrated) + core s1 + legs s1 + balance s1 + pull s1 (if hasPullUpBar)
+- Healthy Body selected: posture s1 + neck s1
 
 ---
 
@@ -532,6 +574,7 @@ Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.ca
 
 ### Key Patterns
 
+- `activeCourseProvider = StateProvider<CourseId>` initialized from `UserProfile.activeCourse`; switching courses in LibraryScreen updates both the provider and `UserProfile.activeCourseIndex` in Hive
 - `homeDataProvider = Provider.autoDispose` + `_ref.invalidate(homeDataProvider)` after workout
 - **Always invalidate `displayStreakProvider` before `homeDataProvider`** — `goroExpressionProvider` keeps it alive via `ref.watch`, so `homeDataProvider`'s `ref.read(displayStreakProvider)` would return a stale cached value otherwise
 - **`setHasPullUpBar` must invalidate `homeDataProvider`** — `activeBranches` is computed from `hasPullUpBar`; without invalidation Pull branch appears only after restart
@@ -590,5 +633,9 @@ flutter build ipa                 # iOS archive
 | v2.0 | Design overhaul — Liquid Glass (iOS) / frosted glass (Android) | 📐 designed |
 | ? | Animation shape redesign — replace rectangular containers with rounded/oval frames for all Lottie animations | 💡 idea |
 | ? | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup before implementing (see DEV_NOTES § Tax / IAP income) |
+| v1.5 | Multi-Course system (Calisthenics + Healthy Body) — CourseId, course-scoped SkillProgress, neck & posture branches, Library tab replaces Progress tab | ✅ |
+| v1.6 | Exercise Library — ExerciseTag system, search + filter screen inside Library tab | 📐 designed |
+| v1.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | 📐 designed |
+| v2.x | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea

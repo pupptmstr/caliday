@@ -44,7 +44,7 @@ class OnboardingState {
     this.displayName = '',
     this.pushupCount,
     this.workoutMinutes,
-    this.fitnessGoal,
+    this.selectedCourseIds = const [CourseId.calisthenics],
     this.hasPullUpBar,
     this.healthEnabled = false,
     this.reminderHour = 9,
@@ -56,7 +56,9 @@ class OnboardingState {
   final String displayName;
   final PushupCount? pushupCount;
   final WorkoutMinutes? workoutMinutes;
-  final FitnessGoal? fitnessGoal;
+
+  /// Courses selected during onboarding. Defaults to [calisthenics].
+  final List<CourseId> selectedCourseIds;
 
   /// null = not yet answered; true = has bar; false = no bar.
   final bool? hasPullUpBar;
@@ -67,9 +69,12 @@ class OnboardingState {
   final int reminderMinute;
   final bool isSaving;
 
-  // Steps: 0=welcome  1=name  2=pushups  3=minutes  4=goal
+  // Steps: 0=welcome  1=name  2=pushups  3=minutes  4=courses
   //        5=pullupbar  6=health  7=reminder
   static const int lastStep = 7;
+
+  bool get _calisthenicsSelected =>
+      selectedCourseIds.contains(CourseId.calisthenics);
 
   bool get canAdvance {
     switch (step) {
@@ -82,9 +87,10 @@ class OnboardingState {
       case 3:
         return workoutMinutes != null;
       case 4:
-        return fitnessGoal != null;
+        return selectedCourseIds.isNotEmpty;
       case 5:
-        return hasPullUpBar != null;
+        // Pull-up bar only required if calisthenics is selected.
+        return !_calisthenicsSelected || hasPullUpBar != null;
       case 6:
         return true; // health is optional
       case 7:
@@ -101,7 +107,7 @@ class OnboardingState {
     String? displayName,
     PushupCount? pushupCount,
     WorkoutMinutes? workoutMinutes,
-    FitnessGoal? fitnessGoal,
+    List<CourseId>? selectedCourseIds,
     bool? hasPullUpBar,
     bool? healthEnabled,
     int? reminderHour,
@@ -113,7 +119,7 @@ class OnboardingState {
       displayName: displayName ?? this.displayName,
       pushupCount: pushupCount ?? this.pushupCount,
       workoutMinutes: workoutMinutes ?? this.workoutMinutes,
-      fitnessGoal: fitnessGoal ?? this.fitnessGoal,
+      selectedCourseIds: selectedCourseIds ?? this.selectedCourseIds,
       hasPullUpBar: hasPullUpBar ?? this.hasPullUpBar,
       healthEnabled: healthEnabled ?? this.healthEnabled,
       reminderHour: reminderHour ?? this.reminderHour,
@@ -128,7 +134,7 @@ class OnboardingState {
         displayName: displayName,
         pushupCount: pushupCount,
         workoutMinutes: workoutMinutes,
-        fitnessGoal: fitnessGoal,
+        selectedCourseIds: selectedCourseIds,
         hasPullUpBar: value,
         healthEnabled: healthEnabled,
         reminderHour: reminderHour,
@@ -153,8 +159,15 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   void selectWorkoutMinutes(WorkoutMinutes value) =>
       state = state.copyWith(workoutMinutes: value);
 
-  void selectFitnessGoal(FitnessGoal value) =>
-      state = state.copyWith(fitnessGoal: value);
+  void toggleCourse(CourseId course) {
+    final current = List<CourseId>.from(state.selectedCourseIds);
+    if (current.contains(course)) {
+      if (current.length > 1) current.remove(course);
+    } else {
+      current.add(course);
+    }
+    state = state.copyWith(selectedCourseIds: current);
+  }
 
   void selectHasPullUpBar(bool value) =>
       state = state.withHasPullUpBar(value);
@@ -194,16 +207,19 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 
     // Create user profile with notification preferences and selected locale.
     final name = state.displayName.isNotEmpty ? state.displayName : null;
+    final courseIds =
+        state.selectedCourseIds.map((c) => c.index).toList();
     await userRepo.saveProfile(
       UserProfile(
         notificationHour: state.reminderHour,
         notificationMinute: state.reminderMinute,
         locale: _ref.read(localeProvider),
         preferredWorkoutMinutes: state.workoutMinutes?.minutes,
-        fitnessGoal: state.fitnessGoal,
         hasPullUpBar: hasPullUpBar,
         displayName: name,
         healthWorkoutsEnabled: state.healthEnabled && healthGranted,
+        activeCourseIds: courseIds,
+        activeCourseIndex: 0,
       ),
     );
 
@@ -253,6 +269,30 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
           currentSets: 1,
           currentRestSec: 60,
         ),
+      );
+    }
+
+    // Initialize Healthy Body branches if selected.
+    if (state.selectedCourseIds.contains(CourseId.healthyBody)) {
+      await progressRepo.saveProgress(
+        SkillProgress(
+          branchId: BranchId.posture,
+          currentStage: 1,
+          currentReps: 10,
+          currentSets: 1,
+          currentRestSec: 30,
+        ),
+        course: CourseId.healthyBody,
+      );
+      await progressRepo.saveProgress(
+        SkillProgress(
+          branchId: BranchId.neck,
+          currentStage: 1,
+          currentReps: 15,
+          currentSets: 1,
+          currentRestSec: 15,
+        ),
+        course: CourseId.healthyBody,
       );
     }
 

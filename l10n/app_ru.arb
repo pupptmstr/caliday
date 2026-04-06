@@ -17,8 +17,9 @@
   },
 
   "navHome": "Тренировка",
-  "navProgress": "Прогресс",
+  "navLibrary": "Курсы",
   "navProfile": "Профиль",
+  "libraryTitle": "Библиотека",
   "progressTitle": "Мой прогресс",
   "progressInfo": "Просто тренируйтесь — приложение само продвигает вас вперёд по веткам. Здесь можно отследить пройденный путь. А если чувствуете, что готовы к большему раньше времени — принимайте Испытание и переходите сами.",
   "homeDays": "дней",
@@ -28,6 +29,15 @@
   "homeBranchCore": "Кор",
   "homeBranchLegs": "Ноги",
   "homeBranchBalance": "Баланс",
+  "homeBranchFlex": "Гибкость",
+  "homeBranchPosture": "Осанка",
+  "homeBranchNeck": "Шея",
+  "courseNameCalisthenics": "Калистеника",
+  "courseNameHealthyBody": "Здоровое тело",
+  "courseDescCalisthenics": "Базовые упражнения с весом тела — от простого к сложному. Сила, выносливость, контроль.",
+  "courseDescHealthyBody": "Упражнения для тех, кто много сидит. Осанка, шея, гибкость — без нагрузки на суставы.",
+  "onboardingQ4Courses": "Выбери курс",
+  "onboardingQ4CoursesBody": "Можно начать с одного или взять оба сразу — программы независимы.",
 
   "branchJourneyProgress": "Пройдено {done} из {total} этапов",
   "@branchJourneyProgress": {
@@ -505,6 +515,9 @@
   "exerciseCooldownDownwardDogName": "Собака мордой вниз",
   "exerciseCooldownDownwardDogDesc": "На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног.",
 
+  "exerciseCooldownWristStretchName": "Растяжка запястий",
+  "exerciseCooldownWristStretchDesc": "Вытяни одну руку вперёд ладонью вверх. Другой рукой мягко потяни пальцы вниз. Удержи 30 секунд на каждую руку.",
+
   "aboutTitle": "О приложении",
   "aboutVersion": "Версия",
   "aboutSectionSupport": "ПОДДЕРЖКА",
@@ -577,8 +590,6 @@
     }
   },
 
-  "homeBranchFlex": "Гибкость",
-
   "exerciseFlexS1HipFlexorStretchName": "Растяжка сгибателей бедра",
   "exerciseFlexS1HipFlexorStretchDesc": "Встань в выпад, опусти заднее колено на пол. Толкай бёдра вперёд, чтобы почувствовать растяжку в передней части бедра. Удержи каждую сторону.",
   "exerciseFlexS1HipFlexorStretchTip": "Держи спину прямо и толкай бёдра вперёд — почувствуй растяжку в передней части бедра.",
@@ -635,6 +646,59 @@
 
   "exerciseSuppWristCirclesName": "Вращения запястьями",
   "exerciseSuppWristCirclesDesc": "Сожми руки в кулаки и медленно вращай запястьями по часовой и против часовой стрелки. Укрепляет предплечья и сухожилия.",
+
+  "exerciseWarmupHipCirclesName": "Вращения тазом",
+  "exerciseWarmupHipCirclesDesc": "Стоя, ноги на ширине плеч. Делай медленные круговые движения тазом по часовой и против часовой стрелки. Разогревает тазобедренный сустав.",
+
+  "exerciseWarmupNeckRollsName": "Вращения шеей",
+  "exerciseWarmupNeckRollsDesc": "Медленно наклоняй голову вперёд-назад и в стороны, затем плавный полукруг от плеча к плечу. Разогревает мышцы шеи.",
+
+  "exerciseCooldownHipFlexorName": "Растяжка сгибателей бедра",
+  "exerciseCooldownHipFlexorDesc": "Встань в выпад, опусти заднее колено на пол. Выдвинь таз вперёд-вниз, почувствуй растяжку в паху. Удержи каждую сторону.",
+
+  "exercisePostureS1PelvicTiltName": "Наклон таза лёжа",
+  "exercisePostureS1PelvicTiltDesc": "Лёжа на спине, колени согнуты. Медленно прижимай поясницу к полу, напрягая живот. Удержи 5 секунд, расслабь.",
+  "exercisePostureS1PelvicTiltTip": "Не задерживай дыхание — работай плавно.",
+
+  "exercisePostureS2DeadBugName": "Мёртвый жук",
+  "exercisePostureS2DeadBugDesc": "Лёжа на спине, руки вертикально вверх, колени 90°. Одновременно опускай правую руку назад и выпрямляй левую ногу — не давай пояснице оторваться от пола.",
+  "exercisePostureS2DeadBugTip": "Двигайся медленно — это контроль, а не скорость. Поясница прижата к полу всё время.",
+
+  "exercisePostureS3GluteBridgeName": "Ягодичный мостик",
+  "exercisePostureS3GluteBridgeDesc": "Лёжа на спине, колени согнуты, стопы на полу. Поднимай бёдра вверх, сжимая ягодицы. Удержи секунду наверху, опусти.",
+  "exercisePostureS3GluteBridgeTip": "Сжимай ягодицы в верхней точке — не толкай поясницей.",
+
+  "exercisePostureS4HipMarchName": "Шагание на месте",
+  "exercisePostureS4HipMarchDesc": "Стоя прямо, медленно поднимай одно колено до уровня бедра, опусти. Чередуй стороны. Держи корпус неподвижным.",
+  "exercisePostureS4HipMarchTip": "Поднимай колено до уровня бедра без наклона корпуса — сгибатель бедра работает, а не инерция.",
+
+  "exercisePostureS5KneelingLungeName": "Растяжка сгибателей бедра в выпаде",
+  "exercisePostureS5KneelingLungeDesc": "Встань в выпад, опусти заднее колено на пол, другая нога впереди. Выдвигай бёдра вперёд до ощущения растяжки в паху задней ноги. Удержи.",
+  "exercisePostureS5KneelingLungeTip": "Держи спину прямо и мягко подтяни таз под себя, чтобы углубить растяжку.",
+
+  "exercisePostureS6PigeonPoseName": "Поза голубя",
+  "exercisePostureS6PigeonPoseDesc": "Из положения на четвереньках вынеси правую ногу вперёд, согни под углом 90°. Левая нога вытянута назад. Опусти бёдра вниз и удержи позицию.",
+  "exercisePostureS6PigeonPoseTip": "Дыши глубоко — поза раскрывает тазобедренный сустав постепенно.",
+
+  "exerciseNeckS1NeckTiltName": "Наклоны шеи",
+  "exerciseNeckS1NeckTiltDesc": "Медленно наклоняй голову к правому плечу — без подъёма плеча. Удержи 5 секунд, вернись. Поочерёдно.",
+  "exerciseNeckS1NeckTiltTip": "Плечо тянется вниз — так растяжка глубже.",
+
+  "exerciseNeckS2ChestOpenerName": "Раскрытие груди",
+  "exerciseNeckS2ChestOpenerDesc": "Стоя прямо, сцепи руки за спиной. Сведи лопатки вместе и мягко подними руки, раскрывая грудь.",
+  "exerciseNeckS2ChestOpenerTip": "Сжимай лопатки — не прогибай поясницу.",
+
+  "exerciseNeckS3ShoulderRollName": "Вращения плечами",
+  "exerciseNeckS3ShoulderRollDesc": "Делай большие медленные круги плечами — 5 раз вперёд, затем 5 раз назад. Шея расслаблена на протяжении всего упражнения.",
+  "exerciseNeckS3ShoulderRollTip": "Делай круги как можно большими — преувеличивай движение.",
+
+  "exerciseNeckS4WallAngelName": "Ангел у стены",
+  "exerciseNeckS4WallAngelDesc": "Встань спиной к стене, прижав спину, голову и руки к поверхности. Медленно поднимай руки вверх над головой, не отрывая их от стены. Опусти.",
+  "exerciseNeckS4WallAngelTip": "Поясница прижата к стене всё время — это сложнее, чем кажется.",
+
+  "exerciseNeckS5DoorwayStretchName": "Растяжка в дверном проёме",
+  "exerciseNeckS5DoorwayStretchDesc": "Встань в дверной проём, обе руки согнуты под 90° на уровне плеч, предплечья упираются в косяки. Медленно выдвинь грудь вперёд. Удержи 30 секунд.",
+  "exerciseNeckS5DoorwayStretchTip": "Лопатки вместе — раскрытие грудного отдела в полную силу.",
 
   "tooltipStreakTitle": "Текущая серия",
   "tooltipStreakBody": "Количество дней подряд, в которые ты тренировался. Пропусти день без заморозки — и серия сбросится. Не давай огню погаснуть — Горо следит!",

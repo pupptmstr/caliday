@@ -23,6 +23,21 @@ enum BranchId {
 
   @HiveField(5)
   flex,
+
+  @HiveField(6)
+  posture,
+
+  @HiveField(7)
+  neck,
+}
+
+@HiveType(typeId: 10)
+enum CourseId {
+  @HiveField(0)
+  calisthenics,
+
+  @HiveField(1)
+  healthyBody,
 }
 
 @HiveType(typeId: 5)
@@ -146,6 +161,13 @@ extension RankLocalization on Rank {
       };
 }
 
+extension CourseIdExtension on CourseId {
+  String localizedName(AppLocalizations l10n) => switch (this) {
+        CourseId.calisthenics => l10n.courseNameCalisthenics,
+        CourseId.healthyBody => l10n.courseNameHealthyBody,
+      };
+}
+
 extension BranchIdExtension on BranchId {
   String get emoji => switch (this) {
         BranchId.push => '💪',
@@ -154,6 +176,8 @@ extension BranchIdExtension on BranchId {
         BranchId.legs => '🦵',
         BranchId.balance => '⚖️',
         BranchId.flex => '🧘',
+        BranchId.posture => '🏃',
+        BranchId.neck => '🦒',
       };
 
   IconData get icon => switch (this) {
@@ -163,6 +187,8 @@ extension BranchIdExtension on BranchId {
         BranchId.legs => Icons.directions_run,
         BranchId.balance => Icons.balance,
         BranchId.flex => Icons.self_improvement,
+        BranchId.posture => Icons.airline_seat_recline_normal,
+        BranchId.neck => Icons.person_outline,
       };
 
   String localizedName(AppLocalizations l10n) => switch (this) {
@@ -172,6 +198,8 @@ extension BranchIdExtension on BranchId {
         BranchId.legs => l10n.homeBranchLegs,
         BranchId.balance => l10n.homeBranchBalance,
         BranchId.flex => l10n.homeBranchFlex,
+        BranchId.posture => l10n.homeBranchPosture,
+        BranchId.neck => l10n.homeBranchNeck,
       };
 
   int get stageCount => switch (this) {
@@ -181,6 +209,8 @@ extension BranchIdExtension on BranchId {
         BranchId.legs => 5,
         BranchId.balance => 6,
         BranchId.flex => 6,
+        BranchId.posture => 6,
+        BranchId.neck => 5,
       };
 
   bool get requiresEquipment => this == BranchId.pull;

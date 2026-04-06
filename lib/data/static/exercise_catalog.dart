@@ -1025,6 +1025,265 @@ class ExerciseCatalog {
     spBase: 0,
   );
 
+  // ── Posture Branch ────────────────────────────────────────────────────────
+
+  static const Exercise postureS1PelvicTilt = Exercise(
+    id: 'posture_s1_pelvic_tilt',
+    name: 'Posterior Pelvic Tilt',
+    description:
+        'Lie on your back with knees bent. Press your lower back flat '
+        'against the floor by tilting your pelvis. Hold for 10 seconds.',
+    branch: BranchId.posture,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 10,
+    targetReps: 30,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 30,
+    targetRestSec: 15,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Focus on pressing the small of your back into the floor — '
+        'you should feel your abs engage lightly.',
+  );
+
+  static const Exercise postureS2DeadBug = Exercise(
+    id: 'posture_s2_dead_bug',
+    name: 'Dead Bug',
+    description:
+        'Lie on your back, arms up, knees at 90°. Slowly lower one arm '
+        'and the opposite leg without letting your lower back arch.',
+    branch: BranchId.posture,
+    stage: 2,
+    type: ExerciseType.reps,
+    startReps: 4,
+    targetReps: 10,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 45,
+    targetRestSec: 20,
+    spBase: 2,
+    challengeTargetReps: 8,
+    techniqueTip: 'Move slowly — this is about control, not speed. '
+        'Keep your lower back pressed flat the whole time.',
+  );
+
+  static const Exercise postureS3GluteBridge = Exercise(
+    id: 'posture_s3_glute_bridge',
+    name: 'Glute Bridge',
+    description:
+        'Lie on your back, knees bent, feet flat on floor. '
+        'Drive your hips up by squeezing your glutes, hold briefly, lower down.',
+    branch: BranchId.posture,
+    stage: 3,
+    type: ExerciseType.reps,
+    startReps: 8,
+    targetReps: 20,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 45,
+    targetRestSec: 20,
+    spBase: 2,
+    challengeTargetReps: 15,
+    techniqueTip: 'Squeeze your glutes hard at the top — avoid pushing '
+        'with your lower back.',
+  );
+
+  static const Exercise postureS4HipMarch = Exercise(
+    id: 'posture_s4_hip_march',
+    name: 'Standing Hip March',
+    description:
+        'Stand tall. Slowly lift one knee to hip height and lower it. '
+        'Alternate sides. Keep your torso upright and still.',
+    branch: BranchId.posture,
+    stage: 4,
+    type: ExerciseType.reps,
+    startReps: 8,
+    targetReps: 20,
+    startSets: 2,
+    targetSets: 3,
+    startRestSec: 30,
+    targetRestSec: 15,
+    spBase: 2,
+    challengeTargetReps: 16,
+    techniqueTip: 'Lift each knee to hip height without leaning your torso — '
+        'focus on the hip flexor doing the work, not momentum.',
+  );
+
+  static const Exercise postureS5KneelingLunge = Exercise(
+    id: 'posture_s5_kneeling_lunge',
+    name: 'Kneeling Hip Flexor Stretch',
+    description:
+        'Kneel on one knee, other foot in front. Push your hips forward '
+        'until you feel a stretch at the front of your rear hip. Hold.',
+    branch: BranchId.posture,
+    stage: 5,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Keep your back straight and gently tuck your pelvis under '
+        'to deepen the stretch.',
+  );
+
+  static const Exercise postureS6PigeonPose = Exercise(
+    id: 'posture_s6_pigeon_pose',
+    name: 'Pigeon Pose',
+    description:
+        'From a lunge, bring your front knee across and lower your shin '
+        'to the floor. Lean forward until you feel a deep stretch in your hip.',
+    branch: BranchId.posture,
+    stage: 6,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Keep your hips square to the floor as much as possible '
+        'and breathe into the stretch.',
+  );
+
+  // ── Neck Branch ────────────────────────────────────────────────────────────
+
+  static const Exercise neckS1NeckTilt = Exercise(
+    id: 'neck_s1_neck_tilt',
+    name: 'Neck Tilts',
+    description:
+        'Sit or stand tall. Slowly tilt your head to one side, ear toward '
+        'shoulder, until you feel a gentle stretch. Hold, then switch sides.',
+    branch: BranchId.neck,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 15,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Do not force your head down with your hand. '
+        'Let gravity do the work.',
+  );
+
+  static const Exercise neckS2ChestOpener = Exercise(
+    id: 'neck_s2_chest_opener',
+    name: 'Chest Opener',
+    description:
+        'Stand tall, clasp your hands behind your back. '
+        'Squeeze your shoulder blades together and gently lift your arms '
+        'while opening your chest.',
+    branch: BranchId.neck,
+    stage: 2,
+    type: ExerciseType.timed,
+    startReps: 15,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Focus on squeezing your shoulder blades — '
+        'do not arch your lower back.',
+  );
+
+  static const Exercise neckS3ShoulderRoll = Exercise(
+    id: 'neck_s3_shoulder_roll',
+    name: 'Shoulder Circles',
+    description:
+        'Roll your shoulders in large, slow circles — forward 5 times, '
+        'then backward 5 times. Keep your neck relaxed throughout.',
+    branch: BranchId.neck,
+    stage: 3,
+    type: ExerciseType.reps,
+    startReps: 8,
+    targetReps: 20,
+    startSets: 2,
+    targetSets: 3,
+    startRestSec: 20,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 15,
+    techniqueTip: 'Make the circles as big as possible — '
+        'exaggerate the movement.',
+  );
+
+  static const Exercise neckS4WallAngel = Exercise(
+    id: 'neck_s4_wall_angel',
+    name: 'Wall Angels',
+    description:
+        'Stand with your back, head and arms flat against a wall. '
+        'Slide your arms up overhead while keeping contact with the wall. '
+        'Slowly lower back down.',
+    branch: BranchId.neck,
+    stage: 4,
+    type: ExerciseType.reps,
+    startReps: 5,
+    targetReps: 15,
+    startSets: 2,
+    targetSets: 3,
+    startRestSec: 30,
+    targetRestSec: 15,
+    spBase: 2,
+    challengeTargetReps: 10,
+    techniqueTip: 'Keep your lower back flat against the wall the whole time — '
+        'this is harder than it looks.',
+  );
+
+  static const Exercise neckS5DoorwayStretch = Exercise(
+    id: 'neck_s5_doorway_stretch',
+    name: 'Doorway Pec Stretch',
+    description:
+        'Stand in a doorway. Place both forearms on the door frame at '
+        'shoulder height. Lean forward gently until you feel a stretch '
+        'across your chest and shoulders. Hold.',
+    branch: BranchId.neck,
+    stage: 5,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Do not push too far forward. Find the edge of the stretch '
+        'and breathe into it.',
+  );
+
+  // ── Warmup: Neck Rolls ─────────────────────────────────────────────────────
+
+  static const Exercise warmupNeckRolls = Exercise(
+    id: 'warmup_neck_rolls',
+    name: 'Neck Rolls',
+    description:
+        'Gently drop your chin to your chest, then roll your head in '
+        'a slow half-circle from side to side. Avoid rolling backward.',
+    branch: BranchId.neck,
+    stage: 0,
+    type: ExerciseType.reps,
+    startReps: 5,
+    targetReps: 5,
+    startSets: 1,
+    targetSets: 1,
+    startRestSec: 0,
+    targetRestSec: 0,
+    spBase: 0,
+    challengeTargetReps: 5,
+  );
+
   // ── Grouped accessors ─────────────────────────────────────────────────────
 
   /// All Push progression exercises ordered by stage.
@@ -1087,6 +1346,25 @@ class ExerciseCatalog {
     flexS6PikeStretch,
   ];
 
+  /// All Posture progression exercises ordered by stage.
+  static const List<Exercise> postureProgression = [
+    postureS1PelvicTilt,
+    postureS2DeadBug,
+    postureS3GluteBridge,
+    postureS4HipMarch,
+    postureS5KneelingLunge,
+    postureS6PigeonPose,
+  ];
+
+  /// All Neck progression exercises ordered by stage.
+  static const List<Exercise> neckProgression = [
+    neckS1NeckTilt,
+    neckS2ChestOpener,
+    neckS3ShoulderRoll,
+    neckS4WallAngel,
+    neckS5DoorwayStretch,
+  ];
+
   /// Warmup exercises (stage = 0).
   static const List<Exercise> warmups = [
     warmupArmRotations,
@@ -1095,6 +1373,7 @@ class ExerciseCatalog {
     warmupLegSwings,
     warmupHipCircles,
     warmupWristCircles,
+    warmupNeckRolls,
   ];
 
   /// Cooldown exercises (stage = 0).
@@ -1115,6 +1394,8 @@ class ExerciseCatalog {
     ...legsProgression,
     ...balanceProgression,
     ...flexProgression,
+    ...postureProgression,
+    ...neckProgression,
     ...warmups,
     ...cooldowns,
   ];
@@ -1127,29 +1408,15 @@ class ExerciseCatalog {
         BranchId.legs => legsProgression,
         BranchId.balance => balanceProgression,
         BranchId.flex => flexProgression,
+        BranchId.posture => postureProgression,
+        BranchId.neck => neckProgression,
       };
 
   /// Returns the exercise for [branch] at [stage], or null if not found.
-  static Exercise? forStage(BranchId branch, int stage) => switch (branch) {
-        BranchId.push => pushProgression
-            .where((e) => e.stage == stage)
-            .firstOrNull,
-        BranchId.core => coreProgression
-            .where((e) => e.stage == stage)
-            .firstOrNull,
-        BranchId.pull => pullProgression
-            .where((e) => e.stage == stage)
-            .firstOrNull,
-        BranchId.legs => legsProgression
-            .where((e) => e.stage == stage)
-            .firstOrNull,
-        BranchId.balance => balanceProgression
-            .where((e) => e.stage == stage)
-            .firstOrNull,
-        BranchId.flex => flexProgression
-            .where((e) => e.stage == stage)
-            .firstOrNull,
-      };
+  static Exercise? forStage(BranchId branch, int stage) {
+    final progression = progressionFor(branch);
+    return progression.where((e) => e.stage == stage).firstOrNull;
+  }
 
   /// Returns an equipment-free alternative for [branch] at [stage], or null if
   /// no alternative exists (exercise can be done without equipment as-is).
@@ -1175,6 +1442,8 @@ class ExerciseCatalog {
         BranchId.legs => warmupHipCircles,
         BranchId.balance => warmupWristCircles,
         BranchId.flex => warmupLegSwings,
+        BranchId.posture => warmupHipCircles,
+        BranchId.neck => warmupNeckRolls,
       };
 
   /// Returns the cooldown exercise(s) for the given [branch].
@@ -1185,5 +1454,7 @@ class ExerciseCatalog {
         BranchId.legs => [cooldownQuadStretch, cooldownHipFlexor],
         BranchId.balance => [cooldownDownwardDog],
         BranchId.flex => [cooldownCatCow],
+        BranchId.posture => [cooldownHipFlexor, cooldownQuadStretch],
+        BranchId.neck => [cooldownCatCow, cooldownShoulderStretch],
       };
 }

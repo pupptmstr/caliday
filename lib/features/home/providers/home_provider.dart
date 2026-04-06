@@ -8,18 +8,26 @@ import '../../../data/repositories/user_repository.dart';
 import '../../../data/repositories/workout_repository.dart';
 import '../../../domain/services/streak_service.dart';
 
-/// Snapshot of the data the Home screen needs.
+/// Currently active course on the Home screen (last selected by the user).
+/// Initialized from [UserProfile.activeCourse] and persisted on change.
+final activeCourseProvider = StateProvider<CourseId>((ref) {
+  return ref.read(userRepositoryProvider).getProfile().activeCourse;
+});
+
+/// Snapshot of the data the Home / Library screen needs.
 class HomeData {
   const HomeData({
     required this.profile,
     required this.progressMap,
     required this.hasWorkoutToday,
     required this.displayStreak,
+    required this.activeCourse,
   });
 
   final UserProfile profile;
   final Map<BranchId, SkillProgress> progressMap;
   final bool hasWorkoutToday;
+  final CourseId activeCourse;
 
   /// Streak value to show in the UI.
   ///
@@ -31,8 +39,9 @@ class HomeData {
   /// - otherwise                              → 0 (streak is already gone)
   final int displayStreak;
 
-  /// Active branches for this user, from [UserProfile.activeBranches].
-  List<BranchId> get activeBranches => profile.activeBranches;
+  /// Branches for the currently active course.
+  List<BranchId> get activeBranches =>
+      profile.branchesForCourse(activeCourse);
 }
 
 /// Reads all home-screen data from repositories in one shot.
@@ -44,11 +53,13 @@ final homeDataProvider = Provider.autoDispose<HomeData>((ref) {
   final userRepo = ref.watch(userRepositoryProvider);
   final progressRepo = ref.watch(skillProgressRepositoryProvider);
   final workoutRepo = ref.watch(workoutRepositoryProvider);
+  final course = ref.watch(activeCourseProvider);
 
   final profile = userRepo.getProfile();
+  final courseBranches = profile.branchesForCourse(course);
   final progressMap = <BranchId, SkillProgress>{
-    for (final branch in profile.activeBranches)
-      branch: progressRepo.getProgress(branch),
+    for (final branch in courseBranches)
+      branch: progressRepo.getProgress(branch, course: course),
   };
 
   return HomeData(
@@ -56,5 +67,6 @@ final homeDataProvider = Provider.autoDispose<HomeData>((ref) {
     progressMap: progressMap,
     hasWorkoutToday: workoutRepo.hasWorkoutToday(),
     displayStreak: ref.read(displayStreakProvider),
+    activeCourse: course,
   );
 });

@@ -96,6 +96,10 @@ class AchievementService {
         check('balance_complete', newStage >= BranchId.balance.stageCount);
       case BranchId.flex:
         check('flex_complete', newStage >= BranchId.flex.stageCount);
+      case BranchId.posture:
+      case BranchId.neck:
+        // No achievements defined yet for Healthy Body branches.
+        break;
     }
 
     // all_complete: every branch at max stage

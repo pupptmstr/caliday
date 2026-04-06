@@ -1,6 +1,7 @@
 import 'package:hive/hive.dart';
 
 import 'enums.dart';
+import '../static/course_catalog.dart';
 
 part 'user_profile.g.dart';
 
@@ -33,6 +34,8 @@ class UserProfile extends HiveObject {
     this.peerId,
     this.displayName,
     this.bleDiscoverable,
+    this.activeCourseIds,
+    this.activeCourseIndex,
   });
 
   @HiveField(0)
@@ -132,13 +135,49 @@ class UserProfile extends HiveObject {
   @HiveField(23)
   bool? bleDiscoverable;
 
-  /// Ordered list of branches active for this user.
-  List<BranchId> get activeBranches => [
-        BranchId.push,
-        if (hasPullUpBar == true) BranchId.pull,
-        BranchId.core,
-        BranchId.legs,
-        BranchId.balance,
-        BranchId.flex,
-      ];
+  /// Indices of enrolled [CourseId]s. null → [0] (calisthenics, legacy users).
+  @HiveField(24)
+  List<int>? activeCourseIds;
+
+  /// Index within [enrolledCourses] that is currently active on the Home screen.
+  /// null → 0 (first enrolled course).
+  @HiveField(25)
+  int? activeCourseIndex;
+
+  // ── Computed helpers ────────────────────────────────────────────────────────
+
+  List<CourseId> get enrolledCourses {
+    final ids = activeCourseIds;
+    if (ids == null || ids.isEmpty) return [CourseId.calisthenics];
+    return ids
+        .where((i) => i >= 0 && i < CourseId.values.length)
+        .map((i) => CourseId.values[i])
+        .toList();
+  }
+
+  CourseId get activeCourse {
+    final courses = enrolledCourses;
+    final idx = activeCourseIndex ?? 0;
+    if (idx < 0 || idx >= courses.length) return courses.first;
+    return courses[idx];
+  }
+
+  List<BranchId> branchesForCourse(CourseId course) {
+    final branches = CourseCatalog.branchesFor(course);
+    if (hasPullUpBar != true) {
+      return branches.where((b) => !b.requiresEquipment).toList();
+    }
+    return branches;
+  }
+
+  /// All active branches across all enrolled courses (deduped), for QR/stats.
+  List<BranchId> get activeBranches {
+    final result = <BranchId>[];
+    for (final course in enrolledCourses) {
+      for (final b in branchesForCourse(course)) {
+        if (!result.contains(b)) result.add(b);
+      }
+    }
+    return result;
+  }
 }

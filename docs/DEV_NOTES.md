@@ -153,6 +153,94 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 ---
 
+### v1.6 — Exercise Library (Tags + Search) — designed
+
+#### Concept
+
+A searchable, filterable catalog of all exercises from all courses. Accessible via a search entry
+point at the bottom of the Library tab. Exercises are tagged with semantic labels (muscle groups,
+type of load, context) enabling custom workout building in v1.7.
+
+#### ExerciseTag enum (NOT Hive-stored — static only)
+
+```dart
+enum ExerciseTag {
+  // Muscle groups
+  hipFlexor, glutes, core, chest, back, shoulders, legs, neck,
+  // Load type
+  stretch, mobility, strength, endurance,
+  // Context
+  sittingRecovery, floorOnly, requiresBar,
+  // Program context
+  postureFocus, beginner,
+}
+```
+
+`Exercise` model gets `tags: List<ExerciseTag>` field (default `const []`).
+All exercises in `exercise_catalog.dart` need tags added manually.
+
+#### UX
+
+- Entry point: search bar at bottom of Library tab → full-screen `/library/exercises`.
+- Top: search field + horizontally scrollable tag chips.
+- Body: 2-column card grid with exercise name, branch badge, Lottie thumbnail (if available).
+- Tap card → `ExerciseDetailSheet` (BottomSheet): full animation, tags, branch/course membership,
+  button "Add to My Workout" (→ v1.7 Custom Workout Builder).
+
+#### Technical Tasks
+
+| # | Task |
+|---|------|
+| 1 | Add `ExerciseTag` enum to `lib/data/models/enums.dart` (no Hive annotation needed) |
+| 2 | Add `tags` field to `Exercise` model |
+| 3 | Tag all exercises in `exercise_catalog.dart` |
+| 4 | `LibraryExercisesScreen` + `LibraryExercisesProvider` (filter/search logic) |
+| 5 | `ExerciseDetailSheet` widget |
+| 6 | Route `/library/exercises` in `app_router.dart` |
+| 7 | Search entry point in `LibraryScreen` (button/bar at bottom) |
+
+---
+
+### v1.7 — Custom Workouts — designed
+
+#### Concept
+
+User-assembled workouts that run outside course progression. Two flows:
+- **Quick Routine**: tap a tag → app picks 4–6 exercises → run immediately as bonus workout.
+- **Saved Routine**: browse exercises, assemble a named routine, save, run anytime.
+
+Both types run as bonus workouts (`isPrimary = false`, ×0.5 SP, no stage progression).
+`WorkoutLog.courseIdIndex` = null for custom workouts (or a dedicated sentinel value).
+
+#### Data Model
+
+```dart
+@HiveType(typeId: 11)
+class CustomRoutine {
+  @HiveField(0) String id;           // uuid
+  @HiveField(1) String name;
+  @HiveField(2) List<String> exerciseIds;  // refs to Exercise.id in catalog
+  @HiveField(3) DateTime createdAt;
+  @HiveField(4) DateTime? lastRunAt;
+}
+```
+
+Box: `'custom_routines'` — `Box<CustomRoutine>`.
+
+#### Technical Tasks
+
+| # | Task |
+|---|------|
+| 1 | `CustomRoutine` model + adapter + `custom_routines` box init in `main.dart` |
+| 2 | `CustomRoutineRepository` |
+| 3 | `WorkoutGeneratorService.fromExerciseIds(ids)` → `WorkoutPlan` |
+| 4 | `CustomRoutineBuilderScreen` (`/library/routine-builder`) |
+| 5 | Quick Routine flow: tag selection → auto-pick → WorkoutPlan |
+| 6 | My Routines section in Library tab (below course branches) |
+| 7 | HomeScreen: secondary "Custom Workout" button (small, below main CTA) |
+
+---
+
 ### Lottie Animations for Core Branch — waiting for designer assets
 
 6 animations (core_s1..s6). Format: Lottie JSON in `assets/animations/`.
@@ -240,6 +328,41 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 ---
 
 ## Change History
+
+### 2026-04-06 — Multi-Course System v1.5 (Calisthenics + Healthy Body)
+
+**What was done:** Implemented the full multi-course system. Added `CourseId` enum (typeId 10), `posture` and `neck` BranchId values (HiveField 6/7), course-scoped SkillProgress keys (`${courseId}_${branchId}`), Library tab replacing Progress tab, updated onboarding with course selection, and new exercise catalog entries for posture (6 stages) and neck (5 stages) branches.
+
+**New files:**
+- `lib/data/static/course_catalog.dart` — `CourseCatalog.branchesFor(CourseId)`
+- `lib/features/library/screens/library_screen.dart` — Library tab: course pills, branch progress cards, challenge cards
+
+**Modified files:**
+- `lib/data/models/enums.dart` — `CourseId` enum + `CourseIdExtension`; `BranchId` gains `posture`/`neck` values; `BranchIdExtension` updated for all 8 branches
+- `lib/data/models/enums.g.dart` — manually updated: BranchIdAdapter cases 6/7; new CourseIdAdapter (typeId 10)
+- `lib/data/models/user_profile.dart` — `@HiveField(24) activeCourseIds`, `@HiveField(25) activeCourseIndex`; computed `enrolledCourses`, `activeCourse`, `branchesForCourse()`
+- `lib/data/models/user_profile.g.dart` — manually updated writeByte 20→22; fields 24/25 added
+- `lib/data/models/workout_log.dart` — `@HiveField(6) courseIdIndex`
+- `lib/data/models/workout_log.g.dart` — manually updated writeByte 6→7; field 6 added
+- `lib/data/repositories/skill_progress_repository.dart` — course-scoped key `_key(branch, course)`; all methods accept `{CourseId course}`; `migrateToCourseScopedKeys()`
+- `lib/data/static/exercise_catalog.dart` — posture (6) + neck (5) exercises + `warmupNeckRolls`; updated `progressionFor`, `warmupFor`, `cooldownsFor`
+- `lib/domain/services/workout_generator_service.dart` — `generateDailyForCourse()` method
+- `lib/features/home/providers/home_provider.dart` — `activeCourseProvider`; `HomeData` includes `activeCourse`
+- `lib/features/workout/providers/workout_provider.dart` — reads `activeCourseProvider`, calls `generateDailyForCourse`, saves `courseIdIndex` in WorkoutLog
+- `lib/features/onboarding/providers/onboarding_provider.dart` — replaced `FitnessGoal` with `selectedCourseIds`; added course-scoped init
+- `lib/features/onboarding/screens/onboarding_screen.dart` — `_CourseStep` replaces `_GoalStep`
+- `lib/core/router/app_router.dart` — `/library` route + `navLibrary` label replaces `/progress`
+- `lib/core/extensions/exercise_l10n.dart` — posture/neck exercise keys added
+- `l10n/app_ru.arb` + `l10n/app_en.arb` — all new keys: navLibrary, libraryTitle, courseNameCalisthenics/healthyBody, onboardingQ4Courses, homeBranchPosture/Neck, all posture/neck exercise keys
+- `lib/main.dart` — `CourseIdAdapter` registration; `migrateToCourseScopedKeys()` call
+- `lib/domain/services/achievement_service.dart` — posture/neck branch cases added (no-op)
+- `lib/features/settings/screens/developer_options_screen.dart` — posture/neck in branch switch expressions
+
+**Key issues and solutions:**
+- **SkillProgress key migration:** old keys were bare branch names (`"push"`); new keys are course-scoped (`"calisthenics_push"`). Migration runs at startup (idempotent: skips already-migrated keys). Flex is special — mapped to `"calisthenics_flex"` since it's part of the Calisthenics course.
+- **exercise_l10n.dart vs ARB key mismatch:** The previous session wrote `exercise_l10n.dart` with exercise IDs based on the catalog (`posture_s2_dead_bug` → `exercisePostureS2DeadBugName`), but I initially added wrong ARB keys (`exercisePostureS2GluteRaiseName`). Fixed by aligning ARB keys to match catalog IDs.
+- **`homeDataProvider` undefined:** `workout_provider.dart` imported only `activeCourseProvider` via `show`. Fixed by adding `homeDataProvider` to the `show` clause.
+- **CourseIdAdapter registration:** `CourseId` is a new Hive type (typeId 10) — must be registered before any box is opened. Added to `main.dart` adapter chain.
 
 ### 2026-04-06 — Lottie animations: Legs warmup/cooldown accessories (Block E complete)
 

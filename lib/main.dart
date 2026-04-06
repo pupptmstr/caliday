@@ -20,6 +20,7 @@ import 'data/models/friend_profile.dart';
 import 'data/models/skill_progress.dart';
 import 'data/models/user_profile.dart';
 import 'data/models/workout_log.dart';
+import 'data/repositories/skill_progress_repository.dart';
 import 'data/repositories/user_repository.dart';
 import 'data/repositories/workout_repository.dart';
 import 'domain/services/streak_service.dart';
@@ -39,6 +40,7 @@ Future<void> main() async {
   Hive
     ..registerAdapter(RankAdapter())
     ..registerAdapter(BranchIdAdapter())
+    ..registerAdapter(CourseIdAdapter())
     ..registerAdapter(SetTypeAdapter())
     ..registerAdapter(ExerciseTypeAdapter())
     ..registerAdapter(FitnessGoalAdapter())
@@ -56,6 +58,9 @@ Future<void> main() async {
     Hive.openBox<DateTime>('achievements'),
     Hive.openBox<FriendProfile>('friends'),
   ]);
+
+  // Migrate bare SkillProgress keys ("push") → course-scoped ("calisthenics_push").
+  await SkillProgressRepository().migrateToCourseScopedKeys();
 
   runApp(const ProviderScope(child: CaliDayApp()));
 }

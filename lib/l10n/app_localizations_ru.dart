@@ -22,10 +22,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get navHome => 'Тренировка';
 
   @override
-  String get navProgress => 'Прогресс';
+  String get navLibrary => 'Курсы';
 
   @override
   String get navProfile => 'Профиль';
+
+  @override
+  String get libraryTitle => 'Библиотека';
 
   @override
   String get progressTitle => 'Мой прогресс';
@@ -54,6 +57,36 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get homeBranchBalance => 'Баланс';
+
+  @override
+  String get homeBranchFlex => 'Гибкость';
+
+  @override
+  String get homeBranchPosture => 'Осанка';
+
+  @override
+  String get homeBranchNeck => 'Шея';
+
+  @override
+  String get courseNameCalisthenics => 'Калистеника';
+
+  @override
+  String get courseNameHealthyBody => 'Здоровое тело';
+
+  @override
+  String get courseDescCalisthenics =>
+      'Базовые упражнения с весом тела — от простого к сложному. Сила, выносливость, контроль.';
+
+  @override
+  String get courseDescHealthyBody =>
+      'Упражнения для тех, кто много сидит. Осанка, шея, гибкость — без нагрузки на суставы.';
+
+  @override
+  String get onboardingQ4Courses => 'Выбери курс';
+
+  @override
+  String get onboardingQ4CoursesBody =>
+      'Можно начать с одного или взять оба сразу — программы независимы.';
 
   @override
   String branchJourneyProgress(int done, int total) {
@@ -1053,18 +1086,18 @@ class AppLocalizationsRu extends AppLocalizations {
       'Стоя на одной ноге, согни вторую назад и удержи стопу рукой. Почувствуй растяжку передней поверхности бедра.';
 
   @override
-  String get exerciseWarmupHipCirclesName => 'Hip Circles';
+  String get exerciseWarmupHipCirclesName => 'Вращения тазом';
 
   @override
   String get exerciseWarmupHipCirclesDesc =>
-      'Stand with feet shoulder-width apart and rotate your hips in large circles. Warms up the hip joints before leg exercises.';
+      'Стоя, ноги на ширине плеч. Делай медленные круговые движения тазом по часовой и против часовой стрелки. Разогревает тазобедренный сустав.';
 
   @override
-  String get exerciseCooldownHipFlexorName => 'Hip Flexor Stretch';
+  String get exerciseCooldownHipFlexorName => 'Растяжка сгибателей бедра';
 
   @override
   String get exerciseCooldownHipFlexorDesc =>
-      'Step into a lunge position. Lower your back knee to the floor and push your hips forward. Hold for 30 seconds per side.';
+      'Встань в выпад, опусти заднее колено на пол. Выдвинь таз вперёд-вниз, почувствуй растяжку в паху. Удержи каждую сторону.';
 
   @override
   String get exerciseBalS1OneLegStandName => 'Стойка на одной ноге';
@@ -1147,11 +1180,11 @@ class AppLocalizationsRu extends AppLocalizations {
       'На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног.';
 
   @override
-  String get exerciseCooldownWristStretchName => 'Wrist Stretch';
+  String get exerciseCooldownWristStretchName => 'Растяжка запястий';
 
   @override
   String get exerciseCooldownWristStretchDesc =>
-      'Extend one arm forward, palm up. Use your other hand to gently pull the fingers down. Hold for 30 seconds per side.';
+      'Вытяни одну руку вперёд ладонью вверх. Другой рукой мягко потяни пальцы вниз. Удержи 30 секунд на каждую руку.';
 
   @override
   String get aboutTitle => 'О приложении';
@@ -1305,9 +1338,6 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
-  String get homeBranchFlex => 'Гибкость';
-
-  @override
   String get exerciseFlexS1HipFlexorStretchName => 'Растяжка сгибателей бедра';
 
   @override
@@ -1458,6 +1488,135 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get exerciseSuppWristCirclesDesc =>
       'Сожми руки в кулаки и медленно вращай запястьями по часовой и против часовой стрелки. Укрепляет предплечья и сухожилия.';
+
+  @override
+  String get exerciseWarmupNeckRollsName => 'Вращения шеей';
+
+  @override
+  String get exerciseWarmupNeckRollsDesc =>
+      'Медленно наклоняй голову вперёд-назад и в стороны, затем плавный полукруг от плеча к плечу. Разогревает мышцы шеи.';
+
+  @override
+  String get exercisePostureS1PelvicTiltName => 'Наклон таза лёжа';
+
+  @override
+  String get exercisePostureS1PelvicTiltDesc =>
+      'Лёжа на спине, колени согнуты. Медленно прижимай поясницу к полу, напрягая живот. Удержи 5 секунд, расслабь.';
+
+  @override
+  String get exercisePostureS1PelvicTiltTip =>
+      'Не задерживай дыхание — работай плавно.';
+
+  @override
+  String get exercisePostureS2DeadBugName => 'Мёртвый жук';
+
+  @override
+  String get exercisePostureS2DeadBugDesc =>
+      'Лёжа на спине, руки вертикально вверх, колени 90°. Одновременно опускай правую руку назад и выпрямляй левую ногу — не давай пояснице оторваться от пола.';
+
+  @override
+  String get exercisePostureS2DeadBugTip =>
+      'Двигайся медленно — это контроль, а не скорость. Поясница прижата к полу всё время.';
+
+  @override
+  String get exercisePostureS3GluteBridgeName => 'Ягодичный мостик';
+
+  @override
+  String get exercisePostureS3GluteBridgeDesc =>
+      'Лёжа на спине, колени согнуты, стопы на полу. Поднимай бёдра вверх, сжимая ягодицы. Удержи секунду наверху, опусти.';
+
+  @override
+  String get exercisePostureS3GluteBridgeTip =>
+      'Сжимай ягодицы в верхней точке — не толкай поясницей.';
+
+  @override
+  String get exercisePostureS4HipMarchName => 'Шагание на месте';
+
+  @override
+  String get exercisePostureS4HipMarchDesc =>
+      'Стоя прямо, медленно поднимай одно колено до уровня бедра, опусти. Чередуй стороны. Держи корпус неподвижным.';
+
+  @override
+  String get exercisePostureS4HipMarchTip =>
+      'Поднимай колено до уровня бедра без наклона корпуса — сгибатель бедра работает, а не инерция.';
+
+  @override
+  String get exercisePostureS5KneelingLungeName =>
+      'Растяжка сгибателей бедра в выпаде';
+
+  @override
+  String get exercisePostureS5KneelingLungeDesc =>
+      'Встань в выпад, опусти заднее колено на пол, другая нога впереди. Выдвигай бёдра вперёд до ощущения растяжки в паху задней ноги. Удержи.';
+
+  @override
+  String get exercisePostureS5KneelingLungeTip =>
+      'Держи спину прямо и мягко подтяни таз под себя, чтобы углубить растяжку.';
+
+  @override
+  String get exercisePostureS6PigeonPoseName => 'Поза голубя';
+
+  @override
+  String get exercisePostureS6PigeonPoseDesc =>
+      'Из положения на четвереньках вынеси правую ногу вперёд, согни под углом 90°. Левая нога вытянута назад. Опусти бёдра вниз и удержи позицию.';
+
+  @override
+  String get exercisePostureS6PigeonPoseTip =>
+      'Дыши глубоко — поза раскрывает тазобедренный сустав постепенно.';
+
+  @override
+  String get exerciseNeckS1NeckTiltName => 'Наклоны шеи';
+
+  @override
+  String get exerciseNeckS1NeckTiltDesc =>
+      'Медленно наклоняй голову к правому плечу — без подъёма плеча. Удержи 5 секунд, вернись. Поочерёдно.';
+
+  @override
+  String get exerciseNeckS1NeckTiltTip =>
+      'Плечо тянется вниз — так растяжка глубже.';
+
+  @override
+  String get exerciseNeckS2ChestOpenerName => 'Раскрытие груди';
+
+  @override
+  String get exerciseNeckS2ChestOpenerDesc =>
+      'Стоя прямо, сцепи руки за спиной. Сведи лопатки вместе и мягко подними руки, раскрывая грудь.';
+
+  @override
+  String get exerciseNeckS2ChestOpenerTip =>
+      'Сжимай лопатки — не прогибай поясницу.';
+
+  @override
+  String get exerciseNeckS3ShoulderRollName => 'Вращения плечами';
+
+  @override
+  String get exerciseNeckS3ShoulderRollDesc =>
+      'Делай большие медленные круги плечами — 5 раз вперёд, затем 5 раз назад. Шея расслаблена на протяжении всего упражнения.';
+
+  @override
+  String get exerciseNeckS3ShoulderRollTip =>
+      'Делай круги как можно большими — преувеличивай движение.';
+
+  @override
+  String get exerciseNeckS4WallAngelName => 'Ангел у стены';
+
+  @override
+  String get exerciseNeckS4WallAngelDesc =>
+      'Встань спиной к стене, прижав спину, голову и руки к поверхности. Медленно поднимай руки вверх над головой, не отрывая их от стены. Опусти.';
+
+  @override
+  String get exerciseNeckS4WallAngelTip =>
+      'Поясница прижата к стене всё время — это сложнее, чем кажется.';
+
+  @override
+  String get exerciseNeckS5DoorwayStretchName => 'Растяжка в дверном проёме';
+
+  @override
+  String get exerciseNeckS5DoorwayStretchDesc =>
+      'Встань в дверной проём, обе руки согнуты под 90° на уровне плеч, предплечья упираются в косяки. Медленно выдвинь грудь вперёд. Удержи 30 секунд.';
+
+  @override
+  String get exerciseNeckS5DoorwayStretchTip =>
+      'Лопатки вместе — раскрытие грудного отдела в полную силу.';
 
   @override
   String get tooltipStreakTitle => 'Текущая серия';
