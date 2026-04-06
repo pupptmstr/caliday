@@ -14,15 +14,22 @@ import '../../../data/static/exercise_catalog.dart';
 import '../../home/providers/home_provider.dart';
 import '../../workout/providers/workout_provider.dart';
 
+/// Reactive list of enrolled courses — invalidated after enrollment changes
+/// so that LibraryScreen rebuilds immediately.
+final enrolledCoursesProvider = Provider<List<CourseId>>((ref) {
+  return ref.watch(userRepositoryProvider).getProfile().enrolledCourses;
+});
+
 class LibraryScreen extends ConsumerWidget {
   const LibraryScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final l10n = context.l10n;
-    final profile = ref.watch(userRepositoryProvider).getProfile();
-    final enrolledCourses = profile.enrolledCourses;
+    // Watch enrolledCoursesProvider so the screen rebuilds after enrollment changes.
+    final enrolledCourses = ref.watch(enrolledCoursesProvider);
     final activeCourse = ref.watch(activeCourseProvider);
+    final profile = ref.read(userRepositoryProvider).getProfile();
     final progressRepo = ref.watch(skillProgressRepositoryProvider);
 
     final courseBranches = profile.branchesForCourse(activeCourse);
@@ -34,33 +41,24 @@ class LibraryScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.libraryTitle),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.add),
-            tooltip: l10n.onboardingQ4Courses,
-            onPressed: () => _showCourseSheet(context, ref, profile),
-          ),
-        ],
       ),
       body: SafeArea(
         child: Column(
           children: [
-            // ── Course tab pills ─────────────────────────────────────────
-            if (enrolledCourses.length > 1) ...[
-              const SizedBox(height: 8),
-              _CoursePills(
-                courses: enrolledCourses,
-                active: activeCourse,
-                onSelect: (course) {
-                  ref.read(activeCourseProvider.notifier).state = course;
-                  final updatedProfile = profile;
-                  final idx = enrolledCourses.indexOf(course);
-                  updatedProfile.activeCourseIndex = idx;
-                  ref.read(userRepositoryProvider).saveProfile(updatedProfile);
-                },
-              ),
-              const SizedBox(height: 4),
-            ],
+            // ── Course pills + add button (always visible) ───────────────
+            const SizedBox(height: 8),
+            _CoursePillsRow(
+              courses: enrolledCourses,
+              active: activeCourse,
+              onSelect: (course) {
+                ref.read(activeCourseProvider.notifier).state = course;
+                final idx = enrolledCourses.indexOf(course);
+                profile.activeCourseIndex = idx;
+                ref.read(userRepositoryProvider).saveProfile(profile);
+              },
+              onAdd: () => _showCourseSheet(context, ref, profile),
+            ),
+            const SizedBox(height: 4),
 
             // ── Branch list + challenges ─────────────────────────────────
             Expanded(
@@ -160,7 +158,7 @@ class LibraryScreen extends ConsumerWidget {
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (_) => _CourseEnrollSheet(profile: profile, ref: ref),
+      builder: (_) => _CourseEnrollSheet(profile: profile),
     );
   }
 }
@@ -168,10 +166,9 @@ class LibraryScreen extends ConsumerWidget {
 // ── Course enroll bottom sheet ────────────────────────────────────────────────
 
 class _CourseEnrollSheet extends ConsumerStatefulWidget {
-  const _CourseEnrollSheet({required this.profile, required this.ref});
+  const _CourseEnrollSheet({required this.profile});
 
   final UserProfile profile;
-  final WidgetRef ref;
 
   @override
   ConsumerState<_CourseEnrollSheet> createState() => _CourseEnrollSheetState();
@@ -202,14 +199,16 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
     profile.activeCourseIds = newIds;
 
     // If the currently active course was removed, reset to first.
-    final activeCourse = widget.ref.read(activeCourseProvider);
+    final activeCourse = ref.read(activeCourseProvider);
     if (!_selected.contains(activeCourse)) {
       profile.activeCourseIndex = 0;
-      widget.ref.read(activeCourseProvider.notifier).state = _selected.first;
+      ref.read(activeCourseProvider.notifier).state = _selected.first;
     }
 
-    await widget.ref.read(userRepositoryProvider).saveProfile(profile);
-    widget.ref.invalidate(homeDataProvider);
+    await ref.read(userRepositoryProvider).saveProfile(profile);
+    // Invalidate so LibraryScreen rebuilds with updated enrollment.
+    ref.invalidate(enrolledCoursesProvider);
+    ref.invalidate(homeDataProvider);
 
     if (mounted) Navigator.of(context).pop();
   }
@@ -358,18 +357,20 @@ class _CourseOptionTile extends StatelessWidget {
   }
 }
 
-// ── Course pill tabs ──────────────────────────────────────────────────────────
+// ── Course pills row (always visible) ────────────────────────────────────────
 
-class _CoursePills extends StatelessWidget {
-  const _CoursePills({
+class _CoursePillsRow extends StatelessWidget {
+  const _CoursePillsRow({
     required this.courses,
     required this.active,
     required this.onSelect,
+    required this.onAdd,
   });
 
   final List<CourseId> courses;
   final CourseId active;
   final void Function(CourseId) onSelect;
+  final VoidCallback onAdd;
 
   @override
   Widget build(BuildContext context) {
@@ -379,35 +380,50 @@ class _CoursePills extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
-        children: courses.map((course) {
-          final selected = course == active;
-          return Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: GestureDetector(
-              onTap: () => onSelect(course),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 180),
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16, vertical: 8),
-                decoration: BoxDecoration(
-                  color:
-                      selected ? scheme.primary : scheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: Text(
-                  course.localizedName(l10n),
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+        children: [
+          ...courses.map((course) {
+            final selected = course == active;
+            return Padding(
+              padding: const EdgeInsets.only(right: 8),
+              child: GestureDetector(
+                onTap: () => onSelect(course),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 180),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 8),
+                  decoration: BoxDecoration(
                     color: selected
-                        ? scheme.onPrimary
-                        : scheme.onSurfaceVariant,
+                        ? scheme.primary
+                        : scheme.surfaceContainerHighest,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    course.localizedName(l10n),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: selected
+                          ? scheme.onPrimary
+                          : scheme.onSurfaceVariant,
+                    ),
                   ),
                 ),
               ),
+            );
+          }),
+          // Add course button
+          GestureDetector(
+            onTap: onAdd,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: scheme.surfaceContainerHighest,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Icon(Icons.add, size: 18, color: scheme.onSurfaceVariant),
             ),
-          );
-        }).toList(),
+          ),
+        ],
       ),
     );
   }
