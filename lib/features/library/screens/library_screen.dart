@@ -614,66 +614,18 @@ class _MyRoutinesSection extends ConsumerWidget {
                   .titleMedium
                   ?.copyWith(fontWeight: FontWeight.w700),
             ),
-            Row(
-              children: [
-                // Quick Routine button
-                GestureDetector(
-                  onTap: () => _showQuickRoutineSheet(context, ref),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: scheme.secondaryContainer,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.bolt,
-                            size: 16,
-                            color: scheme.onSecondaryContainer),
-                        const SizedBox(width: 4),
-                        Text(
-                          l10n.customWorkoutQuickRoutine,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: scheme.onSecondaryContainer,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+            GestureDetector(
+              onTap: () => _showAddSheet(context, ref),
+              child: Container(
+                width: 32,
+                height: 32,
+                decoration: BoxDecoration(
+                  color: scheme.primaryContainer,
+                  shape: BoxShape.circle,
                 ),
-                const SizedBox(width: 8),
-                // New Routine button
-                GestureDetector(
-                  onTap: () => context.push('/library/routine-builder'),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: scheme.primaryContainer,
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(Icons.add,
-                            size: 16,
-                            color: scheme.onPrimaryContainer),
-                        const SizedBox(width: 4),
-                        Text(
-                          l10n.customWorkoutNewRoutine,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: scheme.onPrimaryContainer,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ],
+                child: Icon(Icons.add,
+                    size: 20, color: scheme.onPrimaryContainer),
+              ),
             ),
           ],
         ),
@@ -704,14 +656,148 @@ class _MyRoutinesSection extends ConsumerWidget {
     );
   }
 
-  void _showQuickRoutineSheet(BuildContext context, WidgetRef ref) {
+  void _showAddSheet(BuildContext context, WidgetRef ref) {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
-      builder: (_) => _QuickRoutineSheet(),
+      builder: (_) => _AddRoutineSheet(ref: ref),
+    );
+  }
+}
+
+// ── Add Routine choice sheet ──────────────────────────────────────────────────
+
+class _AddRoutineSheet extends StatelessWidget {
+  const _AddRoutineSheet({required this.ref});
+  final WidgetRef ref;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              width: 36,
+              height: 4,
+              decoration: BoxDecoration(
+                color: scheme.outlineVariant,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          const SizedBox(height: 20),
+          // Quick Routine option
+          _OptionTile(
+            icon: Icons.bolt,
+            title: l10n.customWorkoutQuickRoutine,
+            subtitle: l10n.customWorkoutQuickRoutineDesc,
+            color: scheme.secondaryContainer,
+            iconColor: scheme.onSecondaryContainer,
+            onTap: () {
+              Navigator.of(context).pop();
+              showModalBottomSheet<void>(
+                context: context,
+                isScrollControlled: true,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+                ),
+                builder: (_) => _QuickRoutineSheet(),
+              );
+            },
+          ),
+          const SizedBox(height: 10),
+          // New Routine option
+          _OptionTile(
+            icon: Icons.tune,
+            title: l10n.customWorkoutNewRoutine,
+            subtitle: l10n.customWorkoutBuilderDesc,
+            color: scheme.primaryContainer,
+            iconColor: scheme.onPrimaryContainer,
+            onTap: () {
+              Navigator.of(context).pop();
+              context.push('/library/routine-builder');
+            },
+          ),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+}
+
+class _OptionTile extends StatelessWidget {
+  const _OptionTile({
+    required this.icon,
+    required this.title,
+    required this.subtitle,
+    required this.color,
+    required this.iconColor,
+    required this.onTap,
+  });
+
+  final IconData icon;
+  final String title;
+  final String subtitle;
+  final Color color;
+  final Color iconColor;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Material(
+      color: scheme.surfaceContainerHighest,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          child: Row(
+            children: [
+              Container(
+                width: 40,
+                height: 40,
+                decoration: BoxDecoration(
+                  color: color,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(icon, size: 20, color: iconColor),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      title,
+                      style: const TextStyle(
+                          fontSize: 15, fontWeight: FontWeight.w700),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      subtitle,
+                      style: TextStyle(
+                          fontSize: 12, color: scheme.onSurfaceVariant),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(Icons.chevron_right, color: scheme.onSurfaceVariant),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -828,71 +914,57 @@ class _RoutineCard extends ConsumerWidget {
     final l10n = context.l10n;
     final scheme = Theme.of(context).colorScheme;
 
-    return Material(
-      color: scheme.surfaceContainerHighest,
-      borderRadius: BorderRadius.circular(16),
-      child: InkWell(
-        onTap: () =>
-            context.push('/library/routine-builder', extra: routine),
+    return Dismissible(
+      key: ValueKey(routine.id),
+      direction: DismissDirection.endToStart,
+      confirmDismiss: (_) => _confirmDelete(context, ref),
+      background: Container(
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 20),
+        decoration: BoxDecoration(
+          color: Colors.red.shade400,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: const Icon(Icons.delete_outline, color: Colors.white, size: 24),
+      ),
+      child: Material(
+        color: scheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(16),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      routine.name,
-                      style: const TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
+        child: InkWell(
+          onTap: () => _showStartSheet(context, ref),
+          onLongPress: null,
+          borderRadius: BorderRadius.circular(16),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        routine.name,
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 2),
-                    Text(
-                      l10n.customWorkoutExerciseCount(
-                          routine.exerciseIds.length),
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: scheme.onSurfaceVariant,
+                      const SizedBox(height: 2),
+                      Text(
+                        l10n.customWorkoutExerciseCount(
+                            routine.exerciseIds.length),
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: scheme.onSurfaceVariant,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              // Run button
-              GestureDetector(
-                onTap: () => _run(context, ref),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 8),
-                  decoration: BoxDecoration(
-                    gradient: AppTheme.heroGradient,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Text(
-                    l10n.customWorkoutStartNow,
-                    style: const TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
+                    ],
                   ),
                 ),
-              ),
-              const SizedBox(width: 8),
-              // Delete button
-              GestureDetector(
-                onTap: () => _confirmDelete(context, ref),
-                child: Icon(
-                  Icons.delete_outline,
-                  size: 20,
-                  color: scheme.onSurfaceVariant,
-                ),
-              ),
-            ],
+                Icon(Icons.chevron_right,
+                    size: 20, color: scheme.onSurfaceVariant),
+              ],
+            ),
           ),
         ),
       ),
@@ -907,25 +979,247 @@ class _RoutineCard extends ConsumerWidget {
     context.push('/workout');
   }
 
-  void _confirmDelete(BuildContext context, WidgetRef ref) {
-    showDialog<void>(
+  void _showStartSheet(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (ctx) => _RoutineDetailSheet(
+        routine: routine,
+        onStart: () {
+          Navigator.of(ctx).pop();
+          _run(context, ref);
+        },
+        onEdit: () {
+          Navigator.of(ctx).pop();
+          context.push('/library/routine-builder', extra: routine);
+        },
+        onDelete: () async {
+          Navigator.of(ctx).pop();
+          await _confirmDelete(context, ref);
+        },
+      ),
+    );
+  }
+
+  /// Returns true if the user confirmed deletion (used by swipe and delete button).
+  Future<bool> _confirmDelete(BuildContext context, WidgetRef ref) async {
+    final l10n = context.l10n;
+    final result = await showDialog<bool>(
       context: context,
       builder: (ctx) => AlertDialog(
         title: Text(routine.name),
-        content: Text('${context.l10n.customWorkoutDelete}?'),
+        content: Text('${l10n.customWorkoutDelete}?'),
         actions: [
           TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(context.l10n.friendsCancel),
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(l10n.friendsCancel),
           ),
           TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              ref.read(customRoutinesProvider.notifier).delete(routine.id);
-            },
-            child: Text(
-              context.l10n.customWorkoutDelete,
-              style: const TextStyle(color: Colors.red),
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: Text(l10n.customWorkoutDelete,
+                style: const TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+    if (result == true) {
+      ref.read(customRoutinesProvider.notifier).delete(routine.id);
+    }
+    return result ?? false;
+  }
+}
+
+// ── Routine detail bottom sheet ───────────────────────────────────────────────
+
+class _RoutineDetailSheet extends StatelessWidget {
+  const _RoutineDetailSheet({
+    required this.routine,
+    required this.onStart,
+    required this.onEdit,
+    required this.onDelete,
+  });
+
+  final CustomRoutine routine;
+  final VoidCallback onStart;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+
+    return DraggableScrollableSheet(
+      initialChildSize: 0.6,
+      minChildSize: 0.4,
+      maxChildSize: 0.92,
+      expand: false,
+      builder: (ctx, scrollCtrl) => Column(
+        children: [
+          // ── Handle + header ──────────────────────────────────────────────
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 12, 12, 0),
+            child: Column(
+              children: [
+                Center(
+                  child: Container(
+                    width: 36,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: scheme.outlineVariant,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        routine.name,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleLarge
+                            ?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(Icons.edit_outlined,
+                          color: scheme.onSurfaceVariant),
+                      tooltip: l10n.customWorkoutEdit,
+                      onPressed: onEdit,
+                    ),
+                    IconButton(
+                      icon: const Icon(Icons.delete_outline, color: Colors.red),
+                      tooltip: l10n.customWorkoutDelete,
+                      onPressed: onDelete,
+                    ),
+                  ],
+                ),
+                Text(
+                  l10n.customWorkoutExerciseCount(routine.exerciseIds.length),
+                  style:
+                      TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
+                ),
+                const SizedBox(height: 12),
+                Divider(height: 1, color: scheme.outlineVariant),
+              ],
+            ),
+          ),
+
+          // ── Exercise list ────────────────────────────────────────────────
+          Expanded(
+            child: ListView.builder(
+              controller: scrollCtrl,
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 8),
+              itemCount: routine.exerciseIds.length,
+              itemBuilder: (_, i) {
+                final id = routine.exerciseIds[i];
+                final tags = ExerciseTagsCatalog.forId(id);
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 6),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 28,
+                        height: 28,
+                        decoration: BoxDecoration(
+                          color: scheme.surfaceContainerHighest,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(
+                          child: Text(
+                            '${i + 1}',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w700,
+                              color: scheme.onSurfaceVariant,
+                            ),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              ExerciseL10n.name(l10n, id),
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            if (tags.isNotEmpty) ...[
+                              const SizedBox(height: 3),
+                              Wrap(
+                                spacing: 4,
+                                children: tags.take(3).map((tag) {
+                                  return Container(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 7, vertical: 2),
+                                    decoration: BoxDecoration(
+                                      color: tag.color.withAlpha(30),
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: Text(
+                                      tag.localizedName(l10n),
+                                      style: TextStyle(
+                                        fontSize: 11,
+                                        color: tag.color,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+
+          // ── Start button ─────────────────────────────────────────────────
+          SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(20, 8, 20, 16),
+              child: SizedBox(
+                width: double.infinity,
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    gradient: AppTheme.heroGradient,
+                    borderRadius: BorderRadius.circular(14),
+                  ),
+                  child: ElevatedButton(
+                    onPressed: onStart,
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.transparent,
+                      shadowColor: Colors.transparent,
+                      padding: const EdgeInsets.symmetric(vertical: 14),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(14),
+                      ),
+                    ),
+                    child: Text(
+                      l10n.customWorkoutStartNow,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w700,
+                        fontSize: 16,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],

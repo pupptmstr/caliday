@@ -32,6 +32,7 @@ class _CustomRoutineBuilderScreenState
   late final TextEditingController _nameCtrl;
   late List<String> _selectedIds;
   ExerciseTag? _filterTag;
+  final _nameFocus = FocusNode();
 
   @override
   void initState() {
@@ -43,6 +44,7 @@ class _CustomRoutineBuilderScreenState
   @override
   void dispose() {
     _nameCtrl.dispose();
+    _nameFocus.dispose();
     super.dispose();
   }
 
@@ -64,6 +66,24 @@ class _CustomRoutineBuilderScreenState
       if (_filterTag == null) return true;
       return item.tags.contains(_filterTag);
     }).toList();
+  }
+
+  /// Called from both the AppBar action and the bottom Save button.
+  /// Validates and either saves or focuses the missing field.
+  Future<void> _trySave() async {
+    if (_selectedIds.isEmpty) return;
+    if (_nameCtrl.text.trim().isEmpty) {
+      _nameFocus.requestFocus();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(context.l10n.customWorkoutNameRequired),
+          behavior: SnackBarBehavior.floating,
+          duration: const Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+    await _save();
   }
 
   Future<void> _save() async {
@@ -131,15 +151,13 @@ class _CustomRoutineBuilderScreenState
     final l10n = context.l10n;
     final scheme = Theme.of(context).colorScheme;
     final exercises = _filteredExercises;
-    final canSave = _nameCtrl.text.trim().isNotEmpty && _selectedIds.isNotEmpty;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(l10n.customWorkoutBuilderTitle),
         actions: [
           if (_selectedIds.isNotEmpty)
             TextButton(
-              onPressed: canSave ? _save : null,
+              onPressed: _trySave,
               child: Text(
                 l10n.customWorkoutSave,
                 style: const TextStyle(fontWeight: FontWeight.w700),
@@ -154,6 +172,7 @@ class _CustomRoutineBuilderScreenState
             padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
             child: TextField(
               controller: _nameCtrl,
+              focusNode: _nameFocus,
               onChanged: (_) => setState(() {}),
               decoration: InputDecoration(
                 hintText: l10n.customWorkoutNameHint,
@@ -247,12 +266,17 @@ class _CustomRoutineBuilderScreenState
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
-                    gradient: canSave ? AppTheme.heroGradient : null,
-                    color: canSave ? null : scheme.onSurface.withAlpha(30),
+                    gradient: _selectedIds.isNotEmpty
+                        ? AppTheme.heroGradient
+                        : null,
+                    color: _selectedIds.isNotEmpty
+                        ? null
+                        : scheme.onSurface.withAlpha(30),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: ElevatedButton(
-                    onPressed: canSave ? _save : null,
+                    onPressed:
+                        _selectedIds.isNotEmpty ? _trySave : null,
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.transparent,
                       shadowColor: Colors.transparent,
@@ -265,7 +289,9 @@ class _CustomRoutineBuilderScreenState
                       l10n.customWorkoutSave,
                       style: TextStyle(
                         fontWeight: FontWeight.w700,
-                        color: canSave ? Colors.white : scheme.onSurface.withAlpha(80),
+                        color: _selectedIds.isNotEmpty
+                            ? Colors.white
+                            : scheme.onSurface.withAlpha(80),
                       ),
                     ),
                   ),

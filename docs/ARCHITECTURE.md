@@ -156,8 +156,8 @@ Reps ↑ → Sets ↑ (with reps reset) → Rest ↓ → Challenge test → Next
 - **Bonus workouts** — multiple workouts per day are allowed (50% SP, progression does not advance)
 
 ### Primary vs Bonus Workout
-`WorkoutLog.isPrimary`: true = first of the day (full SP, advances progression); false = 50% SP.
-Determined at start: if a `WorkoutLog` already exists for today → `isPrimary = false`.
+`WorkoutLog.isPrimary`: true = first of the day (full SP, advances progression, counts toward streak); false = 50% SP.
+Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday()`. The first workout of the day is always primary — regardless of whether it is a daily plan or a custom routine. Custom-only users can build a streak this way. `courseIdIndex` is still `null` for custom routines (not tied to any course).
 
 ---
 
@@ -605,7 +605,7 @@ Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.ca
 - **Always invalidate `displayStreakProvider` before `homeDataProvider`** — `goroExpressionProvider` keeps it alive via `ref.watch`, so `homeDataProvider`'s `ref.read(displayStreakProvider)` would return a stale cached value otherwise
 - **`setHasPullUpBar` must invalidate `homeDataProvider`** — `activeBranches` is computed from `hasPullUpBar`; without invalidation Pull branch appears only after restart
 - `workoutProvider = StateNotifierProvider.autoDispose` — plan is generated on screen open
-- `customWorkoutPlanProvider = StateProvider<WorkoutPlan?>` — set before navigating to `/workout` for custom routines; takes priority over daily/challenge generation; always `isPrimary = false`, `courseIdIndex = null`; reset in `_finishWorkout`
+- `customWorkoutPlanProvider = StateProvider<WorkoutPlan?>` — set before navigating to `/workout` for custom routines; takes priority over daily/challenge generation; `courseIdIndex = null`; reset in `_finishWorkout`
 - Services mutate HiveObjects in place; persistence is the responsibility of the caller
 - `ExerciseResult.completedReps` = rep count from the **last** set (MVP)
 - Challenge in a bonus workout: `advanceStage` is called ALWAYS (regardless of `isPrimary`)
@@ -664,5 +664,6 @@ flutter build ipa                 # iOS archive
 | v1.6 | Exercise Library — ExerciseTag system, search + filter screen inside Library tab | ✅ |
 | v1.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | ✅ |
 | v2.x | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |
+| v2.x | Custom course builder — user picks branches (e.g. Push + Flex) to form a personal progression path, replacing the preset course list | 💡 idea |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea

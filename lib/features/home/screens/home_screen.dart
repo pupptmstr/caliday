@@ -7,6 +7,7 @@ import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/providers/goro_expression_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../data/models/enums.dart';
+import '../../../data/repositories/custom_routine_repository.dart';
 import '../../../data/static/exercise_catalog.dart';
 import '../../../data/static/exercise_tags_catalog.dart';
 import '../../../domain/services/workout_generator_service.dart';
@@ -40,24 +41,26 @@ class HomeScreen extends ConsumerWidget {
 
           // ── Bottom section ────────────────────────────────────────────────
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(24, 20, 24, 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  if (data.hasWorkoutToday) ...[
-                    _DoneMessage(scheme: scheme, l10n: l10n),
-                    const SizedBox(height: 16),
+            child: SafeArea(
+              top: false,
+              child: Padding(
+                padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    if (data.hasWorkoutToday) ...[
+                      _DoneMessage(scheme: scheme, l10n: l10n),
+                      const SizedBox(height: 16),
+                    ],
+                    const Spacer(),
+                    _WorkoutButton(
+                      done: data.hasWorkoutToday,
+                      onTap: () => context.push('/workout'),
+                    ),
+                    const SizedBox(height: 10),
+                    _CustomWorkoutButton(scheme: scheme),
                   ],
-                  const Spacer(),
-                  _WorkoutButton(
-                    done: data.hasWorkoutToday,
-                    onTap: () => context.push('/workout'),
-                  ),
-                  const SizedBox(height: 10),
-                  _CustomWorkoutButton(scheme: scheme),
-                  const SizedBox(height: 24),
-                ],
+                ),
               ),
             ),
           ),
@@ -418,6 +421,224 @@ class _HomeCustomSheet extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final routines = ref.watch(customRoutinesProvider);
+
+    if (routines.isEmpty) {
+      return _QuickRoutineTagPicker(onLaunch: (tag) {
+        Navigator.of(context).pop();
+        _launchQuick(context, ref, tag);
+      });
+    }
+
+    final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+
+    return DraggableScrollableSheet(
+      initialChildSize: 0.5,
+      minChildSize: 0.4,
+      maxChildSize: 0.85,
+      expand: false,
+      builder: (ctx, scrollCtrl) => Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ── Handle + title ─────────────────────────────────────────────
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 36,
+                    height: 4,
+                    decoration: BoxDecoration(
+                      color: scheme.outlineVariant,
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Text(
+                  l10n.customWorkoutMyRoutines,
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleLarge
+                      ?.copyWith(fontWeight: FontWeight.w700),
+                ),
+                const SizedBox(height: 12),
+                Divider(height: 1, color: scheme.outlineVariant),
+              ],
+            ),
+          ),
+
+          // ── Saved routines list ────────────────────────────────────────
+          Expanded(
+            child: ListView(
+              controller: scrollCtrl,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              children: [
+                for (final routine in routines)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Material(
+                      color: scheme.surfaceContainerHighest,
+                      borderRadius: BorderRadius.circular(14),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(14),
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          _launchRoutine(context, ref, routine.id);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 12),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      routine.name,
+                                      style: const TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                    const SizedBox(height: 2),
+                                    Text(
+                                      l10n.customWorkoutExerciseCount(
+                                          routine.exerciseIds.length),
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        color: scheme.onSurfaceVariant,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Icon(Icons.play_arrow_rounded,
+                                  color: scheme.primary),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+
+                // ── Quick Routine at the bottom ──────────────────────────
+                const SizedBox(height: 4),
+                Divider(height: 1, color: scheme.outlineVariant),
+                const SizedBox(height: 8),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pop();
+                    _showQuickPicker(context, ref);
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16, vertical: 12),
+                    decoration: BoxDecoration(
+                      color: scheme.secondaryContainer,
+                      borderRadius: BorderRadius.circular(14),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.bolt,
+                            size: 20, color: scheme.onSecondaryContainer),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                l10n.customWorkoutQuickRoutine,
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: scheme.onSecondaryContainer,
+                                ),
+                              ),
+                              Text(
+                                l10n.customWorkoutQuickRoutineDesc,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  color: scheme.onSecondaryContainer
+                                      .withAlpha(180),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Icon(Icons.chevron_right,
+                            color: scheme.onSecondaryContainer),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _launchRoutine(BuildContext context, WidgetRef ref, String routineId) {
+    final routines = ref.read(customRoutinesProvider);
+    final routine = routines.firstWhere((r) => r.id == routineId);
+    final generator = ref.read(workoutGeneratorServiceProvider);
+    final plan = generator.fromExerciseIds(routine.exerciseIds);
+    ref.read(customWorkoutPlanProvider.notifier).state = plan;
+    ref.read(customRoutinesProvider.notifier).markRun(routineId);
+    context.push('/workout');
+  }
+
+  void _showQuickPicker(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => _QuickRoutineTagPicker(
+        onLaunch: (tag) {
+          Navigator.of(context).pop();
+          _launchQuick(context, ref, tag);
+        },
+      ),
+    );
+  }
+
+  void _launchQuick(BuildContext context, WidgetRef ref, ExerciseTag tag) {
+    final tagged = ExerciseCatalog.libraryAll.where((e) {
+      final tags = ExerciseTagsCatalog.forId(e.id);
+      return tags.contains(tag) &&
+          !tags.contains(ExerciseTag.warmup) &&
+          !tags.contains(ExerciseTag.cooldown);
+    }).toList()
+      ..shuffle();
+    final count = tagged.length.clamp(4, 6);
+    var ids = tagged.take(count).map((e) => e.id).toList();
+    if (ids.isEmpty) return;
+    ids = WorkoutGeneratorService.addGenericWarmupCooldown(ids);
+    final generator = ref.read(workoutGeneratorServiceProvider);
+    final plan = generator.fromExerciseIds(ids);
+    ref.read(customWorkoutPlanProvider.notifier).state = plan;
+    context.push('/workout');
+  }
+}
+
+// ── Quick Routine tag picker (reused in home sheet) ───────────────────────────
+
+class _QuickRoutineTagPicker extends StatelessWidget {
+  const _QuickRoutineTagPicker({required this.onLaunch});
+
+  final void Function(ExerciseTag tag) onLaunch;
+
+  @override
+  Widget build(BuildContext context) {
     final l10n = context.l10n;
     final scheme = Theme.of(context).colorScheme;
 
@@ -456,18 +677,15 @@ class _HomeCustomSheet extends ConsumerWidget {
             runSpacing: 8,
             children: ExerciseTag.values.map((tag) {
               return GestureDetector(
-                onTap: () {
-                  Navigator.of(context).pop();
-                  _launch(context, ref, tag);
-                },
+                onTap: () => onLaunch(tag),
                 child: Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 14, vertical: 8),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                   decoration: BoxDecoration(
                     color: tag.color.withAlpha(30),
                     borderRadius: BorderRadius.circular(20),
-                    border: Border.all(
-                        color: tag.color.withAlpha(80), width: 1),
+                    border:
+                        Border.all(color: tag.color.withAlpha(80), width: 1),
                   ),
                   child: Text(
                     tag.localizedName(l10n),
@@ -484,27 +702,5 @@ class _HomeCustomSheet extends ConsumerWidget {
         ],
       ),
     );
-  }
-
-  void _launch(BuildContext context, WidgetRef ref, ExerciseTag tag) {
-    // Only pick main exercises (not warmup/cooldown tags).
-    final tagged = ExerciseCatalog.libraryAll.where((e) {
-      final tags = ExerciseTagsCatalog.forId(e.id);
-      return tags.contains(tag) &&
-          !tags.contains(ExerciseTag.warmup) &&
-          !tags.contains(ExerciseTag.cooldown);
-    }).toList()
-      ..shuffle();
-    final count = tagged.length.clamp(4, 6);
-    var ids = tagged.take(count).map((e) => e.id).toList();
-    if (ids.isEmpty) return;
-
-    // Quick Routine always adds warmup + cooldown automatically.
-    ids = WorkoutGeneratorService.addGenericWarmupCooldown(ids);
-
-    final generator = ref.read(workoutGeneratorServiceProvider);
-    final plan = generator.fromExerciseIds(ids);
-    ref.read(customWorkoutPlanProvider.notifier).state = plan;
-    context.push('/workout');
   }
 }

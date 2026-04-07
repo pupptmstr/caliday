@@ -1766,6 +1766,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String get customWorkoutNameHint => 'Название тренировки';
 
   @override
+  String get customWorkoutNameRequired =>
+      'Введите название, чтобы сохранить тренировку';
+
+  @override
   String get customWorkoutSave => 'Сохранить';
 
   @override
@@ -1775,7 +1779,20 @@ class AppLocalizationsRu extends AppLocalizations {
   String get customWorkoutDelete => 'Удалить';
 
   @override
+  String get customWorkoutEdit => 'Редактировать';
+
+  @override
+  String get customWorkoutConfirmStart => 'Начать тренировку?';
+
+  @override
+  String get customWorkoutConfirmStartDesc => 'упражнений будет загружено';
+
+  @override
   String get customWorkoutBuilderTitle => 'Конструктор тренировки';
+
+  @override
+  String get customWorkoutBuilderDesc =>
+      'Выбери упражнения и составь свою последовательность';
 
   @override
   String get customWorkoutPickFocus => 'Что хотите потренировать?';

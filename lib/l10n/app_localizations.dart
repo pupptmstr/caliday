@@ -3176,6 +3176,12 @@ abstract class AppLocalizations {
   /// **'Routine name'**
   String get customWorkoutNameHint;
 
+  /// No description provided for @customWorkoutNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a name to save this routine'**
+  String get customWorkoutNameRequired;
+
   /// No description provided for @customWorkoutSave.
   ///
   /// In en, this message translates to:
@@ -3194,11 +3200,35 @@ abstract class AppLocalizations {
   /// **'Delete'**
   String get customWorkoutDelete;
 
+  /// No description provided for @customWorkoutEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get customWorkoutEdit;
+
+  /// No description provided for @customWorkoutConfirmStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Workout?'**
+  String get customWorkoutConfirmStart;
+
+  /// No description provided for @customWorkoutConfirmStartDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'exercises will be loaded'**
+  String get customWorkoutConfirmStartDesc;
+
   /// No description provided for @customWorkoutBuilderTitle.
   ///
   /// In en, this message translates to:
   /// **'Routine Builder'**
   String get customWorkoutBuilderTitle;
+
+  /// No description provided for @customWorkoutBuilderDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick exercises and build your own sequence'**
+  String get customWorkoutBuilderDesc;
 
   /// No description provided for @customWorkoutPickFocus.
   ///

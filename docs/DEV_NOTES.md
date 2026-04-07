@@ -241,6 +241,26 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-07 — Custom Workouts UX polish: streak fix, swipe-to-delete, routine detail sheet, home sheet with saved routines
+
+**What was done:** Multiple UX fixes and improvements to Custom Workouts. Fixed a critical bug where custom workouts blocked the primary workout and prevented streak growth. Redesigned routine cards with swipe-to-delete and a detail bottom sheet. Home screen custom workout button now shows saved routines when available.
+
+**Modified files:**
+- `lib/features/workout/providers/workout_provider.dart` — removed forced `isPrimary = false` for custom workouts; first workout of the day is now always primary regardless of type
+- `lib/features/home/providers/home_provider.dart` — `hasWorkoutToday` now uses `hasPrimaryWorkoutToday()` so custom workouts don't falsely show the "Done" state
+- `lib/core/providers/goro_expression_provider.dart` — same fix: Goro expression based on primary workout only
+- `lib/features/home/screens/home_screen.dart` — SafeArea fix for bottom buttons overflow; `_HomeCustomSheet` now shows saved routines list when available, Quick Routine option at bottom; extracted `_QuickRoutineTagPicker` widget
+- `lib/features/library/screens/library_screen.dart` — `_RoutineCard` redesigned: `Dismissible` swipe-to-delete, tap opens `_RoutineDetailSheet` (exercise list with tags + edit/delete icons + start button), long press removed; header replaced two pill buttons with single `+` circle button opening `_AddRoutineSheet`
+- `lib/features/library/screens/custom_routine_builder_screen.dart` — Save button now always active when exercises selected; if name empty, focuses name field and shows snackbar
+- `l10n/app_en.arb`, `l10n/app_ru.arb` — added `customWorkoutNameRequired`, `customWorkoutEdit`, `customWorkoutConfirmStart`, `customWorkoutBuilderDesc`
+- `docs/ARCHITECTURE.md` — added custom course builder to v2.x backlog
+
+**Key issues and solutions:**
+- Custom workout streak bug: `isPrimary` was forced to `false` for all custom workouts, but `hasWorkoutToday()` checked for ANY workout → user was locked out of primary workout after a custom session. Fix: `isPrimary = !hasPrimaryWorkoutToday()` universally (first workout of day wins, regardless of type).
+- `_HomeCustomSheet` is inside a `showModalBottomSheet` builder without a Navigator context for `context.push` — resolved by capturing the outer `context` and `ref` in closures before entering the builder.
+
+---
+
 ### 2026-04-07 — Custom Workouts: full exercise catalog + auto warmup/cooldown
 
 **What was done:** Added warmup, cooldown and supplementary exercises to the exercise catalog and builder. Introduced `ExerciseTag.warmup` / `ExerciseTag.cooldown` tags. Quick Routine now always auto-prepends a warmup and appends a cooldown. Builder shows all exercise types and offers an auto-add dialog when the routine has no warmup/cooldown.

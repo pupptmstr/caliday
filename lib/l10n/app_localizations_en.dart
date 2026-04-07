@@ -1762,6 +1762,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get customWorkoutNameHint => 'Routine name';
 
   @override
+  String get customWorkoutNameRequired => 'Enter a name to save this routine';
+
+  @override
   String get customWorkoutSave => 'Save Routine';
 
   @override
@@ -1771,7 +1774,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get customWorkoutDelete => 'Delete';
 
   @override
+  String get customWorkoutEdit => 'Edit';
+
+  @override
+  String get customWorkoutConfirmStart => 'Start Workout?';
+
+  @override
+  String get customWorkoutConfirmStartDesc => 'exercises will be loaded';
+
+  @override
   String get customWorkoutBuilderTitle => 'Routine Builder';
+
+  @override
+  String get customWorkoutBuilderDesc =>
+      'Pick exercises and build your own sequence';
 
   @override
   String get customWorkoutPickFocus => 'What do you want to train?';

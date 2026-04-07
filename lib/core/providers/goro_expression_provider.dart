@@ -25,7 +25,7 @@ extension GoroExpressionAsset on GoroExpression {
 final goroExpressionProvider = Provider.autoDispose<GoroExpression>((ref) {
   final profile = ref.watch(userRepositoryProvider).getProfile();
   final hasWorkoutToday =
-      ref.watch(workoutRepositoryProvider).hasWorkoutToday();
+      ref.watch(workoutRepositoryProvider).hasPrimaryWorkoutToday();
   final displayStreak = ref.watch(displayStreakProvider);
   final streakService = ref.read(streakServiceProvider);
   final hour = DateTime.now().hour;

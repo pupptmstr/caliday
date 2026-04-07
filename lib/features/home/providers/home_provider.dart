@@ -65,7 +65,7 @@ final homeDataProvider = Provider.autoDispose<HomeData>((ref) {
   return HomeData(
     profile: profile,
     progressMap: progressMap,
-    hasWorkoutToday: workoutRepo.hasWorkoutToday(),
+    hasWorkoutToday: workoutRepo.hasPrimaryWorkoutToday(),
     displayStreak: ref.read(displayStreakProvider),
     activeCourse: course,
   );

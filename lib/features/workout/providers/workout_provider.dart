@@ -392,9 +392,11 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     }
 
     // ── Determine primary vs bonus ─────────────────────────────────────────
+    // The first workout of the day is always primary — regardless of whether
+    // it is a daily plan or a custom routine. This ensures custom-only users
+    // can still build a streak.
     final workoutRepo = _ref.read(workoutRepositoryProvider);
-    // Custom workouts are always bonus (no stage progression, ×0.5 SP).
-    final isPrimary = isCustomWorkout ? false : !workoutRepo.hasPrimaryWorkoutToday();
+    final isPrimary = !workoutRepo.hasPrimaryWorkoutToday();
 
     // ── SP ────────────────────────────────────────────────────────────────
     final spService = _ref.read(spServiceProvider);
