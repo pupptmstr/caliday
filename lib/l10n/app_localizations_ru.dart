@@ -1653,8 +1653,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tooltipRankBody =>
       'SP (очки силы) начисляются за каждую завершённую тренировку. Накапливая SP, ты поднимаешься от Новичка до Легенды. Чем больше тренируешься — тем выше ранг.';
 
-  // ── Exercise Library ────────────────────────────────────────────────────────
-
   @override
   String get exerciseLibraryTitle => 'Все упражнения';
 
@@ -1665,48 +1663,62 @@ class AppLocalizationsRu extends AppLocalizations {
   String get exerciseLibraryCatalogButton => 'Каталог упражнений';
 
   @override
-  String get exerciseLibraryEmpty => 'Ничего не найдено';
+  String get exerciseLibraryEmpty => 'Упражнения не найдены';
 
   @override
   String get exerciseDetailTipLabel => 'Техника';
 
   @override
-  String exerciseDetailStageLabel(int stage) => 'Ступень $stage';
-
-  // ── Exercise Tags ───────────────────────────────────────────────────────────
+  String exerciseDetailStageLabel(int stage) => 'Этап $stage';
 
   @override
   String get exerciseTagHipFlexor => 'Сгибатели бедра';
+
   @override
   String get exerciseTagGlutes => 'Ягодицы';
+
   @override
-  String get exerciseTagCore => 'Кор';
+  String get exerciseTagCore => 'Пресс';
+
   @override
   String get exerciseTagChest => 'Грудь';
+
   @override
   String get exerciseTagBack => 'Спина';
+
   @override
   String get exerciseTagShoulders => 'Плечи';
+
   @override
   String get exerciseTagLegs => 'Ноги';
+
   @override
   String get exerciseTagNeck => 'Шея';
+
   @override
   String get exerciseTagStretch => 'Растяжка';
+
   @override
   String get exerciseTagMobility => 'Мобильность';
+
   @override
   String get exerciseTagStrength => 'Сила';
+
   @override
   String get exerciseTagEndurance => 'Выносливость';
+
   @override
   String get exerciseTagSittingRecovery => 'Офисное восстановление';
+
   @override
-  String get exerciseTagFloorOnly => 'Без оборудования';
+  String get exerciseTagFloorOnly => 'Без инвентаря';
+
   @override
-  String get exerciseTagRequiresBar => 'Нужна перекладина';
+  String get exerciseTagRequiresBar => 'Нужен турник';
+
   @override
   String get exerciseTagPostureFocus => 'Осанка';
+
   @override
   String get exerciseTagBeginner => 'Для новичков';
 }

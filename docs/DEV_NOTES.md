@@ -303,6 +303,7 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 - Tags are NOT stored in `exercise_catalog.dart` inline — would require editing 50+ const Exercise declarations. Instead a separate `ExerciseTagsCatalog` maps exercise IDs to tag lists. The `Exercise.tags` field exists but defaults to `const []`; the library uses `ExerciseTagsCatalog.forId(id)` for filtering.
 - `coreS4FlutterKicks` is not in `ExerciseCatalog.all` (it's an alternative, not a main progression entry) — added explicit `libraryAll` getter that includes it.
 - Tag filter uses AND logic: all selected tags must be present.
+- **l10n Edit tool bug**: The Edit tool reports success when editing large l10n files (>2000 lines) but does NOT write changes to disk. Workaround: use Python `python3 -c` or a heredoc script to do string replacement (`content.replace(old, new)` + `open(path, 'w')`). This affected `app_localizations.dart`, `app_localizations_ru.dart`, and `app_localizations_en.dart`.
 
 ### 2026-04-07 — Fix: branch progress is shared across courses
 

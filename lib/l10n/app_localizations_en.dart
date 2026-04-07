@@ -1649,8 +1649,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tooltipRankBody =>
       'SP (Strength Points) are earned every time you complete a workout. As you collect SP your rank climbs from Beginner all the way to Legend. The more you train, the higher you rise.';
 
-  // ── Exercise Library ────────────────────────────────────────────────────────
-
   @override
   String get exerciseLibraryTitle => 'All Exercises';
 
@@ -1661,7 +1659,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exerciseLibraryCatalogButton => 'Exercise Catalog';
 
   @override
-  String get exerciseLibraryEmpty => 'Nothing found';
+  String get exerciseLibraryEmpty => 'No exercises found';
 
   @override
   String get exerciseDetailTipLabel => 'Technique';
@@ -1669,40 +1667,54 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String exerciseDetailStageLabel(int stage) => 'Stage $stage';
 
-  // ── Exercise Tags ───────────────────────────────────────────────────────────
-
   @override
   String get exerciseTagHipFlexor => 'Hip Flexors';
+
   @override
   String get exerciseTagGlutes => 'Glutes';
+
   @override
   String get exerciseTagCore => 'Core';
+
   @override
   String get exerciseTagChest => 'Chest';
+
   @override
   String get exerciseTagBack => 'Back';
+
   @override
   String get exerciseTagShoulders => 'Shoulders';
+
   @override
   String get exerciseTagLegs => 'Legs';
+
   @override
   String get exerciseTagNeck => 'Neck';
+
   @override
   String get exerciseTagStretch => 'Stretch';
+
   @override
   String get exerciseTagMobility => 'Mobility';
+
   @override
   String get exerciseTagStrength => 'Strength';
+
   @override
   String get exerciseTagEndurance => 'Endurance';
+
   @override
   String get exerciseTagSittingRecovery => 'Desk Recovery';
+
   @override
   String get exerciseTagFloorOnly => 'No Equipment';
+
   @override
   String get exerciseTagRequiresBar => 'Requires Bar';
+
   @override
   String get exerciseTagPostureFocus => 'Posture';
+
   @override
   String get exerciseTagBeginner => 'Beginner';
 }
