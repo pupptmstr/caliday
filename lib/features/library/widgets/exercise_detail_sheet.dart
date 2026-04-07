@@ -134,7 +134,7 @@ class ExerciseDetailSheet extends StatelessWidget {
                         spacing: 6,
                         runSpacing: 6,
                         children: tags
-                            .map((tag) => _TagChip(tag: tag, scheme: scheme))
+                            .map((tag) => _TagChip(tag: tag))
                             .toList(),
                       ),
                       const SizedBox(height: 16),
@@ -254,26 +254,27 @@ class _AnimationBox extends StatelessWidget {
 }
 
 class _TagChip extends StatelessWidget {
-  const _TagChip({required this.tag, required this.scheme});
+  const _TagChip({required this.tag});
 
   final ExerciseTag tag;
-  final ColorScheme scheme;
 
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
+    final color = tag.color;
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       decoration: BoxDecoration(
-        color: scheme.surfaceContainerHighest,
+        color: color.withAlpha(30),
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: scheme.outlineVariant),
+        border: Border.all(color: color.withAlpha(80)),
       ),
       child: Text(
         tag.localizedName(l10n),
         style: TextStyle(
           fontSize: 12,
-          color: scheme.onSurfaceVariant,
+          fontWeight: FontWeight.w500,
+          color: color,
         ),
       ),
     );

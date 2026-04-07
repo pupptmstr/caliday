@@ -90,23 +90,22 @@ class _ExerciseLibraryScreenState extends ConsumerState<ExerciseLibraryScreen> {
               itemBuilder: (_, i) {
                 final tag = ExerciseTag.values[i];
                 final selected = state.selectedTags.contains(tag);
+                final tagColor = tag.color;
                 return FilterChip(
                   label: Text(
                     tag.localizedName(l10n),
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
-                      color: selected
-                          ? scheme.onPrimary
-                          : scheme.onSurfaceVariant,
+                      color: selected ? Colors.white : tagColor,
                     ),
                   ),
                   selected: selected,
                   onSelected: (_) => notifier.toggleTag(tag),
-                  selectedColor: AppTheme.brandBlue,
-                  backgroundColor: scheme.surfaceContainerHighest,
-                  checkmarkColor: scheme.onPrimary,
-                  side: BorderSide.none,
+                  selectedColor: tagColor,
+                  backgroundColor: tagColor.withAlpha(25),
+                  checkmarkColor: Colors.white,
+                  side: BorderSide(color: tagColor.withAlpha(80), width: 1),
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   visualDensity: VisualDensity.compact,
                 );
@@ -309,7 +308,7 @@ class _TagDots extends StatelessWidget {
           height: 6,
           margin: const EdgeInsets.only(left: 3),
           decoration: BoxDecoration(
-            color: _tagColor(t),
+            color: t.color,
             shape: BoxShape.circle,
           ),
         );
@@ -317,15 +316,4 @@ class _TagDots extends StatelessWidget {
     );
   }
 
-  Color _tagColor(ExerciseTag tag) {
-    return switch (tag) {
-      ExerciseTag.strength => AppTheme.brandBlue,
-      ExerciseTag.stretch || ExerciseTag.mobility => const Color(0xFF34C759),
-      ExerciseTag.requiresBar => const Color(0xFFFF9500),
-      ExerciseTag.sittingRecovery || ExerciseTag.postureFocus =>
-        const Color(0xFF9B59B6),
-      ExerciseTag.beginner => const Color(0xFF5AC8FA),
-      _ => AppTheme.brandBlueDeep,
-    };
-  }
 }

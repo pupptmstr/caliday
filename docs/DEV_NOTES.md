@@ -281,6 +281,17 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-07 — Exercise Library: colored tag chips
+
+**What was done:** Added `ExerciseTag.color` getter to `ExerciseTagExtension` (in `enums.dart`). Applied tag colors consistently: FilterChips in the filter row now show each tag's color (tinted background + colored border + white text when selected); `_TagChip` in the detail sheet now uses colored tinted background + border + colored text. Removed the duplicate `_tagColor()` method from `_TagDots`.
+
+**Modified files:**
+- `lib/data/models/enums.dart` — added `Color get color` to `ExerciseTagExtension`
+- `lib/features/library/screens/exercise_library_screen.dart` — FilterChip uses `tag.color`; removed `_tagColor()` method
+- `lib/features/library/widgets/exercise_detail_sheet.dart` — `_TagChip` uses `tag.color`; removed `scheme` param
+
+---
+
 ### 2026-04-07 — v1.6 Exercise Library (Tags + Search)
 
 **What was done:** Implemented the full Exercise Library feature. A searchable, filterable catalog of all progression exercises, accessible via a gradient button at the bottom of the Library tab. Exercises display with Lottie animations, branch badges, and tag chips. Tapping an exercise opens a detail sheet with animation, technique tip, and semantic tags.

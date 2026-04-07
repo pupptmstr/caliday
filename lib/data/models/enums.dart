@@ -212,6 +212,26 @@ extension ExerciseTagExtension on ExerciseTag {
         ExerciseTag.postureFocus => l10n.exerciseTagPostureFocus,
         ExerciseTag.beginner => l10n.exerciseTagBeginner,
       };
+
+  Color get color => switch (this) {
+        ExerciseTag.strength || ExerciseTag.endurance => const Color(0xFF007AFF),
+        ExerciseTag.stretch || ExerciseTag.mobility => const Color(0xFF34C759),
+        ExerciseTag.requiresBar => const Color(0xFFFF9500),
+        ExerciseTag.sittingRecovery ||
+        ExerciseTag.postureFocus =>
+          const Color(0xFF9B59B6),
+        ExerciseTag.beginner => const Color(0xFF5AC8FA),
+        ExerciseTag.core ||
+        ExerciseTag.chest ||
+        ExerciseTag.back ||
+        ExerciseTag.shoulders =>
+          const Color(0xFFFF3B30),
+        ExerciseTag.legs ||
+        ExerciseTag.glutes ||
+        ExerciseTag.hipFlexor =>
+          const Color(0xFFFF6B35),
+        _ => const Color(0xFF636366),
+      };
 }
 
 extension BranchIdExtension on BranchId {
