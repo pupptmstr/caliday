@@ -487,13 +487,20 @@ class _HomeCustomSheet extends ConsumerWidget {
   }
 
   void _launch(BuildContext context, WidgetRef ref, ExerciseTag tag) {
+    // Only pick main exercises (not warmup/cooldown tags).
     final tagged = ExerciseCatalog.libraryAll.where((e) {
-      return ExerciseTagsCatalog.forId(e.id).contains(tag);
+      final tags = ExerciseTagsCatalog.forId(e.id);
+      return tags.contains(tag) &&
+          !tags.contains(ExerciseTag.warmup) &&
+          !tags.contains(ExerciseTag.cooldown);
     }).toList()
       ..shuffle();
     final count = tagged.length.clamp(4, 6);
-    final ids = tagged.take(count).map((e) => e.id).toList();
+    var ids = tagged.take(count).map((e) => e.id).toList();
     if (ids.isEmpty) return;
+
+    // Quick Routine always adds warmup + cooldown automatically.
+    ids = WorkoutGeneratorService.addGenericWarmupCooldown(ids);
 
     final generator = ref.read(workoutGeneratorServiceProvider);
     final plan = generator.fromExerciseIds(ids);

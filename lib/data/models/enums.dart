@@ -190,6 +190,9 @@ enum ExerciseTag {
   // Program context
   postureFocus,
   beginner,
+  // Workout structure
+  warmup,
+  cooldown,
 }
 
 extension ExerciseTagExtension on ExerciseTag {
@@ -211,6 +214,8 @@ extension ExerciseTagExtension on ExerciseTag {
         ExerciseTag.requiresBar => l10n.exerciseTagRequiresBar,
         ExerciseTag.postureFocus => l10n.exerciseTagPostureFocus,
         ExerciseTag.beginner => l10n.exerciseTagBeginner,
+        ExerciseTag.warmup => l10n.exerciseTagWarmup,
+        ExerciseTag.cooldown => l10n.exerciseTagCooldown,
       };
 
   Color get color => switch (this) {
@@ -230,6 +235,8 @@ extension ExerciseTagExtension on ExerciseTag {
         ExerciseTag.glutes ||
         ExerciseTag.hipFlexor =>
           const Color(0xFFFF6B35),
+        ExerciseTag.warmup => const Color(0xFFFF9F0A),
+        ExerciseTag.cooldown => const Color(0xFF5E5CE6),
         _ => const Color(0xFF636366),
       };
 }

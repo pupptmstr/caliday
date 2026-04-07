@@ -709,6 +709,13 @@
   "exerciseTagRequiresBar": "Нужен турник",
   "exerciseTagPostureFocus": "Осанка",
   "exerciseTagBeginner": "Для новичков",
+  "exerciseTagWarmup": "Разминка",
+  "exerciseTagCooldown": "Заминка",
+
+  "customWorkoutNoWarmupTitle": "Добавить разминку и заминку?",
+  "customWorkoutNoWarmupBody": "В тренировке нет разминки и заминки. Добавить автоматически?",
+  "customWorkoutAdd": "Добавить",
+  "customWorkoutSkip": "Пропустить",
 
   "customWorkoutButtonLabel": "Своя тренировка",
   "customWorkoutMyRoutines": "Мои тренировки",

@@ -793,14 +793,21 @@ class _QuickRoutineSheet extends ConsumerWidget {
 
   void _launchQuickRoutine(
       BuildContext context, WidgetRef ref, ExerciseTag tag) {
-    // Collect exercises with this tag, shuffle, take 4-6.
+    // Collect exercises with this tag (only progression, no warmup/cooldown),
+    // shuffle, take 4-6, then prepend warmup + append cooldown automatically.
     final tagged = ExerciseCatalog.libraryAll.where((e) {
-      return ExerciseTagsCatalog.forId(e.id).contains(tag);
+      final tags = ExerciseTagsCatalog.forId(e.id);
+      return tags.contains(tag) &&
+          !tags.contains(ExerciseTag.warmup) &&
+          !tags.contains(ExerciseTag.cooldown);
     }).toList()
       ..shuffle();
     final count = tagged.length.clamp(4, 6);
-    final ids = tagged.take(count).map((e) => e.id).toList();
+    var ids = tagged.take(count).map((e) => e.id).toList();
     if (ids.isEmpty) return;
+
+    // Quick Routine always adds warmup + cooldown automatically.
+    ids = WorkoutGeneratorService.addGenericWarmupCooldown(ids);
 
     final generator = ref.read(workoutGeneratorServiceProvider);
     final plan = generator.fromExerciseIds(ids);

@@ -180,6 +180,81 @@ class ExerciseTagsCatalog {
       ExerciseTag.chest, ExerciseTag.shoulders, ExerciseTag.stretch,
       ExerciseTag.postureFocus, ExerciseTag.sittingRecovery,
     ],
+
+    // ── Warmups ───────────────────────────────────────────────────────────────
+    'warmup_arm_rotations': [
+      ExerciseTag.warmup, ExerciseTag.shoulders, ExerciseTag.mobility,
+    ],
+    'warmup_dead_hang': [
+      ExerciseTag.warmup, ExerciseTag.back, ExerciseTag.requiresBar,
+    ],
+    'warmup_jumping_jacks': [
+      ExerciseTag.warmup, ExerciseTag.endurance, ExerciseTag.floorOnly,
+    ],
+    'warmup_leg_swings': [
+      ExerciseTag.warmup, ExerciseTag.legs, ExerciseTag.mobility, ExerciseTag.floorOnly,
+    ],
+    'warmup_hip_circles': [
+      ExerciseTag.warmup, ExerciseTag.hipFlexor, ExerciseTag.mobility, ExerciseTag.floorOnly,
+    ],
+    'warmup_wrist_circles': [
+      ExerciseTag.warmup, ExerciseTag.mobility, ExerciseTag.floorOnly,
+    ],
+    'warmup_neck_rolls': [
+      ExerciseTag.warmup, ExerciseTag.neck, ExerciseTag.mobility,
+      ExerciseTag.sittingRecovery, ExerciseTag.floorOnly,
+    ],
+
+    // ── Cooldowns ─────────────────────────────────────────────────────────────
+    'cooldown_shoulder_stretch': [
+      ExerciseTag.cooldown, ExerciseTag.shoulders, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'cooldown_lat_stretch': [
+      ExerciseTag.cooldown, ExerciseTag.back, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'cooldown_cat_cow': [
+      ExerciseTag.cooldown, ExerciseTag.back, ExerciseTag.mobility,
+      ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'cooldown_quad_stretch': [
+      ExerciseTag.cooldown, ExerciseTag.legs, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'cooldown_hip_flexor': [
+      ExerciseTag.cooldown, ExerciseTag.hipFlexor, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'cooldown_downward_dog': [
+      ExerciseTag.cooldown, ExerciseTag.stretch, ExerciseTag.mobility,
+      ExerciseTag.back, ExerciseTag.floorOnly,
+    ],
+
+    // ── Supplementary ─────────────────────────────────────────────────────────
+    'supp_oblique_crunch': [
+      ExerciseTag.core, ExerciseTag.strength, ExerciseTag.floorOnly,
+    ],
+    'supp_russian_twists': [
+      ExerciseTag.core, ExerciseTag.strength, ExerciseTag.floorOnly,
+    ],
+    'supp_side_plank': [
+      ExerciseTag.core, ExerciseTag.endurance, ExerciseTag.floorOnly,
+    ],
+    'supp_standing_calf_raise': [
+      ExerciseTag.legs, ExerciseTag.strength, ExerciseTag.floorOnly,
+    ],
+    'supp_single_leg_calf_raise': [
+      ExerciseTag.legs, ExerciseTag.strength, ExerciseTag.floorOnly,
+    ],
+    'supp_dead_bug': [
+      ExerciseTag.core, ExerciseTag.strength, ExerciseTag.floorOnly,
+    ],
+    'supp_bird_dog': [
+      ExerciseTag.core, ExerciseTag.strength, ExerciseTag.floorOnly,
+    ],
+    'supp_neck_isometrics': [
+      ExerciseTag.neck, ExerciseTag.postureFocus, ExerciseTag.floorOnly,
+    ],
+    'supp_wrist_circles': [
+      ExerciseTag.warmup, ExerciseTag.mobility, ExerciseTag.floorOnly,
+    ],
   };
 
   /// Returns tags for [exerciseId], or an empty list if not found.

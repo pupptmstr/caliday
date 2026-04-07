@@ -1725,6 +1725,25 @@ class AppLocalizationsRu extends AppLocalizations {
   String get exerciseTagBeginner => 'Для новичков';
 
   @override
+  String get exerciseTagWarmup => 'Разминка';
+
+  @override
+  String get exerciseTagCooldown => 'Заминка';
+
+  @override
+  String get customWorkoutNoWarmupTitle => 'Добавить разминку и заминку?';
+
+  @override
+  String get customWorkoutNoWarmupBody =>
+      'В тренировке нет разминки и заминки. Добавить автоматически?';
+
+  @override
+  String get customWorkoutAdd => 'Добавить';
+
+  @override
+  String get customWorkoutSkip => 'Пропустить';
+
+  @override
   String get customWorkoutButtonLabel => 'Своя тренировка';
 
   @override

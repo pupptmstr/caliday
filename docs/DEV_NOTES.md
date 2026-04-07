@@ -241,6 +241,26 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-07 — Custom Workouts: full exercise catalog + auto warmup/cooldown
+
+**What was done:** Added warmup, cooldown and supplementary exercises to the exercise catalog and builder. Introduced `ExerciseTag.warmup` / `ExerciseTag.cooldown` tags. Quick Routine now always auto-prepends a warmup and appends a cooldown. Builder shows all exercise types and offers an auto-add dialog when the routine has no warmup/cooldown.
+
+**Modified files:**
+- `lib/data/models/enums.dart` — added `ExerciseTag.warmup`, `ExerciseTag.cooldown` with colors (#FF9F0A, #5E5CE6) and l10n
+- `lib/data/static/exercise_tags_catalog.dart` — added tags for 7 warmups, 6 cooldowns, 9 supplementary exercises
+- `lib/data/static/exercise_catalog.dart` — `libraryAll` now includes `...warmups` and `...cooldowns`
+- `lib/domain/services/workout_generator_service.dart` — added supplementary fallback in `fromExerciseIds`; added `hasWarmupAndCooldown()` and `addGenericWarmupCooldown()` static helpers
+- `lib/features/library/screens/custom_routine_builder_screen.dart` — builder now uses `libraryAll + SupplementaryExerciseCatalog.all`; `_startNow`/`_save` show dialog if no warmup/cooldown
+- `lib/features/library/screens/library_screen.dart` — Quick Routine filters out warmup/cooldown from tag results, always auto-adds them
+- `lib/features/home/screens/home_screen.dart` — same Quick Routine fix
+- `l10n/app_en.arb`, `l10n/app_ru.arb` — 2 new tag keys + 4 dialog keys
+
+**Key issues and solutions:**
+- Quick Routine uses tag-based exercise selection, but warmup/cooldown exercises now also carry their respective tags → filtering them out before shuffling, then always auto-prepending/appending. Avoids the edge case where a user taps "Stretch" and gets 5 cooldowns in a row.
+- `fromExerciseIds` search order: `ExerciseCatalog.byId` (const `all` list) → `libraryAll` (non-const, covers warmup/cooldown) → `SupplementaryExerciseCatalog.all`. Warmup/cooldown were not in `all` before this change, so the fallback was necessary.
+
+---
+
 ### 2026-04-07 — v1.7 Custom Workouts
 
 **What was done:** Implemented full Custom Workouts feature. Users can build named routines from any exercises in the catalog, save them to Hive, and run them anytime. Quick Routine allows tapping a focus tag to get an auto-selected 4–6 exercise set immediately. Both flows run as bonus workouts (isPrimary = false, ×0.5 SP, no progression). Secondary "Custom Workout" button added to HomeScreen. "My Routines" section added to LibraryScreen above the Exercise Catalog button.

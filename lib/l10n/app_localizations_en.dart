@@ -1721,6 +1721,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exerciseTagBeginner => 'Beginner';
 
   @override
+  String get exerciseTagWarmup => 'Warmup';
+
+  @override
+  String get exerciseTagCooldown => 'Cooldown';
+
+  @override
+  String get customWorkoutNoWarmupTitle => 'Add warmup & cooldown?';
+
+  @override
+  String get customWorkoutNoWarmupBody =>
+      'Your routine has no warmup or cooldown. Add them automatically?';
+
+  @override
+  String get customWorkoutAdd => 'Add';
+
+  @override
+  String get customWorkoutSkip => 'Skip';
+
+  @override
   String get customWorkoutButtonLabel => 'Custom Workout';
 
   @override

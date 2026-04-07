@@ -3098,6 +3098,42 @@ abstract class AppLocalizations {
   /// **'Beginner'**
   String get exerciseTagBeginner;
 
+  /// No description provided for @exerciseTagWarmup.
+  ///
+  /// In en, this message translates to:
+  /// **'Warmup'**
+  String get exerciseTagWarmup;
+
+  /// No description provided for @exerciseTagCooldown.
+  ///
+  /// In en, this message translates to:
+  /// **'Cooldown'**
+  String get exerciseTagCooldown;
+
+  /// No description provided for @customWorkoutNoWarmupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Add warmup & cooldown?'**
+  String get customWorkoutNoWarmupTitle;
+
+  /// No description provided for @customWorkoutNoWarmupBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your routine has no warmup or cooldown. Add them automatically?'**
+  String get customWorkoutNoWarmupBody;
+
+  /// No description provided for @customWorkoutAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get customWorkoutAdd;
+
+  /// No description provided for @customWorkoutSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get customWorkoutSkip;
+
   /// No description provided for @customWorkoutButtonLabel.
   ///
   /// In en, this message translates to:

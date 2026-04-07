@@ -358,7 +358,9 @@ otherwise                          → 0
 - `generateDailyForCourse({course, courseBranches, progressMap, preferredMinutes, hasPullUpBar})` — primary method; rotates branches by dayIndex (days since 2020-01-01). N branches: min(2,total) at ≤5min, min(3,total) at 10min, total at ≥15min. Passes `course:` to all `getProgress()` calls.
 - `generateDaily(...)` — legacy wrapper, calls `generateDailyForCourse` with `course: CourseId.calisthenics`.
 - `generateChallenge(branch)` — warmup → current stage (1 easy set) → next stage (challengeTargetReps) → cooldown
-- `fromExerciseIds(List<String> ids)` → `WorkoutPlan` — builds a plan from explicit exercise IDs; uses `startReps/Sets/RestSec`; falls back to `libraryAll` for exercises not in `all` (e.g. `coreS4FlutterKicks`)
+- `fromExerciseIds(List<String> ids)` → `WorkoutPlan` — builds a plan from explicit exercise IDs; uses `startReps/Sets/RestSec`; search order: `byId` → `libraryAll` → `SupplementaryExerciseCatalog.all`
+- `hasWarmupAndCooldown(ids)` → `bool` — checks for `ExerciseTag.warmup` and `ExerciseTag.cooldown` presence
+- `addGenericWarmupCooldown(ids)` → prepends `warmup_arm_rotations`, appends `cooldown_shoulder_stretch`
 
 ### AchievementService
 - `checkAfterWorkout({profile, log, totalWorkouts, achievementRepo})` → `List<String>` new ones

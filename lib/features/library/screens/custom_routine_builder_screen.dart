@@ -10,6 +10,7 @@ import '../../../data/models/enums.dart';
 import '../../../data/repositories/custom_routine_repository.dart';
 import '../../../data/static/exercise_catalog.dart';
 import '../../../data/static/exercise_tags_catalog.dart';
+import '../../../data/static/supplementary_exercise_catalog.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../workout/providers/workout_provider.dart';
 
@@ -45,11 +46,21 @@ class _CustomRoutineBuilderScreenState
     super.dispose();
   }
 
-  List<_ExerciseItem> get _filteredExercises {
-    return ExerciseCatalog.libraryAll.map((e) {
+  /// All exercises available in the builder: progressions + warmup/cooldown
+  /// (from libraryAll) plus supplementary exercises.
+  List<_ExerciseItem> get _allExercises {
+    final all = [
+      ...ExerciseCatalog.libraryAll,
+      ...SupplementaryExerciseCatalog.all,
+    ];
+    return all.map((e) {
       final tags = ExerciseTagsCatalog.forId(e.id);
       return _ExerciseItem(exercise: e, tags: tags);
-    }).where((item) {
+    }).toList();
+  }
+
+  List<_ExerciseItem> get _filteredExercises {
+    return _allExercises.where((item) {
       if (_filterTag == null) return true;
       return item.tags.contains(_filterTag);
     }).toList();
@@ -59,26 +70,60 @@ class _CustomRoutineBuilderScreenState
     final name = _nameCtrl.text.trim();
     if (name.isEmpty || _selectedIds.isEmpty) return;
 
+    final ids = await _maybeAddWarmupCooldown(_selectedIds);
+    if (ids == null) return; // user cancelled
+
     final routine = widget.routine ??
         CustomRoutine(
           id: DateTime.now().microsecondsSinceEpoch.toRadixString(36),
           name: name,
-          exerciseIds: _selectedIds,
+          exerciseIds: ids,
           createdAt: DateTime.now(),
         );
     routine.name = name;
-    routine.exerciseIds = _selectedIds;
+    routine.exerciseIds = ids;
 
     await ref.read(customRoutinesProvider.notifier).save(routine);
     if (mounted) context.pop();
   }
 
-  void _startNow() {
+  Future<void> _startNow() async {
     if (_selectedIds.isEmpty) return;
+    final ids = await _maybeAddWarmupCooldown(_selectedIds);
+    if (ids == null) return; // user cancelled
+
     final generator = ref.read(workoutGeneratorServiceProvider);
-    final plan = generator.fromExerciseIds(_selectedIds);
+    final plan = generator.fromExerciseIds(ids);
     ref.read(customWorkoutPlanProvider.notifier).state = plan;
-    context.push('/workout');
+    if (mounted) context.push('/workout');
+  }
+
+  /// Shows a dialog if the routine lacks warmup/cooldown.
+  /// Returns the (possibly expanded) ids, or null if user dismissed.
+  Future<List<String>?> _maybeAddWarmupCooldown(List<String> ids) async {
+    if (WorkoutGeneratorService.hasWarmupAndCooldown(ids)) return ids;
+
+    final l10n = context.l10n;
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(l10n.customWorkoutNoWarmupTitle),
+        content: Text(l10n.customWorkoutNoWarmupBody),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: Text(l10n.customWorkoutSkip),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: Text(l10n.customWorkoutAdd),
+          ),
+        ],
+      ),
+    );
+    if (result == null) return null; // dialog dismissed (back button)
+    if (result) return WorkoutGeneratorService.addGenericWarmupCooldown(ids);
+    return ids;
   }
 
   @override
@@ -185,7 +230,7 @@ class _CustomRoutineBuilderScreenState
             children: [
               Expanded(
                 child: OutlinedButton(
-                  onPressed: _selectedIds.isNotEmpty ? _startNow : null,
+                  onPressed: _selectedIds.isNotEmpty ? () => _startNow() : null,
                   style: OutlinedButton.styleFrom(
                     padding: const EdgeInsets.symmetric(vertical: 14),
                     shape: RoundedRectangleBorder(

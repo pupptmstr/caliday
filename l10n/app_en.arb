@@ -709,6 +709,13 @@
   "exerciseTagRequiresBar": "Requires Bar",
   "exerciseTagPostureFocus": "Posture",
   "exerciseTagBeginner": "Beginner",
+  "exerciseTagWarmup": "Warmup",
+  "exerciseTagCooldown": "Cooldown",
+
+  "customWorkoutNoWarmupTitle": "Add warmup & cooldown?",
+  "customWorkoutNoWarmupBody": "Your routine has no warmup or cooldown. Add them automatically?",
+  "customWorkoutAdd": "Add",
+  "customWorkoutSkip": "Skip",
 
   "customWorkoutButtonLabel": "Custom Workout",
   "customWorkoutMyRoutines": "My Routines",

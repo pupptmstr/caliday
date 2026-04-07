@@ -1386,8 +1386,11 @@ class ExerciseCatalog {
     cooldownDownwardDog,
   ];
 
-  /// All progression exercises for the Exercise Library (stage > 0).
-  /// Includes equipment-free alternatives (e.g. [coreS4FlutterKicks]).
+  /// All exercises available for browsing and building custom routines.
+  ///
+  /// Includes all progression stages, warmups, and cooldowns.
+  /// Supplementary exercises are added separately via [SupplementaryExerciseCatalog]
+  /// (e.g. in the Custom Routine Builder).
   static List<Exercise> get libraryAll => [
     ...pushProgression,
     ...coreProgression,
@@ -1398,6 +1401,8 @@ class ExerciseCatalog {
     ...flexProgression,
     ...postureProgression,
     ...neckProgression,
+    ...warmups,
+    ...cooldowns,
   ];
 
   /// All exercises in the catalog.

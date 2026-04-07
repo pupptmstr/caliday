@@ -6,6 +6,7 @@ import '../../data/models/enums.dart';
 import '../../data/models/exercise.dart';
 import '../../data/repositories/skill_progress_repository.dart';
 import '../../data/static/exercise_catalog.dart';
+import '../../data/static/exercise_tags_catalog.dart';
 import '../../data/static/supplementary_exercise_catalog.dart';
 import '../models/workout_plan.dart';
 
@@ -138,13 +139,13 @@ class WorkoutGeneratorService {
   ///
   /// Used for custom routines. Each exercise is loaded at its [startReps] /
   /// [startSets] / [startRestSec] values — no progression state involved.
+  /// Search order: ExerciseCatalog.all → libraryAll (warmup/cooldown) → supplementary.
   WorkoutPlan fromExerciseIds(List<String> ids) {
     final exercises = <PlannedExercise>[];
     for (final id in ids) {
-      // byId searches ExerciseCatalog.all (excludes coreS4FlutterKicks);
-      // fall back to libraryAll to cover equipment-free alternatives.
       final exercise = ExerciseCatalog.byId(id) ??
-          ExerciseCatalog.libraryAll.where((e) => e.id == id).firstOrNull;
+          ExerciseCatalog.libraryAll.where((e) => e.id == id).firstOrNull ??
+          SupplementaryExerciseCatalog.all.where((e) => e.id == id).firstOrNull;
       if (exercise == null) continue;
       exercises.add(PlannedExercise(
         exercise: exercise,
@@ -154,6 +155,27 @@ class WorkoutGeneratorService {
       ));
     }
     return WorkoutPlan(setType: SetType.daily, exercises: exercises);
+  }
+
+  /// Returns true if the given exercise IDs contain at least one warmup
+  /// and at least one cooldown (based on [ExerciseTag]).
+  static bool hasWarmupAndCooldown(List<String> ids) {
+    final hasWarmup = ids.any(
+      (id) => ExerciseTagsCatalog.forId(id).contains(ExerciseTag.warmup),
+    );
+    final hasCooldown = ids.any(
+      (id) => ExerciseTagsCatalog.forId(id).contains(ExerciseTag.cooldown),
+    );
+    return hasWarmup && hasCooldown;
+  }
+
+  /// Prepends a generic warmup and appends a generic cooldown to [ids].
+  static List<String> addGenericWarmupCooldown(List<String> ids) {
+    return [
+      'warmup_arm_rotations',
+      ...ids,
+      'cooldown_shoulder_stretch',
+    ];
   }
 
   /// Generates a [SetType.challenge] plan for [branch].
