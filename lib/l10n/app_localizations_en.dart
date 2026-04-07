@@ -1665,7 +1665,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get exerciseDetailTipLabel => 'Technique';
 
   @override
-  String exerciseDetailStageLabel(int stage) => 'Stage $stage';
+  String exerciseDetailStageLabel(int stage) {
+    return 'Stage $stage';
+  }
 
   @override
   String get exerciseTagHipFlexor => 'Hip Flexors';

@@ -1,21 +1,24 @@
 {
   "@@locale": "ru",
-
   "durationMin": "{mins} мин {secs} сек",
   "@durationMin": {
     "placeholders": {
-      "mins": {"type": "int"},
-      "secs": {"type": "int"}
+      "mins": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
     }
   },
-
   "durationSec": "{secs} сек",
   "@durationSec": {
     "placeholders": {
-      "secs": {"type": "int"}
+      "secs": {
+        "type": "int"
+      }
     }
   },
-
   "navHome": "Тренировка",
   "navLibrary": "Курсы",
   "navProfile": "Профиль",
@@ -38,12 +41,15 @@
   "courseDescHealthyBody": "Упражнения для тех, кто много сидит. Осанка, шея, гибкость — без нагрузки на суставы.",
   "onboardingQ4Courses": "Выбери курс",
   "onboardingQ4CoursesBody": "Можно начать с одного или взять оба сразу — программы независимы.",
-
   "branchJourneyProgress": "Пройдено {done} из {total} этапов",
   "@branchJourneyProgress": {
     "placeholders": {
-      "done": {"type": "int"},
-      "total": {"type": "int"}
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "branchJourneyStageCompleted": "✓ Пройдено",
@@ -52,61 +58,80 @@
   "branchJourneyParams": "{reps} повт. × {sets} подх.  ·  Отдых {rest} с",
   "@branchJourneyParams": {
     "placeholders": {
-      "reps": {"type": "int"},
-      "sets": {"type": "int"},
-      "rest": {"type": "int"}
+      "reps": {
+        "type": "int"
+      },
+      "sets": {
+        "type": "int"
+      },
+      "rest": {
+        "type": "int"
+      }
     }
   },
   "branchJourneyParamsTimed": "{secs} с × {sets} подх.  ·  Отдых {rest} с",
   "@branchJourneyParamsTimed": {
     "placeholders": {
-      "secs": {"type": "int"},
-      "sets": {"type": "int"},
-      "rest": {"type": "int"}
+      "secs": {
+        "type": "int"
+      },
+      "sets": {
+        "type": "int"
+      },
+      "rest": {
+        "type": "int"
+      }
     }
   },
   "branchJourneyStartChallenge": "Пройти испытание",
-
   "homeStage": "Этап {stage}/{total}",
   "@homeStage": {
     "placeholders": {
-      "stage": {"type": "int"},
-      "total": {"type": "int"}
+      "stage": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "homeChallengeUnlocked": "Испытание доступно",
   "homeChallengeButton": "Принять вызов",
   "homeChallengeNormReps": "Норматив: {n} повт.",
   "@homeChallengeNormReps": {
     "placeholders": {
-      "n": {"type": "int"}
+      "n": {
+        "type": "int"
+      }
     }
   },
   "homeChallengeNormSec": "Норматив: {n} сек",
   "@homeChallengeNormSec": {
     "placeholders": {
-      "n": {"type": "int"}
+      "n": {
+        "type": "int"
+      }
     }
   },
   "homeWorkoutDone": "Тренировка выполнена",
   "homeWorkoutStart": "Тренировка дня",
   "homeWorkoutAgain": "Ещё раз",
-
   "workoutTitle": "Тренировка",
   "workoutExitTitle": "Прервать тренировку?",
   "workoutExitBody": "Прогресс текущей тренировки не сохранится.",
   "workoutContinue": "Продолжить",
   "workoutAbort": "Прервать",
-
   "workoutSetProgress": "Подход {current} из {total}",
   "@workoutSetProgress": {
     "placeholders": {
-      "current": {"type": "int"},
-      "total": {"type": "int"}
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
-
   "workoutSec": "сек",
   "workoutRestLabel": "отдых",
   "workoutReps": "Повторения",
@@ -116,25 +141,34 @@
   "workoutSetDone": "✅  Подход выполнен!",
   "workoutExerciseDone": "✅  Упражнение выполнено!",
   "workoutUnitReps": "повт.",
-
   "workoutNextExercise": "Следующее: {name} • {amount} {unit}",
   "@workoutNextExercise": {
     "placeholders": {
-      "name": {"type": "String"},
-      "amount": {"type": "int"},
-      "unit": {"type": "String"}
+      "name": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "int"
+      },
+      "unit": {
+        "type": "String"
+      }
     }
   },
-
   "workoutNextSet": "Следующий: подход {setNum} • {amount} {unit}",
   "@workoutNextSet": {
     "placeholders": {
-      "setNum": {"type": "int"},
-      "amount": {"type": "int"},
-      "unit": {"type": "String"}
+      "setNum": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "int"
+      },
+      "unit": {
+        "type": "String"
+      }
     }
   },
-
   "summaryTitle": "Отличная тренировка!",
   "summarySubtitle": "Так держать — ещё один шаг вперёд",
   "summaryLabelTime": "Время",
@@ -144,7 +178,6 @@
   "summaryFreezeUsedBody": "Серия продолжается — так держать",
   "summaryFreezeEarnedTitle": "Получена заморозка стрика!",
   "summaryFreezeEarnedBody": "Используй, если пропустишь день",
-
   "achievementsTitle": "Достижения",
   "achievementsEarnedSection": "Получено",
   "achievementsLockedSection": "Заблокировано",
@@ -153,14 +186,15 @@
   "achievementsEarnedOn": "Получено: {date}",
   "@achievementsEarnedOn": {
     "placeholders": {
-      "date": {"type": "String"}
+      "date": {
+        "type": "String"
+      }
     }
   },
   "profileAchievementsTitle": "Достижения",
   "profileAchievementsAll": "Все достижения →",
   "profileNoAchievements": "Ещё нет достижений",
   "summaryAchievementsTitle": "Новые достижения!",
-
   "achievementFirstWorkoutName": "Первый шаг",
   "achievementFirstWorkoutDesc": "Ты сделал первую тренировку — начало положено!",
   "achievementFirstChallengeName": "Принял вызов",
@@ -217,37 +251,40 @@
   "achievementBalanceCompleteDesc": "Все 6 этапов Balance пройдены. Ты — эквилибрист.",
   "achievementAllCompleteName": "Полный комплект",
   "achievementAllCompleteDesc": "Все 5 веток пройдены до конца. Абсолютный чемпион.",
-
   "summaryBonusTitle": "Бонусная тренировка",
   "summaryBonusBody": "×½ SP · прогрессия уже сохранена",
   "summaryBonusCount": "Сегодня ты уже потренировался {count} раза!",
   "@summaryBonusCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "summaryChallengeUnlockedTitle": "Испытание ждёт!",
   "summaryChallengeUnlockedBody": "Нажми «Принять вызов» на главном экране когда будешь готов",
   "summaryChallengePassedTitle": "Новый этап!",
   "summaryChallengePassedBody": "Ты перешёл на: {exercise}",
   "@summaryChallengePassedBody": {
     "placeholders": {
-      "exercise": {"type": "String"}
+      "exercise": {
+        "type": "String"
+      }
     }
   },
-
   "profileTitle": "Профиль",
   "profileMaxRank": "Максимальный ранг!",
-
   "profileRankProgress": "{remaining} SP до {rankName}",
   "@profileRankProgress": {
     "placeholders": {
-      "remaining": {"type": "int"},
-      "rankName": {"type": "String"}
+      "remaining": {
+        "type": "int"
+      },
+      "rankName": {
+        "type": "String"
+      }
     }
   },
-
   "profileStatDays": "дней",
   "profileStatRecord": "рекорд",
   "profileStatWorkouts": "трен.",
@@ -261,18 +298,25 @@
   "historyDetailReps": "{completed} / {target} повт.",
   "@historyDetailReps": {
     "placeholders": {
-      "completed": { "type": "int" },
-      "target": { "type": "int" }
+      "completed": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
     }
   },
   "historyDetailSec": "{completed} / {target} сек",
   "@historyDetailSec": {
     "placeholders": {
-      "completed": { "type": "int" },
-      "target": { "type": "int" }
+      "completed": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
     }
   },
-
   "settingsTitle": "Настройки",
   "settingsSectionNotifications": "УВЕДОМЛЕНИЯ",
   "settingsSectionLanguage": "ЯЗЫК",
@@ -286,16 +330,13 @@
   "settingsStreakThreatTitle": "Угроза стрику",
   "settingsStreakThreatSubtitle": "Предупредить, когда серия под угрозой",
   "settingsLanguageTitle": "Язык приложения",
-
   "settingsSectionTheme": "ТЕМА",
   "settingsThemeSystem": "Системная",
   "settingsThemeLight": "Светлая",
   "settingsThemeDark": "Тёмная",
-
   "settingsSectionEquipment": "ОБОРУДОВАНИЕ",
   "settingsEquipmentPullUpBar": "Турник дома",
   "settingsEquipmentPullUpBarSubtitle": "Открывает ветку прогрессии «Тяга»",
-
   "settingsSectionWorkout": "ТРЕНИРОВКА",
   "settingsWorkoutDurationTitle": "Длительность сета",
   "settingsWorkoutDurationSubtitle": "Сколько минут уделять ежедневной тренировке",
@@ -303,14 +344,12 @@
   "settingsSoundSubtitle": "Звуки обратной связи во время тренировки",
   "settingsHapticTitle": "Вибрация",
   "settingsHapticSubtitle": "Тактильные сигналы во время тренировки",
-
   "rankBeginner": "Новичок",
   "rankAmateur": "Любитель",
   "rankSportsman": "Спортсмен",
   "rankAthlete": "Атлет",
   "rankMaster": "Мастер",
   "rankLegend": "Легенда",
-
   "onboardingWelcomeTitle": "Привет! Я Горо",
   "onboardingWelcomeBody": "Короткие сеты, прокачка навыков, стрики и очки.\nОт отжиманий с колен до стойки на руках — шаг за шагом.",
   "onboardingWelcomeCta": "Настроим всё под тебя за 1 минуту",
@@ -332,192 +371,146 @@
   "onboardingHealthSkip": "Пропустить",
   "onboardingHealthSkipDesc": "Можно включить позже в Настройках",
   "onboardingQ7": "Во сколько напомнить о тренировке?",
-
   "pushupZeroDesc": "Пока ни одного",
   "pushupOneToFiveDesc": "Совсем немного",
   "pushupFiveToFifteenDesc": "Уже неплохо",
   "pushupMoreThan15Desc": "Отличная база",
-
   "minutesLabel": "{minutes} минут",
   "@minutesLabel": {
     "placeholders": {
-      "minutes": {"type": "int"}
+      "minutes": {
+        "type": "int"
+      }
     }
   },
-
   "minutesFiveDesc": "Быстро и эффективно",
   "minutesTenDesc": "Оптимальный вариант",
   "minutesFifteenDesc": "Полноценная тренировка",
-
   "goalGeneralLabel": "Общая форма",
   "goalGeneralDesc": "Быть активным и здоровым",
   "goalStrengthLabel": "Отжимания и сила",
   "goalStrengthDesc": "Накачать грудь и трицепс",
   "goalCalisthenicsLabel": "Калистеника",
   "goalCalisthenicsDesc": "Стойка на руках и трюки",
-
   "timeOfDayMorning": "Утро",
   "timeOfDayDay": "День",
   "timeOfDayLunch": "Обед",
   "timeOfDayEvening": "Вечер",
-
   "exercisePushS1WallPushupName": "Отжимания от стены",
   "exercisePushS1WallPushupDesc": "Встань на расстоянии шага от стены, упрись ладонями на уровне груди. Сгибай руки, пока грудь не коснётся стены, затем выпрямляй.",
   "exercisePushS1WallPushupTip": "Держи тело прямым, не прогибай поясницу.",
-
   "exercisePushS2KneePushupName": "Отжимания с колен",
   "exercisePushS2KneePushupDesc": "Упор лёжа с опорой на колени. Тело от колен до головы — прямая линия. Опускайся грудью к полу, затем выжимай.",
   "exercisePushS2KneePushupTip": "Не опускай бёдра — держи прямую линию от колен до плеч.",
-
   "exercisePushS3FullPushupName": "Полные отжимания",
   "exercisePushS3FullPushupDesc": "Классический упор лёжа. Тело — прямая линия от пяток до головы. Грудь касается пола или подходит на 2–3 см.",
   "exercisePushS3FullPushupTip": "Напрягай пресс и ягодицы, чтобы не провисали бёдра.",
-
   "exercisePushS4DiamondPushupName": "Алмазные отжимания",
   "exercisePushS4DiamondPushupDesc": "Руки под грудью, большие и указательные пальцы образуют ромб. Акцент на трицепс. Локти прижаты к корпусу при опускании.",
   "exercisePushS4DiamondPushupTip": "Локти не разводи — они должны скользить вдоль тела.",
-
   "exercisePushS5WidePushupName": "Широкие отжимания",
   "exercisePushS5WidePushupDesc": "Руки значительно шире плеч. Опускайся медленно, сохраняя прямую линию тела. Оба трицепса и грудь работают в широкой амплитуде.",
   "exercisePushS5WidePushupTip": "Чем шире руки — тем больше нагрузка на грудь и меньше на трицепс.",
-
   "exercisePushS6ArcherPushupName": "Отжимания лучника",
   "exercisePushS6ArcherPushupDesc": "Широкая постановка рук. Опускайся в сторону одной руки, держа вторую прямой. Поочерёдно на каждую сторону.",
   "exercisePushS6ArcherPushupTip": "Рабочая рука — полный диапазон, прямая рука на полу — поддержка.",
-
   "exercisePushS7HandstandPushupName": "Отжимания в стойке на руках",
   "exercisePushS7HandstandPushupDesc": "Стойка на руках у стены (спиной). Медленно опускай голову к полу, затем выжимай корпус вверх.",
   "exercisePushS7HandstandPushupTip": "Пальцы широко расставлены — так стабильнее. Взгляд между рук.",
-
   "exerciseCoreS1CrunchesName": "Скручивания",
   "exerciseCoreS1CrunchesDesc": "Лёжа на спине, колени согнуты. Руки за головой или скрещены на груди. Отрывай лопатки от пола, сокращая пресс.",
   "exerciseCoreS1CrunchesTip": "Не тяни шею руками — тяни грудью к потолку.",
-
   "exerciseCoreS2PlankName": "Планка",
   "exerciseCoreS2PlankDesc": "Упор лёжа на предплечьях. Тело — прямая линия от пяток до головы. Не поднимай таз и не прогибай поясницу.",
   "exerciseCoreS2PlankTip": "Напрягай пресс и ягодицы. Дыши ровно — не задерживай.",
-
   "exerciseCoreS3LyingLegRaiseName": "Подъёмы ног лёжа",
   "exerciseCoreS3LyingLegRaiseDesc": "Лёжа на спине, руки под ягодицами. Прямые ноги поднимай до вертикали, затем медленно опускай не касаясь пола.",
   "exerciseCoreS3LyingLegRaiseTip": "Поясница прижата к полу на протяжении всего движения.",
-
   "exerciseCoreS4HangingLegRaiseName": "Подъёмы ног в висе",
   "exerciseCoreS4HangingLegRaiseDesc": "Повис на перекладине. Поднимай прямые ноги до параллели с полом или выше. Контролируй опускание.",
   "exerciseCoreS4HangingLegRaiseTip": "Не раскачивайся — движение только за счёт пресса.",
-
   "exerciseCoreS4FlutterKicksName": "Ножницы",
   "exerciseCoreS4FlutterKicksDesc": "Лёжа на спине, руки под ягодицами. Подними ноги на 15–20 см от пола. Поочерёдно поднимай и опускай каждую ногу быстрыми небольшими движениями. Одно повторение — один цикл (правая вверх + левая вверх).",
   "exerciseCoreS4FlutterKicksTip": "Поясница прижата к полу. Ноги не касаются пола между повторами.",
-
   "exerciseCoreS5LSitName": "Уголок (L-sit)",
   "exerciseCoreS5LSitDesc": "Упор на параллельных брусьях или полу. Ноги прямые, параллельны полу. Удерживай позицию как можно дольше.",
   "exerciseCoreS5LSitTip": "Носки тяни на себя, плечи — вниз и назад.",
-
   "exerciseCoreS6DragonFlagName": "Драконовый флаг",
   "exerciseCoreS6DragonFlagDesc": "Лёжа на скамье, держись за опору за головой. Подними тело в прямую линию на лопатках, затем медленно опускай.",
   "exerciseCoreS6DragonFlagTip": "Начинай с негативной фазы (только опускание) — это проще.",
-
   "exerciseWarmupArmRotationsName": "Круговые вращения руками",
   "exerciseWarmupArmRotationsDesc": "Стоя, делай большие круговые движения руками вперёд и назад. Разминает плечевой пояс перед отжиманиями.",
-
   "exerciseWarmupJumpingJacksName": "Прыжки «Ноги вместе — врозь»",
   "exerciseWarmupJumpingJacksDesc": "Классические jumping jacks. Повышают пульс и разогревают всё тело за 30–60 секунд.",
-
   "exerciseCooldownShoulderStretchName": "Растяжка плеч и груди",
   "exerciseCooldownShoulderStretchDesc": "Заведи руки за спину, сцепи пальцы и потяни плечи назад-вниз. Удержи 30 секунд.",
-
   "exerciseCooldownCatCowName": "Кошка-корова",
   "exerciseCooldownCatCowDesc": "На четвереньках: на вдохе прогибай спину вниз (корова), на выдохе округляй вверх (кошка). Расслабляет поясницу и пресс.",
-
   "exercisePullS1AustralianName": "Австралийское подтягивание",
   "exercisePullS1AustralianDesc": "Лёжа под перекладиной, хват чуть шире плеч. Тяни грудь к перекладине, держа тело прямой линией. Контролируй опускание.",
   "exercisePullS1AustralianTip": "Чем ниже опускаешь перекладину, тем сложнее упражнение.",
-
   "exercisePullS2NegativeName": "Негативные подтягивания",
   "exercisePullS2NegativeDesc": "Запрыгни на перекладину с подбородком выше неё. Медленно опускайся в течение 3–5 секунд до полного выпрямления рук.",
   "exercisePullS2NegativeTip": "Чем медленнее опускаешься — тем лучше. Цель: 5 сек вниз.",
-
   "exercisePullS3PullupName": "Подтягивания",
   "exercisePullS3PullupDesc": "Хват на ширине плеч или чуть шире. Тяни грудь к перекладине, пока подбородок не окажется выше неё. Полностью выпрямляй руки внизу.",
   "exercisePullS3PullupTip": "Сводя лопатки — тянешь спиной, а не руками.",
-
   "exercisePullS4CloseGripName": "Подтягивания узким хватом",
   "exercisePullS4CloseGripDesc": "Хват уже плеч, ладони к себе или от себя. Акцент на бицепс и нижнюю часть широчайших. Подтягивай грудь к перекладине.",
   "exercisePullS4CloseGripTip": "Локти прижимай к корпусу для максимальной нагрузки на бицепс.",
-
   "exercisePullS5ArcherName": "Подтягивания лучника",
   "exercisePullS5ArcherDesc": "Широкий хват. Тяни тело в сторону одной руки, вторую держи прямой. Поочерёдно на каждую сторону.",
   "exercisePullS5ArcherTip": "Прямая рука — вспомогательная, рабочая — полный диапазон.",
-
   "exercisePullS6OneArmName": "Подтягивание на одной руке",
   "exercisePullS6OneArmDesc": "Одна рука держит перекладину, вторая — на запястье или свободна. Полный диапазон движения рабочей рукой.",
   "exercisePullS6OneArmTip": "Держи корпус стабильным — не раскачивайся.",
-
   "exerciseWarmupDeadHangName": "Вис на перекладине",
   "exerciseWarmupDeadHangDesc": "Повисни на перекладине прямым хватом, руки полностью выпрямлены. Расслабь плечи и удержи вис.",
-
   "exerciseCooldownLatStretchName": "Растяжка широчайших",
   "exerciseCooldownLatStretchDesc": "Встань боком к стене, подними руку вверх и упрись в стену. Наклонись в сторону, чувствуя растяжку сбоку.",
-
   "exerciseLegsS1SquatName": "Приседания",
   "exerciseLegsS1SquatDesc": "Ноги на ширине плеч, носки чуть развёрнуты. Приседай до параллели бёдер с полом, колени над носками. Выпрямляй ноги в верхней точке.",
   "exerciseLegsS1SquatTip": "Пятки не отрывай от пола, грудь держи прямо.",
-
   "exerciseLegsS2LungeName": "Выпады",
   "exerciseLegsS2LungeDesc": "Шаг вперёд, опусти заднее колено к полу, не касаясь. Оба колена под углом 90°. Оттолкнись передней ногой и вернись в исходное.",
   "exerciseLegsS2LungeTip": "Переднее колено не уходи за носок.",
-
   "exerciseLegsS3BulgarianName": "Болгарские сплит-приседания",
   "exerciseLegsS3BulgarianDesc": "Задняя нога на возвышении (стул, диван). Опускай переднюю ногу до параллели бедра с полом. Торс прямой.",
   "exerciseLegsS3BulgarianTip": "Чем дальше передняя нога — тем больше нагрузка на ягодицы.",
-
   "exerciseLegsS4AssistedPistolName": "Пистолетик с опорой",
   "exerciseLegsS4AssistedPistolDesc": "Держись за дверной косяк или стойку. Приседай на одной ноге, вторую держи прямой перед собой. Опора снижает нагрузку.",
   "exerciseLegsS4AssistedPistolTip": "Постепенно уменьшай помощь рук по мере роста силы.",
-
   "exerciseLegsS5PistolName": "Пистолетик",
   "exerciseLegsS5PistolDesc": "Приседание на одной ноге без опоры. Вторая нога прямая перед собой. Полная амплитуда до пола и обратно.",
   "exerciseLegsS5PistolTip": "Руки вперёд для противовеса — помогает с балансом.",
-
   "exerciseWarmupLegSwingsName": "Махи ногами",
   "exerciseWarmupLegSwingsDesc": "Стоя у стены, делай маховые движения прямой ногой вперёд-назад и в стороны. Разминает тазобедренный сустав.",
-
   "exerciseCooldownQuadStretchName": "Растяжка квадрицепса",
   "exerciseCooldownQuadStretchDesc": "Стоя на одной ноге, согни вторую назад и удержи стопу рукой. Почувствуй растяжку передней поверхности бедра.",
-
   "exerciseBalS1OneLegStandName": "Стойка на одной ноге",
   "exerciseBalS1OneLegStandDesc": "Стой на одной ноге, вторую слегка согни и удержи в воздухе. Руки можно держать в стороны для баланса.",
   "exerciseBalS1OneLegStandTip": "Фиксируй взгляд на точке — это сильно улучшает баланс.",
-
   "exerciseBalS2OneArmPlankName": "Планка на одной руке",
   "exerciseBalS2OneArmPlankDesc": "Классическая планка на вытянутых руках. Оторви одну руку от пола и удержи позицию, тело параллельно полу.",
   "exerciseBalS2OneArmPlankTip": "Бёдра держи параллельно полу — не разворачивай корпус.",
-
   "exerciseBalS3CrowPrepName": "Подготовка к позе ворона",
   "exerciseBalS3CrowPrepDesc": "Присядь, колени на трицепсах. Перенеси вес на руки, слегка отрывая ноги. Удержи баланс на руках.",
   "exerciseBalS3CrowPrepTip": "Взгляд вперёд-вниз, не прямо вниз — иначе упадёшь.",
-
   "exerciseBalS4CrowPoseName": "Поза ворона (Kakasana)",
   "exerciseBalS4CrowPoseDesc": "Оба колена на трицепсах, полный баланс на руках. Руки слегка согнуты, пальцы широко расставлены.",
   "exerciseBalS4CrowPoseTip": "Округли спину — это активирует корпус и даёт баланс.",
-
   "exerciseBalS5WallHsName": "Стойка на руках у стены",
   "exerciseBalS5WallHsDesc": "Встань на руки спиной к стене. Пятки касаются стены для опоры. Удержи стойку, тело вытянуто в линию.",
   "exerciseBalS5WallHsTip": "Пальцы широко, надавливай на подушечки — это баланс.",
-
   "exerciseBalS6FreeHsName": "Свободная стойка на руках",
   "exerciseBalS6FreeHsDesc": "Стойка на руках без опоры. Контролируй баланс мелкими движениями пальцев и запястий.",
   "exerciseBalS6FreeHsTip": "Смотри в пол на 30–40 см перед руками, не между руками.",
-
   "exerciseWarmupWristCirclesName": "Круговые вращения запястьями",
   "exerciseWarmupWristCirclesDesc": "Вращай запястьями по часовой и против часовой стрелки. Подготавливает суставы к нагрузке на руках.",
-
   "exerciseCooldownDownwardDogName": "Собака мордой вниз",
   "exerciseCooldownDownwardDogDesc": "На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног.",
-
   "exerciseCooldownWristStretchName": "Растяжка запястий",
   "exerciseCooldownWristStretchDesc": "Вытяни одну руку вперёд ладонью вверх. Другой рукой мягко потяни пальцы вниз. Удержи 30 секунд на каждую руку.",
-
   "aboutTitle": "О приложении",
   "aboutVersion": "Версия",
   "aboutSectionSupport": "ПОДДЕРЖКА",
@@ -527,14 +520,12 @@
   "aboutBuiltWith": "СДЕЛАНО НА",
   "aboutCopyright": "© 2026 pupptmstr",
   "settingsAbout": "О приложении",
-
   "settingsSectionHealth": "ЗДОРОВЬЕ",
   "settingsHealthWorkoutsTitle": "Записывать тренировки",
   "settingsHealthWorkoutsSubtitle": "Сохранять в Apple Health / Health Connect",
   "settingsHealthWeightTitle": "Читать массу тела",
   "settingsHealthWeightSubtitle": "Для точного расчёта калорий (иначе 70 кг)",
   "summaryHealthSaved": "Сохранено в Health ✓",
-
   "friendsTitle": "Друзья",
   "friendsMyQrTitle": "Мой профиль",
   "friendsShareHint": "Покажи этот код другу, чтобы поделиться профилем",
@@ -552,8 +543,12 @@
   "friendsScanConfirmBody": "{sp} SP · стрик {streak} дней",
   "@friendsScanConfirmBody": {
     "placeholders": {
-      "sp": {"type": "int"},
-      "streak": {"type": "int"}
+      "sp": {
+        "type": "int"
+      },
+      "streak": {
+        "type": "int"
+      }
     }
   },
   "friendsCancel": "Отмена",
@@ -561,157 +556,157 @@
   "friendsDetailLastSynced": "Синхронизировано: {date}",
   "@friendsDetailLastSynced": {
     "placeholders": {
-      "date": {"type": "String"}
+      "date": {
+        "type": "String"
+      }
     }
   },
   "friendsDeleteTitle": "Удалить друга",
   "friendsDeleteBody": "Удалить {name} из друзей?",
   "@friendsDeleteBody": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "friendsDeleteConfirm": "Удалить",
-
   "settingsSectionFriends": "ДРУЗЬЯ",
   "settingsFriendsNameTitle": "Имя для друзей",
   "settingsFriendsNameSubtitle": "Отображается при обмене профилем",
   "settingsFriendsNamePlaceholder": "Введи своё имя",
   "settingsFriendsDiscoverableTitle": "Виден через Bluetooth",
   "settingsFriendsDiscoverableSubtitle": "Другие пользователи CaliDay смогут найти тебя рядом",
-
   "profileFriendsTitle": "Друзья",
   "profileFriendsAll": "Все друзья →",
   "profileFriendsEmpty": "Друзей пока нет",
   "profileFriendsCount": "{count} друзей",
   "@profileFriendsCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
-
   "exerciseFlexS1HipFlexorStretchName": "Растяжка сгибателей бедра",
   "exerciseFlexS1HipFlexorStretchDesc": "Встань в выпад, опусти заднее колено на пол. Толкай бёдра вперёд, чтобы почувствовать растяжку в передней части бедра. Удержи каждую сторону.",
   "exerciseFlexS1HipFlexorStretchTip": "Держи спину прямо и толкай бёдра вперёд — почувствуй растяжку в передней части бедра.",
-
   "exerciseFlexS2WorldsGreatestStretchName": "Лучшая растяжка в мире",
   "exerciseFlexS2WorldsGreatestStretchDesc": "Из выпада поставь одноимённую руку на пол. Поверни верхнюю часть тела и потянись другой рукой к потолку. Выполняй плавно.",
   "exerciseFlexS2WorldsGreatestStretchTip": "Двигайся медленно через каждую позицию — это поток, а не гонка.",
-
   "exerciseFlexS3Hip9090Name": "Мобильность бёдер 90/90",
   "exerciseFlexS3Hip9090Desc": "Сядь на пол, обе ноги согнуты под 90°: одна спереди, другая сбоку. Удержи положение и смени сторону.",
   "exerciseFlexS3Hip9090Tip": "Держи обе седалищные кости на полу. Вращай из бедра, а не из поясницы.",
-
   "exerciseFlexS4ThoracicBridgeName": "Торакальный мост",
   "exerciseFlexS4ThoracicBridgeDesc": "Из положения сидя с руками позади подними бёдра и поверни верхнюю часть позвоночника, открывая грудь к потолку.",
   "exerciseFlexS4ThoracicBridgeTip": "Сосредоточь движение в верхней части спины — избегай сгибания в пояснице.",
-
   "exerciseFlexS5DeepSquatHoldName": "Глубокий присед (удержание)",
   "exerciseFlexS5DeepSquatHoldDesc": "Ноги на ширине плеч, носки чуть развёрнуты. Опустись в глубокий присед и удержи. При необходимости держись за дверной косяк.",
   "exerciseFlexS5DeepSquatHoldTip": "Поначалу используй косяк двери или стойку. Цель — пятки на полу.",
-
   "exerciseFlexS6PikeStretchName": "Растяжка в наклоне вперёд",
   "exerciseFlexS6PikeStretchDesc": "Сядь на пол, ноги прямые перед собой. Потянись руками к стопам, сгибаясь в бёдрах. Удержи положение.",
   "exerciseFlexS6PikeStretchTip": "Тянись вперёд из бёдер, а не из поясницы. Держи ноги прямыми.",
-
   "exerciseSuppObliqueCrunchName": "Косые скручивания",
   "exerciseSuppObliqueCrunchDesc": "Лёжа на спине, ноги согнуты. Тянись правым локтем к левому колену, затем левым к правому. Поочерёдно.",
-
   "exerciseSuppRussianTwistsName": "Русские скручивания",
   "exerciseSuppRussianTwistsDesc": "Сядь, слегка отклонись назад, ноги чуть приподними. Поворачивай корпус вправо и влево — каждый поворот = один повтор.",
   "exerciseSuppRussianTwistsTip": "Держи спину прямой, не горби.",
-
   "exerciseSuppSidePlankName": "Боковая планка",
   "exerciseSuppSidePlankDesc": "Упор на предплечье сбоку, тело вытянуто в прямую линию. Удержи позицию, затем повтори на другой стороне.",
   "exerciseSuppSidePlankTip": "Не опускай бёдра — держи прямую линию.",
-
   "exerciseSuppStandingCalfRaiseName": "Подъёмы на носки",
   "exerciseSuppStandingCalfRaiseDesc": "Встань ровно, медленно поднимись на носки на 2–3 секунды, затем опустись. Можно придерживаться за стену для баланса.",
-
   "exerciseSuppSingleLegCalfRaiseName": "Подъём на носок (одна нога)",
   "exerciseSuppSingleLegCalfRaiseDesc": "Встань на одну ногу. Медленно поднимись на носок и опустись. Повтори на другой ноге.",
   "exerciseSuppSingleLegCalfRaiseTip": "Медленный темп — больше пользы.",
-
   "exerciseSuppDeadBugName": "Мёртвый жук",
   "exerciseSuppDeadBugDesc": "Лёжа на спине, руки вертикально вверх, колени 90°. Одновременно опускай правую руку назад и выпрямляй левую ногу. Поочерёдно.",
   "exerciseSuppDeadBugTip": "Поясница прижата к полу на протяжении всего упражнения.",
-
   "exerciseSuppBirdDogName": "Птица-пёс",
   "exerciseSuppBirdDogDesc": "На четвереньках: вытяни правую руку вперёд и левую ногу назад одновременно. Удержи 2 секунды, вернись. Поочерёдно.",
   "exerciseSuppBirdDogTip": "Не поворачивай таз — держи его ровно.",
-
   "exerciseSuppNeckIsometricsName": "Изометрия шеи",
   "exerciseSuppNeckIsometricsDesc": "Упрись ладонью в лоб и надавливай — шея сопротивляется. Затем в затылок и в каждый висок. По 5–10 секунд.",
   "exerciseSuppNeckIsometricsTip": "Мягкое давление — не форсируй.",
-
   "exerciseSuppWristCirclesName": "Вращения запястьями",
   "exerciseSuppWristCirclesDesc": "Сожми руки в кулаки и медленно вращай запястьями по часовой и против часовой стрелки. Укрепляет предплечья и сухожилия.",
-
   "exerciseWarmupHipCirclesName": "Вращения тазом",
   "exerciseWarmupHipCirclesDesc": "Стоя, ноги на ширине плеч. Делай медленные круговые движения тазом по часовой и против часовой стрелки. Разогревает тазобедренный сустав.",
-
   "exerciseWarmupNeckRollsName": "Вращения шеей",
   "exerciseWarmupNeckRollsDesc": "Медленно наклоняй голову вперёд-назад и в стороны, затем плавный полукруг от плеча к плечу. Разогревает мышцы шеи.",
-
   "exerciseCooldownHipFlexorName": "Растяжка сгибателей бедра",
   "exerciseCooldownHipFlexorDesc": "Встань в выпад, опусти заднее колено на пол. Выдвинь таз вперёд-вниз, почувствуй растяжку в паху. Удержи каждую сторону.",
-
   "exercisePostureS1PelvicTiltName": "Наклон таза лёжа",
   "exercisePostureS1PelvicTiltDesc": "Лёжа на спине, колени согнуты. Медленно прижимай поясницу к полу, напрягая живот. Удержи 5 секунд, расслабь.",
   "exercisePostureS1PelvicTiltTip": "Не задерживай дыхание — работай плавно.",
-
   "exercisePostureS2DeadBugName": "Мёртвый жук",
   "exercisePostureS2DeadBugDesc": "Лёжа на спине, руки вертикально вверх, колени 90°. Одновременно опускай правую руку назад и выпрямляй левую ногу — не давай пояснице оторваться от пола.",
   "exercisePostureS2DeadBugTip": "Двигайся медленно — это контроль, а не скорость. Поясница прижата к полу всё время.",
-
   "exercisePostureS3GluteBridgeName": "Ягодичный мостик",
   "exercisePostureS3GluteBridgeDesc": "Лёжа на спине, колени согнуты, стопы на полу. Поднимай бёдра вверх, сжимая ягодицы. Удержи секунду наверху, опусти.",
   "exercisePostureS3GluteBridgeTip": "Сжимай ягодицы в верхней точке — не толкай поясницей.",
-
   "exercisePostureS4HipMarchName": "Шагание на месте",
   "exercisePostureS4HipMarchDesc": "Стоя прямо, медленно поднимай одно колено до уровня бедра, опусти. Чередуй стороны. Держи корпус неподвижным.",
   "exercisePostureS4HipMarchTip": "Поднимай колено до уровня бедра без наклона корпуса — сгибатель бедра работает, а не инерция.",
-
   "exercisePostureS5KneelingLungeName": "Растяжка сгибателей бедра в выпаде",
   "exercisePostureS5KneelingLungeDesc": "Встань в выпад, опусти заднее колено на пол, другая нога впереди. Выдвигай бёдра вперёд до ощущения растяжки в паху задней ноги. Удержи.",
   "exercisePostureS5KneelingLungeTip": "Держи спину прямо и мягко подтяни таз под себя, чтобы углубить растяжку.",
-
   "exercisePostureS6PigeonPoseName": "Поза голубя",
   "exercisePostureS6PigeonPoseDesc": "Из положения на четвереньках вынеси правую ногу вперёд, согни под углом 90°. Левая нога вытянута назад. Опусти бёдра вниз и удержи позицию.",
   "exercisePostureS6PigeonPoseTip": "Дыши глубоко — поза раскрывает тазобедренный сустав постепенно.",
-
   "exerciseNeckS1NeckTiltName": "Наклоны шеи",
   "exerciseNeckS1NeckTiltDesc": "Медленно наклоняй голову к правому плечу — без подъёма плеча. Удержи 5 секунд, вернись. Поочерёдно.",
   "exerciseNeckS1NeckTiltTip": "Плечо тянется вниз — так растяжка глубже.",
-
   "exerciseNeckS2ChestOpenerName": "Раскрытие груди",
   "exerciseNeckS2ChestOpenerDesc": "Стоя прямо, сцепи руки за спиной. Сведи лопатки вместе и мягко подними руки, раскрывая грудь.",
   "exerciseNeckS2ChestOpenerTip": "Сжимай лопатки — не прогибай поясницу.",
-
   "exerciseNeckS3ShoulderRollName": "Вращения плечами",
   "exerciseNeckS3ShoulderRollDesc": "Делай большие медленные круги плечами — 5 раз вперёд, затем 5 раз назад. Шея расслаблена на протяжении всего упражнения.",
   "exerciseNeckS3ShoulderRollTip": "Делай круги как можно большими — преувеличивай движение.",
-
   "exerciseNeckS4WallAngelName": "Ангел у стены",
   "exerciseNeckS4WallAngelDesc": "Встань спиной к стене, прижав спину, голову и руки к поверхности. Медленно поднимай руки вверх над головой, не отрывая их от стены. Опусти.",
   "exerciseNeckS4WallAngelTip": "Поясница прижата к стене всё время — это сложнее, чем кажется.",
-
   "exerciseNeckS5DoorwayStretchName": "Растяжка в дверном проёме",
   "exerciseNeckS5DoorwayStretchDesc": "Встань в дверной проём, обе руки согнуты под 90° на уровне плеч, предплечья упираются в косяки. Медленно выдвинь грудь вперёд. Удержи 30 секунд.",
   "exerciseNeckS5DoorwayStretchTip": "Лопатки вместе — раскрытие грудного отдела в полную силу.",
-
   "tooltipStreakTitle": "Текущая серия",
   "tooltipStreakBody": "Количество дней подряд, в которые ты тренировался. Пропусти день без заморозки — и серия сбросится. Не давай огню погаснуть — Горо следит!",
-
   "tooltipLongestStreakTitle": "Личный рекорд",
   "tooltipLongestStreakBody": "Твоя самая длинная непрерывная серия тренировок за всё время. Этот рекорд хранится вечно — даже если текущая серия оборвётся.",
-
   "tooltipTotalWorkoutsTitle": "Всего тренировок",
   "tooltipTotalWorkoutsBody": "Общее количество завершённых тренировок с момента старта. Каждая сессия в счёт — бонусные тренировки тоже суммируются.",
-
   "tooltipFreezesTitle": "Заморозки серии",
   "tooltipFreezesBody": "Заморозки защищают серию, если пропустил день. Зарабатываются автоматически при регулярных тренировках. Максимум — 3 заморозки одновременно.",
-
   "tooltipRankTitle": "Ранг и очки силы",
-  "tooltipRankBody": "SP (очки силы) начисляются за каждую завершённую тренировку. Накапливая SP, ты поднимаешься от Новичка до Легенды. Чем больше тренируешься — тем выше ранг."
+  "tooltipRankBody": "SP (очки силы) начисляются за каждую завершённую тренировку. Накапливая SP, ты поднимаешься от Новичка до Легенды. Чем больше тренируешься — тем выше ранг.",
+  "exerciseLibraryTitle": "Все упражнения",
+  "exerciseLibrarySearchHint": "Поиск упражнений...",
+  "exerciseLibraryCatalogButton": "Каталог упражнений",
+  "exerciseLibraryEmpty": "Упражнения не найдены",
+  "exerciseDetailTipLabel": "Техника",
+  "exerciseDetailStageLabel": "Этап {stage}",
+  "@exerciseDetailStageLabel": {
+    "placeholders": {
+      "stage": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseTagHipFlexor": "Сгибатели бедра",
+  "exerciseTagGlutes": "Ягодицы",
+  "exerciseTagCore": "Пресс",
+  "exerciseTagChest": "Грудь",
+  "exerciseTagBack": "Спина",
+  "exerciseTagShoulders": "Плечи",
+  "exerciseTagLegs": "Ноги",
+  "exerciseTagNeck": "Шея",
+  "exerciseTagStretch": "Растяжка",
+  "exerciseTagMobility": "Мобильность",
+  "exerciseTagStrength": "Сила",
+  "exerciseTagEndurance": "Выносливость",
+  "exerciseTagSittingRecovery": "Офисное восстановление",
+  "exerciseTagFloorOnly": "Без инвентаря",
+  "exerciseTagRequiresBar": "Нужен турник",
+  "exerciseTagPostureFocus": "Осанка",
+  "exerciseTagBeginner": "Для новичков"
 }

@@ -2960,28 +2960,142 @@ abstract class AppLocalizations {
   /// **'SP (Strength Points) are earned every time you complete a workout. As you collect SP your rank climbs from Beginner all the way to Legend. The more you train, the higher you rise.'**
   String get tooltipRankBody;
 
+  /// No description provided for @exerciseLibraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'All Exercises'**
   String get exerciseLibraryTitle;
+
+  /// No description provided for @exerciseLibrarySearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search exercises...'**
   String get exerciseLibrarySearchHint;
+
+  /// No description provided for @exerciseLibraryCatalogButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise Catalog'**
   String get exerciseLibraryCatalogButton;
+
+  /// No description provided for @exerciseLibraryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No exercises found'**
   String get exerciseLibraryEmpty;
+
+  /// No description provided for @exerciseDetailTipLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Technique'**
   String get exerciseDetailTipLabel;
+
+  /// No description provided for @exerciseDetailStageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Stage {stage}'**
   String exerciseDetailStageLabel(int stage);
+
+  /// No description provided for @exerciseTagHipFlexor.
+  ///
+  /// In en, this message translates to:
+  /// **'Hip Flexors'**
   String get exerciseTagHipFlexor;
+
+  /// No description provided for @exerciseTagGlutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Glutes'**
   String get exerciseTagGlutes;
+
+  /// No description provided for @exerciseTagCore.
+  ///
+  /// In en, this message translates to:
+  /// **'Core'**
   String get exerciseTagCore;
+
+  /// No description provided for @exerciseTagChest.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest'**
   String get exerciseTagChest;
+
+  /// No description provided for @exerciseTagBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
   String get exerciseTagBack;
+
+  /// No description provided for @exerciseTagShoulders.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders'**
   String get exerciseTagShoulders;
+
+  /// No description provided for @exerciseTagLegs.
+  ///
+  /// In en, this message translates to:
+  /// **'Legs'**
   String get exerciseTagLegs;
+
+  /// No description provided for @exerciseTagNeck.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck'**
   String get exerciseTagNeck;
+
+  /// No description provided for @exerciseTagStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Stretch'**
   String get exerciseTagStretch;
+
+  /// No description provided for @exerciseTagMobility.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobility'**
   String get exerciseTagMobility;
+
+  /// No description provided for @exerciseTagStrength.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength'**
   String get exerciseTagStrength;
+
+  /// No description provided for @exerciseTagEndurance.
+  ///
+  /// In en, this message translates to:
+  /// **'Endurance'**
   String get exerciseTagEndurance;
+
+  /// No description provided for @exerciseTagSittingRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Desk Recovery'**
   String get exerciseTagSittingRecovery;
+
+  /// No description provided for @exerciseTagFloorOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'No Equipment'**
   String get exerciseTagFloorOnly;
+
+  /// No description provided for @exerciseTagRequiresBar.
+  ///
+  /// In en, this message translates to:
+  /// **'Requires Bar'**
   String get exerciseTagRequiresBar;
+
+  /// No description provided for @exerciseTagPostureFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'Posture'**
   String get exerciseTagPostureFocus;
+
+  /// No description provided for @exerciseTagBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
   String get exerciseTagBeginner;
 }
 

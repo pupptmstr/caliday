@@ -1669,7 +1669,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get exerciseDetailTipLabel => 'Техника';
 
   @override
-  String exerciseDetailStageLabel(int stage) => 'Этап $stage';
+  String exerciseDetailStageLabel(int stage) {
+    return 'Этап $stage';
+  }
 
   @override
   String get exerciseTagHipFlexor => 'Сгибатели бедра';
