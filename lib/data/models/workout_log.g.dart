@@ -22,7 +22,7 @@ class WorkoutLogAdapter extends TypeAdapter<WorkoutLog> {
       exercises: (fields[2] as List).cast<ExerciseResult>(),
       spEarned: fields[3] as int,
       durationSec: fields[4] as int,
-      isPrimary: fields[5] as bool? ?? true,
+      isPrimary: fields[5] as bool,
       courseIdIndex: fields[6] as int?,
     );
   }

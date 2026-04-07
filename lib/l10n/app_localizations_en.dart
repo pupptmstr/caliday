@@ -1719,4 +1719,49 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exerciseTagBeginner => 'Beginner';
+
+  @override
+  String get customWorkoutButtonLabel => 'Custom Workout';
+
+  @override
+  String get customWorkoutMyRoutines => 'My Routines';
+
+  @override
+  String get customWorkoutNewRoutine => 'New Routine';
+
+  @override
+  String get customWorkoutQuickRoutine => 'Quick Routine';
+
+  @override
+  String get customWorkoutQuickRoutineDesc =>
+      'Pick a focus area — we\'ll select exercises for you';
+
+  @override
+  String get customWorkoutEmpty => 'No saved routines yet';
+
+  @override
+  String get customWorkoutNameHint => 'Routine name';
+
+  @override
+  String get customWorkoutSave => 'Save Routine';
+
+  @override
+  String get customWorkoutStartNow => 'Start Now';
+
+  @override
+  String get customWorkoutDelete => 'Delete';
+
+  @override
+  String get customWorkoutBuilderTitle => 'Routine Builder';
+
+  @override
+  String get customWorkoutPickFocus => 'What do you want to train?';
+
+  @override
+  String get customWorkoutSelectExercises => 'Add exercises';
+
+  @override
+  String customWorkoutExerciseCount(int count) {
+    return '$count exercises';
+  }
 }

@@ -3097,6 +3097,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Beginner'**
   String get exerciseTagBeginner;
+
+  /// No description provided for @customWorkoutButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Workout'**
+  String get customWorkoutButtonLabel;
+
+  /// No description provided for @customWorkoutMyRoutines.
+  ///
+  /// In en, this message translates to:
+  /// **'My Routines'**
+  String get customWorkoutMyRoutines;
+
+  /// No description provided for @customWorkoutNewRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'New Routine'**
+  String get customWorkoutNewRoutine;
+
+  /// No description provided for @customWorkoutQuickRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick Routine'**
+  String get customWorkoutQuickRoutine;
+
+  /// No description provided for @customWorkoutQuickRoutineDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a focus area — we\'ll select exercises for you'**
+  String get customWorkoutQuickRoutineDesc;
+
+  /// No description provided for @customWorkoutEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No saved routines yet'**
+  String get customWorkoutEmpty;
+
+  /// No description provided for @customWorkoutNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Routine name'**
+  String get customWorkoutNameHint;
+
+  /// No description provided for @customWorkoutSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save Routine'**
+  String get customWorkoutSave;
+
+  /// No description provided for @customWorkoutStartNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Start Now'**
+  String get customWorkoutStartNow;
+
+  /// No description provided for @customWorkoutDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get customWorkoutDelete;
+
+  /// No description provided for @customWorkoutBuilderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Routine Builder'**
+  String get customWorkoutBuilderTitle;
+
+  /// No description provided for @customWorkoutPickFocus.
+  ///
+  /// In en, this message translates to:
+  /// **'What do you want to train?'**
+  String get customWorkoutPickFocus;
+
+  /// No description provided for @customWorkoutSelectExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Add exercises'**
+  String get customWorkoutSelectExercises;
+
+  /// No description provided for @customWorkoutExerciseCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} exercises'**
+  String customWorkoutExerciseCount(int count);
 }
 
 class _AppLocalizationsDelegate

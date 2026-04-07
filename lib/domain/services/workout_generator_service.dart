@@ -134,6 +134,28 @@ class WorkoutGeneratorService {
         hasPullUpBar: hasPullUpBar,
       );
 
+  /// Builds a [WorkoutPlan] from an explicit list of exercise IDs.
+  ///
+  /// Used for custom routines. Each exercise is loaded at its [startReps] /
+  /// [startSets] / [startRestSec] values — no progression state involved.
+  WorkoutPlan fromExerciseIds(List<String> ids) {
+    final exercises = <PlannedExercise>[];
+    for (final id in ids) {
+      // byId searches ExerciseCatalog.all (excludes coreS4FlutterKicks);
+      // fall back to libraryAll to cover equipment-free alternatives.
+      final exercise = ExerciseCatalog.byId(id) ??
+          ExerciseCatalog.libraryAll.where((e) => e.id == id).firstOrNull;
+      if (exercise == null) continue;
+      exercises.add(PlannedExercise(
+        exercise: exercise,
+        targetAmount: exercise.startReps,
+        sets: exercise.startSets,
+        restSec: exercise.startRestSec,
+      ));
+    }
+    return WorkoutPlan(setType: SetType.daily, exercises: exercises);
+  }
+
   /// Generates a [SetType.challenge] plan for [branch].
   ///
   /// Structure: warmup → current stage (1 light set) → next stage

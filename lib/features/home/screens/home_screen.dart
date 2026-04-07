@@ -7,6 +7,10 @@ import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/providers/goro_expression_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../data/models/enums.dart';
+import '../../../data/static/exercise_catalog.dart';
+import '../../../data/static/exercise_tags_catalog.dart';
+import '../../../domain/services/workout_generator_service.dart';
+import '../../workout/providers/workout_provider.dart';
 import '../providers/home_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -50,7 +54,9 @@ class HomeScreen extends ConsumerWidget {
                     done: data.hasWorkoutToday,
                     onTap: () => context.push('/workout'),
                   ),
-                  const SizedBox(height: 32),
+                  const SizedBox(height: 10),
+                  _CustomWorkoutButton(scheme: scheme),
+                  const SizedBox(height: 24),
                 ],
               ),
             ),
@@ -355,5 +361,143 @@ class _WorkoutButton extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+// ── Custom Workout secondary button ───────────────────────────────────────────
+
+class _CustomWorkoutButton extends ConsumerWidget {
+  const _CustomWorkoutButton({required this.scheme});
+
+  final ColorScheme scheme;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final label = context.l10n.customWorkoutButtonLabel;
+    return GestureDetector(
+      onTap: () => _showQuickSheet(context, ref),
+      child: Container(
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: scheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(16),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(Icons.tune, size: 18, color: scheme.onSurfaceVariant),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: scheme.onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _showQuickSheet(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => _HomeCustomSheet(),
+    );
+  }
+}
+
+class _HomeCustomSheet extends ConsumerWidget {
+  const _HomeCustomSheet();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              width: 36,
+              height: 4,
+              decoration: BoxDecoration(
+                color: scheme.outlineVariant,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l10n.customWorkoutPickFocus,
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            l10n.customWorkoutQuickRoutineDesc,
+            style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: ExerciseTag.values.map((tag) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _launch(context, ref, tag);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: tag.color.withAlpha(30),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                        color: tag.color.withAlpha(80), width: 1),
+                  ),
+                  child: Text(
+                    tag.localizedName(l10n),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: tag.color,
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _launch(BuildContext context, WidgetRef ref, ExerciseTag tag) {
+    final tagged = ExerciseCatalog.libraryAll.where((e) {
+      return ExerciseTagsCatalog.forId(e.id).contains(tag);
+    }).toList()
+      ..shuffle();
+    final count = tagged.length.clamp(4, 6);
+    final ids = tagged.take(count).map((e) => e.id).toList();
+    if (ids.isEmpty) return;
+
+    final generator = ref.read(workoutGeneratorServiceProvider);
+    final plan = generator.fromExerciseIds(ids);
+    ref.read(customWorkoutPlanProvider.notifier).state = plan;
+    context.push('/workout');
   }
 }

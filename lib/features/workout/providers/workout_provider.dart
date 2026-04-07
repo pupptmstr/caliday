@@ -29,6 +29,13 @@ import '../../settings/providers/settings_provider.dart';
 /// null means normal daily workout. Reset automatically after workout ends.
 final challengeBranchProvider = StateProvider<BranchId?>((ref) => null);
 
+// ── Custom workout plan selector ───────────────────────────────────────────────
+
+/// Set to a [WorkoutPlan] before navigating to /workout to run a custom routine.
+/// Takes priority over both [challengeBranchProvider] and daily generation.
+/// Always treated as a bonus workout (isPrimary = false). Reset after workout ends.
+final customWorkoutPlanProvider = StateProvider<WorkoutPlan?>((ref) => null);
+
 // ── Phase ─────────────────────────────────────────────────────────────────────
 
 enum WorkoutPhase { exercise, rest, done }
@@ -192,6 +199,10 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       : super(WorkoutState.initial(_buildPlan(_ref)));
 
   static WorkoutPlan _buildPlan(Ref ref) {
+    // Custom routine takes highest priority.
+    final customPlan = ref.read(customWorkoutPlanProvider);
+    if (customPlan != null) return customPlan;
+
     final challengeBranch = ref.read(challengeBranchProvider);
     final generator = ref.read(workoutGeneratorServiceProvider);
     final profile = ref.read(userRepositoryProvider).getProfile();
@@ -367,6 +378,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     final now = DateTime.now();
     final durationSec = now.difference(state.startedAt).inSeconds;
     final course = _ref.read(activeCourseProvider);
+    final isCustomWorkout = _ref.read(customWorkoutPlanProvider) != null;
 
     // Build parallel lists of matched results and exercises (skip nulls).
     final matchedResults = <ExerciseResult>[];
@@ -381,7 +393,8 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
 
     // ── Determine primary vs bonus ─────────────────────────────────────────
     final workoutRepo = _ref.read(workoutRepositoryProvider);
-    final isPrimary = !workoutRepo.hasPrimaryWorkoutToday();
+    // Custom workouts are always bonus (no stage progression, ×0.5 SP).
+    final isPrimary = isCustomWorkout ? false : !workoutRepo.hasPrimaryWorkoutToday();
 
     // ── SP ────────────────────────────────────────────────────────────────
     final spService = _ref.read(spServiceProvider);
@@ -446,13 +459,15 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       }
     }
 
-    // Reset challenge branch after workout.
+    // Reset challenge branch and custom plan after workout.
     _ref.read(challengeBranchProvider.notifier).state = null;
+    _ref.read(customWorkoutPlanProvider.notifier).state = null;
 
     // ── Workout log ───────────────────────────────────────────────────────
     // workoutsToday captured before addLog to avoid relying on Hive sync timing.
     final workoutsToday = workoutRepo.getCountForDate(now) + 1;
     // Fire-and-forget: Hive write is async but nearly instantaneous locally.
+    // Custom workouts use courseIdIndex = null (not part of any course).
     unawaited(workoutRepo.addLog(WorkoutLog(
       date: now,
       setType: state.plan.setType,
@@ -460,7 +475,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       spEarned: spEarned,
       durationSec: durationSec,
       isPrimary: isPrimary,
-      courseIdIndex: course.index,
+      courseIdIndex: isCustomWorkout ? null : course.index,
     )));
 
     // ── Health (Apple Health / Health Connect) ────────────────────────────

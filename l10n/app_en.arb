@@ -708,5 +708,27 @@
   "exerciseTagFloorOnly": "No Equipment",
   "exerciseTagRequiresBar": "Requires Bar",
   "exerciseTagPostureFocus": "Posture",
-  "exerciseTagBeginner": "Beginner"
+  "exerciseTagBeginner": "Beginner",
+
+  "customWorkoutButtonLabel": "Custom Workout",
+  "customWorkoutMyRoutines": "My Routines",
+  "customWorkoutNewRoutine": "New Routine",
+  "customWorkoutQuickRoutine": "Quick Routine",
+  "customWorkoutQuickRoutineDesc": "Pick a focus area — we'll select exercises for you",
+  "customWorkoutEmpty": "No saved routines yet",
+  "customWorkoutNameHint": "Routine name",
+  "customWorkoutSave": "Save Routine",
+  "customWorkoutStartNow": "Start Now",
+  "customWorkoutDelete": "Delete",
+  "customWorkoutBuilderTitle": "Routine Builder",
+  "customWorkoutPickFocus": "What do you want to train?",
+  "customWorkoutSelectExercises": "Add exercises",
+  "customWorkoutExerciseCount": "{count} exercises",
+  "@customWorkoutExerciseCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

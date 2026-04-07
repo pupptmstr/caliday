@@ -6,13 +6,17 @@ import '../../../core/theme/app_theme.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
+import '../../../data/models/custom_routine.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
 import '../../../data/models/user_profile.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
+import '../../../data/repositories/custom_routine_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../data/static/course_catalog.dart';
 import '../../../data/static/exercise_catalog.dart';
+import '../../../data/static/exercise_tags_catalog.dart';
+import '../../../domain/services/workout_generator_service.dart';
 import '../../home/providers/home_provider.dart';
 import '../../workout/providers/workout_provider.dart';
 
@@ -141,6 +145,10 @@ class LibraryScreen extends ConsumerWidget {
                         ),
                       ],
                     ],
+                    const SizedBox(height: 24),
+
+                    // ── My Routines section ─────────────────────────────────
+                    _MyRoutinesSection(),
                     const SizedBox(height: 16),
                   ],
                 ),
@@ -577,6 +585,343 @@ class _BranchProgressCard extends StatelessWidget {
             ],
           ),
         ),
+      ),
+    );
+  }
+}
+
+// ── My Routines section ───────────────────────────────────────────────────────
+
+class _MyRoutinesSection extends ConsumerWidget {
+  const _MyRoutinesSection();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+    final routines = ref.watch(customRoutinesProvider);
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              l10n.customWorkoutMyRoutines,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            Row(
+              children: [
+                // Quick Routine button
+                GestureDetector(
+                  onTap: () => _showQuickRoutineSheet(context, ref),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: scheme.secondaryContainer,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.bolt,
+                            size: 16,
+                            color: scheme.onSecondaryContainer),
+                        const SizedBox(width: 4),
+                        Text(
+                          l10n.customWorkoutQuickRoutine,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: scheme.onSecondaryContainer,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const SizedBox(width: 8),
+                // New Routine button
+                GestureDetector(
+                  onTap: () => context.push('/library/routine-builder'),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: scheme.primaryContainer,
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Icons.add,
+                            size: 16,
+                            color: scheme.onPrimaryContainer),
+                        const SizedBox(width: 4),
+                        Text(
+                          l10n.customWorkoutNewRoutine,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600,
+                            color: scheme.onPrimaryContainer,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+
+        if (routines.isEmpty)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(
+                vertical: 20, horizontal: 16),
+            decoration: BoxDecoration(
+              color: scheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Text(
+              l10n.customWorkoutEmpty,
+              style: TextStyle(
+                  fontSize: 14, color: scheme.onSurfaceVariant),
+              textAlign: TextAlign.center,
+            ),
+          )
+        else
+          for (final routine in routines) ...[
+            if (routine != routines.first) const SizedBox(height: 8),
+            _RoutineCard(routine: routine),
+          ],
+      ],
+    );
+  }
+
+  void _showQuickRoutineSheet(BuildContext context, WidgetRef ref) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => _QuickRoutineSheet(),
+    );
+  }
+}
+
+// ── Quick Routine sheet ───────────────────────────────────────────────────────
+
+class _QuickRoutineSheet extends ConsumerWidget {
+  const _QuickRoutineSheet();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              width: 36,
+              height: 4,
+              decoration: BoxDecoration(
+                color: scheme.outlineVariant,
+                borderRadius: BorderRadius.circular(2),
+              ),
+            ),
+          ),
+          const SizedBox(height: 16),
+          Text(
+            l10n.customWorkoutPickFocus,
+            style: Theme.of(context)
+                .textTheme
+                .titleLarge
+                ?.copyWith(fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            l10n.customWorkoutQuickRoutineDesc,
+            style: TextStyle(fontSize: 13, color: scheme.onSurfaceVariant),
+          ),
+          const SizedBox(height: 16),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: ExerciseTag.values.map((tag) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).pop();
+                  _launchQuickRoutine(context, ref, tag);
+                },
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: tag.color.withAlpha(30),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                        color: tag.color.withAlpha(80), width: 1),
+                  ),
+                  child: Text(
+                    tag.localizedName(l10n),
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: tag.color,
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _launchQuickRoutine(
+      BuildContext context, WidgetRef ref, ExerciseTag tag) {
+    // Collect exercises with this tag, shuffle, take 4-6.
+    final tagged = ExerciseCatalog.libraryAll.where((e) {
+      return ExerciseTagsCatalog.forId(e.id).contains(tag);
+    }).toList()
+      ..shuffle();
+    final count = tagged.length.clamp(4, 6);
+    final ids = tagged.take(count).map((e) => e.id).toList();
+    if (ids.isEmpty) return;
+
+    final generator = ref.read(workoutGeneratorServiceProvider);
+    final plan = generator.fromExerciseIds(ids);
+    ref.read(customWorkoutPlanProvider.notifier).state = plan;
+    context.push('/workout');
+  }
+}
+
+// ── Routine card ──────────────────────────────────────────────────────────────
+
+class _RoutineCard extends ConsumerWidget {
+  const _RoutineCard({required this.routine});
+
+  final CustomRoutine routine;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+
+    return Material(
+      color: scheme.surfaceContainerHighest,
+      borderRadius: BorderRadius.circular(16),
+      child: InkWell(
+        onTap: () =>
+            context.push('/library/routine-builder', extra: routine),
+        borderRadius: BorderRadius.circular(16),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      routine.name,
+                      style: const TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    const SizedBox(height: 2),
+                    Text(
+                      l10n.customWorkoutExerciseCount(
+                          routine.exerciseIds.length),
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: scheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              // Run button
+              GestureDetector(
+                onTap: () => _run(context, ref),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 14, vertical: 8),
+                  decoration: BoxDecoration(
+                    gradient: AppTheme.heroGradient,
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Text(
+                    l10n.customWorkoutStartNow,
+                    style: const TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 8),
+              // Delete button
+              GestureDetector(
+                onTap: () => _confirmDelete(context, ref),
+                child: Icon(
+                  Icons.delete_outline,
+                  size: 20,
+                  color: scheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _run(BuildContext context, WidgetRef ref) {
+    final generator = ref.read(workoutGeneratorServiceProvider);
+    final plan = generator.fromExerciseIds(routine.exerciseIds);
+    ref.read(customWorkoutPlanProvider.notifier).state = plan;
+    ref.read(customRoutinesProvider.notifier).markRun(routine.id);
+    context.push('/workout');
+  }
+
+  void _confirmDelete(BuildContext context, WidgetRef ref) {
+    showDialog<void>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(routine.name),
+        content: Text('${context.l10n.customWorkoutDelete}?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(context.l10n.friendsCancel),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              ref.read(customRoutinesProvider.notifier).delete(routine.id);
+            },
+            child: Text(
+              context.l10n.customWorkoutDelete,
+              style: const TextStyle(color: Colors.red),
+            ),
+          ),
+        ],
       ),
     );
   }

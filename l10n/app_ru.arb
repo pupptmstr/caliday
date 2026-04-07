@@ -708,5 +708,27 @@
   "exerciseTagFloorOnly": "Без инвентаря",
   "exerciseTagRequiresBar": "Нужен турник",
   "exerciseTagPostureFocus": "Осанка",
-  "exerciseTagBeginner": "Для новичков"
+  "exerciseTagBeginner": "Для новичков",
+
+  "customWorkoutButtonLabel": "Своя тренировка",
+  "customWorkoutMyRoutines": "Мои тренировки",
+  "customWorkoutNewRoutine": "Новая тренировка",
+  "customWorkoutQuickRoutine": "Быстрая тренировка",
+  "customWorkoutQuickRoutineDesc": "Выберите направление — мы подберём упражнения",
+  "customWorkoutEmpty": "Сохранённых тренировок пока нет",
+  "customWorkoutNameHint": "Название тренировки",
+  "customWorkoutSave": "Сохранить",
+  "customWorkoutStartNow": "Начать",
+  "customWorkoutDelete": "Удалить",
+  "customWorkoutBuilderTitle": "Конструктор тренировки",
+  "customWorkoutPickFocus": "Что хотите потренировать?",
+  "customWorkoutSelectExercises": "Добавить упражнения",
+  "customWorkoutExerciseCount": "{count} упражнений",
+  "@customWorkoutExerciseCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

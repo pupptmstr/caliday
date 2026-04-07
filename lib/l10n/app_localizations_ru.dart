@@ -1723,4 +1723,49 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get exerciseTagBeginner => 'Для новичков';
+
+  @override
+  String get customWorkoutButtonLabel => 'Своя тренировка';
+
+  @override
+  String get customWorkoutMyRoutines => 'Мои тренировки';
+
+  @override
+  String get customWorkoutNewRoutine => 'Новая тренировка';
+
+  @override
+  String get customWorkoutQuickRoutine => 'Быстрая тренировка';
+
+  @override
+  String get customWorkoutQuickRoutineDesc =>
+      'Выберите направление — мы подберём упражнения';
+
+  @override
+  String get customWorkoutEmpty => 'Сохранённых тренировок пока нет';
+
+  @override
+  String get customWorkoutNameHint => 'Название тренировки';
+
+  @override
+  String get customWorkoutSave => 'Сохранить';
+
+  @override
+  String get customWorkoutStartNow => 'Начать';
+
+  @override
+  String get customWorkoutDelete => 'Удалить';
+
+  @override
+  String get customWorkoutBuilderTitle => 'Конструктор тренировки';
+
+  @override
+  String get customWorkoutPickFocus => 'Что хотите потренировать?';
+
+  @override
+  String get customWorkoutSelectExercises => 'Добавить упражнения';
+
+  @override
+  String customWorkoutExerciseCount(int count) {
+    return '$count упражнений';
+  }
 }

@@ -153,46 +153,6 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 ---
 
-### v1.7 — Custom Workouts — designed
-
-#### Concept
-
-User-assembled workouts that run outside course progression. Two flows:
-- **Quick Routine**: tap a tag → app picks 4–6 exercises → run immediately as bonus workout.
-- **Saved Routine**: browse exercises, assemble a named routine, save, run anytime.
-
-Both types run as bonus workouts (`isPrimary = false`, ×0.5 SP, no stage progression).
-`WorkoutLog.courseIdIndex` = null for custom workouts (or a dedicated sentinel value).
-
-#### Data Model
-
-```dart
-@HiveType(typeId: 11)
-class CustomRoutine {
-  @HiveField(0) String id;           // uuid
-  @HiveField(1) String name;
-  @HiveField(2) List<String> exerciseIds;  // refs to Exercise.id in catalog
-  @HiveField(3) DateTime createdAt;
-  @HiveField(4) DateTime? lastRunAt;
-}
-```
-
-Box: `'custom_routines'` — `Box<CustomRoutine>`.
-
-#### Technical Tasks
-
-| # | Task |
-|---|------|
-| 1 | `CustomRoutine` model + adapter + `custom_routines` box init in `main.dart` |
-| 2 | `CustomRoutineRepository` |
-| 3 | `WorkoutGeneratorService.fromExerciseIds(ids)` → `WorkoutPlan` |
-| 4 | `CustomRoutineBuilderScreen` (`/library/routine-builder`) |
-| 5 | Quick Routine flow: tag selection → auto-pick → WorkoutPlan |
-| 6 | My Routines section in Library tab (below course branches) |
-| 7 | HomeScreen: secondary "Custom Workout" button (small, below main CTA) |
-
----
-
 ### Lottie Animations for Core Branch — waiting for designer assets
 
 6 animations (core_s1..s6). Format: Lottie JSON in `assets/animations/`.
@@ -280,6 +240,33 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 ---
 
 ## Change History
+
+### 2026-04-07 — v1.7 Custom Workouts
+
+**What was done:** Implemented full Custom Workouts feature. Users can build named routines from any exercises in the catalog, save them to Hive, and run them anytime. Quick Routine allows tapping a focus tag to get an auto-selected 4–6 exercise set immediately. Both flows run as bonus workouts (isPrimary = false, ×0.5 SP, no progression). Secondary "Custom Workout" button added to HomeScreen. "My Routines" section added to LibraryScreen above the Exercise Catalog button.
+
+**New files:**
+- `lib/data/models/custom_routine.dart` — `CustomRoutine` Hive model (typeId=11), fields id/name/exerciseIds/createdAt/lastRunAt
+- `lib/data/models/custom_routine.g.dart` — generated Hive adapter
+- `lib/data/repositories/custom_routine_repository.dart` — `CustomRoutineRepository` + `CustomRoutinesNotifier` (StateNotifier) + `customRoutinesProvider`
+- `lib/features/library/screens/custom_routine_builder_screen.dart` — routine builder with exercise checklist, tag filter chips, Save + Start Now buttons
+
+**Modified files:**
+- `lib/main.dart` — registered `CustomRoutineAdapter`, opened `custom_routines` Hive box
+- `lib/domain/services/workout_generator_service.dart` — added `fromExerciseIds(List<String> ids) → WorkoutPlan`
+- `lib/features/workout/providers/workout_provider.dart` — added `customWorkoutPlanProvider`, integrated into `_buildPlan` and `_finishWorkout`; custom workouts always use `isPrimary = false` and `courseIdIndex = null`
+- `lib/core/router/app_router.dart` — `/library/routine-builder` nested route
+- `lib/features/library/screens/library_screen.dart` — `_MyRoutinesSection` with `_RoutineCard`, `_QuickRoutineSheet`; imports for new providers
+- `lib/features/home/screens/home_screen.dart` — `_CustomWorkoutButton` + `_HomeCustomSheet` (tag picker)
+- `l10n/app_en.arb`, `l10n/app_ru.arb` — 15 new keys (`customWorkout*`)
+- `lib/features/friends/screens/friends_screen.dart` — fixed pre-existing parse error: `?action` (null-aware element syntax)
+
+**Key issues and solutions:**
+- `customWorkoutPlanProvider` must be read (not watched) in `_finishWorkout` because the notifier auto-disposes the workout screen after completion — reading it before resetting correctly captures the "was this a custom workout?" flag.
+- `fromExerciseIds` uses `ExerciseCatalog.byId` with fallback to `libraryAll` because `byId` searches `all` (a `const` list) which doesn't include `coreS4FlutterKicks`.
+- hive_generator rejected Dart 3.8 `?action` null-aware element syntax (valid in the analyzer, but the hive_generator's parser is older) — had to temporarily use `if (action != null) action!` for the build, then revert.
+
+---
 
 ### 2026-04-07 — Exercise Library: colored tag chips
 

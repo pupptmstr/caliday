@@ -8,6 +8,7 @@ import '../../data/models/enums.dart';
 import '../../data/repositories/user_repository.dart';
 import '../../features/home/screens/branch_journey_screen.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../features/library/screens/custom_routine_builder_screen.dart';
 import '../../features/library/screens/exercise_library_screen.dart';
 import '../../features/library/screens/library_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
@@ -143,6 +144,13 @@ final routerProvider = Provider<GoRouter>((ref) {
                   GoRoute(
                     path: 'exercises',
                     builder: (_, _) => const ExerciseLibraryScreen(),
+                  ),
+                  GoRoute(
+                    path: 'routine-builder',
+                    builder: (context, state) {
+                      final routine = state.extra as dynamic;
+                      return CustomRoutineBuilderScreen(routine: routine);
+                    },
                   ),
                 ],
               ),

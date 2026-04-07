@@ -75,7 +75,8 @@ lib/
 │   │   ├── skill_progress_repository.dart
 │   │   ├── workout_repository.dart
 │   │   ├── achievement_repository.dart
-│   │   └── friend_repository.dart     ← Box<FriendProfile> 'friends', keyed by friend.id
+│   │   ├── friend_repository.dart     ← Box<FriendProfile> 'friends', keyed by friend.id
+│   │   └── custom_routine_repository.dart ← CustomRoutineRepository + CustomRoutinesNotifier + customRoutinesProvider
 │   └── static/
 │       ├── exercise_catalog.dart      ← Push(7)+Pull(6)+Core(6)+Legs(5)+Balance(6)+Flex(6)+Posture(6)+Neck(5) + warmup/cooldown; `libraryAll` getter
 │       ├── exercise_tags_catalog.dart ← static map exerciseId → List<ExerciseTag> (separate from catalog)
@@ -94,8 +95,9 @@ lib/
     │   ├── home_screen.dart           ← Workout tab
     │   └── branch_journey_screen.dart ← /branch/:branchId
     ├── library/screens/
-    │   ├── library_screen.dart        ← Library tab (course pills + branch progress)
-    │   └── exercise_library_screen.dart ← /library/exercises (search + 2-col grid)
+    │   ├── library_screen.dart        ← Library tab (course pills + branch progress + My Routines)
+    │   ├── exercise_library_screen.dart ← /library/exercises (search + 2-col grid)
+    │   └── custom_routine_builder_screen.dart ← /library/routine-builder (exercise picker + save)
     ├── library/providers/
     │   └── exercise_library_provider.dart ← ExerciseLibraryNotifier (search + tag filter)
     ├── library/widgets/
@@ -176,7 +178,7 @@ Determined at start: if a `WorkoutLog` already exists for today → `isPrimary =
 | 8 | `FitnessGoal` (enum) |
 | 9 | `FriendProfile` |
 | 10 | `CourseId` (enum) |
-| 11 | reserved for `CustomRoutine` (v1.7) |
+| 11 | `CustomRoutine` |
 
 ### UserProfile HiveFields
 
@@ -195,6 +197,16 @@ Determined at start: if a `WorkoutLog` already exists for today → `isPrimary =
 | @23 | bool? | bleDiscoverable (v1.4 Friends) |
 | @24 | List<int>? | activeCourseIds — CourseId indices; null → [0] (calisthenics) |
 | @25 | int? | activeCourseIndex — index into activeCourseIds; null → 0 |
+
+### CustomRoutine HiveFields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| @0 | String | id — microsecondsSinceEpoch in base-36 (unique) |
+| @1 | String | name — user-defined routine name |
+| @2 | List\<String\> | exerciseIds — ordered exercise IDs from catalog |
+| @3 | DateTime | createdAt |
+| @4 | DateTime? | lastRunAt |
 
 ### WorkoutLog HiveFields
 | Field | Type | Description |
@@ -223,6 +235,7 @@ Determined at start: if a `WorkoutLog` already exists for today → `isPrimary =
 - `'workout_log'` — `Box<WorkoutLog>`
 - `'achievements'` — `Box<int>` (millisecondsSinceEpoch, key = achievementId)
 - `'friends'` — `Box<FriendProfile>` (key = friend.id)
+- `'custom_routines'` — `Box<CustomRoutine>` (key = routine.id)
 
 ### Exercise Model
 `Exercise` is a static `const` model, **not stored in Hive**.
@@ -345,6 +358,7 @@ otherwise                          → 0
 - `generateDailyForCourse({course, courseBranches, progressMap, preferredMinutes, hasPullUpBar})` — primary method; rotates branches by dayIndex (days since 2020-01-01). N branches: min(2,total) at ≤5min, min(3,total) at 10min, total at ≥15min. Passes `course:` to all `getProgress()` calls.
 - `generateDaily(...)` — legacy wrapper, calls `generateDailyForCourse` with `course: CourseId.calisthenics`.
 - `generateChallenge(branch)` — warmup → current stage (1 easy set) → next stage (challengeTargetReps) → cooldown
+- `fromExerciseIds(List<String> ids)` → `WorkoutPlan` — builds a plan from explicit exercise IDs; uses `startReps/Sets/RestSec`; falls back to `libraryAll` for exercises not in `all` (e.g. `coreS4FlutterKicks`)
 
 ### AchievementService
 - `checkAfterWorkout({profile, log, totalWorkouts, achievementRepo})` → `List<String>` new ones
@@ -399,6 +413,10 @@ Persistence is the responsibility of the calling code via repositories.
 - `/about` — about the app
 - `/friends` — friends list + QR + BLE nearby
 - `/dev-options` — devtools (`kDebugMode` only)
+
+### Library sub-routes (nested under `/library`)
+- `/library/exercises` — Exercise Library (search + tag filter)
+- `/library/routine-builder` — Custom Routine Builder; pass `CustomRoutine` via `extra` for edit mode
 
 ### Workout Flow
 ```
@@ -585,6 +603,7 @@ Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.ca
 - **Always invalidate `displayStreakProvider` before `homeDataProvider`** — `goroExpressionProvider` keeps it alive via `ref.watch`, so `homeDataProvider`'s `ref.read(displayStreakProvider)` would return a stale cached value otherwise
 - **`setHasPullUpBar` must invalidate `homeDataProvider`** — `activeBranches` is computed from `hasPullUpBar`; without invalidation Pull branch appears only after restart
 - `workoutProvider = StateNotifierProvider.autoDispose` — plan is generated on screen open
+- `customWorkoutPlanProvider = StateProvider<WorkoutPlan?>` — set before navigating to `/workout` for custom routines; takes priority over daily/challenge generation; always `isPrimary = false`, `courseIdIndex = null`; reset in `_finishWorkout`
 - Services mutate HiveObjects in place; persistence is the responsibility of the caller
 - `ExerciseResult.completedReps` = rep count from the **last** set (MVP)
 - Challenge in a bonus workout: `advanceStage` is called ALWAYS (regardless of `isPrimary`)
@@ -641,7 +660,7 @@ flutter build ipa                 # iOS archive
 | ? | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup before implementing (see DEV_NOTES § Tax / IAP income) |
 | v1.5 | Multi-Course system (Calisthenics + Healthy Body) — CourseId, course-scoped SkillProgress, neck & posture branches, Library tab replaces Progress tab | ✅ |
 | v1.6 | Exercise Library — ExerciseTag system, search + filter screen inside Library tab | ✅ |
-| v1.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | 📐 designed |
+| v1.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | ✅ |
 | v2.x | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea
