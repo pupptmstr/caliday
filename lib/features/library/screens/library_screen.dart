@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../core/theme/app_theme.dart';
+
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
@@ -141,6 +143,42 @@ class LibraryScreen extends ConsumerWidget {
                     ],
                     const SizedBox(height: 16),
                   ],
+                ),
+              ),
+            ),
+
+            // ── Exercise Catalog entry point ─────────────────────────────────
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+              child: GestureDetector(
+                onTap: () => context.push('/library/exercises'),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 14),
+                  decoration: BoxDecoration(
+                    gradient: AppTheme.heroGradient,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: AppTheme.cardShadowLight,
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.search,
+                          color: Colors.white, size: 22),
+                      const SizedBox(width: 12),
+                      Expanded(
+                        child: Text(
+                          l10n.exerciseLibraryCatalogButton,
+                          style: const TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                      const Icon(Icons.arrow_forward_ios,
+                          color: Colors.white60, size: 14),
+                    ],
+                  ),
                 ),
               ),
             ),

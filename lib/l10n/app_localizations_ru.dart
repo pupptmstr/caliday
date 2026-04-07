@@ -1652,4 +1652,61 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get tooltipRankBody =>
       'SP (очки силы) начисляются за каждую завершённую тренировку. Накапливая SP, ты поднимаешься от Новичка до Легенды. Чем больше тренируешься — тем выше ранг.';
+
+  // ── Exercise Library ────────────────────────────────────────────────────────
+
+  @override
+  String get exerciseLibraryTitle => 'Все упражнения';
+
+  @override
+  String get exerciseLibrarySearchHint => 'Поиск упражнений...';
+
+  @override
+  String get exerciseLibraryCatalogButton => 'Каталог упражнений';
+
+  @override
+  String get exerciseLibraryEmpty => 'Ничего не найдено';
+
+  @override
+  String get exerciseDetailTipLabel => 'Техника';
+
+  @override
+  String exerciseDetailStageLabel(int stage) => 'Ступень $stage';
+
+  // ── Exercise Tags ───────────────────────────────────────────────────────────
+
+  @override
+  String get exerciseTagHipFlexor => 'Сгибатели бедра';
+  @override
+  String get exerciseTagGlutes => 'Ягодицы';
+  @override
+  String get exerciseTagCore => 'Кор';
+  @override
+  String get exerciseTagChest => 'Грудь';
+  @override
+  String get exerciseTagBack => 'Спина';
+  @override
+  String get exerciseTagShoulders => 'Плечи';
+  @override
+  String get exerciseTagLegs => 'Ноги';
+  @override
+  String get exerciseTagNeck => 'Шея';
+  @override
+  String get exerciseTagStretch => 'Растяжка';
+  @override
+  String get exerciseTagMobility => 'Мобильность';
+  @override
+  String get exerciseTagStrength => 'Сила';
+  @override
+  String get exerciseTagEndurance => 'Выносливость';
+  @override
+  String get exerciseTagSittingRecovery => 'Офисное восстановление';
+  @override
+  String get exerciseTagFloorOnly => 'Без оборудования';
+  @override
+  String get exerciseTagRequiresBar => 'Нужна перекладина';
+  @override
+  String get exerciseTagPostureFocus => 'Осанка';
+  @override
+  String get exerciseTagBeginner => 'Для новичков';
 }

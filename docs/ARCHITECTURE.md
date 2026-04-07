@@ -77,7 +77,8 @@ lib/
 │   │   ├── achievement_repository.dart
 │   │   └── friend_repository.dart     ← Box<FriendProfile> 'friends', keyed by friend.id
 │   └── static/
-│       ├── exercise_catalog.dart      ← Push(7)+Pull(6)+Core(6)+Legs(5)+Balance(6)+Flex(6)+Posture(6)+Neck(5) + warmup/cooldown
+│       ├── exercise_catalog.dart      ← Push(7)+Pull(6)+Core(6)+Legs(5)+Balance(6)+Flex(6)+Posture(6)+Neck(5) + warmup/cooldown; `libraryAll` getter
+│       ├── exercise_tags_catalog.dart ← static map exerciseId → List<ExerciseTag> (separate from catalog)
 │       ├── course_catalog.dart        ← CourseCatalog.branchesFor(CourseId)
 │       └── achievement_catalog.dart   ← 27 achievements
 ├── domain/
@@ -93,7 +94,12 @@ lib/
     │   ├── home_screen.dart           ← Workout tab
     │   └── branch_journey_screen.dart ← /branch/:branchId
     ├── library/screens/
-    │   └── library_screen.dart        ← Library tab (course pills + branch progress)
+    │   ├── library_screen.dart        ← Library tab (course pills + branch progress)
+    │   └── exercise_library_screen.dart ← /library/exercises (search + 2-col grid)
+    ├── library/providers/
+    │   └── exercise_library_provider.dart ← ExerciseLibraryNotifier (search + tag filter)
+    ├── library/widgets/
+    │   └── exercise_detail_sheet.dart ← Exercise detail bottom sheet
     ├── workout/
     │   ├── providers/workout_provider.dart
     │   └── screens/
@@ -634,7 +640,7 @@ flutter build ipa                 # iOS archive
 | ? | Animation shape redesign — replace rectangular containers with rounded/oval frames for all Lottie animations | 💡 idea |
 | ? | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup before implementing (see DEV_NOTES § Tax / IAP income) |
 | v1.5 | Multi-Course system (Calisthenics + Healthy Body) — CourseId, course-scoped SkillProgress, neck & posture branches, Library tab replaces Progress tab | ✅ |
-| v1.6 | Exercise Library — ExerciseTag system, search + filter screen inside Library tab | 📐 designed |
+| v1.6 | Exercise Library — ExerciseTag system, search + filter screen inside Library tab | ✅ |
 | v1.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | 📐 designed |
 | v2.x | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |
 

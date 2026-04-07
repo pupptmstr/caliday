@@ -1386,6 +1386,20 @@ class ExerciseCatalog {
     cooldownDownwardDog,
   ];
 
+  /// All progression exercises for the Exercise Library (stage > 0).
+  /// Includes equipment-free alternatives (e.g. [coreS4FlutterKicks]).
+  static List<Exercise> get libraryAll => [
+    ...pushProgression,
+    ...coreProgression,
+    coreS4FlutterKicks,
+    ...pullProgression,
+    ...legsProgression,
+    ...balanceProgression,
+    ...flexProgression,
+    ...postureProgression,
+    ...neckProgression,
+  ];
+
   /// All exercises in the catalog.
   static const List<Exercise> all = [
     ...pushProgression,

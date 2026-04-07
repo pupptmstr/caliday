@@ -24,6 +24,7 @@ class Exercise {
     this.techniqueTip,
     this.imagePath,
     this.animationPath,
+    this.tags = const [],
   });
 
   /// Unique identifier, e.g. "push_s1_wall_pushup".
@@ -79,4 +80,7 @@ class Exercise {
 
   /// Asset path for the Lottie exercise animation (e.g. "assets/animations/push_s1_wall_pushup.json").
   final String? animationPath;
+
+  /// Semantic tags for filtering in the Exercise Library. Not stored in Hive.
+  final List<ExerciseTag> tags;
 }

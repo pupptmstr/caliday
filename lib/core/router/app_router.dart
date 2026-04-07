@@ -8,6 +8,7 @@ import '../../data/models/enums.dart';
 import '../../data/repositories/user_repository.dart';
 import '../../features/home/screens/branch_journey_screen.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../features/library/screens/exercise_library_screen.dart';
 import '../../features/library/screens/library_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/profile/screens/achievements_screen.dart';
@@ -138,6 +139,12 @@ final routerProvider = Provider<GoRouter>((ref) {
               GoRoute(
                 path: '/library',
                 builder: (_, _) => const LibraryScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'exercises',
+                    builder: (_, _) => const ExerciseLibraryScreen(),
+                  ),
+                ],
               ),
             ],
           ),

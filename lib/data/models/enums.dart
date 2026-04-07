@@ -168,6 +168,52 @@ extension CourseIdExtension on CourseId {
       };
 }
 
+enum ExerciseTag {
+  // Muscle groups
+  hipFlexor,
+  glutes,
+  core,
+  chest,
+  back,
+  shoulders,
+  legs,
+  neck,
+  // Load type
+  stretch,
+  mobility,
+  strength,
+  endurance,
+  // Context
+  sittingRecovery,
+  floorOnly,
+  requiresBar,
+  // Program context
+  postureFocus,
+  beginner,
+}
+
+extension ExerciseTagExtension on ExerciseTag {
+  String localizedName(AppLocalizations l10n) => switch (this) {
+        ExerciseTag.hipFlexor => l10n.exerciseTagHipFlexor,
+        ExerciseTag.glutes => l10n.exerciseTagGlutes,
+        ExerciseTag.core => l10n.exerciseTagCore,
+        ExerciseTag.chest => l10n.exerciseTagChest,
+        ExerciseTag.back => l10n.exerciseTagBack,
+        ExerciseTag.shoulders => l10n.exerciseTagShoulders,
+        ExerciseTag.legs => l10n.exerciseTagLegs,
+        ExerciseTag.neck => l10n.exerciseTagNeck,
+        ExerciseTag.stretch => l10n.exerciseTagStretch,
+        ExerciseTag.mobility => l10n.exerciseTagMobility,
+        ExerciseTag.strength => l10n.exerciseTagStrength,
+        ExerciseTag.endurance => l10n.exerciseTagEndurance,
+        ExerciseTag.sittingRecovery => l10n.exerciseTagSittingRecovery,
+        ExerciseTag.floorOnly => l10n.exerciseTagFloorOnly,
+        ExerciseTag.requiresBar => l10n.exerciseTagRequiresBar,
+        ExerciseTag.postureFocus => l10n.exerciseTagPostureFocus,
+        ExerciseTag.beginner => l10n.exerciseTagBeginner,
+      };
+}
+
 extension BranchIdExtension on BranchId {
   String get emoji => switch (this) {
         BranchId.push => '💪',

@@ -2959,6 +2959,81 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'SP (Strength Points) are earned every time you complete a workout. As you collect SP your rank climbs from Beginner all the way to Legend. The more you train, the higher you rise.'**
   String get tooltipRankBody;
+
+  // ── Exercise Library ────────────────────────────────────────────────────────
+
+  /// No description provided for @exerciseLibraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'All Exercises'**
+  String get exerciseLibraryTitle;
+
+  /// No description provided for @exerciseLibrarySearchHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Search exercises...'**
+  String get exerciseLibrarySearchHint;
+
+  /// No description provided for @exerciseLibraryCatalogButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise Catalog'**
+  String get exerciseLibraryCatalogButton;
+
+  /// No description provided for @exerciseLibraryEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing found'**
+  String get exerciseLibraryEmpty;
+
+  /// No description provided for @exerciseDetailTipLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Technique'**
+  String get exerciseDetailTipLabel;
+
+  /// No description provided for @exerciseDetailStageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Stage {stage}'**
+  String exerciseDetailStageLabel(int stage);
+
+  // ── Exercise Tags ───────────────────────────────────────────────────────────
+
+  /// In en, this message translates to: **'Hip Flexors'**
+  String get exerciseTagHipFlexor;
+  /// In en, this message translates to: **'Glutes'**
+  String get exerciseTagGlutes;
+  /// In en, this message translates to: **'Core'**
+  String get exerciseTagCore;
+  /// In en, this message translates to: **'Chest'**
+  String get exerciseTagChest;
+  /// In en, this message translates to: **'Back'**
+  String get exerciseTagBack;
+  /// In en, this message translates to: **'Shoulders'**
+  String get exerciseTagShoulders;
+  /// In en, this message translates to: **'Legs'**
+  String get exerciseTagLegs;
+  /// In en, this message translates to: **'Neck'**
+  String get exerciseTagNeck;
+  /// In en, this message translates to: **'Stretch'**
+  String get exerciseTagStretch;
+  /// In en, this message translates to: **'Mobility'**
+  String get exerciseTagMobility;
+  /// In en, this message translates to: **'Strength'**
+  String get exerciseTagStrength;
+  /// In en, this message translates to: **'Endurance'**
+  String get exerciseTagEndurance;
+  /// In en, this message translates to: **'Desk Recovery'**
+  String get exerciseTagSittingRecovery;
+  /// In en, this message translates to: **'No Equipment'**
+  String get exerciseTagFloorOnly;
+  /// In en, this message translates to: **'Requires Bar'**
+  String get exerciseTagRequiresBar;
+  /// In en, this message translates to: **'Posture'**
+  String get exerciseTagPostureFocus;
+  /// In en, this message translates to: **'Beginner'**
+  String get exerciseTagBeginner;
 }
 
 class _AppLocalizationsDelegate

@@ -153,54 +153,6 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 ---
 
-### v1.6 — Exercise Library (Tags + Search) — designed
-
-#### Concept
-
-A searchable, filterable catalog of all exercises from all courses. Accessible via a search entry
-point at the bottom of the Library tab. Exercises are tagged with semantic labels (muscle groups,
-type of load, context) enabling custom workout building in v1.7.
-
-#### ExerciseTag enum (NOT Hive-stored — static only)
-
-```dart
-enum ExerciseTag {
-  // Muscle groups
-  hipFlexor, glutes, core, chest, back, shoulders, legs, neck,
-  // Load type
-  stretch, mobility, strength, endurance,
-  // Context
-  sittingRecovery, floorOnly, requiresBar,
-  // Program context
-  postureFocus, beginner,
-}
-```
-
-`Exercise` model gets `tags: List<ExerciseTag>` field (default `const []`).
-All exercises in `exercise_catalog.dart` need tags added manually.
-
-#### UX
-
-- Entry point: search bar at bottom of Library tab → full-screen `/library/exercises`.
-- Top: search field + horizontally scrollable tag chips.
-- Body: 2-column card grid with exercise name, branch badge, Lottie thumbnail (if available).
-- Tap card → `ExerciseDetailSheet` (BottomSheet): full animation, tags, branch/course membership,
-  button "Add to My Workout" (→ v1.7 Custom Workout Builder).
-
-#### Technical Tasks
-
-| # | Task |
-|---|------|
-| 1 | Add `ExerciseTag` enum to `lib/data/models/enums.dart` (no Hive annotation needed) |
-| 2 | Add `tags` field to `Exercise` model |
-| 3 | Tag all exercises in `exercise_catalog.dart` |
-| 4 | `LibraryExercisesScreen` + `LibraryExercisesProvider` (filter/search logic) |
-| 5 | `ExerciseDetailSheet` widget |
-| 6 | Route `/library/exercises` in `app_router.dart` |
-| 7 | Search entry point in `LibraryScreen` (button/bar at bottom) |
-
----
-
 ### v1.7 — Custom Workouts — designed
 
 #### Concept
@@ -328,6 +280,29 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 ---
 
 ## Change History
+
+### 2026-04-07 — v1.6 Exercise Library (Tags + Search)
+
+**What was done:** Implemented the full Exercise Library feature. A searchable, filterable catalog of all progression exercises, accessible via a gradient button at the bottom of the Library tab. Exercises display with Lottie animations, branch badges, and tag chips. Tapping an exercise opens a detail sheet with animation, technique tip, and semantic tags.
+
+**New files:**
+- `lib/data/static/exercise_tags_catalog.dart` — static map of exercise ID → `List<ExerciseTag>` (kept separate from exercise_catalog.dart to avoid touching 1500-line file)
+- `lib/features/library/providers/exercise_library_provider.dart` — `ExerciseLibraryNotifier` (search + tag filter, autoDispose)
+- `lib/features/library/widgets/exercise_detail_sheet.dart` — `ExerciseDetailSheet` bottom sheet with Lottie animation, tags, tip
+- `lib/features/library/screens/exercise_library_screen.dart` — 2-column grid with search field + horizontally scrollable FilterChip row
+
+**Modified files:**
+- `lib/data/models/enums.dart` — added `ExerciseTag` enum (17 values) + `ExerciseTagExtension.localizedName`
+- `lib/data/models/exercise.dart` — added `tags: List<ExerciseTag>` field (default `const []`)
+- `lib/data/static/exercise_catalog.dart` — added `libraryAll` getter (all progression exercises incl. `coreS4FlutterKicks`)
+- `lib/l10n/app_localizations*.dart` — 23 new keys (library UI + 17 tag names)
+- `lib/core/router/app_router.dart` — `/library/exercises` nested route
+- `lib/features/library/screens/library_screen.dart` — gradient "Exercise Catalog" button at the bottom
+
+**Key issues and solutions:**
+- Tags are NOT stored in `exercise_catalog.dart` inline — would require editing 50+ const Exercise declarations. Instead a separate `ExerciseTagsCatalog` maps exercise IDs to tag lists. The `Exercise.tags` field exists but defaults to `const []`; the library uses `ExerciseTagsCatalog.forId(id)` for filtering.
+- `coreS4FlutterKicks` is not in `ExerciseCatalog.all` (it's an alternative, not a main progression entry) — added explicit `libraryAll` getter that includes it.
+- Tag filter uses AND logic: all selected tags must be present.
 
 ### 2026-04-07 — Fix: branch progress is shared across courses
 
