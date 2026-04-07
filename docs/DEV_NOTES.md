@@ -26,7 +26,7 @@ Latest APK build: `build/app/outputs/flutter-apk/caliday.apk` (~57 MB)
 | Notifications (4 types) | ✅ |
 | Dark theme | ✅ |
 | Goro (6 expressions) + Skala | ✅ |
-| Lottie animations (Push, 7/7) | ✅ |
+| Lottie animations (Push 7/7, Core 7/7, Pull 6/6, Legs 5/5) | ✅ |
 | Sound + haptics | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
@@ -153,10 +153,18 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 ---
 
-### Lottie Animations for Core Branch — waiting for designer assets
+### Lottie Animations — статус по веткам (2026-04-07)
 
-6 animations (core_s1..s6). Format: Lottie JSON in `assets/animations/`.
-Integration is analogous to the Push branch — `Exercise.animationPath` already exists.
+35 файлов в `assets/animations/`. Полностью готовы: Push(7), Core(7+alt), Pull(6), Legs(5), Warmups(5/7), Cooldowns(5/6).
+
+Ожидают анимаций от дизайнера:
+- Balance (6 упражнений + warmup_wrist_circles + cooldown_downward_dog) — **Блок F, приоритет 1**
+- Flex (6 упражнений) — **Блок G, приоритет 2**
+- Posture (6 упражнений, Healthy Body) — **Блок I, приоритет 4**
+- Neck (5 упражнений + warmup_neck_rolls, Healthy Body) — **Блок J, приоритет 5**
+- Supplementary pool (9 упражнений) — **Блок H, приоритет 3**
+
+Подробности — `docs/tz_designer.md` (v1.9).
 
 ---
 
@@ -240,6 +248,26 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 ---
 
 ## Change History
+
+### 2026-04-07 — Workout history card: colored exercise tags
+
+**What was done:** Improved `_WorkoutLogTile` in `profile_screen.dart`. The card now shows a summary row of up to 4 colored muscle/type tags for the whole workout (collected from all exercises). The detail sheet shows 1–2 colored tag chips under each exercise name. Meta-tags (floorOnly, requiresBar, beginner) are filtered out. Added `_ExerciseTagChip` widget; imported `ExerciseTagsCatalog`.
+
+**Modified files:**
+- `lib/features/profile/screens/profile_screen.dart`
+
+---
+
+### 2026-04-07 — Documentation: full exercise/animation audit
+
+**What was done:** Full audit of exercise catalog vs. animation files. Updated all three docs:
+- `docs/ARCHITECTURE.md` — added Lottie column to all branch tables; added Flex branch table (was missing); added Warmup, Cooldown, and Supplementary pool tables; fixed Legs backlog note (5/5 not 4/5); added Balance/Flex/Posture/Neck backlog entries.
+- `docs/DEV_NOTES.md` — updated animation status summary; replaced stale "waiting for designer" section with accurate status.
+- `docs/tz_designer.md` — bumped to v1.9; added Block I (Posture, 6 files) and Block J (Neck, 6 files); fixed Block F count from 9 → 8 (removed nonexistent `cooldown_wrist_stretch`).
+
+**Animation status:** 35 files done (Push 7, Core 7+alt, Pull 6, Legs 5, Warmups 5, Cooldowns 5). Missing: Balance(8), Flex(6), Posture(6), Neck(6), Supplementary(9) = 35 still needed.
+
+---
 
 ### 2026-04-07 — Custom Workouts UX polish: streak fix, swipe-to-delete, routine detail sheet, home sheet with saved routines
 

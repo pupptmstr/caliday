@@ -10,6 +10,7 @@ import '../../friends/providers/friends_provider.dart';
 import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/workout_log.dart';
+import '../../../data/static/exercise_tags_catalog.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../data/repositories/achievement_repository.dart';
@@ -498,6 +499,38 @@ class _WorkoutLogTile extends StatelessWidget {
 
   final WorkoutLog log;
 
+  // Tags to skip in the summary line (structural / equipment meta)
+  static const _skipSummaryTags = {
+    ExerciseTag.floorOnly,
+    ExerciseTag.requiresBar,
+    ExerciseTag.beginner,
+    ExerciseTag.sittingRecovery,
+    ExerciseTag.postureFocus,
+    ExerciseTag.warmup,
+    ExerciseTag.cooldown,
+  };
+
+  // Tags to skip per-exercise in the detail sheet
+  static const _skipDetailTags = {
+    ExerciseTag.floorOnly,
+    ExerciseTag.requiresBar,
+    ExerciseTag.beginner,
+  };
+
+  /// Unique muscle/type tags for the whole workout, max [limit].
+  List<ExerciseTag> _summaryTags({int limit = 4}) {
+    final seen = <ExerciseTag>{};
+    final result = <ExerciseTag>[];
+    for (final ex in log.exercises) {
+      for (final tag in ExerciseTagsCatalog.forId(ex.exerciseId)) {
+        if (!_skipSummaryTags.contains(tag) && seen.add(tag)) {
+          result.add(tag);
+        }
+      }
+    }
+    return result.take(limit).toList();
+  }
+
   String _typeLabel(AppLocalizations l10n) {
     if (!log.isPrimary) return l10n.historyTypeBonus;
     if (log.setType == SetType.challenge) return l10n.historyTypeChallenge;
@@ -621,20 +654,44 @@ class _WorkoutLogTile extends StatelessWidget {
                   } else {
                     resultStr = '—';
                   }
+                  final exTags = ExerciseTagsCatalog.forId(ex.exerciseId)
+                      .where((t) => !_skipDetailTags.contains(t))
+                      .take(2)
+                      .toList();
                   return Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
-                        child: Text(
-                          name,
-                          style: const TextStyle(fontSize: 14),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              name,
+                              style: const TextStyle(fontSize: 14),
+                            ),
+                            if (exTags.isNotEmpty) ...[
+                              const SizedBox(height: 4),
+                              Wrap(
+                                spacing: 4,
+                                runSpacing: 4,
+                                children: exTags
+                                    .map((tag) => _ExerciseTagChip(tag: tag, l10n: l10n))
+                                    .toList(),
+                              ),
+                            ],
+                          ],
                         ),
                       ),
-                      Text(
-                        resultStr,
-                        style: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: scheme.onSurfaceVariant,
+                      const SizedBox(width: 8),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 1),
+                        child: Text(
+                          resultStr,
+                          style: TextStyle(
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: scheme.onSurfaceVariant,
+                          ),
                         ),
                       ),
                     ],
@@ -718,6 +775,20 @@ class _WorkoutLogTile extends StatelessWidget {
                           color: scheme.onSurfaceVariant,
                         ),
                       ),
+                      () {
+                        final tags = _summaryTags();
+                        if (tags.isEmpty) return const SizedBox.shrink();
+                        return Padding(
+                          padding: const EdgeInsets.only(top: 6),
+                          child: Wrap(
+                            spacing: 4,
+                            runSpacing: 4,
+                            children: tags
+                                .map((tag) => _ExerciseTagChip(tag: tag, l10n: l10n))
+                                .toList(),
+                          ),
+                        );
+                      }(),
                     ],
                   ),
                 ),
@@ -745,6 +816,35 @@ class _WorkoutLogTile extends StatelessWidget {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+// ── Exercise tag chip ─────────────────────────────────────────────────────────
+
+class _ExerciseTagChip extends StatelessWidget {
+  const _ExerciseTagChip({required this.tag, required this.l10n});
+
+  final ExerciseTag tag;
+  final AppLocalizations l10n;
+
+  @override
+  Widget build(BuildContext context) {
+    final color = tag.color;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
+      decoration: BoxDecoration(
+        color: color.withAlpha(30),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Text(
+        tag.localizedName(l10n),
+        style: TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w500,
+          color: color,
         ),
       ),
     );

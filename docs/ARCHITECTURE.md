@@ -267,64 +267,111 @@ Loaded from `ExerciseCatalog`. `stage = 0` = warmup/cooldown.
 | 7 | `push_s7_handstand_pushup` | Handstand Push-ups | ✅ |
 
 ### Pull Branch (6 stages, requires pull-up bar)
-| Stage | ID | Name |
-|-------|----|------|
-| 1 | `pull_s1_australian` | Australian Pull-ups |
-| 2 | `pull_s2_negative` | Negative Pull-ups |
-| 3 | `pull_s3_pullup` | Pull-ups |
-| 4 | `pull_s4_close_grip` | Close-grip Pull-ups |
-| 5 | `pull_s5_archer` | Archer Pull-ups |
-| 6 | `pull_s6_one_arm` | One-arm Pull-ups |
+| Stage | ID | Name | Lottie |
+|-------|----|------|--------|
+| 1 | `pull_s1_australian` | Australian Pull-ups | ✅ |
+| 2 | `pull_s2_negative` | Negative Pull-ups | ✅ |
+| 3 | `pull_s3_pullup` | Pull-ups | ✅ |
+| 4 | `pull_s4_close_grip` | Close-grip Pull-ups | ✅ |
+| 5 | `pull_s5_archer` | Archer Pull-ups | ✅ |
+| 6 | `pull_s6_one_arm` | One-arm Pull-ups | ✅ |
 
 ### Core Branch (6 stages)
-| Stage | ID | Name | Notes |
-|-------|----|------|-------|
-| 1 | `core_s1_crunches` | Crunches | |
-| 2 | `core_s2_plank` | Plank | |
-| 3 | `core_s3_lying_leg_raise` | Lying Leg Raises | |
-| 4 | `core_s4_hanging_leg_raise` | Hanging Leg Raises | `requiresEquipment=true`; alt: `core_s4_flutter_kicks` |
-| 5 | `core_s5_l_sit` | L-sit | |
-| 6 | `core_s6_dragon_flag` | Dragon Flag | |
+| Stage | ID | Name | Lottie | Notes |
+|-------|----|------|--------|-------|
+| 1 | `core_s1_crunches` | Crunches | ✅ | |
+| 2 | `core_s2_plank` | Plank | ✅ | |
+| 3 | `core_s3_lying_leg_raise` | Lying Leg Raises | ✅ | |
+| 4 | `core_s4_hanging_leg_raise` | Hanging Leg Raises | ✅ | `requiresEquipment=true`; alt: `core_s4_flutter_kicks` ✅ |
+| 5 | `core_s5_l_sit` | L-sit | ✅ | |
+| 6 | `core_s6_dragon_flag` | Dragon Flag | ✅ | |
 
 ### Legs Branch (5 stages)
-| Stage | ID | Name |
-|-------|----|------|
-| 1 | `legs_s1_squat` | Squats |
-| 2 | `legs_s2_lunge` | Lunges |
-| 3 | `legs_s3_bulgarian` | Bulgarian Split Squats |
-| 4 | `legs_s4_assisted_pistol` | Assisted Pistol Squats |
-| 5 | `legs_s5_pistol` | Pistol Squats |
+| Stage | ID | Name | Lottie | Notes |
+|-------|----|------|--------|-------|
+| 1 | `legs_s1_squat` | Squats | ✅ | |
+| 2 | `legs_s2_lunge` | Lunges | ✅ | |
+| 3 | `legs_s3_bulgarian` | Bulgarian Split Squats | ✅ | |
+| 4 | `legs_s4_assisted_pistol` | Assisted Pistol Squats | ✅ | file: `legs_s4_pistol.json` |
+| 5 | `legs_s5_pistol` | Pistol Squats | ✅ | file: `legs_s5_pistol_free.json` |
 
 ### Balance Branch (6 stages)
-| Stage | ID | Name |
-|-------|----|------|
-| 1 | `bal_s1_one_leg_stand` | One-leg Stand |
-| 2 | `bal_s2_one_arm_plank` | One-arm Plank |
-| 3 | `bal_s3_crow_prep` | Crow Pose Prep |
-| 4 | `bal_s4_crow_pose` | Crow Pose |
-| 5 | `bal_s5_wall_hs` | Wall Handstand |
-| 6 | `bal_s6_free_hs` | Freestanding Handstand |
+Warmup: `warmup_wrist_circles` ❌. Cooldown: `[cooldown_downward_dog` ❌`]`.
+| Stage | ID | Name | Lottie |
+|-------|----|------|--------|
+| 1 | `bal_s1_one_leg_stand` | One-leg Stand | ❌ |
+| 2 | `bal_s2_one_arm_plank` | One-arm Plank | ❌ |
+| 3 | `bal_s3_crow_prep` | Crow Pose Prep | ❌ |
+| 4 | `bal_s4_crow_pose` | Crow Pose | ❌ |
+| 5 | `bal_s5_wall_hs` | Wall Handstand | ❌ |
+| 6 | `bal_s6_free_hs` | Freestanding Handstand | ❌ |
+
+### Flex Branch — Calisthenics course (6 stages)
+Warmup: `warmup_leg_swings` ✅. Cooldown: `cooldown_cat_cow` ✅.
+| Stage | ID | Name | Lottie |
+|-------|----|------|--------|
+| 1 | `flex_s1_hip_flexor_stretch` | Hip Flexor Stretch | ❌ |
+| 2 | `flex_s2_worlds_greatest_stretch` | World's Greatest Stretch | ❌ |
+| 3 | `flex_s3_hip_9090` | 90/90 Hip Mobility | ❌ |
+| 4 | `flex_s4_thoracic_bridge` | Thoracic Bridge | ❌ |
+| 5 | `flex_s5_deep_squat_hold` | Deep Squat Hold | ❌ |
+| 6 | `flex_s6_pike_stretch` | Pike Stretch | ❌ |
 
 ### Posture Branch — Healthy Body course (6 stages)
-Warmup: `warmup_hip_circles`. Cooldowns: `[cooldown_hip_flexor, cooldown_quad_stretch]`.
-| Stage | ID | Name | Type |
-|-------|----|------|------|
-| 1 | `posture_s1_pelvic_tilt` | Posterior Pelvic Tilt | timed |
-| 2 | `posture_s2_dead_bug` | Dead Bug | reps |
-| 3 | `posture_s3_glute_bridge` | Glute Bridge | reps |
-| 4 | `posture_s4_hip_march` | Standing Hip March | reps |
-| 5 | `posture_s5_kneeling_lunge` | Kneeling Hip Flexor Stretch | timed |
-| 6 | `posture_s6_pigeon_pose` | Pigeon Pose | timed |
+Warmup: `warmup_hip_circles` ✅. Cooldowns: `[cooldown_hip_flexor` ✅`, cooldown_quad_stretch` ✅`]`.
+| Stage | ID | Name | Type | Lottie |
+|-------|----|------|------|--------|
+| 1 | `posture_s1_pelvic_tilt` | Posterior Pelvic Tilt | timed | ❌ |
+| 2 | `posture_s2_dead_bug` | Dead Bug | reps | ❌ |
+| 3 | `posture_s3_glute_bridge` | Glute Bridge | reps | ❌ |
+| 4 | `posture_s4_hip_march` | Standing Hip March | reps | ❌ |
+| 5 | `posture_s5_kneeling_lunge` | Kneeling Hip Flexor Stretch | timed | ❌ |
+| 6 | `posture_s6_pigeon_pose` | Pigeon Pose | timed | ❌ |
 
 ### Neck Branch — Healthy Body course (5 stages)
-Warmup: `warmup_neck_rolls`. Cooldown: `cooldown_cat_cow`.
-| Stage | ID | Name | Type |
-|-------|----|------|------|
-| 1 | `neck_s1_neck_tilt` | Neck Tilts | timed |
-| 2 | `neck_s2_chest_opener` | Chest Opener | timed |
-| 3 | `neck_s3_shoulder_roll` | Shoulder Circles | reps |
-| 4 | `neck_s4_wall_angel` | Wall Angels | reps |
-| 5 | `neck_s5_doorway_stretch` | Doorway Pec Stretch | timed |
+Warmup: `warmup_neck_rolls` ❌. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_shoulder_stretch` ✅`]`.
+| Stage | ID | Name | Type | Lottie |
+|-------|----|------|------|--------|
+| 1 | `neck_s1_neck_tilt` | Neck Tilts | timed | ❌ |
+| 2 | `neck_s2_chest_opener` | Chest Opener | timed | ❌ |
+| 3 | `neck_s3_shoulder_roll` | Shoulder Circles | reps | ❌ |
+| 4 | `neck_s4_wall_angel` | Wall Angels | reps | ❌ |
+| 5 | `neck_s5_doorway_stretch` | Doorway Pec Stretch | timed | ❌ |
+
+### Warmup Accessories (stage 0)
+| ID | Name | Used by | Lottie |
+|----|------|---------|--------|
+| `warmup_arm_rotations` | Вращения руками | Push | ✅ |
+| `warmup_dead_hang` | Вис на перекладине | Pull | ✅ |
+| `warmup_jumping_jacks` | Джампинг джекс | Core | ✅ |
+| `warmup_leg_swings` | Махи ногами | Flex | ✅ |
+| `warmup_hip_circles` | Вращения тазом | Legs, Posture | ✅ |
+| `warmup_wrist_circles` | Вращения запястьями | Balance | ❌ |
+| `warmup_neck_rolls` | Neck Rolls | Neck | ❌ |
+
+### Cooldown Accessories (stage 0)
+| ID | Name | Used by | Lottie |
+|----|------|---------|--------|
+| `cooldown_shoulder_stretch` | Растяжка плеч | Push, Neck | ✅ |
+| `cooldown_lat_stretch` | Растяжка широчайших | Pull | ✅ |
+| `cooldown_cat_cow` | Кошка-корова | Core, Flex, Neck | ✅ |
+| `cooldown_quad_stretch` | Растяжка квадрицепса | Legs, Posture | ✅ |
+| `cooldown_hip_flexor` | Растяжка сгибателей бедра | Legs, Posture | ✅ |
+| `cooldown_downward_dog` | Собака мордой вниз | Balance | ❌ |
+
+### Supplementary Pool (9 exercises, stage 0)
+`SupplementaryExerciseCatalog.all` — used in custom workouts and bonus sessions. No `animationPath` set.
+| ID | Name | Category |
+|----|------|----------|
+| `supp_oblique_crunch` | Oblique Crunch | core |
+| `supp_russian_twists` | Russian Twists | core |
+| `supp_side_plank` | Side Plank | core |
+| `supp_standing_calf_raise` | Standing Calf Raise | legs |
+| `supp_single_leg_calf_raise` | Single-Leg Calf Raise | legs |
+| `supp_dead_bug` | Dead Bug | core |
+| `supp_bird_dog` | Bird-Dog | core |
+| `supp_neck_isometrics` | Neck Isometrics | neck/balance |
+| `supp_wrist_circles` | Wrist Circles | push/warmup |
 
 ---
 
@@ -654,9 +701,13 @@ flutter build ipa                 # iOS archive
 | ? | Supplementary exercise pool (random, no progression) | ✅ |
 | ? | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |
 | ? | Privacy Policy (GitHub Markdown → ссылка в приложении) | 📐 designed |
-| ? | Lottie animations for Core branch (6/6) | ✅ |
+| ? | Lottie animations for Core branch (6/6 + flutter_kicks alt) | ✅ |
 | ? | Lottie animations for Pull branch (6/6) | ✅ |
-| ? | Lottie animations for Legs branch (4/5 — s1–s4) | ✅ |
+| ? | Lottie animations for Legs branch (5/5) | ✅ |
+| ? | Lottie animations for Balance branch (0/6 + accessories) | 🔒 waiting for designer |
+| ? | Lottie animations for Flex branch (0/6) | 🔒 waiting for designer |
+| ? | Lottie animations for Posture branch (0/6) | 🔒 waiting for designer |
+| ? | Lottie animations for Neck branch (0/5 + warmup_neck_rolls) | 🔒 waiting for designer |
 | v2.0 | Design overhaul — Liquid Glass (iOS) / frosted glass (Android) | 📐 designed |
 | ? | Animation shape redesign — replace rectangular containers with rounded/oval frames for all Lottie animations | 💡 idea |
 | ? | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup before implementing (see DEV_NOTES § Tax / IAP income) |
