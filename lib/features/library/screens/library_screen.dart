@@ -35,7 +35,7 @@ class LibraryScreen extends ConsumerWidget {
     final courseBranches = profile.branchesForCourse(activeCourse);
     final progressMap = <BranchId, SkillProgress>{
       for (final b in courseBranches)
-        b: progressRepo.getProgress(b, course: activeCourse),
+        b: progressRepo.getProgress(b),
     };
 
     return Scaffold(

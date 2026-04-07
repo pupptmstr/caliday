@@ -129,7 +129,7 @@ CaliDay supports multiple **courses** (like Duolingo). Each course has its own b
 - `CourseId.calisthenics` → push, pull, core, legs, balance, flex
 - `CourseId.healthyBody` → posture, neck, flex
 
-**Progression is per-course:** `SkillProgress` keys are `"${courseId}_${branchId}"` (e.g. `"calisthenics_push"`).
+**Progression is global per branch:** `SkillProgress` keys are `branch.name` only (e.g. `"push"`). Branches are physical skills — progress is shared across all courses containing that branch.
 **Streak and SP are global.** Active course is stored in `UserProfile.activeCourse` (last selected).
 Switching courses happens in the Library tab via pill tabs.
 

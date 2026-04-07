@@ -59,8 +59,8 @@ Future<void> main() async {
     Hive.openBox<FriendProfile>('friends'),
   ]);
 
-  // Migrate bare SkillProgress keys ("push") → course-scoped ("calisthenics_push").
-  await SkillProgressRepository().migrateToCourseScopedKeys();
+  // Migrate SkillProgress keys to bare branch keys (branches are global skills).
+  await SkillProgressRepository().runMigrations();
 
   runApp(const ProviderScope(child: CaliDayApp()));
 }

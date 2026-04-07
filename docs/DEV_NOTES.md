@@ -329,6 +329,21 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-07 — Fix: branch progress is shared across courses
+
+**What was done:** Fixed a bug where branches that appear in multiple courses (e.g., Flex in Calisthenics and Healthy Body) showed independent progress instead of shared progress. Branches represent physical skills and their progress must be global.
+
+**Modified files:**
+- `lib/data/repositories/skill_progress_repository.dart` — removed `course` param from all methods; key is now `branch.name` only; migration converts legacy course-scoped keys back to bare keys
+- `lib/main.dart` — updated migration call from `migrateToCourseScopedKeys` to `runMigrations`
+- `lib/domain/services/workout_generator_service.dart` — removed `course:` param from `getProgress`
+- `lib/features/home/providers/home_provider.dart` — removed `course:` param from `getProgress`
+- `lib/features/library/screens/library_screen.dart` — removed `course:` param from `getProgress`
+- `lib/features/workout/providers/workout_provider.dart` — removed `course:` params from `getProgress` / `saveProgress`
+- `lib/features/onboarding/providers/onboarding_provider.dart` — removed `course:` params from `saveProgress`
+
+**Key issues and solutions:** The previous multi-course implementation (v1.5) introduced course-scoped Hive keys (`calisthenics_flex`, `healthyBody_flex`) which caused the same branch to show different progress in different courses. The correct model: branches are physical skills, so `SkillProgress` is keyed by branch name only. `runMigrations()` handles both old bare keys (pre-v1.5) and course-scoped keys (v1.5) — converging everything to bare keys.
+
 ### 2026-04-06 — Multi-Course System v1.5 (Calisthenics + Healthy Body)
 
 **What was done:** Implemented the full multi-course system. Added `CourseId` enum (typeId 10), `posture` and `neck` BranchId values (HiveField 6/7), course-scoped SkillProgress keys (`${courseId}_${branchId}`), Library tab replacing Progress tab, updated onboarding with course selection, and new exercise catalog entries for posture (6 stages) and neck (5 stages) branches.

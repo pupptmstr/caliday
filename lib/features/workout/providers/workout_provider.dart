@@ -420,10 +420,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       final result = results[i];
       if (result == null || planned.exercise.stage == 0) continue;
 
-      final progress = progressRepo.getProgress(
-        planned.exercise.branch,
-        course: course,
-      );
+      final progress = progressRepo.getProgress(planned.exercise.branch);
 
       if (planned.exercise.stage > progress.currentStage) {
         // Challenge exercise: always advance stage even in bonus workouts.
@@ -439,13 +436,13 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
           advancedToStage = progress.currentStage;
         }
         // If failed: isChallengeUnlocked stays true, progress unchanged.
-        progressRepo.saveProgress(progress, course: course);
+        progressRepo.saveProgress(progress);
       } else if (isPrimary) {
         // Regular progression: primary workouts only.
         final unlocked =
             progressionService.applyResult(progress, planned.exercise, result);
         if (unlocked) challengeUnlocked = true;
-        progressRepo.saveProgress(progress, course: course);
+        progressRepo.saveProgress(progress);
       }
     }
 

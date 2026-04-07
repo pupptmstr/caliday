@@ -66,7 +66,7 @@ class WorkoutGeneratorService {
 
     // ── 2. Main block (one exercise per branch) ───────────────────────────────
     for (final branch in todayBranches) {
-      final progress = _progressRepo.getProgress(branch, course: course);
+      final progress = _progressRepo.getProgress(branch);
       var exercise = ExerciseCatalog.forStage(branch, progress.currentStage);
       if (exercise == null) continue;
 

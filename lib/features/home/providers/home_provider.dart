@@ -59,7 +59,7 @@ final homeDataProvider = Provider.autoDispose<HomeData>((ref) {
   final courseBranches = profile.branchesForCourse(course);
   final progressMap = <BranchId, SkillProgress>{
     for (final branch in courseBranches)
-      branch: progressRepo.getProgress(branch, course: course),
+      branch: progressRepo.getProgress(branch),
   };
 
   return HomeData(

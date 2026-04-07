@@ -6,51 +6,43 @@ import '../models/skill_progress.dart';
 
 /// Provides access to per-branch [SkillProgress] records stored in Hive.
 ///
-/// Keys are course-scoped: `"${course.name}_${branch.name}"` (e.g. "calisthenics_push").
-/// [getProgress] defaults to [CourseId.calisthenics] for backward compatibility.
+/// Keys are branch-scoped only (e.g. "flex"), so progress is shared across
+/// all courses that contain the same branch — branches are physical skills.
 class SkillProgressRepository {
   static const _boxName = 'skill_progress';
 
   Box<SkillProgress> get _box => Hive.box<SkillProgress>(_boxName);
 
-  String _key(BranchId branch, CourseId course) =>
-      '${course.name}_${branch.name}';
-
-  /// Returns the progress for [branch] in [course], or a default starting value.
-  SkillProgress getProgress(
-    BranchId branch, {
-    CourseId course = CourseId.calisthenics,
-  }) {
-    return _box.get(_key(branch, course)) ?? _defaultFor(branch);
+  /// Returns the progress for [branch], or a default starting value.
+  SkillProgress getProgress(BranchId branch) {
+    return _box.get(branch.name) ?? _defaultFor(branch);
   }
 
-  /// Persists [progress] for its branch in [course].
-  Future<void> saveProgress(
-    SkillProgress progress, {
-    CourseId course = CourseId.calisthenics,
-  }) {
-    return _box.put(_key(progress.branchId, course), progress);
+  /// Persists [progress] for its branch.
+  Future<void> saveProgress(SkillProgress progress) {
+    return _box.put(progress.branchId.name, progress);
   }
 
   /// Returns progress for every branch that has been persisted so far.
   List<SkillProgress> getAll() => _box.values.toList();
 
-  /// Returns true if a record exists for [branch] in [course].
-  bool hasProgress(
-    BranchId branch, {
-    CourseId course = CourseId.calisthenics,
-  }) =>
-      _box.containsKey(_key(branch, course));
+  /// Returns true if a record exists for [branch].
+  bool hasProgress(BranchId branch) => _box.containsKey(branch.name);
 
-  /// Migrates legacy bare-branch keys (e.g. "push") to course-scoped keys
-  /// (e.g. "calisthenics_push"). Safe to call multiple times (idempotent).
-  Future<void> migrateToCourseScopedKeys() async {
+  /// Migrates data from legacy bare-branch keys ("push") or course-scoped keys
+  /// ("calisthenics_push") to bare-branch keys. Safe to call multiple times.
+  Future<void> runMigrations() async {
     for (final branch in BranchId.values) {
-      final oldKey = branch.name;
-      final newKey = _key(branch, CourseId.calisthenics);
-      if (_box.containsKey(oldKey) && !_box.containsKey(newKey)) {
-        await _box.put(newKey, _box.get(oldKey)!);
-        await _box.delete(oldKey);
+      final bareKey = branch.name;
+      // Migrate course-scoped keys back to bare keys (e.g. "calisthenics_flex" → "flex").
+      for (final course in CourseId.values) {
+        final scopedKey = '${course.name}_${branch.name}';
+        if (_box.containsKey(scopedKey) && !_box.containsKey(bareKey)) {
+          await _box.put(bareKey, _box.get(scopedKey)!);
+        }
+        if (_box.containsKey(scopedKey)) {
+          await _box.delete(scopedKey);
+        }
       }
     }
   }

@@ -282,7 +282,6 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
           currentSets: 1,
           currentRestSec: 30,
         ),
-        course: CourseId.healthyBody,
       );
       await progressRepo.saveProgress(
         SkillProgress(
@@ -292,7 +291,6 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
           currentSets: 1,
           currentRestSec: 15,
         ),
-        course: CourseId.healthyBody,
       );
     }
 
