@@ -570,6 +570,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 10,
     techniqueTip: 'Фиксируй взгляд на точке — это сильно улучшает баланс.',
+    animationPath: 'assets/animations/bal_s1_one_leg_stand.json',
   );
 
   static const Exercise balS2OneArmPlank = Exercise(
@@ -590,6 +591,7 @@ class ExerciseCatalog {
     spBase: 2,
     challengeTargetReps: 5,
     techniqueTip: 'Бёдра держи параллельно полу — не разворачивай корпус.',
+    animationPath: 'assets/animations/bal_s2_one_arm_plank.json',
   );
 
   static const Exercise balS3CrowPrep = Exercise(
@@ -610,6 +612,7 @@ class ExerciseCatalog {
     spBase: 3,
     challengeTargetReps: 3,
     techniqueTip: 'Взгляд вперёд-вниз, не прямо вниз — иначе упадёшь.',
+    animationPath: 'assets/animations/bal_s3_crow_prep.json',
   );
 
   static const Exercise balS4CrowPose = Exercise(
@@ -630,6 +633,7 @@ class ExerciseCatalog {
     spBase: 4,
     challengeTargetReps: 10,
     techniqueTip: 'Округли спину — это активирует корпус и даёт баланс.',
+    animationPath: 'assets/animations/bal_s4_crow_pose.json',
   );
 
   static const Exercise balS5WallHs = Exercise(
@@ -650,6 +654,7 @@ class ExerciseCatalog {
     spBase: 4,
     challengeTargetReps: 5,
     techniqueTip: 'Пальцы широко, надавливай на подушечки — это баланс.',
+    animationPath: 'assets/animations/bal_s5_wall_hs.json',
   );
 
   static const Exercise balS6FreeHs = Exercise(
@@ -669,6 +674,7 @@ class ExerciseCatalog {
     targetRestSec: 60,
     spBase: 5,
     techniqueTip: 'Смотри в пол на 30–40 см перед руками, не между руками.',
+    animationPath: 'assets/animations/bal_s6_free_hs.json',
   );
 
   // ── FLEX ──────────────────────────────────────────────────────────────────

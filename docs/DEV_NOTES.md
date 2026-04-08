@@ -249,6 +249,15 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-08 — Balance branch animations wired up
+
+**What was done:** Added `animationPath` to all 6 Balance progression exercises. Lottie files `bal_s1_one_leg_stand.json` through `bal_s6_free_hs.json` are now displayed in the workout screen.
+
+**Modified files:**
+- `lib/data/static/exercise_catalog.dart` — `animationPath` added to balS1–balS6
+
+---
+
 ### 2026-04-07 — Workout history card: colored exercise tags
 
 **What was done:** Improved `_WorkoutLogTile` in `profile_screen.dart`. The card now shows a summary row of up to 4 colored muscle/type tags for the whole workout (collected from all exercises). The detail sheet shows 1–2 colored tag chips under each exercise name. Meta-tags (floorOnly, requiresBar, beginner) are filtered out. Added `_ExerciseTagChip` widget; imported `ExerciseTagsCatalog`.

@@ -73,6 +73,24 @@ class $AssetsSoundsGen {
 class $AssetsAnimationsGen {
   const $AssetsAnimationsGen();
 
+  final LottieGenImage balS1OneLegStand = const LottieGenImage(
+    'assets/animations/bal_s1_one_leg_stand.json',
+  );
+  final LottieGenImage balS2OneArmPlank = const LottieGenImage(
+    'assets/animations/bal_s2_one_arm_plank.json',
+  );
+  final LottieGenImage balS3CrowPrep = const LottieGenImage(
+    'assets/animations/bal_s3_crow_prep.json',
+  );
+  final LottieGenImage balS4CrowPose = const LottieGenImage(
+    'assets/animations/bal_s4_crow_pose.json',
+  );
+  final LottieGenImage balS5WallHs = const LottieGenImage(
+    'assets/animations/bal_s5_wall_hs.json',
+  );
+  final LottieGenImage balS6FreeHs = const LottieGenImage(
+    'assets/animations/bal_s6_free_hs.json',
+  );
   final LottieGenImage cooldownCatCow = const LottieGenImage(
     'assets/animations/cooldown_cat_cow.json',
   );
