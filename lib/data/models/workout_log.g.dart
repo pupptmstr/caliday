@@ -8,7 +8,7 @@ part of 'workout_log.dart';
 
 class WorkoutLogAdapter extends TypeAdapter<WorkoutLog> {
   @override
-  final int typeId = 2;
+  final typeId = 2;
 
   @override
   WorkoutLog read(BinaryReader reader) {
@@ -20,10 +20,10 @@ class WorkoutLogAdapter extends TypeAdapter<WorkoutLog> {
       date: fields[0] as DateTime,
       setType: fields[1] as SetType,
       exercises: (fields[2] as List).cast<ExerciseResult>(),
-      spEarned: fields[3] as int,
-      durationSec: fields[4] as int,
-      isPrimary: fields[5] as bool,
-      courseIdIndex: fields[6] as int?,
+      spEarned: (fields[3] as num).toInt(),
+      durationSec: (fields[4] as num).toInt(),
+      isPrimary: fields[5] == null ? true : fields[5] as bool,
+      courseIdIndex: (fields[6] as num?)?.toInt(),
     );
   }
 

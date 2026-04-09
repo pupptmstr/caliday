@@ -23,8 +23,8 @@ calisthenics (handstand push-ups) through short daily sets of 5–15 minutes.
 | Layer | Solution |
 |-------|----------|
 | UI | Flutter (Dart) |
-| State management | Riverpod |
-| Local storage | Hive |
+| State management | Riverpod 3.x (`flutter_riverpod ^3.0.1`; legacy providers via `flutter_riverpod/legacy.dart`) |
+| Local storage | Hive CE (`hive_ce ^2.19.3` — community fork of Hive; same box format, pure Dart) |
 | Navigation | go_router |
 | Notifications | flutter_local_notifications |
 | Animations | Lottie (`lottie: ^3.3.1`) |
@@ -618,7 +618,7 @@ Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.ca
 - `build.gradle.kts`: `isCoreLibraryDesugaringEnabled = true` + `desugar_jdk_libs:2.1.4`
 - Root `build.gradle.kts`: `compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }`, **not** `kotlinOptions` (compile error)
 - `flutter_timezone ^5.0.0`: use field `.identifier` (not `.name`)
-- `build_runner` pinned to `^2.4.13` (`^2.4.14` is incompatible with `hive_generator ^2.0.1`)
+- `build_runner ^2.13.1` (unblocked after migrating to `hive_ce_generator ^1.11.1` which uses `analyzer ^10.0.0`)
 - NotificationService init — ONLY in `postFrameCallback`, not in `main()` before `runApp()`
 - AndroidManifest: `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`, `SCHEDULE_EXACT_ALARM`, `VIBRATE`
 - Proguard: `keep.xml` (drawable) + `proguard-rules.pro` (dexterous + TypeToken)

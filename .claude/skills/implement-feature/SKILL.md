@@ -8,59 +8,70 @@ description: Step-by-step workflow for implementing a new feature or fixing a bu
 ## Step 1 — Load context
 
 Read in this order:
-1. `docs/ARCHITECTURE.md` — architecture, Hive typeIds, service APIs, patterns
-2. `docs/DEV_NOTES.md` — current status and the feature spec (if it exists in "Active Specs")
+1. `internal_docs/ARCHITECTURE.md` — architecture, storage models, service APIs, patterns
+2. `internal_docs/DEV_NOTES.md` — current status and the feature spec (if it exists in "Active Specs")
 3. **If the task involves UI:** read `design-system/caliday/BRAND.md` (colors, Goro, gradients, anti-patterns) and the relevant page file in `design-system/caliday/pages/` if it exists
 4. Relevant code files (find via Glob/Grep)
 
 **Key patterns from ARCHITECTURE.md** to keep in mind:
-- Hive typeIds cannot be changed after release
-- UserProfile HiveField numbers are occupied up to @22
 - Services mutate objects in place; saving is the caller's responsibility
 - `homeDataProvider` and `profileDataProvider` must be invalidated after a workout
 - `context.canPop() ? context.pop() : context.go('/home')` when exiting workout
 
-## Step 2 — Plan the implementation
+## Step 2 — Research libraries via Context7
+
+**Before writing any code that uses a library or framework API:**
+
+1. Call `resolve-library-id` for each relevant library (Flutter packages, SDKs, etc.)
+2. Call `query-docs` with targeted questions about the specific API you need
+3. Use the fetched docs to write correct, up-to-date code — do NOT rely on training data for library APIs
+
+**Always check Context7 for:**
+- Any new package being added to pubspec.yaml
+- Any existing package where the version was recently bumped (APIs may have changed)
+- Initialization patterns, method signatures, platform-specific setup
+- Migration guides when upgrading major versions
+
+> Skipping Context7 for library code is the leading cause of using deprecated APIs,
+> wrong method signatures, and missing required setup steps.
+
+## Step 3 — Plan the implementation
 
 Before writing code, formulate a plan:
 - Which files will be modified / created
-- If adding Hive fields — what is the next free `@HiveField` number
 - Is code generation needed (`dart run build_runner build`)
 - Are new l10n keys needed
 - Are changes to `app_router.dart` needed
-- Any Android/iOS specifics
+- Any Android/iOS specifics (permissions, entitlements, Podfile)
 
 Align the plan with the user if changes affect architecture.
 
-## Step 3 — Implement
+## Step 4 — Implement
 
 Principles:
 - Minimum changes to solve the task — don't refactor code you're not touching
 - Don't add docstrings/comments to existing code
 - UI strings via l10n (don't hardcode in code)
 - Follow emoji policy: UI chrome → Material Icons, content (achievements) → emoji OK
-- New HiveFields: add strictly in order, document in ARCHITECTURE.md
 - **All project documentation (ARCHITECTURE.md, DEV_NOTES.md, skills, memory) is written in English**
 
-## Step 4 — Verify
+## Step 5 — Verify
 
 ```bash
 flutter analyze          # Required — fix all warnings
 flutter test             # If tests exist
+dart run build_runner build   # If models changed
 ```
 
-For Hive model changes:
-```bash
-dart run build_runner build   # Regenerate .g.dart files
-```
-
-## Step 5 — Document and commit
+## Step 6 — Document and commit
 
 Use the `pre-commit` skill:
 - History in DEV_NOTES
 - Update ARCHITECTURE.md (final decisions, backlog status → ✅)
 - Update MEMORY.md
 - Commit in English
+
+---
 
 ## Checklist for UI changes
 
@@ -73,13 +84,12 @@ Use the `pre-commit` skill:
 - [ ] Use `ui-ux-pro-max` skill for style decisions: `--domain ux`, `--domain style`, `--design-system`
 - [ ] Run `flutter analyze` — no warnings
 
-## Checklist for features with Hive changes
+## Checklist for features using libraries
 
-- [ ] Next free @HiveField number verified
-- [ ] typeId not changed for existing classes
-- [ ] `.g.dart` file regenerated
-- [ ] New fields documented in ARCHITECTURE.md → UserProfile HiveFields
-- [ ] `main.dart`: if new Hive box — added `await Hive.openBox<T>('name')`
+- [ ] Context7 checked for all library APIs used in this feature
+- [ ] No deprecated APIs used (verified against current docs, not training data)
+- [ ] Platform-specific setup verified (iOS entitlements, Android manifest, Podfile)
+- [ ] If new package added — initialization pattern verified via Context7
 
 ## Checklist for features with navigation changes
 

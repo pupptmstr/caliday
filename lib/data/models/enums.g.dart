@@ -8,7 +8,7 @@ part of 'enums.dart';
 
 class BranchIdAdapter extends TypeAdapter<BranchId> {
   @override
-  final int typeId = 4;
+  final typeId = 4;
 
   @override
   BranchId read(BinaryReader reader) {
@@ -39,28 +39,20 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
     switch (obj) {
       case BranchId.push:
         writer.writeByte(0);
-        break;
       case BranchId.core:
         writer.writeByte(1);
-        break;
       case BranchId.pull:
         writer.writeByte(2);
-        break;
       case BranchId.legs:
         writer.writeByte(3);
-        break;
       case BranchId.balance:
         writer.writeByte(4);
-        break;
       case BranchId.flex:
         writer.writeByte(5);
-        break;
       case BranchId.posture:
         writer.writeByte(6);
-        break;
       case BranchId.neck:
         writer.writeByte(7);
-        break;
     }
   }
 
@@ -77,7 +69,7 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
 
 class CourseIdAdapter extends TypeAdapter<CourseId> {
   @override
-  final int typeId = 10;
+  final typeId = 10;
 
   @override
   CourseId read(BinaryReader reader) {
@@ -96,10 +88,8 @@ class CourseIdAdapter extends TypeAdapter<CourseId> {
     switch (obj) {
       case CourseId.calisthenics:
         writer.writeByte(0);
-        break;
       case CourseId.healthyBody:
         writer.writeByte(1);
-        break;
     }
   }
 
@@ -116,7 +106,7 @@ class CourseIdAdapter extends TypeAdapter<CourseId> {
 
 class SetTypeAdapter extends TypeAdapter<SetType> {
   @override
-  final int typeId = 5;
+  final typeId = 5;
 
   @override
   SetType read(BinaryReader reader) {
@@ -137,13 +127,10 @@ class SetTypeAdapter extends TypeAdapter<SetType> {
     switch (obj) {
       case SetType.daily:
         writer.writeByte(0);
-        break;
       case SetType.skill:
         writer.writeByte(1);
-        break;
       case SetType.challenge:
         writer.writeByte(2);
-        break;
     }
   }
 
@@ -160,7 +147,7 @@ class SetTypeAdapter extends TypeAdapter<SetType> {
 
 class ExerciseTypeAdapter extends TypeAdapter<ExerciseType> {
   @override
-  final int typeId = 6;
+  final typeId = 6;
 
   @override
   ExerciseType read(BinaryReader reader) {
@@ -179,10 +166,8 @@ class ExerciseTypeAdapter extends TypeAdapter<ExerciseType> {
     switch (obj) {
       case ExerciseType.reps:
         writer.writeByte(0);
-        break;
       case ExerciseType.timed:
         writer.writeByte(1);
-        break;
     }
   }
 
@@ -199,7 +184,7 @@ class ExerciseTypeAdapter extends TypeAdapter<ExerciseType> {
 
 class RankAdapter extends TypeAdapter<Rank> {
   @override
-  final int typeId = 7;
+  final typeId = 7;
 
   @override
   Rank read(BinaryReader reader) {
@@ -226,22 +211,16 @@ class RankAdapter extends TypeAdapter<Rank> {
     switch (obj) {
       case Rank.beginner:
         writer.writeByte(0);
-        break;
       case Rank.amateur:
         writer.writeByte(1);
-        break;
       case Rank.sportsman:
         writer.writeByte(2);
-        break;
       case Rank.athlete:
         writer.writeByte(3);
-        break;
       case Rank.master:
         writer.writeByte(4);
-        break;
       case Rank.legend:
         writer.writeByte(5);
-        break;
     }
   }
 
@@ -258,7 +237,7 @@ class RankAdapter extends TypeAdapter<Rank> {
 
 class FitnessGoalAdapter extends TypeAdapter<FitnessGoal> {
   @override
-  final int typeId = 8;
+  final typeId = 8;
 
   @override
   FitnessGoal read(BinaryReader reader) {
@@ -279,13 +258,10 @@ class FitnessGoalAdapter extends TypeAdapter<FitnessGoal> {
     switch (obj) {
       case FitnessGoal.generalFitness:
         writer.writeByte(0);
-        break;
       case FitnessGoal.strengthPush:
         writer.writeByte(1);
-        break;
       case FitnessGoal.calisthenics:
         writer.writeByte(2);
-        break;
     }
   }
 

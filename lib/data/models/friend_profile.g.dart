@@ -8,7 +8,7 @@ part of 'friend_profile.dart';
 
 class FriendProfileAdapter extends TypeAdapter<FriendProfile> {
   @override
-  final int typeId = 9;
+  final typeId = 9;
 
   @override
   FriendProfile read(BinaryReader reader) {
@@ -19,10 +19,10 @@ class FriendProfileAdapter extends TypeAdapter<FriendProfile> {
     return FriendProfile(
       id: fields[0] as String,
       displayName: fields[1] as String,
-      totalSP: fields[2] as int,
-      currentStreak: fields[3] as int,
-      longestStreak: fields[4] as int,
-      rankIndex: fields[5] as int,
+      totalSP: (fields[2] as num).toInt(),
+      currentStreak: (fields[3] as num).toInt(),
+      longestStreak: (fields[4] as num).toInt(),
+      rankIndex: (fields[5] as num).toInt(),
       branchStages: (fields[6] as Map).cast<String, int>(),
       profileDate: fields[7] as DateTime,
       lastSynced: fields[8] as DateTime,

@@ -8,7 +8,7 @@ part of 'user_profile.dart';
 
 class UserProfileAdapter extends TypeAdapter<UserProfile> {
   @override
-  final int typeId = 0;
+  final typeId = 0;
 
   @override
   UserProfile read(BinaryReader reader) {
@@ -17,19 +17,19 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return UserProfile(
-      rank: fields[0] as Rank,
-      totalSP: fields[1] as int,
-      currentStreak: fields[2] as int,
-      longestStreak: fields[3] as int,
-      streakFreezeCount: fields[4] as int,
+      rank: fields[0] == null ? Rank.beginner : fields[0] as Rank,
+      totalSP: fields[1] == null ? 0 : (fields[1] as num).toInt(),
+      currentStreak: fields[2] == null ? 0 : (fields[2] as num).toInt(),
+      longestStreak: fields[3] == null ? 0 : (fields[3] as num).toInt(),
+      streakFreezeCount: fields[4] == null ? 0 : (fields[4] as num).toInt(),
       lastWorkoutDate: fields[5] as DateTime?,
-      notificationHour: fields[6] as int,
-      notificationMinute: fields[7] as int,
-      notificationsEnabled: fields[8] as bool,
-      eveningReminderEnabled: fields[9] as bool,
-      streakThreatEnabled: fields[10] as bool,
+      notificationHour: fields[6] == null ? 9 : (fields[6] as num).toInt(),
+      notificationMinute: fields[7] == null ? 0 : (fields[7] as num).toInt(),
+      notificationsEnabled: fields[8] == null ? true : fields[8] as bool,
+      eveningReminderEnabled: fields[9] == null ? true : fields[9] as bool,
+      streakThreatEnabled: fields[10] == null ? true : fields[10] as bool,
       locale: fields[11] as String?,
-      preferredWorkoutMinutes: fields[12] as int?,
+      preferredWorkoutMinutes: (fields[12] as num?)?.toInt(),
       fitnessGoal: fields[13] as FitnessGoal?,
       themeModeName: fields[14] as String?,
       hasPullUpBar: fields[15] as bool?,
@@ -41,7 +41,7 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       displayName: fields[18] as String?,
       bleDiscoverable: fields[23] as bool?,
       activeCourseIds: (fields[24] as List?)?.cast<int>(),
-      activeCourseIndex: fields[25] as int?,
+      activeCourseIndex: (fields[25] as num?)?.toInt(),
     );
   }
 
@@ -81,6 +81,10 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..write(obj.themeModeName)
       ..writeByte(15)
       ..write(obj.hasPullUpBar)
+      ..writeByte(17)
+      ..write(obj.peerId)
+      ..writeByte(18)
+      ..write(obj.displayName)
       ..writeByte(19)
       ..write(obj.soundEnabled)
       ..writeByte(20)
@@ -89,10 +93,6 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..write(obj.healthWorkoutsEnabled)
       ..writeByte(22)
       ..write(obj.healthWeightEnabled)
-      ..writeByte(17)
-      ..write(obj.peerId)
-      ..writeByte(18)
-      ..write(obj.displayName)
       ..writeByte(23)
       ..write(obj.bleDiscoverable)
       ..writeByte(24)

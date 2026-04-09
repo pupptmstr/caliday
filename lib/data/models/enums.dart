@@ -1,6 +1,6 @@
 import 'package:caliday/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 part 'enums.g.dart';
 

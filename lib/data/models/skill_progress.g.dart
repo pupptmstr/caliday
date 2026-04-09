@@ -8,7 +8,7 @@ part of 'skill_progress.dart';
 
 class SkillProgressAdapter extends TypeAdapter<SkillProgress> {
   @override
-  final int typeId = 1;
+  final typeId = 1;
 
   @override
   SkillProgress read(BinaryReader reader) {
@@ -18,11 +18,11 @@ class SkillProgressAdapter extends TypeAdapter<SkillProgress> {
     };
     return SkillProgress(
       branchId: fields[0] as BranchId,
-      currentStage: fields[1] as int,
-      currentReps: fields[2] as int,
-      currentSets: fields[3] as int,
-      currentRestSec: fields[4] as int,
-      isChallengeUnlocked: fields[5] as bool,
+      currentStage: fields[1] == null ? 1 : (fields[1] as num).toInt(),
+      currentReps: fields[2] == null ? 5 : (fields[2] as num).toInt(),
+      currentSets: fields[3] == null ? 1 : (fields[3] as num).toInt(),
+      currentRestSec: fields[4] == null ? 60 : (fields[4] as num).toInt(),
+      isChallengeUnlocked: fields[5] == null ? false : fields[5] as bool,
     );
   }
 

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../data/models/friend_profile.dart';
 import '../../../data/repositories/friend_repository.dart';

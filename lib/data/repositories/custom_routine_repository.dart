@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
+import 'package:flutter_riverpod/legacy.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 import '../models/custom_routine.dart';
 

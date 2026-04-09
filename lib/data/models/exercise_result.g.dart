@@ -8,7 +8,7 @@ part of 'exercise_result.dart';
 
 class ExerciseResultAdapter extends TypeAdapter<ExerciseResult> {
   @override
-  final int typeId = 3;
+  final typeId = 3;
 
   @override
   ExerciseResult read(BinaryReader reader) {
@@ -18,10 +18,10 @@ class ExerciseResultAdapter extends TypeAdapter<ExerciseResult> {
     };
     return ExerciseResult(
       exerciseId: fields[0] as String,
-      targetReps: fields[1] as int,
-      completedReps: fields[2] as int,
-      targetDurationSec: fields[3] as int?,
-      actualDurationSec: fields[4] as int?,
+      targetReps: (fields[1] as num).toInt(),
+      completedReps: (fields[2] as num).toInt(),
+      targetDurationSec: (fields[3] as num?)?.toInt(),
+      actualDurationSec: (fields[4] as num?)?.toInt(),
     );
   }
 
