@@ -189,8 +189,8 @@ flutter analyze
 
 ## Documentation
 
-- [Architecture](docs/ARCHITECTURE.md) — tech decisions, data models, service APIs, feature backlog
-- [Dev Notes](docs/DEV_NOTES.md) — current status, active feature specs, session history
+- [Architecture](internal_docs/ARCHITECTURE.md) — tech decisions, data models, service APIs, feature backlog
+- [Dev Notes](internal_docs/DEV_NOTES.md) — current status, active feature specs, session history
 
 ## Roadmap
 

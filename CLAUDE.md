@@ -9,13 +9,13 @@ All data is stored locally (Hive), no backend, free, no ads.
 
 | Document | Contents |
 |----------|----------|
-| **`docs/ARCHITECTURE.md`** | Tech stack, architecture, data models, Hive typeIds, services, navigation, design system, code style, backlog. **Read at session start.** |
-| **`docs/DEV_NOTES.md`** | Current status, active feature specs, session change history |
+| **`internal_docs/ARCHITECTURE.md`** | Tech stack, architecture, data models, Hive typeIds, services, navigation, design system, code style, backlog. **Read at session start.** |
+| **`internal_docs/DEV_NOTES.md`** | Current status, active feature specs, session change history |
 | **`design-system/caliday/BRAND.md`** | Brand & character reference — Goro, Skala, colors, gradients, animations, anti-patterns. **Read before any UI task.** |
 | `design-system/caliday/MASTER.md` | UX style rules (Vibrant & Block-based), spacing, component specs |
 | `design-system/caliday/pages/` | Per-screen design rules (home.md, profile.md) |
-| `docs/CaliDay_Design_Document.md` | Product design document |
-| `docs/design-concept/caliday_design_concept.md` | Goro mascot design, colors, icons |
+| `internal_docs/CaliDay_Design_Document.md` | Product design document |
+| `internal_docs/design-concept/caliday_design_concept.md` | Goro mascot design, colors, icons |
 
 ## Tech Stack (brief)
 
@@ -53,7 +53,7 @@ Agent Skills in `.claude/skills/`. Auto-triggered by context.
 
 Use the `/pre-commit` skill or do manually:
 
-1. **Update `docs/DEV_NOTES.md`** — add entry to "Change History": what was done, which files changed, any non-trivial issues and how they were resolved
-2. **Update `docs/ARCHITECTURE.md`** — if the change affects architectural decisions, models, service APIs, or backlog
+1. **Update `internal_docs/DEV_NOTES.md`** — add entry to "Change History": what was done, which files changed, any non-trivial issues and how they were resolved
+2. **Update `internal_docs/ARCHITECTURE.md`** — if the change affects architectural decisions, models, service APIs, or backlog
 3. **Update auto-memory** (`MEMORY.md` in `.claude/projects/.../memory/`) — new patterns, key decisions
 4. Only then create the commit

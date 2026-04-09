@@ -3,8 +3,8 @@
 Reference document. Contains stable decisions made in the project.
 Updated after features are implemented — final decisions are recorded here.
 
-> **Live notes and history:** `docs/DEV_NOTES.md`
-> **Design concept:** `docs/design-concept/caliday_design_concept.md`
+> **Live notes and history:** `internal_docs/DEV_NOTES.md`
+> **Design concept:** `internal_docs/design-concept/caliday_design_concept.md`
 
 ---
 

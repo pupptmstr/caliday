@@ -1,7 +1,7 @@
 # CaliDay — Developer Notes
 
 A living document. Contains current status, active feature specs in progress, and change history.
-**Stable decisions and architecture → `docs/ARCHITECTURE.md`**
+**Stable decisions and architecture → `internal_docs/ARCHITECTURE.md`**
 
 ---
 
@@ -166,7 +166,7 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 - Posture (6 упражнений, Healthy Body) — **Блок I, приоритет 3**
 - Neck (5 упражнений + warmup_neck_rolls, Healthy Body) — **Блок J, приоритет 4**
 
-Подробности — `docs/tz_designer.md` (v2.0).
+Подробности — `internal_docs/tz_designer.md` (v2.0).
 
 ---
 
@@ -251,26 +251,37 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-09 — Reorganize docs folders: public→docs/, internal→internal_docs/
+
+**What was done:** Renamed `docs/` → `internal_docs/` and `public_docs/` → `docs/` so GitHub Pages can serve public documents from `/docs/` on the `main` branch. Updated all cross-references in README, CLAUDE.md, ARCHITECTURE.md, DEV_NOTES.md, and memory.
+
+**Modified files:**
+- `internal_docs/` — renamed from `docs/`
+- `docs/` — renamed from `public_docs/`
+- `README.md`, `CLAUDE.md` — updated doc links
+
+---
+
 ### 2026-04-09 — Legal documents: Privacy Policy + Terms of Use
 
-**What was done:** Created `public_docs/` folder with Privacy Policy and Terms of Use. Both documents are English-only. Privacy Policy covers local-only data model, Health integration, Friends (peer-to-peer BLE/QR), camera, Bluetooth, notifications, and no-analytics stance. Terms of Use includes medical disclaimer, personal license, no-warranty clause, and governing law (Republic of Armenia).
+**What was done:** Created `docs/` folder (public documents) with Privacy Policy and Terms of Use. Both documents are English-only. Privacy Policy covers local-only data model, Health integration, Friends (peer-to-peer BLE/QR), camera, Bluetooth, notifications, and no-analytics stance. Terms of Use includes medical disclaimer, personal license, no-warranty clause, and governing law (Republic of Armenia).
 
 **New files:**
-- `public_docs/PRIVACY_POLICY.md` — App Store / Play Store privacy policy (English)
-- `public_docs/TERMS_OF_USE.md` — Terms of Use incl. medical disclaimer (English)
+- `docs/PRIVACY_POLICY.md` — App Store / Play Store privacy policy (English)
+- `docs/TERMS_OF_USE.md` — Terms of Use incl. medical disclaimer (English)
 
 ---
 
 ### 2026-04-09 — Docs and metadata refresh (v1.7)
 
-**What was done:** Updated README.md to reflect v1.7 feature set; bumped `pubspec.yaml` version to `1.7.0+8`; audited and corrected ARCHITECTURE.md (Balance/warmup/cooldown tables, backlog ordering); updated DEV_NOTES.md current status and Lottie section; updated `docs/tz_designer.md` to v2.0 marking Block F complete.
+**What was done:** Updated README.md to reflect v1.7 feature set; bumped `pubspec.yaml` version to `1.7.0+8`; audited and corrected ARCHITECTURE.md (Balance/warmup/cooldown tables, backlog ordering); updated DEV_NOTES.md current status and Lottie section; updated `internal_docs/tz_designer.md` to v2.0 marking Block F complete.
 
 **Modified files:**
 - `README.md` — full rewrite: all 6 branches, Exercise Library, Custom Workouts, Friends, correct tech stack
 - `pubspec.yaml` — version `1.4.0+5` → `1.7.0+8`
-- `docs/ARCHITECTURE.md` — Balance table ✅, warmup/cooldown tables ✅, backlog reordered by version
-- `docs/DEV_NOTES.md` — current status v1.4→v1.7, Lottie status updated
-- `docs/tz_designer.md` — v2.0: Block F marked done, priorities reordered
+- `internal_docs/ARCHITECTURE.md` — Balance table ✅, warmup/cooldown tables ✅, backlog reordered by version
+- `internal_docs/DEV_NOTES.md` — current status v1.4→v1.7, Lottie status updated
+- `internal_docs/tz_designer.md` — v2.0: Block F marked done, priorities reordered
 
 ---
 
@@ -306,9 +317,9 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 ### 2026-04-07 — Documentation: full exercise/animation audit
 
 **What was done:** Full audit of exercise catalog vs. animation files. Updated all three docs:
-- `docs/ARCHITECTURE.md` — added Lottie column to all branch tables; added Flex branch table (was missing); added Warmup, Cooldown, and Supplementary pool tables; fixed Legs backlog note (5/5 not 4/5); added Balance/Flex/Posture/Neck backlog entries.
-- `docs/DEV_NOTES.md` — updated animation status summary; replaced stale "waiting for designer" section with accurate status.
-- `docs/tz_designer.md` — bumped to v1.9; added Block I (Posture, 6 files) and Block J (Neck, 6 files); fixed Block F count from 9 → 8 (removed nonexistent `cooldown_wrist_stretch`).
+- `internal_docs/ARCHITECTURE.md` — added Lottie column to all branch tables; added Flex branch table (was missing); added Warmup, Cooldown, and Supplementary pool tables; fixed Legs backlog note (5/5 not 4/5); added Balance/Flex/Posture/Neck backlog entries.
+- `internal_docs/DEV_NOTES.md` — updated animation status summary; replaced stale "waiting for designer" section with accurate status.
+- `internal_docs/tz_designer.md` — bumped to v1.9; added Block I (Posture, 6 files) and Block J (Neck, 6 files); fixed Block F count from 9 → 8 (removed nonexistent `cooldown_wrist_stretch`).
 
 **Animation status:** 35 files done (Push 7, Core 7+alt, Pull 6, Legs 5, Warmups 5, Cooldowns 5). Missing: Balance(8), Flex(6), Posture(6), Neck(6), Supplementary(9) = 35 still needed.
 
@@ -326,7 +337,7 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 - `lib/features/library/screens/library_screen.dart` — `_RoutineCard` redesigned: `Dismissible` swipe-to-delete, tap opens `_RoutineDetailSheet` (exercise list with tags + edit/delete icons + start button), long press removed; header replaced two pill buttons with single `+` circle button opening `_AddRoutineSheet`
 - `lib/features/library/screens/custom_routine_builder_screen.dart` — Save button now always active when exercises selected; if name empty, focuses name field and shows snackbar
 - `l10n/app_en.arb`, `l10n/app_ru.arb` — added `customWorkoutNameRequired`, `customWorkoutEdit`, `customWorkoutConfirmStart`, `customWorkoutBuilderDesc`
-- `docs/ARCHITECTURE.md` — added custom course builder to v2.x backlog
+- `internal_docs/ARCHITECTURE.md` — added custom course builder to v2.x backlog
 
 **Key issues and solutions:**
 - Custom workout streak bug: `isPrimary` was forced to `false` for all custom workouts, but `hasWorkoutToday()` checked for ANY workout → user was locked out of primary workout after a custom session. Fix: `isPrimary = !hasPrimaryWorkoutToday()` universally (first workout of day wins, regardless of type).
@@ -479,7 +490,7 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 **Modified files:**
 - `lib/data/static/exercise_catalog.dart` — added `warmupHipCircles` + `cooldownHipFlexor` exercises; added `animationPath` to `warmupLegSwings` + `cooldownQuadStretch`; updated `warmupFor(legs)` → `warmupHipCircles`; updated `cooldownsFor(legs)` → two cooldowns
 - `lib/generated/assets.dart` — already registered (auto)
-- `docs/tz_designer.md` — bumped to v1.8, Block E marked complete, Block F set as first priority
+- `internal_docs/tz_designer.md` — bumped to v1.8, Block E marked complete, Block F set as first priority
 
 ---
 
@@ -529,7 +540,7 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 **Modified files:**
 - `lib/data/static/exercise_catalog.dart` — added animationPath to cooldownLatStretch and coreS4FlutterKicks
-- `docs/tz_designer.md` — updated to v1.6: blocks B and D marked complete, next priority is E (Legs)
+- `internal_docs/tz_designer.md` — updated to v1.6: blocks B and D marked complete, next priority is E (Legs)
 
 ### 2026-03-27 — Core S4 equipment-free alternative + streak real-work fix
 
@@ -671,8 +682,8 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 **What was done:** Added a tax/legal prerequisite block to the "Support the Author" IAP spec (Germany: Gewerbe, Kleinunternehmerregelung, Einkommensteuer). Updated skills and backlog with a warning to resolve this before implementing the feature. Established English-only rule for all project documentation.
 
 **Modified files:**
-- `docs/DEV_NOTES.md` — added Tax / Legal Prerequisite section under "Support the Author"
-- `docs/ARCHITECTURE.md` — added ⚠️ note to IAP backlog entry
+- `internal_docs/DEV_NOTES.md` — added Tax / Legal Prerequisite section under "Support the Author"
+- `internal_docs/ARCHITECTURE.md` — added ⚠️ note to IAP backlog entry
 - `.claude/skills/implement-feature/SKILL.md` — added English-only rule
 - `.claude/skills/document-idea/SKILL.md` — added English-only rule
 
@@ -726,8 +737,8 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 - `ios/CaliDayWidget/CaliDayWidget.swift` — iOS 14 compatibility: `containerBackground` wrapped in `@available`, `#Preview` → `PreviewProvider`, `Date.now` → `Date()`, dark color passed to `containerBackground` to remove white system border
 - `lib/features/settings/providers/settings_provider.dart` — `setHasPullUpBar` now invalidates `homeDataProvider` (Pull branch appeared only after restart)
 - `lib/features/workout/providers/workout_provider.dart` — added `_ref.invalidate(displayStreakProvider)` before other invalidations (streak showed stale value after workout because `goroExpressionProvider` kept `displayStreakProvider` alive)
-- `docs/CaliDay_Design_Document.md` — translated to English
-- `docs/design-concept/caliday_design_concept.md` — translated to English; corrected outdated note about GoroExpressionProvider (it IS integrated)
+- `internal_docs/CaliDay_Design_Document.md` — translated to English
+- `internal_docs/design-concept/caliday_design_concept.md` — translated to English; corrected outdated note about GoroExpressionProvider (it IS integrated)
 
 **Key issues and solutions:**
 1. **Build cycle** (`Cycle inside Runner`): "Embed Foundation Extensions" phase was placed after CocoaPods' "Thin Binary" script. Thin Binary scans the entire `Runner.app` including PlugIns, creating a circular dependency. Fix: moved embed phase to index 0 (before all script phases).
@@ -763,16 +774,16 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 - `l10n/app_en.arb`: rewritten as full template with all `@key` metadata blocks (14 placeholder blocks previously only in `app_ru.arb`)
 - `README.md`: rewritten in English, updated to reflect v1.3 feature state
 - `CLAUDE.md`: translated to English
-- `docs/ARCHITECTURE.md`, `docs/DEV_NOTES.md`: translated to English
+- `internal_docs/ARCHITECTURE.md`, `internal_docs/DEV_NOTES.md`: translated to English
 - `.claude/skills/pre-commit/`, `implement-feature/`, `document-idea/`: skills translated to English, moved from `.claude/commands/` to `.claude/skills/` (Anthropic Agent Skills standard)
 
 **Documentation structure split:**
-- `docs/ARCHITECTURE.md` — stable architecture reference (tech stack, Hive typeIds, service APIs, navigation, design system, code style, feature backlog)
-- `docs/DEV_NOTES.md` — living notes: current status, active feature specs, session history
+- `internal_docs/ARCHITECTURE.md` — stable architecture reference (tech stack, Hive typeIds, service APIs, navigation, design system, code style, feature backlog)
+- `internal_docs/DEV_NOTES.md` — living notes: current status, active feature specs, session history
 
 **Key technical note:** `app_en.arb` is now the l10n template. Russian ARB (`app_ru.arb`) has 6 untranslated strings (new exercises added in session 31) that fall back to English in Russian locale — intentional.
 
-**Modified files:** `l10n.yaml`, `l10n/app_en.arb`, `README.md`, `CLAUDE.md`, `docs/ARCHITECTURE.md`, `docs/DEV_NOTES.md`, `.claude/skills/*/SKILL.md`
+**Modified files:** `l10n.yaml`, `l10n/app_en.arb`, `README.md`, `CLAUDE.md`, `internal_docs/ARCHITECTURE.md`, `internal_docs/DEV_NOTES.md`, `.claude/skills/*/SKILL.md`
 
 ---
 
