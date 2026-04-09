@@ -7,30 +7,33 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v1.4 (implemented)
-**Next priority:** TBD — see Active Specs below
+**Version:** v1.7 (implemented)
+**Next priority:** Privacy Policy (pre-publish blocker) → Lottie Flex (designer)
 
-Latest APK build: `build/app/outputs/flutter-apk/caliday.apk` (~57 MB)
+Latest APK build: `build/app/outputs/flutter-apk/app-release.apk` (~74 MB)
 
 | Layer | Status |
 |-------|--------|
 | Data models + Hive | ✅ |
-| ExerciseCatalog (all 5 branches) | ✅ |
-| Repositories (User, SkillProgress, Workout, Achievement) | ✅ |
+| ExerciseCatalog (8 branches — Calisthenics + Healthy Body) | ✅ |
+| Repositories (User, SkillProgress, Workout, Achievement, Friend, CustomRoutine) | ✅ |
 | Domain services | ✅ |
 | Navigation (GoRouter + bottom nav) | ✅ |
-| Onboarding (8 steps) | ✅ |
-| Home / Progress / Profile / Settings | ✅ |
+| Onboarding (8 steps, incl. course selection) | ✅ |
+| Home / Library / Profile / Settings | ✅ |
 | Workout / Summary | ✅ |
 | BranchJourney / Achievements / About / DevOptions | ✅ |
 | Notifications (4 types) | ✅ |
 | Dark theme | ✅ |
 | Goro (6 expressions) + Skala | ✅ |
-| Lottie animations (Push 7/7, Core 7/7, Pull 6/6, Legs 5/5) | ✅ |
+| Lottie animations (Push 7, Core 7+alt, Pull 6, Legs 5, Balance 6 — all ✅; Flex/Posture/Neck — 🔒 waiting) | ✅/🔒 |
 | Sound + haptics | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
 | Friends (BLE/QR, v1.4) | ✅ |
+| Exercise Library (search + tag filter) | ✅ |
+| Custom Workouts (Quick Routine + Saved Routines) | ✅ |
+| Multi-Course system (Calisthenics + Healthy Body) | ✅ |
 | L10n (RU + EN) | ✅ |
 
 ---
@@ -153,18 +156,17 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 ---
 
-### Lottie Animations — статус по веткам (2026-04-07)
+### Lottie Animations — статус по веткам (2026-04-09)
 
-35 файлов в `assets/animations/`. Полностью готовы: Push(7), Core(7+alt), Pull(6), Legs(5), Warmups(5/7), Cooldowns(5/6).
+46 файлов в `assets/animations/`. Полностью готовы: Push(7), Core(7+alt), Pull(6), Legs(5), Balance(6), Warmups(6/7), Cooldowns(6/6).
 
 Ожидают анимаций от дизайнера:
-- Balance (6 упражнений + warmup_wrist_circles + cooldown_downward_dog) — **Блок F, приоритет 1**
-- Flex (6 упражнений) — **Блок G, приоритет 2**
-- Posture (6 упражнений, Healthy Body) — **Блок I, приоритет 4**
-- Neck (5 упражнений + warmup_neck_rolls, Healthy Body) — **Блок J, приоритет 5**
-- Supplementary pool (9 упражнений) — **Блок H, приоритет 3**
+- Flex (6 упражнений) — **Блок G, приоритет 1**
+- Supplementary pool (9 упражнений) — **Блок H, приоритет 2**
+- Posture (6 упражнений, Healthy Body) — **Блок I, приоритет 3**
+- Neck (5 упражнений + warmup_neck_rolls, Healthy Body) — **Блок J, приоритет 4**
 
-Подробности — `docs/tz_designer.md` (v1.9).
+Подробности — `docs/tz_designer.md` (v2.0).
 
 ---
 
@@ -248,6 +250,40 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 ---
 
 ## Change History
+
+### 2026-04-09 — Legal documents: Privacy Policy + Terms of Use
+
+**What was done:** Created `public_docs/` folder with Privacy Policy and Terms of Use. Both documents are English-only. Privacy Policy covers local-only data model, Health integration, Friends (peer-to-peer BLE/QR), camera, Bluetooth, notifications, and no-analytics stance. Terms of Use includes medical disclaimer, personal license, no-warranty clause, and governing law (Republic of Armenia).
+
+**New files:**
+- `public_docs/PRIVACY_POLICY.md` — App Store / Play Store privacy policy (English)
+- `public_docs/TERMS_OF_USE.md` — Terms of Use incl. medical disclaimer (English)
+
+---
+
+### 2026-04-09 — Docs and metadata refresh (v1.7)
+
+**What was done:** Updated README.md to reflect v1.7 feature set; bumped `pubspec.yaml` version to `1.7.0+8`; audited and corrected ARCHITECTURE.md (Balance/warmup/cooldown tables, backlog ordering); updated DEV_NOTES.md current status and Lottie section; updated `docs/tz_designer.md` to v2.0 marking Block F complete.
+
+**Modified files:**
+- `README.md` — full rewrite: all 6 branches, Exercise Library, Custom Workouts, Friends, correct tech stack
+- `pubspec.yaml` — version `1.4.0+5` → `1.7.0+8`
+- `docs/ARCHITECTURE.md` — Balance table ✅, warmup/cooldown tables ✅, backlog reordered by version
+- `docs/DEV_NOTES.md` — current status v1.4→v1.7, Lottie status updated
+- `docs/tz_designer.md` — v2.0: Block F marked done, priorities reordered
+
+---
+
+### 2026-04-09 — New warmup/cooldown animations + exercise catalog translated to English
+
+**What was done:** Wired `warmup_wrist_circles.json` and `cooldown_downward_dog.json` into the exercise catalog. Translated all Russian `name`/`description`/`techniqueTip` fields in `exercise_catalog.dart` to English — the catalog is now fully English (UI strings go through `ExerciseL10n` / ARB files, so this had no visible effect on the UI).
+
+**Modified files:**
+- `lib/data/static/exercise_catalog.dart` — `animationPath` added to warmupWristCircles and cooldownDownwardDog; all Russian fields translated to English
+- `lib/generated/assets.dart` — `cooldownDownwardDog` and `warmupWristCircles` entries added
+- `lib/data/models/exercise.dart` — doc comments updated to clarify English-source convention
+
+---
 
 ### 2026-04-08 — Balance branch animations wired up
 

@@ -30,10 +30,10 @@ class Exercise {
   /// Unique identifier, e.g. "push_s1_wall_pushup".
   final String id;
 
-  /// Display name in Russian.
+  /// Display name in English (source text; UI uses ExerciseL10n).
   final String name;
 
-  /// Short description of the exercise in Russian.
+  /// Short description of the exercise in English (source text; UI uses ExerciseL10n).
   final String description;
 
   final BranchId branch;

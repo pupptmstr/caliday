@@ -296,15 +296,15 @@ Loaded from `ExerciseCatalog`. `stage = 0` = warmup/cooldown.
 | 5 | `legs_s5_pistol` | Pistol Squats | ✅ | file: `legs_s5_pistol_free.json` |
 
 ### Balance Branch (6 stages)
-Warmup: `warmup_wrist_circles` ❌. Cooldown: `[cooldown_downward_dog` ❌`]`.
+Warmup: `warmup_wrist_circles` ✅. Cooldown: `cooldown_downward_dog` ✅.
 | Stage | ID | Name | Lottie |
 |-------|----|------|--------|
-| 1 | `bal_s1_one_leg_stand` | One-leg Stand | ❌ |
-| 2 | `bal_s2_one_arm_plank` | One-arm Plank | ❌ |
-| 3 | `bal_s3_crow_prep` | Crow Pose Prep | ❌ |
-| 4 | `bal_s4_crow_pose` | Crow Pose | ❌ |
-| 5 | `bal_s5_wall_hs` | Wall Handstand | ❌ |
-| 6 | `bal_s6_free_hs` | Freestanding Handstand | ❌ |
+| 1 | `bal_s1_one_leg_stand` | Single-Leg Stand | ✅ |
+| 2 | `bal_s2_one_arm_plank` | One-Arm Plank | ✅ |
+| 3 | `bal_s3_crow_prep` | Crow Pose Preparation | ✅ |
+| 4 | `bal_s4_crow_pose` | Crow Pose (Kakasana) | ✅ |
+| 5 | `bal_s5_wall_hs` | Wall Handstand | ✅ |
+| 6 | `bal_s6_free_hs` | Free Handstand | ✅ |
 
 ### Flex Branch — Calisthenics course (6 stages)
 Warmup: `warmup_leg_swings` ✅. Cooldown: `cooldown_cat_cow` ✅.
@@ -341,23 +341,23 @@ Warmup: `warmup_neck_rolls` ❌. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_s
 ### Warmup Accessories (stage 0)
 | ID | Name | Used by | Lottie |
 |----|------|---------|--------|
-| `warmup_arm_rotations` | Вращения руками | Push | ✅ |
-| `warmup_dead_hang` | Вис на перекладине | Pull | ✅ |
-| `warmup_jumping_jacks` | Джампинг джекс | Core | ✅ |
-| `warmup_leg_swings` | Махи ногами | Flex | ✅ |
-| `warmup_hip_circles` | Вращения тазом | Legs, Posture | ✅ |
-| `warmup_wrist_circles` | Вращения запястьями | Balance | ❌ |
+| `warmup_arm_rotations` | Arm Circles | Push | ✅ |
+| `warmup_dead_hang` | Dead Hang | Pull | ✅ |
+| `warmup_jumping_jacks` | Jumping Jacks | Core | ✅ |
+| `warmup_leg_swings` | Leg Swings | Flex | ✅ |
+| `warmup_hip_circles` | Hip Circles | Legs, Posture | ✅ |
+| `warmup_wrist_circles` | Wrist Circles | Balance | ✅ |
 | `warmup_neck_rolls` | Neck Rolls | Neck | ❌ |
 
 ### Cooldown Accessories (stage 0)
 | ID | Name | Used by | Lottie |
 |----|------|---------|--------|
-| `cooldown_shoulder_stretch` | Растяжка плеч | Push, Neck | ✅ |
-| `cooldown_lat_stretch` | Растяжка широчайших | Pull | ✅ |
-| `cooldown_cat_cow` | Кошка-корова | Core, Flex, Neck | ✅ |
-| `cooldown_quad_stretch` | Растяжка квадрицепса | Legs, Posture | ✅ |
-| `cooldown_hip_flexor` | Растяжка сгибателей бедра | Legs, Posture | ✅ |
-| `cooldown_downward_dog` | Собака мордой вниз | Balance | ❌ |
+| `cooldown_shoulder_stretch` | Shoulder & Chest Stretch | Push, Neck | ✅ |
+| `cooldown_lat_stretch` | Lat Stretch | Pull | ✅ |
+| `cooldown_cat_cow` | Cat-Cow | Core, Flex, Neck | ✅ |
+| `cooldown_quad_stretch` | Quad Stretch | Legs, Posture | ✅ |
+| `cooldown_hip_flexor` | Hip Flexor Stretch | Legs, Posture | ✅ |
+| `cooldown_downward_dog` | Downward-Facing Dog | Balance | ✅ |
 
 ### Supplementary Pool (9 exercises, stage 0)
 `SupplementaryExerciseCatalog.all` — used in custom workouts and bonus sessions. No `animationPath` set.
@@ -681,11 +681,11 @@ flutter build ipa                 # iOS archive
 | Version | Feature | Status |
 |---------|---------|--------|
 | v1.0 | MVP (Push + Core, streaks, SP, notifications, onboarding) | ✅ |
+| v1.1 | New branches: Pull, Legs, Balance | ✅ |
 | v1.1 | Achievements (27 total) | ✅ |
 | v1.1 | Bonus workouts | ✅ |
-| v1.1 | Lottie animations for Push (7/7 stages) | ✅ |
+| v1.1 | Lottie animations — Push branch (7/7) | ✅ |
 | v1.1 | Dark theme | ✅ |
-| v1.1 | New branches: Pull, Legs, Balance | ✅ |
 | v1.2 | Sound + haptics | ✅ |
 | v1.2 | Workout history (detailed view) | ✅ |
 | v1.2 | Home redesign (bottom nav, 3 tabs) | ✅ |
@@ -696,25 +696,25 @@ flutter build ipa                 # iOS archive
 | v1.3 | Apple Health / Health Connect | ✅ |
 | v1.4 | Friends — QR + BLE scan (Central role) | ✅ |
 | v1.4 | Friends — BLE advertising (Peripheral role) | ✅ |
-| v1.4 | Friends — BLE GATT server (обмен профилем без QR) | ✅ |
-| ? | Flexibility & Mobility branch | ✅ |
-| ? | Supplementary exercise pool (random, no progression) | ✅ |
-| ? | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |
-| ? | Privacy Policy (GitHub Markdown → ссылка в приложении) | 📐 designed |
-| ? | Lottie animations for Core branch (6/6 + flutter_kicks alt) | ✅ |
-| ? | Lottie animations for Pull branch (6/6) | ✅ |
-| ? | Lottie animations for Legs branch (5/5) | ✅ |
-| ? | Lottie animations for Balance branch (0/6 + accessories) | 🔒 waiting for designer |
-| ? | Lottie animations for Flex branch (0/6) | 🔒 waiting for designer |
-| ? | Lottie animations for Posture branch (0/6) | 🔒 waiting for designer |
-| ? | Lottie animations for Neck branch (0/5 + warmup_neck_rolls) | 🔒 waiting for designer |
-| v2.0 | Design overhaul — Liquid Glass (iOS) / frosted glass (Android) | 📐 designed |
-| ? | Animation shape redesign — replace rectangular containers with rounded/oval frames for all Lottie animations | 💡 idea |
-| ? | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup before implementing (see DEV_NOTES § Tax / IAP income) |
-| v1.5 | Multi-Course system (Calisthenics + Healthy Body) — CourseId, course-scoped SkillProgress, neck & posture branches, Library tab replaces Progress tab | ✅ |
-| v1.6 | Exercise Library — ExerciseTag system, search + filter screen inside Library tab | ✅ |
+| v1.4 | Friends — BLE GATT server (profile exchange without QR) | ✅ |
+| v1.5 | Multi-Course system (Calisthenics + Healthy Body) — CourseId, Posture & Neck branches, Library tab | ✅ |
+| v1.5 | Flex (Flexibility & Mobility) branch | ✅ |
+| v1.5 | Supplementary exercise pool (random, no progression) | ✅ |
+| v1.5 | Lottie animations — Core branch (6/6 + flutter_kicks alt) | ✅ |
+| v1.5 | Lottie animations — Pull branch (6/6) | ✅ |
+| v1.5 | Lottie animations — Legs branch (5/5 + accessories) | ✅ |
+| v1.6 | Exercise Library — ExerciseTag system, search + filter screen | ✅ |
+| v1.6 | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |
 | v1.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | ✅ |
+| v1.7 | Lottie animations — Balance branch (6/6 + accessories) | ✅ |
+| — | Privacy Policy (GitHub Markdown → link in app) | 📐 designed |
+| — | Lottie animations — Flex branch (0/6) | 🔒 waiting for designer |
+| — | Lottie animations — Posture branch (0/6) | 🔒 waiting for designer |
+| — | Lottie animations — Neck branch (0/5 + warmup_neck_rolls) | 🔒 waiting for designer |
+| — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
+| — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
+| v2.0 | Design overhaul — Liquid Glass (iOS) / frosted glass (Android) | 📐 designed |
 | v2.x | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |
-| v2.x | Custom course builder — user picks branches (e.g. Push + Flex) to form a personal progression path, replacing the preset course list | 💡 idea |
+| v2.x | Custom course builder — user picks branches to form a personal path | 💡 idea |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea

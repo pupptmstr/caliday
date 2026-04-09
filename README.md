@@ -4,8 +4,8 @@
 
 CaliDay is a mobile calisthenics app with a progression game mechanic.
 It guides the user from absolute zero (wall push-ups) to advanced skills
-(handstand push-ups, L-sit, dragon flag) through short daily sets of 5–15 minutes.
-No equipment required, no subscriptions, no internet.
+(handstand push-ups, L-sit, free handstand, dragon flag) through short daily
+sets of 5–15 minutes. No equipment required for most branches, no subscriptions, no internet.
 
 ---
 
@@ -31,16 +31,19 @@ The app is built on proven game-based learning mechanics:
 | Streak           | Consecutive training days          |
 | Player levels    | Ranks: Beginner → Legend           |
 
-## Features (v1.3)
+## Features (v1.7)
 
-- **5 progression branches:** Push, Pull, Core, Legs, Balance
+- **6 progression branches:** Push, Pull, Core, Legs, Balance, Flex
 - **Daily set auto-generation** based on current level and preferred duration
 - **Smooth progression:** reps ↑ → sets ↑ → rest ↓ → Challenge test → next stage
 - **Gamification:** Strength Points, streaks, ranks, streak freezes, 27 achievements
-- **Goro mascot** — gorilla with 6 animated expressions + Lottie animations (Push branch)
+- **Goro mascot** — gorilla with 6 animated expressions + Lottie exercise animations (all 6 branches)
+- **Exercise Library** — browsable catalog of all exercises with tags and filtering
+- **Custom Workouts** — Quick Routine (tag-based) and Saved Routines (manual builder)
+- **Friends** — peer-to-peer via BLE/QR (no server); share profile, view friend stats
 - **Push notifications:** morning reminder, evening nudge, streak threat
 - **Dark theme** — follows system or manual override
-- **Onboarding survey** for calibrating starting level (7 steps incl. pull-up bar)
+- **Onboarding survey** for calibrating starting level (8 steps incl. pull-up bar, health)
 - **Home screen widget** (iOS + Android): Goro + streak + SP — small (2×2) and medium (4×2)
 - **Health integration:** Apple Health (HealthKit) and Google Health Connect — writes strength workout + calories after each session
 - **Localization:** English (primary) + Russian
@@ -54,6 +57,7 @@ The app is built on proven game-based learning mechanics:
 | State management   | Riverpod                    |
 | Local storage      | Hive                        |
 | Navigation         | go_router                   |
+| Animations         | Lottie                      |
 | Notifications      | flutter_local_notifications |
 | Target platforms   | iOS (primary), Android      |
 
@@ -61,12 +65,12 @@ The app is built on proven game-based learning mechanics:
 
 ```
 lib/
-├── main.dart                  # Entry point, Hive init
+├── main.dart                  # Entry point, Hive init, migrations
 ├── core/                      # Theme, constants, shared widgets, services
 ├── data/
 │   ├── models/                # Hive models: UserProfile, SkillProgress, WorkoutLog…
 │   ├── repositories/          # UserRepository, SkillProgressRepository, WorkoutRepository
-│   └── static/                # Exercise catalog (30 exercises across 5 branches)
+│   └── static/                # Exercise catalog (60+ exercises across 6 branches + accessories)
 ├── domain/
 │   ├── models/                # WorkoutPlan, PlannedExercise
 │   └── services/              # SPService, StreakService, ProgressionService, WorkoutGeneratorService
@@ -74,8 +78,10 @@ lib/
     ├── onboarding/
     ├── home/
     ├── workout/
+    ├── library/               # Exercise Library + Custom Workout builder
     ├── profile/
     ├── settings/
+    ├── friends/               # BLE/QR peer-to-peer
     └── achievements/
 ```
 
@@ -108,13 +114,13 @@ flutter analyze
 ### Push
 | Stage | Exercise               | Goal   |
 |-------|------------------------|--------|
-| 1     | Wall Push-ups          | 3×10   |
-| 2     | Knee Push-ups          | 3×15   |
-| 3     | Full Push-ups          | 3×20   |
-| 4     | Diamond Push-ups       | 3×15   |
-| 5     | Wide Push-ups          | 3×12   |
-| 6     | Archer Push-ups        | 3×8    |
-| 7     | Handstand Push-ups     | 3×5    |
+| 1     | Wall Push-up           | 3×10   |
+| 2     | Knee Push-up           | 3×15   |
+| 3     | Full Push-up           | 3×20   |
+| 4     | Diamond Push-up        | 3×15   |
+| 5     | Wide Push-up           | 3×15   |
+| 6     | Archer Push-up         | 3×10   |
+| 7     | Handstand Push-up      | 3×10   |
 
 ### Core
 | Stage | Exercise               | Goal      |
@@ -125,6 +131,45 @@ flutter analyze
 | 4     | Hanging Leg Raises     | 3×10      |
 | 5     | L-sit                  | 3×20 sec  |
 | 6     | Dragon Flag            | 3×5       |
+
+### Pull *(requires pull-up bar)*
+| Stage | Exercise               | Goal   |
+|-------|------------------------|--------|
+| 1     | Australian Pull-up     | 3×15   |
+| 2     | Negative Pull-up       | 3×8    |
+| 3     | Pull-up                | 3×10   |
+| 4     | Close-Grip Pull-up     | 3×10   |
+| 5     | Archer Pull-up         | 3×6    |
+| 6     | One-Arm Pull-up        | 3×3    |
+
+### Legs
+| Stage | Exercise               | Goal   |
+|-------|------------------------|--------|
+| 1     | Squat                  | 3×20   |
+| 2     | Lunge                  | 3×12   |
+| 3     | Bulgarian Split Squat  | 3×10   |
+| 4     | Assisted Pistol Squat  | 3×8    |
+| 5     | Pistol Squat           | 3×5    |
+
+### Balance
+| Stage | Exercise               | Goal      |
+|-------|------------------------|-----------|
+| 1     | Single-Leg Stand       | 3×60 sec  |
+| 2     | One-Arm Plank          | 3×30 sec  |
+| 3     | Crow Pose Preparation  | 3×20 sec  |
+| 4     | Crow Pose (Kakasana)   | 3×15 sec  |
+| 5     | Wall Handstand         | 3×30 sec  |
+| 6     | Free Handstand         | 3×30 sec  |
+
+### Flex *(mobility & flexibility)*
+| Stage | Exercise                    | Goal      |
+|-------|-----------------------------|-----------|
+| 1     | Hip Flexor Stretch          | 3×60 sec  |
+| 2     | World's Greatest Stretch    | 3×8       |
+| 3     | 90/90 Hip Mobility          | 3×60 sec  |
+| 4     | Thoracic Bridge             | 3×8       |
+| 5     | Deep Squat Hold             | 3×90 sec  |
+| 6     | Pike Stretch                | 3×60 sec  |
 
 ## Gamification
 
@@ -150,8 +195,11 @@ flutter analyze
 ## Roadmap
 
 - **v1.3 ✅:** Home screen widget, Health Connect / HealthKit integration
-- **v1.4:** Friends (BLE/QR peer-to-peer, no server), Watch notifications
-- **v1.5:** Full Watch App (Apple Watch + Wear OS, native)
+- **v1.4 ✅:** Friends (BLE/QR peer-to-peer, no server)
+- **v1.5 ✅:** Balance branch + Lottie animations
+- **v1.6 ✅:** Exercise Library
+- **v1.7 ✅:** Custom Workouts (Quick Routine + Saved Routines)
+- **Next:** Privacy Policy page, "Support the Author" IAP
 
 ## License
 

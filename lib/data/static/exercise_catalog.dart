@@ -17,10 +17,10 @@ class ExerciseCatalog {
 
   static const Exercise pushS1WallPushup = Exercise(
     id: 'push_s1_wall_pushup',
-    name: 'Отжимания от стены',
+    name: 'Wall Push-up',
     description:
-        'Встань на расстоянии шага от стены, упрись ладонями на уровне груди. '
-        'Сгибай руки, пока грудь не коснётся стены, затем выпрямляй.',
+        'Stand an arm\'s length from the wall, place palms at chest height. '
+        'Bend your arms until your chest touches the wall, then press back.',
     branch: BranchId.push,
     stage: 1,
     type: ExerciseType.reps,
@@ -31,16 +31,16 @@ class ExerciseCatalog {
     startRestSec: 60,
     targetRestSec: 30,
     spBase: 1,
-    techniqueTip: 'Держи тело прямым, не прогибай поясницу.',
+    techniqueTip: 'Keep your body in a straight line — don\'t let your hips sag.',
     animationPath: 'assets/animations/push_s1_wall_pushup.json',
   );
 
   static const Exercise pushS2KneePushup = Exercise(
     id: 'push_s2_knee_pushup',
-    name: 'Отжимания с колен',
+    name: 'Knee Push-up',
     description:
-        'Упор лёжа с опорой на колени. Тело от колен до головы — прямая линия. '
-        'Опускайся грудью к полу, затем выжимай.',
+        'Push-up with knees on the floor. Keep your body in a straight line '
+        'from knees to head. Lower your chest to the floor, then press up.',
     branch: BranchId.push,
     stage: 2,
     type: ExerciseType.reps,
@@ -52,16 +52,16 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 1,
     challengeTargetReps: 3,
-    techniqueTip: 'Не опускай бёдра — держи прямую линию от колен до плеч.',
+    techniqueTip: 'Don\'t drop your hips — maintain a straight line from knees to shoulders.',
     animationPath: 'assets/animations/push_s2_knee_pushup.json',
   );
 
   static const Exercise pushS3FullPushup = Exercise(
     id: 'push_s3_full_pushup',
-    name: 'Полные отжимания',
+    name: 'Full Push-up',
     description:
-        'Классический упор лёжа. Тело — прямая линия от пяток до головы. '
-        'Грудь касается пола или подходит на 2–3 см.',
+        'Classic push-up position. Body in a straight line from heels to head. '
+        'Chest touches or comes within 2–3 cm of the floor.',
     branch: BranchId.push,
     stage: 3,
     type: ExerciseType.reps,
@@ -73,16 +73,16 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 2,
     challengeTargetReps: 3,
-    techniqueTip: 'Напрягай пресс и ягодицы, чтобы не провисали бёдра.',
+    techniqueTip: 'Brace your core and glutes to prevent your hips from sagging.',
     animationPath: 'assets/animations/push_s3_full_pushup.json',
   );
 
   static const Exercise pushS4DiamondPushup = Exercise(
     id: 'push_s4_diamond_pushup',
-    name: 'Алмазные отжимания',
+    name: 'Diamond Push-up',
     description:
-        'Руки под грудью, большие и указательные пальцы образуют ромб. '
-        'Акцент на трицепс. Локти прижаты к корпусу при опускании.',
+        'Hands under your chest, thumbs and index fingers forming a diamond. '
+        'Triceps focus. Keep elbows close to the body while lowering.',
     branch: BranchId.push,
     stage: 4,
     type: ExerciseType.reps,
@@ -94,16 +94,16 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 2,
     challengeTargetReps: 5,
-    techniqueTip: 'Локти не разводи — они должны скользить вдоль тела.',
+    techniqueTip: 'Keep elbows in — they should slide along your sides, not flare out.',
     animationPath: 'assets/animations/push_s4_diamond_pushup.json',
   );
 
   static const Exercise pushS5WidePushup = Exercise(
     id: 'push_s5_wide_pushup',
-    name: 'Широкие отжимания',
+    name: 'Wide Push-up',
     description:
-        'Руки значительно шире плеч. Опускайся медленно, сохраняя прямую '
-        'линию тела. Оба трицепса и грудь работают в широкой амплитуде.',
+        'Hands significantly wider than shoulder-width. Lower slowly, keeping '
+        'your body in a straight line. Loads chest and triceps through a wide range.',
     branch: BranchId.push,
     stage: 5,
     type: ExerciseType.reps,
@@ -115,16 +115,16 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 3,
     challengeTargetReps: 3,
-    techniqueTip: 'Чем шире руки — тем больше нагрузка на грудь и меньше на трицепс.',
+    techniqueTip: 'The wider the hands, the more chest activation and less triceps.',
     animationPath: 'assets/animations/push_s5_wide_pushup.json',
   );
 
   static const Exercise pushS6ArcherPushup = Exercise(
     id: 'push_s6_archer_pushup',
-    name: 'Отжимания лучника',
+    name: 'Archer Push-up',
     description:
-        'Широкая постановка рук. Опускайся в сторону одной руки, '
-        'держа вторую прямой. Поочерёдно на каждую сторону.',
+        'Wide hand placement. Lower toward one hand while keeping the other arm straight. '
+        'Alternate sides each rep.',
     branch: BranchId.push,
     stage: 6,
     type: ExerciseType.reps,
@@ -136,16 +136,16 @@ class ExerciseCatalog {
     targetRestSec: 45,
     spBase: 5,
     challengeTargetReps: 2,
-    techniqueTip: 'Рабочая рука — полный диапазон, прямая рука на полу — поддержка.',
+    techniqueTip: 'Working arm gets full range of motion; straight arm on the floor provides support.',
     animationPath: 'assets/animations/push_s6_archer_pushup.json',
   );
 
   static const Exercise pushS7HandstandPushup = Exercise(
     id: 'push_s7_handstand_pushup',
-    name: 'Отжимания в стойке на руках',
+    name: 'Handstand Push-up',
     description:
-        'Стойка на руках у стены (спиной). Медленно опускай голову к полу, '
-        'затем выжимай корпус вверх.',
+        'Kick up into a wall handstand (back to wall). Slowly lower your head '
+        'toward the floor, then press back up.',
     branch: BranchId.push,
     stage: 7,
     type: ExerciseType.reps,
@@ -156,7 +156,7 @@ class ExerciseCatalog {
     startRestSec: 120,
     targetRestSec: 60,
     spBase: 5,
-    techniqueTip: 'Пальцы широко расставлены — так стабильнее. Взгляд между рук.',
+    techniqueTip: 'Spread fingers wide for stability. Gaze between your hands.',
     animationPath: 'assets/animations/push_s7_handstand_pushup.json',
   );
 
@@ -164,10 +164,10 @@ class ExerciseCatalog {
 
   static const Exercise coreS1Crunches = Exercise(
     id: 'core_s1_crunches',
-    name: 'Скручивания',
+    name: 'Crunches',
     description:
-        'Лёжа на спине, колени согнуты. Руки за головой или скрещены на груди. '
-        'Отрывай лопатки от пола, сокращая пресс.',
+        'Lie on your back with knees bent. Hands behind your head or crossed on your chest. '
+        'Lift shoulder blades off the floor by contracting your abs.',
     branch: BranchId.core,
     stage: 1,
     type: ExerciseType.reps,
@@ -178,16 +178,16 @@ class ExerciseCatalog {
     startRestSec: 45,
     targetRestSec: 20,
     spBase: 1,
-    techniqueTip: 'Не тяни шею руками — тяни грудью к потолку.',
+    techniqueTip: 'Don\'t pull your neck with your hands — lead with your chest toward the ceiling.',
     animationPath: 'assets/animations/core_s1_crunches.json',
   );
 
   static const Exercise coreS2Plank = Exercise(
     id: 'core_s2_plank',
-    name: 'Планка',
+    name: 'Plank',
     description:
-        'Упор лёжа на предплечьях. Тело — прямая линия от пяток до головы. '
-        'Не поднимай таз и не прогибай поясницу.',
+        'Forearm plank position. Body in a straight line from heels to head. '
+        'Don\'t raise your hips or let your lower back sag.',
     branch: BranchId.core,
     stage: 2,
     type: ExerciseType.timed,
@@ -199,16 +199,16 @@ class ExerciseCatalog {
     targetRestSec: 20,
     spBase: 2, // per 10 seconds
     challengeTargetReps: 30,
-    techniqueTip: 'Напрягай пресс и ягодицы. Дыши ровно — не задерживай.',
+    techniqueTip: 'Squeeze your abs and glutes. Breathe evenly — don\'t hold your breath.',
     animationPath: 'assets/animations/core_s2_plank.json',
   );
 
   static const Exercise coreS3LyingLegRaise = Exercise(
     id: 'core_s3_lying_leg_raise',
-    name: 'Подъёмы ног лёжа',
+    name: 'Lying Leg Raise',
     description:
-        'Лёжа на спине, руки под ягодицами. Прямые ноги поднимай до вертикали, '
-        'затем медленно опускай не касаясь пола.',
+        'Lie on your back with hands under your hips. Raise straight legs to vertical, '
+        'then slowly lower without touching the floor.',
     branch: BranchId.core,
     stage: 3,
     type: ExerciseType.reps,
@@ -220,16 +220,16 @@ class ExerciseCatalog {
     targetRestSec: 20,
     spBase: 1,
     challengeTargetReps: 5,
-    techniqueTip: 'Поясница прижата к полу на протяжении всего движения.',
+    techniqueTip: 'Keep your lower back pressed to the floor throughout the movement.',
     animationPath: 'assets/animations/core_s3_lying_leg_raise.json',
   );
 
   static const Exercise coreS4HangingLegRaise = Exercise(
     id: 'core_s4_hanging_leg_raise',
-    name: 'Подъёмы ног в висе',
+    name: 'Hanging Leg Raise',
     description:
-        'Повис на перекладине. Поднимай прямые ноги до параллели с полом '
-        'или выше. Контролируй опускание.',
+        'Hang from a bar. Raise straight legs to parallel or higher. '
+        'Control the lowering phase.',
     branch: BranchId.core,
     stage: 4,
     type: ExerciseType.reps,
@@ -242,18 +242,18 @@ class ExerciseCatalog {
     spBase: 2,
     challengeTargetReps: 3,
     requiresEquipment: true,
-    techniqueTip: 'Не раскачивайся — движение только за счёт пресса.',
+    techniqueTip: 'Don\'t swing — the movement comes from your abs only.',
     animationPath: 'assets/animations/core_s4_hanging_leg_raise.json',
   );
 
   /// Equipment-free alternative to [coreS4HangingLegRaise] for users without a pull-up bar.
   static const Exercise coreS4FlutterKicks = Exercise(
     id: 'core_s4_flutter_kicks',
-    name: 'Ножницы',
+    name: 'Flutter Kicks',
     description:
-        'Лёжа на спине, руки под ягодицами. Подними ноги на 15–20 см от пола. '
-        'Поочерёдно поднимай и опускай каждую ногу быстрыми небольшими движениями. '
-        'Одно повторение — один цикл (правая вверх + левая вверх).',
+        'Lie on your back with hands under your hips. Lift legs 15–20 cm off the floor. '
+        'Alternate raising and lowering each leg in small, quick motions. '
+        'One rep = one full cycle (right up + left up).',
     branch: BranchId.core,
     stage: 4,
     type: ExerciseType.reps,
@@ -266,16 +266,16 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 10,
     requiresEquipment: false,
-    techniqueTip: 'Поясница прижата к полу. Ноги не касаются пола между повторами.',
+    techniqueTip: 'Keep your lower back pressed to the floor. Legs must not touch the floor between reps.',
     animationPath: 'assets/animations/core_s4_flutter_kicks.json',
   );
 
   static const Exercise coreS5LSit = Exercise(
     id: 'core_s5_l_sit',
-    name: 'Уголок (L-sit)',
+    name: 'L-sit',
     description:
-        'Упор на параллельных брусьях или полу. Ноги прямые, параллельны полу. '
-        'Удерживай позицию как можно дольше.',
+        'Support yourself on parallel bars or the floor. Legs straight and parallel to the floor. '
+        'Hold the position as long as possible.',
     branch: BranchId.core,
     stage: 5,
     type: ExerciseType.timed,
@@ -287,16 +287,16 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 3, // per 10 seconds
     challengeTargetReps: 5,
-    techniqueTip: 'Носки тяни на себя, плечи — вниз и назад.',
+    techniqueTip: 'Pull your toes toward you and press shoulders down and back.',
     animationPath: 'assets/animations/core_s5_l_sit.json',
   );
 
   static const Exercise coreS6DragonFlag = Exercise(
     id: 'core_s6_dragon_flag',
-    name: 'Драконовый флаг',
+    name: 'Dragon Flag',
     description:
-        'Лёжа на скамье, держись за опору за головой. Подними тело в прямую '
-        'линию на лопатках, затем медленно опускай.',
+        'Lie on a bench and grip the support behind your head. Raise your body into a straight '
+        'line on your shoulder blades, then slowly lower.',
     branch: BranchId.core,
     stage: 6,
     type: ExerciseType.reps,
@@ -307,7 +307,7 @@ class ExerciseCatalog {
     startRestSec: 90,
     targetRestSec: 60,
     spBase: 5,
-    techniqueTip: 'Начинай с негативной фазы (только опускание) — это проще.',
+    techniqueTip: 'Start with just the negative phase (lowering only) — it\'s easier.',
     animationPath: 'assets/animations/core_s6_dragon_flag.json',
   );
 
@@ -315,10 +315,10 @@ class ExerciseCatalog {
 
   static const Exercise pullS1Australian = Exercise(
     id: 'pull_s1_australian',
-    name: 'Австралийский подтягивание',
+    name: 'Australian Pull-up',
     description:
-        'Лёжа под перекладиной, хват чуть шире плеч. Тяни грудь к перекладине, '
-        'держа тело прямой линией. Контролируй опускание.',
+        'Lie under a bar with hands slightly wider than shoulders. Pull your chest to the bar, '
+        'keeping your body in a straight line. Control the lowering.',
     branch: BranchId.pull,
     stage: 1,
     type: ExerciseType.reps,
@@ -331,16 +331,16 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 2,
     requiresEquipment: true,
-    techniqueTip: 'Чем ниже опускаешь перекладину, тем сложнее упражнение.',
+    techniqueTip: 'The lower the bar, the harder the exercise.',
     animationPath: 'assets/animations/pull_s1_australian.json',
   );
 
   static const Exercise pullS2Negative = Exercise(
     id: 'pull_s2_negative',
-    name: 'Негативные подтягивания',
+    name: 'Negative Pull-up',
     description:
-        'Запрыгни на перекладину с подбородком выше неё. Медленно опускайся '
-        'в течение 3–5 секунд до полного выпрямления рук.',
+        'Jump up to the bar with your chin above it. Slowly lower yourself over '
+        '3–5 seconds until your arms are fully extended.',
     branch: BranchId.pull,
     stage: 2,
     type: ExerciseType.reps,
@@ -353,16 +353,16 @@ class ExerciseCatalog {
     spBase: 2,
     challengeTargetReps: 1,
     requiresEquipment: true,
-    techniqueTip: 'Чем медленнее опускаешься — тем лучше. Цель: 5 сек вниз.',
+    techniqueTip: 'The slower you lower, the better. Aim for 5 seconds down.',
     animationPath: 'assets/animations/pull_s2_negative.json',
   );
 
   static const Exercise pullS3Pullup = Exercise(
     id: 'pull_s3_pullup',
-    name: 'Подтягивания',
+    name: 'Pull-up',
     description:
-        'Хват на ширине плеч или чуть шире. Тяни грудь к перекладине, '
-        'пока подбородок не окажется выше неё. Полностью выпрямляй руки внизу.',
+        'Shoulder-width or slightly wider grip. Pull your chest to the bar until your chin clears it. '
+        'Fully extend your arms at the bottom.',
     branch: BranchId.pull,
     stage: 3,
     type: ExerciseType.reps,
@@ -375,16 +375,16 @@ class ExerciseCatalog {
     spBase: 3,
     challengeTargetReps: 3,
     requiresEquipment: true,
-    techniqueTip: 'Сводя лопатки — тянешь спиной, а не руками.',
+    techniqueTip: 'Retract your shoulder blades — you\'re pulling with your back, not just your arms.',
     animationPath: 'assets/animations/pull_s3_pullup.json',
   );
 
   static const Exercise pullS4CloseGrip = Exercise(
     id: 'pull_s4_close_grip',
-    name: 'Подтягивания узким хватом',
+    name: 'Close-Grip Pull-up',
     description:
-        'Хват уже плеч, ладони к себе или от себя. Акцент на бицепс '
-        'и нижнюю часть широчайших. Подтягивай грудь к перекладине.',
+        'Grip narrower than shoulder-width, palms facing toward or away from you. '
+        'Emphasises biceps and lower lats. Pull your chest to the bar.',
     branch: BranchId.pull,
     stage: 4,
     type: ExerciseType.reps,
@@ -397,16 +397,16 @@ class ExerciseCatalog {
     spBase: 3,
     challengeTargetReps: 2,
     requiresEquipment: true,
-    techniqueTip: 'Локти прижимай к корпусу для максимальной нагрузки на бицепс.',
+    techniqueTip: 'Tuck your elbows in close to your body for maximum biceps activation.',
     animationPath: 'assets/animations/pull_s4_close_grip.json',
   );
 
   static const Exercise pullS5Archer = Exercise(
     id: 'pull_s5_archer',
-    name: 'Подтягивания лучника',
+    name: 'Archer Pull-up',
     description:
-        'Широкий хват. Тяни тело в сторону одной руки, вторую держи прямой. '
-        'Поочерёдно на каждую сторону.',
+        'Wide grip. Pull your body toward one arm while keeping the other arm straight. '
+        'Alternate sides each rep.',
     branch: BranchId.pull,
     stage: 5,
     type: ExerciseType.reps,
@@ -419,16 +419,16 @@ class ExerciseCatalog {
     spBase: 4,
     challengeTargetReps: 1,
     requiresEquipment: true,
-    techniqueTip: 'Прямая рука — вспомогательная, рабочая — полный диапазон.',
+    techniqueTip: 'Straight arm is the assist; working arm gets full range of motion.',
     animationPath: 'assets/animations/pull_s5_archer.json',
   );
 
   static const Exercise pullS6OneArm = Exercise(
     id: 'pull_s6_one_arm',
-    name: 'Подтягивание на одной руке',
+    name: 'One-Arm Pull-up',
     description:
-        'Одна рука держит перекладину, вторая — на запястье или свободна. '
-        'Полный диапазон движения рабочей рукой.',
+        'One hand on the bar, other hand on the wrist or free. '
+        'Full range of motion with the working arm.',
     branch: BranchId.pull,
     stage: 6,
     type: ExerciseType.reps,
@@ -440,7 +440,7 @@ class ExerciseCatalog {
     targetRestSec: 90,
     spBase: 5,
     requiresEquipment: true,
-    techniqueTip: 'Держи корпус стабильным — не раскачивайся.',
+    techniqueTip: 'Keep your core tight — don\'t swing.',
     animationPath: 'assets/animations/pull_s6_one_arm.json',
   );
 
@@ -448,10 +448,10 @@ class ExerciseCatalog {
 
   static const Exercise legsS1Squat = Exercise(
     id: 'legs_s1_squat',
-    name: 'Приседания',
+    name: 'Squat',
     description:
-        'Ноги на ширине плеч, носки чуть развёрнуты. Приседай до параллели '
-        'бёдер с полом, колени над носками. Выпрямляй ноги в верхней точке.',
+        'Feet shoulder-width apart, toes slightly turned out. Squat to parallel, '
+        'knees tracking over toes. Fully extend your legs at the top.',
     branch: BranchId.legs,
     stage: 1,
     type: ExerciseType.reps,
@@ -463,16 +463,16 @@ class ExerciseCatalog {
     targetRestSec: 20,
     spBase: 1,
     challengeTargetReps: 5,
-    techniqueTip: 'Пятки не отрывай от пола, грудь держи прямо.',
+    techniqueTip: 'Heels stay flat on the floor. Keep your chest upright.',
     animationPath: 'assets/animations/legs_s1_squat.json',
   );
 
   static const Exercise legsS2Lunge = Exercise(
     id: 'legs_s2_lunge',
-    name: 'Выпады',
+    name: 'Lunge',
     description:
-        'Шаг вперёд, опусти заднее колено к полу, не касаясь. Оба колена '
-        'под углом 90°. Оттолкнись передней ногой и вернись в исходное.',
+        'Step forward and lower the back knee toward the floor without touching. '
+        'Both knees at 90°. Push off the front foot to return to start.',
     branch: BranchId.legs,
     stage: 2,
     type: ExerciseType.reps,
@@ -484,16 +484,16 @@ class ExerciseCatalog {
     targetRestSec: 20,
     spBase: 1,
     challengeTargetReps: 3,
-    techniqueTip: 'Переднее колено не уходи за носок.',
+    techniqueTip: 'Keep your front knee tracking over your toes — don\'t let it cave in.',
     animationPath: 'assets/animations/legs_s2_lunge.json',
   );
 
   static const Exercise legsS3Bulgarian = Exercise(
     id: 'legs_s3_bulgarian',
-    name: 'Болгарские сплит-приседания',
+    name: 'Bulgarian Split Squat',
     description:
-        'Задняя нога на возвышении (стул, диван). Опускай переднюю ногу до '
-        'параллели бедра с полом. Торс прямой.',
+        'Rear foot elevated on a bench or chair. Lower your front leg to parallel. '
+        'Keep your torso upright.',
     branch: BranchId.legs,
     stage: 3,
     type: ExerciseType.reps,
@@ -505,16 +505,16 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 2,
     challengeTargetReps: 3,
-    techniqueTip: 'Чем дальше передняя нога — тем больше нагрузка на ягодицы.',
+    techniqueTip: 'The farther your front foot, the more glute activation.',
     animationPath: 'assets/animations/legs_s3_bulgarian.json',
   );
 
   static const Exercise legsS4AssistedPistol = Exercise(
     id: 'legs_s4_assisted_pistol',
-    name: 'Пистолетик с опорой',
+    name: 'Assisted Pistol Squat',
     description:
-        'Держись за дверной косяк или стойку. Приседай на одной ноге, '
-        'вторую держи прямой перед собой. Опора снижает нагрузку.',
+        'Hold a door frame or post for balance. Squat on one leg while keeping '
+        'the other leg straight in front. The support reduces the load.',
     branch: BranchId.legs,
     stage: 4,
     type: ExerciseType.reps,
@@ -526,16 +526,16 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 3,
     challengeTargetReps: 1,
-    techniqueTip: 'Постепенно уменьшай помощь рук по мере роста силы.',
+    techniqueTip: 'Gradually reduce how much you pull on the support as you get stronger.',
     animationPath: 'assets/animations/legs_s4_pistol.json',
   );
 
   static const Exercise legsS5Pistol = Exercise(
     id: 'legs_s5_pistol',
-    name: 'Пистолетик',
+    name: 'Pistol Squat',
     description:
-        'Приседание на одной ноге без опоры. Вторая нога прямая перед собой. '
-        'Полная амплитуда до пола и обратно.',
+        'Single-leg squat without support. Other leg straight in front. '
+        'Full range of motion, all the way down and back up.',
     branch: BranchId.legs,
     stage: 5,
     type: ExerciseType.reps,
@@ -546,7 +546,7 @@ class ExerciseCatalog {
     startRestSec: 90,
     targetRestSec: 45,
     spBase: 5,
-    techniqueTip: 'Руки вперёд для противовеса — помогает с балансом.',
+    techniqueTip: 'Extend arms forward as a counterbalance — it helps with stability.',
     animationPath: 'assets/animations/legs_s5_pistol_free.json',
   );
 
@@ -554,10 +554,10 @@ class ExerciseCatalog {
 
   static const Exercise balS1OneLegStand = Exercise(
     id: 'bal_s1_one_leg_stand',
-    name: 'Стойка на одной ноге',
+    name: 'Single-Leg Stand',
     description:
-        'Стой на одной ноге, вторую слегка согни и удержи в воздухе. '
-        'Руки можно держать в стороны для баланса.',
+        'Stand on one leg, slightly bend the lifted leg and hold it in the air. '
+        'Arms can be extended for balance.',
     branch: BranchId.balance,
     stage: 1,
     type: ExerciseType.timed,
@@ -569,16 +569,16 @@ class ExerciseCatalog {
     targetRestSec: 15,
     spBase: 1,
     challengeTargetReps: 10,
-    techniqueTip: 'Фиксируй взгляд на точке — это сильно улучшает баланс.',
+    techniqueTip: 'Fix your gaze on a point — it dramatically improves balance.',
     animationPath: 'assets/animations/bal_s1_one_leg_stand.json',
   );
 
   static const Exercise balS2OneArmPlank = Exercise(
     id: 'bal_s2_one_arm_plank',
-    name: 'Планка на одной руке',
+    name: 'One-Arm Plank',
     description:
-        'Классическая планка на вытянутых руках. Оторви одну руку от пола '
-        'и удержи позицию, тело параллельно полу.',
+        'High plank position on extended arms. Lift one hand off the floor '
+        'and hold, body parallel to the floor.',
     branch: BranchId.balance,
     stage: 2,
     type: ExerciseType.timed,
@@ -590,16 +590,16 @@ class ExerciseCatalog {
     targetRestSec: 20,
     spBase: 2,
     challengeTargetReps: 5,
-    techniqueTip: 'Бёдра держи параллельно полу — не разворачивай корпус.',
+    techniqueTip: 'Keep hips parallel to the floor — don\'t rotate your torso.',
     animationPath: 'assets/animations/bal_s2_one_arm_plank.json',
   );
 
   static const Exercise balS3CrowPrep = Exercise(
     id: 'bal_s3_crow_prep',
-    name: 'Подготовка к позе ворона',
+    name: 'Crow Pose Preparation',
     description:
-        'Присядь, колени на трицепсах. Перенеси вес на руки, слегка '
-        'отрывая ноги. Удержи баланс на руках.',
+        'Squat down and place knees on your triceps. Shift weight onto your hands, '
+        'slightly lifting your feet. Hold the balance.',
     branch: BranchId.balance,
     stage: 3,
     type: ExerciseType.timed,
@@ -611,16 +611,16 @@ class ExerciseCatalog {
     targetRestSec: 20,
     spBase: 3,
     challengeTargetReps: 3,
-    techniqueTip: 'Взгляд вперёд-вниз, не прямо вниз — иначе упадёшь.',
+    techniqueTip: 'Look forward-down, not straight down — otherwise you\'ll tip over.',
     animationPath: 'assets/animations/bal_s3_crow_prep.json',
   );
 
   static const Exercise balS4CrowPose = Exercise(
     id: 'bal_s4_crow_pose',
-    name: 'Поза ворона (Kakasana)',
+    name: 'Crow Pose (Kakasana)',
     description:
-        'Оба колена на трицепсах, полный баланс на руках. Руки слегка '
-        'согнуты, пальцы широко расставлены.',
+        'Both knees on triceps, full balance on hands. Arms slightly bent, '
+        'fingers spread wide.',
     branch: BranchId.balance,
     stage: 4,
     type: ExerciseType.timed,
@@ -632,16 +632,16 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 4,
     challengeTargetReps: 10,
-    techniqueTip: 'Округли спину — это активирует корпус и даёт баланс.',
+    techniqueTip: 'Round your back — it engages your core and gives you balance.',
     animationPath: 'assets/animations/bal_s4_crow_pose.json',
   );
 
   static const Exercise balS5WallHs = Exercise(
     id: 'bal_s5_wall_hs',
-    name: 'Стойка на руках у стены',
+    name: 'Wall Handstand',
     description:
-        'Встань на руки спиной к стене. Пятки касаются стены для опоры. '
-        'Удержи стойку, тело вытянуто в линию.',
+        'Kick up into a handstand with your back to the wall. Heels touch the wall for support. '
+        'Hold, body extended in a straight line.',
     branch: BranchId.balance,
     stage: 5,
     type: ExerciseType.timed,
@@ -653,16 +653,16 @@ class ExerciseCatalog {
     targetRestSec: 30,
     spBase: 4,
     challengeTargetReps: 5,
-    techniqueTip: 'Пальцы широко, надавливай на подушечки — это баланс.',
+    techniqueTip: 'Spread fingers wide and press into your fingertips — that\'s your balance.',
     animationPath: 'assets/animations/bal_s5_wall_hs.json',
   );
 
   static const Exercise balS6FreeHs = Exercise(
     id: 'bal_s6_free_hs',
-    name: 'Свободная стойка на руках',
+    name: 'Free Handstand',
     description:
-        'Стойка на руках без опоры. Контролируй баланс мелкими движениями '
-        'пальцев и запястий.',
+        'Handstand without wall support. Control your balance with small '
+        'finger and wrist adjustments.',
     branch: BranchId.balance,
     stage: 6,
     type: ExerciseType.timed,
@@ -673,7 +673,7 @@ class ExerciseCatalog {
     startRestSec: 90,
     targetRestSec: 60,
     spBase: 5,
-    techniqueTip: 'Смотри в пол на 30–40 см перед руками, не между руками.',
+    techniqueTip: 'Look at the floor 30–40 cm in front of your hands, not between them.',
     animationPath: 'assets/animations/bal_s6_free_hs.json',
   );
 
@@ -806,10 +806,10 @@ class ExerciseCatalog {
 
   static const Exercise warmupArmRotations = Exercise(
     id: 'warmup_arm_rotations',
-    name: 'Круговые вращения руками',
+    name: 'Arm Circles',
     description:
-        'Стоя, делай большие круговые движения руками вперёд и назад. '
-        'Разминает плечевой пояс перед отжиманиями.',
+        'Stand tall and make large circular movements with your arms, forward and backward. '
+        'Warms up the shoulder girdle before push exercises.',
     branch: BranchId.push,
     stage: 0,
     type: ExerciseType.reps,
@@ -825,10 +825,10 @@ class ExerciseCatalog {
 
   static const Exercise warmupDeadHang = Exercise(
     id: 'warmup_dead_hang',
-    name: 'Вис на перекладине',
+    name: 'Dead Hang',
     description:
-        'Повисни на перекладине прямым хватом, руки полностью выпрямлены. '
-        'Расслабь плечи и удержи вис.',
+        'Hang from a bar with an overhand grip, arms fully extended. '
+        'Relax your shoulders and hold the hang.',
     branch: BranchId.pull,
     stage: 0,
     type: ExerciseType.timed,
@@ -845,10 +845,10 @@ class ExerciseCatalog {
 
   static const Exercise warmupJumpingJacks = Exercise(
     id: 'warmup_jumping_jacks',
-    name: 'Прыжки «Ноги вместе — врозь»',
+    name: 'Jumping Jacks',
     description:
-        'Классические jumping jacks. Повышают пульс и разогревают всё тело '
-        'за 30–60 секунд.',
+        'Classic jumping jacks. Raises heart rate and warms up the whole body '
+        'in 30–60 seconds.',
     branch: BranchId.core,
     stage: 0,
     type: ExerciseType.timed,
@@ -864,10 +864,10 @@ class ExerciseCatalog {
 
   static const Exercise warmupLegSwings = Exercise(
     id: 'warmup_leg_swings',
-    name: 'Махи ногами',
+    name: 'Leg Swings',
     description:
-        'Стоя у стены, делай маховые движения прямой ногой вперёд-назад '
-        'и в стороны. Разминает тазобедренный сустав.',
+        'Stand next to a wall and swing one straight leg forward and backward, '
+        'then side to side. Warms up the hip joint.',
     branch: BranchId.legs,
     stage: 0,
     type: ExerciseType.reps,
@@ -883,10 +883,10 @@ class ExerciseCatalog {
 
   static const Exercise warmupHipCircles = Exercise(
     id: 'warmup_hip_circles',
-    name: 'Вращения тазом',
+    name: 'Hip Circles',
     description:
-        'Стоя, ноги на ширине плеч, руки на бёдрах. Делай широкие круговые '
-        'движения тазом по и против часовой стрелки. Разогревает тазобедренные суставы.',
+        'Stand with feet shoulder-width apart, hands on hips. Make large circles '
+        'with your hips clockwise and counterclockwise. Warms up the hip joints.',
     branch: BranchId.legs,
     stage: 0,
     type: ExerciseType.reps,
@@ -902,10 +902,10 @@ class ExerciseCatalog {
 
   static const Exercise warmupWristCircles = Exercise(
     id: 'warmup_wrist_circles',
-    name: 'Круговые вращения запястьями',
+    name: 'Wrist Circles',
     description:
-        'Вращай запястьями по часовой и против часовой стрелки. '
-        'Подготавливает суставы к нагрузке на руках.',
+        'Rotate your wrists clockwise and counterclockwise. '
+        'Prepares the joints for hand-loading exercises.',
     branch: BranchId.balance,
     stage: 0,
     type: ExerciseType.reps,
@@ -916,14 +916,15 @@ class ExerciseCatalog {
     startRestSec: 0,
     targetRestSec: 0,
     spBase: 0,
+    animationPath: 'assets/animations/warmup_wrist_circles.json',
   );
 
   static const Exercise cooldownShoulderStretch = Exercise(
     id: 'cooldown_shoulder_stretch',
-    name: 'Растяжка плеч и груди',
+    name: 'Shoulder & Chest Stretch',
     description:
-        'Заведи руки за спину, сцепи пальцы и потяни плечи назад-вниз. '
-        'Удержи 30 секунд.',
+        'Clasp your hands behind your back and pull your shoulders back and down. '
+        'Hold for 30 seconds.',
     branch: BranchId.push,
     stage: 0,
     type: ExerciseType.timed,
@@ -939,10 +940,10 @@ class ExerciseCatalog {
 
   static const Exercise cooldownLatStretch = Exercise(
     id: 'cooldown_lat_stretch',
-    name: 'Растяжка широчайших',
+    name: 'Lat Stretch',
     description:
-        'Встань боком к стене, подними руку вверх и упрись в стену. '
-        'Наклонись в сторону, чувствуя растяжку сбоку.',
+        'Stand sideways to a wall, raise one arm and press it against the wall. '
+        'Lean sideways until you feel the stretch along your side.',
     branch: BranchId.pull,
     stage: 0,
     type: ExerciseType.timed,
@@ -958,10 +959,10 @@ class ExerciseCatalog {
 
   static const Exercise cooldownCatCow = Exercise(
     id: 'cooldown_cat_cow',
-    name: 'Кошка-корова',
+    name: 'Cat-Cow',
     description:
-        'На четвереньках: на вдохе прогибай спину вниз (корова), '
-        'на выдохе округляй вверх (кошка). Расслабляет поясницу и пресс.',
+        'On hands and knees: inhale and let your back sag down (cow), '
+        'exhale and round it upward (cat). Relaxes the lower back and core.',
     branch: BranchId.core,
     stage: 0,
     type: ExerciseType.timed,
@@ -977,10 +978,10 @@ class ExerciseCatalog {
 
   static const Exercise cooldownQuadStretch = Exercise(
     id: 'cooldown_quad_stretch',
-    name: 'Растяжка квадрицепса',
+    name: 'Quad Stretch',
     description:
-        'Стоя на одной ноге, согни вторую назад и удержи стопу рукой. '
-        'Почувствуй растяжку передней поверхности бедра.',
+        'Stand on one leg, bend the other backward and hold the foot with your hand. '
+        'Feel the stretch in the front of your thigh.',
     branch: BranchId.legs,
     stage: 0,
     type: ExerciseType.timed,
@@ -996,10 +997,10 @@ class ExerciseCatalog {
 
   static const Exercise cooldownHipFlexor = Exercise(
     id: 'cooldown_hip_flexor',
-    name: 'Растяжка сгибателей бедра',
+    name: 'Hip Flexor Stretch',
     description:
-        'Стань в выпад, опусти заднее колено на пол. Держи корпус прямо '
-        'и почувствуй растяжку в передней части бедра задней ноги.',
+        'Step into a lunge, lower the back knee to the floor. Keep your torso upright '
+        'and feel the stretch in the front of the rear hip.',
     branch: BranchId.legs,
     stage: 0,
     type: ExerciseType.timed,
@@ -1015,10 +1016,10 @@ class ExerciseCatalog {
 
   static const Exercise cooldownDownwardDog = Exercise(
     id: 'cooldown_downward_dog',
-    name: 'Собака мордой вниз',
+    name: 'Downward-Facing Dog',
     description:
-        'На четвереньках выпрями руки и ноги, подними таз вверх. '
-        'Тело — перевёрнутая V. Растяжка запястий, плеч и ног.',
+        'From all fours, straighten your arms and legs and lift your hips upward. '
+        'Body forms an inverted V. Stretches wrists, shoulders, and legs.',
     branch: BranchId.balance,
     stage: 0,
     type: ExerciseType.timed,
@@ -1029,6 +1030,7 @@ class ExerciseCatalog {
     startRestSec: 0,
     targetRestSec: 0,
     spBase: 0,
+    animationPath: 'assets/animations/cooldown_downward_dog.json',
   );
 
   // ── Posture Branch ────────────────────────────────────────────────────────
