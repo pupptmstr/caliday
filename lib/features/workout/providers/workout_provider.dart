@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../data/models/enums.dart';
 import '../../../data/models/exercise_result.dart';
@@ -28,14 +27,28 @@ import '../../settings/providers/settings_provider.dart';
 
 /// Set to a [BranchId] before navigating to /workout to launch a challenge.
 /// null means normal daily workout. Reset automatically after workout ends.
-final challengeBranchProvider = StateProvider<BranchId?>((ref) => null);
+class ChallengeBranchNotifier extends Notifier<BranchId?> {
+  @override
+  BranchId? build() => null;
+  void set(BranchId? value) => state = value;
+}
+
+final challengeBranchProvider =
+    NotifierProvider<ChallengeBranchNotifier, BranchId?>(ChallengeBranchNotifier.new);
 
 // ── Custom workout plan selector ───────────────────────────────────────────────
 
 /// Set to a [WorkoutPlan] before navigating to /workout to run a custom routine.
 /// Takes priority over both [challengeBranchProvider] and daily generation.
 /// Always treated as a bonus workout (isPrimary = false). Reset after workout ends.
-final customWorkoutPlanProvider = StateProvider<WorkoutPlan?>((ref) => null);
+class CustomWorkoutPlanNotifier extends Notifier<WorkoutPlan?> {
+  @override
+  WorkoutPlan? build() => null;
+  void set(WorkoutPlan? plan) => state = plan;
+}
+
+final customWorkoutPlanProvider =
+    NotifierProvider<CustomWorkoutPlanNotifier, WorkoutPlan?>(CustomWorkoutPlanNotifier.new);
 
 // ── Phase ─────────────────────────────────────────────────────────────────────
 
@@ -195,9 +208,9 @@ class WorkoutState {
 
 // ── Notifier ──────────────────────────────────────────────────────────────────
 
-class WorkoutNotifier extends StateNotifier<WorkoutState> {
-  WorkoutNotifier(this._ref)
-      : super(WorkoutState.initial(_buildPlan(_ref)));
+class WorkoutNotifier extends Notifier<WorkoutState> {
+  @override
+  WorkoutState build() => WorkoutState.initial(_buildPlan(ref));
 
   static WorkoutPlan _buildPlan(Ref ref) {
     // Custom routine takes highest priority.
@@ -224,8 +237,6 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
       hasPullUpBar: profile.hasPullUpBar == true,
     );
   }
-
-  final Ref _ref;
 
   bool _hasRealWork(List<ExerciseResult?> results) {
     for (var i = 0; i < state.plan.exercises.length; i++) {
@@ -378,8 +389,8 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
   Future<void> _finishWorkout(List<ExerciseResult?> results) async {
     final now = DateTime.now();
     final durationSec = now.difference(state.startedAt).inSeconds;
-    final course = _ref.read(activeCourseProvider);
-    final isCustomWorkout = _ref.read(customWorkoutPlanProvider) != null;
+    final course = ref.read(activeCourseProvider);
+    final isCustomWorkout = ref.read(customWorkoutPlanProvider) != null;
 
     // Build parallel lists of matched results and exercises (skip nulls).
     final matchedResults = <ExerciseResult>[];
@@ -396,11 +407,11 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     // The first workout of the day is always primary — regardless of whether
     // it is a daily plan or a custom routine. This ensures custom-only users
     // can still build a streak.
-    final workoutRepo = _ref.read(workoutRepositoryProvider);
+    final workoutRepo = ref.read(workoutRepositoryProvider);
     final isPrimary = !workoutRepo.hasPrimaryWorkoutToday();
 
     // ── SP ────────────────────────────────────────────────────────────────
-    final spService = _ref.read(spServiceProvider);
+    final spService = ref.read(spServiceProvider);
     final rawSP = spService.forWorkout(
       results: matchedResults,
       exercises: List.from(matchedExercises),
@@ -409,10 +420,10 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     final spEarned = isPrimary ? rawSP : (rawSP * 0.5).round();
 
     // ── Profile (SP + streak) — primary only ──────────────────────────────
-    final userRepo = _ref.read(userRepositoryProvider);
+    final userRepo = ref.read(userRepositoryProvider);
     final profile = userRepo.getProfile();
     spService.applyToProfile(profile, spEarned);
-    final streakService = _ref.read(streakServiceProvider);
+    final streakService = ref.read(streakServiceProvider);
     bool freezeUsed = false;
     bool freezeEarned = false;
     if (isPrimary && _hasRealWork(results)) {
@@ -422,8 +433,8 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     userRepo.saveProfile(profile);
 
     // ── Progression — primary only ────────────────────────────────────────
-    final progressionService = _ref.read(progressionServiceProvider);
-    final progressRepo = _ref.read(skillProgressRepositoryProvider);
+    final progressionService = ref.read(progressionServiceProvider);
+    final progressRepo = ref.read(skillProgressRepositoryProvider);
     bool challengeUnlocked = false;
     bool challengePassed = false;
     String? newStageExerciseId;
@@ -463,8 +474,8 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     }
 
     // Reset challenge branch and custom plan after workout.
-    _ref.read(challengeBranchProvider.notifier).state = null;
-    _ref.read(customWorkoutPlanProvider.notifier).state = null;
+    ref.read(challengeBranchProvider.notifier).set(null);
+    ref.read(customWorkoutPlanProvider.notifier).set(null);
 
     // ── Workout log ───────────────────────────────────────────────────────
     // workoutsToday captured before addLog to avoid relying on Hive sync timing.
@@ -483,7 +494,7 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
 
     // ── Health (Apple Health / Health Connect) ────────────────────────────
     var healthSaved = false;
-    final settings = _ref.read(settingsProvider);
+    final settings = ref.read(settingsProvider);
     if (settings.healthWorkoutsEnabled) {
       final workoutStart = state.startedAt;
       final workoutEnd = workoutStart.add(Duration(seconds: durationSec));
@@ -502,8 +513,8 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     }
 
     // ── Achievements ──────────────────────────────────────────────────────
-    final achievementRepo = _ref.read(achievementRepositoryProvider);
-    final achievementService = _ref.read(achievementServiceProvider);
+    final achievementRepo = ref.read(achievementRepositoryProvider);
+    final achievementService = ref.read(achievementServiceProvider);
     final alreadyEarned = Set<String>.from(achievementRepo.getAllEarnedIds());
     final newAchievements = <String>[];
 
@@ -539,16 +550,16 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
     // Invalidate home and profile data so both tabs reflect the new state.
     // displayStreakProvider must be invalidated first so the next read (widget
     // update below) and homeDataProvider both get fresh post-workout values.
-    _ref.invalidate(displayStreakProvider);
-    _ref.invalidate(homeDataProvider);
-    _ref.invalidate(profileDataProvider);
+    ref.invalidate(displayStreakProvider);
+    ref.invalidate(homeDataProvider);
+    ref.invalidate(profileDataProvider);
 
     // Push fresh data to the Home Screen Widget.
     unawaited(WidgetService.instance.update(
-      streak: _ref.read(displayStreakProvider),
+      streak: ref.read(displayStreakProvider),
       totalSP: profile.totalSP,
       workoutDoneToday: true,
-      rankName: WidgetService.rankLabel(profile.rank, _ref.read(localeProvider)),
+      rankName: WidgetService.rankLabel(profile.rank, ref.read(localeProvider)),
     ));
 
     state = state.copyWith(
@@ -574,6 +585,4 @@ class WorkoutNotifier extends StateNotifier<WorkoutState> {
 /// Auto-disposed so every new workout session starts with a freshly generated
 /// plan and a clean state machine.
 final workoutProvider =
-    StateNotifierProvider.autoDispose<WorkoutNotifier, WorkoutState>(
-  (ref) => WorkoutNotifier(ref),
-);
+    NotifierProvider.autoDispose<WorkoutNotifier, WorkoutState>(WorkoutNotifier.new);

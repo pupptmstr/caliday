@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
 import 'package:hive_ce/hive_ce.dart';
 
 import '../models/custom_routine.dart';
@@ -22,32 +21,32 @@ final customRoutineRepositoryProvider = Provider<CustomRoutineRepository>(
   (_) => CustomRoutineRepository(),
 );
 
-// ── StateNotifier ─────────────────────────────────────────────────────────────
+// ── Notifier ──────────────────────────────────────────────────────────────────
 
-class CustomRoutinesNotifier extends StateNotifier<List<CustomRoutine>> {
-  CustomRoutinesNotifier(this._repo) : super(_repo.getAll());
-
-  final CustomRoutineRepository _repo;
+class CustomRoutinesNotifier extends Notifier<List<CustomRoutine>> {
+  @override
+  List<CustomRoutine> build() => ref.read(customRoutineRepositoryProvider).getAll();
 
   Future<void> save(CustomRoutine routine) async {
-    await _repo.save(routine);
-    state = _repo.getAll();
+    final repo = ref.read(customRoutineRepositoryProvider);
+    await repo.save(routine);
+    state = repo.getAll();
   }
 
   Future<void> delete(String id) async {
-    await _repo.delete(id);
-    state = _repo.getAll();
+    final repo = ref.read(customRoutineRepositoryProvider);
+    await repo.delete(id);
+    state = repo.getAll();
   }
 
   Future<void> markRun(String id) async {
+    final repo = ref.read(customRoutineRepositoryProvider);
     final routine = state.firstWhere((r) => r.id == id, orElse: () => throw StateError('Routine not found: $id'));
     routine.lastRunAt = DateTime.now();
-    await _repo.save(routine);
-    state = _repo.getAll();
+    await repo.save(routine);
+    state = repo.getAll();
   }
 }
 
 final customRoutinesProvider =
-    StateNotifierProvider<CustomRoutinesNotifier, List<CustomRoutine>>((ref) {
-  return CustomRoutinesNotifier(ref.read(customRoutineRepositoryProvider));
-});
+    NotifierProvider<CustomRoutinesNotifier, List<CustomRoutine>>(CustomRoutinesNotifier.new);

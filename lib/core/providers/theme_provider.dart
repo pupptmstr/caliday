@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/repositories/user_repository.dart';
 
@@ -19,7 +19,14 @@ String? themeModeToString(ThemeMode mode) => switch (mode) {
 
 /// Current app theme mode. Initialised from [UserProfile.themeModeName];
 /// updated when the user changes the setting.
-final themeProvider = StateProvider<ThemeMode>((ref) {
-  final profile = ref.read(userRepositoryProvider).getProfile();
-  return themeModeFromString(profile.themeModeName);
-});
+class ThemeNotifier extends Notifier<ThemeMode> {
+  @override
+  ThemeMode build() {
+    final profile = ref.read(userRepositoryProvider).getProfile();
+    return themeModeFromString(profile.themeModeName);
+  }
+
+  void set(ThemeMode mode) => state = mode;
+}
+
+final themeProvider = NotifierProvider<ThemeNotifier, ThemeMode>(ThemeNotifier.new);

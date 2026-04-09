@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
@@ -11,9 +10,15 @@ import '../../../domain/services/streak_service.dart';
 
 /// Currently active course on the Home screen (last selected by the user).
 /// Initialized from [UserProfile.activeCourse] and persisted on change.
-final activeCourseProvider = StateProvider<CourseId>((ref) {
-  return ref.read(userRepositoryProvider).getProfile().activeCourse;
-});
+class ActiveCourseNotifier extends Notifier<CourseId> {
+  @override
+  CourseId build() => ref.read(userRepositoryProvider).getProfile().activeCourse;
+
+  void set(CourseId course) => state = course;
+}
+
+final activeCourseProvider =
+    NotifierProvider<ActiveCourseNotifier, CourseId>(ActiveCourseNotifier.new);
 
 /// Snapshot of the data the Home / Library screen needs.
 class HomeData {

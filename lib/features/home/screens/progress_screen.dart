@@ -283,7 +283,7 @@ class _ChallengeCard extends ConsumerWidget {
                 ),
               ),
               onPressed: () {
-                ref.read(challengeBranchProvider.notifier).state = branch;
+                ref.read(challengeBranchProvider.notifier).set(branch);
                 context.push('/workout');
               },
               child: Text(

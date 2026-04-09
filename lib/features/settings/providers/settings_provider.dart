@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/providers/theme_provider.dart';
@@ -96,11 +95,11 @@ class SettingsState {
 
 // ── Notifier ──────────────────────────────────────────────────────────────────
 
-class SettingsNotifier extends StateNotifier<SettingsState> {
-  SettingsNotifier(this._userRepo, this._ref) : super(_load(_userRepo));
-
-  final UserRepository _userRepo;
-  final Ref _ref;
+class SettingsNotifier extends Notifier<SettingsState> {
+  @override
+  SettingsState build() {
+    return _load(ref.read(userRepositoryProvider));
+  }
 
   static SettingsState _load(UserRepository repo) {
     final p = repo.getProfile();
@@ -150,29 +149,29 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
 
   void setWorkoutMinutes(int minutes) {
     state = state.copyWith(preferredWorkoutMinutes: minutes);
-    final p = _userRepo.getProfile()..preferredWorkoutMinutes = minutes;
-    _userRepo.saveProfile(p);
+    final p = ref.read(userRepositoryProvider).getProfile()..preferredWorkoutMinutes = minutes;
+    ref.read(userRepositoryProvider).saveProfile(p);
   }
 
   void setLocale(String locale) {
     state = state.copyWith(locale: locale);
-    final p = _userRepo.getProfile()..locale = locale;
-    _userRepo.saveProfile(p);
-    _ref.read(localeProvider.notifier).state = locale;
+    final p = ref.read(userRepositoryProvider).getProfile()..locale = locale;
+    ref.read(userRepositoryProvider).saveProfile(p);
+    ref.read(localeProvider.notifier).set(locale);
   }
 
   void setThemeMode(ThemeMode mode) {
     state = state.copyWith(themeMode: mode);
-    final p = _userRepo.getProfile()..themeModeName = themeModeToString(mode);
-    _userRepo.saveProfile(p);
-    _ref.read(themeProvider.notifier).state = mode;
+    final p = ref.read(userRepositoryProvider).getProfile()..themeModeName = themeModeToString(mode);
+    ref.read(userRepositoryProvider).saveProfile(p);
+    ref.read(themeProvider.notifier).set(mode);
   }
 
   void setHasPullUpBar(bool value) {
     state = state.copyWith(hasPullUpBar: value);
-    final p = _userRepo.getProfile()..hasPullUpBar = value;
-    _userRepo.saveProfile(p);
-    _ref.invalidate(homeDataProvider);
+    final p = ref.read(userRepositoryProvider).getProfile()..hasPullUpBar = value;
+    ref.read(userRepositoryProvider).saveProfile(p);
+    ref.invalidate(homeDataProvider);
   }
 
   void setSoundEnabled(bool value) {
@@ -181,8 +180,8 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       soundEnabled: value,
       hapticEnabled: state.hapticEnabled,
     );
-    final p = _userRepo.getProfile()..soundEnabled = value;
-    _userRepo.saveProfile(p);
+    final p = ref.read(userRepositoryProvider).getProfile()..soundEnabled = value;
+    ref.read(userRepositoryProvider).saveProfile(p);
   }
 
   void setHapticEnabled(bool value) {
@@ -191,8 +190,8 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       soundEnabled: state.soundEnabled,
       hapticEnabled: value,
     );
-    final p = _userRepo.getProfile()..hapticEnabled = value;
-    _userRepo.saveProfile(p);
+    final p = ref.read(userRepositoryProvider).getProfile()..hapticEnabled = value;
+    ref.read(userRepositoryProvider).saveProfile(p);
   }
 
   Future<void> setHealthWorkoutsEnabled(bool value) async {
@@ -202,37 +201,37 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
       );
       if (!granted) return;
     }
-    final p = _userRepo.getProfile()..healthWorkoutsEnabled = value;
-    _userRepo.saveProfile(p);
+    final p = ref.read(userRepositoryProvider).getProfile()..healthWorkoutsEnabled = value;
+    ref.read(userRepositoryProvider).saveProfile(p);
     state = state.copyWith(healthWorkoutsEnabled: value);
   }
 
   Future<void> setHealthWeightEnabled(bool value) async {
-    final p = _userRepo.getProfile()..healthWeightEnabled = value;
-    _userRepo.saveProfile(p);
+    final p = ref.read(userRepositoryProvider).getProfile()..healthWeightEnabled = value;
+    ref.read(userRepositoryProvider).saveProfile(p);
     state = state.copyWith(healthWeightEnabled: value);
   }
 
   void setDisplayName(String value) {
     state = state.copyWith(displayName: value);
-    final p = _userRepo.getProfile()..displayName = value;
-    _userRepo.saveProfile(p);
+    final p = ref.read(userRepositoryProvider).getProfile()..displayName = value;
+    ref.read(userRepositoryProvider).saveProfile(p);
   }
 
   void setBleDiscoverable(bool value) {
     state = state.copyWith(bleDiscoverable: value);
-    final p = _userRepo.getProfile()..bleDiscoverable = value;
-    _userRepo.saveProfile(p);
+    final p = ref.read(userRepositoryProvider).getProfile()..bleDiscoverable = value;
+    ref.read(userRepositoryProvider).saveProfile(p);
   }
 
   void _save() {
-    final p = _userRepo.getProfile();
+    final p = ref.read(userRepositoryProvider).getProfile();
     p.notificationsEnabled = state.notificationsEnabled;
     p.eveningReminderEnabled = state.eveningReminderEnabled;
     p.streakThreatEnabled = state.streakThreatEnabled;
     p.notificationHour = state.notificationHour;
     p.notificationMinute = state.notificationMinute;
-    _userRepo.saveProfile(p);
+    ref.read(userRepositoryProvider).saveProfile(p);
     // Keep the notification schedule in sync with the new settings.
     NotificationService.instance.scheduleAll(p);
   }
@@ -241,6 +240,4 @@ class SettingsNotifier extends StateNotifier<SettingsState> {
 // ── Provider ──────────────────────────────────────────────────────────────────
 
 final settingsProvider =
-    StateNotifierProvider<SettingsNotifier, SettingsState>((ref) {
-  return SettingsNotifier(ref.watch(userRepositoryProvider), ref);
-});
+    NotifierProvider<SettingsNotifier, SettingsState>(SettingsNotifier.new);

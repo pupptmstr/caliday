@@ -19,7 +19,20 @@ All data is stored locally (Hive), no backend, free, no ads.
 
 ## Tech Stack (brief)
 
-Flutter + Riverpod + Hive + go_router. iOS primary, Android secondary.
+Flutter + Riverpod 3.x + Hive CE + go_router. iOS primary, Android secondary.
+
+## Library Research — Context7 (mandatory)
+
+**Before using any library or framework API — check Context7 first.**
+
+```
+1. resolve-library-id  — find the correct library ID
+2. query-docs          — fetch current API docs for the specific question
+```
+
+Required for: new packages, recently upgraded packages, initialization patterns,
+method signatures, platform setup, migration guides. Do NOT rely on training data
+for library APIs — it may be outdated.
 
 ## Commands
 
@@ -27,7 +40,7 @@ Flutter + Riverpod + Hive + go_router. iOS primary, Android secondary.
 flutter run                       # Run
 flutter test                      # Tests
 flutter analyze                   # Linter
-dart run build_runner build       # Code generation (Hive adapters)
+dart run build_runner build       # Code generation (Isar/Hive adapters)
 dart run flutter_launcher_icons   # Icons
 flutter gen-l10n                  # L10n
 ```

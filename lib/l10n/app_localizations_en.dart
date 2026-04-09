@@ -1199,6 +1199,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutPrivacyPolicy => 'Privacy Policy';
 
   @override
+  String get aboutTermsOfUse => 'Terms of Use';
+
+  @override
+  String get aboutLegalConsent =>
+      'By using CaliDay you agree to the Privacy Policy and Terms of Use.';
+
+  @override
   String get aboutBuiltWith => 'BUILT WITH';
 
   @override

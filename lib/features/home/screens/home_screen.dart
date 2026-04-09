@@ -590,7 +590,7 @@ class _HomeCustomSheet extends ConsumerWidget {
     final routine = routines.firstWhere((r) => r.id == routineId);
     final generator = ref.read(workoutGeneratorServiceProvider);
     final plan = generator.fromExerciseIds(routine.exerciseIds);
-    ref.read(customWorkoutPlanProvider.notifier).state = plan;
+    ref.read(customWorkoutPlanProvider.notifier).set(plan);
     ref.read(customRoutinesProvider.notifier).markRun(routineId);
     context.push('/workout');
   }
@@ -625,7 +625,7 @@ class _HomeCustomSheet extends ConsumerWidget {
     ids = WorkoutGeneratorService.addGenericWarmupCooldown(ids);
     final generator = ref.read(workoutGeneratorServiceProvider);
     final plan = generator.fromExerciseIds(ids);
-    ref.read(customWorkoutPlanProvider.notifier).state = plan;
+    ref.read(customWorkoutPlanProvider.notifier).set(plan);
     context.push('/workout');
   }
 }

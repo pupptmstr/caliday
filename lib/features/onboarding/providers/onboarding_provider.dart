@@ -1,5 +1,4 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
 
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/router/app_router.dart';
@@ -146,10 +145,9 @@ class OnboardingState {
 
 // ── Notifier ─────────────────────────────────────────────────────────────────
 
-class OnboardingNotifier extends StateNotifier<OnboardingState> {
-  OnboardingNotifier(this._ref) : super(const OnboardingState());
-
-  final Ref _ref;
+class OnboardingNotifier extends Notifier<OnboardingState> {
+  @override
+  OnboardingState build() => const OnboardingState();
 
   void setDisplayName(String value) =>
       state = state.copyWith(displayName: value.trim());
@@ -195,8 +193,8 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
   Future<void> completeOnboarding() async {
     state = state.copyWith(isSaving: true);
 
-    final userRepo = _ref.read(userRepositoryProvider);
-    final progressRepo = _ref.read(skillProgressRepositoryProvider);
+    final userRepo = ref.read(userRepositoryProvider);
+    final progressRepo = ref.read(skillProgressRepositoryProvider);
     final hasPullUpBar = state.hasPullUpBar ?? false;
 
     // Request Health permissions if the user opted in.
@@ -214,7 +212,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
       UserProfile(
         notificationHour: state.reminderHour,
         notificationMinute: state.reminderMinute,
-        locale: _ref.read(localeProvider),
+        locale: ref.read(localeProvider),
         preferredWorkoutMinutes: state.workoutMinutes?.minutes,
         hasPullUpBar: hasPullUpBar,
         displayName: name,
@@ -296,7 +294,7 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
     }
 
     // Signal the router to redirect to /home.
-    _ref.read(isOnboardingCompleteProvider.notifier).state = true;
+    ref.read(isOnboardingCompleteProvider.notifier).set(true);
   }
 
   SkillProgress _calibratePush(PushupCount? count) {
@@ -350,6 +348,4 @@ class OnboardingNotifier extends StateNotifier<OnboardingState> {
 }
 
 final onboardingProvider =
-    StateNotifierProvider<OnboardingNotifier, OnboardingState>(
-  (ref) => OnboardingNotifier(ref),
-);
+    NotifierProvider<OnboardingNotifier, OnboardingState>(OnboardingNotifier.new);

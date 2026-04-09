@@ -1205,6 +1205,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aboutPrivacyPolicy => 'Политика конфиденциальности';
 
   @override
+  String get aboutTermsOfUse => 'Условия использования';
+
+  @override
+  String get aboutLegalConsent =>
+      'Используя CaliDay, вы соглашаетесь с Политикой конфиденциальности и Условиями использования.';
+
+  @override
   String get aboutBuiltWith => 'СДЕЛАНО НА';
 
   @override

@@ -57,7 +57,7 @@ class LibraryScreen extends ConsumerWidget {
               courses: enrolledCourses,
               active: activeCourse,
               onSelect: (course) {
-                ref.read(activeCourseProvider.notifier).state = course;
+                ref.read(activeCourseProvider.notifier).set(course);
                 final idx = enrolledCourses.indexOf(course);
                 profile.activeCourseIndex = idx;
                 ref.read(userRepositoryProvider).saveProfile(profile);
@@ -248,7 +248,7 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
     final activeCourse = ref.read(activeCourseProvider);
     if (!_selected.contains(activeCourse)) {
       profile.activeCourseIndex = 0;
-      ref.read(activeCourseProvider.notifier).state = _selected.first;
+      ref.read(activeCourseProvider.notifier).set(_selected.first);
     }
 
     await ref.read(userRepositoryProvider).saveProfile(profile);
@@ -897,7 +897,7 @@ class _QuickRoutineSheet extends ConsumerWidget {
 
     final generator = ref.read(workoutGeneratorServiceProvider);
     final plan = generator.fromExerciseIds(ids);
-    ref.read(customWorkoutPlanProvider.notifier).state = plan;
+    ref.read(customWorkoutPlanProvider.notifier).set(plan);
     context.push('/workout');
   }
 }
@@ -974,7 +974,7 @@ class _RoutineCard extends ConsumerWidget {
   void _run(BuildContext context, WidgetRef ref) {
     final generator = ref.read(workoutGeneratorServiceProvider);
     final plan = generator.fromExerciseIds(routine.exerciseIds);
-    ref.read(customWorkoutPlanProvider.notifier).state = plan;
+    ref.read(customWorkoutPlanProvider.notifier).set(plan);
     ref.read(customRoutinesProvider.notifier).markRun(routine.id);
     context.push('/workout');
   }
@@ -1295,7 +1295,7 @@ class _ChallengeCard extends ConsumerWidget {
                 ),
               ),
               onPressed: () {
-                ref.read(challengeBranchProvider.notifier).state = branch;
+                ref.read(challengeBranchProvider.notifier).set(branch);
                 context.push('/workout');
               },
               child: Text(

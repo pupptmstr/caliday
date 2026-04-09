@@ -251,6 +251,29 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-09 — Migrate all legacy Riverpod providers to modern API (Notifier/NotifierProvider)
+
+**What was done:** Removed all `StateProvider` and `StateNotifier` usage (moved to `legacy.dart` in Riverpod 3.x) — migrated to `Notifier<T>`/`NotifierProvider`. All 6 `StateProvider` instances replaced with minimal `Notifier<T>` classes exposing a `set()` method. All 6 `StateNotifier` classes migrated to `Notifier<T>` (initial state moved to `build()`, `_ref` field removed in favour of built-in `ref`). Updated 19 call sites in 8 screen files (`.notifier.state =` → `.notifier.set()`). Removed all `legacy.dart` imports. `flutter analyze` clean.
+
+**Modified files:**
+- `lib/core/providers/locale_provider.dart` — `StateProvider<String>` → `LocaleNotifier extends Notifier<String>`
+- `lib/core/providers/theme_provider.dart` — `StateProvider<ThemeMode>` → `ThemeNotifier extends Notifier<ThemeMode>`
+- `lib/core/router/app_router.dart` — `StateProvider<bool>` → `OnboardingGateNotifier extends Notifier<bool>`
+- `lib/features/home/providers/home_provider.dart` — `StateProvider<CourseId>` → `ActiveCourseNotifier`
+- `lib/features/workout/providers/workout_provider.dart` — 2 `StateProvider` + `WorkoutNotifier extends StateNotifier` → all modern
+- `lib/features/onboarding/providers/onboarding_provider.dart` — `OnboardingNotifier extends StateNotifier` → `Notifier`
+- `lib/features/settings/providers/settings_provider.dart` — `SettingsNotifier extends StateNotifier` → `Notifier`
+- `lib/features/friends/providers/friends_provider.dart` — `FriendsNotifier extends StateNotifier` → `Notifier`
+- `lib/features/library/providers/exercise_library_provider.dart` — `ExerciseLibraryNotifier extends StateNotifier` → `Notifier`
+- `lib/data/repositories/custom_routine_repository.dart` — `CustomRoutinesNotifier extends StateNotifier` → `Notifier`
+- 8 screen files — `.notifier.state =` → `.notifier.set()`
+
+**Key issues and solutions:**
+- `StateNotifier` constructor took initial state via `super()`; `Notifier` uses `build()` instead. For `SettingsNotifier` which took `UserRepository` as a constructor arg, `build()` now calls `ref.read(userRepositoryProvider)` directly — the `_userRepo` field was removed.
+- For `StateProvider<T>` there is no direct 1-to-1 replacement; the minimal idiomatic approach is a `Notifier<T>` with a `set(T value) => state = value` method.
+
+---
+
 ### 2026-04-09 — Migrate hive → hive_ce; upgrade flutter_riverpod to 3.x
 
 **What was done:** Replaced `hive`/`hive_flutter`/`hive_generator` with `hive_ce`/`hive_ce_flutter`/`hive_ce_generator` (Hive Community Edition — active fork, same box format, zero data migration). This unblocked `build_runner` (bumped to `^2.13.1`) and `flutter_riverpod` (bumped to `^3.0.1`). For Riverpod 3.x, added `import 'package:flutter_riverpod/legacy.dart'` to 10 files that use `StateProvider`/`StateNotifierProvider` (moved to legacy module in 3.x). Regenerated all `.g.dart` adapter files with hive_ce_generator. `flutter analyze` clean (3 infos in generated file only).

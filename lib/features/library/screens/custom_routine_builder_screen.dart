@@ -114,7 +114,7 @@ class _CustomRoutineBuilderScreenState
 
     final generator = ref.read(workoutGeneratorServiceProvider);
     final plan = generator.fromExerciseIds(ids);
-    ref.read(customWorkoutPlanProvider.notifier).state = plan;
+    ref.read(customWorkoutPlanProvider.notifier).set(plan);
     if (mounted) context.push('/workout');
   }
 

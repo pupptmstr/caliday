@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive_ce.dart';
 
 import '../../../core/router/app_router.dart';
 import '../../../core/services/notification_service.dart';
@@ -522,7 +522,7 @@ class _DeveloperOptionsScreenState
       Hive.box<WorkoutLog>('workout_log').clear(),
     ]);
 
-    ref.read(isOnboardingCompleteProvider.notifier).state = false;
+    ref.read(isOnboardingCompleteProvider.notifier).set(false);
   }
 
   // ── Build ──────────────────────────────────────────────────────────────────

@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../data/models/enums.dart';
 import '../../../data/models/exercise.dart';
@@ -30,9 +30,10 @@ class ExerciseLibraryState {
       );
 }
 
-class ExerciseLibraryNotifier extends StateNotifier<ExerciseLibraryState> {
-  ExerciseLibraryNotifier()
-      : super(ExerciseLibraryState(results: ExerciseCatalog.libraryAll));
+class ExerciseLibraryNotifier extends Notifier<ExerciseLibraryState> {
+  @override
+  ExerciseLibraryState build() =>
+      ExerciseLibraryState(results: ExerciseCatalog.libraryAll);
 
   void setQuery(String q) {
     final next = state.copyWith(query: q);
@@ -71,6 +72,6 @@ class ExerciseLibraryNotifier extends StateNotifier<ExerciseLibraryState> {
 }
 
 final exerciseLibraryProvider =
-    StateNotifierProvider.autoDispose<ExerciseLibraryNotifier, ExerciseLibraryState>(
-  (_) => ExerciseLibraryNotifier(),
+    NotifierProvider.autoDispose<ExerciseLibraryNotifier, ExerciseLibraryState>(
+  ExerciseLibraryNotifier.new,
 );

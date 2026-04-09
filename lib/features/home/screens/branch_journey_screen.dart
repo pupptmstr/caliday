@@ -83,7 +83,7 @@ class BranchJourneyScreen extends ConsumerWidget {
                   isLast: i == stages.length - 1,
                   onChallengeTap: stageState == _StageState.current && canChallenge
                       ? () {
-                          ref.read(challengeBranchProvider.notifier).state = branchId;
+                          ref.read(challengeBranchProvider.notifier).set(branchId);
                           context.push('/workout');
                         }
                       : null,

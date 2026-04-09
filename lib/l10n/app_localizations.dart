@@ -2198,6 +2198,18 @@ abstract class AppLocalizations {
   /// **'Privacy Policy'**
   String get aboutPrivacyPolicy;
 
+  /// No description provided for @aboutTermsOfUse.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms of Use'**
+  String get aboutTermsOfUse;
+
+  /// No description provided for @aboutLegalConsent.
+  ///
+  /// In en, this message translates to:
+  /// **'By using CaliDay you agree to the Privacy Policy and Terms of Use.'**
+  String get aboutLegalConsent;
+
   /// No description provided for @aboutBuiltWith.
   ///
   /// In en, this message translates to:

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_riverpod/legacy.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/extensions/build_context_l10n.dart';
@@ -29,9 +28,15 @@ import '../../features/workout/screens/workout_screen.dart';
 /// Initialised synchronously from Hive on app start.
 /// Set to true by [OnboardingNotifier.completeOnboarding] at the end of the
 /// onboarding flow; the router automatically redirects when it changes.
-final isOnboardingCompleteProvider = StateProvider<bool>((ref) {
-  return ref.read(userRepositoryProvider).hasProfile;
-});
+class OnboardingGateNotifier extends Notifier<bool> {
+  @override
+  bool build() => ref.read(userRepositoryProvider).hasProfile;
+
+  void set(bool value) => state = value;
+}
+
+final isOnboardingCompleteProvider =
+    NotifierProvider<OnboardingGateNotifier, bool>(OnboardingGateNotifier.new);
 
 // ── Router ───────────────────────────────────────────────────────────────────
 

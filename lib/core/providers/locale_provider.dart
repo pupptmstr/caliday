@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_riverpod/legacy.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../data/repositories/user_repository.dart';
 
@@ -9,9 +9,16 @@ import '../../data/repositories/user_repository.dart';
 /// system locale (ru/en), defaulting to 'en' for unsupported languages.
 /// Changing this provider immediately re-renders [MaterialApp] with the
 /// new locale without requiring an app restart.
-final localeProvider = StateProvider<String>((ref) {
-  final systemCode =
-      WidgetsBinding.instance.platformDispatcher.locale.languageCode;
-  final systemLocale = systemCode == 'ru' ? 'ru' : 'en';
-  return ref.read(userRepositoryProvider).getProfile().locale ?? systemLocale;
-});
+class LocaleNotifier extends Notifier<String> {
+  @override
+  String build() {
+    final systemCode =
+        WidgetsBinding.instance.platformDispatcher.locale.languageCode;
+    final systemLocale = systemCode == 'ru' ? 'ru' : 'en';
+    return ref.read(userRepositoryProvider).getProfile().locale ?? systemLocale;
+  }
+
+  void set(String locale) => state = locale;
+}
+
+final localeProvider = NotifierProvider<LocaleNotifier, String>(LocaleNotifier.new);

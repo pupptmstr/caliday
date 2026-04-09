@@ -80,7 +80,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                 child: _LanguageToggle(
                   currentLocale: currentLocale,
                   onChanged: (locale) {
-                    ref.read(localeProvider.notifier).state = locale;
+                    ref.read(localeProvider.notifier).set(locale);
                   },
                 ),
               ),
