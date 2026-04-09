@@ -1,11 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
 
-class AboutScreen extends StatelessWidget {
+class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
+
+  @override
+  State<AboutScreen> createState() => _AboutScreenState();
+}
+
+class _AboutScreenState extends State<AboutScreen> {
+  String _version = '';
+
+  @override
+  void initState() {
+    super.initState();
+    PackageInfo.fromPlatform().then((info) {
+      if (mounted) setState(() => _version = info.version);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +54,7 @@ class AboutScreen extends StatelessWidget {
             const SizedBox(height: 4),
             Center(
               child: Text(
-                '1.1.0',
+                _version,
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: scheme.onSurfaceVariant,
                     ),
@@ -69,7 +85,23 @@ class AboutScreen extends StatelessWidget {
             _AboutTile(
               title: l10n.aboutPrivacyPolicy,
               icon: Icons.privacy_tip_outlined,
-              url: 'https://caliday.app/privacy',
+              url: 'https://pupptmstr.github.io/caliday/PRIVACY_POLICY',
+            ),
+            const Divider(indent: 20, endIndent: 20, height: 1),
+            _AboutTile(
+              title: l10n.aboutTermsOfUse,
+              icon: Icons.gavel_outlined,
+              url: 'https://pupptmstr.github.io/caliday/TERMS_OF_USE',
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              child: Text(
+                l10n.aboutLegalConsent,
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                      color: scheme.onSurfaceVariant,
+                    ),
+                textAlign: TextAlign.center,
+              ),
             ),
 
             // ── Built with section ────────────────────────────────────────
