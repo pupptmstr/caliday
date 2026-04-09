@@ -39,6 +39,7 @@ Read in this order:
 
 Before writing code, formulate a plan:
 - Which files will be modified / created
+- If adding Hive CE fields — check ARCHITECTURE.md for the next free `@HiveField` number
 - Is code generation needed (`dart run build_runner build`)
 - Are new l10n keys needed
 - Are changes to `app_router.dart` needed
@@ -83,6 +84,14 @@ Use the `pre-commit` skill:
 - [ ] Colors only via `AppTheme` tokens — no hardcoded hex in widget code
 - [ ] Use `ui-ux-pro-max` skill for style decisions: `--domain ux`, `--domain style`, `--design-system`
 - [ ] Run `flutter analyze` — no warnings
+
+## Checklist for features with Hive CE changes
+
+- [ ] Next free `@HiveField` number verified (see ARCHITECTURE.md → UserProfile HiveFields)
+- [ ] typeId not changed for any existing class
+- [ ] `.g.dart` file regenerated (`dart run build_runner build`)
+- [ ] New fields documented in ARCHITECTURE.md → UserProfile HiveFields
+- [ ] `main.dart`: if new Hive box added — `await Hive.openBox<T>('name')` present
 
 ## Checklist for features using libraries
 
