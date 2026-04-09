@@ -251,6 +251,19 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-09 — Update docs and skills to reflect Riverpod 3.x + Hive CE architecture
+
+**What was done:** Updated all project documentation and agent skills to reflect the completed Riverpod 3.x + Hive CE migration. Removed stale references to `legacy.dart`, `StateProvider`, `StateNotifier`, `StateNotifierProvider`, and `_ref` throughout ARCHITECTURE.md. Updated README.md and About screen tech stack strings. Fixed path references (`docs/` → `internal_docs/`) in document-idea and pre-commit skill files.
+
+**Modified files:**
+- `internal_docs/ARCHITECTURE.md` — removed `legacy.dart` mention from tech stack; updated locale_provider comment, FriendsNotifier section, RouterNotifier section, Key Patterns section, workout flow comment to use Riverpod 3.x provider types
+- `README.md` — Tech Stack table: "Riverpod" → "Riverpod 3.x", "Hive" → "Hive CE"
+- `lib/features/settings/screens/about_screen.dart` — tech stack string updated to "Flutter · Riverpod 3 · Hive CE · go_router"
+- `.claude/skills/document-idea/SKILL.md` — `docs/ARCHITECTURE.md` + `docs/DEV_NOTES.md` → `internal_docs/`
+- `.claude/skills/pre-commit/SKILL.md` — `docs/DEV_NOTES.md` + `docs/ARCHITECTURE.md` → `internal_docs/` (done in previous session)
+
+---
+
 ### 2026-04-09 — Migrate all legacy Riverpod providers to modern API (Notifier/NotifierProvider)
 
 **What was done:** Removed all `StateProvider` and `StateNotifier` usage (moved to `legacy.dart` in Riverpod 3.x) — migrated to `Notifier<T>`/`NotifierProvider`. All 6 `StateProvider` instances replaced with minimal `Notifier<T>` classes exposing a `set()` method. All 6 `StateNotifier` classes migrated to `Notifier<T>` (initial state moved to `build()`, `_ref` field removed in favour of built-in `ref`). Updated 19 call sites in 8 screen files (`.notifier.state =` → `.notifier.set()`). Removed all `legacy.dart` imports. `flutter analyze` clean.

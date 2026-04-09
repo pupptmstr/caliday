@@ -13,7 +13,7 @@ Ideas are recorded in two places with different levels of detail:
 
 ## Step 1 — Add to ARCHITECTURE.md backlog
 
-Find the "Feature Backlog" section in `docs/ARCHITECTURE.md` and add a row to the table:
+Find the "Feature Backlog" section in `internal_docs/ARCHITECTURE.md` and add a row to the table:
 
 ```markdown
 | v?.? | Feature name | 💡 idea |
@@ -27,7 +27,7 @@ Statuses:
 
 ## Step 2 — Create a spec in DEV_NOTES.md
 
-If the idea is elaborated or requires planning — add a section to `docs/DEV_NOTES.md`
+If the idea is elaborated or requires planning — add a section to `internal_docs/DEV_NOTES.md`
 in the "Active Specs" section.
 
 Spec structure:

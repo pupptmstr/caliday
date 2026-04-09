@@ -54,8 +54,8 @@ The app is built on proven game-based learning mechanics:
 | Layer              | Technology                  |
 |--------------------|-----------------------------|
 | Platform           | Flutter (Dart)              |
-| State management   | Riverpod                    |
-| Local storage      | Hive                        |
+| State management   | Riverpod 3.x                |
+| Local storage      | Hive CE                     |
 | Navigation         | go_router                   |
 | Animations         | Lottie                      |
 | Notifications      | flutter_local_notifications |

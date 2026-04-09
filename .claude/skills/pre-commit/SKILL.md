@@ -9,7 +9,7 @@ Perform the following steps in order before every commit.
 
 ## Step 1 — Update history in DEV_NOTES.md
 
-Add an entry to the "Change History" section (`docs/DEV_NOTES.md`).
+Add an entry to the "Change History" section (`internal_docs/DEV_NOTES.md`).
 
 Entry format:
 ```
@@ -33,7 +33,7 @@ Rules:
 
 ## Step 2 — Update ARCHITECTURE.md (if needed)
 
-Update `docs/ARCHITECTURE.md` if the changes affect:
+Update `internal_docs/ARCHITECTURE.md` if the changes affect:
 - Architectural decisions or patterns
 - Hive models or typeIds (critical!)
 - Service or repository APIs

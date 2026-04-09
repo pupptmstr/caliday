@@ -120,7 +120,7 @@ class _AboutScreenState extends State<AboutScreen> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
               child: Text(
-                'Flutter · Riverpod · Hive · go_router',
+                'Flutter · Riverpod 3 · Hive CE · go_router',
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(
                       color: scheme.onSurfaceVariant,
                     ),

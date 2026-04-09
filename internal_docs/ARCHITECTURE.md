@@ -23,7 +23,7 @@ calisthenics (handstand push-ups) through short daily sets of 5–15 minutes.
 | Layer | Solution |
 |-------|----------|
 | UI | Flutter (Dart) |
-| State management | Riverpod 3.x (`flutter_riverpod ^3.0.1`; legacy providers via `flutter_riverpod/legacy.dart`) |
+| State management | Riverpod 3.x (`flutter_riverpod ^3.0.1`; all providers use `Notifier`/`NotifierProvider`) |
 | Local storage | Hive CE (`hive_ce ^2.19.3` — community fork of Hive; same box format, pure Dart) |
 | Navigation | go_router |
 | Notifications | flutter_local_notifications |
@@ -57,7 +57,7 @@ lib/
 │   │   ├── widget_service.dart        ← WidgetService singleton
 │   │   └── ble_service.dart           ← BleService singleton (Central: scan + GATT read)
 │   ├── providers/
-│   │   ├── locale_provider.dart       ← StateProvider<String>
+│   │   ├── locale_provider.dart       ← LocaleNotifier (NotifierProvider<LocaleNotifier, String>)
 │   │   └── goro_expression_provider.dart
 │   └── extensions/
 │       ├── build_context_l10n.dart    ← context.l10n shortcut
@@ -423,10 +423,10 @@ otherwise                          → 0
 
 **Import note:** `ble_peripheral` exports a class `BleService` — import the package with prefix `blep` to avoid name collision with our `BleService` singleton.
 
-### FriendsNotifier (StateNotifier)
+### FriendsNotifier (Notifier)
 - `addOrUpdate(FriendProfile)` → `bool` (true = new friend)
 - `remove(String id)`
-- Provider: `friendsProvider` (`StateNotifierProvider<FriendsNotifier, List<FriendProfile>>`)
+- Provider: `friendsProvider` (`NotifierProvider<FriendsNotifier, List<FriendProfile>>`)
 - `friendsCountProvider` — derived `Provider<int>` for Profile screen badge
 
 ### QR Profile Exchange
@@ -471,7 +471,7 @@ Persistence is the responsibility of the calling code via repositories.
 ```
 home → push(/workout) → pushReplacement(/summary) → go(/home)
 ```
-After completion: `_ref.invalidate(homeDataProvider)` + `_ref.invalidate(profileDataProvider)`
+After completion: `ref.invalidate(homeDataProvider)` + `ref.invalidate(profileDataProvider)`
 
 ### WorkoutState when phase == done
 - `spEarned`, `freezeEarned`, `freezeUsed`
@@ -484,7 +484,7 @@ After completion: `_ref.invalidate(homeDataProvider)` + `_ref.invalidate(profile
 Both entry points lead to the same flow: `challengeBranchProvider = branch` → `/workout`.
 
 ### RouterNotifier
-- `isOnboardingCompleteProvider` — `StateProvider<bool>`, initialized from `userRepository.hasProfile`
+- `isOnboardingCompleteProvider` — `NotifierProvider<OnboardingGateNotifier, bool>`, initialized from `userRepository.hasProfile`
 - Deep link guard: `if (state.uri.scheme == 'caliday') return '/workout';` in redirect
 
 ---
@@ -647,12 +647,12 @@ Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.ca
 
 ### Key Patterns
 
-- `activeCourseProvider = StateProvider<CourseId>` initialized from `UserProfile.activeCourse`; switching courses in LibraryScreen updates both the provider and `UserProfile.activeCourseIndex` in Hive
-- `homeDataProvider = Provider.autoDispose` + `_ref.invalidate(homeDataProvider)` after workout
+- `activeCourseProvider = NotifierProvider<ActiveCourseNotifier, CourseId>` initialized from `UserProfile.activeCourse`; switching courses in LibraryScreen updates both the provider and `UserProfile.activeCourseIndex` in Hive
+- `homeDataProvider = Provider.autoDispose` + `ref.invalidate(homeDataProvider)` after workout
 - **Always invalidate `displayStreakProvider` before `homeDataProvider`** — `goroExpressionProvider` keeps it alive via `ref.watch`, so `homeDataProvider`'s `ref.read(displayStreakProvider)` would return a stale cached value otherwise
 - **`setHasPullUpBar` must invalidate `homeDataProvider`** — `activeBranches` is computed from `hasPullUpBar`; without invalidation Pull branch appears only after restart
-- `workoutProvider = StateNotifierProvider.autoDispose` — plan is generated on screen open
-- `customWorkoutPlanProvider = StateProvider<WorkoutPlan?>` — set before navigating to `/workout` for custom routines; takes priority over daily/challenge generation; `courseIdIndex = null`; reset in `_finishWorkout`
+- `workoutProvider = NotifierProvider.autoDispose` — plan is generated on screen open
+- `customWorkoutPlanProvider = NotifierProvider<CustomWorkoutPlanNotifier, WorkoutPlan?>` — set before navigating to `/workout` for custom routines; takes priority over daily/challenge generation; `courseIdIndex = null`; reset in `_finishWorkout`
 - Services mutate HiveObjects in place; persistence is the responsibility of the caller
 - `ExerciseResult.completedReps` = rep count from the **last** set (MVP)
 - Challenge in a bonus workout: `advanceStage` is called ALWAYS (regardless of `isPrimary`)
