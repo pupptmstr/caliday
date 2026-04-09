@@ -12,35 +12,35 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  cupertino_icons: ^1.0.8
+  cupertino_icons: ^1.0.9
   intl: ^0.20.0
   flutter_riverpod: ^2.6.1
   hive: ^2.2.3
   hive_flutter: ^1.1.0
-  flutter_local_notifications: ^18.0.1
-  timezone: ^0.9.4
-  flutter_timezone: ^5.0.0
-  go_router: ^14.8.1
-  flutter_svg: ^2.0.16
-  audioplayers: ^6.1.0
+  flutter_local_notifications: ^21.0.0
+  timezone: ^0.11.0
+  flutter_timezone: ^5.0.2
+  go_router: ^17.2.0
+  flutter_svg: ^2.2.4
+  audioplayers: ^6.6.0
 
   url_launcher: ^6.3.0
-  package_info_plus: ^8.0.0
+  package_info_plus: ^9.0.1
 
   # Виджет рабочего стола
   home_widget: ^0.9.0
-  app_links: ^6.3.3
+  app_links: ^7.0.0
 
   # Анимации
   lottie: ^3.3.1
 
   # Здоровье (Apple Health / Google Health Connect)
-  health: ^12.0.0
+  health: ^13.3.1
 
   # Friends (QR + BLE)
   qr_flutter: ^4.1.0
   mobile_scanner: ^7.2.0
-  flutter_blue_plus: ^1.35.3
+  flutter_blue_plus: ^2.2.1
   ble_peripheral: ^2.4.0
 
 dev_dependencies:

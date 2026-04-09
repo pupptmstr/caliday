@@ -98,7 +98,7 @@ class BleService {
     final device =
         BluetoothDevice(remoteId: DeviceIdentifier(nearby.deviceId));
     try {
-      await device.connect(timeout: const Duration(seconds: 10));
+      await device.connect(license: License.free, timeout: const Duration(seconds: 10));
       final services = await device.discoverServices();
       for (final service in services) {
         if (service.uuid == Guid(_serviceUuid)) {

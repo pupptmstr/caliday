@@ -79,7 +79,7 @@ class NotificationService {
       requestSoundPermission: false,
     );
     await _plugin.initialize(
-      const InitializationSettings(android: android, iOS: darwin),
+      settings: const InitializationSettings(android: android, iOS: darwin),
     );
 
     _initialized = true;
@@ -173,9 +173,9 @@ class NotificationService {
   /// they have already trained, and so a previously scheduled streak-lost
   /// alert is cleared when the next workout happens.
   Future<void> cancelDayReminders() async {
-    await _plugin.cancel(_idEvening);
-    await _plugin.cancel(_idStreakThreat);
-    await _plugin.cancel(_idStreakLost);
+    await _plugin.cancel(id: _idEvening);
+    await _plugin.cancel(id: _idStreakThreat);
+    await _plugin.cancel(id: _idStreakLost);
   }
 
   /// Cancels every scheduled notification.
@@ -187,10 +187,10 @@ class NotificationService {
     if (!_initialized) await init();
     try {
       await _plugin.show(
-        99,
-        'Тест уведомлений ✅',
-        'Если ты видишь это — всё работает!',
-        _details(channelId: 'debug', channelName: 'Debug'),
+        id: 99,
+        title: 'Тест уведомлений ✅',
+        body: 'Если ты видишь это — всё работает!',
+        notificationDetails: _details(channelId: 'debug', channelName: 'Debug'),
       );
       return true;
     } catch (_) {
@@ -221,8 +221,12 @@ class NotificationService {
       if (bodyKey == 'streakLostBody') {
         body = body.replaceAll('{days}', '${p.currentStreak}');
       }
-      await _plugin.show(id, strings[titleKey]!, body,
-          _details(channelId: 'debug', channelName: 'Debug'));
+      await _plugin.show(
+        id: id,
+        title: strings[titleKey]!,
+        body: body,
+        notificationDetails: _details(channelId: 'debug', channelName: 'Debug'),
+      );
       return true;
     } catch (_) {
       return false;
@@ -242,14 +246,12 @@ class NotificationService {
     Map<String, String> strings,
   ) async {
     await _plugin.zonedSchedule(
-      _idMorning,
-      strings['morningTitle']!,
-      strings['morningBody']!,
-      _nextInstanceOf(hour, minute),
-      _details(channelId: 'morning', channelName: 'Morning reminder'),
+      id: _idMorning,
+      title: strings['morningTitle']!,
+      body: strings['morningBody']!,
+      scheduledDate: _nextInstanceOf(hour, minute),
+      notificationDetails: _details(channelId: 'morning', channelName: 'Morning reminder'),
       androidScheduleMode: mode,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
     );
   }
@@ -259,14 +261,12 @@ class NotificationService {
     Map<String, String> strings,
   ) async {
     await _plugin.zonedSchedule(
-      _idEvening,
-      strings['eveningTitle']!,
-      strings['eveningBody']!,
-      _nextInstanceOf(20, 0),
-      _details(channelId: 'evening', channelName: 'Evening reminder'),
+      id: _idEvening,
+      title: strings['eveningTitle']!,
+      body: strings['eveningBody']!,
+      scheduledDate: _nextInstanceOf(20, 0),
+      notificationDetails: _details(channelId: 'evening', channelName: 'Evening reminder'),
       androidScheduleMode: mode,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
     );
   }
@@ -299,14 +299,12 @@ class NotificationService {
 
     final mode = await _getScheduleMode();
     await _plugin.zonedSchedule(
-      _idStreakLost,
-      strings['streakLostTitle']!,
-      body,
-      _nextDayAt(hour, minute),
-      _details(channelId: 'streak_lost', channelName: 'Streak lost'),
+      id: _idStreakLost,
+      title: strings['streakLostTitle']!,
+      body: body,
+      scheduledDate: _nextDayAt(hour, minute),
+      notificationDetails: _details(channelId: 'streak_lost', channelName: 'Streak lost'),
       androidScheduleMode: mode,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
     );
   }
 
@@ -315,14 +313,12 @@ class NotificationService {
     Map<String, String> strings,
   ) async {
     await _plugin.zonedSchedule(
-      _idStreakThreat,
-      strings['streakTitle']!,
-      strings['streakBody']!,
-      _nextInstanceOf(22, 0),
-      _details(channelId: 'streak', channelName: 'Streak threat'),
+      id: _idStreakThreat,
+      title: strings['streakTitle']!,
+      body: strings['streakBody']!,
+      scheduledDate: _nextInstanceOf(22, 0),
+      notificationDetails: _details(channelId: 'streak', channelName: 'Streak threat'),
       androidScheduleMode: mode,
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
       matchDateTimeComponents: DateTimeComponents.time,
     );
   }

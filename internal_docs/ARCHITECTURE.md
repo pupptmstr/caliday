@@ -27,14 +27,14 @@ calisthenics (handstand push-ups) through short daily sets of 5–15 minutes.
 | Local storage | Hive |
 | Navigation | go_router |
 | Notifications | flutter_local_notifications |
-| Animations | Lottie (`lottie: ^3.3.2`) |
-| Audio | `audioplayers: ^6.1.0` |
+| Animations | Lottie (`lottie: ^3.3.1`) |
+| Audio | `audioplayers: ^6.6.0` |
 | Home screen widget | `home_widget: ^0.9.0` |
-| Deep links | `app_links: ^6.4.1` |
-| Health | `health: ^12.0.0` |
+| Deep links | `app_links: ^7.0.0` |
+| Health | `health: ^13.3.1` |
 | QR generation | `qr_flutter: ^4.1.0` |
 | QR scanning | `mobile_scanner: ^7.2.0` |
-| BLE Central | `flutter_blue_plus: ^1.35.3` (scan + GATT client) |
+| BLE Central | `flutter_blue_plus: ^2.2.1` (scan + GATT client; `License.free` required on `connect()`) |
 | BLE Peripheral | `ble_peripheral: ^2.4.0` (advertising + GATT server) |
 | Target platforms | iOS (primary), Android (secondary) |
 

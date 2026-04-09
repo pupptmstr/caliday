@@ -251,6 +251,24 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-09 — Dependency upgrades: 11 packages to latest major versions
+
+**What was done:** Updated all upgradeable packages to their latest versions. Fixed breaking API changes in `flutter_local_notifications` 21.x (all methods switched to named parameters, `UILocalNotificationDateInterpretation` removed) and `flutter_blue_plus` 2.x (`connect()` now requires `license: License.free`). Updated iOS CocoaPods.
+
+**Modified files:**
+- `pubspec.yaml` — bumped 11 direct dependencies to latest major versions
+- `lib/core/services/notification_service.dart` — migrated to flutter_local_notifications 21.x API (named params for `initialize`, `show`, `cancel`, `zonedSchedule`)
+- `lib/core/services/ble_service.dart` — added `license: License.free` to `device.connect()` call
+- `ios/Podfile.lock` — updated by pod install
+
+**Key issues and solutions:**
+- `flutter_riverpod` cannot be upgraded to 3.x: `hive_generator ^2.0.1` requires `analyzer >=4.6.0 <7.0.0`, which conflicts with `riverpod 3.x` dependency chain via `test`. Stays at 2.6.1 until Hive ecosystem is replaced.
+- `build_runner` stays at 2.4.13 for the same reason.
+- `flutter_blue_plus` 2.x introduced commercial licensing: free tier requires `License.free` passed to `connect()`.
+- `flutter_local_notifications` 21.x: all plugin methods switched from positional to named parameters; iOS-only `UILocalNotificationDateInterpretation` enum removed entirely.
+
+---
+
 ### 2026-04-09 — Reorganize docs folders: public→docs/, internal→internal_docs/
 
 **What was done:** Renamed `docs/` → `internal_docs/` and `public_docs/` → `docs/` so GitHub Pages can serve public documents from `/docs/` on the `main` branch. Updated all cross-references in README, CLAUDE.md, ARCHITECTURE.md, DEV_NOTES.md, and memory.
