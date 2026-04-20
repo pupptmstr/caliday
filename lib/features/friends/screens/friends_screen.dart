@@ -177,6 +177,11 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
                   data: payload,
                   version: QrVersions.auto,
                   size: 200,
+                  errorCorrectionLevel: QrErrorCorrectLevel.H,
+                  embeddedImage: const AssetImage('assets/icon/icon.png'),
+                  embeddedImageStyle: const QrEmbeddedImageStyle(
+                    size: Size(42, 42),
+                  ),
                 ),
               ),
               const SizedBox(height: 8),

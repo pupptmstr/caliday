@@ -251,6 +251,15 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ## Change History
 
+### 2026-04-20 — Add app logo to QR code center
+
+**What was done:** Added Goro app icon (blue background) to the center of the friend QR code. Switched error correction to level H (30%) to ensure reliable scanning despite the overlay.
+
+**Modified files:**
+- `lib/features/friends/screens/friends_screen.dart` — `QrImageView` now uses `errorCorrectionLevel: QrErrorCorrectLevel.H`, `embeddedImage: AssetImage('assets/icon/icon.png')`, `embeddedImageStyle: QrEmbeddedImageStyle(size: Size(42, 42))`
+
+**Key issues and solutions:** Logo covers ~4.4% of QR area (42×42 inside 200×200), well within the 30% capacity granted by H-level error correction — scanning remains reliable.
+
 ### 2026-04-09 — Update docs and skills to reflect Riverpod 3.x + Hive CE architecture
 
 **What was done:** Updated all project documentation and agent skills to reflect the completed Riverpod 3.x + Hive CE migration. Removed stale references to `legacy.dart`, `StateProvider`, `StateNotifier`, `StateNotifierProvider`, and `_ref` throughout ARCHITECTURE.md. Updated README.md and About screen tech stack strings. Fixed path references (`docs/` → `internal_docs/`) in document-idea and pre-commit skill files.
