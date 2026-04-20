@@ -253,12 +253,15 @@ iOS Liquid Glass APIs should be confirmed stable in Flutter before starting.
 
 ### 2026-04-20 — Add app logo to QR code center
 
-**What was done:** Added Goro app icon (blue background) to the center of the friend QR code. Switched error correction to level H (30%) to ensure reliable scanning despite the overlay.
+**What was done:** Added Goro app icon (blue background, 42×42) to the center of the friend QR code via `Stack` overlay. Switched error correction to level H (30%) to ensure reliable scanning despite the overlay.
 
 **Modified files:**
-- `lib/features/friends/screens/friends_screen.dart` — `QrImageView` now uses `errorCorrectionLevel: QrErrorCorrectLevel.H`, `embeddedImage: AssetImage('assets/icon/icon.png')`, `embeddedImageStyle: QrEmbeddedImageStyle(size: Size(42, 42))`
+- `lib/features/friends/screens/friends_screen.dart` — replaced `embeddedImage` param with `Stack` + `Image.asset` + `ClipRRect(borderRadius: 8)`
+- `pubspec.yaml` — added `assets/icon/` to flutter assets list
 
-**Key issues and solutions:** Logo covers ~4.4% of QR area (42×42 inside 200×200), well within the 30% capacity granted by H-level error correction — scanning remains reliable.
+**Key issues and solutions:**
+- `QrImageView.embeddedImage` silently fails — it draws through a custom painter that can't resolve async `AssetImage` at paint time. Fix: overlay via `Stack` with `Image.asset` (loaded by Flutter's widget layer, not painter).
+- `assets/icon/` was only referenced by `flutter_launcher_icons` config, not registered as a Flutter asset → "Asset not found" at runtime. Fix: add `- assets/icon/` to `flutter.assets` in pubspec.yaml.
 
 ### 2026-04-09 — Update docs and skills to reflect Riverpod 3.x + Hive CE architecture
 

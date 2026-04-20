@@ -173,15 +173,25 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(16),
                 ),
-                child: QrImageView(
-                  data: payload,
-                  version: QrVersions.auto,
-                  size: 200,
-                  errorCorrectionLevel: QrErrorCorrectLevel.H,
-                  embeddedImage: const AssetImage('assets/icon/icon.png'),
-                  embeddedImageStyle: const QrEmbeddedImageStyle(
-                    size: Size(42, 42),
-                  ),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    QrImageView(
+                      data: payload,
+                      version: QrVersions.auto,
+                      size: 200,
+                      errorCorrectionLevel: QrErrorCorrectLevel.H,
+                    ),
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Image.asset(
+                        'assets/icon/icon.png',
+                        width: 42,
+                        height: 42,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(height: 8),
