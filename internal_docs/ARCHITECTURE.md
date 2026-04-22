@@ -680,41 +680,43 @@ flutter build ipa                 # iOS archive
 
 | Version | Feature | Status |
 |---------|---------|--------|
-| v1.0 | MVP (Push + Core, streaks, SP, notifications, onboarding) | ✅ |
-| v1.1 | New branches: Pull, Legs, Balance | ✅ |
-| v1.1 | Achievements (27 total) | ✅ |
-| v1.1 | Bonus workouts | ✅ |
-| v1.1 | Lottie animations — Push branch (7/7) | ✅ |
-| v1.1 | Dark theme | ✅ |
-| v1.2 | Sound + haptics | ✅ |
-| v1.2 | Workout history (detailed view) | ✅ |
-| v1.2 | Home redesign (bottom nav, 3 tabs) | ✅ |
-| v1.2 | Replace emoji → Material Icons | ✅ |
-| v1.2 | Streak freezes | ✅ |
-| v1.2 | About screen | ✅ |
-| v1.3 | Home Screen Widget (iOS + Android) | ✅ |
-| v1.3 | Apple Health / Health Connect | ✅ |
-| v1.4 | Friends — QR + BLE scan (Central role) | ✅ |
-| v1.4 | Friends — BLE advertising (Peripheral role) | ✅ |
-| v1.4 | Friends — BLE GATT server (profile exchange without QR) | ✅ |
-| v1.5 | Multi-Course system (Calisthenics + Healthy Body) — CourseId, Posture & Neck branches, Library tab | ✅ |
-| v1.5 | Flex (Flexibility & Mobility) branch | ✅ |
-| v1.5 | Supplementary exercise pool (random, no progression) | ✅ |
-| v1.5 | Lottie animations — Core branch (6/6 + flutter_kicks alt) | ✅ |
-| v1.5 | Lottie animations — Pull branch (6/6) | ✅ |
-| v1.5 | Lottie animations — Legs branch (5/5 + accessories) | ✅ |
-| v1.6 | Exercise Library — ExerciseTag system, search + filter screen | ✅ |
-| v1.6 | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |
-| v1.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | ✅ |
-| v1.7 | Lottie animations — Balance branch (6/6 + accessories) | ✅ |
-| — | Privacy Policy (GitHub Markdown → link in app) | 📐 designed |
+| v0.1 | MVP (Push + Core, streaks, SP, notifications, onboarding) | ✅ |
+| v0.1 | New branches: Pull, Legs, Balance | ✅ |
+| v0.1 | Achievements (27 total) | ✅ |
+| v0.1 | Bonus workouts | ✅ |
+| v0.1 | Lottie animations — Push branch (7/7) | ✅ |
+| v0.1 | Dark theme | ✅ |
+| v0.2 | Sound + haptics | ✅ |
+| v0.2 | Workout history (detailed view) | ✅ |
+| v0.2 | Home redesign (bottom nav, 3 tabs) | ✅ |
+| v0.2 | Replace emoji → Material Icons | ✅ |
+| v0.2 | Streak freezes | ✅ |
+| v0.2 | About screen | ✅ |
+| v0.3 | Home Screen Widget (iOS + Android) | ✅ |
+| v0.3 | Apple Health / Health Connect | ✅ |
+| v0.4 | Friends — QR + BLE scan (Central role) | ✅ |
+| v0.4 | Friends — BLE advertising (Peripheral role) | ✅ |
+| v0.4 | Friends — BLE GATT server (profile exchange without QR) | ✅ |
+| v0.5 | Multi-Course system (Calisthenics + Healthy Body) — CourseId, Posture & Neck branches, Library tab | ✅ |
+| v0.5 | Flex (Flexibility & Mobility) branch | ✅ |
+| v0.5 | Supplementary exercise pool (random, no progression) | ✅ |
+| v0.5 | Lottie animations — Core branch (6/6 + flutter_kicks alt) | ✅ |
+| v0.5 | Lottie animations — Pull branch (6/6) | ✅ |
+| v0.5 | Lottie animations — Legs branch (5/5 + accessories) | ✅ |
+| v0.6 | Exercise Library — ExerciseTag system, search + filter screen | ✅ |
+| v0.6 | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |
+| v0.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | ✅ |
+| v0.7 | Lottie animations — Balance branch (6/6 + accessories) | ✅ |
+| v0.7 | Privacy Policy + Terms of Use (GitHub Pages + links in app) | ✅ |
 | — | Lottie animations — Flex branch (0/6) | 🔒 waiting for designer |
 | — | Lottie animations — Posture branch (0/6) | 🔒 waiting for designer |
 | — | Lottie animations — Neck branch (0/5 + warmup_neck_rolls) | 🔒 waiting for designer |
+| — | Lottie animation replacement — cat-cow (`cooldown_cat_cow.json`) | 🔒 waiting for designer |
+| — | Interactive home screen stats — tappable streak/SP/rank chips → calendar / history / rank info | 📐 designed |
+| — | Workout calendar — heatmap/calendar view of training history accessible from home screen | 💡 idea |
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
-| v2.0 | Design overhaul — Liquid Glass (iOS) / frosted glass (Android) | 📐 designed |
-| v2.x | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |
-| v2.x | Custom course builder — user picks branches to form a personal path | 💡 idea |
+| v1.0 | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |
+| v1.x | Custom course builder — user picks branches to form a personal path | 💡 idea |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea
