@@ -12,6 +12,7 @@ import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../data/repositories/workout_repository.dart';
 import '../../home/providers/home_provider.dart';
+import '../../profile/providers/profile_provider.dart';
 
 class DeveloperOptionsScreen extends ConsumerStatefulWidget {
   const DeveloperOptionsScreen({super.key});
@@ -186,6 +187,7 @@ class _DeveloperOptionsScreenState
   void _saveProfile() {
     ref.read(userRepositoryProvider).saveProfile(_profile);
     ref.invalidate(homeDataProvider);
+    ref.invalidate(profileDataProvider);
     _snack('Профиль сохранён ✓');
   }
 
@@ -328,12 +330,13 @@ class _DeveloperOptionsScreenState
           onTap: () async {
             await workoutRepo.deleteForDate(DateTime.now());
             ref.invalidate(homeDataProvider);
+            ref.invalidate(profileDataProvider);
             setState(() {});
             _snack('Тренировка за сегодня удалена ✓');
           },
         ),
         _ActionTile(
-          label: 'Добавить фейковую тренировку',
+          label: 'Добавить тренировку на дату...',
           onTap: () => _addFakeWorkout(),
         ),
         _ActionTile(
@@ -347,6 +350,7 @@ class _DeveloperOptionsScreenState
             if (ok != true) return;
             await workoutRepo.deleteAll();
             ref.invalidate(homeDataProvider);
+            ref.invalidate(profileDataProvider);
             setState(() {});
             _snack('Все тренировки удалены ✓');
           },
@@ -374,8 +378,9 @@ class _DeveloperOptionsScreenState
           ),
         );
     ref.invalidate(homeDataProvider);
+    ref.invalidate(profileDataProvider);
     setState(() {});
-    _snack('Фейковая тренировка добавлена ✓');
+    _snack('Тренировка добавлена ✓');
   }
 
   // ── Notifications section ──────────────────────────────────────────────────

@@ -515,6 +515,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendarNoWorkoutsOnDay => 'No workouts on this day';
 
   @override
+  String get calendarFreezeUsedTitle => 'Streak freeze used';
+
+  @override
+  String get calendarFreezeUsedBody =>
+      'No workout on this day — a streak freeze was used to keep the streak going.';
+
+  @override
+  String get calendarFreezeEarnedLabel => 'Freeze earned';
+
+  @override
   String get historyTypeDaily => 'Daily Workout';
 
   @override

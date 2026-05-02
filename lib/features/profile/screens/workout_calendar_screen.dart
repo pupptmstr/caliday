@@ -50,8 +50,20 @@ class _WorkoutCalendarScreenState
     return map;
   }
 
-  void _showDayDetail(DateTime date, List<WorkoutLog> logs) {
-    if (logs.isEmpty) return;
+  static DateTime _dateOnly(DateTime d) => DateTime(d.year, d.month, d.day);
+
+  void _showDayDetail(
+    DateTime date,
+    List<WorkoutLog> logs, {
+    bool isFreezeGap = false,
+  }) {
+    if (logs.isEmpty && !isFreezeGap) return;
+
+    if (logs.isEmpty) {
+      _showFreezeGapSheet(date);
+      return;
+    }
+
     final scheme = Theme.of(context).colorScheme;
     final locale = Localizations.localeOf(context).languageCode;
     final dateStr = DateFormat('d MMMM', locale).format(date);
@@ -109,13 +121,100 @@ class _WorkoutCalendarScreenState
     );
   }
 
+  void _showFreezeGapSheet(DateTime date) {
+    final l10n = context.l10n;
+    final scheme = Theme.of(context).colorScheme;
+    final locale = Localizations.localeOf(context).languageCode;
+    final dateStr = DateFormat('d MMMM', locale).format(date);
+
+    showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (sheetCtx) => Padding(
+        padding: const EdgeInsets.fromLTRB(24, 20, 24, 40),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 36,
+                height: 4,
+                margin: const EdgeInsets.only(bottom: 20),
+                decoration: BoxDecoration(
+                  color: scheme.outlineVariant,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            Row(
+              children: [
+                Icon(Icons.ac_unit, color: Colors.cyan.shade500, size: 22),
+                const SizedBox(width: 10),
+                Text(
+                  dateStr,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 12),
+            Text(
+              l10n.calendarFreezeUsedTitle,
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                color: Colors.cyan.shade600,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              l10n.calendarFreezeUsedBody,
+              style: TextStyle(
+                fontSize: 14,
+                color: scheme.onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final repo = ref.read(workoutRepositoryProvider);
     final lastDay = DateTime(_month.year, _month.month + 1, 0);
     final logs = repo.getInRange(_month, lastDay);
+
+    // Fetch first 3 days of next month to detect freeze gaps at month end
+    final nextMonthExtra = repo.getInRange(
+      DateTime(_month.year, _month.month + 1, 1),
+      DateTime(_month.year, _month.month + 1, 3),
+    );
+
     final dayMap = _buildDayMap(logs);
+
+    // Days where a freeze was consumed (gap day = workout.date − 1 day)
+    final freezeGapDays = <DateTime>{};
+    for (final log in [...logs, ...nextMonthExtra]) {
+      if (log.freezeUsed) {
+        freezeGapDays.add(
+          _dateOnly(log.date.subtract(const Duration(days: 1))),
+        );
+      }
+    }
+
+    // Days where a freeze was earned
+    final freezeEarnedDays = <DateTime>{
+      for (final log in logs)
+        if (log.freezeEarned) _dateOnly(log.date),
+    };
 
     return Scaffold(
       appBar: AppBar(
@@ -133,8 +232,11 @@ class _WorkoutCalendarScreenState
             _MonthGrid(
               month: _month,
               dayMap: dayMap,
+              freezeGapDays: freezeGapDays,
+              freezeEarnedDays: freezeEarnedDays,
               onDayTap: _showDayDetail,
             ),
+            _CalendarLegend(),
             const SizedBox(height: 24),
           ],
         ),
@@ -234,12 +336,17 @@ class _MonthGrid extends StatelessWidget {
   const _MonthGrid({
     required this.month,
     required this.dayMap,
+    required this.freezeGapDays,
+    required this.freezeEarnedDays,
     required this.onDayTap,
   });
 
   final DateTime month;
   final Map<DateTime, List<WorkoutLog>> dayMap;
-  final void Function(DateTime date, List<WorkoutLog> logs) onDayTap;
+  final Set<DateTime> freezeGapDays;
+  final Set<DateTime> freezeEarnedDays;
+  final void Function(DateTime date, List<WorkoutLog> logs,
+      {bool isFreezeGap}) onDayTap;
 
   @override
   Widget build(BuildContext context) {
@@ -256,10 +363,15 @@ class _MonthGrid extends StatelessWidget {
     for (int day = 1; day <= daysInMonth; day++) {
       final cellDate = DateTime(month.year, month.month, day);
       final logs = dayMap[cellDate] ?? [];
+      final isFreezeGap = freezeGapDays.contains(cellDate);
+      final hasEarnedFreeze = freezeEarnedDays.contains(cellDate);
       cells.add(_DayCell(
         date: cellDate,
         logs: logs,
-        onTap: () => onDayTap(cellDate, logs),
+        isFreezeGap: isFreezeGap,
+        hasEarnedFreeze: hasEarnedFreeze,
+        onTap: () =>
+            onDayTap(cellDate, logs, isFreezeGap: isFreezeGap),
       ));
     }
 
@@ -283,11 +395,15 @@ class _DayCell extends StatelessWidget {
   const _DayCell({
     required this.date,
     required this.logs,
+    required this.isFreezeGap,
+    required this.hasEarnedFreeze,
     required this.onTap,
   });
 
   final DateTime date;
   final List<WorkoutLog> logs;
+  final bool isFreezeGap;
+  final bool hasEarnedFreeze;
   final VoidCallback onTap;
 
   @override
@@ -307,6 +423,11 @@ class _DayCell extends StatelessWidget {
     if (isFuture) {
       bgColor = Colors.transparent;
       textColor = scheme.onSurface.withAlpha(40);
+    } else if (isFreezeGap && !hasWorkout) {
+      bgColor = isDark
+          ? Colors.cyan.withAlpha(35)
+          : Colors.cyan.withAlpha(28);
+      textColor = scheme.onSurface.withAlpha(isDark ? 130 : 160);
     } else if (hasBonus) {
       bgColor = AppTheme.brandBlue.withAlpha(210);
       textColor = Colors.white;
@@ -322,7 +443,7 @@ class _DayCell extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: hasWorkout ? onTap : null,
+      onTap: (hasWorkout || isFreezeGap) ? onTap : null,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 150),
         decoration: BoxDecoration(
@@ -335,19 +456,139 @@ class _DayCell extends StatelessWidget {
                 )
               : null,
         ),
-        child: Center(
-          child: Text(
-            '${date.day}',
-            style: TextStyle(
-              fontSize: 13,
-              fontWeight: isToday || hasWorkout
-                  ? FontWeight.w700
-                  : FontWeight.w400,
-              color: isToday && !hasWorkout ? scheme.primary : textColor,
-            ),
-          ),
+        child: Stack(
+          children: [
+            if (isFreezeGap && !hasWorkout)
+              Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(
+                      Icons.ac_unit,
+                      size: 13,
+                      color: Colors.cyan.shade500,
+                    ),
+                    Text(
+                      '${date.day}',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w400,
+                        color: textColor,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            else
+              Center(
+                child: Text(
+                  '${date.day}',
+                  style: TextStyle(
+                    fontSize: 13,
+                    fontWeight: isToday || hasWorkout
+                        ? FontWeight.w700
+                        : FontWeight.w400,
+                    color: isToday && !hasWorkout ? scheme.primary : textColor,
+                  ),
+                ),
+              ),
+            // Freeze earned badge (small snowflake in top-right corner)
+            if (hasEarnedFreeze)
+              Positioned(
+                top: 2,
+                right: 2,
+                child: Icon(
+                  Icons.ac_unit,
+                  size: 9,
+                  color: Colors.cyan.shade300,
+                ),
+              ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+// ── Calendar legend ───────────────────────────────────────────────────────────
+
+class _CalendarLegend extends StatelessWidget {
+  const _CalendarLegend();
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
+      child: Wrap(
+        spacing: 16,
+        runSpacing: 6,
+        children: [
+          _LegendItem(
+            color: AppTheme.brandBlue.withAlpha(110),
+            label: '1 тренировка',
+            scheme: scheme,
+          ),
+          _LegendItem(
+            color: AppTheme.brandBlue.withAlpha(210),
+            label: '2+ тренировки',
+            scheme: scheme,
+          ),
+          _LegendItem(
+            color: isDark ? Colors.cyan.withAlpha(35) : Colors.cyan.withAlpha(28),
+            icon: Icons.ac_unit,
+            iconColor: Colors.cyan.shade500,
+            label: 'Заморозка',
+            scheme: scheme,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _LegendItem extends StatelessWidget {
+  const _LegendItem({
+    required this.color,
+    required this.label,
+    required this.scheme,
+    this.icon,
+    this.iconColor,
+  });
+
+  final Color color;
+  final String label;
+  final ColorScheme scheme;
+  final IconData? icon;
+  final Color? iconColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 14,
+          height: 14,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(3),
+          ),
+          child: icon != null
+              ? Icon(icon, size: 9, color: iconColor)
+              : null,
+        ),
+        const SizedBox(width: 5),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 11,
+            color: scheme.onSurfaceVariant,
+          ),
+        ),
+      ],
     );
   }
 }

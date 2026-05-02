@@ -16,6 +16,8 @@ class WorkoutLog extends HiveObject {
     required this.durationSec,
     this.isPrimary = true,
     this.courseIdIndex,
+    this.freezeUsed = false,
+    this.freezeEarned = false,
   });
 
   /// The calendar date the workout was performed (time component zeroed).
@@ -44,4 +46,13 @@ class WorkoutLog extends HiveObject {
   /// Index of [CourseId] this workout belongs to. null → 0 (calisthenics).
   @HiveField(6)
   final int? courseIdIndex;
+
+  /// True if a streak freeze was consumed to preserve the streak for this workout.
+  /// The skipped gap day is (date − 1 day).
+  @HiveField(7)
+  final bool freezeUsed;
+
+  /// True if a streak freeze was awarded after this workout (streak hit a multiple of 7).
+  @HiveField(8)
+  final bool freezeEarned;
 }

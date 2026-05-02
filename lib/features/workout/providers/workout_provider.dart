@@ -490,6 +490,8 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
       durationSec: durationSec,
       isPrimary: isPrimary,
       courseIdIndex: isCustomWorkout ? null : course.index,
+      freezeUsed: freezeUsed,
+      freezeEarned: freezeEarned,
     )));
 
     // ── Health (Apple Health / Health Connect) ────────────────────────────

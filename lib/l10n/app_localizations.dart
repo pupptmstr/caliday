@@ -998,6 +998,24 @@ abstract class AppLocalizations {
   /// **'No workouts on this day'**
   String get calendarNoWorkoutsOnDay;
 
+  /// No description provided for @calendarFreezeUsedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak freeze used'**
+  String get calendarFreezeUsedTitle;
+
+  /// No description provided for @calendarFreezeUsedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'No workout on this day — a streak freeze was used to keep the streak going.'**
+  String get calendarFreezeUsedBody;
+
+  /// No description provided for @calendarFreezeEarnedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Freeze earned'**
+  String get calendarFreezeEarnedLabel;
+
   /// No description provided for @historyTypeDaily.
   ///
   /// In en, this message translates to:

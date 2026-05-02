@@ -515,6 +515,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get calendarNoWorkoutsOnDay => 'В этот день тренировок не было';
 
   @override
+  String get calendarFreezeUsedTitle => 'Заморозка стрика';
+
+  @override
+  String get calendarFreezeUsedBody =>
+      'В этот день тренировки не было, но была использована заморозка — серия не прервалась.';
+
+  @override
+  String get calendarFreezeEarnedLabel => 'Заморозка получена';
+
+  @override
   String get historyTypeDaily => 'Тренировка дня';
 
   @override
