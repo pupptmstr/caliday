@@ -107,6 +107,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
             'workoutsToday': s.workoutsToday,
             'newAchievementIds': s.newAchievementIds,
             'healthSaved': s.healthSaved,
+            'rankRestored': s.rankRestored,
           });
         }
       },

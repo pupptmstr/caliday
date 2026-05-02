@@ -6,6 +6,7 @@ import '../../../data/models/user_profile.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../data/repositories/workout_repository.dart';
+import '../../../domain/services/rank_decay_service.dart';
 import '../../../domain/services/streak_service.dart';
 
 /// Currently active course on the Home screen (last selected by the user).
@@ -28,6 +29,8 @@ class HomeData {
     required this.hasWorkoutToday,
     required this.displayStreak,
     required this.activeCourse,
+    required this.effectiveRank,
+    required this.daysSinceLastWorkout,
   });
 
   final UserProfile profile;
@@ -44,6 +47,15 @@ class HomeData {
   ///                                            save it on the next workout)
   /// - otherwise                              → 0 (streak is already gone)
   final int displayStreak;
+
+  /// Rank to display (may be lower than earned rank due to inactivity decay).
+  final Rank effectiveRank;
+
+  /// Days since last workout; -1 if never trained.
+  final int daysSinceLastWorkout;
+
+  /// Whether the rank is actively decayed (lower than earned).
+  bool get isRankDecayed => effectiveRank.index < profile.rank.index;
 
   /// Branches for the currently active course.
   List<BranchId> get activeBranches =>
@@ -68,11 +80,20 @@ final homeDataProvider = Provider.autoDispose<HomeData>((ref) {
       branch: progressRepo.getProgress(branch),
   };
 
+  final rankDecayService = ref.read(rankDecayServiceProvider);
+  final days = rankDecayService.daysSinceLastWorkout(profile);
+  final effectiveRank = rankDecayService.effectiveRank(
+    profile.rank,
+    days.clamp(0, 9999),
+  );
+
   return HomeData(
     profile: profile,
     progressMap: progressMap,
     hasWorkoutToday: workoutRepo.hasPrimaryWorkoutToday(),
     displayStreak: ref.read(displayStreakProvider),
     activeCourse: course,
+    effectiveRank: effectiveRank,
+    daysSinceLastWorkout: days,
   );
 });

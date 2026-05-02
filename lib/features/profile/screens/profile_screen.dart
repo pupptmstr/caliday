@@ -14,6 +14,7 @@ import '../../../data/static/achievement_catalog.dart';
 import '../../../core/theme/app_theme.dart';
 import '../providers/profile_provider.dart';
 import '../widgets/compact_heatmap.dart';
+import '../widgets/rank_info_sheet.dart';
 import '../widgets/workout_log_tile.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -124,15 +125,18 @@ class ProfileScreen extends ConsumerWidget {
               // ── Rank card ──────────────────────────────────────────────
               _RankCard(
                 rank: profile.rank,
+                effectiveRank: data.effectiveRank,
                 totalSP: profile.totalSP,
                 rankProgress: rankProgress,
                 rankProgressLabel: rankProgressLabel,
-                onTap: () => _showStatSheet(
+                isDecayed: data.isRankDecayed,
+                onTap: () => showRankInfoSheet(
                   context,
-                  icon: Icons.workspace_premium,
-                  iconColor: scheme.primary,
-                  title: l10n.tooltipRankTitle,
-                  body: l10n.tooltipRankBody,
+                  earnedRank: profile.rank,
+                  effectiveRank: data.effectiveRank,
+                  totalSP: profile.totalSP,
+                  daysSinceLastWorkout:
+                      data.daysSinceLastWorkout.clamp(0, 9999),
                 ),
               ),
 
@@ -290,16 +294,20 @@ class ProfileScreen extends ConsumerWidget {
 class _RankCard extends StatelessWidget {
   const _RankCard({
     required this.rank,
+    required this.effectiveRank,
     required this.totalSP,
     required this.rankProgress,
     required this.rankProgressLabel,
+    this.isDecayed = false,
     this.onTap,
   });
 
   final Rank rank;
+  final Rank effectiveRank;
   final int totalSP;
   final double rankProgress;
   final String rankProgressLabel;
+  final bool isDecayed;
   final VoidCallback? onTap;
 
   static IconData _icon(Rank r) => switch (r) {
@@ -338,21 +346,39 @@ class _RankCard extends StatelessWidget {
                     color: Colors.white.withAlpha(35),
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  child: Icon(_icon(rank), size: 28, color: Colors.white),
+                  child: Icon(
+                    _icon(effectiveRank),
+                    size: 28,
+                    color: isDecayed
+                        ? Colors.amber.shade200
+                        : Colors.white,
+                  ),
                 ),
                 const SizedBox(width: 16),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        rank.localizedName(l10n),
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.w900,
-                          color: Colors.white,
-                          letterSpacing: -0.3,
-                        ),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              effectiveRank.localizedName(l10n),
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w900,
+                                color: isDecayed
+                                    ? Colors.amber.shade200
+                                    : Colors.white,
+                                letterSpacing: -0.3,
+                              ),
+                            ),
+                          ),
+                          if (isDecayed)
+                            Icon(Icons.warning_amber_rounded,
+                                size: 20,
+                                color: Colors.amber.shade200),
+                        ],
                       ),
                       const SizedBox(height: 2),
                       Text(

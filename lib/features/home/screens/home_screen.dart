@@ -12,6 +12,7 @@ import '../../../data/repositories/workout_repository.dart';
 import '../../../data/static/exercise_catalog.dart';
 import '../../../data/static/exercise_tags_catalog.dart';
 import '../../../domain/services/workout_generator_service.dart';
+import '../../profile/widgets/rank_info_sheet.dart';
 import '../../profile/widgets/workout_log_tile.dart';
 import '../../workout/providers/workout_provider.dart';
 import '../providers/home_provider.dart';
@@ -87,101 +88,6 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
-  static void _showRankInfoSheet(
-    BuildContext context,
-    Rank currentRank,
-    int totalSP,
-  ) {
-    final scheme = Theme.of(context).colorScheme;
-    final l10n = context.l10n;
-    showModalBottomSheet<void>(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (_) => Padding(
-        padding: const EdgeInsets.fromLTRB(24, 20, 24, 40),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 36,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: scheme.outlineVariant,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            const SizedBox(height: 16),
-            Text(
-              l10n.tooltipRankTitle,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-              ),
-            ),
-            const SizedBox(height: 16),
-            ...Rank.values.map((rank) {
-              final isCurrentOrPast = totalSP >= rank.spThreshold;
-              final isCurrent = rank == currentRank;
-              return Padding(
-                padding: const EdgeInsets.only(bottom: 10),
-                child: Row(
-                  children: [
-                    Container(
-                      width: 8,
-                      height: 8,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: isCurrent
-                            ? AppTheme.brandBlue
-                            : isCurrentOrPast
-                                ? AppTheme.success
-                                : scheme.outlineVariant,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: Text(
-                        rank.localizedName(l10n),
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: isCurrent
-                              ? FontWeight.w700
-                              : FontWeight.w400,
-                          color: isCurrent
-                              ? scheme.onSurface
-                              : isCurrentOrPast
-                                  ? scheme.onSurface
-                                  : scheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ),
-                    Text(
-                      '${rank.spThreshold} SP',
-                      style: TextStyle(
-                        fontSize: 13,
-                        color: isCurrent
-                            ? AppTheme.brandBlue
-                            : scheme.onSurfaceVariant,
-                        fontWeight: isCurrent
-                            ? FontWeight.w600
-                            : FontWeight.w400,
-                      ),
-                    ),
-                  ],
-                ),
-              );
-            }),
-          ],
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final data = ref.watch(homeDataProvider);
@@ -200,15 +106,18 @@ class HomeScreen extends ConsumerWidget {
             expression: expression,
             streak: data.displayStreak,
             totalSP: data.profile.totalSP,
-            rank: data.profile.rank,
+            rank: data.effectiveRank,
+            isRankDecayed: data.isRankDecayed,
             isDark: isDark,
             onTapStreak: () => context.push('/calendar'),
-            onTapSP: () =>
-                _showWorkoutHistorySheet(context, ref),
-            onTapRank: () => _showRankInfoSheet(
+            onTapSP: () => _showWorkoutHistorySheet(context, ref),
+            onTapRank: () => showRankInfoSheet(
               context,
-              data.profile.rank,
-              data.profile.totalSP,
+              earnedRank: data.profile.rank,
+              effectiveRank: data.effectiveRank,
+              totalSP: data.profile.totalSP,
+              daysSinceLastWorkout:
+                  data.daysSinceLastWorkout.clamp(0, 9999),
             ),
           ),
 
@@ -252,6 +161,7 @@ class _HeroZone extends StatelessWidget {
     required this.totalSP,
     required this.rank,
     required this.isDark,
+    this.isRankDecayed = false,
     this.onTapStreak,
     this.onTapSP,
     this.onTapRank,
@@ -262,6 +172,7 @@ class _HeroZone extends StatelessWidget {
   final int totalSP;
   final Rank rank;
   final bool isDark;
+  final bool isRankDecayed;
   final VoidCallback? onTapStreak;
   final VoidCallback? onTapSP;
   final VoidCallback? onTapRank;
@@ -331,7 +242,9 @@ class _HeroZone extends StatelessWidget {
                     icon: Icons.military_tech,
                     value: rank.localizedName(l10n),
                     label: '',
-                    accentColor: Colors.white,
+                    accentColor: isRankDecayed
+                        ? Colors.amber.shade300
+                        : Colors.white,
                     onTap: onTapRank,
                   ),
                 ),

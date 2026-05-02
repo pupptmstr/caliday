@@ -35,6 +35,7 @@ class SummaryScreen extends StatelessWidget {
     final newAchievementIds =
         rawIds is List ? rawIds.cast<String>() : <String>[];
     final healthSaved = extras['healthSaved'] as bool? ?? false;
+    final rankRestored = extras['rankRestored'] as bool? ?? false;
 
     final mins = durationSec ~/ 60;
     final secs = durationSec % 60;
@@ -104,6 +105,10 @@ class SummaryScreen extends StatelessWidget {
                 const SizedBox(height: 10),
               if (challengePassed && newStageExerciseId != null)
                 _ChallengePassedBanner(exerciseId: newStageExerciseId),
+              if (rankRestored) ...[
+                const SizedBox(height: 10),
+                const _RankRestoredBanner(),
+              ],
               if (healthSaved) ...[
                 const SizedBox(height: 10),
                 const _HealthSavedBadge(),
@@ -448,6 +453,51 @@ class _ChallengePassedBanner extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 12,
                     color: scheme.onTertiaryContainer.withAlpha(180),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _RankRestoredBanner extends StatelessWidget {
+  const _RankRestoredBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      decoration: BoxDecoration(
+        color: Colors.amber.withAlpha(25),
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: Colors.amber.withAlpha(80)),
+      ),
+      child: Row(
+        children: [
+          Icon(Icons.military_tech, size: 28, color: Colors.amber.shade700),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l.summaryRankRestoredTitle,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14,
+                    color: Colors.amber.shade900,
+                  ),
+                ),
+                Text(
+                  l.summaryRankRestoredBody,
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.amber.shade800,
                   ),
                 ),
               ],

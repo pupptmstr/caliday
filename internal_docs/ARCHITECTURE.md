@@ -399,6 +399,16 @@ days == 2 && freezeCount > 0       → profile.currentStreak  (freeze will save 
 otherwise                          → 0
 ```
 
+### RankDecayService
+- Pure service (no Hive writes) — decay is display-only; `UserProfile.rank` always holds the SP-earned rank.
+- `decayTiers(days)` — tiers to subtract; thresholds: [21, 35, 45, 53, 59] days (gaps: 14/10/8/6)
+- `effectiveRank(earnedRank, days)` — rank to display; clamped to Beginner
+- `isWarning(days)` — true when 14–20 days inactive (first decay in 7 days)
+- `isDecayed(days)` — true when rank is actively lowered (21+ days)
+- `daysSinceLastWorkout(profile)` → int (-1 if never trained)
+- Provider: `rankDecayServiceProvider`
+- `HomeData.effectiveRank` and `ProfileData.effectiveRank` expose this for display; computed in providers, not in widgets.
+
 ### ProgressionService
 - `applyResult(progress, exercise, result)` → bool (true = challenge unlocked)
 - `advanceStage(progress, nextExercise)` — stage transition after challenge
@@ -632,6 +642,7 @@ Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.ca
 - Small icon (monochrome, status bar): `AndroidInitializationSettings('ic_goro_notif')` + `drawable/ic_goro_notif.xml`
 - Large icon (color, notification shade, Android 12+): app adaptive icon, added automatically
 - The name `ic_notification` must not be used (conflicts with a resource inside the package)
+- Notification IDs: 1=morning, 2=evening, 3=streakThreat, 4=streakLost, 5=rankAtRisk
 
 ### Android Widget
 - Glance → **AppWidgetProvider + RemoteViews** (Glance requires the Compose Compiler Plugin, which is not included in Flutter projects by default)
@@ -719,6 +730,7 @@ flutter build ipa                 # iOS archive
 | — | Lottie animation replacement — cat-cow (`cooldown_cat_cow.json`) | 🔒 waiting for designer |
 | v0.8 | Interactive home screen stats — tappable streak/SP/rank chips → calendar / history / rank info | ✅ |
 | v0.8 | Workout calendar — heatmap/calendar view of training history accessible from home screen | ✅ |
+| v0.8 | Rank decay — display-only rank drop after inactivity (21/35/45/53/59 days); 14-day warning notification; rank restored banner on summary | ✅ |
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
 | v1.0 | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |

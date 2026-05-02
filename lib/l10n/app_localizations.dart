@@ -3295,6 +3295,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{count} exercises'**
   String customWorkoutExerciseCount(int count);
+
+  /// No description provided for @rankDecayWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t trained for {days} days — your rank has dropped. Get back to it!'**
+  String rankDecayWarning(int days);
+
+  /// No description provided for @summaryRankRestoredTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rank restored!'**
+  String get summaryRankRestoredTitle;
+
+  /// No description provided for @summaryRankRestoredBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep training — your rank is fully restored!'**
+  String get summaryRankRestoredBody;
 }
 
 class _AppLocalizationsDelegate

@@ -12,6 +12,7 @@ import '../../../data/repositories/workout_repository.dart';
 import '../../../domain/models/workout_plan.dart';
 import '../../../domain/services/achievement_service.dart';
 import '../../../domain/services/progression_service.dart';
+import '../../../domain/services/rank_decay_service.dart';
 import '../../../domain/services/sp_service.dart';
 import '../../../domain/services/streak_service.dart';
 import '../../../domain/services/workout_generator_service.dart';
@@ -78,6 +79,7 @@ class WorkoutState {
     this.workoutsToday = 1,
     this.newAchievementIds = const [],
     this.healthSaved = false,
+    this.rankRestored = false,
   });
 
   final WorkoutPlan plan;
@@ -138,6 +140,10 @@ class WorkoutState {
   /// True when the workout was successfully written to Apple Health / Health Connect.
   final bool healthSaved;
 
+  /// True when the user had a visually decayed rank before this workout,
+  /// meaning the rank is now restored to the earned rank.
+  final bool rankRestored;
+
   // ── Convenience ───────────────────────────────────────────────────────────
 
   PlannedExercise get currentPlanned => plan.exercises[exerciseIndex];
@@ -163,6 +169,7 @@ class WorkoutState {
     int? workoutsToday,
     List<String>? newAchievementIds,
     bool? healthSaved,
+    bool? rankRestored,
   }) {
     return WorkoutState(
       plan: plan,
@@ -185,6 +192,7 @@ class WorkoutState {
       workoutsToday: workoutsToday ?? this.workoutsToday,
       newAchievementIds: newAchievementIds ?? this.newAchievementIds,
       healthSaved: healthSaved ?? this.healthSaved,
+      rankRestored: rankRestored ?? this.rankRestored,
     );
   }
 
@@ -422,6 +430,13 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
     // ── Profile (SP + streak) — primary only ──────────────────────────────
     final userRepo = ref.read(userRepositoryProvider);
     final profile = userRepo.getProfile();
+
+    // Capture decay state BEFORE applyToProfile recalculates rank from SP.
+    final rankDecayService = ref.read(rankDecayServiceProvider);
+    final daysSince = rankDecayService.daysSinceLastWorkout(profile);
+    final rankWasDecayed =
+        daysSince >= 0 && rankDecayService.decayTiers(daysSince) > 0;
+
     spService.applyToProfile(profile, spEarned);
     final streakService = ref.read(streakServiceProvider);
     bool freezeUsed = false;
@@ -548,6 +563,8 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
     // Schedule a streak-lost alert for tomorrow morning in case the user
     // misses the next workout. Cancelled automatically on the next completion.
     unawaited(NotificationService.instance.scheduleStreakLost(profile));
+    // Reschedule rank-at-risk alert (fires 14 days from today).
+    unawaited(NotificationService.instance.scheduleRankAtRisk(profile));
 
     // Invalidate home and profile data so both tabs reflect the new state.
     // displayStreakProvider must be invalidated first so the next read (widget
@@ -577,6 +594,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
       isPrimary: isPrimary,
       workoutsToday: workoutsToday,
       newAchievementIds: newAchievements,
+      rankRestored: rankWasDecayed,
       healthSaved: healthSaved,
     );
   }

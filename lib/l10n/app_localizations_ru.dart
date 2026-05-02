@@ -1830,4 +1830,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String customWorkoutExerciseCount(int count) {
     return '$count упражнений';
   }
+
+  @override
+  String rankDecayWarning(int days) {
+    return 'Ты не тренировался $days дней — ранг снижен. Вернись к тренировкам!';
+  }
+
+  @override
+  String get summaryRankRestoredTitle => 'Ранг восстановлен!';
+
+  @override
+  String get summaryRankRestoredBody =>
+      'Продолжай тренироваться — ранг снова на месте!';
 }

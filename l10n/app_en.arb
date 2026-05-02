@@ -748,5 +748,15 @@
         "type": "int"
       }
     }
-  }
+  },
+  "rankDecayWarning": "You haven't trained for {days} days — your rank has dropped. Get back to it!",
+  "@rankDecayWarning": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryRankRestoredTitle": "Rank restored!",
+  "summaryRankRestoredBody": "Keep training — your rank is fully restored!"
 }

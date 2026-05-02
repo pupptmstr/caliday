@@ -748,5 +748,15 @@
         "type": "int"
       }
     }
-  }
+  },
+  "rankDecayWarning": "Ты не тренировался {days} дней — ранг снижен. Вернись к тренировкам!",
+  "@rankDecayWarning": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryRankRestoredTitle": "Ранг восстановлен!",
+  "summaryRankRestoredBody": "Продолжай тренироваться — ранг снова на месте!"
 }

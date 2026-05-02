@@ -181,6 +181,31 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 ## Change History
 
+### 2026-05-02 — Rank decay system + unified rank info sheet
+
+**What was done:** Implemented display-only rank decay for inactive users: rank gradually drops after 21 days of inactivity (thresholds: 21/35/45/53/59 days), with a 14-day warning notification. A 14-day "rank at risk" notification is scheduled after every workout. The same `showRankInfoSheet` widget is now used on both Home and Profile screens (removed the duplicate inline implementation from `home_screen.dart`). Rank is restored on the next workout with a `_RankRestoredBanner` on the summary screen.
+
+**New files:**
+- `lib/domain/services/rank_decay_service.dart` — `RankDecayService`: decay tiers, `effectiveRank()`, `isWarning()`, `isDecayed()`, `daysSinceLastWorkout()`
+- `lib/features/profile/widgets/rank_info_sheet.dart` — shared `showRankInfoSheet()` bottom sheet used by both Home and Profile
+
+**Modified files:**
+- `l10n/app_ru.arb` + `l10n/app_en.arb` — added `rankDecayWarning(days)`, `summaryRankRestoredTitle`, `summaryRankRestoredBody`
+- `lib/core/services/notification_service.dart` — added `_idRankAtRisk = 5`, rank-at-risk strings, `scheduleRankAtRisk()`, `debugShowRankAtRisk()`
+- `lib/features/home/providers/home_provider.dart` — added `effectiveRank` and `daysSinceLastWorkout` to `HomeData`
+- `lib/features/profile/providers/profile_provider.dart` — added `effectiveRank` and `daysSinceLastWorkout` to `ProfileData`
+- `lib/features/workout/providers/workout_provider.dart` — detect pre-workout decay, add `rankRestored` to `WorkoutState`, schedule rank-at-risk after workout
+- `lib/features/workout/screens/workout_screen.dart` — pass `rankRestored` in summary extras
+- `lib/features/workout/screens/summary_screen.dart` — added `_RankRestoredBanner` (amber, shown when rank was decayed before workout)
+- `lib/features/home/screens/home_screen.dart` — removed duplicate `_showRankInfoSheet`; use shared widget; show `effectiveRank` with amber color when decayed
+- `lib/features/profile/screens/profile_screen.dart` — use shared `showRankInfoSheet`; `_RankCard` displays `effectiveRank` with amber warning icon when decayed
+
+**Key issues and solutions:**
+- Rank decay cannot be stored in Hive because `SPService.applyToProfile()` always recalculates rank from SP on every workout, overwriting any stored decay. Solution: display-only decay using `RankDecayService.effectiveRank()` — same pattern as `displayStreakProvider`. `UserProfile.rank` always holds the earned (SP-based) rank; the displayed rank is computed on the fly.
+- Both `HomeData` and `ProfileData` needed `effectiveRank`+`daysSinceLastWorkout` since decay must be consistent across tabs without additional Hive reads.
+
+---
+
 ### 2026-05-02 — Interactive home stats + Workout Calendar with Heatmap
 
 **What was done:** Made Home screen stat chips (streak/SP/rank) tappable. Streak opens the new `/calendar` screen; SP opens a recent-workout history bottom sheet; Rank opens a rank-info sheet. Implemented `WorkoutCalendarScreen` — a monthly heatmap grid with month navigation and day-detail bottom sheet. Added `CompactHeatmap` widget (GitHub-style 13×7 grid) to the Profile screen, replacing the flat workout list. Extracted `WorkoutLogTile` and `ExerciseTagChip` to shared widgets reused across Profile, Calendar, and Home. Also bumped several package constraints (`go_router`, `home_widget`, `lottie`, `build_runner`) and upgraded Flutter SDK from 3.41.2 → 3.41.9 (Dart 3.11.5).

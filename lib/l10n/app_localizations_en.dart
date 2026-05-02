@@ -1825,4 +1825,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String customWorkoutExerciseCount(int count) {
     return '$count exercises';
   }
+
+  @override
+  String rankDecayWarning(int days) {
+    return 'You haven\'t trained for $days days — your rank has dropped. Get back to it!';
+  }
+
+  @override
+  String get summaryRankRestoredTitle => 'Rank restored!';
+
+  @override
+  String get summaryRankRestoredBody =>
+      'Keep training — your rank is fully restored!';
 }

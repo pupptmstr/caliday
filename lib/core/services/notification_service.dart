@@ -12,6 +12,7 @@ const int _idMorning = 1;
 const int _idEvening = 2;
 const int _idStreakThreat = 3;
 const int _idStreakLost = 4;
+const int _idRankAtRisk = 5;
 
 // ── Locale-aware notification strings ────────────────────────────────────────
 
@@ -25,6 +26,8 @@ const _notifStrings = {
     'streakBody': 'Успей потренироваться до полуночи — иначе серия прервётся.',
     'streakLostTitle': 'Серия прервалась 😔',
     'streakLostBody': 'Твой стрик {days} дней пропал. Начни новую серию — первый шаг всегда самый важный!',
+    'rankAtRiskTitle': 'Ранг под угрозой! ⚠️',
+    'rankAtRiskBody': '14 дней без тренировок — ранг начнёт снижаться через неделю. Вернись!',
   },
   'en': {
     'morningTitle': 'Time to work out! 💪',
@@ -35,6 +38,8 @@ const _notifStrings = {
     'streakBody': 'Work out before midnight or your streak will end.',
     'streakLostTitle': 'Streak is gone 😔',
     'streakLostBody': 'Your {days}-day streak is gone. Start a new one — the first step is always the hardest!',
+    'rankAtRiskTitle': 'Rank at risk! ⚠️',
+    'rankAtRiskBody': '14 days without training — your rank will start dropping soon. Come back!',
   },
 };
 
@@ -307,6 +312,51 @@ class NotificationService {
       androidScheduleMode: mode,
     );
   }
+
+  /// Schedules a one-time "rank at risk" notification for 14 days from
+  /// [profile.lastWorkoutDate]. Cancelled automatically when the user trains
+  /// again (overwritten by the next call to this method).
+  /// Skipped if notifications are disabled or no workout date is recorded.
+  Future<void> scheduleRankAtRisk(UserProfile profile) async {
+    if (!_initialized) await init();
+    if (!profile.notificationsEnabled) return;
+    final last = profile.lastWorkoutDate;
+    if (last == null) return;
+
+    final strings =
+        _notifStrings[profile.locale ?? 'ru'] ?? _notifStrings['ru']!;
+    final mode = await _getScheduleMode();
+
+    final today = DateTime.now();
+    final todayOnly = DateTime(today.year, today.month, today.day);
+    final lastOnly = DateTime(last.year, last.month, last.day);
+    final daysSince = todayOnly.difference(lastOnly).inDays;
+
+    // Only schedule if the threshold hasn't already been crossed.
+    final daysUntilRisk = 14 - daysSince;
+    if (daysUntilRisk <= 0) return;
+
+    final fireAt = tz.TZDateTime(
+      tz.local,
+      today.year,
+      today.month,
+      today.day + daysUntilRisk,
+      profile.notificationHour,
+      profile.notificationMinute,
+    );
+    await _plugin.zonedSchedule(
+      id: _idRankAtRisk,
+      title: strings['rankAtRiskTitle']!,
+      body: strings['rankAtRiskBody']!,
+      scheduledDate: fireAt,
+      notificationDetails:
+          _details(channelId: 'rank_risk', channelName: 'Rank at risk'),
+      androidScheduleMode: mode,
+    );
+  }
+
+  Future<bool> debugShowRankAtRisk(UserProfile p) =>
+      _debugFireNow(_idRankAtRisk, 'rankAtRiskTitle', 'rankAtRiskBody', p);
 
   Future<void> _scheduleStreakThreat(
     AndroidScheduleMode mode,
