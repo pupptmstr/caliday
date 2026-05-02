@@ -506,6 +506,15 @@ class AppLocalizationsRu extends AppLocalizations {
   String get profileNoHistory => 'Ещё нет завершённых тренировок';
 
   @override
+  String get calendarTitle => 'Календарь';
+
+  @override
+  String get calendarSeeAll => 'Открыть →';
+
+  @override
+  String get calendarNoWorkoutsOnDay => 'В этот день тренировок не было';
+
+  @override
   String get historyTypeDaily => 'Тренировка дня';
 
   @override

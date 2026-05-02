@@ -7,15 +7,14 @@ import 'package:intl/intl.dart';
 import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../friends/providers/friends_provider.dart';
-import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
-import '../../../data/models/workout_log.dart';
-import '../../../data/static/exercise_tags_catalog.dart';
-import '../../../l10n/app_localizations.dart';
-import '../../../core/theme/app_theme.dart';
 import '../../../data/repositories/achievement_repository.dart';
+import '../../../data/repositories/workout_repository.dart';
 import '../../../data/static/achievement_catalog.dart';
+import '../../../core/theme/app_theme.dart';
 import '../providers/profile_provider.dart';
+import '../widgets/compact_heatmap.dart';
+import '../widgets/workout_log_tile.dart';
 
 class ProfileScreen extends ConsumerWidget {
   const ProfileScreen({super.key});
@@ -92,7 +91,8 @@ class ProfileScreen extends ConsumerWidget {
       final needed = nextRank.spThreshold - profile.rank.spThreshold;
       rankProgress = (earned / needed).clamp(0.0, 1.0);
       final remaining = nextRank.spThreshold - profile.totalSP;
-      rankProgressLabel = l10n.profileRankProgress(remaining, nextRank.localizedName(l10n));
+      rankProgressLabel =
+          l10n.profileRankProgress(remaining, nextRank.localizedName(l10n));
     }
 
     return Scaffold(
@@ -237,19 +237,36 @@ class ProfileScreen extends ConsumerWidget {
 
               const SizedBox(height: 24),
 
-              // ── Recent workouts ────────────────────────────────────────
-              Text(
-                l10n.profileHistoryTitle,
-                style: Theme.of(context)
-                    .textTheme
-                    .titleMedium
-                    ?.copyWith(fontWeight: FontWeight.w700),
+              // ── Workout history ────────────────────────────────────────
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    l10n.profileHistoryTitle,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                  TextButton(
+                    onPressed: () => context.push('/calendar'),
+                    child: Text(l10n.calendarSeeAll),
+                  ),
+                ],
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 4),
+              CompactHeatmap(
+                logs: ref.read(workoutRepositoryProvider).getInRange(
+                      DateTime.now().subtract(const Duration(days: 90)),
+                      DateTime.now(),
+                    ),
+                onTap: () => context.push('/calendar'),
+              ),
+              const SizedBox(height: 16),
 
               if (data.recentLogs.isEmpty)
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 24),
+                  padding: const EdgeInsets.symmetric(vertical: 16),
                   child: Text(
                     l10n.profileNoHistory,
                     style: TextStyle(color: scheme.onSurfaceVariant),
@@ -257,7 +274,9 @@ class ProfileScreen extends ConsumerWidget {
                   ),
                 )
               else
-                ...data.recentLogs.map((log) => _WorkoutLogTile(log: log)),
+                ...data.recentLogs
+                    .take(5)
+                    .map((log) => WorkoutLogTile(log: log)),
             ],
           ),
         ),
@@ -304,7 +323,8 @@ class _RankCard extends StatelessWidget {
         decoration: BoxDecoration(
           gradient: AppTheme.rankGradient,
           borderRadius: BorderRadius.circular(22),
-          boxShadow: isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
+          boxShadow:
+              isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -357,7 +377,8 @@ class _RankCard extends StatelessWidget {
                 value: rankProgress,
                 minHeight: 8,
                 backgroundColor: Colors.white.withAlpha(45),
-                valueColor: const AlwaysStoppedAnimation<Color>(Colors.white),
+                valueColor:
+                    const AlwaysStoppedAnimation<Color>(Colors.white),
               ),
             ),
 
@@ -406,13 +427,42 @@ class _StatsGrid extends StatelessWidget {
     final l10n = context.l10n;
     return Row(
       children: [
-        Expanded(child: _StatCell(icon: Icons.local_fire_department, value: '$currentStreak', label: l10n.profileStatDays, isStreak: true, onTap: onTapStreak)),
+        Expanded(
+          child: _StatCell(
+            icon: Icons.local_fire_department,
+            value: '$currentStreak',
+            label: l10n.profileStatDays,
+            isStreak: true,
+            onTap: onTapStreak,
+          ),
+        ),
         const SizedBox(width: 10),
-        Expanded(child: _StatCell(icon: Icons.emoji_events, value: '$longestStreak', label: l10n.profileStatRecord, onTap: onTapLongestStreak)),
+        Expanded(
+          child: _StatCell(
+            icon: Icons.emoji_events,
+            value: '$longestStreak',
+            label: l10n.profileStatRecord,
+            onTap: onTapLongestStreak,
+          ),
+        ),
         const SizedBox(width: 10),
-        Expanded(child: _StatCell(icon: Icons.fitness_center, value: '$totalWorkouts', label: l10n.profileStatWorkouts, onTap: onTapTotalWorkouts)),
+        Expanded(
+          child: _StatCell(
+            icon: Icons.fitness_center,
+            value: '$totalWorkouts',
+            label: l10n.profileStatWorkouts,
+            onTap: onTapTotalWorkouts,
+          ),
+        ),
         const SizedBox(width: 10),
-        Expanded(child: _StatCell(icon: Icons.ac_unit, value: '$streakFreezes', label: l10n.profileStatFreezes, onTap: onTapFreezes)),
+        Expanded(
+          child: _StatCell(
+            icon: Icons.ac_unit,
+            value: '$streakFreezes',
+            label: l10n.profileStatFreezes,
+            onTap: onTapFreezes,
+          ),
+        ),
       ],
     );
   }
@@ -443,7 +493,8 @@ class _StatCell extends StatelessWidget {
     final Color valueColor;
 
     if (isStreak) {
-      bgColor = isDark ? AppTheme.energyContainerDark : AppTheme.energyContainer;
+      bgColor =
+          isDark ? AppTheme.energyContainerDark : AppTheme.energyContainer;
       iconColor = AppTheme.energy;
       valueColor = AppTheme.energy;
     } else {
@@ -459,7 +510,8 @@ class _StatCell extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.circular(16),
-          boxShadow: isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
+          boxShadow:
+              isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -486,398 +538,6 @@ class _StatCell extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-// ── Workout log tile ──────────────────────────────────────────────────────────
-
-class _WorkoutLogTile extends StatelessWidget {
-  const _WorkoutLogTile({required this.log});
-
-  final WorkoutLog log;
-
-  // Tags to skip in the summary line (structural / equipment meta)
-  static const _skipSummaryTags = {
-    ExerciseTag.floorOnly,
-    ExerciseTag.requiresBar,
-    ExerciseTag.beginner,
-    ExerciseTag.sittingRecovery,
-    ExerciseTag.postureFocus,
-    ExerciseTag.warmup,
-    ExerciseTag.cooldown,
-  };
-
-  // Tags to skip per-exercise in the detail sheet
-  static const _skipDetailTags = {
-    ExerciseTag.floorOnly,
-    ExerciseTag.requiresBar,
-    ExerciseTag.beginner,
-  };
-
-  /// Unique muscle/type tags for the whole workout, max [limit].
-  List<ExerciseTag> _summaryTags({int limit = 4}) {
-    final seen = <ExerciseTag>{};
-    final result = <ExerciseTag>[];
-    for (final ex in log.exercises) {
-      for (final tag in ExerciseTagsCatalog.forId(ex.exerciseId)) {
-        if (!_skipSummaryTags.contains(tag) && seen.add(tag)) {
-          result.add(tag);
-        }
-      }
-    }
-    return result.take(limit).toList();
-  }
-
-  String _typeLabel(AppLocalizations l10n) {
-    if (!log.isPrimary) return l10n.historyTypeBonus;
-    if (log.setType == SetType.challenge) return l10n.historyTypeChallenge;
-    return l10n.historyTypeDaily;
-  }
-
-  void _showDetail(BuildContext context) {
-    final l10n = context.l10n;
-    final scheme = Theme.of(context).colorScheme;
-    final locale = Localizations.localeOf(context).languageCode;
-    final dateStr = DateFormat('d MMMM yyyy', locale).format(log.date);
-    final m = log.durationSec ~/ 60;
-    final s = log.durationSec % 60;
-    final durationStr = m > 0 ? l10n.durationMin(m, s) : l10n.durationSec(s);
-
-    showModalBottomSheet<void>(
-      context: context,
-      isScrollControlled: true,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (_) => DraggableScrollableSheet(
-        initialChildSize: 0.6,
-        minChildSize: 0.4,
-        maxChildSize: 0.9,
-        expand: false,
-        builder: (_, scrollController) => Column(
-          children: [
-            // Drag handle
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              child: Container(
-                width: 36,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: scheme.outlineVariant,
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            // Header
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 4),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          dateStr,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        const SizedBox(height: 4),
-                        Row(
-                          children: [
-                            _Chip(
-                              label: _typeLabel(l10n),
-                              color: scheme.primaryContainer,
-                              textColor: scheme.onPrimaryContainer,
-                            ),
-                            const SizedBox(width: 8),
-                            _Chip(
-                              label: '+${log.spEarned} SP',
-                              color: scheme.secondaryContainer,
-                              textColor: scheme.onSecondaryContainer,
-                            ),
-                            const SizedBox(width: 8),
-                            _Chip(
-                              label: durationStr,
-                              color: scheme.surfaceContainerHighest,
-                              textColor: scheme.onSurfaceVariant,
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const Divider(height: 24),
-            // Exercise list header
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  l10n.historyDetailExercises,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ),
-            // Exercise list
-            Expanded(
-              child: ListView.separated(
-                controller: scrollController,
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 32),
-                itemCount: log.exercises.length,
-                separatorBuilder: (_, i) => const SizedBox(height: 10),
-                itemBuilder: (_, i) {
-                  final ex = log.exercises[i];
-                  final name = ExerciseL10n.name(l10n, ex.exerciseId);
-                  final String resultStr;
-                  if (ex.targetDurationSec != null && ex.targetDurationSec! > 0) {
-                    resultStr = l10n.historyDetailSec(
-                      ex.actualDurationSec ?? 0,
-                      ex.targetDurationSec!,
-                    );
-                  } else if (ex.targetReps > 0) {
-                    resultStr = l10n.historyDetailReps(
-                      ex.completedReps,
-                      ex.targetReps,
-                    );
-                  } else {
-                    resultStr = '—';
-                  }
-                  final exTags = ExerciseTagsCatalog.forId(ex.exerciseId)
-                      .where((t) => !_skipDetailTags.contains(t))
-                      .take(2)
-                      .toList();
-                  return Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              name,
-                              style: const TextStyle(fontSize: 14),
-                            ),
-                            if (exTags.isNotEmpty) ...[
-                              const SizedBox(height: 4),
-                              Wrap(
-                                spacing: 4,
-                                runSpacing: 4,
-                                children: exTags
-                                    .map((tag) => _ExerciseTagChip(tag: tag, l10n: l10n))
-                                    .toList(),
-                              ),
-                            ],
-                          ],
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 1),
-                        child: Text(
-                          resultStr,
-                          style: TextStyle(
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: scheme.onSurfaceVariant,
-                          ),
-                        ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    final l10n = context.l10n;
-    final locale = Localizations.localeOf(context).languageCode;
-
-    final dateStr = DateFormat('d MMMM', locale).format(log.date);
-    final m = log.durationSec ~/ 60;
-    final s = log.durationSec % 60;
-    final durationStr = m > 0 ? l10n.durationMin(m, s) : l10n.durationSec(s);
-    final typeLabel = _typeLabel(l10n);
-
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Material(
-        color: scheme.surfaceContainerHighest,
-        borderRadius: BorderRadius.circular(14),
-        child: InkWell(
-          borderRadius: BorderRadius.circular(14),
-          onTap: () => _showDetail(context),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-            child: Row(
-              children: [
-                SizedBox(
-                  width: 26,
-                  height: 26,
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Icon(Icons.fitness_center,
-                          size: 22, color: scheme.onSurfaceVariant),
-                      if (!log.isPrimary)
-                        Positioned(
-                          right: -4,
-                          top: -4,
-                          child: Container(
-                            width: 13,
-                            height: 13,
-                            decoration: BoxDecoration(
-                              color: scheme.primary,
-                              shape: BoxShape.circle,
-                            ),
-                            child: Icon(Icons.add,
-                                size: 9, color: scheme.onPrimary),
-                          ),
-                        ),
-                    ],
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        dateStr,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                        ),
-                      ),
-                      const SizedBox(height: 2),
-                      Text(
-                        '$typeLabel · $durationStr',
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: scheme.onSurfaceVariant,
-                        ),
-                      ),
-                      () {
-                        final tags = _summaryTags();
-                        if (tags.isEmpty) return const SizedBox.shrink();
-                        return Padding(
-                          padding: const EdgeInsets.only(top: 6),
-                          child: Wrap(
-                            spacing: 4,
-                            runSpacing: 4,
-                            children: tags
-                                .map((tag) => _ExerciseTagChip(tag: tag, l10n: l10n))
-                                .toList(),
-                          ),
-                        );
-                      }(),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-                  decoration: BoxDecoration(
-                    color: scheme.primaryContainer,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Text(
-                    '+${log.spEarned} SP',
-                    style: TextStyle(
-                      fontSize: 13,
-                      fontWeight: FontWeight.w700,
-                      color: scheme.onPrimaryContainer,
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 4),
-                Icon(
-                  Icons.chevron_right,
-                  size: 18,
-                  color: scheme.onSurfaceVariant,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-// ── Exercise tag chip ─────────────────────────────────────────────────────────
-
-class _ExerciseTagChip extends StatelessWidget {
-  const _ExerciseTagChip({required this.tag, required this.l10n});
-
-  final ExerciseTag tag;
-  final AppLocalizations l10n;
-
-  @override
-  Widget build(BuildContext context) {
-    final color = tag.color;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 2),
-      decoration: BoxDecoration(
-        color: color.withAlpha(30),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        tag.localizedName(l10n),
-        style: TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w500,
-          color: color,
-        ),
-      ),
-    );
-  }
-}
-
-// ── Small chip ────────────────────────────────────────────────────────────────
-
-class _Chip extends StatelessWidget {
-  const _Chip({
-    required this.label,
-    required this.color,
-    required this.textColor,
-  });
-
-  final String label;
-  final Color color;
-  final Color textColor;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Text(
-        label,
-        style: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w600,
-          color: textColor,
         ),
       ),
     );
@@ -915,7 +575,8 @@ class _AchievementBadgeRow extends StatelessWidget {
             showModalBottomSheet<void>(
               context: context,
               shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+                borderRadius:
+                    BorderRadius.vertical(top: Radius.circular(24)),
               ),
               builder: (_) => Padding(
                 padding: const EdgeInsets.fromLTRB(24, 20, 24, 36),

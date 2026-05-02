@@ -980,6 +980,24 @@ abstract class AppLocalizations {
   /// **'No completed workouts yet'**
   String get profileNoHistory;
 
+  /// No description provided for @calendarTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Calendar'**
+  String get calendarTitle;
+
+  /// No description provided for @calendarSeeAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Open →'**
+  String get calendarSeeAll;
+
+  /// No description provided for @calendarNoWorkoutsOnDay.
+  ///
+  /// In en, this message translates to:
+  /// **'No workouts on this day'**
+  String get calendarNoWorkoutsOnDay;
+
   /// No description provided for @historyTypeDaily.
   ///
   /// In en, this message translates to:

@@ -506,6 +506,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileNoHistory => 'No completed workouts yet';
 
   @override
+  String get calendarTitle => 'Calendar';
+
+  @override
+  String get calendarSeeAll => 'Open →';
+
+  @override
+  String get calendarNoWorkoutsOnDay => 'No workouts on this day';
+
+  @override
   String get historyTypeDaily => 'Daily Workout';
 
   @override

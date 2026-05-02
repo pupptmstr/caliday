@@ -27,9 +27,9 @@ calisthenics (handstand push-ups) through short daily sets of 5–15 minutes.
 | Local storage | Hive CE (`hive_ce ^2.19.3` — community fork of Hive; same box format, pure Dart) |
 | Navigation | go_router |
 | Notifications | flutter_local_notifications |
-| Animations | Lottie (`lottie: ^3.3.1`) |
+| Animations | Lottie (`lottie: ^3.3.3`) |
 | Audio | `audioplayers: ^6.6.0` |
-| Home screen widget | `home_widget: ^0.9.0` |
+| Home screen widget | `home_widget: ^0.9.1` |
 | Deep links | `app_links: ^7.0.0` |
 | Health | `health: ^13.3.1` |
 | QR generation | `qr_flutter: ^4.1.0` |
@@ -109,7 +109,11 @@ lib/
     │       └── summary_screen.dart
     ├── profile/screens/
     │   ├── profile_screen.dart
-    │   └── achievements_screen.dart   ← /achievements
+    │   ├── achievements_screen.dart   ← /achievements
+    │   └── workout_calendar_screen.dart ← /calendar
+    ├── profile/widgets/
+    │   ├── compact_heatmap.dart       ← GitHub-style 13×7 heatmap (used on Profile + navigates to /calendar)
+    │   └── workout_log_tile.dart      ← WorkoutLogTile + ExerciseTagChip (shared across Profile, Calendar, Home)
     ├── settings/
     │   ├── providers/settings_provider.dart
     │   └── screens/
@@ -458,6 +462,7 @@ Persistence is the responsibility of the calling code via repositories.
 - `/summary` — results
 - `/branch/:branchId` — branch progression journey
 - `/achievements` — all achievements
+- `/calendar` — workout calendar heatmap (month grid + day-detail sheet)
 - `/settings` — settings
 - `/about` — about the app
 - `/friends` — friends list + QR + BLE nearby
@@ -712,8 +717,8 @@ flutter build ipa                 # iOS archive
 | — | Lottie animations — Posture branch (0/6) | 🔒 waiting for designer |
 | — | Lottie animations — Neck branch (0/5 + warmup_neck_rolls) | 🔒 waiting for designer |
 | — | Lottie animation replacement — cat-cow (`cooldown_cat_cow.json`) | 🔒 waiting for designer |
-| — | Interactive home screen stats — tappable streak/SP/rank chips → calendar / history / rank info | 📐 designed |
-| — | Workout calendar — heatmap/calendar view of training history accessible from home screen | 💡 idea |
+| v0.8 | Interactive home screen stats — tappable streak/SP/rank chips → calendar / history / rank info | ✅ |
+| v0.8 | Workout calendar — heatmap/calendar view of training history accessible from home screen | ✅ |
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
 | v1.0 | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |

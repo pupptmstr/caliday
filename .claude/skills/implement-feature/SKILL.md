@@ -64,7 +64,13 @@ flutter test             # If tests exist
 dart run build_runner build   # If models changed
 ```
 
-## Step 6 — Document and commit
+## Step 6 — Bump version in pubspec.yaml
+
+Before committing, update `pubspec.yaml` version to match the backlog milestone:
+- `version: X.Y.Z+build` — bump minor (Y) for a new feature milestone (e.g. v0.7 → v0.8), patch (Z) for bugfixes within a milestone
+- Always increment the build number (+N) by 1
+
+## Step 7 — Document and commit
 
 Use the `pre-commit` skill:
 - History in DEV_NOTES

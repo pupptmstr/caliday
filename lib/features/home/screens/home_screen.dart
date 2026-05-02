@@ -8,14 +8,179 @@ import '../../../core/providers/goro_expression_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/repositories/custom_routine_repository.dart';
+import '../../../data/repositories/workout_repository.dart';
 import '../../../data/static/exercise_catalog.dart';
 import '../../../data/static/exercise_tags_catalog.dart';
 import '../../../domain/services/workout_generator_service.dart';
+import '../../profile/widgets/workout_log_tile.dart';
 import '../../workout/providers/workout_provider.dart';
 import '../providers/home_provider.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
+
+  static void _showWorkoutHistorySheet(BuildContext context, WidgetRef ref) {
+    final logs = ref.read(workoutRepositoryProvider).getRecent(15);
+    final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (_) => DraggableScrollableSheet(
+        initialChildSize: 0.55,
+        minChildSize: 0.4,
+        maxChildSize: 0.85,
+        expand: false,
+        builder: (ctx, scrollCtrl) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 12),
+              child: Center(
+                child: Container(
+                  width: 36,
+                  height: 4,
+                  decoration: BoxDecoration(
+                    color: scheme.outlineVariant,
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 12),
+              child: Text(
+                l10n.profileHistoryTitle,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ),
+            Divider(height: 1, color: scheme.outlineVariant),
+            if (logs.isEmpty)
+              Padding(
+                padding: const EdgeInsets.all(32),
+                child: Text(
+                  l10n.profileNoHistory,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: scheme.onSurfaceVariant),
+                ),
+              )
+            else
+              Expanded(
+                child: ListView.builder(
+                  controller: scrollCtrl,
+                  padding:
+                      const EdgeInsets.fromLTRB(16, 12, 16, 32),
+                  itemCount: logs.length,
+                  itemBuilder: (ctx2, i) =>
+                      WorkoutLogTile(log: logs[i]),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  static void _showRankInfoSheet(
+    BuildContext context,
+    Rank currentRank,
+    int totalSP,
+  ) {
+    final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
+    showModalBottomSheet<void>(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      builder: (_) => Padding(
+        padding: const EdgeInsets.fromLTRB(24, 20, 24, 40),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 36,
+                height: 4,
+                decoration: BoxDecoration(
+                  color: scheme.outlineVariant,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              l10n.tooltipRankTitle,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+            const SizedBox(height: 16),
+            ...Rank.values.map((rank) {
+              final isCurrentOrPast = totalSP >= rank.spThreshold;
+              final isCurrent = rank == currentRank;
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 8,
+                      height: 8,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: isCurrent
+                            ? AppTheme.brandBlue
+                            : isCurrentOrPast
+                                ? AppTheme.success
+                                : scheme.outlineVariant,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: Text(
+                        rank.localizedName(l10n),
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: isCurrent
+                              ? FontWeight.w700
+                              : FontWeight.w400,
+                          color: isCurrent
+                              ? scheme.onSurface
+                              : isCurrentOrPast
+                                  ? scheme.onSurface
+                                  : scheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ),
+                    Text(
+                      '${rank.spThreshold} SP',
+                      style: TextStyle(
+                        fontSize: 13,
+                        color: isCurrent
+                            ? AppTheme.brandBlue
+                            : scheme.onSurfaceVariant,
+                        fontWeight: isCurrent
+                            ? FontWeight.w600
+                            : FontWeight.w400,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            }),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -37,6 +202,14 @@ class HomeScreen extends ConsumerWidget {
             totalSP: data.profile.totalSP,
             rank: data.profile.rank,
             isDark: isDark,
+            onTapStreak: () => context.push('/calendar'),
+            onTapSP: () =>
+                _showWorkoutHistorySheet(context, ref),
+            onTapRank: () => _showRankInfoSheet(
+              context,
+              data.profile.rank,
+              data.profile.totalSP,
+            ),
           ),
 
           // ── Bottom section ────────────────────────────────────────────────
@@ -79,6 +252,9 @@ class _HeroZone extends StatelessWidget {
     required this.totalSP,
     required this.rank,
     required this.isDark,
+    this.onTapStreak,
+    this.onTapSP,
+    this.onTapRank,
   });
 
   final GoroExpression expression;
@@ -86,6 +262,9 @@ class _HeroZone extends StatelessWidget {
   final int totalSP;
   final Rank rank;
   final bool isDark;
+  final VoidCallback? onTapStreak;
+  final VoidCallback? onTapSP;
+  final VoidCallback? onTapRank;
 
   @override
   Widget build(BuildContext context) {
@@ -133,6 +312,7 @@ class _HeroZone extends StatelessWidget {
                     value: '$streak',
                     label: l10n.homeDays,
                     accentColor: AppTheme.energy,
+                    onTap: onTapStreak,
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -142,6 +322,7 @@ class _HeroZone extends StatelessWidget {
                     value: '$totalSP',
                     label: 'SP',
                     accentColor: Colors.white,
+                    onTap: onTapSP,
                   ),
                 ),
                 const SizedBox(width: 10),
@@ -151,6 +332,7 @@ class _HeroZone extends StatelessWidget {
                     value: rank.localizedName(l10n),
                     label: '',
                     accentColor: Colors.white,
+                    onTap: onTapRank,
                   ),
                 ),
               ],
@@ -184,37 +366,43 @@ class _HeroStat extends StatelessWidget {
     required this.value,
     required this.label,
     required this.accentColor,
+    this.onTap,
   });
 
   final IconData icon;
   final String value;
   final String label;
   final Color accentColor;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.white.withAlpha(30),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: Colors.white.withAlpha(50), width: 1),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 18, color: accentColor),
-          const SizedBox(width: 6),
-          Text(
-            label.isNotEmpty ? '$value $label' : value,
-            style: TextStyle(
-              fontWeight: FontWeight.w800,
-              fontSize: 14,
-              color: accentColor == Colors.white ? Colors.white : accentColor,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+        decoration: BoxDecoration(
+          color: Colors.white.withAlpha(onTap != null ? 40 : 30),
+          borderRadius: BorderRadius.circular(14),
+          border: Border.all(color: Colors.white.withAlpha(50), width: 1),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 18, color: accentColor),
+            const SizedBox(width: 6),
+            Text(
+              label.isNotEmpty ? '$value $label' : value,
+              style: TextStyle(
+                fontWeight: FontWeight.w800,
+                fontSize: 14,
+                color:
+                    accentColor == Colors.white ? Colors.white : accentColor,
+              ),
+              overflow: TextOverflow.ellipsis,
             ),
-            overflow: TextOverflow.ellipsis,
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

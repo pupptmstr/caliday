@@ -14,6 +14,7 @@ import '../../features/library/screens/library_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/profile/screens/achievements_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
+import '../../features/profile/screens/workout_calendar_screen.dart';
 import '../../features/friends/screens/friends_screen.dart';
 import '../../features/settings/screens/about_screen.dart';
 import '../../features/settings/screens/developer_options_screen.dart';
@@ -110,6 +111,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/achievements',
         builder: (_, _) => const AchievementsScreen(),
+      ),
+      GoRoute(
+        path: '/calendar',
+        builder: (_, _) => const WorkoutCalendarScreen(),
       ),
       GoRoute(
         path: '/settings',

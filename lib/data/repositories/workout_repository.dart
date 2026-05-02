@@ -21,6 +21,15 @@ class WorkoutRepository {
       ..sort((a, b) => b.date.compareTo(a.date));
   }
 
+  /// Returns all logs for [date] (time component ignored), newest first.
+  List<WorkoutLog> getAllForDate(DateTime date) {
+    final target = _dateOnly(date);
+    return _box.values
+        .where((log) => _dateOnly(log.date) == target)
+        .toList()
+      ..sort((a, b) => b.date.compareTo(a.date));
+  }
+
   /// Returns the log for [date] (time component ignored), or null.
   WorkoutLog? getForDate(DateTime date) {
     final target = _dateOnly(date);

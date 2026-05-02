@@ -7,7 +7,7 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.7 (implemented)
+**Version:** v0.8 (implemented)
 **Next priority:** Lottie Flex/Posture/Neck (waiting for designer assets) → v1.0 release
 
 Latest APK build: `build/app/outputs/flutter-apk/app-release.apk` (~74 MB)
@@ -39,45 +39,6 @@ Latest APK build: `build/app/outputs/flutter-apk/app-release.apk` (~74 MB)
 ---
 
 ## Active Specs (ideas in progress)
-
-### ? — Interactive Home Screen Stats — designed
-
-#### Concept
-
-User feedback: home screen stats (streak, SP, rank) look tappable but do nothing.
-Profile tab already has tappable stat tooltips — the same discoverability should exist on Home.
-Each chip should navigate to something meaningful, not just show a tooltip.
-
-#### UX / Mechanics
-
-Three tappable chips in the hero zone on Home:
-
-- **Streak (days)** → opens **Workout Calendar** — a monthly heatmap view showing which days had workouts. First workout of each day marked; bonus workouts optionally shown as a lighter dot. Allows scrolling back through months. (Calendar view is a new screen — see Workout Calendar idea in backlog.)
-  - Short-term alternative (before calendar is built): show the existing streak tooltip bottom sheet (same as Profile tab).
-- **SP (points)** → opens **Workout History** sheet — list of recent workouts with SP earned per session + brief SP explanation (how SP is calculated: primary ×1.5 completion bonus, bonus ×0.5). Re-uses the existing `ProfileScreen` workout log UI or opens a dedicated route.
-- **Rank** → opens **Rank Info** bottom sheet — current rank, SP to next rank, all rank thresholds (Beginner → Legend). Re-uses the existing rank tooltip from Profile.
-
-#### Technical Tasks
-
-| # | Task |
-|---|------|
-| 1 | Make streak chip on HomeScreen tappable → show streak tooltip sheet (same as Profile, quick win) |
-| 2 | Make SP chip tappable → navigate to `/history` or show WorkoutHistory bottom sheet |
-| 3 | Make rank chip tappable → show rank info sheet (thresholds, next rank progress) |
-| 4 | (Later) Build WorkoutCalendar screen and wire streak chip to it |
-
-#### Technical Details
-
-- Streak + rank tooltip bottom sheets already exist in `profile_screen.dart` (`_showStatSheet`) — can extract to shared widgets or duplicate for speed.
-- Workout history list already in `ProfileScreen._WorkoutLogTile` — either extract or push to `/profile` with a scroll-to-history parameter.
-- Home screen chips are `_HeroStat` widgets in `home_screen.dart` — add `onTap` callback.
-
-#### When to tackle
-
-Quick wins (tasks 1–3) can be done independently, small scope.
-Task 4 depends on the Workout Calendar feature being designed first.
-
----
 
 ### ? — Lottie Animation Replacement: cat-cow
 
@@ -219,6 +180,31 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 
 ## Change History
+
+### 2026-05-02 — Interactive home stats + Workout Calendar with Heatmap
+
+**What was done:** Made Home screen stat chips (streak/SP/rank) tappable. Streak opens the new `/calendar` screen; SP opens a recent-workout history bottom sheet; Rank opens a rank-info sheet. Implemented `WorkoutCalendarScreen` — a monthly heatmap grid with month navigation and day-detail bottom sheet. Added `CompactHeatmap` widget (GitHub-style 13×7 grid) to the Profile screen, replacing the flat workout list. Extracted `WorkoutLogTile` and `ExerciseTagChip` to shared widgets reused across Profile, Calendar, and Home. Also bumped several package constraints (`go_router`, `home_widget`, `lottie`, `build_runner`) and upgraded Flutter SDK from 3.41.2 → 3.41.9 (Dart 3.11.5).
+
+**New files:**
+- `lib/features/profile/widgets/workout_log_tile.dart` — `WorkoutLogTile`, `ExerciseTagChip`, `_InfoChip` extracted from profile_screen
+- `lib/features/profile/widgets/compact_heatmap.dart` — GitHub-style 13-week heatmap widget
+- `lib/features/profile/screens/workout_calendar_screen.dart` — `/calendar` screen: monthly grid + day-detail sheet
+
+**Modified files:**
+- `lib/features/profile/screens/profile_screen.dart` — history section replaced with CompactHeatmap + "Open →" + last 5 tiles
+- `lib/features/home/screens/home_screen.dart` — `_HeroStat` gains `onTap`; streak→calendar, SP→history sheet, rank→rank-info sheet
+- `lib/core/router/app_router.dart` — added `/calendar` route
+- `lib/data/repositories/workout_repository.dart` — added `getAllForDate(date)` and `getInRange(from, to)` methods
+- `l10n/app_ru.arb` + `l10n/app_en.arb` — added `calendarTitle`, `calendarSeeAll`, `calendarNoWorkoutsOnDay`
+- `pubspec.yaml` — bumped `go_router ^17.2.3`, `home_widget ^0.9.1`, `lottie ^3.3.3`, `build_runner ^2.15.0`
+
+**Key issues and solutions:**
+- `package_info_plus` v9→v10 upgrade blocked: `health ^13.3.1` → `device_info_plus ^12` → `win32 ^5` conflicts with `package_info_plus >=10` which requires `win32 ^6`. Kept at `^9.0.1` until health ecosystem catches up.
+- `profile_screen.dart` edits cascaded into corruption (merged `_WorkoutLogTile` into `_AchievementBadgeRow`). Fix: full `Write` tool rewrite combining clean sections.
+- `workout_log_tile.dart` missing `ExerciseTag`/`SetType`: these live in `enums.dart`, not `exercise_tags_catalog.dart`. Fix: added the import.
+- Compact heatmap uses Monday-aligned weeks (today's `currentMonday - 12*7`) to match the 13-week GitHub-style layout.
+
+---
 
 ### 2026-04-22 — Versioning rework + backlog cleanup + new ideas from user feedback
 
