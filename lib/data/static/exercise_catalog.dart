@@ -697,6 +697,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 20,
     techniqueTip: 'Keep your back straight and push hips forward — feel the stretch in the front of your hip.',
+    animationPath: 'assets/animations/flex_s1_hip_flexor_stretch.json',
   );
 
   static const Exercise flexS2WorldsGreatestStretch = Exercise(
@@ -717,6 +718,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 3,
     techniqueTip: 'Move slowly through each position — this is a flow, not a race.',
+    animationPath: 'assets/animations/flex_s2_worlds_greatest_stretch.json',
   );
 
   static const Exercise flexS3Hip9090 = Exercise(
@@ -757,6 +759,7 @@ class ExerciseCatalog {
     spBase: 2,
     challengeTargetReps: 3,
     techniqueTip: 'Focus movement in the upper back — avoid hinging in the lower back.',
+    animationPath: 'assets/animations/flex_s4_thoracic_bridge.json',
   );
 
   static const Exercise flexS5DeepSquatHold = Exercise(
@@ -777,6 +780,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: 'Use a doorframe or pole for support at first. Heels flat on the floor is the goal.',
+    animationPath: 'assets/animations/flex_s5_deep_squat_hold.json',
   );
 
   static const Exercise flexS6PikeStretch = Exercise(
@@ -796,6 +800,7 @@ class ExerciseCatalog {
     targetRestSec: 15,
     spBase: 1,
     techniqueTip: 'Reach forward from your hips, not your waist. Keep legs straight.',
+    animationPath: 'assets/animations/flex_s6_pike_stretch.json',
   );
 
   // ── WARMUP / COOLDOWN (stage 0) ──────────────────────────────────────────

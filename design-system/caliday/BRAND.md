@@ -116,7 +116,7 @@ The Home screen uses `AnimatedSwitcher` (400ms) to transition between expression
 
 ## Animation System
 
-**Goro exercise animations:** 43 Lottie JSON files, format `assets/animations/[exercise_id].json`.
+**Goro exercise animations:** 48 Lottie JSON files, format `assets/animations/[exercise_id].json`.
 Canvas: 400×400px, 2–4s seamless loop. Flat style matching Goro's colors.
 
 **UI transitions:**
@@ -124,7 +124,7 @@ Canvas: 400×400px, 2–4s seamless loop. Flat style matching Goro's colors.
 - Standard micro-interactions: 150–300ms
 - Spring physics preferred over linear easing
 
-**Lottie status:** Push branch animations ✅ (7 files). Core/Pull/Legs/Balance pending designer.
+**Lottie status:** Push, Core, Pull, Legs, Balance ✅; Flex ✅ except 90/90 (intentionally no animation). Posture, Neck and the supplementary pool are still missing. Flex was generated with `tools/lottie` (see ARCHITECTURE.md).
 
 ---
 

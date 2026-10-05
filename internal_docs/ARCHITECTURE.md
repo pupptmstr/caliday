@@ -310,12 +310,14 @@ Warmup: `warmup_wrist_circles` ✅. Cooldown: `cooldown_downward_dog` ✅.
 Warmup: `warmup_leg_swings` ✅. Cooldown: `cooldown_cat_cow` ✅.
 | Stage | ID | Name | Lottie |
 |-------|----|------|--------|
-| 1 | `flex_s1_hip_flexor_stretch` | Hip Flexor Stretch | ❌ |
-| 2 | `flex_s2_worlds_greatest_stretch` | World's Greatest Stretch | ❌ |
-| 3 | `flex_s3_hip_9090` | 90/90 Hip Mobility | ❌ |
-| 4 | `flex_s4_thoracic_bridge` | Thoracic Bridge | ❌ |
-| 5 | `flex_s5_deep_squat_hold` | Deep Squat Hold | ❌ |
-| 6 | `flex_s6_pike_stretch` | Pike Stretch | ❌ |
+| 1 | `flex_s1_hip_flexor_stretch` | Hip Flexor Stretch | ✅ |
+| 2 | `flex_s2_worlds_greatest_stretch` | World's Greatest Stretch | ✅ |
+| 3 | `flex_s3_hip_9090` | 90/90 Hip Mobility | ❌ (by design) |
+| 4 | `flex_s4_thoracic_bridge` | Thoracic Bridge | ✅ |
+| 5 | `flex_s5_deep_squat_hold` | Deep Squat Hold | ✅ |
+| 6 | `flex_s6_pike_stretch` | Pike Stretch | ✅ |
+
+`flex_s3_hip_9090` intentionally has no animation: the pose is not readable in a side-view silhouette (the front shin points at the camera, the back thigh away from it, and the legs merge into the torso). The app shows the placeholder icon for it. Decision by the owner, 2026-10-06.
 
 ### Posture Branch — Healthy Body course (6 stages)
 Warmup: `warmup_hip_circles` ✅. Cooldowns: `[cooldown_hip_flexor` ✅`, cooldown_quad_stretch` ✅`]`.
@@ -560,6 +562,17 @@ Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.ca
 - `remove_alpha_ios: true` in `flutter_launcher_icons`
 - Notification: `android/app/src/main/res/drawable/ic_goro_notif.xml` (Vector Drawable, white silhouette)
 
+### Lottie Animation Tooling
+
+Exercise animations are flat "paper-doll" Lottie files (one shape layer per body part, no parenting, 400×400, 12 fps). The Flex set is generated, not hand-drawn:
+
+- `tools/lottie/goro_rig.py` — Goro rig: forward/inverse kinematics → keyframed Lottie JSON. Same part sizes, colours and layer order as the existing files.
+- `tools/lottie/gen_flex.py` — one function per animation (a list of key poses); `python3 tools/lottie/gen_flex.py [--out DIR] [name ...]` rewrites `assets/animations/flex_*.json`.
+- `tools/lottie/build_preview.py` (+ `preview_template.html`) — builds a self-contained preview page that plays the animations (pause, speed 0.5–1.5×, per-frame scrubber, key-frame strip, thumbnail/screen/large sizes). `python3 tools/lottie/build_preview.py [--fragment] [--out FILE] [name ...]` writes `build/lottie_preview.html` (git-ignored); card copy lives in the `INFO` dict.
+- Conventions: Goro faces right; segment angle `a` points along `(-sin a, cos a)` (0 = down, 180 = up, clockwise-positive); feet/hands are planted with IK targets, free limbs use FK angles; the floor line is `y = 376` and objects nearer the camera may dip into the floor strip below it and segments can be foreshortened (`sc_*`); both are supported but currently unused.
+- IK knee/elbow direction is chosen with a `bend` vector: knees bend forward/up for planted legs (`(1, -1)`, `(0, -1)`), but a leg stretched behind the body or kneeling must bend towards the floor (`(0, 1)`), otherwise the knee hyperextends.
+- Quirk kept for consistency: the forearm is mounted upside-down (elbow = +y end, fist = −y end), so its layer rotation is `angle + 180`.
+
 ### Emoji Policy
 - **UI chrome** → Material Icons in all widgets (consistently replaced)
 - `BranchId.icon` getter → `IconData` (in `enums.dart`)
@@ -709,6 +722,8 @@ flutter gen-l10n                  # Generate l10n (or flutter run)
 flutter build apk --release       # Android release APK
 flutter build ipa                 # iOS archive
 flutter build web --release --base-href /caliday/app/   # Web (deployed by CI)
+python3 tools/lottie/gen_flex.py  # Regenerate the Flex Lottie animations
+python3 tools/lottie/build_preview.py  # Build build/lottie_preview.html to watch them
 ```
 
 ---
@@ -744,9 +759,9 @@ flutter build web --release --base-href /caliday/app/   # Web (deployed by CI)
 | v0.6 | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |
 | v0.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | ✅ |
 | v0.7 | Lottie animations — Balance branch (6/6 + accessories) | ✅ |
+| v0.7 | Lottie animations — Flex branch (5/6, generated with `tools/lottie`; 90/90 intentionally without) | ✅ |
 | v0.7 | Privacy Policy + Terms of Use (GitHub Pages + links in app) | ✅ |
 | v0.7 | Web build — PWA on GitHub Pages, IndexedDB storage, CI deploy | ✅ |
-| — | Lottie animations — Flex branch (0/6) | 🔒 waiting for designer |
 | — | Lottie animations — Posture branch (0/6) | 🔒 waiting for designer |
 | — | Lottie animations — Neck branch (0/5 + warmup_neck_rolls) | 🔒 waiting for designer |
 | — | Lottie animation replacement — cat-cow (`cooldown_cat_cow.json`) | 🔒 waiting for designer |
