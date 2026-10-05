@@ -35,6 +35,7 @@ Latest APK build: `build/app/outputs/flutter-apk/app-release.apk` (~74 MB)
 | Custom Workouts (Quick Routine + Saved Routines) | ✅ |
 | Multi-Course system (Calisthenics + Healthy Body) | ✅ |
 | L10n (RU + EN) | ✅ |
+| Web build (PWA on GitHub Pages, IndexedDB) | ✅ |
 
 ---
 
@@ -172,6 +173,18 @@ App Store и Google Play оба **требуют** ссылку на Privacy Pol
 
 ---
 
+### Web Notifications — idea
+
+Browsers can't fire a notification at a future time on their own. Options, from cheapest:
+
+1. **In-tab reminders** — while the tab / installed PWA is open, a Dart `Timer` fires `show()` at the reminder time. Requires upgrading `flutter_local_notifications` 21 → 22 (v22 added the web implementation: `show()`, `cancel()`, permission request only on a user gesture; `zonedSchedule()`/`periodicallyShow()` throw `UnsupportedError`). Useless when the browser is closed.
+2. **Web Push** — real reminders with the browser closed (iOS only for Home Screen PWAs, 16.4+). Needs a push server (VAPID) that knows reminder times and whether the user trained today → contradicts "no backend".
+3. Periodic Background Sync — Chrome-only, installed PWA, browser decides the cadence; can't hit a specific time. Not worth it.
+
+Recommendation: ship (1) if desktop users ask for it; (2) only if the "no backend" principle is revisited.
+
+---
+
 ### "Support the Author" Button — idea
 
 IAP via StoreKit 2 (iOS) and Google Play Billing (Android).
@@ -219,6 +232,29 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 
 ## Change History
+
+### 2026-10-06 — Web build (PWA on GitHub Pages)
+
+**What was done:** The app now builds for the web and is deployed to `https://pupptmstr.github.io/caliday/app/` by GitHub Actions. Data is stored locally in the browser (Hive CE uses IndexedDB on web — no code changes needed for storage). Native-only features (notifications, Health, Home Screen Widget, BLE, orientation lock) are skipped/hidden with `kIsWeb`; QR friend exchange works (camera via mobile_scanner web). On wide windows the app is shown as a centred phone-width column. Verified locally with Flutter 3.41.3: onboarding → full daily workout → summary → reload keeps streak/SP/achievements; no console errors.
+
+**Modified files:**
+- `lib/main.dart` — skip orientation lock and the post-frame native init (notifications, Health, widget, app links) on web; `_WebFrame` via `MaterialApp.router(builder:)`
+- `lib/core/services/notification_service.dart` — `init`, `scheduleAll`, `scheduleStreakLost` are no-ops on web (avoids loading the tz database)
+- `lib/core/services/widget_service.dart` — `update` no-op on web
+- `lib/features/settings/screens/settings_screen.dart` — Health, Notifications sections and BLE "discoverable" tile hidden on web
+- `lib/features/friends/screens/friends_screen.dart` — no BLE scan/advertising and no NEARBY section on web
+- `lib/features/onboarding/providers/onboarding_provider.dart`, `screens/onboarding_screen.dart` — `lastStep = kIsWeb ? 5 : 7`; Health + Reminder pages omitted on web
+- `web/index.html`, `web/manifest.json`, `web/favicon.png`, `web/icons/*` — CaliDay name/colors/icons, splash until `flutter-first-frame`, `navigator.storage.persist()`
+- `pubspec.yaml` — `flutter_launcher_icons.web` enabled (generated with a web-only config so mobile icons were not touched)
+- `.github/workflows/web.yml` — new: Flutter web build + Jekyll build of `docs/` → single Pages artifact → deploy
+
+**Key issues and solutions:**
+- Pages was a legacy branch build from `/docs` (privacy policy/terms URLs are used in the app and store listings). An Actions deploy replaces the whole site, so the workflow renders `docs/` with `actions/jekyll-build-pages` (same engine as the legacy build) and puts the app under `/app/`. Pages source must be switched to "GitHub Actions" once.
+- `jekyll-build-pages` runs in Docker and leaves root-owned output → the site is assembled in a fresh `_site/` instead of copying the app into Jekyll's output.
+- A newer Flutter (3.47) rewrites `pubspec.lock` (SDK-pinned `matcher`/`test_api`/`meta`) and `analysis_options.yaml`; the lock matches Flutter 3.41.1–3.41.3, so CI pins `3.41.3`.
+- `flutter_local_notifications` 21 already returns early on web for most calls, but `NotificationService.init()` would still load the full timezone database after every workout — guarded explicitly.
+
+---
 
 ### 2026-04-22 — Versioning rework + backlog cleanup + new ideas from user feedback
 

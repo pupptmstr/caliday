@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:app_links/app_links.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:caliday/l10n/app_localizations.dart';
@@ -30,10 +31,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   // Lock orientation to portrait — landscape layout is not yet designed.
-  await SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitUp,
-    DeviceOrientation.portraitDown,
-  ]);
+  if (!kIsWeb) {
+    await SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+  }
 
   await Hive.initFlutter();
 
@@ -81,6 +84,9 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
   @override
   void initState() {
     super.initState();
+    // Notifications, Health, the Home Screen Widget and widget deep links are
+    // native-only; the web build skips them entirely.
+    if (kIsWeb) return;
     // Initialise notifications after the first frame so that the Android
     // Activity is fully active before we call any platform channel methods.
     // This also ensures scheduleAll runs after permission is granted.
@@ -150,6 +156,41 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
       darkTheme: AppTheme.dark,
       themeMode: themeMode,
       routerConfig: router,
+      builder: kIsWeb ? (context, child) => _WebFrame(child: child!) : null,
+    );
+  }
+}
+
+/// Keeps the phone layout in wide browser windows: the app is rendered in a
+/// centred column no wider than [_maxWidth] on top of the brand gradient.
+class _WebFrame extends StatelessWidget {
+  const _WebFrame({required this.child});
+
+  static const double _maxWidth = 480;
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return DecoratedBox(
+      decoration: const BoxDecoration(gradient: AppTheme.heroGradient),
+      child: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: _maxWidth),
+          child: DecoratedBox(
+            decoration: BoxDecoration(boxShadow: AppTheme.cardShadowDark),
+            child: LayoutBuilder(
+              builder: (context, constraints) => MediaQuery(
+                // Widgets that size themselves from MediaQuery must see the
+                // column, not the whole browser window.
+                data: MediaQuery.of(context)
+                    .copyWith(size: constraints.biggest),
+                child: ClipRect(child: child),
+              ),
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

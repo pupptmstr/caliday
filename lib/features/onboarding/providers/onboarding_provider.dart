@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/providers/locale_provider.dart';
@@ -71,7 +72,8 @@ class OnboardingState {
 
   // Steps: 0=welcome  1=name  2=pushups  3=minutes  4=courses
   //        5=pullupbar  6=health  7=reminder
-  static const int lastStep = 7;
+  // Health and reminders are native-only, so the web build ends at step 5.
+  static const int lastStep = kIsWeb ? 5 : 7;
 
   bool get _calisthenicsSelected =>
       selectedCourseIds.contains(CourseId.calisthenics);

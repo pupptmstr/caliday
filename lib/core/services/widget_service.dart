@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:home_widget/home_widget.dart';
 
 import '../../data/models/enums.dart';
@@ -28,6 +29,7 @@ class WidgetService {
     required bool workoutDoneToday,
     required String rankName,
   }) async {
+    if (kIsWeb) return;
     try {
       await HomeWidget.saveWidgetData<int>('streak', streak);
       await HomeWidget.saveWidgetData<int>('totalSP', totalSP);

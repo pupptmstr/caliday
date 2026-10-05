@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math' as math;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -32,6 +33,8 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
   void initState() {
     super.initState();
     _ensurePeerId();
+    // BLE discovery is native-only; on web friends are added via QR.
+    if (kIsWeb) return;
     _bleSub = BleService.instance.nearbyStream.listen((devices) {
       if (mounted) setState(() => _nearby = devices);
     });
@@ -42,8 +45,10 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
   @override
   void dispose() {
     _bleSub?.cancel();
-    BleService.instance.stopDiscovery();
-    BleService.instance.stopAdvertising();
+    if (!kIsWeb) {
+      BleService.instance.stopDiscovery();
+      BleService.instance.stopAdvertising();
+    }
     super.dispose();
   }
 
@@ -252,44 +257,46 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
           ),
           const SizedBox(height: 12),
 
-          // NEARBY section
-          _SectionHeader(
-            l10n.friendsSectionNearby,
-            action: _scanning
-                ? const SizedBox(
-                    width: 16,
-                    height: 16,
-                    child: CircularProgressIndicator(strokeWidth: 2),
-                  )
-                : IconButton(
-                    icon: const Icon(Icons.refresh_rounded, size: 20),
-                    onPressed: _startScan,
-                    padding: EdgeInsets.zero,
-                    constraints: const BoxConstraints(),
-                  ),
-          ),
-          if (_nearby.isEmpty)
-            Padding(
-              padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
-              child: Text(
-                BleService.instance.isBluetoothOn
-                    ? (_scanning
-                        ? l10n.friendsNearbyScanning
-                        : l10n.friendsNearbyEmpty)
-                    : l10n.friendsNearbyBleOff,
-                style: TextStyle(
-                    color: scheme.onSurfaceVariant, fontSize: 14),
-              ),
-            )
-          else
-            ..._nearby.map(
-              (d) => _NearbyTile(
-                device: d,
-                onTap: () => _connectViaBle(d),
-              ),
+          if (!kIsWeb) ...[
+            // NEARBY section
+            _SectionHeader(
+              l10n.friendsSectionNearby,
+              action: _scanning
+                  ? const SizedBox(
+                      width: 16,
+                      height: 16,
+                      child: CircularProgressIndicator(strokeWidth: 2),
+                    )
+                  : IconButton(
+                      icon: const Icon(Icons.refresh_rounded, size: 20),
+                      onPressed: _startScan,
+                      padding: EdgeInsets.zero,
+                      constraints: const BoxConstraints(),
+                    ),
             ),
+            if (_nearby.isEmpty)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+                child: Text(
+                  BleService.instance.isBluetoothOn
+                      ? (_scanning
+                          ? l10n.friendsNearbyScanning
+                          : l10n.friendsNearbyEmpty)
+                      : l10n.friendsNearbyBleOff,
+                  style: TextStyle(
+                      color: scheme.onSurfaceVariant, fontSize: 14),
+                ),
+              )
+            else
+              ..._nearby.map(
+                (d) => _NearbyTile(
+                  device: d,
+                  onTap: () => _connectViaBle(d),
+                ),
+              ),
 
-          const SizedBox(height: 12),
+            const SizedBox(height: 12),
+          ],
 
           // FRIENDS section
           _SectionHeader(l10n.friendsSectionList),

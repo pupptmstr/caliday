@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_timezone/flutter_timezone.dart';
@@ -45,6 +46,9 @@ const _notifStrings = {
 /// Call [init] once at app startup, then [scheduleAll] whenever the
 /// user's notification settings change (or at every cold start so the
 /// schedule stays in sync after phone reboots).
+///
+/// On web the service is a no-op: browsers can't schedule notifications for
+/// future delivery without a push server.
 class NotificationService {
   NotificationService._();
 
@@ -56,7 +60,7 @@ class NotificationService {
   // ── Lifecycle ─────────────────────────────────────────────────────────────
 
   Future<void> init() async {
-    if (_initialized) return;
+    if (kIsWeb || _initialized) return;
 
     tz.initializeTimeZones();
     try {
@@ -149,6 +153,7 @@ class NotificationService {
   /// Cancels all existing scheduled notifications and re-creates them
   /// from [profile]. Safe to call on every cold start.
   Future<void> scheduleAll(UserProfile profile) async {
+    if (kIsWeb) return;
     if (!_initialized) await init();
 
     await _plugin.cancelAll();
@@ -278,6 +283,7 @@ class NotificationService {
   /// streak is not worth a notification). Cancelled automatically by
   /// [cancelDayReminders] when the user completes the next workout.
   Future<void> scheduleStreakLost(UserProfile profile) async {
+    if (kIsWeb) return;
     if (!_initialized) await init();
     if (profile.currentStreak < 2) return;
 

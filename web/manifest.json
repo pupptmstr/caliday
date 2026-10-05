@@ -1,11 +1,11 @@
 {
-    "name": "caliday",
-    "short_name": "caliday",
+    "name": "CaliDay",
+    "short_name": "CaliDay",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#4DA6FF",
+    "theme_color": "#4DA6FF",
+    "description": "Home calisthenics workouts with streak tracking and gamification.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [
