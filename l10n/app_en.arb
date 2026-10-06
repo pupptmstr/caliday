@@ -548,6 +548,14 @@
   "friendsAdded": "Friend added!",
   "friendsUpdated": "Profile updated!",
   "friendsScanError": "Invalid QR code",
+  "friendsScanTryAgain": "Try again",
+  "friendsScanCameraDeniedTitle": "Camera access is blocked",
+  "friendsScanCameraDeniedWeb": "Allow the camera for this site (the camera or lock icon in the address bar), then press Try again. Or show your own QR code to your friend instead.",
+  "friendsScanCameraDeniedApp": "Allow camera access for CaliDay in your device settings, then press Try again.",
+  "friendsScanCameraUnsupportedTitle": "No camera available",
+  "friendsScanCameraUnsupportedBody": "This device or browser has no camera the app can use. Show your own QR code to your friend instead.",
+  "friendsScanCameraFailedTitle": "Could not start the camera",
+  "friendsScanCameraFailedBody": "Check that no other app is using the camera and that you are online (in a browser the scanner is downloaded on first use), then try again.",
   "friendsScanConfirmBody": "{sp} SP · {streak}-day streak",
   "@friendsScanConfirmBody": {
     "placeholders": {

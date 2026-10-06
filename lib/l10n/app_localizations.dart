@@ -2318,6 +2318,54 @@ abstract class AppLocalizations {
   /// **'Invalid QR code'**
   String get friendsScanError;
 
+  /// No description provided for @friendsScanTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get friendsScanTryAgain;
+
+  /// No description provided for @friendsScanCameraDeniedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera access is blocked'**
+  String get friendsScanCameraDeniedTitle;
+
+  /// No description provided for @friendsScanCameraDeniedWeb.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow the camera for this site (the camera or lock icon in the address bar), then press Try again. Or show your own QR code to your friend instead.'**
+  String get friendsScanCameraDeniedWeb;
+
+  /// No description provided for @friendsScanCameraDeniedApp.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow camera access for CaliDay in your device settings, then press Try again.'**
+  String get friendsScanCameraDeniedApp;
+
+  /// No description provided for @friendsScanCameraUnsupportedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No camera available'**
+  String get friendsScanCameraUnsupportedTitle;
+
+  /// No description provided for @friendsScanCameraUnsupportedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This device or browser has no camera the app can use. Show your own QR code to your friend instead.'**
+  String get friendsScanCameraUnsupportedBody;
+
+  /// No description provided for @friendsScanCameraFailedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not start the camera'**
+  String get friendsScanCameraFailedTitle;
+
+  /// No description provided for @friendsScanCameraFailedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Check that no other app is using the camera and that you are online (in a browser the scanner is downloaded on first use), then try again.'**
+  String get friendsScanCameraFailedBody;
+
   /// No description provided for @friendsScanConfirmBody.
   ///
   /// In en, this message translates to:

@@ -544,6 +544,14 @@
   "friendsAdded": "Друг добавлен!",
   "friendsUpdated": "Профиль обновлён!",
   "friendsScanError": "Неверный QR-код",
+  "friendsScanTryAgain": "Повторить",
+  "friendsScanCameraDeniedTitle": "Доступ к камере заблокирован",
+  "friendsScanCameraDeniedWeb": "Разрешите камеру для этого сайта (значок камеры или замка в адресной строке) и нажмите «Повторить». Или покажите другу свой QR-код.",
+  "friendsScanCameraDeniedApp": "Разрешите CaliDay доступ к камере в настройках устройства и нажмите «Повторить».",
+  "friendsScanCameraUnsupportedTitle": "Камера недоступна",
+  "friendsScanCameraUnsupportedBody": "На этом устройстве или в браузере нет камеры, доступной приложению. Покажите другу свой QR-код.",
+  "friendsScanCameraFailedTitle": "Не удалось запустить камеру",
+  "friendsScanCameraFailedBody": "Проверьте, что камеру не занимает другое приложение и что есть интернет (в браузере сканер загружается при первом использовании), и повторите.",
   "friendsScanConfirmBody": "{sp} SP · стрик {streak} дней",
   "@friendsScanConfirmBody": {
     "placeholders": {

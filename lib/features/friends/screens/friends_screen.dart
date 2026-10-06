@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:math' as math;
 
 import 'package:flutter/foundation.dart';
@@ -130,9 +129,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
   }
 
   String _buildQrPayload() {
-    final data = _buildProfileJson();
-    final encoded = base64Url.encode(utf8.encode(jsonEncode(data)));
-    return 'caliday://friend?data=$encoded';
+    return FriendProfile.buildQrPayload(_buildProfileJson());
   }
 
   void _showMyQr(BuildContext context) {

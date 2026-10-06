@@ -1,10 +1,10 @@
-import 'dart:convert';
-
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../data/models/friend_profile.dart';
+import '../widgets/scanner_error_view.dart';
 
 class QrScanScreen extends StatefulWidget {
   const QrScanScreen({super.key});
@@ -26,26 +26,12 @@ class _QrScanScreenState extends State<QrScanScreen> {
     super.dispose();
   }
 
-  FriendProfile? _parse(String raw) {
-    try {
-      final uri = Uri.parse(raw);
-      if (uri.scheme != 'caliday' || uri.host != 'friend') return null;
-      final data = uri.queryParameters['data'];
-      if (data == null) return null;
-      final normalized = base64Url.normalize(data);
-      final json = jsonDecode(utf8.decode(base64Url.decode(normalized)));
-      return FriendProfile.fromQrJson(json as Map<String, dynamic>);
-    } catch (_) {
-      return null;
-    }
-  }
-
   Future<void> _onDetect(BarcodeCapture capture) async {
     if (_processing) return;
     final raw = capture.barcodes.firstOrNull?.rawValue;
     if (raw == null) return;
 
-    final friend = _parse(raw);
+    final friend = FriendProfile.tryParseQrPayload(raw);
     if (friend == null) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -65,6 +51,20 @@ class _QrScanScreenState extends State<QrScanScreen> {
     } else {
       if (mounted) setState(() => _processing = false);
       await _controller.start();
+    }
+  }
+
+  /// Restarts the camera after an error (e.g. once the user has allowed it).
+  /// A failure is shown by the error view, so it is not rethrown here.
+  Future<void> _retry() async {
+    try {
+      // On the web start() creates its barcode reader before asking for the
+      // camera and keeps it when that fails, so a plain second start() answers
+      // "already running". Reset the platform first (mobile_scanner 7.2.0).
+      if (kIsWeb) await MobileScannerPlatform.instance.stop();
+      await _controller.start();
+    } on MobileScannerException {
+      // Surfaced through MobileScanner.errorBuilder.
     }
   }
 
@@ -100,18 +100,20 @@ class _QrScanScreenState extends State<QrScanScreen> {
           MobileScanner(
             controller: _controller,
             onDetect: _onDetect,
-          ),
-          // Corner guide overlay
-          Center(
-            child: Container(
-              width: 220,
-              height: 220,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.primary,
-                  width: 2,
+            errorBuilder: (context, error) =>
+                ScannerErrorView(error: error, onRetry: _retry),
+            // Only drawn while the camera preview is visible.
+            overlayBuilder: (context, constraints) => Center(
+              child: Container(
+                width: 220,
+                height: 220,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Theme.of(context).colorScheme.primary,
+                    width: 2,
+                  ),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                borderRadius: BorderRadius.circular(12),
               ),
             ),
           ),

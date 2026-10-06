@@ -1281,6 +1281,34 @@ class AppLocalizationsRu extends AppLocalizations {
   String get friendsScanError => 'Неверный QR-код';
 
   @override
+  String get friendsScanTryAgain => 'Повторить';
+
+  @override
+  String get friendsScanCameraDeniedTitle => 'Доступ к камере заблокирован';
+
+  @override
+  String get friendsScanCameraDeniedWeb =>
+      'Разрешите камеру для этого сайта (значок камеры или замка в адресной строке) и нажмите «Повторить». Или покажите другу свой QR-код.';
+
+  @override
+  String get friendsScanCameraDeniedApp =>
+      'Разрешите CaliDay доступ к камере в настройках устройства и нажмите «Повторить».';
+
+  @override
+  String get friendsScanCameraUnsupportedTitle => 'Камера недоступна';
+
+  @override
+  String get friendsScanCameraUnsupportedBody =>
+      'На этом устройстве или в браузере нет камеры, доступной приложению. Покажите другу свой QR-код.';
+
+  @override
+  String get friendsScanCameraFailedTitle => 'Не удалось запустить камеру';
+
+  @override
+  String get friendsScanCameraFailedBody =>
+      'Проверьте, что камеру не занимает другое приложение и что есть интернет (в браузере сканер загружается при первом использовании), и повторите.';
+
+  @override
   String friendsScanConfirmBody(int sp, int streak) {
     return '$sp SP · стрик $streak дней';
   }

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:hive_ce/hive_ce.dart';
 
 part 'friend_profile.g.dart';
@@ -46,6 +48,25 @@ class FriendProfile extends HiveObject {
   /// When we last received an update from this friend.
   @HiveField(8)
   DateTime lastSynced;
+
+  /// The text a friend QR code carries: `caliday://friend?data=BASE64URL(json)`.
+  static String buildQrPayload(Map<String, dynamic> json) =>
+      'caliday://friend?data=${base64Url.encode(utf8.encode(jsonEncode(json)))}';
+
+  /// Parses what [buildQrPayload] produced; null for anything else (another
+  /// scheme or host, no data, bad base64 / JSON, missing or mistyped fields).
+  static FriendProfile? tryParseQrPayload(String raw) {
+    try {
+      final uri = Uri.parse(raw);
+      if (uri.scheme != 'caliday' || uri.host != 'friend') return null;
+      final data = uri.queryParameters['data'];
+      if (data == null) return null;
+      final json = jsonDecode(utf8.decode(base64Url.decode(base64Url.normalize(data))));
+      return fromQrJson(json as Map<String, dynamic>);
+    } catch (_) {
+      return null;
+    }
+  }
 
   /// Parse from a BLE GATT read (raw UTF-8 JSON, same structure as QR payload).
   static FriendProfile fromBleJson(Map<String, dynamic> json) =>

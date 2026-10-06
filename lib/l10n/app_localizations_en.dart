@@ -1273,6 +1273,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String get friendsScanError => 'Invalid QR code';
 
   @override
+  String get friendsScanTryAgain => 'Try again';
+
+  @override
+  String get friendsScanCameraDeniedTitle => 'Camera access is blocked';
+
+  @override
+  String get friendsScanCameraDeniedWeb =>
+      'Allow the camera for this site (the camera or lock icon in the address bar), then press Try again. Or show your own QR code to your friend instead.';
+
+  @override
+  String get friendsScanCameraDeniedApp =>
+      'Allow camera access for CaliDay in your device settings, then press Try again.';
+
+  @override
+  String get friendsScanCameraUnsupportedTitle => 'No camera available';
+
+  @override
+  String get friendsScanCameraUnsupportedBody =>
+      'This device or browser has no camera the app can use. Show your own QR code to your friend instead.';
+
+  @override
+  String get friendsScanCameraFailedTitle => 'Could not start the camera';
+
+  @override
+  String get friendsScanCameraFailedBody =>
+      'Check that no other app is using the camera and that you are online (in a browser the scanner is downloaded on first use), then try again.';
+
+  @override
   String friendsScanConfirmBody(int sp, int streak) {
     return '$sp SP · $streak-day streak';
   }
