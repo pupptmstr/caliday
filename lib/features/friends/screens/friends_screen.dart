@@ -4,7 +4,6 @@ import 'dart:math' as math;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/services/ble_service.dart';
@@ -14,6 +13,7 @@ import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../providers/friends_provider.dart';
 import '../widgets/friend_detail_bottom_sheet.dart';
+import '../widgets/friend_qr_card.dart';
 import 'qr_scan_screen.dart';
 
 class FriendsScreen extends ConsumerStatefulWidget {
@@ -169,33 +169,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
                 textAlign: TextAlign.center,
               ),
               const SizedBox(height: 20),
-              Container(
-                padding: const EdgeInsets.all(12),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    QrImageView(
-                      data: payload,
-                      version: QrVersions.auto,
-                      size: 200,
-                      errorCorrectionLevel: QrErrorCorrectLevel.H,
-                    ),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(8),
-                      child: Image.asset(
-                        'assets/icon/icon.png',
-                        width: 42,
-                        height: 42,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              FriendQrCard(payload: payload),
               const SizedBox(height: 8),
             ],
           ),
