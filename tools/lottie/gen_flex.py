@@ -10,7 +10,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from goro_rig import P, Spec, at_hips, ik_to_fk, write  # noqa: E402
+from goro_rig import P, Spec, mk, plant, write  # noqa: E402
 
 
 # ── flex_s1_hip_flexor_stretch ───────────────────────────────────────────────
@@ -35,18 +35,6 @@ def hip_flexor():
         bends={'leg_f': (0, 1)},
         order=['uarm_r', 'farm_r', 'head', 'thigh_r', 'shin_r', 'foot_r',
                'body', 'thigh_l', 'shin_l', 'foot_l', 'uarm_l', 'farm_l'])
-
-
-def mk(base, hips, br, **kw):
-    """Pose with the torso placed by its hips (bottom-centre) and lean ``br``."""
-    return P(base, **at_hips(hips, br), **kw)
-
-
-def plant(pose, limb, target, bend=None):
-    """Switch ``limb`` to the FK angles that reach ``target`` in ``pose``."""
-    pose = dict(pose)
-    pose[limb] = ik_to_fk(pose, limb, target, bend)
-    return pose
 
 
 # ── flex_s2_worlds_greatest_stretch ──────────────────────────────────────────

@@ -127,12 +127,17 @@ BASE_POSE = dict(
     cx=200.0, cy=288.0, br=0.0,
     head=HEAD_DEFAULT, ht=0.0,
     hip_n=8.0, hip_f=2.0,
+    # Torso-local x of each shoulder; moving them in opposite directions fakes
+    # a twist of the torso about its long axis in a side view.
+    sh_n=SHOULDER[0], sh_f=SHOULDER[0],
     leg_n=(0.0, 0.0), leg_f=(0.0, 0.0),
     arm_n=(0.0, 0.0), arm_f=(0.0, 0.0),
     foot_n=(4.0, 0.0, 0.0), foot_f=(4.0, 0.0, 0.0),
     # Foreshortening (1 = full length) for 3-D illusions, per segment.
     sc_thigh_n=1.0, sc_shin_n=1.0, sc_thigh_f=1.0, sc_shin_f=1.0,
     sc_uarm_n=1.0, sc_farm_n=1.0, sc_uarm_f=1.0, sc_farm_f=1.0,
+    # Torso thickness scale: widens the torso as it turns towards the viewer.
+    sc_torso=1.0,
 )
 
 
@@ -162,7 +167,7 @@ class Spec:
     """
 
     def __init__(self, name, frames, keys, modes=None, bends=None, order=None,
-                 step=2):
+                 step=2, fade=None):
         self.name = name
         self.frames = frames
         self.keys = keys  # [(frame, pose, ease)] — ease: smooth|linear|hold
@@ -172,6 +177,10 @@ class Spec:
         self.bends.update(bends or {})
         self.order = order or DEFAULT_ORDER
         self.step = step
+        # Layer name -> f(frame) -> opacity 0..100. A name like 'uarm_r@b' in
+        # ``order`` is a second copy of 'uarm_r' (same transform, own z-order),
+        # so a limb can be crossfaded from in front of the torso to behind it.
+        self.fade = fade or {}
 
     def pose_at(self, t):
         ks = self.keys
@@ -190,7 +199,7 @@ def joint_of(pose, limb):
     """World position of the limb's root joint (shoulder or hip)."""
     c = (pose['cx'], pose['cy'])
     if limb.startswith('arm'):
-        return add(c, rot(SHOULDER, pose['br']))
+        return add(c, rot((pose['sh_' + limb[-1]], SHOULDER[1]), pose['br']))
     hip_x = pose['hip_' + limb[-1]]
     return add(c, rot((hip_x, TORSO_H / 2), pose['br']))
 
@@ -200,6 +209,11 @@ def ik_to_fk(pose, limb, target, bend=None):
     l1, l2 = (UARM, FARM) if limb.startswith('arm') else (THIGH, SHIN)
     return ik2(joint_of(pose, limb), target, l1, l2,
                bend or DEFAULT_BENDS[limb])
+
+
+def head_pos(pose):
+    """World position of the head centre."""
+    return add((pose['cx'], pose['cy']), rot(pose['head'], pose['br']))
 
 
 def at_hips(hips, br, **kw):
@@ -215,7 +229,7 @@ def solve(spec, pose):
     out = {}
     c = (pose['cx'], pose['cy'])
     br = pose['br']
-    out['body'] = dict(p=c, r=br, s=(100, 100))
+    out['body'] = dict(p=c, r=br, s=(100 * pose['sc_torso'], 100))
 
     hx, hy = pose['head']
     out['head'] = dict(p=add(c, rot((hx, hy), br)), r=br + pose['ht'],
@@ -381,15 +395,19 @@ def build(spec):
 
     layers = []
     for idx, nm in enumerate(spec.order, start=1):
-        pos = [f[nm]['p'] for f in frames]
-        rots = _unwrap([f[nm]['r'] for f in frames])
-        scl = [f[nm]['s'] for f in frames]
-        far = nm.endswith('_l')
+        base = nm.split('@')[0]
+        pos = [f[base]['p'] for f in frames]
+        rots = _unwrap([f[base]['r'] for f in frames])
+        scl = [f[base]['s'] for f in frames]
+        far = base.endswith('_l')
+        if nm in spec.fade:
+            opacity = _prop(times, [(spec.fade[nm](t),) for t in times])
+        else:
+            opacity = {"a": 0, "k": [FAR_OPACITY if far else 100]}
         layers.append(_layer(
-            nm, idx, spec.frames, _part_shapes(nm),
+            nm, idx, spec.frames, _part_shapes(base),
             _prop(times, pos), _prop(times, [(r,) for r in rots]),
-            _prop(times, scl),
-            {"a": 0, "k": [FAR_OPACITY if far and nm != 'body' else 100]}))
+            _prop(times, scl), opacity))
     layers.append(_static_layer('floor_line', 96, spec.frames,
                                 (200, FLOOR_Y, 400, 2), FLOOR_LINE, 5))
     layers.append(_static_layer('floor', 97, spec.frames,
@@ -400,8 +418,30 @@ def build(spec):
 
 
 def write(spec, directory):
-    data = build(spec)
+    data = spec.build() if hasattr(spec, 'build') else build(spec)
     path = f'{directory}/{spec.name}.json'
     with open(path, 'w') as f:
         json.dump(data, f, separators=(',', ':'))
     return path
+
+
+def mk(base, hips, br, **kw):
+    """Pose with the torso placed by its hips (bottom-centre) and lean ``br``."""
+    return P(base, **at_hips(hips, br), **kw)
+
+
+def plant(pose, limb, target, bend=None):
+    """Switch ``limb`` to the FK angles that reach ``target`` in ``pose``."""
+    pose = dict(pose)
+    pose[limb] = ik_to_fk(pose, limb, target, bend)
+    return pose
+
+
+def align(pose, ref, *limbs):
+    """Shift ``limbs`` FK angles by multiples of 360 so they sit within 180 of
+    ``ref``'s, i.e. interpolating from ``ref`` takes the short way round."""
+    pose = dict(pose)
+    for limb in limbs:
+        pose[limb] = tuple(
+            a - 360 * round((a - r) / 360) for a, r in zip(pose[limb], ref[limb]))
+    return pose

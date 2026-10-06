@@ -25,6 +25,7 @@ class SupplementaryExerciseCatalog {
     startRestSec: 20,
     targetRestSec: 20,
     spBase: 1,
+    animationPath: 'assets/animations/supp_oblique_crunch.json',
   );
 
   static const Exercise russianTwists = Exercise(
@@ -44,6 +45,7 @@ class SupplementaryExerciseCatalog {
     targetRestSec: 20,
     spBase: 1,
     techniqueTip: 'Keep your back straight, don\'t hunch.',
+    animationPath: 'assets/animations/supp_russian_twists.json',
   );
 
   static const Exercise sidePlank = Exercise(
@@ -63,6 +65,7 @@ class SupplementaryExerciseCatalog {
     targetRestSec: 20,
     spBase: 1,
     techniqueTip: 'Don\'t let your hips drop — keep the line straight.',
+    animationPath: 'assets/animations/supp_side_plank.json',
   );
 
   static const Exercise standingCalfRaise = Exercise(
@@ -81,6 +84,7 @@ class SupplementaryExerciseCatalog {
     startRestSec: 20,
     targetRestSec: 20,
     spBase: 1,
+    animationPath: 'assets/animations/supp_standing_calf_raise.json',
   );
 
   static const Exercise singleLegCalfRaise = Exercise(
@@ -100,6 +104,7 @@ class SupplementaryExerciseCatalog {
     targetRestSec: 20,
     spBase: 1,
     techniqueTip: 'Slow tempo — more benefit.',
+    animationPath: 'assets/animations/supp_single_leg_calf_raise.json',
   );
 
   static const Exercise deadBug = Exercise(
@@ -120,6 +125,7 @@ class SupplementaryExerciseCatalog {
     targetRestSec: 20,
     spBase: 1,
     techniqueTip: 'Keep your lower back pressed to the floor throughout.',
+    animationPath: 'assets/animations/supp_dead_bug.json',
   );
 
   static const Exercise birdDog = Exercise(
@@ -139,6 +145,7 @@ class SupplementaryExerciseCatalog {
     targetRestSec: 20,
     spBase: 1,
     techniqueTip: 'Don\'t rotate your pelvis — keep it level.',
+    animationPath: 'assets/animations/supp_bird_dog.json',
   );
 
   static const Exercise neckIsometrics = Exercise(
@@ -158,6 +165,7 @@ class SupplementaryExerciseCatalog {
     targetRestSec: 10,
     spBase: 0,
     techniqueTip: 'Gentle pressure — don\'t force it.',
+    animationPath: 'assets/animations/supp_neck_isometrics.json',
   );
 
   static const Exercise wristCircles = Exercise(
@@ -176,6 +184,7 @@ class SupplementaryExerciseCatalog {
     startRestSec: 0,
     targetRestSec: 0,
     spBase: 0,
+    animationPath: 'assets/animations/warmup_wrist_circles.json',
   );
 
   static const List<Exercise> all = [

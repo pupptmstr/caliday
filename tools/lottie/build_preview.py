@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 """Builds a self-contained preview page that plays Lottie animations.
 
-Usage: python3 tools/lottie/build_preview.py [--out FILE] [--fragment] [name ...]
+Usage: python3 tools/lottie/build_preview.py [--preset flex|supp] [--out FILE]
+                                              [--fragment] [name ...]
 
-Defaults to every assets/animations/flex_*.json, written to
-build/lottie_preview.html as a standalone page (lottie-web comes from cdnjs).
+The flex preset (default) shows every assets/animations/flex_*.json, the supp
+preset the supplementary pool. The page is written to build/lottie_preview.html
+as a standalone file (lottie-web comes from cdnjs).
 --fragment omits the <!doctype>/<html> wrapper (the form the Artifact tool wants).
 """
 
@@ -35,6 +37,59 @@ INFO = {
         'Сидя ровно, затем складка вперёд от бёдер и руки к носкам.'),
 }
 
+
+SUPP_INFO = {
+    'supp_oblique_crunch': (
+        'Косые скручивания', 'Кор', '2 × 10 повторений',
+        'Вид сверху: лёжа на спине, руки за головой, корпус поворачивается и локоть тянется к противоположному колену.'),
+    'supp_russian_twists': (
+        'Русские скручивания', 'Кор', '2 × 12 повторений',
+        'Сидя с поднятыми ногами: корпус поворачивается, руки уходят то к камере, то за торс.'),
+    'supp_side_plank': (
+        'Боковая планка', 'Кор', '2 × удержание 20 с',
+        'Тело в одной линии на предплечье, бёдра чуть «дышат», верхняя рука вверх.'),
+    'supp_standing_calf_raise': (
+        'Подъёмы на носки', 'Ноги', '2 × 15 повторений',
+        'Медленный подъём на носки и контролируемое опускание.'),
+    'supp_single_leg_calf_raise': (
+        'Подъём на носок (одна нога)', 'Ноги', '2 × 10 повторений',
+        'То же на одной ноге: вторая согнута назад, руки на поясе, лёгкий баланс.'),
+    'supp_dead_bug': (
+        'Мёртвый жук', 'Кор', '2 × 8 повторений',
+        'Лёжа: рука уходит за голову, противоположная нога вытягивается, затем наоборот.'),
+    'supp_bird_dog': (
+        'Птица-собака', 'Кор', '2 × 8 повторений',
+        'На четвереньках: рука вперёд и противоположная нога назад в линию со спиной.'),
+    'supp_neck_isometrics': (
+        'Изометрика шеи', 'Шея', '30 с',
+        'Ладонь давит на лоб, висок и затылок по очереди, шея сопротивляется.'),
+    'supp_wrist_circles': (
+        'Вращения запястьями', 'Кисти', '30 с',
+        'Готовая анимация warmup_wrist_circles: кулаки вращаются в обе стороны.'),
+}
+INFO.update(SUPP_INFO)
+
+# name -> (page title, heading, lead, file names). A card's file may differ from
+# its id (supp_wrist_circles reuses warmup_wrist_circles.json).
+PRESETS = {
+    'flex': (
+        'Стенд анимаций Flex', 'Анимации ветки Flex',
+        'Анимации Goro так, как они играют в приложении: по кругу, 12 кадров в секунду. '
+        'Размер «Миниатюра» показывает, что читается в карточке библиотеки.',
+        None),
+    'supp': (
+        'Стенд дополнительных упражнений', 'Анимации дополнительных упражнений',
+        'Девять упражнений пула для бонусных тренировок, как они играют в приложении: '
+        'по кругу, 12 кадров в секунду. Косые скручивания показаны сверху, русские '
+        'скручивания в профиле условно: вращение корпуса передано поворотом плеч '
+        'и сменой слоёв.',
+        [('supp_oblique_crunch', None), ('supp_russian_twists', None),
+         ('supp_side_plank', None), ('supp_standing_calf_raise', None),
+         ('supp_single_leg_calf_raise', None), ('supp_dead_bug', None),
+         ('supp_bird_dog', None), ('supp_neck_isometrics', None),
+         ('supp_wrist_circles', 'warmup_wrist_circles')]),
+}
+
 STANDALONE_HEAD = ('<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n'
                    '<meta name="viewport" content="width=device-width, initial-scale=1">\n')
 STANDALONE_RESET = ('<style>body{margin:0}[hidden]{display:none!important}</style>\n')
@@ -44,21 +99,28 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--out', default=os.path.join(ROOT, 'build', 'lottie_preview.html'))
     ap.add_argument('--fragment', action='store_true')
+    ap.add_argument('--preset', choices=sorted(PRESETS), default='flex')
     ap.add_argument('names', nargs='*')
     args = ap.parse_args()
 
-    names = args.names or sorted(
-        os.path.basename(p)[:-5]
-        for p in glob.glob(os.path.join(ANIMATIONS, 'flex_*.json')))
+    title, heading, lead, cards = PRESETS[args.preset]
+    if args.names:
+        cards = [(n, None) for n in args.names]
+    elif cards is None:
+        cards = [(os.path.basename(p)[:-5], None) for p in sorted(
+            glob.glob(os.path.join(ANIMATIONS, 'flex_*.json')))]
+
     data, meta = {}, []
-    for n in names:
-        with open(os.path.join(ANIMATIONS, n + '.json')) as f:
-            data[n] = json.load(f)
-        title, stage, kind, text = INFO.get(n, (n, '', '', ''))
-        meta.append(dict(id=n, title=title, stage=stage, kind=kind, text=text))
+    for card_id, file_name in cards:
+        with open(os.path.join(ANIMATIONS, (file_name or card_id) + '.json')) as f:
+            data[card_id] = json.load(f)
+        card_title, stage, kind, text = INFO.get(card_id, (card_id, '', '', ''))
+        meta.append(dict(id=card_id, title=card_title, stage=stage, kind=kind, text=text))
 
     with open(os.path.join(os.path.dirname(__file__), 'preview_template.html')) as f:
         page = f.read()
+    for key, value in (('__TITLE__', title), ('__H1__', heading), ('__LEAD__', lead)):
+        page = page.replace(key, value)
     page = page.replace('__META__', json.dumps(meta, ensure_ascii=False))
     page = page.replace('__DATA__', json.dumps(data, separators=(',', ':')))
 
