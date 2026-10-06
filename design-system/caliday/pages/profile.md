@@ -2,7 +2,7 @@
 
 > **PROJECT:** CaliDay
 > **Screen:** Profile (stats, rank, achievements tab)
-> **Last updated:** 2026-03-23
+> **Last updated:** 2026-10-06
 >
 > Rules here **override** `design-system/caliday/MASTER.md`.
 
@@ -11,7 +11,7 @@
 ## Screen Purpose
 
 The Profile screen shows the user's progress snapshot:
-rank, SP total, workout stats, streak record, and achievements.
+rank, SP total, workout stats, streak record, achievements and a heatmap of the recent history.
 It is read-heavy — the goal is **data at a glance with visual reward feeling**.
 
 ---
@@ -26,13 +26,16 @@ It is read-heavy — the goal is **data at a glance with visual reward feeling**
 │  _RankCard (gradient bg)       │
 │  rank icon + name + SP + bar   │
 ├────────────────────────────────┤
-│  _StatsGrid (2×2)              │
-│  streak | record               │
-│  workouts | freezes            │
+│  _StatsGrid (one row of 4)     │
+│  streak|record|workouts|freezes│
 ├────────────────────────────────┤
 │  Friends count (if any)        │
 ├────────────────────────────────┤
 │  Achievements row (scrollable) │
+├────────────────────────────────┤
+│  History: CompactHeatmap       │
+│  (13×7) + "Open →" + last 5    │
+│  workout tiles                 │
 └────────────────────────────────┘
 ```
 
@@ -41,6 +44,8 @@ It is read-heavy — the goal is **data at a glance with visual reward feeling**
 ## Rank Card
 
 **Background:** `AppTheme.rankGradient` — `LinearGradient(brandBlue → brandBlueDark)`
+
+**Decayed rank:** the card shows the *effective* rank (what the user is currently rated) with an amber warning icon when it is lower than the earned one; tapping opens `showRankInfoSheet()`.
 
 **Text:** white throughout. Rank name: 24sp, w900. SP value: 20sp, w700.
 
@@ -52,7 +57,7 @@ It is read-heavy — the goal is **data at a glance with visual reward feeling**
 
 ---
 
-## Stats Grid (2×2)
+## Stats Grid (one row of four cells)
 
 Each `_StatCell`:
 - Value (number): **26sp, w900** — large display type, dominant visual
@@ -91,10 +96,3 @@ isStreak: true → special treatment:
 - ❌ Flat rank card (no gradient) — rank should feel like a reward/badge
 - ❌ Missing shadows on cards — profile feels flat and cheap without depth
 
----
-
-## Future Enhancements (backlog)
-
-- **Stat tooltips (idea):** Tap streak/rank/SP icons → small tooltip explaining what the metric means.
-  See DEV_NOTES.md spec for "Profile Stat Tooltips".
-- **v2.0 Liquid Glass:** frosted card surfaces replacing solid gradients.

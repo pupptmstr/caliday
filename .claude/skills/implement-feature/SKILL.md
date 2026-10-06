@@ -59,10 +59,13 @@ Principles:
 ## Step 5 — Verify
 
 ```bash
-flutter analyze          # Required — fix all warnings
-flutter test             # If tests exist
+flutter analyze          # Required — must stay at zero issues
+flutter test             # Required — add or adjust tests for new logic (see ARCHITECTURE.md § Testing)
 dart run build_runner build   # If models changed
+flutter gen-l10n         # If .arb files changed
 ```
+
+For UI, also run the app and look at it (`flutter run -d web-server` + the in-app browser; dev options are debug-only). Static checks do not show a screen that renders wrong.
 
 ## Step 6 — Bump version in pubspec.yaml
 
@@ -88,7 +91,6 @@ Use the `pre-commit` skill:
 - [ ] New cards have `AppTheme.cardShadowLight/Dark` — no flat cards
 - [ ] CTA buttons use gradient (`AppTheme.heroGradient` / `AppTheme.rankGradient`) not flat fill
 - [ ] Colors only via `AppTheme` tokens — no hardcoded hex in widget code
-- [ ] Use `ui-ux-pro-max` skill for style decisions: `--domain ux`, `--domain style`, `--design-system`
 - [ ] Run `flutter analyze` — no warnings
 
 ## Checklist for features with Hive CE changes
@@ -98,6 +100,12 @@ Use the `pre-commit` skill:
 - [ ] `.g.dart` file regenerated (`dart run build_runner build`)
 - [ ] New fields documented in ARCHITECTURE.md → UserProfile HiveFields
 - [ ] `main.dart`: if new Hive box added — `await Hive.openBox<T>('name')` present
+
+## Checklist for logic with dates or notifications
+
+- [ ] Day counts / day offsets only through `lib/core/utils/calendar_days.dart` (never `difference().inDays` or `Duration(days: n)` arithmetic on local dates — DST)
+- [ ] The decision is a pure function with an injectable `now`, covered by a test (DST cases for Europe/Berlin: 2026-03-29, 2026-10-25)
+- [ ] New `NotificationService` scheduler: `if (kIsWeb) return;` guard, respects `notificationsEnabled`, and — if it is a one-off alert — is re-created in `scheduleAll()` (it starts with `cancelAll()`)
 
 ## Checklist for features using libraries
 

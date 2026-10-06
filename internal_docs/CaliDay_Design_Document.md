@@ -4,6 +4,10 @@ _Gamified Home Workouts_
 
 **Design Document v1.0** | February 2026
 
+> **Status (October 2026):** this is the original design document — the vision as of February 2026, not the current
+> specification. What is implemented, and how, is in `internal_docs/ARCHITECTURE.md`; the plan is its Feature Backlog.
+> Places where the product went another way are marked **[now]**.
+
 ---
 
 ## 1. Vision & Overview
@@ -21,7 +25,7 @@ increasing difficulty and load.
 | Progression Stage | Exercise level (knee → full → diamond push-ups)            |
 | Streak            | Consecutive days of at least one completed set             |
 | XP                | Strength Points (SP)                                       |
-| Player Levels     | Ranks (Beginner → Athlete → Master)                        |
+| Player Levels     | Ranks (Beginner → Amateur → Athlete → Champion → Master → Legend) |
 | Progression Map   | Exercise tree with stage unlocking                         |
 
 ### 1.2 Principles
@@ -181,10 +185,11 @@ completing a full set. Bonus for the first set of the day.
 
 The number of consecutive days the user completed at least one set. Displayed on the home screen.
 A "streak freeze" mechanic is available — a one-time streak shield for a missed day (earned via achievements).
+**[now]** a freeze is earned for every 7 days of streak (max 3 in stock) and used automatically when exactly one day was skipped.
 
 ### 5.3 Ranks
 
-| Rank      | Requirement | Reward                   |
+| Rank      | Requirement | Reward (planned)         |
 |-----------|-------------|--------------------------|
 | Beginner  | Start        | —                        |
 | Amateur   | 500 SP       | New icons                |
@@ -192,6 +197,8 @@ A "streak freeze" mechanic is available — a one-time streak shield for a misse
 | Champion  | 5,000 SP     | New themes               |
 | Master    | 15,000 SP    | Gold badge               |
 | Legend    | 50,000 SP    | Secret theme             |
+
+**[now]** the six ranks and thresholds are as in the table. The rewards are **not implemented**: a rank is a status. Instead, a rank that is not trained for 21 days is shown one tier lower (further tiers at 35 / 45 / 53 / 59 days) and is restored by the next workout.
 
 ### 5.4 Achievements
 
@@ -208,6 +215,8 @@ Example achievements:
 
 A grid of days in the style of a GitHub contribution graph, where colour intensity reflects the SP
 earned on that day. Helps visualise workout consistency.
+
+**[now]** implemented as a monthly calendar (`/calendar`, with a day-detail sheet) and a 13-week heatmap on the Profile screen. The intensity is the number of workouts that day (1 / 2+), not SP; days where a streak freeze was used are marked.
 
 ---
 
@@ -326,6 +335,8 @@ On the first launch the app runs a short survey to calibrate the starting level:
 ---
 
 ## 10. MVP
+
+> **[now]** The version numbers below were renumbered to 0.x while the app is pre-release (v1.0 = first public release). Everything listed under 10.1 and 10.2, plus custom sets, Apple Health / Health Connect, Android and Russian / English localisation from 10.3, is implemented; see the Feature Backlog in `ARCHITECTURE.md`. Open from 10.3: the Apple Watch companion and video demonstrations.
 
 ### 10.1 MVP v1.0 — First Release
 

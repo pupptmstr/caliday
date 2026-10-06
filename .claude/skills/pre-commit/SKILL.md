@@ -7,6 +7,10 @@ description: Pre-commit workflow for CaliDay project. Use before every git commi
 
 Perform the following steps in order before every commit.
 
+## Step 0 — Verify
+
+`flutter analyze` (zero issues) and `flutter test` must pass. If the change touches the UI, run the app and look at it.
+
 ## Step 1 — Update history in DEV_NOTES.md
 
 Add an entry to the "Change History" section (`internal_docs/DEV_NOTES.md`).
@@ -60,7 +64,7 @@ Update auto-memory (`.claude/projects/.../memory/MEMORY.md` and memory files) if
 - New HiveField numbers or typeIds
 - Backlog changes (what was implemented)
 
-Do not duplicate what is already in ARCHITECTURE.md — memory is for quick access to the most important things.
+Do not duplicate what is already in ARCHITECTURE.md — memory is for quick access to the most important things. `MEMORY.md` is an index (one line per entry, under 200 lines); the facts live in the topic files next to it.
 
 ## Step 5 — Create the commit
 

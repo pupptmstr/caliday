@@ -15,11 +15,13 @@ All data is stored locally (Hive), no backend, free, no ads.
 | `design-system/caliday/MASTER.md` | UX style rules (Vibrant & Block-based), spacing, component specs |
 | `design-system/caliday/pages/` | Per-screen design rules (home.md, profile.md) |
 | `internal_docs/CaliDay_Design_Document.md` | Product design document |
+| `internal_docs/tz_designer.md` | Brief for the Lottie animations (status per branch, how they are generated) |
+| `docs/` | Public legal pages (Privacy Policy, Terms of Use) published to GitHub Pages — URLs are referenced from the app and store listings |
 | `internal_docs/design-concept/caliday_design_concept.md` | Goro mascot design, colors, icons |
 
 ## Tech Stack (brief)
 
-Flutter + Riverpod 3.x + Hive CE + go_router. iOS primary, Android secondary.
+Flutter + Riverpod 3.x + Hive CE + go_router. iOS primary, Android secondary, Web (PWA on GitHub Pages).
 
 ## Library Research — Context7 (mandatory)
 
@@ -38,9 +40,9 @@ for library APIs — it may be outdated.
 
 ```bash
 flutter run                       # Run
-flutter test                      # Tests
+flutter test                      # Tests (400+, no device needed — see ARCHITECTURE § Testing)
 flutter analyze                   # Linter
-dart run build_runner build       # Code generation (Isar/Hive adapters)
+dart run build_runner build       # Code generation (Hive adapters)
 dart run flutter_launcher_icons   # Icons
 flutter gen-l10n                  # L10n
 flutter build web --release --base-href /caliday/app/   # Web build (CI deploys it to GitHub Pages)
@@ -55,6 +57,10 @@ python3 tools/lottie/build_preview.py --preset flex|supp|posture|neck|cooldown|p
 - Dart style guide, snake_case files, PascalCase classes
 - Widgets: StatelessWidget + ConsumerWidget
 - API comments in English, UI strings via l10n
+- **Day arithmetic only through `lib/core/utils/calendar_days.dart`** — never `DateTime.difference().inDays` or `subtract/add(Duration(days: n))` on local dates (DST: a day can be 23 / 25 h)
+- **Every new `NotificationService` scheduler needs an `if (kIsWeb) return;` guard**, and a one-off alert has to be re-created in `scheduleAll()` (it starts with `cancelAll()`)
+- New logic gets a test (`test/`); keep decisions in pure functions with an injectable `now`. `flutter analyze` must stay at zero issues
+- Check the UI by running it: `flutter run -d web-server` + the in-app browser (dev options are debug-only)
 
 ## Agent Skills (recurring operations)
 

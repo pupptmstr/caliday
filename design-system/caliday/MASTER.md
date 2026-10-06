@@ -205,7 +205,7 @@ Recommended direction: `Barlow Condensed` (headings) + `Barlow` (body) — athle
 
 ### Additional Forbidden Patterns
 
-- ❌ **Emojis as icons** — Use SVG icons (Heroicons, Lucide, Simple Icons)
+- ❌ **Emojis as icons** — Use Material Icons (`Icons.*`) or SVG; emoji only as content (achievements, locale flags)
 - ❌ **Missing cursor:pointer** — All clickable elements must have cursor:pointer
 - ❌ **Layout-shifting hovers** — Avoid scale transforms that shift layout
 - ❌ **Low contrast text** — Maintain 4.5:1 minimum contrast ratio
@@ -218,8 +218,8 @@ Recommended direction: `Barlow Condensed` (headings) + `Barlow` (body) — athle
 
 Before delivering any UI code, verify:
 
-- [ ] No emojis used as icons (use SVG instead)
-- [ ] All icons from consistent icon set (Heroicons/Lucide)
+- [ ] No emojis used as icons (Material Icons or SVG instead)
+- [ ] All icons from one set (Material Icons)
 - [ ] `cursor-pointer` on all clickable elements
 - [ ] Hover states with smooth transitions (150-300ms)
 - [ ] Light mode: text contrast 4.5:1 minimum

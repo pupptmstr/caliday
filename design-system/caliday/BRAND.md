@@ -1,6 +1,6 @@
 # CaliDay — Brand & Character Reference
 
-> This file consolidates `docs/design-concept/caliday_design_concept.md` (characters, colors, assets)
+> This file consolidates `internal_docs/design-concept/caliday_design_concept.md` (characters, colors, assets)
 > with the UX style direction from `MASTER.md` (Vibrant & Block-based).
 > Use this as the **single source of truth** when making visual decisions.
 
@@ -93,7 +93,7 @@ The Home screen uses `AnimatedSwitcher` (400ms) to transition between expression
 
 ### Future characters (not yet designed)
 
-- **Bruno** (bear): exercise technique demonstrator for Branch Journey screen (v1.2)
+- **Bruno** (bear): exercise technique demonstrator for the Branch Journey screen (idea only, not planned)
 - **Rex** (small monkey): streak motivator concept
 
 ---
@@ -158,10 +158,3 @@ Canvas: 400×400px, 2–4s seamless loop. Flat style matching Goro's colors.
 - ❌ Emoji as UI icons (use Material Icons or SVG)
 - ❌ Static design — animations/transitions are part of the brand feel
 
----
-
-## Future: v2.0 Design Direction
-
-**iOS:** Full Liquid Glass / frosted glass material (native iOS 26 API).
-**Android:** Semi-transparent frosted glass without blur.
-Spec in `docs/DEV_NOTES.md` → "v2.0 Design Overhaul".

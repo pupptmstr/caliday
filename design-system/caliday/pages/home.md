@@ -2,7 +2,7 @@
 
 > **PROJECT:** CaliDay
 > **Screen:** Home (main tab, daily entry point)
-> **Last updated:** 2026-03-23
+> **Last updated:** 2026-10-06
 >
 > Rules here **override** `design-system/caliday/MASTER.md`.
 > For anything not covered here, refer to MASTER.md.
@@ -83,6 +83,12 @@ padding: 14h × 10v
 
 **Streak chip is always orange** — this is the primary energy signal on the screen.
 
+**All three chips are tappable** (they get a slightly stronger fill): streak → `/calendar`, SP → recent-workout history sheet, rank → `showRankInfoSheet()`.
+
+**Value text:** the streak chip reads "1 day" / "5 days" through the plural message `homeStreakDays`. Each chip is only ~105 px wide on a 375 px phone, so the text is `Flexible` + `FittedBox(scaleDown)` — a long rank name shrinks instead of overflowing.
+
+**Decayed rank:** when the rank is shown lower because of inactivity (21+ days), the rank chip shows the *effective* rank with an amber icon / text (`Colors.amber.shade300`). The same sheet explains it.
+
 ---
 
 ## Done Banner (conditional)
@@ -150,6 +156,4 @@ Text: `l10n.homeWorkoutAgain`, 17sp, w700
 
 ## Future Enhancements (backlog)
 
-- **v2.0 Liquid Glass (iOS):** Replace gradient hero with a frosted glass / Liquid Glass material.
-  On Android: semi-transparent frosted glass without blur. See DEV_NOTES.md spec.
 - **Goro tap interaction:** Tap Goro to trigger a mini reaction animation (idea stage)

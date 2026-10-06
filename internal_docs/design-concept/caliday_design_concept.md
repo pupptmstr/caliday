@@ -53,8 +53,8 @@ Goro is the gorilla mascot of the CaliDay app. The central brand character.
 | Character | Role | Personality | Visual | Status |
 |-----------|------|-------------|--------|--------|
 | **Goro** (main) | Coach / mentor | Friendly, encouraging | Gorilla, blue headband | ✅ Ready |
-| **Skala** | Challenge host | Strict but fair | Bull / bison | ✅ Ready (not yet integrated) |
-| **Bruno** | Exercise demonstrator | Calm, technical | Bear | 🔲 Needed for v1.2 |
+| **Skala** | Challenge host | Strict but fair | Bull / bison | ✅ Ready, integrated (Workout screen, Challenge phase) |
+| **Bruno** | Exercise demonstrator | Calm, technical | Bear | 🔲 Future concept (not designed, not planned) |
 | **Rex** | Streak motivator | Energetic, hyperactive | Small monkey, flame | 🔲 Future concept |
 
 **Skala — details (v1.1) ✅ Ready:**
@@ -104,7 +104,7 @@ eyebrows, eyes, and mouth — while everything else (crest, headband, ears, nose
 
 ### 2.3 Implementation Status
 
-SVG files for all 6 expressions **received from the designer** (`docs/caliday_design_v1_1/`).
+SVG files for all 6 expressions **received from the designer**; they live in `assets/goro/` (the delivery notes are in `internal_docs/caliday_design_v1_1/RESULTS.md`).
 The system is **fully integrated** in the code — `GoroExpressionProvider` is implemented and active.
 
 ### 2.4 Technical Details
@@ -231,7 +231,7 @@ counting reps or holding time. Plays on loop for the entire duration of the set.
 
 **2. Branch Journey Screen — secondary use**
 A static preview or short gif version is shown next to each stage — the user can see what awaits
-them at upcoming stages without entering a workout. Implemented in v1.2 (when the Bruno character is added).
+them at upcoming stages without entering a workout. **Not implemented** — the Branch Journey screen shows no animation preview (planned together with Bruno, which is not planned).
 
 ### 5.3 Who Performs the Exercises
 
@@ -359,11 +359,12 @@ All 5 branches + accessories. Total: **43 animations**.
 | `caliday_icon.svg` | Goro flexing bicep (for store and promo) |
 | `caliday_icon_idle.svg` | Idle pose — Goro standing calmly |
 | `caliday_icon_preview.html` | Preview of all variants with colour palette |
+| `goro_notification.svg` | Source of the Android notification icon (`ic_goro_notif.xml`) |
 | `caliday_design_concept.md` | This document |
 
-### Ready Assets (v1.1) — received, pending integration
+### Ready Assets (v1.1) — received and integrated
 
-All files in `docs/caliday_design_v1_1/`. Not yet copied to `assets/`.
+The files are in `assets/goro/` and `assets/skala/` (the designer's delivery notes: `internal_docs/caliday_design_v1_1/RESULTS.md`).
 
 | File | Description | Format |
 |------|-------------|--------|
@@ -378,48 +379,13 @@ All files in `docs/caliday_design_v1_1/`. Not yet copied to `assets/`.
 | `skala_neutral.svg` | Skala — neutral pose (evaluating) | SVG |
 | `skala_approve.svg` | Skala — approval (test passed) | SVG |
 
-### Expected Assets (v1.1) — exercise animations (43 files)
+### Exercise animations — delivered
 
-Location in project: `assets/animations/`. Format: Lottie JSON.
-The character in all animations is **Goro** (same colours and style).
+All exercises have an animation except two chosen by the owner (90/90 hip mobility and the pigeon pose): **65 Lottie files in `assets/animations/`** for 70 exercises (some are shared). The list of files per exercise is in `ARCHITECTURE.md` → Exercise Catalog. The character is Goro in all of them; part of the set was drawn by the designer, the rest is generated with `tools/lottie` (see `ARCHITECTURE.md` → Lottie Animation Tooling).
 
-**Push (7):**
-`push_s1_wall_pushup.json`, `push_s2_knee_pushup.json`, `push_s3_full_pushup.json`,
-`push_s4_diamond_pushup.json`, `push_s5_archer_pushup.json`, `push_s6_one_arm_pushup.json`,
-`push_s7_handstand_pushup.json`
+### Home screen widget — delivered
 
-**Pull (6):**
-`pull_s1_australian.json`, `pull_s2_negative.json`, `pull_s3_pullup.json`,
-`pull_s4_close_grip.json`, `pull_s5_archer.json`, `pull_s6_one_arm.json`
-
-**Core (6):**
-`core_s1_crunches.json`, `core_s2_plank.json`, `core_s3_lying_leg_raise.json`,
-`core_s4_hanging_leg_raise.json`, `core_s5_l_sit.json`, `core_s6_dragon_flag.json`
-
-**Legs (5):**
-`legs_s1_squat.json`, `legs_s2_lunge.json`, `legs_s3_bulgarian.json`,
-`legs_s4_assisted_pistol.json`, `legs_s5_pistol.json`
-
-**Balance (6):**
-`bal_s1_one_leg_stand.json`, `bal_s2_one_arm_plank.json`, `bal_s3_crow_prep.json`,
-`bal_s4_crow_pose.json`, `bal_s5_wall_hs.json`, `bal_s6_free_hs.json`
-
-**Accessories (13):**
-`warmup_arm_rotations.json`, `warmup_jumping_jacks.json`, `warmup_dead_hang.json`,
-`warmup_leg_swings.json`, `warmup_hip_circles.json`, `warmup_wrist_circles.json`,
-`cooldown_shoulder_stretch.json`, `cooldown_cat_cow.json`, `cooldown_lat_stretch.json`,
-`cooldown_quad_stretch.json`, `cooldown_hip_flexor.json`, `cooldown_wrist_stretch.json`,
-`cooldown_downward_dog.json`
-
-### Expected Assets (v1.1) — home screen widget
-
-| File | Description | Format |
-|------|-------------|--------|
-| `goro_widget_idle.png` | Goro idle for home screen widget (transparent background) | PNG 2× and 3× |
-| `goro_widget_flex.png` | Goro flex for widget (workout done, transparent background) | PNG 2× and 3× |
-
-Can be exported from the existing `goro_idle_v2.svg` and `goro_flex_v2.svg` without the designer.
-Minimum size: 320×320 px (2×), 480×480 px (3×).
+The Android widget uses `drawable-*/goro_idle.png` and `goro_flex.png`, exported from `goro_idle_v2.svg` and `goro_flex_v2.svg` (not the originally planned `goro_widget_*.png` names).
 
 ### Expected Assets (v1.2) — Bruno character
 

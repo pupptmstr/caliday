@@ -31,20 +31,21 @@ The app is built on proven game-based learning mechanics:
 | Streak           | Consecutive training days          |
 | Player levels    | Ranks: Beginner → Legend           |
 
-## Features (v1.7)
+## Features
 
-- **6 progression branches:** Push, Pull, Core, Legs, Balance, Flex
+- **2 courses, 8 progression branches:** Calisthenics (Push, Pull, Core, Legs, Balance, Flex) and Healthy Body (Posture, Neck, Flex)
 - **Daily set auto-generation** based on current level and preferred duration
 - **Smooth progression:** reps ↑ → sets ↑ → rest ↓ → Challenge test → next stage
-- **Gamification:** Strength Points, streaks, ranks, streak freezes, 27 achievements
-- **Goro mascot** — gorilla with 6 animated expressions + Lottie exercise animations (all 6 calisthenics branches except 90/90 hip mobility, the supplementary exercises, the Posture branch except the pigeon pose and the Neck branch)
+- **Gamification:** Strength Points, streaks, ranks, streak freezes, rank decay after long breaks, 29 achievements
+- **Goro mascot** — gorilla with 6 expressions + Lottie animations for 68 of the 70 exercises (no animation, by design: 90/90 hip mobility and the pigeon pose)
+- **History:** workout calendar with a heatmap, tappable streak / SP / rank stats on the home screen
 - **Web version** — runs in the browser at https://pupptmstr.github.io/caliday/app/ (installable as a PWA); data stays in the browser (IndexedDB). No notifications, Health, widget or BLE on the web
 - **Exercise Library** — browsable catalog of all exercises with tags and filtering
 - **Custom Workouts** — Quick Routine (tag-based) and Saved Routines (manual builder)
 - **Friends** — peer-to-peer via BLE/QR (no server); share profile, view friend stats
-- **Push notifications:** morning reminder, evening nudge, streak threat
+- **Notifications:** morning reminder, evening nudge, streak at risk, streak lost, rank at risk
 - **Dark theme** — follows system or manual override
-- **Onboarding survey** for calibrating starting level (8 steps incl. pull-up bar, health)
+- **Onboarding survey** for calibrating starting level (8 steps incl. course choice, pull-up bar, health; 6 on the web)
 - **Home screen widget** (iOS + Android): Goro + streak + SP — small (2×2) and medium (4×2)
 - **Health integration:** Apple Health (HealthKit) and Google Health Connect — writes strength workout + calories after each session
 - **Localization:** English (primary) + Russian
@@ -67,32 +68,33 @@ The app is built on proven game-based learning mechanics:
 ```
 lib/
 ├── main.dart                  # Entry point, Hive init, migrations
-├── core/                      # Theme, constants, shared widgets, services
+├── core/                      # Router, theme, services (notifications, sound, Health, widget, BLE), l10n helpers, DST-safe date utils
 ├── data/
-│   ├── models/                # Hive models: UserProfile, SkillProgress, WorkoutLog…
-│   ├── repositories/          # UserRepository, SkillProgressRepository, WorkoutRepository
-│   └── static/                # Exercise catalog (60+ exercises across 6 branches + accessories)
+│   ├── models/                # Hive models: UserProfile, SkillProgress, WorkoutLog, FriendProfile, CustomRoutine…
+│   ├── repositories/          # Hive access: user, progress, workouts, achievements, friends, custom routines
+│   └── static/                # Catalogs: 70 exercises (8 branches + warm-ups, cool-downs, supplementary), tags, courses, achievements
 ├── domain/
 │   ├── models/                # WorkoutPlan, PlannedExercise
-│   └── services/              # SPService, StreakService, ProgressionService, WorkoutGeneratorService
+│   └── services/              # SP, streak, rank decay, progression, workout generator, achievements
 └── features/
     ├── onboarding/
     ├── home/
     ├── workout/
     ├── library/               # Exercise Library + Custom Workout builder
-    ├── profile/
+    ├── profile/               # Profile, achievements, workout calendar
     ├── settings/
-    ├── friends/               # BLE/QR peer-to-peer
-    └── achievements/
+    └── friends/               # BLE/QR peer-to-peer
 
-assets/animations/             # Lottie exercise animations
+test/                          # 400+ tests: services, catalog integrity, Hive repositories, ARB files
+assets/animations/             # Lottie exercise animations (65 files)
+assets/goro, assets/skala      # Mascot SVGs
 tools/lottie/                  # Generators for the Flex, supplementary, Posture, Neck, Pull, Push and cat-cow animations (+ in-place fixes of designer files), preview page builder
 web/                           # Web shell (index.html, manifest, icons); deployed by .github/workflows/web.yml
 ```
 
 ## Quick Start
 
-**Requirements:** Flutter SDK ≥ 3.11, Dart SDK ≥ 3.11
+**Requirements:** Flutter 3.41.9 (stable, the version CI uses), Dart ≥ 3.11
 
 ```bash
 # Install dependencies
@@ -176,6 +178,25 @@ flutter analyze
 | 5     | Deep Squat Hold             | 3×90 sec  |
 | 6     | Pike Stretch                | 3×60 sec  |
 
+### Posture *(Healthy Body course)*
+| Stage | Exercise                    | Goal      |
+|-------|-----------------------------|-----------|
+| 1     | Posterior Pelvic Tilt       | 3×30 sec  |
+| 2     | Dead Bug                    | 3×10      |
+| 3     | Glute Bridge                | 3×20      |
+| 4     | Standing Hip March          | 3×20      |
+| 5     | Kneeling Hip Flexor Stretch | 2×60 sec  |
+| 6     | Pigeon Pose                 | 2×60 sec  |
+
+### Neck *(Healthy Body course)*
+| Stage | Exercise                    | Goal      |
+|-------|-----------------------------|-----------|
+| 1     | Neck Tilts                  | 2×45 sec  |
+| 2     | Chest Opener                | 2×45 sec  |
+| 3     | Shoulder Circles            | 3×20      |
+| 4     | Wall Angels                 | 3×15      |
+| 5     | Doorway Pec Stretch         | 2×60 sec  |
+
 ## Gamification
 
 **Strength Points (SP)** — awarded for each completed exercise.
@@ -192,19 +213,25 @@ flutter analyze
 | Master    | 15,000  |
 | Legend    | 50,000  |
 
+A rank that is not trained for 21 days is *shown* one tier lower (further tiers at 35, 45, 53 and 59 days); the earned rank is never lost and returns with the next workout. A warning notification comes after 14 days.
+
 ## Documentation
 
-- [Architecture](internal_docs/ARCHITECTURE.md) — tech decisions, data models, service APIs, feature backlog
-- [Dev Notes](internal_docs/DEV_NOTES.md) — current status, active feature specs, session history
+- [Architecture](internal_docs/ARCHITECTURE.md) — tech decisions, data models, service APIs, testing, feature backlog
+- [Dev Notes](internal_docs/DEV_NOTES.md) — current status, active feature specs, change history
+- [Design system](design-system/caliday/BRAND.md) — brand, mascot, colours, UX rules
+- [Privacy Policy](docs/PRIVACY_POLICY.md) · [Terms of Use](docs/TERMS_OF_USE.md)
 
 ## Roadmap
 
-- **v1.3 ✅:** Home screen widget, Health Connect / HealthKit integration
-- **v1.4 ✅:** Friends (BLE/QR peer-to-peer, no server)
-- **v1.5 ✅:** Balance branch + Lottie animations
-- **v1.6 ✅:** Exercise Library
-- **v1.7 ✅:** Custom Workouts (Quick Routine + Saved Routines)
-- **Next:** Privacy Policy page, "Support the Author" IAP
+- **v0.3 ✅:** Home screen widget, Health Connect / HealthKit
+- **v0.4 ✅:** Friends (BLE/QR peer-to-peer, no server)
+- **v0.5 ✅:** Multi-course system (Calisthenics + Healthy Body), Balance / Flex / Posture / Neck branches
+- **v0.6 ✅:** Exercise Library
+- **v0.7 ✅:** Custom Workouts, Privacy Policy and Terms, web version
+- **v0.8 ✅:** Workout calendar, interactive stats, rank decay
+- **v1.0 (target):** additional courses (Yoga, Morning Routine, Evening Stretch)
+- **Ideas:** "Support the Author" IAP, web notifications, custom course builder
 
 ## License
 

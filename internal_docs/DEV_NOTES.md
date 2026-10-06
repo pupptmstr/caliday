@@ -7,10 +7,12 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.8.2 (implemented)
-**Next priority:** v1.0 release (the review of the oldest designer animations is done: Pull and Push variations redrawn, holds and cooldowns fixed; see Lottie status)
-
-Latest APK build: `build/app/outputs/flutter-apk/app-release.apk` (~74 MB)
+**Version:** v0.8.3 (implemented)
+**Next priority:** v1.0 release. What still stands in the way:
+- Friends has never been tested on two real phones (checklist below).
+- iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
+- Game design: the Challenge into the six hardest stages has no norm (see "Challenge norms" below).
+- Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
 
 | Layer | Status |
 |-------|--------|
@@ -23,19 +25,21 @@ Latest APK build: `build/app/outputs/flutter-apk/app-release.apk` (~74 MB)
 | Home / Library / Profile / Settings | ✅ |
 | Workout / Summary | ✅ |
 | BranchJourney / Achievements / About / DevOptions | ✅ |
-| Notifications (4 types) | ✅ |
+| Notifications (5 types: morning, evening, streak at risk, streak lost, rank at risk) | ✅ |
 | Dark theme | ✅ |
 | Goro (6 expressions) + Skala | ✅ |
-| Lottie animations (Push 7, Core 7+alt, Pull 6, Legs 5, Balance 6, Flex 5 of 6 (90/90 intentionally none), Supplementary 9, Posture 5 of 6 (pigeon intentionally none), Neck 6 — all ✅) | ✅/🔒 |
+| Lottie animations (68 of 70 exercises; 90/90 hip mobility and the pigeon pose intentionally have none) | ✅ |
 | Sound + haptics | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
-| Friends (BLE/QR, v1.4) | ✅ |
+| Friends (BLE + QR, v0.4; not yet tested on real devices) | ✅/⚠️ |
 | Exercise Library (search + tag filter) | ✅ |
 | Custom Workouts (Quick Routine + Saved Routines) | ✅ |
 | Multi-Course system (Calisthenics + Healthy Body) | ✅ |
 | L10n (RU + EN) | ✅ |
 | Web build (PWA on GitHub Pages, IndexedDB) | ✅ |
+| Workout calendar, interactive stats, rank decay (v0.8) | ✅ |
+| Tests (`flutter test`, 400+: services, catalog integrity, Hive repositories, ARB) | ✅ |
 
 ---
 
@@ -91,7 +95,7 @@ Latest APK build: `build/app/outputs/flutter-apk/app-release.apk` (~74 MB)
 
 ---
 
-### v1.4 — Friends — нужно протестировать на реальных устройствах
+### v0.4 — Friends — нужно протестировать на реальных устройствах
 
 Фича реализована, но **не тестировалась на физических устройствах**. Требует проверки вдвоём (два телефона).
 
@@ -112,7 +116,8 @@ Latest APK build: `build/app/outputs/flutter-apk/app-release.apk` (~74 MB)
 - [ ] iOS → Android: обнаружение работает (и наоборот)
 - [ ] BLE выключен → секция "Nearby" показывает сообщение "Bluetooth выключен"
 - [ ] Кнопка Refresh → запускает повторное сканирование
-- [ ] Tile "Connect" → открывает QR-сканер (GATT-обмен не реализован, QR — основной путь)
+- [ ] Tile "Connect" → читает профиль по GATT и добавляет друга (snackbar «добавлен» / «обновлён»); если GATT недоступен или JSON битый — открывается QR-сканер (fallback)
+- [ ] Свой экран Friends рекламирует устройство (advertising) — второй телефон видит его в секции Nearby
 
 **BLE — разрешения:**
 - [ ] Android: при первом открытии Friends появляется запрос `BLUETOOTH_SCAN` + `BLUETOOTH_CONNECT`
@@ -127,52 +132,41 @@ Latest APK build: `build/app/outputs/flutter-apk/app-release.apk` (~74 MB)
 - [ ] BLE-разрешения правильно запрашиваются на Android 12+ (API 31+) через `BLUETOOTH_SCAN` (neverForLocation)
 - [ ] На Android 11 и ниже — legacy разрешения `BLUETOOTH` + `BLUETOOTH_ADMIN` работают
 
-#### Известные ограничения (не баги)
-- **BLE advertising не реализован** — устройство не рекламирует себя в BLE. Соседи не обнаружат твоё устройство, пока не реализован peripheral-режим (TODO: platform channel). Основной путь обмена — QR.
-- **GATT-обмен не реализован** — кнопка "Connect" у BLE-устройства открывает QR-сканер (это задуманное поведение до реализации GATT-сервера).
+#### Известные ограничения
+- BLE advertising и GATT-сервер реализованы, но тоже **не проверялись на реальных устройствах** — это часть чеклиста выше.
+- На вебе BLE нет вовсе (секции скрыты), остаётся только QR.
 
 ---
 
 ---
 
-### ? — Privacy Policy — designed
+### ? — Challenge norms for the six hardest final stages — needs game design
 
-#### Concept
+`Exercise.challengeTargetReps` is the norm for **entering** a stage through the Challenge (read from the next stage; see ARCHITECTURE.md § Exercise Model). Everywhere except six stages it is set. For these six it is 0, so `completedReps >= 0` is always true — the Challenge into them passes with any result, and the progress screens show a norm of 0:
 
-App Store и Google Play оба **требуют** ссылку на Privacy Policy при публикации (особенно если приложение собирает любые данные или имеет health-интеграцию).
+| Stage | Exercise | Proposed norm (to confirm) | Why |
+|-------|----------|----------------------------|-----|
+| push 7 | Handstand Push-up | 1 rep | previous norms: archer 3, then 2 |
+| core 6 | Dragon Flag | 1 rep | L-sit is entered at 5 s |
+| pull 6 | One-Arm Pull-up | 1 rep | archer pull-up is entered at 1 |
+| legs 5 | Pistol Squat | 1 rep | assisted pistol is entered at 1 |
+| balance 6 | Free Handstand | 5 s | wall handstand is entered at 5 s |
+| flex 6 | Pike Stretch | 30 s | deep squat hold is entered at 30 s |
 
-Хостинг на GitHub в виде Markdown-файла — стандартная практика для инди-приложений. Apple и Google принимают любой публично доступный URL.
+The values are a proposal, not a decision. When they are set, remove the ids from `_challengeTargetNotSetYet` in `test/data/exercise_catalog_integrity_test.dart` (the test then enforces a norm for every stage).
 
-#### Что писать в политике
+---
 
-Ключевые тезисы для CaliDay:
-- Все данные хранятся **локально** на устройстве (Hive)
-- Никаких серверов, никакой передачи данных третьим сторонам
-- Health-данные (Apple Health / Google Health Connect) — только read/write на устройстве, не передаются
-- Камера — только для сканирования QR, фото не сохраняются
-- Bluetooth — только для обнаружения устройств в локальной сети, ничего не отправляется в интернет
+### ? — Starting load differs from the catalog for four branches — decide whether intended
 
-#### Реализация
+`SkillProgressRepository._defaultFor` (what a user who skipped onboarding calibration starts with) is not the same as the stage-1 start in `ExerciseCatalog`: core 5 reps / 60 s rest vs 8 / 45 s, pull rest 90 s vs 60 s, legs 8 reps vs 10, balance rest 60 s vs 30 s. The code comment says the values "vary slightly by branch difficulty", so this may be on purpose. `test/data/repositories/skill_progress_repository_test.dart` only checks that the default is reachable (not above the stage target). Push, flex, posture and neck match.
 
-1. Создать `PRIVACY_POLICY.md` в репозитории (в корне или `/docs/`)
-2. Включить GitHub Pages для repo ИЛИ использовать raw-ссылку: `https://raw.githubusercontent.com/...`
-   - Лучше GitHub Pages (`https://username.github.io/caliday/privacy`) — выглядит профессиональнее
-   - raw-ссылка тоже принимается обоими сторонами
-3. Добавить ссылку в `AboutScreen` (уже есть `url_launcher`)
-4. Добавить ссылку в метаданные App Store Connect и Google Play Console при публикации
+---
 
-#### Technical Tasks
+### ? — Repository housekeeping questions
 
-| # | Task |
-|---|------|
-| 1 | Написать `PRIVACY_POLICY.md` (EN + RU секции или отдельные файлы) |
-| 2 | Настроить GitHub Pages или использовать raw URL |
-| 3 | Добавить `privacyPolicyUrl` константу в `about_screen.dart` |
-| 4 | Добавить плашку «Privacy Policy» в `AboutScreen` рядом с существующими ссылками |
-
-#### When to tackle
-
-До первой публикации в App Store / Google Play. Блокирует публикацию.
+- Root `_config.yml` (`theme: minima`, added for Markdown rendering on Pages): the Pages workflow builds `./docs`, where Jekyll looks for its config, so the root file probably has no effect. Left alone because the rendering of the live legal pages could change; test by moving it to `docs/_config.yml` and comparing the deployed pages.
+- `linux/`, `windows/`, `macos/` are `flutter create` leftovers: the project targets iOS, Android and Web, and desktop is neither developed nor tested. `pub get` rewrites their `generated_plugins.cmake` files, which adds noise to diffs. Delete the folders if desktop is not planned.
 
 ---
 
@@ -232,6 +226,38 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 ## Change History
 
+### 2026-10-06 — Tests, two more bugs, dead-file cleanup, documents brought in line with the code
+
+**What was done:** `test/` held one placeholder. It now has 400+ tests (domain services, catalog integrity, Hive repositories, ARB files) and the tests found two crashes and two data gaps. Then everything that nothing referenced was removed, and every document was checked against the code.
+
+**Bugs found by the tests and fixed:**
+- **`flex_complete` had no catalog entry.** `AchievementService` awards it when Flex reaches the last stage, and `achievements_screen.dart` did `AchievementCatalog.byId(id)!` for every earned id, so the screen would have thrown as soon as someone finished Flex. Added the achievement (🧘, EN / RU texts, `AchievementL10n`); the screen now skips earned ids the catalog does not know. A test checks both directions: every awardable id is in the catalog and every catalog achievement can be earned.
+- **`SkillProgressRepository.runMigrations` threw a `HiveError`.** It copied a record from a course-scoped key (`calisthenics_push`, written by the v1.5 layout) to the bare key with `put(bareKey, get(scopedKey))`; `SkillProgress` is a `HiveObject` and Hive refuses to store one instance under two keys. `main()` awaits it unguarded, so such a user would crash on every launch. It now stores a copy.
+
+**Found, documented, not changed (need a decision):**
+- `challengeTargetReps` is 0 for the six hardest final stages, so the Challenge into them passes with any result. Proposed values are in Active Specs ("Challenge norms"); the test allow-lists the six ids explicitly.
+- The default progress of core, pull, legs and balance differs from the stage-1 start in the catalog (Active Specs).
+
+**Cleanup (each item was checked for references first):**
+- Deleted: `progress_screen.dart` (no route, no import), `lib/generated/assets.dart` (imported nowhere, stale; its removal ended the last three analyzer infos), v1 SVGs `goro_face` / `goro_flex` / `goro_idle`, `assets/sounds/.gitkeep`, ten SVG duplicates in `internal_docs/caliday_design_v1_1/`, 18 unused ARB messages, the unused `notificationServiceProvider`, the `cupertino_icons` dependency, the placeholder `test/widget_test.dart`. `goro_notification.svg` moved to `internal_docs/design-concept/`. `.claude/settings.local.json` is git-ignored.
+- `flutter analyze`: **no issues**.
+- Not touched, left as questions (Active Specs → housekeeping): root `_config.yml`, the `linux/ windows/ macos/` folders.
+
+**Documents corrected against the code:**
+- `ARCHITECTURE.md`: the `lib/` tree, Hive fields of `WorkoutLog`, box names and types (`user_profile`, `Box<DateTime>`), service signatures (`AchievementService`, `WorkoutGeneratorService`, `SPService`), `WorkoutState`, widget keys, Android permissions, achievement count (29), a new Testing section.
+- `README.md`: 8 branches / 2 courses, Posture and Neck tables, notifications, project structure, rank decay, roadmap in the 0.x scheme.
+- `CLAUDE.md`, the three skills: build_runner comment, new rules (day math, web guards, tests), the missing `ui-ux-pro-max` skill removed.
+- `DEV_NOTES.md`: status table and next priorities; the implemented Privacy Policy spec removed; the Friends spec no longer says BLE advertising / GATT are missing.
+- Design documents: stale paths (`docs/caliday_design_v1_1`), asset status, Liquid Glass (dropped from plans in 2026-04), tooltips (done), the profile layout, the icon policy in `MASTER.md`; the February 2026 design document got a status banner and **[now]** notes.
+- `docs/PRIVACY_POLICY.md`, `docs/TERMS_OF_USE.md` (public, linked from the app): the web version added, a wrong cross-reference fixed (Friends is Section 5 of the policy, not 4), dates set to 2026-10-06. **The owner should read these before they are pushed.**
+
+**Key issues and solutions:**
+- Rank names: the enum values follow the Russian names, so `Rank.sportsman` is "Athlete" and `Rank.athlete` is "Champion" in English. A first pass of this documentation work "corrected" the English "Athlete / Champion" to "Sportsman / Athlete", which was wrong; reverted, the mapping is now in ARCHITECTURE.md and pinned by `test/data/enums_test.dart`.
+- Hive in tests: `Hive.init(tempDir)` on the Dart VM works; `test/helpers/hive_test_env.dart` opens the same adapters and boxes as `main()` and can `reopen()` to prove a field survives the adapter.
+- Mutation check: temporarily changing the first-workout bonus (1.5 → 1.4) and the rep step (2 → 3) made 7 tests fail; both were restored.
+
+---
+
 ### 2026-10-06 — Bug fixes: DST day math (streak, heatmap, calendar), streak-lost alert, plurals
 
 **What was done:** Fixed the bugs recorded as "known, not fixed" in the sync entry below, plus three more found while doing it. The common cause of most of them: day arithmetic on local `DateTime`s, which is wrong across a DST change (a local day is 23 / 25 h long). Everything is now in `lib/core/utils/calendar_days.dart` (`calendarDaysBetween`, `addCalendarDays`).
@@ -250,7 +276,7 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 **Modified files:**
 - `lib/domain/services/streak_service.dart` (+ `streakLostDate`, `now` parameter), `rank_decay_service.dart` (uses the helper), `lib/core/services/notification_service.dart` (`scheduleStreakLost`, `scheduleAll`; `_nextDayAt` removed), `lib/features/profile/widgets/compact_heatmap.dart`, `lib/features/profile/screens/workout_calendar_screen.dart`, `lib/features/settings/screens/developer_options_screen.dart`, `lib/features/home/screens/home_screen.dart`, `l10n/app_en.arb`, `l10n/app_ru.arb` (+ generated `lib/l10n/*`), `internal_docs/ARCHITECTURE.md` (utils folder, StreakService, notification table: ID 5 is `rank_risk`, not `rest_timer`), `pubspec.yaml` (0.8.2+11).
 
-**Verified in the browser (debug web build, 375 px):** "1 день" / "0 дней" chip; dev options → rank Athlete + 21 days → amber "Спортсмен" chip, rank sheet "Ты не тренировался 21 день — ранг снижен…"; first workout after the gap → summary banner "Ранг восстановлен!", streak restarted at 1.
+**Verified in the browser (debug web build, 375 px):** "1 день" / "0 дней" chip; dev options → rank «Атлет» (enum `athlete`, "Champion" in English) + 21 days → amber "Спортсмен" chip, rank sheet "Ты не тренировался 21 день — ранг снижен…"; first workout after the gap → summary banner "Ранг восстановлен!", streak restarted at 1.
 
 **Not verified:** notification scheduling itself on a device (plugin-bound; only the date decision, `streakLostDate`, is unit-tested); the freeze markers in the calendar; the heatmap inside a DST window in the UI (today is outside it; the grid function is unit-tested).
 
