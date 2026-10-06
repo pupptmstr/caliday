@@ -452,6 +452,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'All 6 Balance stages cleared. You are an equilibrist.';
 
   @override
+  String get achievementFlexCompleteName => 'Flexibility Master';
+
+  @override
+  String get achievementFlexCompleteDesc =>
+      'All 6 Flex stages cleared. Your body bends in every direction.';
+
+  @override
   String get achievementAllCompleteName => 'Full Collection';
 
   @override

@@ -17,7 +17,12 @@ class AchievementsScreen extends ConsumerWidget {
     final locale = Localizations.localeOf(context).languageCode;
 
     final earnedMap = repo.getAllEarned();
-    final earnedIds = repo.getAllEarnedIds(); // newest-first
+    // Newest-first. Ids live in Hive forever, so skip any that the catalog no
+    // longer knows (a renamed / removed achievement) instead of crashing below.
+    final earnedIds = repo
+        .getAllEarnedIds()
+        .where((id) => AchievementCatalog.byId(id) != null)
+        .toList();
     final lockedAll = AchievementCatalog.all
         .where((a) => !earnedMap.containsKey(a.id))
         .toList();

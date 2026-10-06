@@ -454,6 +454,13 @@ class AppLocalizationsRu extends AppLocalizations {
       'Все 6 этапов Balance пройдены. Ты — эквилибрист.';
 
   @override
+  String get achievementFlexCompleteName => 'Мастер гибкости';
+
+  @override
+  String get achievementFlexCompleteDesc =>
+      'Все 6 этапов Flex пройдены. Твоё тело гнётся во все стороны.';
+
+  @override
   String get achievementAllCompleteName => 'Полный комплект';
 
   @override

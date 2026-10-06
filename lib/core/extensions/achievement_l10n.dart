@@ -30,6 +30,7 @@ abstract final class AchievementL10n {
         'balance_s4' => l.achievementBalanceS4Name,
         'balance_s6' => l.achievementBalanceS6Name,
         'balance_complete' => l.achievementBalanceCompleteName,
+        'flex_complete' => l.achievementFlexCompleteName,
         'all_complete' => l.achievementAllCompleteName,
         _ => id,
       };
@@ -62,6 +63,7 @@ abstract final class AchievementL10n {
         'balance_s4' => l.achievementBalanceS4Desc,
         'balance_s6' => l.achievementBalanceS6Desc,
         'balance_complete' => l.achievementBalanceCompleteDesc,
+        'flex_complete' => l.achievementFlexCompleteDesc,
         'all_complete' => l.achievementAllCompleteDesc,
         _ => '',
       };

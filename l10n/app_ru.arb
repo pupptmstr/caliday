@@ -256,6 +256,8 @@
   "achievementBalanceS6Desc": "Стойка на руках без стены — вершина баланса",
   "achievementBalanceCompleteName": "Мастер равновесия",
   "achievementBalanceCompleteDesc": "Все 6 этапов Balance пройдены. Ты — эквилибрист.",
+  "achievementFlexCompleteName": "Мастер гибкости",
+  "achievementFlexCompleteDesc": "Все 6 этапов Flex пройдены. Твоё тело гнётся во все стороны.",
   "achievementAllCompleteName": "Полный комплект",
   "achievementAllCompleteDesc": "Все 5 веток пройдены до конца. Абсолютный чемпион.",
   "summaryBonusTitle": "Бонусная тренировка",

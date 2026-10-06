@@ -13,7 +13,7 @@ class Achievement {
   final bool isSecret;
 }
 
-/// Complete static catalogue of all 27 achievements.
+/// Complete static catalogue of all achievements.
 abstract final class AchievementCatalog {
   static const List<Achievement> all = [
     // ── First steps ───────────────────────────────────────────────────────────
@@ -52,6 +52,8 @@ abstract final class AchievementCatalog {
     Achievement(id: 'balance_s4', emoji: '🐦'),
     Achievement(id: 'balance_s6', emoji: '🤸'),
     Achievement(id: 'balance_complete', emoji: '⚖️'),
+    // ── Flex ──────────────────────────────────────────────────────────────────
+    Achievement(id: 'flex_complete', emoji: '🧘'),
     // ── Secret ────────────────────────────────────────────────────────────────
     Achievement(id: 'all_complete', emoji: '🌟', isSecret: true),
   ];

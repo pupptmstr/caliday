@@ -872,6 +872,18 @@ abstract class AppLocalizations {
   /// **'All 6 Balance stages cleared. You are an equilibrist.'**
   String get achievementBalanceCompleteDesc;
 
+  /// No description provided for @achievementFlexCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Flexibility Master'**
+  String get achievementFlexCompleteName;
+
+  /// No description provided for @achievementFlexCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 6 Flex stages cleared. Your body bends in every direction.'**
+  String get achievementFlexCompleteDesc;
+
   /// No description provided for @achievementAllCompleteName.
   ///
   /// In en, this message translates to:

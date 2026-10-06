@@ -256,6 +256,8 @@
   "achievementBalanceS6Desc": "Wall-free handstand — the peak of balance",
   "achievementBalanceCompleteName": "Balance Master",
   "achievementBalanceCompleteDesc": "All 6 Balance stages cleared. You are an equilibrist.",
+  "achievementFlexCompleteName": "Flexibility Master",
+  "achievementFlexCompleteDesc": "All 6 Flex stages cleared. Your body bends in every direction.",
   "achievementAllCompleteName": "Full Collection",
   "achievementAllCompleteDesc": "All 5 branches completed. Absolute champion.",
   "summaryBonusTitle": "Bonus Workout",
