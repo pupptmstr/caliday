@@ -409,8 +409,9 @@ otherwise                          → 0
 - `effectiveRank(earnedRank, days)` — rank to display; clamped to Beginner
 - `isWarning(days)` — true when 14–20 days inactive (first decay in 7 days)
 - `isDecayed(days)` — true when rank is actively lowered (21+ days)
-- `daysSinceLastWorkout(profile)` → int (-1 if never trained)
+- `daysSinceLastWorkout(profile, {now})` → int (-1 if never trained). Counts calendar days between **UTC dates** — subtracting two local midnights gives 23 h across the spring DST change and `inDays` would truncate 14 days to 13. `now` is injectable for tests.
 - Provider: `rankDecayServiceProvider`
+- Tests: `test/domain/services/rank_decay_service_test.dart`
 - `HomeData.effectiveRank` and `ProfileData.effectiveRank` expose this for display; computed in providers, not in widgets.
 
 ### ProgressionService
@@ -669,6 +670,7 @@ Exercise animations are flat "paper-doll" Lottie files (one shape layer per body
 - Large icon (color, notification shade, Android 12+): app adaptive icon, added automatically
 - The name `ic_notification` must not be used (conflicts with a resource inside the package)
 - Notification IDs: 1=morning, 2=evening, 3=streakThreat, 4=streakLost, 5=rankAtRisk
+- `scheduleAll` starts with `cancelAll()` and runs on every cold start and every notification setting change — anything that must survive it has to be re-created inside it (`scheduleRankAtRisk` is; `scheduleStreakLost` is **not**, see DEV_NOTES)
 
 ### Android Widget
 - Glance → **AppWidgetProvider + RemoteViews** (Glance requires the Compose Compiler Plugin, which is not included in Flutter projects by default)
@@ -694,7 +696,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 | Haptics | ⚠️ Android Chrome only | engine maps to `navigator.vibrate` |
 | Friends — QR show/scan | ✅ | mobile_scanner web (camera needs HTTPS) |
 | Friends — BLE nearby / discoverable | ❌ | hidden in `friends_screen.dart` + `settings_screen.dart` |
-| Notifications | ❌ | `NotificationService.init/scheduleAll/scheduleStreakLost` no-op; Settings section hidden |
+| Notifications | ❌ | `NotificationService.init/scheduleAll/scheduleStreakLost/scheduleRankAtRisk` no-op (every new scheduler needs its own `kIsWeb` guard: without `init()` the timezone database is never loaded); Settings section hidden |
 | Health | ❌ | Settings section + onboarding step hidden |
 | Home Screen Widget, widget deep links | ❌ | `main.dart` skips the whole post-frame native init; `WidgetService.update` no-op |
 | Orientation lock | ❌ | skipped in `main()` |
