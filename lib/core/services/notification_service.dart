@@ -7,6 +7,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../../data/models/user_profile.dart';
 import '../../domain/services/rank_decay_service.dart';
+import '../../domain/services/streak_service.dart';
 
 // ── Stable notification IDs ───────────────────────────────────────────────────
 
@@ -176,8 +177,9 @@ class NotificationService {
     );
     if (profile.eveningReminderEnabled) await _scheduleEvening(mode, strings);
     if (profile.streakThreatEnabled) await _scheduleStreakThreat(mode, strings);
-    // cancelAll() above also wipes the rank-at-risk alert that the last
-    // workout scheduled, so it has to be re-created on every rescheduling.
+    // cancelAll() above also wipes the one-off alerts that the last workout
+    // scheduled, so they have to be re-created on every rescheduling.
+    await scheduleStreakLost(profile);
     await scheduleRankAtRisk(profile);
   }
 
@@ -285,16 +287,22 @@ class NotificationService {
     );
   }
 
-  /// Schedules a one-time "streak lost" notification for the next morning.
+  /// Schedules a one-time "streak lost" notification for the morning of the day
+  /// the streak is actually gone ([StreakService.streakLostDate]: two days
+  /// after the last workout, three with a streak freeze), at the user's
+  /// morning reminder time + 30 minutes.
   ///
-  /// Fires at the user's morning reminder time + 30 minutes on the following
-  /// calendar day. Skipped if [profile.currentStreak] < 2 (losing a 1-day
-  /// streak is not worth a notification). Cancelled automatically by
-  /// [cancelDayReminders] when the user completes the next workout.
+  /// Skipped if notifications are disabled, if [profile.currentStreak] < 2
+  /// (losing a 1-day streak is not worth a notification), or if that moment
+  /// has already passed. Cancelled by [cancelDayReminders] when the user
+  /// trains again, and re-created by [scheduleAll].
   Future<void> scheduleStreakLost(UserProfile profile) async {
     if (kIsWeb) return;
     if (!_initialized) await init();
+    if (!profile.notificationsEnabled) return;
     if (profile.currentStreak < 2) return;
+    final lostOn = const StreakService().streakLostDate(profile);
+    if (lostOn == null) return;
 
     final strings =
         _notifStrings[profile.locale ?? 'ru'] ?? _notifStrings['ru']!;
@@ -312,12 +320,16 @@ class NotificationService {
       minute = 30;
     }
 
+    final fireAt = tz.TZDateTime(
+        tz.local, lostOn.year, lostOn.month, lostOn.day, hour, minute);
+    if (!fireAt.isAfter(tz.TZDateTime.now(tz.local))) return;
+
     final mode = await _getScheduleMode();
     await _plugin.zonedSchedule(
       id: _idStreakLost,
       title: strings['streakLostTitle']!,
       body: body,
-      scheduledDate: _nextDayAt(hour, minute),
+      scheduledDate: fireAt,
       notificationDetails: _details(channelId: 'streak_lost', channelName: 'Streak lost'),
       androidScheduleMode: mode,
     );
@@ -397,12 +409,6 @@ class NotificationService {
     }
     // Non-Android platforms don't use this field.
     return AndroidScheduleMode.inexactAllowWhileIdle;
-  }
-
-  /// Returns a [TZDateTime] for the **next calendar day** at [hour]:[minute].
-  tz.TZDateTime _nextDayAt(int hour, int minute) {
-    final now = tz.TZDateTime.now(tz.local);
-    return tz.TZDateTime(tz.local, now.year, now.month, now.day + 1, hour, minute);
   }
 
   /// Returns the next [TZDateTime] matching the given [hour] and [minute].
