@@ -31,9 +31,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get libraryTitle => 'Курсы';
 
   @override
-  String get progressTitle => 'Мой прогресс';
-
-  @override
   String get progressInfo =>
       'Просто тренируйтесь — приложение само продвигает вас вперёд по веткам. Здесь можно отследить пройденный путь. А если чувствуете, что готовы к большему раньше времени — принимайте Испытание и переходите сами.';
 
@@ -529,17 +526,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get calendarSeeAll => 'Открыть →';
 
   @override
-  String get calendarNoWorkoutsOnDay => 'В этот день тренировок не было';
-
-  @override
   String get calendarFreezeUsedTitle => 'Заморозка стрика';
 
   @override
   String get calendarFreezeUsedBody =>
       'В этот день тренировки не было, но была использована заморозка — серия не прервалась.';
-
-  @override
-  String get calendarFreezeEarnedLabel => 'Заморозка получена';
 
   @override
   String get historyTypeDaily => 'Тренировка дня';
@@ -701,9 +692,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get onboardingQ3 => 'Сколько минут в день готов уделять?';
 
   @override
-  String get onboardingQ4 => 'К чему ты стремишься?';
-
-  @override
   String get onboardingQ5 => 'Есть ли у тебя турник или кольца дома?';
 
   @override
@@ -760,24 +748,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get minutesFifteenDesc => 'Полноценная тренировка';
-
-  @override
-  String get goalGeneralLabel => 'Общая форма';
-
-  @override
-  String get goalGeneralDesc => 'Быть активным и здоровым';
-
-  @override
-  String get goalStrengthLabel => 'Отжимания и сила';
-
-  @override
-  String get goalStrengthDesc => 'Накачать грудь и трицепс';
-
-  @override
-  String get goalCalisthenicsLabel => 'Калистеника';
-
-  @override
-  String get goalCalisthenicsDesc => 'Стойка на руках и трюки';
 
   @override
   String get timeOfDayMorning => 'Утро';
@@ -1216,17 +1186,7 @@ class AppLocalizationsRu extends AppLocalizations {
       'На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног.';
 
   @override
-  String get exerciseCooldownWristStretchName => 'Растяжка запястий';
-
-  @override
-  String get exerciseCooldownWristStretchDesc =>
-      'Вытяни одну руку вперёд ладонью вверх. Другой рукой мягко потяни пальцы вниз. Удержи 30 секунд на каждую руку.';
-
-  @override
   String get aboutTitle => 'О приложении';
-
-  @override
-  String get aboutVersion => 'Версия';
 
   @override
   String get aboutSectionSupport => 'ПОДДЕРЖКА';
@@ -1352,9 +1312,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get settingsFriendsNameTitle => 'Имя для друзей';
-
-  @override
-  String get settingsFriendsNameSubtitle => 'Отображается при обмене профилем';
 
   @override
   String get settingsFriendsNamePlaceholder => 'Введи своё имя';
@@ -1693,10 +1650,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get tooltipRankTitle => 'Ранг и очки силы';
 
   @override
-  String get tooltipRankBody =>
-      'SP (очки силы) начисляются за каждую завершённую тренировку. Накапливая SP, ты поднимаешься от Новичка до Легенды. Чем больше тренируешься — тем выше ранг.';
-
-  @override
   String get exerciseLibraryTitle => 'Все упражнения';
 
   @override
@@ -1825,12 +1778,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get customWorkoutEdit => 'Редактировать';
 
   @override
-  String get customWorkoutConfirmStart => 'Начать тренировку?';
-
-  @override
-  String get customWorkoutConfirmStartDesc => 'упражнений будет загружено';
-
-  @override
   String get customWorkoutBuilderTitle => 'Конструктор тренировки';
 
   @override
@@ -1839,9 +1786,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get customWorkoutPickFocus => 'Что хотите потренировать?';
-
-  @override
-  String get customWorkoutSelectExercises => 'Добавить упражнения';
 
   @override
   String customWorkoutExerciseCount(int count) {

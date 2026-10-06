@@ -31,9 +31,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get libraryTitle => 'Courses';
 
   @override
-  String get progressTitle => 'My Progress';
-
-  @override
   String get progressInfo =>
       'Just keep training — the app advances you through the branches automatically. Here you can track how far you\'ve come. And if you feel ready to push ahead early, take the Challenge and move forward yourself.';
 
@@ -527,17 +524,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get calendarSeeAll => 'Open →';
 
   @override
-  String get calendarNoWorkoutsOnDay => 'No workouts on this day';
-
-  @override
   String get calendarFreezeUsedTitle => 'Streak freeze used';
 
   @override
   String get calendarFreezeUsedBody =>
       'No workout on this day — a streak freeze was used to keep the streak going.';
-
-  @override
-  String get calendarFreezeEarnedLabel => 'Freeze earned';
 
   @override
   String get historyTypeDaily => 'Daily Workout';
@@ -695,9 +686,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingQ3 => 'How many minutes a day are you ready to spend?';
 
   @override
-  String get onboardingQ4 => 'What\'s your goal?';
-
-  @override
   String get onboardingQ5 => 'Do you have a pull-up bar or rings at home?';
 
   @override
@@ -753,24 +741,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get minutesFifteenDesc => 'Full workout';
-
-  @override
-  String get goalGeneralLabel => 'General fitness';
-
-  @override
-  String get goalGeneralDesc => 'Stay active and healthy';
-
-  @override
-  String get goalStrengthLabel => 'Push-ups & strength';
-
-  @override
-  String get goalStrengthDesc => 'Build chest and triceps';
-
-  @override
-  String get goalCalisthenicsLabel => 'Calisthenics';
-
-  @override
-  String get goalCalisthenicsDesc => 'Handstand and skills';
 
   @override
   String get timeOfDayMorning => 'Morning';
@@ -1208,17 +1178,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs.';
 
   @override
-  String get exerciseCooldownWristStretchName => 'Wrist Stretch';
-
-  @override
-  String get exerciseCooldownWristStretchDesc =>
-      'Extend one arm forward, palm up. Use your other hand to gently pull the fingers down. Hold for 30 seconds per side.';
-
-  @override
   String get aboutTitle => 'About';
-
-  @override
-  String get aboutVersion => 'Version';
 
   @override
   String get aboutSectionSupport => 'SUPPORT';
@@ -1344,10 +1304,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get settingsFriendsNameTitle => 'Display name';
-
-  @override
-  String get settingsFriendsNameSubtitle =>
-      'Shown to friends when sharing your profile';
 
   @override
   String get settingsFriendsNamePlaceholder => 'Enter your name';
@@ -1687,10 +1643,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tooltipRankTitle => 'Rank & Strength Points';
 
   @override
-  String get tooltipRankBody =>
-      'SP (Strength Points) are earned every time you complete a workout. As you collect SP your rank climbs from Beginner all the way to Legend. The more you train, the higher you rise.';
-
-  @override
   String get exerciseLibraryTitle => 'All Exercises';
 
   @override
@@ -1818,12 +1770,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get customWorkoutEdit => 'Edit';
 
   @override
-  String get customWorkoutConfirmStart => 'Start Workout?';
-
-  @override
-  String get customWorkoutConfirmStartDesc => 'exercises will be loaded';
-
-  @override
   String get customWorkoutBuilderTitle => 'Routine Builder';
 
   @override
@@ -1832,9 +1778,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get customWorkoutPickFocus => 'What do you want to train?';
-
-  @override
-  String get customWorkoutSelectExercises => 'Add exercises';
 
   @override
   String customWorkoutExerciseCount(int count) {

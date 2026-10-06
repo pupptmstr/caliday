@@ -134,12 +134,6 @@ abstract class AppLocalizations {
   /// **'Courses'**
   String get libraryTitle;
 
-  /// No description provided for @progressTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'My Progress'**
-  String get progressTitle;
-
   /// No description provided for @progressInfo.
   ///
   /// In en, this message translates to:
@@ -1004,12 +998,6 @@ abstract class AppLocalizations {
   /// **'Open →'**
   String get calendarSeeAll;
 
-  /// No description provided for @calendarNoWorkoutsOnDay.
-  ///
-  /// In en, this message translates to:
-  /// **'No workouts on this day'**
-  String get calendarNoWorkoutsOnDay;
-
   /// No description provided for @calendarFreezeUsedTitle.
   ///
   /// In en, this message translates to:
@@ -1021,12 +1009,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No workout on this day — a streak freeze was used to keep the streak going.'**
   String get calendarFreezeUsedBody;
-
-  /// No description provided for @calendarFreezeEarnedLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Freeze earned'**
-  String get calendarFreezeEarnedLabel;
 
   /// No description provided for @historyTypeDaily.
   ///
@@ -1322,12 +1304,6 @@ abstract class AppLocalizations {
   /// **'How many minutes a day are you ready to spend?'**
   String get onboardingQ3;
 
-  /// No description provided for @onboardingQ4.
-  ///
-  /// In en, this message translates to:
-  /// **'What\'s your goal?'**
-  String get onboardingQ4;
-
   /// No description provided for @onboardingQ5.
   ///
   /// In en, this message translates to:
@@ -1435,42 +1411,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Full workout'**
   String get minutesFifteenDesc;
-
-  /// No description provided for @goalGeneralLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'General fitness'**
-  String get goalGeneralLabel;
-
-  /// No description provided for @goalGeneralDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Stay active and healthy'**
-  String get goalGeneralDesc;
-
-  /// No description provided for @goalStrengthLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Push-ups & strength'**
-  String get goalStrengthLabel;
-
-  /// No description provided for @goalStrengthDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Build chest and triceps'**
-  String get goalStrengthDesc;
-
-  /// No description provided for @goalCalisthenicsLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'Calisthenics'**
-  String get goalCalisthenicsLabel;
-
-  /// No description provided for @goalCalisthenicsDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Handstand and skills'**
-  String get goalCalisthenicsDesc;
 
   /// No description provided for @timeOfDayMorning.
   ///
@@ -2198,29 +2138,11 @@ abstract class AppLocalizations {
   /// **'From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs.'**
   String get exerciseCooldownDownwardDogDesc;
 
-  /// No description provided for @exerciseCooldownWristStretchName.
-  ///
-  /// In en, this message translates to:
-  /// **'Wrist Stretch'**
-  String get exerciseCooldownWristStretchName;
-
-  /// No description provided for @exerciseCooldownWristStretchDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Extend one arm forward, palm up. Use your other hand to gently pull the fingers down. Hold for 30 seconds per side.'**
-  String get exerciseCooldownWristStretchDesc;
-
   /// No description provided for @aboutTitle.
   ///
   /// In en, this message translates to:
   /// **'About'**
   String get aboutTitle;
-
-  /// No description provided for @aboutVersion.
-  ///
-  /// In en, this message translates to:
-  /// **'Version'**
-  String get aboutVersion;
 
   /// No description provided for @aboutSectionSupport.
   ///
@@ -2449,12 +2371,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Display name'**
   String get settingsFriendsNameTitle;
-
-  /// No description provided for @settingsFriendsNameSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Shown to friends when sharing your profile'**
-  String get settingsFriendsNameSubtitle;
 
   /// No description provided for @settingsFriendsNamePlaceholder.
   ///
@@ -3014,12 +2930,6 @@ abstract class AppLocalizations {
   /// **'Rank & Strength Points'**
   String get tooltipRankTitle;
 
-  /// No description provided for @tooltipRankBody.
-  ///
-  /// In en, this message translates to:
-  /// **'SP (Strength Points) are earned every time you complete a workout. As you collect SP your rank climbs from Beginner all the way to Legend. The more you train, the higher you rise.'**
-  String get tooltipRankBody;
-
   /// No description provided for @exerciseLibraryTitle.
   ///
   /// In en, this message translates to:
@@ -3266,18 +3176,6 @@ abstract class AppLocalizations {
   /// **'Edit'**
   String get customWorkoutEdit;
 
-  /// No description provided for @customWorkoutConfirmStart.
-  ///
-  /// In en, this message translates to:
-  /// **'Start Workout?'**
-  String get customWorkoutConfirmStart;
-
-  /// No description provided for @customWorkoutConfirmStartDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'exercises will be loaded'**
-  String get customWorkoutConfirmStartDesc;
-
   /// No description provided for @customWorkoutBuilderTitle.
   ///
   /// In en, this message translates to:
@@ -3295,12 +3193,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'What do you want to train?'**
   String get customWorkoutPickFocus;
-
-  /// No description provided for @customWorkoutSelectExercises.
-  ///
-  /// In en, this message translates to:
-  /// **'Add exercises'**
-  String get customWorkoutSelectExercises;
 
   /// No description provided for @customWorkoutExerciseCount.
   ///
