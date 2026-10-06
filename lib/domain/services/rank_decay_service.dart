@@ -57,12 +57,16 @@ class RankDecayService {
       (_decayThresholds[0] - daysSinceLastWorkout).clamp(0, _decayThresholds[0]);
 
   /// Returns days since last workout. -1 if never trained.
-  int daysSinceLastWorkout(UserProfile profile) {
+  ///
+  /// [now] is injectable for tests; defaults to the current time.
+  int daysSinceLastWorkout(UserProfile profile, {DateTime? now}) {
     final last = profile.lastWorkoutDate;
     if (last == null) return -1;
-    final today = DateTime.now();
-    final todayOnly = DateTime(today.year, today.month, today.day);
-    final lastOnly = DateTime(last.year, last.month, last.day);
+    final today = now ?? DateTime.now();
+    // UTC dates, not local midnights: across a DST change two local midnights
+    // are 23 or 25 hours apart and `inDays` would truncate 14 days to 13.
+    final todayOnly = DateTime.utc(today.year, today.month, today.day);
+    final lastOnly = DateTime.utc(last.year, last.month, last.day);
     return todayOnly.difference(lastOnly).inDays;
   }
 }

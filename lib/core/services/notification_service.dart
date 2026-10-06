@@ -6,6 +6,7 @@ import 'package:timezone/data/latest_all.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
 import '../../data/models/user_profile.dart';
+import '../../domain/services/rank_decay_service.dart';
 
 // ── Stable notification IDs ───────────────────────────────────────────────────
 
@@ -175,6 +176,9 @@ class NotificationService {
     );
     if (profile.eveningReminderEnabled) await _scheduleEvening(mode, strings);
     if (profile.streakThreatEnabled) await _scheduleStreakThreat(mode, strings);
+    // cancelAll() above also wipes the rank-at-risk alert that the last
+    // workout scheduled, so it has to be re-created on every rescheduling.
+    await scheduleRankAtRisk(profile);
   }
 
   /// Cancels day-specific notifications (evening, streak threat, streak lost).
@@ -335,12 +339,11 @@ class NotificationService {
     final mode = await _getScheduleMode();
 
     final today = DateTime.now();
-    final todayOnly = DateTime(today.year, today.month, today.day);
-    final lastOnly = DateTime(last.year, last.month, last.day);
-    final daysSince = todayOnly.difference(lastOnly).inDays;
+    final daysSince =
+        const RankDecayService().daysSinceLastWorkout(profile, now: today);
 
     // Only schedule if the threshold hasn't already been crossed.
-    final daysUntilRisk = 14 - daysSince;
+    final daysUntilRisk = RankDecayService.warningDays - daysSince;
     if (daysUntilRisk <= 0) return;
 
     final fireAt = tz.TZDateTime(
