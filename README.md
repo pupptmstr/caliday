@@ -85,11 +85,12 @@ lib/
     ├── settings/
     └── friends/               # BLE/QR peer-to-peer
 
-test/                          # 400+ tests: services, catalog integrity, Hive repositories, ARB files
+test/                          # 550+ tests: services, catalog integrity, Hive repositories, ARB files, notification plan, QR / BLE payloads, router, workflows
 assets/animations/             # Lottie exercise animations (65 files)
 assets/goro, assets/skala      # Mascot SVGs
 tools/lottie/                  # Generators for the Flex, supplementary, Posture, Neck, Pull, Push and cat-cow animations (+ in-place fixes of designer files), preview page builder
 web/                           # Web shell (index.html, manifest, icons); deployed by .github/workflows/web.yml
+.github/workflows/             # web.yml (Pages deploy), ci.yml (analyze + test + Android debug build on push / PR), release.yml (release builds, disabled)
 ```
 
 ## Quick Start
@@ -231,7 +232,7 @@ A rank that is not trained for 21 days is *shown* one tier lower (further tiers 
 - **v0.7 ✅:** Custom Workouts, Privacy Policy and Terms, web version
 - **v0.8 ✅:** Workout calendar, interactive stats, rank decay
 - **v1.0 (target):** additional courses (Yoga, Morning Routine, Evening Stretch)
-- **Ideas:** "Support the Author" IAP, web notifications, custom course builder
+- **Ideas:** "Support the Author" IAP, custom course builder
 
 ## License
 
