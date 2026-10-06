@@ -38,7 +38,8 @@ class SkillProgressRepository {
       for (final course in CourseId.values) {
         final scopedKey = '${course.name}_${branch.name}';
         if (_box.containsKey(scopedKey) && !_box.containsKey(bareKey)) {
-          await _box.put(bareKey, _box.get(scopedKey)!);
+          // A copy: Hive refuses to store one HiveObject under two keys.
+          await _box.put(bareKey, _copyOf(_box.get(scopedKey)!));
         }
         if (_box.containsKey(scopedKey)) {
           await _box.delete(scopedKey);
@@ -46,6 +47,15 @@ class SkillProgressRepository {
       }
     }
   }
+
+  static SkillProgress _copyOf(SkillProgress p) => SkillProgress(
+        branchId: p.branchId,
+        currentStage: p.currentStage,
+        currentReps: p.currentReps,
+        currentSets: p.currentSets,
+        currentRestSec: p.currentRestSec,
+        isChallengeUnlocked: p.isChallengeUnlocked,
+      );
 
   SkillProgress _defaultFor(BranchId branch) {
     // Starting values vary slightly by branch difficulty.
