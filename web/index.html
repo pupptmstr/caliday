@@ -18,21 +18,55 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Home calisthenics workouts with streak tracking and gamification.">
+  <meta name="theme-color" content="#4DA6FF">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="caliday">
+  <meta name="apple-mobile-web-app-title" content="CaliDay">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>caliday</title>
+  <title>CaliDay</title>
   <link rel="manifest" href="manifest.json">
+
+  <style>
+    html, body { margin: 0; height: 100%; background: #1A5FA8; }
+    /* Shown while the Flutter engine downloads; removed on the first frame. */
+    #splash {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #4DA6FF, #1A5FA8);
+    }
+    #splash img {
+      width: 128px;
+      height: 128px;
+      border-radius: 28px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+      animation: splash-pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes splash-pulse { 50% { transform: scale(0.94); } }
+  </style>
 </head>
 <body>
+  <div id="splash"><img src="icons/Icon-192.png" alt="CaliDay"></div>
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var splash = document.getElementById('splash');
+      if (splash) splash.remove();
+    });
+    // All user data lives in this browser's IndexedDB — ask the browser not
+    // to evict it under storage pressure.
+    if (navigator.storage && navigator.storage.persist) {
+      navigator.storage.persist();
+    }
+  </script>
   <!--
     You can customize the "flutter_bootstrap.js" script.
     This is useful to provide a custom configuration to the Flutter loader

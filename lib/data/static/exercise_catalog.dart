@@ -697,6 +697,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 20,
     techniqueTip: 'Keep your back straight and push hips forward — feel the stretch in the front of your hip.',
+    animationPath: 'assets/animations/flex_s1_hip_flexor_stretch.json',
   );
 
   static const Exercise flexS2WorldsGreatestStretch = Exercise(
@@ -717,6 +718,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 3,
     techniqueTip: 'Move slowly through each position — this is a flow, not a race.',
+    animationPath: 'assets/animations/flex_s2_worlds_greatest_stretch.json',
   );
 
   static const Exercise flexS3Hip9090 = Exercise(
@@ -757,6 +759,7 @@ class ExerciseCatalog {
     spBase: 2,
     challengeTargetReps: 3,
     techniqueTip: 'Focus movement in the upper back — avoid hinging in the lower back.',
+    animationPath: 'assets/animations/flex_s4_thoracic_bridge.json',
   );
 
   static const Exercise flexS5DeepSquatHold = Exercise(
@@ -777,6 +780,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: 'Use a doorframe or pole for support at first. Heels flat on the floor is the goal.',
+    animationPath: 'assets/animations/flex_s5_deep_squat_hold.json',
   );
 
   static const Exercise flexS6PikeStretch = Exercise(
@@ -796,6 +800,7 @@ class ExerciseCatalog {
     targetRestSec: 15,
     spBase: 1,
     techniqueTip: 'Reach forward from your hips, not your waist. Keep legs straight.',
+    animationPath: 'assets/animations/flex_s6_pike_stretch.json',
   );
 
   // ── WARMUP / COOLDOWN (stage 0) ──────────────────────────────────────────
@@ -1054,6 +1059,7 @@ class ExerciseCatalog {
     challengeTargetReps: 30,
     techniqueTip: 'Focus on pressing the small of your back into the floor — '
         'you should feel your abs engage lightly.',
+    animationPath: 'assets/animations/posture_s1_pelvic_tilt.json',
   );
 
   static const Exercise postureS2DeadBug = Exercise(
@@ -1075,6 +1081,7 @@ class ExerciseCatalog {
     challengeTargetReps: 8,
     techniqueTip: 'Move slowly — this is about control, not speed. '
         'Keep your lower back pressed flat the whole time.',
+    animationPath: 'assets/animations/supp_dead_bug.json',
   );
 
   static const Exercise postureS3GluteBridge = Exercise(
@@ -1096,6 +1103,7 @@ class ExerciseCatalog {
     challengeTargetReps: 15,
     techniqueTip: 'Squeeze your glutes hard at the top — avoid pushing '
         'with your lower back.',
+    animationPath: 'assets/animations/posture_s3_glute_bridge.json',
   );
 
   static const Exercise postureS4HipMarch = Exercise(
@@ -1117,6 +1125,7 @@ class ExerciseCatalog {
     challengeTargetReps: 16,
     techniqueTip: 'Lift each knee to hip height without leaning your torso — '
         'focus on the hip flexor doing the work, not momentum.',
+    animationPath: 'assets/animations/posture_s4_hip_march.json',
   );
 
   static const Exercise postureS5KneelingLunge = Exercise(
@@ -1138,6 +1147,7 @@ class ExerciseCatalog {
     challengeTargetReps: 45,
     techniqueTip: 'Keep your back straight and gently tuck your pelvis under '
         'to deepen the stretch.',
+    animationPath: 'assets/animations/flex_s1_hip_flexor_stretch.json',
   );
 
   static const Exercise postureS6PigeonPose = Exercise(
@@ -1182,6 +1192,7 @@ class ExerciseCatalog {
     challengeTargetReps: 30,
     techniqueTip: 'Do not force your head down with your hand. '
         'Let gravity do the work.',
+    animationPath: 'assets/animations/neck_s1_neck_tilt.json',
   );
 
   static const Exercise neckS2ChestOpener = Exercise(
@@ -1204,6 +1215,7 @@ class ExerciseCatalog {
     challengeTargetReps: 30,
     techniqueTip: 'Focus on squeezing your shoulder blades — '
         'do not arch your lower back.',
+    animationPath: 'assets/animations/neck_s2_chest_opener.json',
   );
 
   static const Exercise neckS3ShoulderRoll = Exercise(
@@ -1225,6 +1237,7 @@ class ExerciseCatalog {
     challengeTargetReps: 15,
     techniqueTip: 'Make the circles as big as possible — '
         'exaggerate the movement.',
+    animationPath: 'assets/animations/neck_s3_shoulder_roll.json',
   );
 
   static const Exercise neckS4WallAngel = Exercise(
@@ -1247,6 +1260,7 @@ class ExerciseCatalog {
     challengeTargetReps: 10,
     techniqueTip: 'Keep your lower back flat against the wall the whole time — '
         'this is harder than it looks.',
+    animationPath: 'assets/animations/neck_s4_wall_angel.json',
   );
 
   static const Exercise neckS5DoorwayStretch = Exercise(
@@ -1269,6 +1283,7 @@ class ExerciseCatalog {
     challengeTargetReps: 45,
     techniqueTip: 'Do not push too far forward. Find the edge of the stretch '
         'and breathe into it.',
+    animationPath: 'assets/animations/neck_s5_doorway_stretch.json',
   );
 
   // ── Warmup: Neck Rolls ─────────────────────────────────────────────────────
@@ -1290,6 +1305,7 @@ class ExerciseCatalog {
     targetRestSec: 0,
     spBase: 0,
     challengeTargetReps: 5,
+    animationPath: 'assets/animations/warmup_neck_rolls.json',
   );
 
   // ── Grouped accessors ─────────────────────────────────────────────────────

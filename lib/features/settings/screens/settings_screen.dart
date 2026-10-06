@@ -152,114 +152,117 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ),
 
-            // ── Health section ───────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: Text(
-                l10n.settingsSectionHealth,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 1.2,
-                  color: scheme.primary,
+            // Health and notifications are native-only (no web support).
+            if (!kIsWeb) ...[
+              // ── Health section ───────────────────────────────────────────
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: Text(
+                  l10n.settingsSectionHealth,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.2,
+                    color: scheme.primary,
+                  ),
                 ),
               ),
-            ),
 
-            _SettingsTile(
-              title: l10n.settingsHealthWorkoutsTitle,
-              subtitle: l10n.settingsHealthWorkoutsSubtitle,
-              trailing: Switch(
-                value: state.healthWorkoutsEnabled,
-                onChanged: notifier.setHealthWorkoutsEnabled,
+              _SettingsTile(
+                title: l10n.settingsHealthWorkoutsTitle,
+                subtitle: l10n.settingsHealthWorkoutsSubtitle,
+                trailing: Switch(
+                  value: state.healthWorkoutsEnabled,
+                  onChanged: notifier.setHealthWorkoutsEnabled,
+                ),
               ),
-            ),
 
-            const Divider(indent: 20, endIndent: 20, height: 1),
+              const Divider(indent: 20, endIndent: 20, height: 1),
 
-            _SettingsTile(
-              enabled: state.healthWorkoutsEnabled,
-              title: l10n.settingsHealthWeightTitle,
-              subtitle: l10n.settingsHealthWeightSubtitle,
-              trailing: Switch(
-                value: state.healthWeightEnabled,
-                onChanged: state.healthWorkoutsEnabled
-                    ? notifier.setHealthWeightEnabled
+              _SettingsTile(
+                enabled: state.healthWorkoutsEnabled,
+                title: l10n.settingsHealthWeightTitle,
+                subtitle: l10n.settingsHealthWeightSubtitle,
+                trailing: Switch(
+                  value: state.healthWeightEnabled,
+                  onChanged: state.healthWorkoutsEnabled
+                      ? notifier.setHealthWeightEnabled
+                      : null,
+                ),
+              ),
+
+              // ── Notifications section ────────────────────────────────────
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                child: Text(
+                  l10n.settingsSectionNotifications,
+                  style: TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    letterSpacing: 1.2,
+                    color: scheme.primary,
+                  ),
+                ),
+              ),
+
+              // Master toggle
+              _SettingsTile(
+                title: l10n.settingsNotificationsTitle,
+                subtitle: l10n.settingsNotificationsSubtitle,
+                trailing: Switch(
+                  value: state.notificationsEnabled,
+                  onChanged: notifier.setNotificationsEnabled,
+                ),
+              ),
+
+              const Divider(indent: 20, endIndent: 20, height: 1),
+
+              // Notification time
+              _SettingsTile(
+                enabled: enabled,
+                title: l10n.settingsNotificationTimeTitle,
+                subtitle: l10n.settingsNotificationTimeSubtitle,
+                trailing: _TimeChip(
+                  label: state.timeLabel,
+                  enabled: enabled,
+                ),
+                onTap: enabled
+                    ? () => _showTimePicker(
+                          context,
+                          state.notificationHour,
+                          state.notificationMinute,
+                          notifier.setTime,
+                        )
                     : null,
               ),
-            ),
 
-            // ── Notifications section ────────────────────────────────────
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: Text(
-                l10n.settingsSectionNotifications,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 1.2,
-                  color: scheme.primary,
+              const Divider(indent: 20, endIndent: 20, height: 1),
+
+              // Evening reminder
+              _SettingsTile(
+                enabled: enabled,
+                title: l10n.settingsEveningReminderTitle,
+                subtitle: l10n.settingsEveningReminderSubtitle,
+                trailing: Switch(
+                  value: state.eveningReminderEnabled,
+                  onChanged: enabled ? notifier.setEveningReminder : null,
                 ),
               ),
-            ),
 
-            // Master toggle
-            _SettingsTile(
-              title: l10n.settingsNotificationsTitle,
-              subtitle: l10n.settingsNotificationsSubtitle,
-              trailing: Switch(
-                value: state.notificationsEnabled,
-                onChanged: notifier.setNotificationsEnabled,
-              ),
-            ),
+              const Divider(indent: 20, endIndent: 20, height: 1),
 
-            const Divider(indent: 20, endIndent: 20, height: 1),
-
-            // Notification time
-            _SettingsTile(
-              enabled: enabled,
-              title: l10n.settingsNotificationTimeTitle,
-              subtitle: l10n.settingsNotificationTimeSubtitle,
-              trailing: _TimeChip(
-                label: state.timeLabel,
+              // Streak threat
+              _SettingsTile(
                 enabled: enabled,
+                title: l10n.settingsStreakThreatTitle,
+                subtitle: l10n.settingsStreakThreatSubtitle,
+                trailing: Switch(
+                  value: state.streakThreatEnabled,
+                  onChanged: enabled ? notifier.setStreakThreat : null,
+                ),
               ),
-              onTap: enabled
-                  ? () => _showTimePicker(
-                        context,
-                        state.notificationHour,
-                        state.notificationMinute,
-                        notifier.setTime,
-                      )
-                  : null,
-            ),
-
-            const Divider(indent: 20, endIndent: 20, height: 1),
-
-            // Evening reminder
-            _SettingsTile(
-              enabled: enabled,
-              title: l10n.settingsEveningReminderTitle,
-              subtitle: l10n.settingsEveningReminderSubtitle,
-              trailing: Switch(
-                value: state.eveningReminderEnabled,
-                onChanged: enabled ? notifier.setEveningReminder : null,
-              ),
-            ),
-
-            const Divider(indent: 20, endIndent: 20, height: 1),
-
-            // Streak threat
-            _SettingsTile(
-              enabled: enabled,
-              title: l10n.settingsStreakThreatTitle,
-              subtitle: l10n.settingsStreakThreatSubtitle,
-              trailing: Switch(
-                value: state.streakThreatEnabled,
-                onChanged: enabled ? notifier.setStreakThreat : null,
-              ),
-            ),
+            ],
 
             // ── Friends section ──────────────────────────────────────────
             Padding(
@@ -285,16 +288,19 @@ class SettingsScreen extends ConsumerWidget {
                   context, state.displayName, notifier.setDisplayName),
             ),
 
-            const Divider(indent: 20, endIndent: 20, height: 1),
+            // BLE discovery is not available in browsers.
+            if (!kIsWeb) ...[
+              const Divider(indent: 20, endIndent: 20, height: 1),
 
-            _SettingsTile(
-              title: l10n.settingsFriendsDiscoverableTitle,
-              subtitle: l10n.settingsFriendsDiscoverableSubtitle,
-              trailing: Switch(
-                value: state.bleDiscoverable,
-                onChanged: notifier.setBleDiscoverable,
+              _SettingsTile(
+                title: l10n.settingsFriendsDiscoverableTitle,
+                subtitle: l10n.settingsFriendsDiscoverableSubtitle,
+                trailing: Switch(
+                  value: state.bleDiscoverable,
+                  onChanged: notifier.setBleDiscoverable,
+                ),
               ),
-            ),
+            ],
 
             // ── About section ─────────────────────────────────────────────
             const Divider(indent: 20, endIndent: 20, height: 1),
