@@ -59,9 +59,11 @@ lib/
 │   ├── providers/
 │   │   ├── locale_provider.dart       ← LocaleNotifier (NotifierProvider<LocaleNotifier, String>)
 │   │   └── goro_expression_provider.dart
-│   └── extensions/
-│       ├── build_context_l10n.dart    ← context.l10n shortcut
-│       └── exercise_l10n.dart         ← ExerciseL10n static helper
+│   ├── extensions/
+│   │   ├── build_context_l10n.dart    ← context.l10n shortcut
+│   │   └── exercise_l10n.dart         ← ExerciseL10n static helper
+│   └── utils/
+│       └── calendar_days.dart         ← calendarDaysBetween / addCalendarDays (DST-safe day math)
 ├── data/
 │   ├── models/
 │   │   ├── enums.dart + enums.g.dart  ← BranchId, SetType, ExerciseType, Rank, FitnessGoal
@@ -394,7 +396,9 @@ Warmup: `warmup_neck_rolls` ✅. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_s
 - `applyWorkout(profile, date)` → bool — updates streak; on a 1-day gap, uses a freeze. Only called when at least one real exercise (stage > 0, reps > 0 or duration > 0) was performed — warmup-only workouts do not count.
 - `tryAwardFreeze(profile)` → bool — +1 freeze every 7 days (max 3)
 - `isStreakAtRisk(profile)` — true if no workout today
-- `daysSinceLastWorkout(profile)` — counter
+- `daysSinceLastWorkout(profile, {now})` — counter (-1 if never); `now` injectable for tests
+- `streakLostDate(profile)` — the calendar day on which the streak is actually gone if the user does not train: last workout + 2 days, + 3 with a freeze (mirrors `applyWorkout` / `displayStreak`); drives the streak-lost notification
+- All day counting goes through `core/utils/calendar_days.dart`. **Never** use `DateTime.difference(...).inDays` or `subtract/add(Duration(days: n))` on local dates: a local day is 23 / 25 h on a DST change, so `inDays` truncates 14 days to 13 and `subtract` lands on 23:00 / 01:00 of the neighbouring day (a 5-day streak reset after training on the DST Sunday and the Monday; the heatmap lost every cell before the change).
 
 **displayStreak (important):** computed on the fly in `homeDataProvider` without mutating Hive:
 ```
@@ -409,7 +413,7 @@ otherwise                          → 0
 - `effectiveRank(earnedRank, days)` — rank to display; clamped to Beginner
 - `isWarning(days)` — true when 14–20 days inactive (first decay in 7 days)
 - `isDecayed(days)` — true when rank is actively lowered (21+ days)
-- `daysSinceLastWorkout(profile, {now})` → int (-1 if never trained). Counts calendar days between **UTC dates** — subtracting two local midnights gives 23 h across the spring DST change and `inDays` would truncate 14 days to 13. `now` is injectable for tests.
+- `daysSinceLastWorkout(profile, {now})` → int (-1 if never trained). Uses `calendarDaysBetween` (DST-safe, see StreakService). `now` is injectable for tests.
 - Provider: `rankDecayServiceProvider`
 - Tests: `test/domain/services/rank_decay_service_test.dart`
 - `HomeData.effectiveRank` and `ProfileData.effectiveRank` expose this for display; computed in providers, not in widgets.
@@ -617,8 +621,8 @@ Exercise animations are flat "paper-doll" Lottie files (one shape layer per body
 | 1 | `morning` | Morning reminder |
 | 2 | `evening` | Evening reminder |
 | 3 | `streak_at_risk` | Streak at risk (~22:00 if no workout today) |
-| 4 | `streak_lost` | Streak lost (next morning +30min, if streak≥2) |
-| 5 | `rest_timer` | (v1.3, not implemented) |
+| 4 | `streak_lost` | Streak lost: morning (reminder time +30 min) of `StreakService.streakLostDate` — 2 days after the last workout, 3 with a freeze; only if streak≥2 and notifications are on |
+| 5 | `rank_risk` | Rank at risk: 14 days after the last workout (reminder time) |
 
 ---
 
@@ -670,7 +674,7 @@ Exercise animations are flat "paper-doll" Lottie files (one shape layer per body
 - Large icon (color, notification shade, Android 12+): app adaptive icon, added automatically
 - The name `ic_notification` must not be used (conflicts with a resource inside the package)
 - Notification IDs: 1=morning, 2=evening, 3=streakThreat, 4=streakLost, 5=rankAtRisk
-- `scheduleAll` starts with `cancelAll()` and runs on every cold start and every notification setting change — anything that must survive it has to be re-created inside it (`scheduleRankAtRisk` is; `scheduleStreakLost` is **not**, see DEV_NOTES)
+- `scheduleAll` starts with `cancelAll()` and runs on every cold start and every notification setting change — anything that must survive it has to be re-created inside it (`scheduleStreakLost` and `scheduleRankAtRisk` are)
 
 ### Android Widget
 - Glance → **AppWidgetProvider + RemoteViews** (Glance requires the Compose Compiler Plugin, which is not included in Flutter projects by default)
