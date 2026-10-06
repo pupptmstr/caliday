@@ -13,7 +13,7 @@
 | **Блок A — Push (7 анимаций)** | `push_s1..s7` | ✅ В приложении |
 | **Блок B — Core (6 анимаций + альтернатива)** | `core_s1..s6`, `core_s4_flutter_kicks` | ✅ В приложении |
 | **Блок C — Разминки/заминки Push+Core (4 анимации)** | `warmup_arm_rotations`, `warmup_jumping_jacks`, `cooldown_shoulder_stretch`, `cooldown_cat_cow` | ✅ В приложении |
-| **Блок D — Pull (8 анимаций)** | `pull_s1..s6`, `warmup_dead_hang`, `cooldown_lat_stretch` | ✅ В приложении |
+| **Блок D — Pull (8 анимаций)** | `pull_s1..s6`, `warmup_dead_hang`, `cooldown_lat_stretch` (06.10.2026 `pull_s2..s6` и `warmup_dead_hang` перерисованы `tools/lottie/gen_pull.py`: подбородок выше перекладины, у ступеней разное движение) | ✅ В приложении |
 | **Блок E — Legs (9 анимаций)** | `legs_s1..s5`, `warmup_leg_swings`, `warmup_hip_circles`, `cooldown_quad_stretch`, `cooldown_hip_flexor` | ✅ В приложении |
 | **Блок F — Balance (8 анимаций)** | `bal_s1..s6`, `warmup_wrist_circles`, `cooldown_downward_dog` | ✅ В приложении |
 | **Блок G — Flex (5 из 6)** | `flex_s1`, `flex_s2`, `flex_s4`, `flex_s5`, `flex_s6` (сгенерированы `tools/lottie`) | ✅ В приложении |
@@ -165,7 +165,7 @@
 
 ---
 
-## БЛОК D — Ветка Pull (8 файлов, требует турника) — ✅ ГОТОВО
+## БЛОК D — Ветка Pull (8 файлов, требует турника) — ✅ ГОТОВО (06.10.2026: `pull_s2..s6` и `warmup_dead_hang` перерисованы)
 
 | ID (имя файла) | Название | Вид | Акцент | Статус |
 |----------------|----------|-----|--------|--------|

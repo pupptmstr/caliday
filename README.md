@@ -86,7 +86,7 @@ lib/
     └── achievements/
 
 assets/animations/             # Lottie exercise animations
-tools/lottie/                  # Generators for the Flex, supplementary, Posture, Neck and cat-cow animations, preview page builder
+tools/lottie/                  # Generators for the Flex, supplementary, Posture, Neck, Pull and cat-cow animations, preview page builder
 web/                           # Web shell (index.html, manifest, icons); deployed by .github/workflows/web.yml
 ```
 

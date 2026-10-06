@@ -468,6 +468,14 @@ def bar(name, cx, cy, w, h, color, frames, rnd=3, ind=50):
     return _static_layer(name, ind, frames, (cx, cy, w, h), color, rnd)
 
 
+def disc(name, cx, cy, d, color, frames, ind=50):
+    """Static filled circle (a bar seen end-on)."""
+    shapes = [_single('fl', _el(d, d, (cx, cy)), color)]
+    return _layer(name, ind, frames, shapes, {"a": 0, "k": [0, 0]},
+                  {"a": 0, "k": [0]}, {"a": 0, "k": [100, 100]},
+                  {"a": 0, "k": [100]})
+
+
 def door_post(name, cx, top, frames, bottom=FLOOR_Y, ind=50):
     """Two-tone vertical post (the look of the stick in ``cooldown_lat_stretch``)."""
     h, cy = bottom - top, (top + bottom) / 2

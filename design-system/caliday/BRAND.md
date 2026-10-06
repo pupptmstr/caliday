@@ -124,7 +124,7 @@ Canvas: 400×400px, 2–4s seamless loop. Flat style matching Goro's colors.
 - Standard micro-interactions: 150–300ms
 - Spring physics preferred over linear easing
 
-**Lottie status:** Push, Core, Pull, Legs, Balance ✅; Flex ✅ except 90/90 (intentionally no animation). Supplementary pool ✅ (9/9). Posture ✅ except pigeon (intentionally no animation; dead bug and kneeling lunge reuse existing files). Neck ✅ (6/6). The cat-cow cooldown was replaced by a generated one. Flex, the supplementary pool, Posture, Neck and the cat-cow were generated with `tools/lottie` (see ARCHITECTURE.md § Lottie Animation Tooling); `supp_oblique_crunch` is drawn from above, the only top-down animation; `tools/lottie/frontview.py` draws the standing front views (hip march and four of the Neck animations).
+**Lottie status:** Push, Core, Pull, Legs, Balance ✅; Flex ✅ except 90/90 (intentionally no animation). Supplementary pool ✅ (9/9). Posture ✅ except pigeon (intentionally no animation; dead bug and kneeling lunge reuse existing files). Neck ✅ (6/6). The cat-cow cooldown was replaced by a generated one and the Pull animations (except `pull_s1_australian`) were redrawn with `tools/lottie` (the owner is reviewing the oldest designer files). Flex, the supplementary pool, Posture, Neck and the cat-cow were generated with `tools/lottie` (see ARCHITECTURE.md § Lottie Animation Tooling); `supp_oblique_crunch` is drawn from above, the only top-down animation; `tools/lottie/frontview.py` draws the standing front views (hip march and four of the Neck animations).
 
 ---
 

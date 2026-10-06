@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds a self-contained preview page that plays Lottie animations.
 
-Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown]
+Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull]
                                               [--out FILE] [--fragment]
                                               [--dir DIR] [name ...]
 
@@ -107,6 +107,26 @@ NECK_INFO = {
         'Растяжка груди в дверном проёме', 'Шея · этап 5', '2 × удержание 20–60 с',
         'Вид спереди: предплечья на косяках, корпус и голова подаются к камере (наклон вперёд), грудь раскрывается.'),
 }
+PULL_INFO = {
+    'pull_s2_negative': (
+        'Негативные подтягивания', 'Тяга · этап 2', '3–8 повторений',
+        'Старт наверху, очень медленное опускание (около 3 с), затем быстрый подъём коленями вверх для следующего повторения.'),
+    'pull_s3_pullup': (
+        'Подтягивания', 'Тяга · этап 3', '1–10 повторений',
+        'Вис, подъём до подбородка выше перекладины (голова вытягивается над ней), пауза и контролируемое опускание.'),
+    'pull_s4_close_grip': (
+        'Узкий хват', 'Тяга · этап 4', '3–10 повторений',
+        'Вид сбоку: перекладина торцом под подбородком, локти прижаты к корпусу. Во врезке узкий хват: кулаки рядом.'),
+    'pull_s5_archer': (
+        'Подтягивания лучника', 'Тяга · этап 5', '2–6 повторений',
+        'Широкий хват: одна рука сгибается и тянет, вторая остаётся прямой вдоль перекладины. Корпус смещается к рабочей руке, затем другая сторона.'),
+    'pull_s6_one_arm': (
+        'Подтягивание на одной руке', 'Тяга · этап 6', '1–3 повторения',
+        'Одна рука на перекладине над плечом, вторая висит вдоль корпуса. Корпус не вращается, подбородок поднимается над перекладиной.'),
+    'warmup_dead_hang': (
+        'Вис на перекладине', 'Разминка', '20 с',
+        'Пассивный вис (плечи у ушей), затем плечи тянутся вниз и хват включается (активный вис), потом снова расслабление.'),
+}
 COOLDOWN_INFO = {
     'cooldown_cat_cow': (
         'Кошка-корова', 'Заминка · Core, Flex, Neck', '30–60 с',
@@ -117,6 +137,7 @@ INFO.update(SUPP_INFO)
 INFO.update(POSTURE_INFO)
 INFO.update(NECK_INFO)
 INFO.update(COOLDOWN_INFO)
+INFO.update(PULL_INFO)
 
 # name -> (page title, heading, lead, file names). A card's file may differ from
 # its id (supp_wrist_circles reuses warmup_wrist_circles.json).
@@ -153,6 +174,12 @@ PRESETS = {
         [('warmup_neck_rolls', None), ('neck_s1_neck_tilt', None),
          ('neck_s2_chest_opener', None), ('neck_s3_shoulder_roll', None),
          ('neck_s4_wall_angel', None), ('neck_s5_doorway_stretch', None)]),
+    'pull': (
+        'Стенд анимаций Pull', 'Анимации ветки Pull',
+        'Подтягивания, перерисованные в риге: подбородок выше перекладины, у каждой ступени своё '
+        'движение. Австралийские подтягивания и растяжка широчайших остались от дизайнера.',
+        [('pull_s2_negative', None), ('pull_s3_pullup', None), ('pull_s4_close_grip', None),
+         ('pull_s5_archer', None), ('pull_s6_one_arm', None), ('warmup_dead_hang', None)]),
     'cooldown': (
         'Стенд заминки Cat-Cow', 'Заминка «Кошка-корова»',
         'Новая анимация заминки Core, Flex и Neck, как она играет в приложении: по кругу, '

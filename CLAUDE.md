@@ -44,9 +44,9 @@ dart run build_runner build       # Code generation (Isar/Hive adapters)
 dart run flutter_launcher_icons   # Icons
 flutter gen-l10n                  # L10n
 flutter build web --release --base-href /caliday/app/   # Web build (CI deploys it to GitHub Pages)
-python3 tools/lottie/gen_flex.py  # Regenerate Flex Lottie animations (also gen_supp.py, gen_posture.py, gen_neck.py, gen_cooldown.py)
+python3 tools/lottie/gen_flex.py  # Regenerate Flex Lottie animations (also gen_supp.py, gen_posture.py, gen_neck.py, gen_cooldown.py, gen_pull.py)
 python3 tools/lottie/check_anim.py NAME ...   # Jump / loop-seam check of generated animations
-python3 tools/lottie/build_preview.py --preset flex|supp|posture|neck|cooldown   # Page to watch generated animations
+python3 tools/lottie/build_preview.py --preset flex|supp|posture|neck|cooldown|pull   # Page to watch generated animations
 ```
 
 ## Code Style

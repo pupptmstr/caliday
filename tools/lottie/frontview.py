@@ -43,6 +43,23 @@ ORDER_CAPS = ['hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l', 'uarm_r',
               'cap_l', 'cap_r'] + ORDER[6:]
 
 
+PAPER_ARM = [0.259, 0.259, 0.345, 1.0]   # arm colour of the original paper-doll files
+
+
+def _paper_arm_shapes(name):
+    """Dark arms and fists (like the profile / old front files) instead of the
+    blue sleeves of the front-view asset."""
+    if name.startswith('uarm'):
+        return [_single('seg', _rc(28, 72, (0, 0), 8), PAPER_ARM)]
+    if name.startswith('farm'):
+        return [_single('seg', _rc(24, 58, (0, 0), 7), PAPER_ARM)]
+    if name.startswith('hand'):
+        return [_single('hand', _el(34, 22), PAPER_ARM)]
+    if name.startswith('cap'):
+        return [_single('cap', _el(22, 20), PAPER_ARM)]
+    return None
+
+
 def _leg_shapes(name):
     if name.startswith('thigh'):
         return [_single('seg', _rc(THIGH_W, THIGH_LEN, (0, 0), 9), THIGH)]
@@ -57,7 +74,11 @@ def _leg_shapes(name):
     return None
 
 
-def shapes(name):
+def shapes(name, style='sleeve'):
+    if style == 'paper':
+        arm = _paper_arm_shapes(name)
+        if arm:
+            return arm
     return _leg_shapes(name) or _top_shapes(name)
 
 
@@ -83,11 +104,12 @@ def elbow_of(shoulder, wrist, bend, l1=UARM, l2=FARM):
 def figure(hips=(200.0, 288.0), lean=0.0, head=(0.0, 0.0, 0.0),
            sh_l=(0.0, 0.0), sh_r=(0.0, 0.0), arm_l=None, arm_r=None,
            leg_l=None, leg_r=None, torso_scale=(1.0, 1.0),
-           head_scale=(1.0, 1.0)):
+           head_scale=(1.0, 1.0), arm_len=(UARM, FARM)):
     """Layer transforms of a standing Goro.
 
     ``hips``     bottom-centre of the torso, ``lean`` its tilt about the hips
                  (degrees, clockwise).
+    ``arm_len``  (upper arm, forearm) lengths for the IK (the segments stretch).
     ``head``     (dx, dy, tilt): head offset from the neck and tilt about it;
                  ``head_scale`` squashes it along its own axes (chin tucked).
     ``sh_*``     shoulder offsets from the default shoulder points (shrugs).
@@ -118,7 +140,7 @@ def figure(hips=(200.0, 288.0), lean=0.0, head=(0.0, 0.0, 0.0),
         if len(arm) == 3:
             wrist, _, elbow = arm
         else:
-            elbow, wrist = elbow_of(shoulder, arm[0], arm[1])
+            elbow, wrist = elbow_of(shoulder, arm[0], arm[1], *arm_len)
         out['cap_' + side] = dict(p=shoulder, r=0, s=(100, 100))
         out['uarm_' + side] = _seg(shoulder, elbow, 72, K * 100)
         out['farm_' + side] = _seg(elbow, wrist, 58, K * 100)
@@ -141,7 +163,8 @@ def figure(hips=(200.0, 288.0), lean=0.0, head=(0.0, 0.0, 0.0),
 class Animation:
     """Spec-compatible: ``write()`` in goro_rig calls ``build()``."""
 
-    def __init__(self, name, frames, pose_fn, step=2, order=None, props=None):
+    def __init__(self, name, frames, pose_fn, step=2, order=None, props=None,
+                 props_index=None, style='sleeve', floor=True):
         self.name = name
         self.frames = frames
         self.pose_fn = pose_fn
@@ -150,6 +173,12 @@ class Animation:
         # Extra static layers (walls, posts), drawn behind the figure: a list or
         # a function ``frames -> list`` (see ``bar`` / ``door_post``).
         self.props = props or []
+        # Insert the props into the layer order after this many figure layers
+        # (None: behind everything), e.g. a bar in front of the head but under
+        # the fists; ``style='paper'`` draws dark arms; ``floor=False`` omits it.
+        self.props_index = props_index
+        self.style = style
+        self.floor = floor
 
     def build(self):
         times = list(range(0, self.frames + 1, self.step))
@@ -157,8 +186,13 @@ class Animation:
             times.append(self.frames)
         poses = [self.pose_fn(t) for t in times]
         layers = []
+        props = list(self.props(self.frames) if callable(self.props)
+                     else self.props)
         for idx, nm in enumerate(self.order, start=1):
-            shp = shapes(nm)
+            if self.props_index is not None and idx - 1 == self.props_index:
+                layers.extend(props)
+                props = []
+            shp = shapes(nm, self.style)
             pos = [p[nm]['p'] for p in poses]
             rots = _unwrap([p[nm]['r'] for p in poses])
             scl = [p[nm]['s'] for p in poses]
@@ -166,12 +200,12 @@ class Animation:
                 nm, idx, self.frames, shp, _prop(times, pos),
                 _prop(times, [(r,) for r in rots]), _prop(times, scl),
                 {"a": 0, "k": [100]}))
-        layers.extend(self.props(self.frames) if callable(self.props)
-                      else self.props)
-        layers.append(_static_layer('floor_line', 96, self.frames,
-                                    (200, FLOOR_Y, 400, 2), FLOOR_LINE, 5))
-        layers.append(_static_layer('floor', 97, self.frames,
-                                    (200, 388, 400, 26), FLOOR, 5))
+        layers.extend(props)
+        if self.floor:
+            layers.append(_static_layer('floor_line', 96, self.frames,
+                                        (200, FLOOR_Y, 400, 2), FLOOR_LINE, 5))
+            layers.append(_static_layer('floor', 97, self.frames,
+                                        (200, 388, 400, 26), FLOOR, 5))
         return {"v": "5.7.4", "fr": FPS, "ip": 0, "op": self.frames,
                 "w": SIZE, "h": SIZE, "nm": self.name, "ddd": 0, "assets": [],
                 "fonts": {"list": []}, "markers": [], "layers": layers}
