@@ -19,8 +19,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
 from frontview import Animation, figure  # noqa: E402
-from goro_rig import (P, SHIN, Spec, THIGH, WAIST, add, joint_of,  # noqa: E402
-                      plant, rot, write)
+from goro_rig import (P, SHIN, Spec, THIGH, WAIST, add, hold_ramp,  # noqa: E402
+                      joint_of, plant, rot, sampled, write)
 
 FLOOR = 376
 # Lying on the back the hip joints sit low in the pelvis (towards the floor).
@@ -30,20 +30,6 @@ ALL_FK = {'leg_n': 'fk', 'leg_f': 'fk', 'arm_n': 'fk', 'arm_f': 'fk'}
 SPLIT_ORDER = ['head', 'uarm_r', 'farm_r', 'thigh_r', 'shin_r', 'foot_r',
                'torso_u', 'pelvis', 'thigh_l', 'shin_l', 'foot_l', 'uarm_l',
                'farm_l']
-
-
-def smoothstep(u):
-    u = min(1.0, max(0.0, u))
-    return u * u * (3 - 2 * u)
-
-
-def sampled(frames, pose_fn, step=2):
-    """Dense linear keys: the pose is computed exactly every ``step`` frames,
-    so poses that depend on a pinned contact never drift between key poses."""
-    ts = list(range(0, frames + 1, step))
-    if ts[-1] != frames:
-        ts.append(frames)
-    return [(t, pose_fn(t), 'linear') for t in ts]
 
 
 # ── posture_s1_pelvic_tilt ───────────────────────────────────────────────────
@@ -76,14 +62,6 @@ def lying_pose(base, alpha, pel=None, **kw):
                 lo = mid
         pel = (lo + hi) / 2
     return P(base, cx=c[0], cy=c[1], br=br, pel=pel, head=HEAD_LYING, **kw)
-
-
-def hold_ramp(t, points):
-    """Piecewise 0..1 curve from (frame, value) points, eased between them."""
-    for (t0, v0), (t1, v1) in zip(points, points[1:]):
-        if t0 <= t <= t1:
-            return v0 + (v1 - v0) * smoothstep((t - t0) / (t1 - t0))
-    return points[-1][1]
 
 
 def pelvic_tilt():

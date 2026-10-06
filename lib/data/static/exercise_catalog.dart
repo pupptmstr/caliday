@@ -1192,6 +1192,7 @@ class ExerciseCatalog {
     challengeTargetReps: 30,
     techniqueTip: 'Do not force your head down with your hand. '
         'Let gravity do the work.',
+    animationPath: 'assets/animations/neck_s1_neck_tilt.json',
   );
 
   static const Exercise neckS2ChestOpener = Exercise(
@@ -1214,6 +1215,7 @@ class ExerciseCatalog {
     challengeTargetReps: 30,
     techniqueTip: 'Focus on squeezing your shoulder blades — '
         'do not arch your lower back.',
+    animationPath: 'assets/animations/neck_s2_chest_opener.json',
   );
 
   static const Exercise neckS3ShoulderRoll = Exercise(
@@ -1235,6 +1237,7 @@ class ExerciseCatalog {
     challengeTargetReps: 15,
     techniqueTip: 'Make the circles as big as possible — '
         'exaggerate the movement.',
+    animationPath: 'assets/animations/neck_s3_shoulder_roll.json',
   );
 
   static const Exercise neckS4WallAngel = Exercise(
@@ -1257,6 +1260,7 @@ class ExerciseCatalog {
     challengeTargetReps: 10,
     techniqueTip: 'Keep your lower back flat against the wall the whole time — '
         'this is harder than it looks.',
+    animationPath: 'assets/animations/neck_s4_wall_angel.json',
   );
 
   static const Exercise neckS5DoorwayStretch = Exercise(
@@ -1279,6 +1283,7 @@ class ExerciseCatalog {
     challengeTargetReps: 45,
     techniqueTip: 'Do not push too far forward. Find the edge of the stretch '
         'and breathe into it.',
+    animationPath: 'assets/animations/neck_s5_doorway_stretch.json',
   );
 
   // ── Warmup: Neck Rolls ─────────────────────────────────────────────────────
@@ -1300,6 +1305,7 @@ class ExerciseCatalog {
     targetRestSec: 0,
     spBase: 0,
     challengeTargetReps: 5,
+    animationPath: 'assets/animations/warmup_neck_rolls.json',
   );
 
   // ── Grouped accessors ─────────────────────────────────────────────────────

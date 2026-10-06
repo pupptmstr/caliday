@@ -116,7 +116,7 @@ The Home screen uses `AnimatedSwitcher` (400ms) to transition between expression
 
 ## Animation System
 
-**Goro exercise animations:** 59 Lottie JSON files, format `assets/animations/[exercise_id].json`.
+**Goro exercise animations:** 65 Lottie JSON files, format `assets/animations/[exercise_id].json`.
 Canvas: 400×400px, 2–4s seamless loop. Flat style matching Goro's colors.
 
 **UI transitions:**
@@ -124,7 +124,7 @@ Canvas: 400×400px, 2–4s seamless loop. Flat style matching Goro's colors.
 - Standard micro-interactions: 150–300ms
 - Spring physics preferred over linear easing
 
-**Lottie status:** Push, Core, Pull, Legs, Balance ✅; Flex ✅ except 90/90 (intentionally no animation). Supplementary pool ✅ (9/9). Posture ✅ except pigeon (intentionally no animation; dead bug and kneeling lunge reuse existing files). Neck is still missing. Flex, the supplementary pool and Posture were generated with `tools/lottie` (see ARCHITECTURE.md § Lottie Animation Tooling); `supp_oblique_crunch` is drawn from above, the only top-down animation; `posture_s4_hip_march` is the first front-view standing one (`tools/lottie/frontview.py`).
+**Lottie status:** Push, Core, Pull, Legs, Balance ✅; Flex ✅ except 90/90 (intentionally no animation). Supplementary pool ✅ (9/9). Posture ✅ except pigeon (intentionally no animation; dead bug and kneeling lunge reuse existing files). Neck ✅ (6/6). Flex, the supplementary pool, Posture and Neck were generated with `tools/lottie` (see ARCHITECTURE.md § Lottie Animation Tooling); `supp_oblique_crunch` is drawn from above, the only top-down animation; `tools/lottie/frontview.py` draws the standing front views (hip march and four of the Neck animations).
 
 ---
 

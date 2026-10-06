@@ -94,6 +94,24 @@ def smooth(u):
     return u * u * (3 - 2 * u)
 
 
+def hold_ramp(t, points):
+    """Piecewise value from (frame, value) points, eased between them."""
+    for (t0, v0), (t1, v1) in zip(points, points[1:]):
+        if t0 <= t <= t1:
+            return v0 + (v1 - v0) * smooth((t - t0) / (t1 - t0))
+    return points[-1][1]
+
+
+def sampled(frames, pose_fn, step=2):
+    """Dense linear keys: the pose is computed exactly every ``step`` frames,
+    so poses that depend on a pinned contact (planted feet/hands) never drift
+    between key poses."""
+    ts = list(range(0, frames + 1, step))
+    if ts[-1] != frames:
+        ts.append(frames)
+    return [(t, pose_fn(t), 'linear') for t in ts]
+
+
 def ik2(p, target, l1, l2, bend):
     """Two-bone IK. ``bend`` is the direction the middle joint should favour."""
     dx, dy = target[0] - p[0], target[1] - p[1]
@@ -175,7 +193,7 @@ class Spec:
     """
 
     def __init__(self, name, frames, keys, modes=None, bends=None, order=None,
-                 step=2, fade=None):
+                 step=2, fade=None, props=None):
         self.name = name
         self.frames = frames
         self.keys = keys  # [(frame, pose, ease)] — ease: smooth|linear|hold
@@ -189,6 +207,9 @@ class Spec:
         # ``order`` is a second copy of 'uarm_r' (same transform, own z-order),
         # so a limb can be crossfaded from in front of the torso to behind it.
         self.fade = fade or {}
+        # Static layers drawn behind the figure: a function ``frames -> list``
+        # (see ``bar`` / ``door_post``).
+        self.props = props
 
     def pose_at(self, t):
         ks = self.keys
@@ -393,6 +414,25 @@ def _layer(nm, ind, op, shapes, p, r, s, o):
             "shapes": shapes}
 
 
+# Props (walls, door posts): static layers behind the figure, same colours as
+# the wall / post of the original files.
+WALL = [0.165, 0.22, 0.35, 1.0]
+POST_LIGHT = [0.384, 0.443, 0.58, 1.0]
+POST_DARK = [0.306, 0.365, 0.502, 1.0]
+
+
+def bar(name, cx, cy, w, h, color, frames, rnd=3, ind=50):
+    """Static rectangle layer (centre ``cx, cy``)."""
+    return _static_layer(name, ind, frames, (cx, cy, w, h), color, rnd)
+
+
+def door_post(name, cx, top, frames, bottom=FLOOR_Y, ind=50):
+    """Two-tone vertical post (the look of the stick in ``cooldown_lat_stretch``)."""
+    h, cy = bottom - top, (top + bottom) / 2
+    return [bar(name + '_a', cx + 1.5, cy, 13, h, POST_DARK, frames, 3, ind),
+            bar(name + '_b', cx - 1.5, cy, 7, h, POST_LIGHT, frames, 3, ind - 1)]
+
+
 def _prop(times, values, linear=True):
     """Static if every value is identical, otherwise keyframed."""
     first = values[0]
@@ -441,6 +481,8 @@ def build(spec):
             nm, idx, spec.frames, _part_shapes(base),
             _prop(times, pos), _prop(times, [(r,) for r in rots]),
             _prop(times, scl), opacity))
+    if spec.props:
+        layers.extend(spec.props(spec.frames))
     layers.append(_static_layer('floor_line', 96, spec.frames,
                                 (200, FLOOR_Y, 400, 2), FLOOR_LINE, 5))
     layers.append(_static_layer('floor', 97, spec.frames,

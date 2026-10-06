@@ -17,10 +17,10 @@ returns ``figure(...)`` for frame ``t``; ``write()`` from ``goro_rig`` saves it.
 
 import math
 
-from goro_rig import (DARK, FLOOR, FLOOR_LINE, FLOOR_Y, FPS, SIZE, _el, _layer,
+from goro_rig import (DARK, FLOOR, FLOOR_LINE, FLOOR_Y, FPS, SIZE, _el, _layer,  # noqa: F401
                       _prop, _rc, _single, _static_layer, _unwrap, add, ang_of,
-                      dirv, ik2, mul, rot)
-from topview import K, KNEECAP, THIGH, _shapes as _top_shapes
+                      bar, dirv, door_post, ik2, mul, rot)
+from topview import K, KNEECAP, SLEEVE, THIGH, _shapes as _top_shapes
 
 # Sizes (final pixels).
 UARM = 72 * K            # 43.2
@@ -38,6 +38,9 @@ HEAD_DY = -36                           # head centre above the neck pivot
 ORDER = ['hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l', 'uarm_r', 'head',
          'knee_l', 'knee_r', 'thigh_l', 'thigh_r', 'shin_l', 'shin_r', 'foot_l',
          'foot_r', 'body']
+# Same with round shoulder caps (for animations where the shoulders move).
+ORDER_CAPS = ['hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l', 'uarm_r',
+              'cap_l', 'cap_r'] + ORDER[6:]
 
 
 def _leg_shapes(name):
@@ -49,6 +52,8 @@ def _leg_shapes(name):
         return [_single('f', _el(32, 13), DARK)]
     if name.startswith('knee'):
         return [_single('cap', _el(26, 22), KNEECAP)]
+    if name.startswith('cap'):
+        return [_single('cap', _el(22, 20), SLEEVE)]
     return None
 
 
@@ -77,12 +82,14 @@ def elbow_of(shoulder, wrist, bend, l1=UARM, l2=FARM):
 
 def figure(hips=(200.0, 288.0), lean=0.0, head=(0.0, 0.0, 0.0),
            sh_l=(0.0, 0.0), sh_r=(0.0, 0.0), arm_l=None, arm_r=None,
-           leg_l=None, leg_r=None, torso_scale=(1.0, 1.0)):
+           leg_l=None, leg_r=None, torso_scale=(1.0, 1.0),
+           head_scale=(1.0, 1.0)):
     """Layer transforms of a standing Goro.
 
     ``hips``     bottom-centre of the torso, ``lean`` its tilt about the hips
                  (degrees, clockwise).
-    ``head``     (dx, dy, tilt): head offset from the neck and tilt about it.
+    ``head``     (dx, dy, tilt): head offset from the neck and tilt about it;
+                 ``head_scale`` squashes it along its own axes (chin tucked).
     ``sh_*``     shoulder offsets from the default shoulder points (shrugs).
     ``arm_*``    ``(wrist_target, bend)`` or ``(wrist, bend, elbow)`` with an
                  explicit elbow; default: hanging at the side.
@@ -98,7 +105,8 @@ def figure(hips=(200.0, 288.0), lean=0.0, head=(0.0, 0.0, 0.0),
     neck = add(c, rot((0, NECK_DY * torso_scale[1]), lean))
     hdx, hdy, tilt = head
     out['head'] = dict(p=add(neck, rot((hdx, HEAD_DY + hdy), lean + tilt)),
-                       r=lean + tilt, s=(K * 100, K * 100))
+                       r=lean + tilt,
+                       s=(K * 100 * head_scale[0], K * 100 * head_scale[1]))
 
     for side, sx in (('l', -1), ('r', 1)):
         off = sh_l if side == 'l' else sh_r
@@ -111,6 +119,7 @@ def figure(hips=(200.0, 288.0), lean=0.0, head=(0.0, 0.0, 0.0),
             wrist, _, elbow = arm
         else:
             elbow, wrist = elbow_of(shoulder, arm[0], arm[1])
+        out['cap_' + side] = dict(p=shoulder, r=0, s=(100, 100))
         out['uarm_' + side] = _seg(shoulder, elbow, 72, K * 100)
         out['farm_' + side] = _seg(elbow, wrist, 58, K * 100)
         out['hand_' + side] = dict(p=wrist, r=0, s=(K * 100, K * 100))
@@ -138,7 +147,9 @@ class Animation:
         self.pose_fn = pose_fn
         self.step = step
         self.order = order or ORDER
-        self.props = props or []   # extra static layers, drawn above the floor
+        # Extra static layers (walls, posts), drawn behind the figure: a list or
+        # a function ``frames -> list`` (see ``bar`` / ``door_post``).
+        self.props = props or []
 
     def build(self):
         times = list(range(0, self.frames + 1, self.step))
@@ -155,7 +166,8 @@ class Animation:
                 nm, idx, self.frames, shp, _prop(times, pos),
                 _prop(times, [(r,) for r in rots]), _prop(times, scl),
                 {"a": 0, "k": [100]}))
-        layers.extend(self.props)
+        layers.extend(self.props(self.frames) if callable(self.props)
+                      else self.props)
         layers.append(_static_layer('floor_line', 96, self.frames,
                                     (200, FLOOR_Y, 400, 2), FLOOR_LINE, 5))
         layers.append(_static_layer('floor', 97, self.frames,

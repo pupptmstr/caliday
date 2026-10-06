@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Builds a self-contained preview page that plays Lottie animations.
 
-Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture]
+Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck]
                                               [--out FILE] [--fragment]
                                               [--dir DIR] [name ...]
 
 The flex preset (default) shows every assets/animations/flex_*.json, the supp
-preset the supplementary pool, posture the Posture branch of the Healthy Body
-course. --dir reads the files from DIR (a draft folder) instead of
+preset the supplementary pool, posture and neck the Posture and Neck branches
+of the Healthy Body course. --dir reads the files from DIR (a draft folder) instead of
 assets/animations. The page is written to build/lottie_preview.html
 as a standalone file (lottie-web comes from cdnjs).
 --fragment omits the <!doctype>/<html> wrapper (the form the Artifact tool wants).
@@ -87,8 +87,29 @@ POSTURE_INFO = {
         'Растяжка сгибателей бедра', 'Осанка · этап 5', '2 × удержание 60 с',
         'Та же анимация, что у flex_s1: выпад на колено, таз вперёд, корпус вертикален.'),
 }
+NECK_INFO = {
+    'warmup_neck_rolls': (
+        'Вращения шеей', 'Разминка', '5 повторений',
+        'Вид спереди: голова полукругом идёт от плеча к плечу через грудь, назад не запрокидывается.'),
+    'neck_s1_neck_tilt': (
+        'Наклоны шеи', 'Шея · этап 1', '2 × удержание 15–45 с',
+        'Вид спереди: ухо тянется к плечу, пауза, на другую сторону. Противоположное плечо опускается, рука не помогает.'),
+    'neck_s2_chest_opener': (
+        'Раскрытие груди', 'Шея · этап 2', '2 × удержание 15–45 с',
+        'Сбоку: руки сцеплены за спиной и уходят назад, лопатки сводятся, грудь идёт вперёд, подбородок чуть вверх.'),
+    'neck_s3_shoulder_roll': (
+        'Круги плечами', 'Шея · этап 3', '2–3 × 8–20 повторений',
+        'Вид спереди: большие медленные круги, сначала вперёд, потом назад. Плечи поднимаются, сводятся и опускаются.'),
+    'neck_s4_wall_angel': (
+        'Ангелы у стены', 'Шея · этап 4', '2–3 × 5–15 повторений',
+        'Сбоку: спина, затылок и руки у стены. Руки скользят вверх вдоль стены и обратно.'),
+    'neck_s5_doorway_stretch': (
+        'Растяжка груди в дверном проёме', 'Шея · этап 5', '2 × удержание 20–60 с',
+        'Вид спереди: предплечья на косяках, корпус и голова подаются к камере (наклон вперёд), грудь раскрывается.'),
+}
 INFO.update(SUPP_INFO)
 INFO.update(POSTURE_INFO)
+INFO.update(NECK_INFO)
 
 # name -> (page title, heading, lead, file names). A card's file may differ from
 # its id (supp_wrist_circles reuses warmup_wrist_circles.json).
@@ -117,6 +138,14 @@ PRESETS = {
         [('posture_s1_pelvic_tilt', None), ('posture_s2_dead_bug', 'supp_dead_bug'),
          ('posture_s3_glute_bridge', None), ('posture_s4_hip_march', None),
          ('posture_s5_kneeling_lunge', 'flex_s1_hip_flexor_stretch')]),
+    'neck': (
+        'Стенд анимаций Neck', 'Анимации ветки Neck',
+        'Разминка и пять упражнений ветки «Шея» курса «Здоровое тело», как они играют '
+        'в приложении: по кругу, 12 кадров в секунду. Четыре показаны спереди, «Раскрытие груди» '
+        'и «Ангелы у стены» сбоку.',
+        [('warmup_neck_rolls', None), ('neck_s1_neck_tilt', None),
+         ('neck_s2_chest_opener', None), ('neck_s3_shoulder_roll', None),
+         ('neck_s4_wall_angel', None), ('neck_s5_doorway_stretch', None)]),
 }
 
 STANDALONE_HEAD = ('<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n'
