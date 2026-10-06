@@ -42,6 +42,15 @@ WAIST = (0, 14)
 PELVIS_TOP, PELVIS_H = 8, 42
 UPPER_BOTTOM = 20
 
+# Optional three-part spine ('sp_chest', 'sp_mid', 'sp_pelvis' instead of
+# 'body'): pose key ``spine = (s1, s2)`` bends the mid part by s1 about
+# SPINE_H1 relative to the chest, and the pelvis by s2 about SPINE_H2 relative
+# to the mid part (degrees, clockwise). Used by the cat-cow.
+SPINE_H1, SPINE_H2 = (0, -12), (0, 24)
+SP_CHEST = (-50, SPINE_H1[1] + 8)          # local y extents of each part
+SP_MID = (SPINE_H1[1] - 8, SPINE_H2[1] + 8)
+SP_PELVIS = (SPINE_H2[1] - 8, 50)
+
 DARK = [0.2196, 0.2196, 0.298, 1.0]
 LIGHT = [0.2588, 0.2588, 0.3451, 1.0]
 FAR = [0.2549, 0.2549, 0.3412, 1.0]
@@ -164,6 +173,8 @@ BASE_POSE = dict(
     sc_torso=1.0,
     # Pelvis rotation (deg, clockwise) about the waist, split-torso poses only.
     pel=0.0,
+    # Three-part spine bend (see SPINE_H1), spine poses only.
+    spine=(0.0, 0.0),
 )
 
 
@@ -234,7 +245,18 @@ def joint_of(pose, limb):
     if pose['pel']:
         local = add(WAIST, rot((local[0] - WAIST[0], local[1] - WAIST[1]),
                                pose['pel']))
+    if any(pose['spine']):
+        local = _spine_chain(local, pose['spine'], 2)
     return add(c, rot(local, pose['br']))
+
+
+def _spine_chain(p, spine, depth):
+    """Torso-local point ``p`` of the pelvis (depth 2) or mid part (depth 1)
+    moved by the spine bends."""
+    s1, s2 = spine
+    if depth == 2:
+        p = add(SPINE_H2, rot((p[0] - SPINE_H2[0], p[1] - SPINE_H2[1]), s2))
+    return add(SPINE_H1, rot((p[0] - SPINE_H1[0], p[1] - SPINE_H1[1]), s1))
 
 
 def ik_to_fk(pose, limb, target, bend=None):
@@ -265,6 +287,16 @@ def solve(spec, pose):
     out['body'] = dict(p=c, r=br, s=(100 * pose['sc_torso'], 100))
     out['torso_u'] = dict(p=add(c, rot((0, (-50 + UPPER_BOTTOM) / 2), br)), r=br,
                           s=(100 * pose['sc_torso'], 100))
+    s1, s2 = pose['spine']
+    sc = 100 * pose['sc_torso']
+    mid_c = (0, (SP_MID[0] + SP_MID[1]) / 2)
+    pel_c0 = (0, (SP_PELVIS[0] + SP_PELVIS[1]) / 2)
+    out['sp_chest'] = dict(p=add(c, rot((0, (SP_CHEST[0] + SP_CHEST[1]) / 2), br)),
+                           r=br, s=(sc, 100))
+    out['sp_mid'] = dict(p=add(c, rot(_spine_chain(mid_c, pose['spine'], 1), br)),
+                         r=br + s1, s=(sc, 100))
+    out['sp_pelvis'] = dict(p=add(c, rot(_spine_chain(pel_c0, pose['spine'], 2), br)),
+                            r=br + s1 + s2, s=(sc, 100))
     pel_c = add(WAIST, rot((0, PELVIS_TOP + PELVIS_H / 2 - WAIST[1]),
                            pose['pel']))
     out['pelvis'] = dict(p=add(c, rot(pel_c, br)), r=br + pose['pel'],
@@ -383,6 +415,16 @@ def _part_shapes(name):
         return _body_shapes()
     if name == 'torso_u':
         return _upper_shapes()
+    if name == 'sp_chest':
+        mid = (SP_CHEST[0] + SP_CHEST[1]) / 2
+        return [_single('torso', _rc(56, SP_CHEST[1] - SP_CHEST[0]), DARK, 1),
+                _single('chest', _rc(42, 16, (0, -30 - mid), 4), LIGHT, 2)]
+    if name == 'sp_mid':
+        mid = (SP_MID[0] + SP_MID[1]) / 2
+        return [_single('torso', _rc(56, SP_MID[1] - SP_MID[0]), DARK, 1),
+                _single('abs', _rc(36, 10, (0, 6 - mid), 3), LIGHT, 2)]
+    if name == 'sp_pelvis':
+        return [_single('torso', _rc(56, SP_PELVIS[1] - SP_PELVIS[0]), DARK, 1)]
     if name == 'pelvis':
         return [_single('torso', _rc(56, PELVIS_H), DARK, 1)]
     if name.startswith('thigh'):

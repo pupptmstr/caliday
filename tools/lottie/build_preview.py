@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
 """Builds a self-contained preview page that plays Lottie animations.
 
-Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck]
+Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown]
                                               [--out FILE] [--fragment]
                                               [--dir DIR] [name ...]
 
 The flex preset (default) shows every assets/animations/flex_*.json, the supp
 preset the supplementary pool, posture and neck the Posture and Neck branches
-of the Healthy Body course. --dir reads the files from DIR (a draft folder) instead of
+of the Healthy Body course, cooldown the generated cooldown (cat-cow). --dir reads the files from DIR (a draft folder) instead of
 assets/animations. The page is written to build/lottie_preview.html
 as a standalone file (lottie-web comes from cdnjs).
 --fragment omits the <!doctype>/<html> wrapper (the form the Artifact tool wants).
@@ -107,9 +107,16 @@ NECK_INFO = {
         'Растяжка груди в дверном проёме', 'Шея · этап 5', '2 × удержание 20–60 с',
         'Вид спереди: предплечья на косяках, корпус и голова подаются к камере (наклон вперёд), грудь раскрывается.'),
 }
+COOLDOWN_INFO = {
+    'cooldown_cat_cow': (
+        'Кошка-корова', 'Заминка · Core, Flex, Neck', '30–60 с',
+        'На четвереньках: спина прогибается вниз (корова, голова вверх) и округляется вверх '
+        '(кошка, подбородок к груди). Руки и колени остаются на месте.'),
+}
 INFO.update(SUPP_INFO)
 INFO.update(POSTURE_INFO)
 INFO.update(NECK_INFO)
+INFO.update(COOLDOWN_INFO)
 
 # name -> (page title, heading, lead, file names). A card's file may differ from
 # its id (supp_wrist_circles reuses warmup_wrist_circles.json).
@@ -146,6 +153,11 @@ PRESETS = {
         [('warmup_neck_rolls', None), ('neck_s1_neck_tilt', None),
          ('neck_s2_chest_opener', None), ('neck_s3_shoulder_roll', None),
          ('neck_s4_wall_angel', None), ('neck_s5_doorway_stretch', None)]),
+    'cooldown': (
+        'Стенд заминки Cat-Cow', 'Заминка «Кошка-корова»',
+        'Новая анимация заминки Core, Flex и Neck, как она играет в приложении: по кругу, '
+        '12 кадров в секунду. Позвоночник гнётся в трёх местах: сначала прогиб вниз, затем горб.',
+        [('cooldown_cat_cow', None)]),
 }
 
 STANDALONE_HEAD = ('<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n'
