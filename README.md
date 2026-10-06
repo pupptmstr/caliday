@@ -37,7 +37,7 @@ The app is built on proven game-based learning mechanics:
 - **Daily set auto-generation** based on current level and preferred duration
 - **Smooth progression:** reps ↑ → sets ↑ → rest ↓ → Challenge test → next stage
 - **Gamification:** Strength Points, streaks, ranks, streak freezes, 27 achievements
-- **Goro mascot** — gorilla with 6 animated expressions + Lottie exercise animations (all 6 branches, except 90/90 hip mobility, plus the supplementary exercises)
+- **Goro mascot** — gorilla with 6 animated expressions + Lottie exercise animations (all 6 calisthenics branches except 90/90 hip mobility, the supplementary exercises and the Posture branch except the pigeon pose)
 - **Web version** — runs in the browser at https://pupptmstr.github.io/caliday/app/ (installable as a PWA); data stays in the browser (IndexedDB). No notifications, Health, widget or BLE on the web
 - **Exercise Library** — browsable catalog of all exercises with tags and filtering
 - **Custom Workouts** — Quick Routine (tag-based) and Saved Routines (manual builder)
@@ -86,7 +86,7 @@ lib/
     └── achievements/
 
 assets/animations/             # Lottie exercise animations
-tools/lottie/                  # Generators for the Flex + supplementary animations, preview page builder
+tools/lottie/                  # Generators for the Flex, supplementary and Posture animations, preview page builder
 web/                           # Web shell (index.html, manifest, icons); deployed by .github/workflows/web.yml
 ```
 

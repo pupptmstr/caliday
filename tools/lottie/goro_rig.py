@@ -36,6 +36,12 @@ FARM = 36
 SHOULDER = (3, -39)
 HEAD_DEFAULT = (7, -83)
 
+# Optional split torso ('torso_u' + 'pelvis' layers instead of 'body'): the
+# pelvis hinges on the waist so a lying pose can arch / flatten the lower back.
+WAIST = (0, 14)
+PELVIS_TOP, PELVIS_H = 8, 42
+UPPER_BOTTOM = 20
+
 DARK = [0.2196, 0.2196, 0.298, 1.0]
 LIGHT = [0.2588, 0.2588, 0.3451, 1.0]
 FAR = [0.2549, 0.2549, 0.3412, 1.0]
@@ -138,6 +144,8 @@ BASE_POSE = dict(
     sc_uarm_n=1.0, sc_farm_n=1.0, sc_uarm_f=1.0, sc_farm_f=1.0,
     # Torso thickness scale: widens the torso as it turns towards the viewer.
     sc_torso=1.0,
+    # Pelvis rotation (deg, clockwise) about the waist, split-torso poses only.
+    pel=0.0,
 )
 
 
@@ -201,7 +209,11 @@ def joint_of(pose, limb):
     if limb.startswith('arm'):
         return add(c, rot((pose['sh_' + limb[-1]], SHOULDER[1]), pose['br']))
     hip_x = pose['hip_' + limb[-1]]
-    return add(c, rot((hip_x, TORSO_H / 2), pose['br']))
+    local = (hip_x, TORSO_H / 2)
+    if pose['pel']:
+        local = add(WAIST, rot((local[0] - WAIST[0], local[1] - WAIST[1]),
+                               pose['pel']))
+    return add(c, rot(local, pose['br']))
 
 
 def ik_to_fk(pose, limb, target, bend=None):
@@ -230,6 +242,12 @@ def solve(spec, pose):
     c = (pose['cx'], pose['cy'])
     br = pose['br']
     out['body'] = dict(p=c, r=br, s=(100 * pose['sc_torso'], 100))
+    out['torso_u'] = dict(p=add(c, rot((0, (-50 + UPPER_BOTTOM) / 2), br)), r=br,
+                          s=(100 * pose['sc_torso'], 100))
+    pel_c = add(WAIST, rot((0, PELVIS_TOP + PELVIS_H / 2 - WAIST[1]),
+                           pose['pel']))
+    out['pelvis'] = dict(p=add(c, rot(pel_c, br)), r=br + pose['pel'],
+                         s=(100 * pose['sc_torso'], 100))
 
     hx, hy = pose['head']
     out['head'] = dict(p=add(c, rot((hx, hy), br)), r=br + pose['ht'],
@@ -325,12 +343,27 @@ def _body_shapes():
     ]
 
 
+def _upper_shapes():
+    # 'body' cut at UPPER_BOTTOM; details re-centred on the shorter rect.
+    h = UPPER_BOTTOM + 50
+    mid = (-50 + UPPER_BOTTOM) / 2
+    return [
+        _single('torso', _rc(56, h), DARK, 1),
+        _single('chest', _rc(42, 16, (0, -30 - mid), 4), LIGHT, 2),
+        _single('abs', _rc(36, 10, (0, 6 - mid), 3), LIGHT, 3),
+    ]
+
+
 def _part_shapes(name):
     far = name.endswith('_l')
     if name == 'head':
         return _head_shapes()
     if name == 'body':
         return _body_shapes()
+    if name == 'torso_u':
+        return _upper_shapes()
+    if name == 'pelvis':
+        return [_single('torso', _rc(56, PELVIS_H), DARK, 1)]
     if name.startswith('thigh'):
         return [_single('seg', _rc(26 if far else 28, 46), FAR if far else DARK)]
     if name.startswith('shin'):

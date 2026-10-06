@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Builds a self-contained preview page that plays Lottie animations.
 
-Usage: python3 tools/lottie/build_preview.py [--preset flex|supp] [--out FILE]
-                                              [--fragment] [name ...]
+Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture]
+                                              [--out FILE] [--fragment]
+                                              [--dir DIR] [name ...]
 
 The flex preset (default) shows every assets/animations/flex_*.json, the supp
-preset the supplementary pool. The page is written to build/lottie_preview.html
+preset the supplementary pool, posture the Posture branch of the Healthy Body
+course. --dir reads the files from DIR (a draft folder) instead of
+assets/animations. The page is written to build/lottie_preview.html
 as a standalone file (lottie-web comes from cdnjs).
 --fragment omits the <!doctype>/<html> wrapper (the form the Artifact tool wants).
 """
@@ -67,7 +70,25 @@ SUPP_INFO = {
         'Вращения запястьями', 'Кисти', '30 с',
         'Готовая анимация warmup_wrist_circles: кулаки вращаются в обе стороны.'),
 }
+POSTURE_INFO = {
+    'posture_s1_pelvic_tilt': (
+        'Наклон таза назад', 'Осанка · этап 1', '3 × удержание 10 с',
+        'Лёжа, колени согнуты. Поясница сначала чуть выгнута над полом, затем прижимается: таз подворачивается.'),
+    'posture_s2_dead_bug': (
+        'Мёртвый жук', 'Осанка · этап 2', '3 × 10 повторений',
+        'Та же анимация, что у supp_dead_bug: рука уходит за голову, противоположная нога вытягивается.'),
+    'posture_s3_glute_bridge': (
+        'Ягодичный мостик', 'Осанка · этап 3', '3 × 20 повторений',
+        'Лёжа, стопы на полу. Таз поднимается до одной линии плечо–таз–колено, пауза и спуск.'),
+    'posture_s4_hip_march': (
+        'Марш на месте', 'Осанка · этап 4', '3 × 20 повторений',
+        'Вид спереди: колено поднимается до уровня бедра (нога идёт к камере), корпус прямой, руки на поясе.'),
+    'posture_s5_kneeling_lunge': (
+        'Растяжка сгибателей бедра', 'Осанка · этап 5', '2 × удержание 60 с',
+        'Та же анимация, что у flex_s1: выпад на колено, таз вперёд, корпус вертикален.'),
+}
 INFO.update(SUPP_INFO)
+INFO.update(POSTURE_INFO)
 
 # name -> (page title, heading, lead, file names). A card's file may differ from
 # its id (supp_wrist_circles reuses warmup_wrist_circles.json).
@@ -88,6 +109,14 @@ PRESETS = {
          ('supp_single_leg_calf_raise', None), ('supp_dead_bug', None),
          ('supp_bird_dog', None), ('supp_neck_isometrics', None),
          ('supp_wrist_circles', 'warmup_wrist_circles')]),
+    'posture': (
+        'Стенд анимаций Posture', 'Анимации ветки Posture',
+        'Пять из шести упражнений курса «Здоровое тело», как они играют в приложении: по кругу, '
+        '12 кадров в секунду. «Мёртвый жук» и «Растяжка сгибателей» используют уже готовые '
+        'анимации, марш на месте показан спереди. Поза голубя сознательно без анимации.',
+        [('posture_s1_pelvic_tilt', None), ('posture_s2_dead_bug', 'supp_dead_bug'),
+         ('posture_s3_glute_bridge', None), ('posture_s4_hip_march', None),
+         ('posture_s5_kneeling_lunge', 'flex_s1_hip_flexor_stretch')]),
 }
 
 STANDALONE_HEAD = ('<!doctype html>\n<html lang="ru">\n<head>\n<meta charset="utf-8">\n'
@@ -100,6 +129,7 @@ def main():
     ap.add_argument('--out', default=os.path.join(ROOT, 'build', 'lottie_preview.html'))
     ap.add_argument('--fragment', action='store_true')
     ap.add_argument('--preset', choices=sorted(PRESETS), default='flex')
+    ap.add_argument('--dir', default=ANIMATIONS)
     ap.add_argument('names', nargs='*')
     args = ap.parse_args()
 
@@ -112,7 +142,10 @@ def main():
 
     data, meta = {}, []
     for card_id, file_name in cards:
-        with open(os.path.join(ANIMATIONS, (file_name or card_id) + '.json')) as f:
+        path = os.path.join(args.dir, (file_name or card_id) + '.json')
+        if not os.path.exists(path):  # reused files live in assets/animations
+            path = os.path.join(ANIMATIONS, (file_name or card_id) + '.json')
+        with open(path) as f:
             data[card_id] = json.load(f)
         card_title, stage, kind, text = INFO.get(card_id, (card_id, '', '', ''))
         meta.append(dict(id=card_id, title=card_title, stage=stage, kind=kind, text=text))

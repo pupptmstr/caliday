@@ -1059,6 +1059,7 @@ class ExerciseCatalog {
     challengeTargetReps: 30,
     techniqueTip: 'Focus on pressing the small of your back into the floor — '
         'you should feel your abs engage lightly.',
+    animationPath: 'assets/animations/posture_s1_pelvic_tilt.json',
   );
 
   static const Exercise postureS2DeadBug = Exercise(
@@ -1080,6 +1081,7 @@ class ExerciseCatalog {
     challengeTargetReps: 8,
     techniqueTip: 'Move slowly — this is about control, not speed. '
         'Keep your lower back pressed flat the whole time.',
+    animationPath: 'assets/animations/supp_dead_bug.json',
   );
 
   static const Exercise postureS3GluteBridge = Exercise(
@@ -1101,6 +1103,7 @@ class ExerciseCatalog {
     challengeTargetReps: 15,
     techniqueTip: 'Squeeze your glutes hard at the top — avoid pushing '
         'with your lower back.',
+    animationPath: 'assets/animations/posture_s3_glute_bridge.json',
   );
 
   static const Exercise postureS4HipMarch = Exercise(
@@ -1122,6 +1125,7 @@ class ExerciseCatalog {
     challengeTargetReps: 16,
     techniqueTip: 'Lift each knee to hip height without leaning your torso — '
         'focus on the hip flexor doing the work, not momentum.',
+    animationPath: 'assets/animations/posture_s4_hip_march.json',
   );
 
   static const Exercise postureS5KneelingLunge = Exercise(
@@ -1143,6 +1147,7 @@ class ExerciseCatalog {
     challengeTargetReps: 45,
     techniqueTip: 'Keep your back straight and gently tuck your pelvis under '
         'to deepen the stretch.',
+    animationPath: 'assets/animations/flex_s1_hip_flexor_stretch.json',
   );
 
   static const Exercise postureS6PigeonPose = Exercise(

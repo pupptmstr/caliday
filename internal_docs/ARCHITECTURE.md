@@ -323,12 +323,14 @@ Warmup: `warmup_leg_swings` ✅. Cooldown: `cooldown_cat_cow` ✅.
 Warmup: `warmup_hip_circles` ✅. Cooldowns: `[cooldown_hip_flexor` ✅`, cooldown_quad_stretch` ✅`]`.
 | Stage | ID | Name | Type | Lottie |
 |-------|----|------|------|--------|
-| 1 | `posture_s1_pelvic_tilt` | Posterior Pelvic Tilt | timed | ❌ |
-| 2 | `posture_s2_dead_bug` | Dead Bug | reps | ❌ |
-| 3 | `posture_s3_glute_bridge` | Glute Bridge | reps | ❌ |
-| 4 | `posture_s4_hip_march` | Standing Hip March | reps | ❌ |
-| 5 | `posture_s5_kneeling_lunge` | Kneeling Hip Flexor Stretch | timed | ❌ |
-| 6 | `posture_s6_pigeon_pose` | Pigeon Pose | timed | ❌ |
+| 1 | `posture_s1_pelvic_tilt` | Posterior Pelvic Tilt | timed | ✅ |
+| 2 | `posture_s2_dead_bug` | Dead Bug | reps | ✅ (file: `supp_dead_bug.json`) |
+| 3 | `posture_s3_glute_bridge` | Glute Bridge | reps | ✅ |
+| 4 | `posture_s4_hip_march` | Standing Hip March | reps | ✅ (front view) |
+| 5 | `posture_s5_kneeling_lunge` | Kneeling Hip Flexor Stretch | timed | ✅ (file: `flex_s1_hip_flexor_stretch.json`) |
+| 6 | `posture_s6_pigeon_pose` | Pigeon Pose | timed | ❌ (by design) |
+
+`posture_s6_pigeon_pose` intentionally has no animation: the shin across the body points at the camera in profile (three profile variants looked like a crawling animal) and a front view hides it. The app shows the placeholder icon. Decision by the owner, 2026-10-06.
 
 ### Neck Branch — Healthy Body course (5 stages)
 Warmup: `warmup_neck_rolls` ❌. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_shoulder_stretch` ✅`]`.
@@ -564,13 +566,16 @@ Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.ca
 
 ### Lottie Animation Tooling
 
-Exercise animations are flat "paper-doll" Lottie files (one shape layer per body part, no parenting, 400×400, 12 fps). The Flex and supplementary sets (13 files incl. one reused) are generated, not hand-drawn; the older branches come from the original designer files:
+Exercise animations are flat "paper-doll" Lottie files (one shape layer per body part, no parenting, 400×400, 12 fps). The Flex, supplementary and Posture sets (16 files incl. three reused) are generated, not hand-drawn; the older branches come from the original designer files:
 
 - `tools/lottie/goro_rig.py` — Goro rig: forward/inverse kinematics → keyframed Lottie JSON. Same part sizes, colours and layer order as the existing files.
-- `tools/lottie/gen_flex.py`, `tools/lottie/gen_supp.py` — one function per animation (a list of key poses); `python3 tools/lottie/gen_flex.py [--out DIR] [name ...]` rewrites `assets/animations/flex_*.json`, `gen_supp.py` the `supp_*.json` set.
+- `tools/lottie/gen_flex.py`, `tools/lottie/gen_supp.py`, `tools/lottie/gen_posture.py` — one function per animation (a list of key poses); `python3 tools/lottie/gen_flex.py [--out DIR] [name ...]` rewrites `assets/animations/flex_*.json`, `gen_supp.py` the `supp_*.json` set, `gen_posture.py` the generated `posture_*.json` files (dead bug and kneeling lunge reuse `supp_dead_bug.json` / `flex_s1_hip_flexor_stretch.json`; pigeon has none). Poses that depend on pinned contacts (planted feet) are generated as dense linear keys every 2 frames (`sampled()` in `gen_posture.py`) so IK keeps them planted.
 - `tools/lottie/topview.py` — a second, top-down rig for poses that fail in profile: Goro seen from above lying on his back, drawn like the front-view asset (`warmup_wrist_circles`: same head/torso/blue sleeves, scaled by 0.6), parts placed by their end points. Used by `supp_oblique_crunch`.
-- `tools/lottie/build_preview.py` (+ `preview_template.html`) — builds a self-contained preview page that plays the animations (pause, speed 0.5–1.5×, per-frame scrubber, key-frame strip, thumbnail/screen/large sizes). `python3 tools/lottie/build_preview.py [--preset flex|supp] [--fragment] [--out FILE] [name ...]` writes `build/lottie_preview.html` (git-ignored); card copy lives in the `INFO` dict, page titles in `PRESETS`.
+- `tools/lottie/frontview.py` — a third rig, for standing poses seen from the front: same head/torso/blue sleeves as `topview.py` (scale 0.6, so the figure has the profile size: hips `(200, 288)`, floor `y = 376`), standing legs with lighter thighs and knee caps. `figure(hips, lean, head, sh_l/sh_r, arm_l/arm_r, leg_l/leg_r, torso_scale)` solves one frame from joint positions (arms by two-bone IK, legs by explicit knee/ankle points, so a knee raised towards the camera is a foreshortened thigh plus a bigger knee cap); `Animation(name, frames, pose_fn)` samples it every 2 frames. Layers are named by screen side (`l` = left of the picture). Used by `posture_s4_hip_march`; the Neck branch is next.
+- `tools/lottie/check_anim.py` — jump / loop-seam checker (`python3 tools/lottie/check_anim.py NAME|FILE ...`): reports any layer that moves more than 22 px or turns more than 30° between consecutive frames, and any layer whose last frame differs from its first. Run it on every generated file.
+- `tools/lottie/build_preview.py` (+ `preview_template.html`) — builds a self-contained preview page that plays the animations (pause, speed 0.5–1.5×, per-frame scrubber, key-frame strip, thumbnail/screen/large sizes). `python3 tools/lottie/build_preview.py [--preset flex|supp|posture] [--fragment] [--out FILE] [--dir DRAFTS] [name ...]` writes `build/lottie_preview.html` (git-ignored); card copy lives in the `INFO` dict, page titles in `PRESETS`.
 - Conventions: Goro faces right; segment angle `a` points along `(-sin a, cos a)` (0 = down, 180 = up, clockwise-positive); feet/hands are planted with IK targets, free limbs use FK angles; the floor line is `y = 376` and objects nearer the camera may dip into the floor strip below it and segments can be foreshortened (`sc_*`); both are supported but currently unused.
+- Split torso (lying poses that need a lumbar arch): spec `order` uses `torso_u` + `pelvis` instead of `body`; pose key `pel` rotates the pelvis about the waist and `joint_of` moves the hip joints with it. Lying on the back, lower the hip joints (`hip_n=-6, hip_f=-12`) or the knees stay almost flat (the torso is 56 px thick).
 - Limb tricks in the rig: `sh_n`/`sh_f` move the two shoulders along the torso (fake a torso twist), `sc_torso` widens the torso as it turns to the viewer, and an `order` entry like `uarm_r@b` plus `fade` crossfades a second copy of a limb so it can pass from in front of the torso to behind it (Russian twists). Poses built from IK targets can end up 360° apart from their neighbours; `align()` picks the short way round.
 - IK knee/elbow direction is chosen with a `bend` vector: knees bend forward/up for planted legs (`(1, -1)`, `(0, -1)`), but a leg stretched behind the body or kneeling must bend towards the floor (`(0, 1)`), otherwise the knee hyperextends.
 - Quirk kept for consistency: the forearm is mounted upside-down (elbow = +y end, fist = −y end), so its layer rotation is `angle + 180`.
@@ -726,7 +731,9 @@ flutter build ipa                 # iOS archive
 flutter build web --release --base-href /caliday/app/   # Web (deployed by CI)
 python3 tools/lottie/gen_flex.py  # Regenerate the Flex Lottie animations
 python3 tools/lottie/gen_supp.py  # Regenerate the supplementary-pool animations
-python3 tools/lottie/build_preview.py [--preset flex|supp]  # Build build/lottie_preview.html to watch them
+python3 tools/lottie/gen_posture.py  # Regenerate the Posture animations
+python3 tools/lottie/check_anim.py NAME ...  # Jump / loop-seam check of generated files
+python3 tools/lottie/build_preview.py [--preset flex|supp|posture]  # Build build/lottie_preview.html to watch them
 ```
 
 ---
@@ -766,7 +773,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp]  # Build build/lottie
 | v0.7 | Lottie animations — Supplementary pool (9/9; 8 generated + reused `warmup_wrist_circles`) | ✅ |
 | v0.7 | Privacy Policy + Terms of Use (GitHub Pages + links in app) | ✅ |
 | v0.7 | Web build — PWA on GitHub Pages, IndexedDB storage, CI deploy | ✅ |
-| — | Lottie animations — Posture branch (0/6) | 🔒 waiting for designer |
+| v0.7 | Lottie animations — Posture branch (5/6; 3 generated, dead bug + kneeling lunge reuse existing files; pigeon intentionally without) | ✅ |
 | — | Lottie animations — Neck branch (0/5 + warmup_neck_rolls) | 🔒 waiting for designer |
 | — | Lottie animation replacement — cat-cow (`cooldown_cat_cow.json`) | 🔒 waiting for designer |
 | — | Interactive home screen stats — tappable streak/SP/rank chips → calendar / history / rank info | 📐 designed |
