@@ -304,15 +304,22 @@ class _HeroStat extends StatelessWidget {
           children: [
             Icon(icon, size: 18, color: accentColor),
             const SizedBox(width: 6),
-            Text(
-              label.isNotEmpty ? '$value $label' : value,
-              style: TextStyle(
-                fontWeight: FontWeight.w800,
-                fontSize: 14,
-                color:
-                    accentColor == Colors.white ? Colors.white : accentColor,
+            // Flexible + scaleDown: on a 375 px phone each chip is only ~105 px
+            // wide, so a long rank name ("Новичок") must shrink, not overflow.
+            Flexible(
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Text(
+                  label.isNotEmpty ? '$value $label' : value,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w800,
+                    fontSize: 14,
+                    color: accentColor == Colors.white
+                        ? Colors.white
+                        : accentColor,
+                  ),
+                ),
               ),
-              overflow: TextOverflow.ellipsis,
             ),
           ],
         ),
