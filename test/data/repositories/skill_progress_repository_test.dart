@@ -28,19 +28,16 @@ void main() {
       }
     });
 
-    test('are a reachable load for the stage-1 exercise of the catalog', () {
-      // Not equal to the catalog start on purpose for some branches (core,
-      // pull, legs, balance start a little gentler / with more rest, see
-      // DEV_NOTES), but never beyond what the stage asks for at its end.
+    test('match the starting values of the stage-1 exercise in the catalog', () {
+      // Otherwise a new user starts with a different load than the catalog
+      // says is the start of the stage (and regression / custom routines use
+      // the catalog values).
       for (final branch in BranchId.values) {
         final p = repo.getProgress(branch);
         final first = ExerciseCatalog.forStage(branch, 1)!;
-        expect(p.currentReps, lessThanOrEqualTo(first.targetReps),
-            reason: '${branch.name} reps');
-        expect(p.currentReps, greaterThan(0), reason: '${branch.name} reps');
-        expect(p.currentSets, lessThanOrEqualTo(first.targetSets),
-            reason: '${branch.name} sets');
-        expect(p.currentRestSec, greaterThanOrEqualTo(first.targetRestSec),
+        expect(p.currentReps, first.startReps, reason: '${branch.name} reps');
+        expect(p.currentSets, first.startSets, reason: '${branch.name} sets');
+        expect(p.currentRestSec, first.startRestSec,
             reason: '${branch.name} rest');
       }
     });

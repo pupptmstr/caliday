@@ -10,20 +10,6 @@ import 'package:caliday/l10n/app_localizations_en.dart';
 import 'package:caliday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// `challengeTargetReps` is the norm for ENTERING a stage through the Challenge
-/// (the generator and `_finishWorkout` read it from the next stage; stage 1 is
-/// never entered that way). These six hardest final stages have no norm yet, so
-/// today the Challenge into them passes with any result (`completedReps >= 0`).
-/// Game design has to pick the values; see DEV_NOTES.
-const _challengeTargetNotSetYet = {
-  'push_s7_handstand_pushup',
-  'core_s6_dragon_flag',
-  'pull_s6_one_arm',
-  'legs_s5_pistol',
-  'bal_s6_free_hs',
-  'flex_s6_pike_stretch',
-};
-
 /// Data-integrity checks for the static exercise catalogs. They cost nothing
 /// at runtime and catch the mistakes that otherwise only show up as a missing
 /// animation, an untranslated name or a progression stage that never ends.
@@ -96,20 +82,15 @@ void main() {
         expect(e.startRestSec, greaterThanOrEqualTo(e.targetRestSec));
         expect(e.targetRestSec, greaterThanOrEqualTo(0));
         expect(e.spBase, greaterThan(0), reason: 'a staged exercise must earn SP');
-        if (e.stage >= 2 && !_challengeTargetNotSetYet.contains(e.id)) {
+        // challengeTargetReps is the norm for ENTERING a stage through the
+        // Challenge (the generator and _finishWorkout read it from the next
+        // stage); stage 1 is never entered that way. With 0 any result passes.
+        if (e.stage >= 2) {
           expect(e.challengeTargetReps, greaterThan(0),
-              reason: 'entering this stage through the Challenge needs a norm; '
-                  'with 0 any result passes');
+              reason: 'entering this stage through the Challenge needs a norm');
         }
       });
     }
-
-    test('the known gaps in challengeTargetReps are still gaps', () {
-      // Remove an id from _challengeTargetNotSetYet as soon as it gets a value.
-      for (final id in _challengeTargetNotSetYet) {
-        expect(ExerciseCatalog.byId(id)!.challengeTargetReps, 0, reason: id);
-      }
-    });
 
     test('warm-ups and cool-downs earn no SP and need no rest', () {
       for (final e in [...ExerciseCatalog.warmups, ...ExerciseCatalog.cooldowns]) {
