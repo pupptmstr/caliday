@@ -25,7 +25,14 @@
   "libraryTitle": "Courses",
   "progressTitle": "My Progress",
   "progressInfo": "Just keep training — the app advances you through the branches automatically. Here you can track how far you've come. And if you feel ready to push ahead early, take the Challenge and move forward yourself.",
-  "homeDays": "days",
+  "homeStreakDays": "{count, plural, one{{count} day} other{{count} days}}",
+  "@homeStreakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "homeBranchesTitle": "Skill Branches",
   "homeBranchPush": "Push",
   "homeBranchPull": "Pull",
@@ -749,7 +756,7 @@
       }
     }
   },
-  "rankDecayWarning": "You haven't trained for {days} days — your rank has dropped. Get back to it!",
+  "rankDecayWarning": "You haven't trained for {days, plural, one{{days} day} other{{days} days}} — your rank has dropped. Get back to it!",
   "@rankDecayWarning": {
     "placeholders": {
       "days": {

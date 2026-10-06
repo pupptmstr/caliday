@@ -220,8 +220,8 @@ class _HeroZone extends StatelessWidget {
                 Expanded(
                   child: _HeroStat(
                     icon: Icons.local_fire_department,
-                    value: '$streak',
-                    label: l10n.homeDays,
+                    value: l10n.homeStreakDays(streak),
+                    label: '',
                     accentColor: AppTheme.energy,
                     onTap: onTapStreak,
                   ),

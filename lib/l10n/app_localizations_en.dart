@@ -38,7 +38,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'Just keep training — the app advances you through the branches automatically. Here you can track how far you\'ve come. And if you feel ready to push ahead early, take the Challenge and move forward yourself.';
 
   @override
-  String get homeDays => 'days';
+  String homeStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days',
+      one: '$count day',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get homeBranchesTitle => 'Skill Branches';
@@ -1828,7 +1836,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String rankDecayWarning(int days) {
-    return 'You haven\'t trained for $days days — your rank has dropped. Get back to it!';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days days',
+      one: '$days day',
+    );
+    return 'You haven\'t trained for $_temp0 — your rank has dropped. Get back to it!';
   }
 
   @override

@@ -25,7 +25,14 @@
   "libraryTitle": "Курсы",
   "progressTitle": "Мой прогресс",
   "progressInfo": "Просто тренируйтесь — приложение само продвигает вас вперёд по веткам. Здесь можно отследить пройденный путь. А если чувствуете, что готовы к большему раньше времени — принимайте Испытание и переходите сами.",
-  "homeDays": "дней",
+  "homeStreakDays": "{count, plural, one{{count} день} few{{count} дня} many{{count} дней} other{{count} дня}}",
+  "@homeStreakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "homeBranchesTitle": "Ветки прогрессии",
   "homeBranchPush": "Толкай",
   "homeBranchPull": "Тяга",
@@ -749,7 +756,7 @@
       }
     }
   },
-  "rankDecayWarning": "Ты не тренировался {days} дней — ранг снижен. Вернись к тренировкам!",
+  "rankDecayWarning": "Ты не тренировался {days, plural, one{{days} день} few{{days} дня} many{{days} дней} other{{days} дня}} — ранг снижен. Вернись к тренировкам!",
   "@rankDecayWarning": {
     "placeholders": {
       "days": {

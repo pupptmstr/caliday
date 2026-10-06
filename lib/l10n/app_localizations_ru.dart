@@ -38,7 +38,17 @@ class AppLocalizationsRu extends AppLocalizations {
       'Просто тренируйтесь — приложение само продвигает вас вперёд по веткам. Здесь можно отследить пройденный путь. А если чувствуете, что готовы к большему раньше времени — принимайте Испытание и переходите сами.';
 
   @override
-  String get homeDays => 'дней';
+  String homeStreakDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count дня',
+      many: '$count дней',
+      few: '$count дня',
+      one: '$count день',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get homeBranchesTitle => 'Ветки прогрессии';
@@ -1833,7 +1843,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String rankDecayWarning(int days) {
-    return 'Ты не тренировался $days дней — ранг снижен. Вернись к тренировкам!';
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days дня',
+      many: '$days дней',
+      few: '$days дня',
+      one: '$days день',
+    );
+    return 'Ты не тренировался $_temp0 — ранг снижен. Вернись к тренировкам!';
   }
 
   @override

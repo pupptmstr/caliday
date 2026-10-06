@@ -146,11 +146,11 @@ abstract class AppLocalizations {
   /// **'Just keep training — the app advances you through the branches automatically. Here you can track how far you\'ve come. And if you feel ready to push ahead early, take the Challenge and move forward yourself.'**
   String get progressInfo;
 
-  /// No description provided for @homeDays.
+  /// No description provided for @homeStreakDays.
   ///
   /// In en, this message translates to:
-  /// **'days'**
-  String get homeDays;
+  /// **'{count, plural, one{{count} day} other{{count} days}}'**
+  String homeStreakDays(int count);
 
   /// No description provided for @homeBranchesTitle.
   ///
@@ -3299,7 +3299,7 @@ abstract class AppLocalizations {
   /// No description provided for @rankDecayWarning.
   ///
   /// In en, this message translates to:
-  /// **'You haven\'t trained for {days} days — your rank has dropped. Get back to it!'**
+  /// **'You haven\'t trained for {days, plural, one{{days} day} other{{days} days}} — your rank has dropped. Get back to it!'**
   String rankDecayWarning(int days);
 
   /// No description provided for @summaryRankRestoredTitle.
