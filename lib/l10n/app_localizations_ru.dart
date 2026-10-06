@@ -182,7 +182,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get workoutReps => 'Повторения';
 
   @override
-  String get workoutStop => '⏹  Стоп';
+  String get workoutStart => 'Старт';
+
+  @override
+  String get workoutTimedHint =>
+      'Прочитай описание и прими позицию. Время пойдёт, когда нажмёшь «Старт».';
+
+  @override
+  String get workoutStop => 'Стоп';
 
   @override
   String get workoutDone => '✓  Готово';

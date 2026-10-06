@@ -31,9 +31,10 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         final s = ref.read(workoutProvider);
         // Play tick for the last 5 seconds of rest and timed exercises
         // (not on the final second). Reps exercises have timerSec=0 so they
-        // are naturally excluded by the timerSec >= 2 guard.
+        // are naturally excluded by the timerSec >= 2 guard; a timed exercise
+        // that has not been started yet is not counting down.
         if ((s.phase == WorkoutPhase.rest ||
-                s.phase == WorkoutPhase.exercise) &&
+                (s.phase == WorkoutPhase.exercise && s.timerStarted)) &&
             s.timerSec >= 2 &&
             s.timerSec <= 6) {
           unawaited(SoundService.instance.tick());
@@ -304,6 +305,18 @@ class _ExerciseView extends StatelessWidget {
                     ),
                   ),
                 ],
+
+                // The countdown only starts with the Start button.
+                if (isTimed && !state.timerStarted) ...[
+                  const SizedBox(height: 16),
+                  Text(
+                    l10n.workoutTimedHint,
+                    style: TextStyle(
+                      fontSize: 13,
+                      color: scheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
               ],
             ),
           ),
@@ -328,21 +341,33 @@ class _ExerciseView extends StatelessWidget {
 
               const SizedBox(height: 24),
 
-              FilledButton(
+              FilledButton.icon(
                 style: FilledButton.styleFrom(
                   minimumSize: const Size.fromHeight(56),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
-                onPressed: isTimed
-                    ? () {
-                        final elapsed = planned.targetAmount - state.timerSec;
-                        notifier.confirmSet(actualDurationSec: elapsed);
-                      }
-                    : () => notifier.confirmSet(),
-                child: Text(
-                  isTimed ? l10n.workoutStop : l10n.workoutDone,
+                onPressed: !isTimed
+                    ? () => notifier.confirmSet()
+                    : !state.timerStarted
+                        ? notifier.startTimer
+                        : () {
+                            final elapsed =
+                                planned.targetAmount - state.timerSec;
+                            notifier.confirmSet(actualDurationSec: elapsed);
+                          },
+                icon: isTimed
+                    ? Icon(state.timerStarted
+                        ? Icons.stop_rounded
+                        : Icons.play_arrow_rounded)
+                    : null,
+                label: Text(
+                  !isTimed
+                      ? l10n.workoutDone
+                      : state.timerStarted
+                          ? l10n.workoutStop
+                          : l10n.workoutStart,
                   style: const TextStyle(
                       fontSize: 17, fontWeight: FontWeight.w700),
                 ),

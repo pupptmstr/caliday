@@ -531,6 +531,9 @@ home → push(/workout) → pushReplacement(/summary) → go(/home)
 ```
 After completion: `ref.invalidate(homeDataProvider)` + `ref.invalidate(profileDataProvider)`
 
+### Timed exercises: the Start button
+The hold of a timed exercise (plank, dead hang, stretches) does not start by itself: after a rest the description has to be readable first. `WorkoutState.timerStarted` is false whenever a timed exercise begins (first exercise, after a rest, after a set with no rest, next exercise); `WorkoutNotifier.startTimer()` (the **Start** button) sets it, and only then does `tick()` count `timerSec` down; the button then becomes **Stop** and the full hold still confirms the set by itself. `startTimer()` does nothing for reps exercises, during a rest, or when already started. The screen plays the last-seconds tick only while `timerStarted`. The rest countdown is unchanged (it starts at once). Time spent waiting for Start counts into the workout duration. Tested in `test/features/workout/workout_timer_test.dart`.
+
 ### WorkoutState when phase == done
 - `spEarned`, `durationSec`, `isPrimary`, `workoutsToday`
 - `freezeEarned`, `freezeUsed`
@@ -803,6 +806,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 | Friend QR + BLE payloads | `test/data/friend_qr_codec_test.dart`, `ble_profile_codec_test.dart`, `test/features/friends/friend_qr_payload_test.dart` | round trips, all number ranges, size (QR version, 512-byte GATT limit), v1 compatibility, thousands of random / damaged inputs never throw |
 | Health energy | `test/domain/services/workout_energy_test.dart` | MET formula, which weight sample is used, implausible weights fall back to 70 kg |
 | Router redirect | `test/core/router/app_redirect_test.dart` | onboarding gate, widget and friend deep links, no redirect loops |
+| Workout timer | `test/features/workout/workout_timer_test.dart` | a timed exercise waits for Start in every transition (first, after rest, no-rest sets, next exercise), then counts down and confirms itself |
 | Widget labels | `test/core/widget_service_test.dart` | the widget's hard-coded rank names equal the ARB ones |
 | Repository / CI files | `test/repo/workflows_test.dart` | the three workflows pin one Flutter version, the release workflow stays disabled and tag-only, ci.yml keeps its l10n / build steps |
 

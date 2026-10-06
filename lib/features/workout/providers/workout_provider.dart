@@ -68,6 +68,7 @@ class WorkoutState {
     required this.timerSec,
     required this.results,
     required this.startedAt,
+    this.timerStarted = false,
     this.spEarned = 0,
     this.durationSec = 0,
     this.isInterExerciseRest = false,
@@ -100,6 +101,11 @@ class WorkoutState {
   /// Rest phase: seconds remaining until next set.
   /// Timed exercise phase: seconds remaining in the hold.
   final int timerSec;
+
+  /// Timed exercise: false until the user taps Start, so the description can be
+  /// read before the hold begins; [timerSec] only counts down once it is true.
+  /// Always false in the rest phase and for reps exercises.
+  final bool timerStarted;
 
   /// One slot per [plan.exercises] entry; null until that slot is complete.
   final List<ExerciseResult?> results;
@@ -157,6 +163,7 @@ class WorkoutState {
     WorkoutPhase? phase,
     int? repsInput,
     int? timerSec,
+    bool? timerStarted,
     List<ExerciseResult?>? results,
     int? spEarned,
     int? durationSec,
@@ -179,6 +186,7 @@ class WorkoutState {
       phase: phase ?? this.phase,
       repsInput: repsInput ?? this.repsInput,
       timerSec: timerSec ?? this.timerSec,
+      timerStarted: timerStarted ?? this.timerStarted,
       results: results ?? this.results,
       startedAt: startedAt,
       spEarned: spEarned ?? this.spEarned,
@@ -309,6 +317,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
           state = state.copyWith(
             phase: WorkoutPhase.rest,
             timerSec: planned.restSec,
+            timerStarted: false,
             isInterExerciseRest: true,
             results: newResults,
           );
@@ -321,6 +330,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
             timerSec: next.exercise.type == ExerciseType.timed
                 ? next.targetAmount
                 : 0,
+            timerStarted: false,
             results: newResults,
           );
         }
@@ -331,16 +341,33 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
         state = state.copyWith(
           phase: WorkoutPhase.rest,
           timerSec: planned.restSec,
+          timerStarted: false,
         );
       } else {
-        state = state.copyWith(setIndex: state.setIndex + 1);
+        // No rest: the next set of a timed exercise waits for Start again.
+        state = state.copyWith(
+          setIndex: state.setIndex + 1,
+          timerSec: planned.exercise.type == ExerciseType.timed
+              ? planned.targetAmount
+              : 0,
+          timerStarted: false,
+        );
       }
     }
   }
 
+  /// Starts the hold countdown of a timed exercise (the Start button). Does
+  /// nothing in any other situation, so a double tap is harmless.
+  void startTimer() {
+    if (state.phase != WorkoutPhase.exercise || state.timerStarted) return;
+    if (state.currentPlanned.exercise.type != ExerciseType.timed) return;
+    state = state.copyWith(timerStarted: true);
+  }
+
   /// Decrements the active timer by one second.
   ///
-  /// Should be called once per second from the screen's [Timer.periodic].
+  /// Should be called once per second from the screen's [Timer.periodic]. The
+  /// hold of a timed exercise only counts down after [startTimer].
   void tick() {
     if (state.phase == WorkoutPhase.rest) {
       if (state.timerSec <= 1) {
@@ -349,6 +376,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
         state = state.copyWith(timerSec: state.timerSec - 1);
       }
     } else if (state.phase == WorkoutPhase.exercise &&
+        state.timerStarted &&
         state.currentPlanned.exercise.type == ExerciseType.timed) {
       if (state.timerSec <= 1) {
         // Full target duration reached → auto-confirm.
