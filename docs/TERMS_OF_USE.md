@@ -1,6 +1,6 @@
 # Terms of Use — CaliDay
 
-**Last updated: April 9, 2026**
+**Last updated: October 6, 2026**
 
 ---
 
@@ -55,7 +55,7 @@ You may not:
 CaliDay stores all data locally on your device. Any workout routines, custom exercise
 lists, or other content you create within the app belong to you and remain on your device.
 
-When you choose to share your profile via the Friends feature (Section 4 of the Privacy Policy),
+When you choose to share your profile via the Friends feature (Section 5 of the Privacy Policy),
 you are responsible for that sharing. Only share your profile with people you trust.
 
 ---
@@ -70,7 +70,7 @@ The developer does not warrant that:
 
 - The app will be available at all times or free from errors
 - Workout suggestions will be appropriate for your specific fitness level or health condition
-- Data stored locally will never be lost (device failure, OS updates, or uninstall will delete it)
+- Data stored locally will never be lost (device failure, OS updates, uninstalling the app, or clearing the browser's site data for the web version will delete it)
 
 ---
 
@@ -104,7 +104,7 @@ even if the app is removed from app stores.
 
 ## 7. Third-Party Platforms
 
-CaliDay is distributed through the Apple App Store and Google Play Store.
+CaliDay is distributed through the Apple App Store and Google Play Store, and is also available as a web app hosted on GitHub Pages.
 Your use of those platforms is governed by their respective terms of service.
 The developer has no control over — and is not responsible for — the policies or
 actions of Apple Inc. or Google LLC.

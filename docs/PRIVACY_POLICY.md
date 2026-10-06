@@ -1,6 +1,6 @@
 # Privacy Policy — CaliDay
 
-**Last updated: April 9, 2026**
+**Last updated: October 6, 2026**
 
 ---
 
@@ -35,6 +35,18 @@ The following data is stored **on your device only**:
 | Saved routines | Custom workouts you've built |
 
 All of this data is deleted when you uninstall the app.
+
+### Web version
+
+CaliDay is also available as a web app at <https://pupptmstr.github.io/caliday/app/>. It works the
+same way: everything you do is stored in your browser, on your device, and is never sent to
+CaliDay's developers. The data is deleted when you clear the site data for that address in your
+browser. The web app has no Health integration, Bluetooth, home screen widget or notifications; the
+camera is used only to scan a QR code, as described in Section 4.
+
+The web page itself is hosted on GitHub Pages. Like any web host, GitHub may process technical data
+such as your IP address when you load the page, under GitHub's own privacy statement. CaliDay does
+not receive or use that data.
 
 ---
 
