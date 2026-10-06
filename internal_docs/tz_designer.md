@@ -10,12 +10,12 @@
 | Выражения Горо (6 SVG) | `goro_face_*.svg` | ✅ В приложении |
 | Позы Скалы (2 SVG) | `skala_neutral.svg`, `skala_approve.svg` | ✅ В приложении |
 | Редизайн тела (2 SVG) | `goro_idle_v2.svg`, `goro_flex_v2.svg` | ✅ В приложении |
-| **Блок A — Push (7 анимаций)** | `push_s1..s7` | ✅ В приложении |
+| **Блок A — Push (7 анимаций)** | `push_s1..s7` (06.10.2026 `push_s4..s7` перерисованы `tools/lottie/gen_push.py`: вид сбоку в стиле `push_s1..s3`, положение рук во врезке; стойка на руках спиной к стене) | ✅ В приложении |
 | **Блок B — Core (6 анимаций + альтернатива)** | `core_s1..s6`, `core_s4_flutter_kicks` | ✅ В приложении |
 | **Блок C — Разминки/заминки Push+Core (4 анимации)** | `warmup_arm_rotations`, `warmup_jumping_jacks`, `cooldown_shoulder_stretch`, `cooldown_cat_cow` | ✅ В приложении |
 | **Блок D — Pull (8 анимаций)** | `pull_s1..s6`, `warmup_dead_hang`, `cooldown_lat_stretch` (06.10.2026 `pull_s2..s6` и `warmup_dead_hang` перерисованы `tools/lottie/gen_pull.py`: подбородок выше перекладины, у ступеней разное движение) | ✅ В приложении |
 | **Блок E — Legs (9 анимаций)** | `legs_s1..s5`, `warmup_leg_swings`, `warmup_hip_circles`, `cooldown_quad_stretch`, `cooldown_hip_flexor` | ✅ В приложении |
-| **Блок F — Balance (8 анимаций)** | `bal_s1..s6`, `warmup_wrist_circles`, `cooldown_downward_dog` | ✅ В приложении |
+| **Блок F — Balance (8 анимаций)** | `bal_s1..s6`, `warmup_wrist_circles`, `cooldown_downward_dog` (06.10.2026 `bal_s1`, `bal_s3`, `bal_s4`, `bal_s6` получили покачивание, `cooldown_downward_dog` поправлена голова) | ✅ В приложении |
 | **Блок G — Flex (5 из 6)** | `flex_s1`, `flex_s2`, `flex_s4`, `flex_s5`, `flex_s6` (сгенерированы `tools/lottie`) | ✅ В приложении |
 | **Блок H — Supplementary pool (9)** | `supp_*` (8 сгенерированы, `supp_wrist_circles` использует `warmup_wrist_circles`) | ✅ В приложении |
 | **Блок I — Posture (5 из 6)** | `posture_s1`, `posture_s3`, `posture_s4` (сгенерированы `tools/lottie`), `posture_s2` = `supp_dead_bug`, `posture_s5` = `flex_s1` | ✅ В приложении |
@@ -124,7 +124,7 @@
 
 ---
 
-## БЛОК A — Ветка Push (7 файлов) — ✅ ГОТОВО
+## БЛОК A — Ветка Push (7 файлов) — ✅ ГОТОВО (06.10.2026: `push_s4..s7` перерисованы в профиль, как `push_s1..s3`)
 
 | ID (имя файла) | Название | Статус |
 |----------------|----------|--------|

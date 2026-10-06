@@ -204,7 +204,7 @@ class Spec:
     """
 
     def __init__(self, name, frames, keys, modes=None, bends=None, order=None,
-                 step=2, fade=None, props=None):
+                 step=2, fade=None, props=None, tint=None):
         self.name = name
         self.frames = frames
         self.keys = keys  # [(frame, pose, ease)] — ease: smooth|linear|hold
@@ -221,6 +221,8 @@ class Spec:
         # Static layers drawn behind the figure: a function ``frames -> list``
         # (see ``bar`` / ``door_post``).
         self.props = props
+        # Layer name -> fill colour: highlights one body part (the stretched leg).
+        self.tint = tint or {}
 
     def pose_at(self, t):
         ks = self.keys
@@ -468,6 +470,22 @@ def bar(name, cx, cy, w, h, color, frames, rnd=3, ind=50):
     return _static_layer(name, ind, frames, (cx, cy, w, h), color, rnd)
 
 
+def rbar(name, cx, cy, w, h, angle, color, frames, rnd=3, ind=50):
+    """Static rectangle centred at (cx, cy) rotated by ``angle`` degrees."""
+    shapes = [_single('fl', _rc(w, h, (0, 0), rnd), color)]
+    return _layer(name, ind, frames, shapes, {"a": 0, "k": [cx, cy]},
+                  {"a": 0, "k": [angle]}, {"a": 0, "k": [100, 100]},
+                  {"a": 0, "k": [100]})
+
+
+def oval(name, cx, cy, w, h, color, frames, ind=50):
+    """Static ellipse centred at (cx, cy)."""
+    shapes = [_single('fl', _el(w, h, (cx, cy)), color)]
+    return _layer(name, ind, frames, shapes, {"a": 0, "k": [0, 0]},
+                  {"a": 0, "k": [0]}, {"a": 0, "k": [100, 100]},
+                  {"a": 0, "k": [100]})
+
+
 def disc(name, cx, cy, d, color, frames, ind=50):
     """Static filled circle (a bar seen end-on)."""
     shapes = [_single('fl', _el(d, d, (cx, cy)), color)]
@@ -527,8 +545,14 @@ def build(spec):
             opacity = _prop(times, [(spec.fade[nm](t),) for t in times])
         else:
             opacity = {"a": 0, "k": [FAR_OPACITY if far else 100]}
+        shapes = _part_shapes(base)
+        if base in spec.tint:
+            for shape in shapes:
+                for item in shape['it']:
+                    if item['ty'] == 'fl':
+                        item['c']['k'] = list(spec.tint[base])
         layers.append(_layer(
-            nm, idx, spec.frames, _part_shapes(base),
+            nm, idx, spec.frames, shapes,
             _prop(times, pos), _prop(times, [(r,) for r in rots]),
             _prop(times, scl), opacity))
     if spec.props:
