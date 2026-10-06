@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_theme.dart';
+import '../../../core/utils/calendar_days.dart';
 import '../../../data/models/workout_log.dart';
 
 /// GitHub-style compact heatmap showing last 13 weeks of workout activity.
@@ -29,17 +30,25 @@ class CompactHeatmap extends StatelessWidget {
     return map;
   }
 
+  /// The dates of the grid: [_numWeeks] week columns of 7 days, Monday first,
+  /// ending with the week that contains [today] (a local-midnight date).
+  static List<List<DateTime>> weekGrid(DateTime today) {
+    // Start from the Monday of the week (_numWeeks - 1) weeks ago. Calendar
+    // arithmetic, not Duration: across a DST change `subtract(Duration(days:))`
+    // lands on 23:00 / 01:00 and no cell would match its date-only key.
+    final startMonday =
+        addCalendarDays(today, -(today.weekday - 1) - 7 * (_numWeeks - 1));
+    return List.generate(_numWeeks, (w) {
+      return List.generate(7, (d) => addCalendarDays(startMonday, w * 7 + d));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final countMap = _buildCountMap();
     final now = DateTime.now();
     final today = DateTime(now.year, now.month, now.day);
-
-    // Start from the Monday of the week (_numWeeks - 1) weeks ago
-    final currentMonday =
-        today.subtract(Duration(days: today.weekday - 1));
-    final startMonday = currentMonday
-        .subtract(Duration(days: 7 * (_numWeeks - 1)));
+    final grid = weekGrid(today);
 
     return GestureDetector(
       onTap: onTap,
@@ -47,13 +56,12 @@ class CompactHeatmap extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(_numWeeks, (w) {
-          final weekStart = startMonday.add(Duration(days: w * 7));
           return Padding(
             padding: EdgeInsets.only(right: w < _numWeeks - 1 ? _gap : 0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: List.generate(7, (d) {
-                final date = weekStart.add(Duration(days: d));
+                final date = grid[w][d];
                 final isFuture = date.isAfter(today);
                 final count = isFuture ? 0 : (countMap[date] ?? 0);
                 return Padding(

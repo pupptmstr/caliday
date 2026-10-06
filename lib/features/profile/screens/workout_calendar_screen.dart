@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/theme/app_theme.dart';
+import '../../../core/utils/calendar_days.dart';
 import '../../../data/models/workout_log.dart';
 import '../../../data/repositories/workout_repository.dart';
 import '../widgets/workout_log_tile.dart';
@@ -204,9 +205,7 @@ class _WorkoutCalendarScreenState
     final freezeGapDays = <DateTime>{};
     for (final log in [...logs, ...nextMonthExtra]) {
       if (log.freezeUsed) {
-        freezeGapDays.add(
-          _dateOnly(log.date.subtract(const Duration(days: 1))),
-        );
+        freezeGapDays.add(addCalendarDays(log.date, -1));
       }
     }
 

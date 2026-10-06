@@ -4,6 +4,7 @@ import 'package:hive_ce/hive_ce.dart';
 
 import '../../../core/router/app_router.dart';
 import '../../../core/services/notification_service.dart';
+import '../../../core/utils/calendar_days.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
 import '../../../data/models/user_profile.dart';
@@ -87,22 +88,21 @@ class _DeveloperOptionsScreenState
         _DevRow(
           label: 'Последняя тренировка',
           child: _DevDropdown<int>(
-            values: const [0, 1, 2, 3, -1],
+            values: _lastWorkoutDaysAgoChoices,
             selected: _lastWorkoutDaysAgo(),
             label: (v) => switch (v) {
               0 => 'Сегодня',
               1 => 'Вчера',
-              2 => '2 дня',
-              3 => '3 дня',
-              _ => 'Никогда',
+              -1 => 'Никогда',
+              // 14 = rank warning, 21 / 35 / 59 = rank decay tiers 1 / 2 / 5
+              _ => '$v дн.',
             },
             onSelect: (v) => setState(() {
               if (v == -1) {
                 _profile.lastWorkoutDate = null;
               } else {
-                final d = DateTime.now().subtract(Duration(days: v));
                 _profile.lastWorkoutDate =
-                    DateTime(d.year, d.month, d.day);
+                    addCalendarDays(DateTime.now(), -v);
               }
             }),
           ),
@@ -170,18 +170,14 @@ class _DeveloperOptionsScreenState
     );
   }
 
+  /// Offered "last workout N days ago" values; -1 = never.
+  static const _lastWorkoutDaysAgoChoices = [0, 1, 2, 3, 14, 21, 35, 59, -1];
+
   int _lastWorkoutDaysAgo() {
     final d = _profile.lastWorkoutDate;
     if (d == null) return -1;
-    final today = DateTime.now();
-    final diff = DateTime(today.year, today.month, today.day)
-        .difference(DateTime(d.year, d.month, d.day))
-        .inDays;
-    if (diff == 0) return 0;
-    if (diff == 1) return 1;
-    if (diff == 2) return 2;
-    if (diff == 3) return 3;
-    return -1;
+    final diff = calendarDaysBetween(d, DateTime.now());
+    return _lastWorkoutDaysAgoChoices.contains(diff) ? diff : -1;
   }
 
   void _saveProfile() {

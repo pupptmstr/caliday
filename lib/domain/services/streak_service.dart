@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/utils/calendar_days.dart';
 import '../../data/models/user_profile.dart';
 import '../../data/repositories/user_repository.dart';
 
@@ -32,7 +33,7 @@ class StreakService {
       // First workout ever
       profile.currentStreak = 1;
     } else {
-      final daysSince = today.difference(lastDate).inDays;
+      final daysSince = calendarDaysBetween(lastDate, today);
 
       if (daysSince == 1) {
         // Consecutive day
@@ -83,10 +84,25 @@ class StreakService {
   }
 
   /// Number of full calendar days since the last workout, or -1 if never.
-  int daysSinceLastWorkout(UserProfile profile) {
+  ///
+  /// [now] is injectable for tests; defaults to the current time.
+  int daysSinceLastWorkout(UserProfile profile, {DateTime? now}) {
     final lastDate = profile.lastWorkoutDate;
     if (lastDate == null) return -1;
-    return _dateOnly(DateTime.now()).difference(_dateOnly(lastDate)).inDays;
+    return calendarDaysBetween(lastDate, now ?? DateTime.now());
+  }
+
+  /// The calendar day on which the current streak is actually gone if the user
+  /// does not train again, or null if there is no workout on record.
+  ///
+  /// Mirrors [applyWorkout] / [displayStreakProvider]: after a workout on day D
+  /// the streak survives a workout on D+1, and also on D+2 when a freeze is
+  /// available. So it is lost once D+1 (D+2 with a freeze) has passed without
+  /// training, i.e. on D+2 (D+3). Returned as a local-midnight date.
+  DateTime? streakLostDate(UserProfile profile) {
+    final last = profile.lastWorkoutDate;
+    if (last == null) return null;
+    return addCalendarDays(last, profile.streakFreezeCount > 0 ? 3 : 2);
   }
 
   static DateTime _dateOnly(DateTime dt) => DateTime(dt.year, dt.month, dt.day);
