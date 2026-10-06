@@ -2,6 +2,23 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 
+/// The jobs of a workflow file by name: the 2-space-indented keys under
+/// `jobs:`, each with the text up to the next job.
+Map<String, String> jobsOf(String yaml) {
+  final block = yaml.substring(yaml.indexOf('\njobs:'));
+  final names = RegExp(r'^  ([a-z][a-z0-9_-]*):\s*$', multiLine: true)
+      .allMatches(block)
+      .map((m) => m.group(1)!)
+      .toList();
+  return {
+    for (var i = 0; i < names.length; i++)
+      names[i]: block.substring(
+        block.indexOf('\n  ${names[i]}:'),
+        i + 1 < names.length ? block.indexOf('\n  ${names[i + 1]}:') : block.length,
+      ),
+  };
+}
+
 /// The workflows cannot be run from here, but the mistakes that cost the most
 /// are plain text drift, and those can be checked.
 void main() {
@@ -24,22 +41,9 @@ void main() {
 
   group('release.yml stays disabled until it is switched on', () {
     final release = workflows['release.yml']!;
-
-    // Job names are the 2-space-indented keys under `jobs:`.
-    final jobsBlock = release.substring(release.indexOf('\njobs:'));
-    final jobNames = RegExp(r'^  ([a-z][a-z0-9_-]*):\s*$', multiLine: true)
-        .allMatches(jobsBlock)
-        .map((m) => m.group(1)!)
-        .toList();
-
-    String jobBody(String name) {
-      final start = jobsBlock.indexOf('\n  $name:');
-      final next = jobNames
-          .map((n) => jobsBlock.indexOf('\n  $n:', start + 1))
-          .where((i) => i > start)
-          .fold<int>(jobsBlock.length, (a, b) => b < a ? b : a);
-      return jobsBlock.substring(start, next);
-    }
+    final jobs = jobsOf(release);
+    final jobNames = jobs.keys.toList();
+    String jobBody(String name) => jobs[name]!;
 
     test('has the expected jobs', () {
       expect(jobNames, ['verify', 'android', 'ios', 'release']);
@@ -60,6 +64,23 @@ void main() {
       expect(release, contains("tags: ['v*']"));
       expect(release, contains('workflow_dispatch:'));
       expect(release, isNot(contains('branches:')));
+    });
+  });
+
+  group('the web deploy waits for the tests', () {
+    final jobs = jobsOf(workflows['web.yml']!);
+
+    test('there is a job that runs flutter test', () {
+      expect(jobs, contains('test'));
+      expect(jobs['test'], contains('flutter test'));
+    });
+
+    test('deploy needs both the build and the tests', () {
+      final deploy = jobs['deploy']!;
+      final needs = RegExp(r'needs:\s*\[([^\]]*)\]').firstMatch(deploy);
+      expect(needs, isNotNull, reason: 'deploy has no `needs: [..]` list');
+      expect(needs!.group(1)!.split(',').map((s) => s.trim()).toSet(),
+          {'build', 'test'});
     });
   });
 

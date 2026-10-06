@@ -58,8 +58,26 @@ jobs:
 
       - uses: actions/upload-pages-artifact@v5
 
+  # The deploy waits for the tests: a push that breaks them must not reach the
+  # live site. Runs in parallel with the build. (Analyze and the Android build
+  # are in ci.yml and do not gate the deploy.)
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: 3.41.9
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      - run: flutter test
+
   deploy:
-    needs: build
+    needs: [build, test]
     runs-on: ubuntu-latest
     environment:
       name: github-pages
