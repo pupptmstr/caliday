@@ -21,6 +21,7 @@ import '../../features/settings/screens/developer_options_screen.dart';
 import '../../features/settings/screens/settings_screen.dart';
 import '../../features/workout/screens/summary_screen.dart';
 import '../../features/workout/screens/workout_screen.dart';
+import 'app_redirect.dart';
 
 // ── Onboarding gate ──────────────────────────────────────────────────────────
 
@@ -54,17 +55,10 @@ class _RouterNotifier extends ChangeNotifier {
 
   final Ref _ref;
 
-  String? redirect(BuildContext context, GoRouterState state) {
-    // Handle deep links from the home screen widget (caliday://workout).
-    if (state.uri.scheme == 'caliday') return '/workout';
-
-    final done = _ref.read(isOnboardingCompleteProvider);
-    final onOnboarding = state.uri.path.startsWith('/onboarding');
-
-    if (!done && !onOnboarding) return '/onboarding';
-    if (done && onOnboarding) return '/home';
-    return null;
-  }
+  String? redirect(BuildContext context, GoRouterState state) => appRedirect(
+        uri: state.uri,
+        onboardingDone: _ref.read(isOnboardingCompleteProvider),
+      );
 }
 
 final _routerNotifierProvider = Provider<_RouterNotifier>((ref) {

@@ -1,9 +1,10 @@
 import 'dart:async';
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:ble_peripheral/ble_peripheral.dart' as blep;
 import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+
+import '../../data/models/ble_profile_codec.dart';
 
 /// Snapshot of a nearby CaliDay user discovered via BLE scan.
 class NearbyDevice {
@@ -107,8 +108,7 @@ class BleService {
                 char.properties.read) {
               final bytes = await char.read();
               await device.disconnect();
-              final raw = utf8.decode(bytes);
-              return jsonDecode(raw) as Map<String, dynamic>;
+              return BleProfileCodec.decode(bytes);
             }
           }
         }
@@ -133,7 +133,7 @@ class BleService {
       Map<String, dynamic> profileJson, String displayName) async {
     if (!isBluetoothOn) return;
 
-    _profileBytes = Uint8List.fromList(utf8.encode(jsonEncode(profileJson)));
+    _profileBytes = BleProfileCodec.encode(profileJson);
 
     try {
       if (!_peripheralInitialized) {

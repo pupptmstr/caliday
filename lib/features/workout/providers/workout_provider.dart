@@ -15,6 +15,7 @@ import '../../../domain/services/progression_service.dart';
 import '../../../domain/services/rank_decay_service.dart';
 import '../../../domain/services/sp_service.dart';
 import '../../../domain/services/streak_service.dart';
+import '../../../domain/services/workout_energy.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/health_service.dart';
@@ -515,10 +516,12 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
     if (settings.healthWorkoutsEnabled) {
       final workoutStart = state.startedAt;
       final workoutEnd = workoutStart.add(Duration(seconds: durationSec));
-      final weightKg = settings.healthWeightEnabled
-          ? (await HealthService.instance.readBodyWeight() ?? 70.0)
-          : 70.0;
-      final calories = HealthService.instance.calculateCalories(
+      final weightKg = WorkoutEnergy.resolveWeightKg(
+        settings.healthWeightEnabled
+            ? await HealthService.instance.readBodyWeight()
+            : null,
+      );
+      final calories = WorkoutEnergy.kcal(
         durationSec: durationSec,
         weightKg: weightKg,
       );

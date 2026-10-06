@@ -1,5 +1,8 @@
 import 'package:health/health.dart';
 
+import '../../domain/services/workout_energy.dart';
+import '../utils/calendar_days.dart';
+
 /// Wraps the `health` package for writing workout sessions and active energy
 /// to Apple Health (iOS) or Google Health Connect (Android).
 class HealthService {
@@ -57,28 +60,24 @@ class HealthService {
 
   /// Reads the most recent body-weight measurement (within last 90 days).
   /// Returns null if no data is available or permission is not granted.
+  /// Which sample wins is [WorkoutEnergy.latestWeightKg]'s call.
   Future<double?> readBodyWeight() async {
     try {
+      final now = DateTime.now();
       final data = await _health.getHealthDataFromTypes(
-        startTime: DateTime.now().subtract(const Duration(days: 90)),
-        endTime: DateTime.now(),
+        startTime: addCalendarDays(now, -90),
+        endTime: now,
         types: [HealthDataType.WEIGHT],
       );
-      if (data.isEmpty) return null;
-      data.sort((a, b) => b.dateFrom.compareTo(a.dateFrom));
-      final v = data.first.value;
-      return v is NumericHealthValue ? v.numericValue.toDouble() : null;
+      return WorkoutEnergy.latestWeightKg(data.map((p) {
+        final v = p.value;
+        return (
+          at: p.dateFrom,
+          kg: v is NumericHealthValue ? v.numericValue.toDouble() : null,
+        );
+      }));
     } catch (_) {
       return null;
     }
   }
-
-  /// Estimates active energy burned using the MET formula:
-  /// kcal = MET × weightKg × durationHours
-  double calculateCalories({
-    required int durationSec,
-    required double weightKg,
-    double met = 5.5,
-  }) =>
-      met * weightKg * (durationSec / 3600.0);
 }
