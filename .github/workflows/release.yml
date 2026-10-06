@@ -1,0 +1,236 @@
+# Release builds: Android APK + AAB, iOS build / IPA, and a draft GitHub Release.
+#
+# DISABLED BY DEFAULT. Every job runs only when the repository *variable*
+# RELEASE_BUILDS_ENABLED is 'true' (Settings -> Secrets and variables -> Actions
+# -> Variables). Until then a tag push or a manual run shows skipped jobs and
+# does nothing, so this file can stay in the repository.
+#
+# What works without any store account:
+#   - analyze + test, tag / pubspec version check
+#   - Android APK + AAB signed with your own upload keystore (needs the
+#     ANDROID_* secrets below; the keystore is free to create, see DEV_NOTES)
+#   - iOS compile check without signing (an unsigned Runner.app, not installable)
+# Needs an Apple Developer account (not set up yet): the signed IPA step.
+# Store uploads (Google Play, TestFlight) are not here at all; they need the
+# accounts first. Setup checklist: internal_docs/DEV_NOTES.md -> "Release builds (CI)".
+name: Release builds
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  # Keep in sync with web.yml and the local SDK: pubspec.lock is resolved
+  # against the SDK-pinned packages of this Flutter version.
+  FLUTTER_VERSION: 3.41.9
+
+jobs:
+  verify:
+    if: ${{ vars.RELEASE_BUILDS_ENABLED == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Tag matches the pubspec version
+        if: ${{ github.ref_type == 'tag' }}
+        run: |
+          name=$(grep '^version:' pubspec.yaml | awk '{print $2}' | cut -d+ -f1)
+          if [ "v$name" != "$GITHUB_REF_NAME" ]; then
+            echo "::error::Tag $GITHUB_REF_NAME does not match the pubspec version v$name"
+            exit 1
+          fi
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+
+  android:
+    needs: verify
+    runs-on: ubuntu-latest
+    env:
+      # 'true' when the upload keystore secret exists.
+      HAS_KEYSTORE: ${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      # build.gradle.kts signs with the debug key when android/key.properties is
+      # missing. Fine for a test build, never for a release.
+      - name: A release needs the upload keystore
+        if: ${{ env.HAS_KEYSTORE != 'true' && github.ref_type == 'tag' }}
+        run: |
+          echo "::error::ANDROID_KEYSTORE_BASE64 is not set; refusing to release a debug-signed build"
+          exit 1
+
+      - name: Warn about debug signing
+        if: ${{ env.HAS_KEYSTORE != 'true' && github.ref_type != 'tag' }}
+        run: |
+          echo "::warning::No upload keystore secret, so the Android build is signed with the debug key (artifact names end in -debug-signed)"
+
+      - name: Write the upload keystore and key.properties
+        if: ${{ env.HAS_KEYSTORE == 'true' }}
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_STORE_PASSWORD: ${{ secrets.ANDROID_STORE_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: |
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 -d > android/app/upload-keystore.jks
+          {
+            printf 'storeFile=%s\n' upload-keystore.jks
+            printf 'storePassword=%s\n' "$ANDROID_STORE_PASSWORD"
+            printf 'keyAlias=%s\n' "$ANDROID_KEY_ALIAS"
+            printf 'keyPassword=%s\n' "$ANDROID_KEY_PASSWORD"
+          } > android/key.properties
+
+      - run: flutter pub get
+      - run: flutter build apk --release
+      - run: flutter build appbundle --release
+
+      - name: Name the artifacts
+        run: |
+          version=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+          base="caliday-${version%%+*}-b${version##*+}"
+          suffix=""
+          if [ "$HAS_KEYSTORE" != "true" ]; then suffix="-debug-signed"; fi
+          mkdir -p dist
+          cp build/app/outputs/flutter-apk/app-release.apk "dist/${base}${suffix}.apk"
+          cp build/app/outputs/bundle/release/app-release.aab "dist/${base}${suffix}.aab"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: android
+          path: dist/*
+          if-no-files-found: error
+
+  ios:
+    needs: verify
+    runs-on: macos-latest
+    env:
+      # 'true' when an App Store Connect API key secret exists.
+      HAS_ASC_KEY: ${{ secrets.APPSTORE_API_KEY_BASE64 != '' }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      # Works with no Apple account: proves the iOS app (incl. the widget
+      # extension) compiles. The result cannot be installed.
+      - name: Build without signing
+        if: ${{ env.HAS_ASC_KEY != 'true' }}
+        run: |
+          flutter build ios --release --no-codesign
+          mkdir -p dist
+          ditto -c -k --keepParent build/ios/iphoneos/Runner.app dist/caliday-ios-unsigned.zip
+
+      # UNVERIFIED: written without an Apple Developer account, never run.
+      # Automatic signing through an App Store Connect API key (role Admin or
+      # App Manager): xcodebuild creates the profiles for Runner and the
+      # CaliDayWidget extension (App Groups, HealthKit) itself, so no
+      # certificates or profiles are stored as secrets. The bundle ids
+      # com.pupptmstr.caliday and com.pupptmstr.caliday.CaliDayWidget must be
+      # registered in the account first.
+      - name: Build a signed IPA
+        if: ${{ env.HAS_ASC_KEY == 'true' }}
+        env:
+          APPSTORE_API_KEY_BASE64: ${{ secrets.APPSTORE_API_KEY_BASE64 }}
+          APPSTORE_KEY_ID: ${{ secrets.APPSTORE_KEY_ID }}
+          APPSTORE_ISSUER_ID: ${{ secrets.APPSTORE_ISSUER_ID }}
+          APPLE_TEAM_ID: ${{ vars.APPLE_TEAM_ID }}
+        run: |
+          mkdir -p "$HOME/private_keys"
+          key="$HOME/private_keys/AuthKey_${APPSTORE_KEY_ID}.p8"
+          echo "$APPSTORE_API_KEY_BASE64" | base64 --decode > "$key"
+          auth=(-allowProvisioningUpdates
+                -authenticationKeyPath "$key"
+                -authenticationKeyID "$APPSTORE_KEY_ID"
+                -authenticationKeyIssuerID "$APPSTORE_ISSUER_ID")
+
+          # Generates the Flutter config and the pods; the signing happens below.
+          flutter build ios --release --no-codesign
+
+          cat > ios/ExportOptions.plist <<PLIST
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store-connect</string>
+            <key>teamID</key><string>${APPLE_TEAM_ID}</string>
+            <key>signingStyle</key><string>automatic</string>
+            <key>destination</key><string>export</string>
+          </dict>
+          </plist>
+          PLIST
+
+          xcodebuild archive \
+            -workspace ios/Runner.xcworkspace -scheme Runner -configuration Release \
+            -archivePath build/ios/Runner.xcarchive \
+            DEVELOPMENT_TEAM="$APPLE_TEAM_ID" "${auth[@]}"
+          xcodebuild -exportArchive \
+            -archivePath build/ios/Runner.xcarchive \
+            -exportPath build/ios/ipa \
+            -exportOptionsPlist ios/ExportOptions.plist "${auth[@]}"
+
+          version=$(grep '^version:' pubspec.yaml | awk '{print $2}')
+          mkdir -p dist
+          cp build/ios/ipa/*.ipa "dist/caliday-${version%%+*}-b${version##*+}.ipa"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: ios
+          path: dist/*
+          if-no-files-found: error
+
+  release:
+    # A draft GitHub Release with the installable files; review, then publish.
+    needs: [android, ios]
+    if: ${{ github.ref_type == 'tag' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Create the draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          shopt -s nullglob
+          files=(dist/*.apk dist/*.aab dist/*.ipa)   # not the unsigned iOS zip
+          gh release create "$GITHUB_REF_NAME" "${files[@]}" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "CaliDay $GITHUB_REF_NAME" \
+            --generate-notes --draft

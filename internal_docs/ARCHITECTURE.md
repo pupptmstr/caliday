@@ -687,6 +687,8 @@ Exercise animations are flat "paper-doll" Lottie files (one shape layer per body
 
 ## Android Specifics
 
+- Release signing: `android/key.properties` (git-ignored) → upload keystore; without the file the release build uses the debug key. CI writes it from secrets
+- The `home_widget` plugin asks for `androidx.glance:glance-appwidget:1.+`; `android/build.gradle.kts` pins Glance to 1.1.1 (the newest alpha needs compileSdk 37 / AGP 9.1)
 - `minSdk = 26` (health package requires API 26+)
 - `build.gradle.kts`: `isCoreLibraryDesugaringEnabled = true` + `desugar_jdk_libs:2.1.4`
 - Root `build.gradle.kts`: `compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }`, **not** `kotlinOptions` (compile error)
@@ -716,7 +718,8 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 - **URL:** `https://pupptmstr.github.io/caliday/app/` (hash routing: `#/home`)
 - **Build:** `flutter build web --release --base-href /caliday/app/`
 - **Deploy:** `.github/workflows/web.yml` on every push to `main` — builds the app + Jekyll-renders `docs/` (legal docs keep their URLs `/caliday/PRIVACY_POLICY`, `/caliday/TERMS_OF_USE`) → one Pages artifact. Requires Settings → Pages → Source = **GitHub Actions**.
-- **Flutter version** is pinned in the workflow (`3.41.9`) to match `pubspec.lock` (SDK-pinned packages like `matcher`, `test_api`). Bump it together with the local SDK.
+- **Flutter version** is pinned in both workflows (`web.yml` and `release.yml`, `3.41.9`) to match `pubspec.lock` (SDK-pinned packages like `matcher`, `test_api`). Bump all of them together with the local SDK.
+- **Release builds:** `.github/workflows/release.yml` (APK / AAB / iOS build / draft GitHub Release) is drafted and **disabled** until the repository variable `RELEASE_BUILDS_ENABLED` is `true`; see DEV_NOTES § Release builds (CI).
 
 ### Feature matrix (guarded with `kIsWeb`)
 
@@ -862,6 +865,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v0.8 | Rank decay — display-only rank drop after inactivity (21/35/45/53/59 days); 14-day warning notification; rank restored banner on summary | ✅ |
 | v0.8 | Test suite — domain services, catalog integrity, Hive repositories, ARB files (400+ tests) | ✅ |
 | v0.8 | Challenge norms for the six hardest final stages (handstand push-up, dragon flag, one-arm pull-up, pistol, free handstand, pike) | ✅ |
+| — | CI for release builds — APK / AAB / iOS build / draft GitHub Release | 📐 drafted and disabled; needs the store accounts (see DEV_NOTES) |
 | — | Web notifications — in-tab reminders (needs flutter_local_notifications v22) or Web Push (needs a server) | 💡 idea (see DEV_NOTES) |
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |

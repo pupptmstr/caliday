@@ -7,11 +7,12 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.8.6 (implemented)
+**Version:** v0.8.7 (implemented)
 **Next priority:** v1.0 release. What still stands in the way:
 - Friends has never been tested on two real phones (checklist below).
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
 - Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
+- Store accounts (Apple Developer Program, Google Play Console): the release CI is drafted but disabled until they exist ("Release builds (CI)" below).
 
 | Layer | Status |
 |-------|--------|
@@ -44,53 +45,36 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Active Specs (ideas in progress)
 
-### ? — GitHub Actions CI/CD — сборка артефактов для релиза
+### Release builds (CI) — drafted, disabled
 
-#### Цель
+`.github/workflows/release.yml` builds the release files. It is **off**: every job needs the repository variable `RELEASE_BUILDS_ENABLED` = `true` (Settings → Secrets and variables → Actions → Variables), so a tag push or a manual run only shows skipped jobs. There are no Apple or Google developer accounts yet, so only the parts that need none are usable today.
 
-Автоматическая сборка release-артефактов по обеим платформам при пуше тега (или вручную через workflow_dispatch).
+| Job | What it does | Needs |
+|-----|--------------|-------|
+| `verify` | tag = pubspec version (`v0.9.0` ⇔ `version: 0.9.0+N`), `flutter analyze`, `flutter test` | nothing |
+| `android` | `flutter build apk` + `appbundle`, JDK 17, files named `caliday-<version>-b<build>.apk/.aab` | upload keystore (free to create, below). Without it the build is signed with the **debug** key: artifacts end in `-debug-signed`, and a tag run refuses to continue |
+| `ios` | no secrets: `flutter build ios --no-codesign` (proves the app and the widget extension compile; the result cannot be installed). With the App Store Connect API key: a signed IPA | the Apple Developer Program (paid) |
+| `release` | on a tag only: a **draft** GitHub Release with the `.apk`, `.aab` and `.ipa` (not the unsigned iOS zip) | the jobs above |
 
-#### Артефакты
+Triggers: a `v*` tag, or "Run workflow" by hand (artifacts only, no release).
 
-| Платформа | Артефакт | Назначение |
-|-----------|----------|------------|
-| Android | `app-release.aab` | Google Play Console |
-| Android | `app-release.apk` | прямая раздача (sideload / GitHub Release) |
-| iOS | `Runner.ipa` | App Store Connect (через Transporter или `xcrun altool`) |
+**Android signing.** `android/app/build.gradle.kts` signs the release build with the keystore named in `android/key.properties` (git-ignored) and falls back to the debug key when the file is missing, so `flutter run --release` is unchanged. CI writes the file from secrets. To create the keystore (no account needed; keep a backup — with Google Play App Signing it becomes the *upload key*, and losing it means a reset request to Google):
 
-#### Шаги пайплайна (набросок)
+```
+keytool -genkeypair -v -keystore caliday-upload.jks -alias caliday -keyalg RSA -keysize 2048 -validity 10000
+```
 
-1. `actions/checkout` + `subosito/flutter-action` (stable channel)
-2. `flutter pub get` + `dart run build_runner build --delete-conflicting-outputs`
-3. `flutter gen-l10n`
-4. **Android:** `flutter build apk --release` + `flutter build appbundle --release`
-   - Подписывание: `jarsigner` с keystore из GitHub Secrets (`KEYSTORE_BASE64`, `KEY_ALIAS`, `KEY_PASSWORD`, `STORE_PASSWORD`)
-5. **iOS:** `flutter build ipa --release` (только на macOS runner)
-   - Signing: Distribution certificate + provisioning profile из Secrets
-6. `actions/upload-artifact` — сохранить все три файла
-7. При наличии тега вида `v*` — создать GitHub Release и приложить артефакты
+Secrets: `ANDROID_KEYSTORE_BASE64` (PowerShell: `[Convert]::ToBase64String([IO.File]::ReadAllBytes("caliday-upload.jks"))`), `ANDROID_STORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`. Avoid backslashes in the passwords: they end up in a `.properties` file.
 
-#### Secrets, которые нужно настроить
+**iOS signing (when the paid account exists).** Register the bundle ids `com.pupptmstr.caliday` and `com.pupptmstr.caliday.CaliDayWidget`, the App Group `group.com.pupptmstr.caliday` and the HealthKit capability; create an App Store Connect API key (role Admin or App Manager). Secrets: `APPSTORE_API_KEY_BASE64` (the `.p8` file, base64), `APPSTORE_KEY_ID`, `APPSTORE_ISSUER_ID`; variable `APPLE_TEAM_ID` (overrides the `DEVELOPMENT_TEAM` that is committed in `project.pbxproj`). `xcodebuild -allowProvisioningUpdates` with that key creates the profiles for both targets, so no certificate or profile is stored. **That step was written without an account and never run.**
 
-- `ANDROID_KEYSTORE_BASE64` — `base64 -i release.keystore`
-- `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`, `ANDROID_STORE_PASSWORD`
-- `IOS_CERTIFICATE_BASE64` — Distribution certificate (.p12)
-- `IOS_CERTIFICATE_PASSWORD`
-- `IOS_PROVISIONING_PROFILE_BASE64` — .mobileprovision
+**Not in the workflow:** uploading to the stores. Google Play needs a Play Console account (one-time fee) and a service-account key; TestFlight needs the same App Store Connect API key. Add the upload jobs once the accounts exist.
 
-#### Примечания
+**What was verified (2026-10-06):** `actionlint` passes; the naming, tag check and `key.properties` snippets were run locally; the Gradle signing was built with a real `flutter build apk --release` with and without a keystore. Not verified: anything that only runs on GitHub (the runners, `gh release create`, artifact upload), and the signed iOS path.
 
-- iOS требует macOS runner (`runs-on: macos-latest`) — платный в GitHub Actions для публичных repo, бесплатный для приватных до лимита
-- Android runner: `ubuntu-latest` (дешевле)
-- Можно сделать два отдельных job (android + ios) с матрицей ОС
-- Web-деплой уже сделан отдельным workflow — `.github/workflows/web.yml` (GitHub Pages); эта спека про мобильные артефакты
-- До решения юридического вопроса (Gewerbe) публикация в сторы не нужна, но артефакты для тестирования уже полезны
+**To release:** bump `version:` in `pubspec.yaml`, commit, `git tag v0.9.0 && git push --tags`, review the draft release, publish. macOS runners are free for a public repository (a private one would bill them at 10×).
 
----
-
----
-
----
+**An Android build break found on the way:** the `home_widget` plugin declares `androidx.glance:glance-appwidget:1.+`, a dynamic range that began to resolve to `1.3.0-alpha02` (needs compileSdk 37 and AGP 9.1), so every Android build failed in `checkReleaseAarMetadata`. `android/build.gradle.kts` now pins Glance to 1.1.1. Watch for a `home_widget` release that stops using the range.
 
 ---
 
@@ -204,6 +188,21 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 ## Change History
 
+### 2026-10-06 — Release CI drafted (disabled), Android build fixed
+
+**What was done:** the owner asked for a CI for release builds, kept disabled (no Apple or Google developer accounts yet). Details, secrets and the enabling checklist: Active Specs → "Release builds (CI)".
+
+- `.github/workflows/release.yml`: `verify` → `android` + `ios` → draft GitHub Release on a `v*` tag. Off unless the repository variable `RELEASE_BUILDS_ENABLED` is `true`. Works without accounts as far as possible (analyze + test, APK / AAB signed with your own keystore, an unsigned iOS compile check); the signed IPA step is written but never run.
+- `android/app/build.gradle.kts`: release signing from `android/key.properties`, falling back to the debug key when it is missing (what the file did before).
+- **The Android build was already broken.** `home_widget 0.9.1` asks for `androidx.glance:glance-appwidget:1.+`; that range started to resolve to `1.3.0-alpha02`, which needs compileSdk 37 and AGP 9.1, so `flutter build apk --release` failed in `checkReleaseAarMetadata`. The build is not reproducible while a dependency carries a dynamic range; `android/build.gradle.kts` pins Glance to 1.1.1.
+- **`cupertino_icons` restored.** The cleanup earlier today removed it as unused: nothing in our code references `CupertinoIcons`, but Flutter's Cupertino widgets do (the Android build warned "Expected to find fonts for ... CupertinoIcons"). The app only uses `CupertinoDatePicker`, which draws no icons, so nothing was visibly wrong, but a Cupertino widget with an icon added later would show empty squares.
+
+**How it was checked:** `actionlint` (it found a real YAML error in my first draft: an unquoted `: ` inside `run:`); the shell snippets run locally; `flutter build apk --release` without `key.properties` (signed `CN=Android Debug`, checked with `apksigner`) and with a throwaway keystore (signed with that key). Not checked: anything that runs only on GitHub, and the iOS signed step.
+
+**Modified files:** `.github/workflows/release.yml` (new), `android/app/build.gradle.kts`, `android/build.gradle.kts`, `pubspec.yaml` / `pubspec.lock` (`cupertino_icons` back; 0.8.7+16), `ARCHITECTURE.md`, `DEV_NOTES.md`.
+
+---
+
 ### 2026-10-06 — Friends: the QR scanner explains camera errors (web), retry works
 
 **What was done:** the owner scanned a friend's QR in the web version on localhost and got "an error over the QR frame". Reproduced: the browser blocked the camera (`NotAllowedError`), and the screen showed a black box with a tiny English technical line inside the green frame, no explanation and no way to retry.
@@ -247,7 +246,7 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 - The default progress of core, pull, legs and balance differs from the stage-1 start in the catalog (Active Specs).
 
 **Cleanup (each item was checked for references first):**
-- Deleted: `progress_screen.dart` (no route, no import), `lib/generated/assets.dart` (imported nowhere, stale; its removal ended the last three analyzer infos), v1 SVGs `goro_face` / `goro_flex` / `goro_idle`, `assets/sounds/.gitkeep`, ten SVG duplicates in `internal_docs/caliday_design_v1_1/`, 18 unused ARB messages, the unused `notificationServiceProvider`, the `cupertino_icons` dependency, the placeholder `test/widget_test.dart`. `goro_notification.svg` moved to `internal_docs/design-concept/`. `.claude/settings.local.json` is git-ignored.
+- Deleted: `progress_screen.dart` (no route, no import), `lib/generated/assets.dart` (imported nowhere, stale; its removal ended the last three analyzer infos), v1 SVGs `goro_face` / `goro_flex` / `goro_idle`, `assets/sounds/.gitkeep`, ten SVG duplicates in `internal_docs/caliday_design_v1_1/`, 18 unused ARB messages, the unused `notificationServiceProvider`, the placeholder `test/widget_test.dart`. (The `cupertino_icons` dependency was removed here too and **restored** in the release-CI entry: Flutter's Cupertino widgets reference its font, and the Android build warned about it.) `goro_notification.svg` moved to `internal_docs/design-concept/`. `.claude/settings.local.json` is git-ignored.
 - `flutter analyze`: **no issues**.
 - Not touched, left as questions (Active Specs → housekeeping): root `_config.yml`, the `linux/ windows/ macos/` folders.
 
