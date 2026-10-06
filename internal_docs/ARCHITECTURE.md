@@ -266,7 +266,7 @@ Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday
 `Exercise` is a static `const` model, **not stored in Hive**.
 Loaded from `ExerciseCatalog`. `stage = 0` = warmup/cooldown.
 
-`challengeTargetReps` is the norm (reps, or seconds for timed) for **entering** a stage through the Challenge: it is read from the *next* stage when a challenge is generated and judged, and is unused for stage 1. It is 0 for the six hardest final stages (handstand push-up, dragon flag, one-arm pull-up, pistol, free handstand, pike), so the Challenge into them currently passes with any result — a game-design decision is pending (DEV_NOTES).
+`challengeTargetReps` is the norm (reps, or seconds for timed) for **entering** a stage through the Challenge: it is read from the *next* stage when a challenge is generated and judged, and is unused for stage 1. Every stage from 2 up has one (a test enforces it); with 0 any result would pass the Challenge. The six hardest stages: handstand push-up, dragon flag, one-arm pull-up and pistol squat 1 rep, free handstand 5 s, pike stretch 30 s.
 
 ---
 
@@ -786,7 +786,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 Conventions:
 - Prefer a pure function with an injectable `now` over faking the clock (`RankDecayService.daysSinceLastWorkout`, `StreakService.daysSinceLastWorkout`, `CompactHeatmap.weekGrid`).
 - DST tests are written for Europe/Berlin; on a machine in a zone without DST they pass without proving anything.
-- A known data gap is allow-listed **explicitly** in the test with a comment, never skipped silently (`_challengeTargetNotSetYet`).
+- If a known data gap ever has to be tolerated, allow-list it **explicitly** in the test with a comment, never skip silently (there is none at the moment).
 - There are no widget or golden tests; UI is checked by running the app — `flutter run -d web-server` plus the in-app browser works well (dev options are `kDebugMode` only).
 - Plugin-bound code (`NotificationService` scheduling, BLE, Health, widget) is not covered; keep the decision logic in a pure function so it can be.
 
@@ -861,7 +861,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v0.8 | Workout calendar — heatmap/calendar view of training history accessible from home screen | ✅ |
 | v0.8 | Rank decay — display-only rank drop after inactivity (21/35/45/53/59 days); 14-day warning notification; rank restored banner on summary | ✅ |
 | v0.8 | Test suite — domain services, catalog integrity, Hive repositories, ARB files (400+ tests) | ✅ |
-| — | Challenge norms for the six hardest final stages (`challengeTargetReps` is 0, any result passes) | 📐 needs values from game design (see DEV_NOTES) |
+| v0.8 | Challenge norms for the six hardest final stages (handstand push-up, dragon flag, one-arm pull-up, pistol, free handstand, pike) | ✅ |
 | — | Web notifications — in-tab reminders (needs flutter_local_notifications v22) or Web Push (needs a server) | 💡 idea (see DEV_NOTES) |
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
