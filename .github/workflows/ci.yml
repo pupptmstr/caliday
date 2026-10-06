@@ -1,0 +1,71 @@
+# Checks on every push to main and on every pull request: the generated l10n
+# files are current, `flutter analyze` and `flutter test` pass, and the Android
+# app still builds (a broken dependency range once failed every Android build
+# without any change in this repository).
+#
+# Web deploys are web.yml, release builds are release.yml (disabled).
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # Keep in sync with web.yml and release.yml (test/repo/workflows_test.dart
+  # checks that all three agree) and with the local SDK: pubspec.lock is
+  # resolved against the SDK-pinned packages of this Flutter version.
+  FLUTTER_VERSION: 3.41.9
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+
+      # lib/l10n is committed. Forgetting to regenerate it after editing an
+      # .arb file ships strings that do not exist.
+      - name: Generated l10n files are up to date
+        run: |
+          flutter gen-l10n
+          git diff --exit-code -- lib/l10n
+
+      - run: flutter analyze
+      - run: flutter test
+
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+          cache: gradle
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          channel: stable
+          cache: true
+
+      - run: flutter pub get
+      # The debug variant is enough to resolve and check every dependency
+      # (the Glance break failed here too) and is faster than a release build.
+      - run: flutter build apk --debug
