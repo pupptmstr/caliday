@@ -65,8 +65,10 @@ class Exercise {
   /// or per 10 seconds held (for [ExerciseType.timed]).
   final int spBase;
 
-  /// Minimum reps (or seconds for timed) to complete the Challenge
-  /// and advance to the next stage. 0 for warmup/cooldown and final stages.
+  /// Minimum reps (or seconds for timed) the user must reach in the Challenge
+  /// to ENTER this stage from the previous one. It is read from the next stage
+  /// when a challenge is generated and judged, so it is unused for stage 1 and
+  /// for warmups / cooldowns (0). With 0 any result passes the Challenge.
   final int challengeTargetReps;
 
   /// Whether this exercise requires gym equipment (e.g. pull-up bar).
