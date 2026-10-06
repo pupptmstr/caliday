@@ -1,6 +1,8 @@
 import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/static/course_catalog.dart';
 import 'package:caliday/data/static/exercise_catalog.dart';
+import 'package:caliday/l10n/app_localizations_en.dart';
+import 'package:caliday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
@@ -43,6 +45,18 @@ void main() {
       for (final rank in Rank.values) {
         expect(rank.displayName, isNotEmpty);
       }
+    });
+
+    test('displayed names: the middle ranks differ between English and Russian',
+        () {
+      // The enum values follow the Russian names, so `sportsman` is "Athlete"
+      // and `athlete` is "Champion" in English. Documented in ARCHITECTURE.md.
+      final en = AppLocalizationsEn();
+      final ru = AppLocalizationsRu();
+      expect(Rank.values.map((r) => r.localizedName(en)),
+          ['Beginner', 'Amateur', 'Athlete', 'Champion', 'Master', 'Legend']);
+      expect(Rank.values.map((r) => r.localizedName(ru)),
+          ['Новичок', 'Любитель', 'Спортсмен', 'Атлет', 'Мастер', 'Легенда']);
     });
   });
 
