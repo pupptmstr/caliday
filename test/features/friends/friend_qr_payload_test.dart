@@ -22,7 +22,7 @@ void main() {
       final payload = FriendProfile.buildQrPayload(_profileJson());
       final friend = FriendProfile.tryParseQrPayload(payload)!;
 
-      expect(payload, startsWith('caliday://friend?data='));
+      expect(payload, startsWith('caliday://friend?d=')); // compact format
       expect(friend.id, 'a1b2c3d4e5f60718293a4b5c6d7e8f90');
       expect(friend.displayName, 'Goro');
       expect(friend.totalSP, 5230);
@@ -55,15 +55,15 @@ void main() {
       expect(friend.branchStages, isEmpty);
     });
 
-    test('a payload with all eight branches stays a reasonably small QR', () {
+    test('a payload with all eight branches stays small', () {
       // Guard against the payload growing: a bigger one needs a denser QR code
-      // that is harder to scan from a screen (see DEV_NOTES).
+      // that is harder to scan from a screen (sizes: friend_qr_codec_test.dart).
       final json = _profileJson()
         ..['stages'] = {
           'push': 3, 'core': 2, 'pull': 1, 'legs': 2,
           'balance': 1, 'flex': 2, 'posture': 1, 'neck': 1,
         };
-      expect(FriendProfile.buildQrPayload(json).length, lessThan(360));
+      expect(FriendProfile.buildQrPayload(json).length, lessThan(100));
     });
   });
 

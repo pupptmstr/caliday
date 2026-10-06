@@ -1,6 +1,6 @@
-import 'dart:convert';
-
 import 'package:hive_ce/hive_ce.dart';
+
+import 'friend_qr_codec.dart';
 
 part 'friend_profile.g.dart';
 
@@ -49,20 +49,18 @@ class FriendProfile extends HiveObject {
   @HiveField(8)
   DateTime lastSynced;
 
-  /// The text a friend QR code carries: `caliday://friend?data=BASE64URL(json)`.
+  /// The text a friend QR code carries (see [FriendQrCodec] for the format).
   static String buildQrPayload(Map<String, dynamic> json) =>
-      'caliday://friend?data=${base64Url.encode(utf8.encode(jsonEncode(json)))}';
+      FriendQrCodec.encode(json);
 
-  /// Parses what [buildQrPayload] produced; null for anything else (another
-  /// scheme or host, no data, bad base64 / JSON, missing or mistyped fields).
+  /// Parses what [buildQrPayload] produced (either format); null for anything
+  /// else (another scheme or host, no data, bad encoding, missing or mistyped
+  /// fields).
   static FriendProfile? tryParseQrPayload(String raw) {
+    final json = FriendQrCodec.decode(raw);
+    if (json == null) return null;
     try {
-      final uri = Uri.parse(raw);
-      if (uri.scheme != 'caliday' || uri.host != 'friend') return null;
-      final data = uri.queryParameters['data'];
-      if (data == null) return null;
-      final json = jsonDecode(utf8.decode(base64Url.decode(base64Url.normalize(data))));
-      return fromQrJson(json as Map<String, dynamic>);
+      return fromQrJson(json);
     } catch (_) {
       return null;
     }
@@ -72,7 +70,7 @@ class FriendProfile extends HiveObject {
   static FriendProfile fromBleJson(Map<String, dynamic> json) =>
       fromQrJson(json);
 
-  /// Parse from the QR JSON payload (caliday://friend?data=BASE64URL).
+  /// Parse from the profile map of a QR code or a BLE read.
   static FriendProfile fromQrJson(Map<String, dynamic> json) => FriendProfile(
         id: json['id'] as String,
         displayName: json['name'] as String,
