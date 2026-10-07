@@ -925,7 +925,9 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | — | Telegram: the web build as a Mini App, reminders sent by a bot | 💡 idea, **parked** by the owner (2026-10-07): a thought on the side, not planned; the research is kept in DEV_NOTES § Telegram Mini App + bot |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
 | v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages, the store listings and the native widget's texts are open — see DEV_NOTES § Roadmap |
-| v1.0 | Additional courses — Yoga, Morning Routine, Evening Stretch (owner's plan, 2nd) | 💡 idea — see DEV_NOTES § Roadmap |
-| v1.x | Custom course builder — the user builds a personal course; **the same update adds many more exercises** to make that easy (owner's plan, 3rd) | 💡 idea — the open question "what is a custom course" is in DEV_NOTES § Roadmap |
+| v1.0 | Friends: a frozen list of shared branches, so a new branch never changes the QR / BLE format (prerequisite of every new branch) | 📐 designed — DEV_NOTES § Roadmap 2a |
+| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | 📐 decided 2026-10-07, content per course to design — DEV_NOTES § Roadmap 2b |
+| v1.x | More branches, also outside any course (to be picked in the builder) | 💡 idea — DEV_NOTES § Roadmap 2c |
+| v1.x | Custom course builder — (a) a course from existing branches, (b) a branch of one's own: own exercises in order, progression through them (owner's plan, 3rd) | 📐 decided 2026-10-07 — DEV_NOTES § Roadmap 3 |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea

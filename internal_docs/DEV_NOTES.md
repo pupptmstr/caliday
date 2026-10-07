@@ -187,7 +187,7 @@ Sources: <https://core.telegram.org/bots/webapps>, <https://core.telegram.org/ap
 
 ### Roadmap — the big features (owner's plan, 2026-10-07)
 
-The owner's order: **(1) German and Spanish translations, (2) additional courses, (3) a configurator for the user's own courses, with many more exercises added in the same update so that building a course is easy.** Nothing is started; this records what is known so that it is not looked up again.
+The owner's order: **(1) German and Spanish translations (done as drafts, 0.8.16), (2) additional courses, (3) a configurator for the user's own courses, with many more exercises and branches added before it so that building a course is easy.** This records what is known and decided so that it is not looked up again.
 
 #### 1. German and Spanish
 - **Part 1, the code, is done (2026-10-07, 0.8.16):** nothing assumes two languages any more. The UI languages are one list, `appLanguages` (`core/l10n/app_languages.dart`); the settings dialog, the onboarding menu, the system-language default (`LocaleNotifier`), the notification texts and the widget's rank names all follow it, the last two through the ARB files (`l10nFor`). The tests check every ARB file against the template and run their "every language" checks over all of them (`test/helpers/all_translations.dart`). Tried with a copy of `app_en.arb` as `app_de.arb`: exactly two tests failed, the missing line in `appLanguages` and the "What's new" entries left in English. See the Change History entry.
@@ -197,15 +197,34 @@ The owner's order: **(1) German and Spanish translations, (2) additional courses
 - **Checked on a 375 px screen (web):** German — the onboarding, Home, the Courses tab, Profile, Settings; Spanish — Settings, Home, Profile, the workout screen and its quit dialog. Nothing overflowed and the console showed no layout errors; the long rank names ("Principiante") shrink inside their chip. The segmented controls fit in both; only the Russian "Системная" breaks mid-word (an older problem, not about the new languages).
 - ~~The native home screen widget is not localized~~ — fixed in 0.8.18 (Change History).
 
-#### 2. Additional courses
-- A course is today an enum value (`CourseId`, Hive typeId 10, two values) with a fixed list of branches in `CourseCatalog.branchesFor`; the onboarding, the Library pills and `UserProfile.activeCourseIds` (a list of enum indices) all work with it. Branches are shared between courses (Flex) and progress is **per branch**.
-- **Costs of a new branch:** a value in the `BranchId` Hive enum (eight today), its stages, a warm-up and cool-downs, tags, achievements (`<branch>_complete`), ARB texts in every language, a Lottie animation per exercise (the `tools/lottie` rigs; some poses do not read in a side view, see the pigeon and 90/90 decisions). **A ninth branch needs a new friend-QR / BLE format version**: the stage field is laid out for exactly eight (`friend_qr_codec_test` fails until it is handled, see § QR Profile Exchange).
-- Evening Stretch and Morning Routine can be made largely from existing Flex / Posture / Neck exercises and animations (no new branch needed); Yoga needs new poses.
+#### Decisions on courses (owner, 2026-10-07)
+- **A course stays what it is: a set of branches with staged progression.** No second kind of course (a "routine" with its own progression) and no day-by-day programme. Every new course is made of branches.
+- **Yoga** = branches of progressively harder poses (a ladder, like Balance).
+- **Morning routine / evening stretch** = branches too; their progression is mostly "more reps / longer holds", which the in-stage progression already does. Not seen as a problem.
+- **More branches come before the builder, including branches that belong to no course.** They are there to be picked in the builder (and shown in the exercise library).
+- **The custom course builder offers two things:** (a) a course from a set of *existing* branches; (b) *a branch of one's own*: the user picks exercises, puts them in order (each one is a stage) and the app runs the usual progression through them.
+- **Friends stop carrying the progress of every branch**, so that a new branch never breaks the friend QR / BLE exchange.
 
-#### 3. A course configurator and many more exercises
-- **The question to settle first: what is a custom course?** (a) The user picks and orders *existing branches* (like the enrolled courses today). Cheap, but then "more exercises" means more *stages* in the branches. (b) The user picks *exercises* and gets plain progression (reps, then sets, then rest) without stages, like the supplementary pool. Closer to "build my own course" and it is what many more exercises would serve, but it is a second progression model beside the staged one. The answer decides how many exercises, of what kind, are needed.
-- **What a custom course touches:** `CourseId` cannot hold it (a Hive enum with fixed values; `activeCourseIds` stores indices), so courses need a string identity and a stored model beside `CustomRoutine` (typeId 11, the next free typeId is 12), plus a migration of `activeCourseIds`; the onboarding, the Library tab, `homeDataProvider`, the generator (`generateDailyForCourse` takes a list of branches) and the achievements are the places that read a course.
-- **Many more exercises:** every exercise costs a name, a description and a tip in every language, tags, and an animation. If this comes after the German and Spanish work, each exercise is four texts; doing the growth of the catalog before the translations would translate it once. (An observation for the owner's ordering, not a change of it.)
+#### 2a. Friends: a frozen list of shared branches — **first, before any new branch**
+- Why: the QR format 2 writes one stage nibble per `BranchId.values` (4 bytes for 8). A ninth value would make the field 5 bytes **under the same version byte**, so builds already installed would misread every new code (and `friend_qr_codec_test` fails on purpose until it is handled).
+- Decision: a constant `sharedBranches` (the eight of today, in today's order) replaces `BranchId.values` in `FriendQrCodec` (encode and decode) and in the profile map that `friends_screen.dart` builds for QR and BLE. New branches are simply not shared. Format 2 stays byte-for-byte the same, so old and new builds keep reading each other's codes; no version bump.
+- Already safe: the friend detail sheet skips a branch name it does not know; `FriendProfile.branchStages` is a `Map<String, int>`.
+- Tests: encoding a profile that has progress in a branch outside the list gives the same bytes as without it; `sharedBranches` equals the first eight `BranchId` values (adding a value at the end leaves it alone); the existing round-trip and size tests stay.
+
+#### 2b. New courses: Yoga, Morning Routine, Evening Stretch
+- Each is a `CourseId` value (appended: the Hive enum keeps its indices) and a list in `CourseCatalog.branchesFor`; the onboarding course cards and the Library pills already loop over the courses.
+- **Content first, per course:** which branches, how many stages, which exercises per stage (existing ones reused where they fit: Flex / Posture / Neck for the stretches; new poses for Yoga), start / target reps, sets, rest and the challenge norms. To be designed with the owner course by course.
+- **Costs of a new branch** (unchanged): a value in the `BranchId` Hive enum, its stages, a warm-up and cool-downs, tags, achievements (`<branch>_complete`), ARB texts in all four languages, a Lottie animation per exercise (the `tools/lottie` rigs; some poses do not read in a side view, see the pigeon and 90/90 decisions), the onboarding start stage.
+- **Open question — two courses on one day:** today only the first workout of the day is primary (full SP, progression, streak), whatever its course (`isPrimary = !hasPrimaryWorkoutToday()` in `workout_provider.dart`); a second course's workout the same day is a bonus (½ SP, **no progression**). A morning routine plus Calisthenics later would never progress both. To be decided before these courses ship: keep it, or make "primary" per course per day.
+
+#### 2c. More branches, also outside any course
+- A branch can exist without a course: it is in the catalog and the exercise library, and the builder offers it. Nothing creates its `SkillProgress` until it is used (the onboarding only starts the branches of the chosen courses), so progress starts at stage 1 on first use.
+- Same costs as above, per branch. The catalog grows in four languages from now on.
+
+#### 3. The course builder (after 2c)
+- **(a) A course from existing branches:** the user picks branches (from courses and outside them) and names the course. Progress stays per branch, shared with the built-in courses, as Flex is today.
+- **(b) A branch of one's own:** the user picks exercises, orders them; each becomes a stage, and the usual progression runs through them (reps → sets → rest → challenge to the next one). The parameters come from each exercise (its start / target reps, sets, rest); stage-0 exercises (warm-ups, the supplementary pool) have no challenge norm, so one has to be derived (for example the next exercise's start reps) — to be designed.
+- **What it touches:** `CourseId` and `BranchId` are Hive enums with fixed values and cannot hold user-made courses or branches, so both need a string identity and stored models beside `CustomRoutine` (typeId 11; the next free typeIds are 12 and 13), a migration of `UserProfile.activeCourseIds` (enum indices today), and `SkillProgress` keyed by that string (it is keyed by `branch.name` already, so a `custom_<id>` key fits the box). Readers of a course / branch: the onboarding, the Library tab, `homeDataProvider`, the generator (`generateDailyForCourse` takes a list of branches), the achievements, the friend exchange (custom branches are not shared, see 2a).
 
 ### "Support the Author" Button — idea
 
@@ -250,6 +269,14 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-07 — The owner's decisions on courses recorded
+
+**What was done:** the owner settled what a course is: it stays a set of branches with staged progression (Yoga = harder and harder poses, the morning / evening routines = branches whose reps grow); more branches come before the builder, also outside any course; the builder offers a course from existing branches or a branch of one's own (own exercises in order, progression through them); friends stop carrying every branch's progress. Written into Active Specs § Roadmap (2a–2c, 3) with what each step touches; the first step is 2a, a frozen list of shared branches, because a ninth `BranchId` would silently change the QR format 2 under the same version byte. One question is left open there: only the first workout of a day progresses, whatever its course. No code changed.
+
+**Modified files:** `ARCHITECTURE.md` (backlog rows), `DEV_NOTES.md`.
+
+---
 
 ### 2026-10-07 — The home screen widget in the app's language (0.8.18+27)
 
