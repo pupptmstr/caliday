@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:math' show Random;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -58,19 +59,25 @@ final customWorkoutPlanProvider =
 /// The plan of "Today's workout": the one the workout screen runs when no
 /// challenge or custom routine is set. The Home button builds it too, for the
 /// time estimate, so both go through here and cannot drift apart. The workout
-/// of the day is deterministic; only a bonus workout (the primary one is
-/// done) picks random supplementary exercises on top.
+/// of the day is deterministic; a bonus workout (the primary one is done) adds
+/// two supplementary exercises, picked with a seed of the day and of the number
+/// of workouts done today ([WorkoutGeneratorService.supplementarySeed]), so
+/// that Home and the workout screen, each building it on their own, get the
+/// same two, and the next bonus workout gets others.
 WorkoutPlan buildDailyPlan(Ref ref) {
   final generator = ref.read(workoutGeneratorServiceProvider);
   final profile = ref.read(userRepositoryProvider).getProfile();
   final course = ref.read(activeCourseProvider);
-  final isPrimary = !ref.read(workoutRepositoryProvider).hasPrimaryWorkoutToday();
+  final workoutRepo = ref.read(workoutRepositoryProvider);
+  final now = DateTime.now();
   return generator.generateDailyForCourse(
     course: course,
     courseBranches: profile.branchesForCourse(course),
     preferredMinutes: profile.preferredWorkoutMinutes ?? 10,
-    isPrimary: isPrimary,
+    isPrimary: !workoutRepo.hasPrimaryWorkoutToday(),
     hasPullUpBar: profile.hasPullUpBar == true,
+    random: Random(WorkoutGeneratorService.supplementarySeed(
+        now, workoutRepo.getCountForDate(now))),
   );
 }
 

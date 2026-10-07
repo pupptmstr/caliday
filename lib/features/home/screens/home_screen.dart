@@ -137,13 +137,12 @@ class HomeScreen extends ConsumerWidget {
                     const Spacer(),
                     _WorkoutButton(
                       done: data.hasWorkoutToday,
-                      // Only the day's own workout has a plan to measure; a
-                      // bonus one picks random exercises when it starts.
-                      estimatedMinutes: data.hasWorkoutToday
-                          ? null
-                          : ref
-                              .watch(todayPlanProvider)
-                              .estimatedMinutesAt(ref.watch(workoutPaceProvider)),
+                      // The plan that will run (the day's own, or the bonus one
+                      // with its seeded supplementary exercises), at the
+                      // user's pace.
+                      estimatedMinutes: ref
+                          .watch(todayPlanProvider)
+                          .estimatedMinutesAt(ref.watch(workoutPaceProvider)),
                       onTap: () => context.push('/workout'),
                     ),
                     const SizedBox(height: 10),
@@ -382,7 +381,8 @@ class _WorkoutButton extends StatelessWidget {
   final bool done;
   final VoidCallback onTap;
 
-  /// About how long today's workout takes; null when there is nothing to say.
+  /// About how long the workout behind this button takes; null when there is
+  /// nothing to say.
   final int? estimatedMinutes;
 
   @override
@@ -426,11 +426,17 @@ class _WorkoutButton extends StatelessWidget {
                 ],
               ),
               const SizedBox(width: 10),
-              Text(
-                l10n.homeWorkoutAgain,
-                style: const TextStyle(
-                  fontSize: 17,
-                  fontWeight: FontWeight.w700,
+              Flexible(
+                child: Text(
+                  estimatedMinutes != null && estimatedMinutes! > 0
+                      ? l10n.homeWorkoutAgainEstimate(estimatedMinutes!)
+                      : l10n.homeWorkoutAgain,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(
+                    fontSize: 17,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
               ),
             ],

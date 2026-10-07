@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/models/skill_progress.dart';
 import 'package:caliday/data/repositories/skill_progress_repository.dart';
@@ -234,6 +236,52 @@ void main() {
         expect(extra, hasLength(2));
         expect(plan.exercises.sublist(plan.exercises.length - 2), extra);
         expect(extra.map((e) => e.exercise.id).toSet(), hasLength(2));
+      });
+
+      group('the supplementary pick is repeatable', () {
+        List<String> bonusIds(int seed) => _ids(_generator().generateDailyForCourse(
+              course: CourseId.calisthenics,
+              courseBranches: _calisthenics,
+              dayIndexOverride: 0,
+              isPrimary: false,
+              random: Random(seed),
+            ));
+
+        test('the same seed builds the same plan', () {
+          for (var seed = 0; seed < 10; seed++) {
+            expect(bonusIds(seed), bonusIds(seed), reason: 'seed $seed');
+          }
+        });
+
+        test('other seeds pick other supplementary exercises', () {
+          final picks = {for (var seed = 0; seed < 20; seed++) bonusIds(seed).join(',')};
+          expect(picks.length, greaterThan(1));
+        });
+
+        test('the seed of a day follows the number of workouts done that day', () {
+          final day = DateTime(2026, 10, 7, 9, 30);
+          expect(WorkoutGeneratorService.supplementarySeed(day, 1),
+              WorkoutGeneratorService.supplementarySeed(DateTime(2026, 10, 7, 21), 1),
+              reason: 'the time of day does not matter');
+          final seeds = {
+            for (var n = 1; n <= 5; n++)
+              WorkoutGeneratorService.supplementarySeed(day, n),
+            WorkoutGeneratorService.supplementarySeed(DateTime(2026, 10, 8), 1),
+            WorkoutGeneratorService.supplementarySeed(DateTime(2026, 11, 7), 1),
+            WorkoutGeneratorService.supplementarySeed(DateTime(2027, 10, 7), 1),
+          };
+          expect(seeds, hasLength(8), reason: 'each workout of each day has its own');
+        });
+
+        test('a primary workout does not depend on the random at all', () {
+          List<String> primary(int seed) => _ids(_generator().generateDailyForCourse(
+                course: CourseId.calisthenics,
+                courseBranches: _calisthenics,
+                dayIndexOverride: 3,
+                random: Random(seed),
+              ));
+          expect(primary(1), primary(2));
+        });
       });
     });
 

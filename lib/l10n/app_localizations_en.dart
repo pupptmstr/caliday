@@ -156,6 +156,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeWorkoutAgain => 'Again';
 
   @override
+  String homeWorkoutAgainEstimate(int minutes) {
+    return 'Again (≈ $minutes min)';
+  }
+
+  @override
   String get workoutTitle => 'Workout';
 
   @override

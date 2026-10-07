@@ -2,7 +2,7 @@ name: caliday
 description: "CaliDay — home calisthenics workouts with streak tracking and gamification."
 publish_to: 'none'
 
-version: 0.8.13+22
+version: 0.8.14+23
 
 environment:
   sdk: ^3.11.0

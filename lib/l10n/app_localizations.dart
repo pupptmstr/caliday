@@ -332,6 +332,12 @@ abstract class AppLocalizations {
   /// **'Again'**
   String get homeWorkoutAgain;
 
+  /// No description provided for @homeWorkoutAgainEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'Again (≈ {minutes} min)'**
+  String homeWorkoutAgainEstimate(int minutes);
+
   /// No description provided for @workoutTitle.
   ///
   /// In en, this message translates to:

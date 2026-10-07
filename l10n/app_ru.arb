@@ -130,6 +130,14 @@
     }
   },
   "homeWorkoutAgain": "Ещё раз",
+  "homeWorkoutAgainEstimate": "Ещё раз (≈ {minutes} мин)",
+  "@homeWorkoutAgainEstimate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "workoutTitle": "Тренировка",
   "workoutExitTitle": "Прервать тренировку?",
   "workoutExitBody": "Прогресс текущей тренировки не сохранится.",

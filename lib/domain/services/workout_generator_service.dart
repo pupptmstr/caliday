@@ -31,6 +31,10 @@ class WorkoutGeneratorService {
   /// - ≤ 5  → min(2, total) branches
   /// - 10   → min(3, total) branches
   /// - ≥ 15 → all branches
+  ///
+  /// A bonus workout ([isPrimary] false) adds two supplementary exercises
+  /// picked with [random] (a fresh `Random()` when null; pass a seeded one,
+  /// see [supplementarySeed], to build the same plan twice).
   WorkoutPlan generateDailyForCourse({
     required CourseId course,
     required List<BranchId> courseBranches,
@@ -38,6 +42,7 @@ class WorkoutGeneratorService {
     int? dayIndexOverride,
     bool isPrimary = true,
     bool hasPullUpBar = false,
+    Random? random,
   }) {
     if (courseBranches.isEmpty) {
       return WorkoutPlan(setType: SetType.daily, exercises: const []);
@@ -107,7 +112,7 @@ class WorkoutGeneratorService {
 
     // ── 4. Supplementary block (bonus workouts only) ──────────────────────────
     if (!isPrimary && SupplementaryExerciseCatalog.all.isNotEmpty) {
-      final pool = [...SupplementaryExerciseCatalog.all]..shuffle(Random());
+      final pool = [...SupplementaryExerciseCatalog.all]..shuffle(random ?? Random());
       for (final supp in pool.take(2)) {
         exercises.add(PlannedExercise(
           exercise: supp,
@@ -120,6 +125,15 @@ class WorkoutGeneratorService {
 
     return WorkoutPlan(setType: SetType.daily, exercises: exercises);
   }
+
+  /// The seed for the supplementary exercises of a bonus workout: the same
+  /// for one calendar day and one count of workouts already done that day, a
+  /// different one for the next bonus workout. The Home button and the
+  /// workout screen both build the day's plan on their own, and with this seed
+  /// they build the same one, so the time shown on "Again" is the time of the
+  /// workout that starts.
+  static int supplementarySeed(DateTime date, int workoutsToday) =>
+      (date.year * 10000 + date.month * 100 + date.day) * 100 + workoutsToday;
 
   /// Legacy wrapper that defaults to [CourseId.calisthenics].
   WorkoutPlan generateDaily({
