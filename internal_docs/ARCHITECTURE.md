@@ -920,7 +920,8 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Telegram: the web build as a Mini App, reminders sent by a bot | 💡 idea, **parked** by the owner (2026-10-07): a thought on the side, not planned; the research is kept in DEV_NOTES § Telegram Mini App + bot |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
-| v1.0 | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |
-| v1.x | Custom course builder — user picks branches to form a personal path | 💡 idea |
+| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | 💡 idea — touch points in DEV_NOTES § Roadmap |
+| v1.0 | Additional courses — Yoga, Morning Routine, Evening Stretch (owner's plan, 2nd) | 💡 idea — see DEV_NOTES § Roadmap |
+| v1.x | Custom course builder — the user builds a personal course; **the same update adds many more exercises** to make that easy (owner's plan, 3rd) | 💡 idea — the open question "what is a custom course" is in DEV_NOTES § Roadmap |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea

@@ -14,6 +14,8 @@ A living document. Contains current status, active feature specs in progress, an
 - Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
 - Store accounts (Apple Developer Program, Google Play Console): the release CI is drafted but disabled until they exist ("Release builds (CI)" below).
 
+The owner's plan for the **big features after that** (2026-10-07), in his order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap.
+
 | Layer | Status |
 |-------|--------|
 | Data models + Hive | ✅ |
@@ -182,6 +184,26 @@ Not planned (parked by the owner, 2026-10-07). If it is ever picked up, start wi
 Sources: <https://core.telegram.org/bots/webapps>, <https://core.telegram.org/api/links>, <https://core.telegram.org/bots/faq>, <https://core.telegram.org/bots/payments-stars>, <https://developers.cloudflare.com/workers/platform/limits/>, <https://developers.cloudflare.com/workers/platform/pricing/>, <https://pub.dev/packages/dartway_telegram>.
 
 ---
+
+### Roadmap — the big features (owner's plan, 2026-10-07)
+
+The owner's order: **(1) German and Spanish translations, (2) additional courses, (3) a configurator for the user's own courses, with many more exercises added in the same update so that building a course is easy.** Nothing is started; this records what is known so that it is not looked up again.
+
+#### 1. German and Spanish
+- **Where two languages are assumed today** (found by search, 2026-10-07): `l10n.yaml` (`preferred-supported-locales: en, ru`); `LocaleNotifier` (system language → `ru`, anything else `en`); `SettingsState.locale` and `UserProfile.locale` (default `ru`); the language picker in `settings_screen.dart` (two radio rows and a `ru ? 'Русский' : 'English'` subtitle) and the RU / EN switch in the onboarding; `WidgetService.rankLabel` (the rank names of the home screen widget, ru / en, pinned by `widget_service_test`); the `notificationStrings` table of `NotificationPlanner` (ru / en, anything else gets Russian: it has to become a lookup of four); the libraries' `ExerciseLibraryNotifier` search already walks `AppLocalizations.supportedLocales`, so a new language is searched without a change. Dates, weekdays and plural forms already follow the locale.
+- **Volume:** 551 messages in each ARB file (the exercise names, descriptions and tips are among them, through `ExerciseL10n`), six "What's new" entries, the notification table (10 texts), the legal pages in `docs/` and the store listings if they are translated. The ICU plurals (`one / few / many / other` in Russian) need `one / other` in German and Spanish.
+- **Tests to widen:** `arb_consistency_test` compares en with ru only (make it compare every file with the template), `plural_test` and `enums_test` name the two languages, `release_notes_catalog_test` and `notification_planner_test` too. The Cyrillic guard is unaffected; the English guard flags any ASCII word in a visible literal, which is what is wanted.
+- **Open:** who checks the German and Spanish. A translation can be drafted, but a native speaker should read it (the Russian is the owner's own).
+
+#### 2. Additional courses
+- A course is today an enum value (`CourseId`, Hive typeId 10, two values) with a fixed list of branches in `CourseCatalog.branchesFor`; the onboarding, the Library pills and `UserProfile.activeCourseIds` (a list of enum indices) all work with it. Branches are shared between courses (Flex) and progress is **per branch**.
+- **Costs of a new branch:** a value in the `BranchId` Hive enum (eight today), its stages, a warm-up and cool-downs, tags, achievements (`<branch>_complete`), ARB texts in every language, a Lottie animation per exercise (the `tools/lottie` rigs; some poses do not read in a side view, see the pigeon and 90/90 decisions). **A ninth branch needs a new friend-QR / BLE format version**: the stage field is laid out for exactly eight (`friend_qr_codec_test` fails until it is handled, see § QR Profile Exchange).
+- Evening Stretch and Morning Routine can be made largely from existing Flex / Posture / Neck exercises and animations (no new branch needed); Yoga needs new poses.
+
+#### 3. A course configurator and many more exercises
+- **The question to settle first: what is a custom course?** (a) The user picks and orders *existing branches* (like the enrolled courses today). Cheap, but then "more exercises" means more *stages* in the branches. (b) The user picks *exercises* and gets plain progression (reps, then sets, then rest) without stages, like the supplementary pool. Closer to "build my own course" and it is what many more exercises would serve, but it is a second progression model beside the staged one. The answer decides how many exercises, of what kind, are needed.
+- **What a custom course touches:** `CourseId` cannot hold it (a Hive enum with fixed values; `activeCourseIds` stores indices), so courses need a string identity and a stored model beside `CustomRoutine` (typeId 11, the next free typeId is 12), plus a migration of `activeCourseIds`; the onboarding, the Library tab, `homeDataProvider`, the generator (`generateDailyForCourse` takes a list of branches) and the achievements are the places that read a course.
+- **Many more exercises:** every exercise costs a name, a description and a tip in every language, tags, and an animation. If this comes after the German and Spanish work, each exercise is four texts; doing the growth of the catalog before the translations would translate it once. (An observation for the owner's ordering, not a change of it.)
 
 ### "Support the Author" Button — idea
 
