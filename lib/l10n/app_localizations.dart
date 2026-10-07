@@ -320,6 +320,12 @@ abstract class AppLocalizations {
   /// **'Today\'s workout'**
   String get homeWorkoutStart;
 
+  /// No description provided for @homeWorkoutStartEstimate.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s workout (≈ {minutes} min)'**
+  String homeWorkoutStartEstimate(int minutes);
+
   /// No description provided for @homeWorkoutAgain.
   ///
   /// In en, this message translates to:

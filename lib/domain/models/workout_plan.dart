@@ -1,3 +1,5 @@
+import 'dart:math' show max;
+
 import '../../data/models/enums.dart';
 import '../../data/models/exercise.dart';
 
@@ -26,6 +28,24 @@ class PlannedExercise {
   final int restSec;
 }
 
+/// Seconds of "get ready" before the hold of a timed exercise that has just
+/// begun: time to take position and skim the description.
+const int kPrepNewExerciseSec = 10;
+
+/// The same before the next set of the same exercise: the position is known.
+const int kPrepNextSetSec = 5;
+
+/// Get-ready seconds before set [setIndex] of [planned]. A reps exercise has
+/// nothing that counts down by itself, so it gets none.
+int prepSecFor(PlannedExercise planned, int setIndex) {
+  if (planned.exercise.type != ExerciseType.timed) return 0;
+  return setIndex == 0 ? kPrepNewExerciseSec : kPrepNextSetSec;
+}
+
+/// A calm pace of one rep (down and up), used only for the time estimate:
+/// nothing in the app times reps, the user taps Done.
+const int kSecondsPerRep = 3;
+
 /// A fully generated, ready-to-execute workout.
 class WorkoutPlan {
   const WorkoutPlan({
@@ -39,12 +59,30 @@ class WorkoutPlan {
   /// Total number of sets across all exercises.
   int get totalSets => exercises.fold(0, (sum, e) => sum + e.sets);
 
-  /// Rough estimated duration in seconds (sets × ~30s per set + rest).
+  /// Estimated duration in seconds, following what the workout screen does:
+  /// a timed set takes its hold plus the get-ready countdown before it
+  /// ([prepSecFor]), a reps set takes [kSecondsPerRep] per rep, and the rest
+  /// after a set runs everywhere except after the last set of the workout.
+  /// For a plan of timed exercises only, this is exactly the number of ticks
+  /// the run takes (a test steps the real state machine to prove it); reps
+  /// are a guess at the user's pace.
   int get estimatedDurationSec {
-    return exercises.fold(0, (total, e) {
-      final workSec = e.sets * 30; // rough average
-      final restSec = e.sets > 1 ? (e.sets - 1) * e.restSec : 0;
-      return total + workSec + restSec;
-    });
+    var total = 0;
+    for (var i = 0; i < exercises.length; i++) {
+      final e = exercises[i];
+      final timed = e.exercise.type == ExerciseType.timed;
+      for (var set = 0; set < e.sets; set++) {
+        total += timed ? e.targetAmount : e.targetAmount * kSecondsPerRep;
+        total += prepSecFor(e, set);
+        final isLastSet = i == exercises.length - 1 && set == e.sets - 1;
+        if (!isLastSet) total += e.restSec;
+      }
+    }
+    return total;
   }
+
+  /// [estimatedDurationSec] in whole minutes for display: at least 1, and 0
+  /// for an empty plan.
+  int get estimatedMinutes =>
+      exercises.isEmpty ? 0 : max(1, (estimatedDurationSec / 60).round());
 }

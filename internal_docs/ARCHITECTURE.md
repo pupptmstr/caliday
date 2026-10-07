@@ -95,7 +95,7 @@ lib/
 │       ├── course_catalog.dart        ← CourseCatalog.branchesFor(CourseId)
 │       └── achievement_catalog.dart   ← 29 achievements
 ├── domain/
-│   ├── models/workout_plan.dart       ← WorkoutPlan, PlannedExercise
+│   ├── models/workout_plan.dart       ← WorkoutPlan (+ the time estimate), PlannedExercise, the get-ready constants (`prepSecFor`)
 │   └── services/
 │       ├── sp_service.dart
 │       ├── streak_service.dart
@@ -187,7 +187,9 @@ Reps ↑ → Sets ↑ (with reps reset) → Rest ↓ → Challenge test → Next
 ### Workout size
 The user picks how big the daily workout is: **Short** (2 skill branches), **Standard** (3) or **Full** (all branches of the course), `WorkoutSize` in `data/models/enums.dart`. It used to be presented as "5 / 10 / 15 minutes", which promised a duration the app never computed: the real time follows reps, sets and rests and roughly doubles as the user progresses (about 6 / 8 / 15 min at the start for Calisthenics, about 10 / 15 / 29 min with 12×3 reps and 60 s rests). So the names describe the volume, not the time, and no text may promise minutes (a test checks the names).
 
-The stored value is unchanged: `UserProfile.preferredWorkoutMinutes` (HiveField 12) keeps the old code 5 / 10 / 15 (`WorkoutSize.code`), so no migration; the generator parameter `preferredMinutes` keeps its historical name and reads the same code. `WorkoutSize.fromCode` reads any stored int the way the generator does (a test compares them for 0..30). Healthy Body has only 3 branches, so Standard and Full give the same workout there. Chosen in onboarding (step 3) and in Settings → Workout (a segmented control like the theme one).
+The stored value is unchanged: `UserProfile.preferredWorkoutMinutes` (HiveField 12) keeps the old code 5 / 10 / 15 (`WorkoutSize.code`), so no migration; the generator parameter `preferredMinutes` keeps its historical name and reads the same code. `WorkoutSize.fromCode` reads any stored int the way the generator does (a test compares them for 0..30). Healthy Body has only 3 branches, so Standard and Full give the same workout there. Chosen in onboarding (step 3) and in Settings → Workout (a segmented control like the theme one); changing it invalidates `homeDataProvider`.
+
+**How long it takes.** The Home button reads "Today's workout (≈ N min)" on one line (`WorkoutPlan.estimatedMinutes`) — the honest replacement for the old promise. `WorkoutPlan.estimatedDurationSec` follows the workout screen: a timed set is its hold plus the get-ready countdown, a reps set is `kSecondsPerRep` (3 s) per rep, and the rest after each set runs everywhere but after the last set of the workout. For timed-only plans it equals the ticks of a real run (`workout_timer_test.dart` steps the state machine to prove it); reps are a guess at the user's pace, hence the "≈". Both the Home button and the workout screen build the day's plan with `buildDailyPlan` (`workout_provider.dart`), so the estimate is of the plan that will actually run; `todayPlanProvider` rebuilds with `homeDataProvider`. Not shown for a bonus workout (the primary one is done): it adds random supplementary exercises when it starts. Notification texts promise no duration either (a test checks).
 
 ### Primary vs Bonus Workout
 `WorkoutLog.isPrimary`: true = first of the day (full SP, advances progression, counts toward streak); false = 50% SP.
@@ -537,7 +539,7 @@ home → push(/workout) → pushReplacement(/summary) → go(/home)
 After completion: `ref.invalidate(homeDataProvider)` + `ref.invalidate(profileDataProvider)`
 
 ### Timed exercises: the get-ready countdown
-The hold of a timed exercise (plank, dead hang, stretches) does not start the moment the exercise appears: a get-ready countdown runs first, so the user can take position and read the description, and the workout stays hands-free (nothing to tap between the rest and the hold). `WorkoutState.prepSec` is that countdown: `kPrepNewExerciseSec` = 10 s when a new exercise begins (the first one, after a rest between exercises, after a set with no rest), `kPrepNextSetSec` = 5 s before the next set of the same exercise (`prepSecFor(planned, setIndex)`; reps exercises get 0). `tick()` counts `prepSec` down and, when it reaches 0, the hold (`timerSec`) simply starts counting by itself; the full hold still confirms the set by itself, and **Stop** during the hold confirms it early.
+The hold of a timed exercise (plank, dead hang, stretches) does not start the moment the exercise appears: a get-ready countdown runs first, so the user can take position and read the description, and the workout stays hands-free (nothing to tap between the rest and the hold). `WorkoutState.prepSec` is that countdown: `kPrepNewExerciseSec` = 10 s when a new exercise begins (the first one, after a rest between exercises, after a set with no rest), `kPrepNextSetSec` = 5 s before the next set of the same exercise (`prepSecFor(planned, setIndex)`, in `domain/models/workout_plan.dart` because the time estimate shares it; reps exercises get 0). `tick()` counts `prepSec` down and, when it reaches 0, the hold (`timerSec`) simply starts counting by itself; the full hold still confirms the set by itself, and **Stop** during the hold confirms it early.
 
 **Pause / Continue.** `pausePrep()` sets `prepPaused`, which freezes `prepSec`; `resumePrep()` clears it and the countdown goes on from where it stopped (it is not restarted). Both do nothing outside the countdown (during the hold, a rest, a reps exercise) or when already in that state. Every place that begins a set sets `prepSec` and clears `prepPaused` (entering a rest resets both to 0 / false).
 

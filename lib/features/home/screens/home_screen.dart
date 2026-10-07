@@ -137,6 +137,11 @@ class HomeScreen extends ConsumerWidget {
                     const Spacer(),
                     _WorkoutButton(
                       done: data.hasWorkoutToday,
+                      // Only the day's own workout has a plan to measure; a
+                      // bonus one picks random exercises when it starts.
+                      estimatedMinutes: data.hasWorkoutToday
+                          ? null
+                          : ref.watch(todayPlanProvider).estimatedMinutes,
                       onTap: () => context.push('/workout'),
                     ),
                     const SizedBox(height: 10),
@@ -366,10 +371,17 @@ class _DoneMessage extends StatelessWidget {
 // ── Workout button ─────────────────────────────────────────────────────────────
 
 class _WorkoutButton extends StatelessWidget {
-  const _WorkoutButton({required this.done, required this.onTap});
+  const _WorkoutButton({
+    required this.done,
+    required this.onTap,
+    this.estimatedMinutes,
+  });
 
   final bool done;
   final VoidCallback onTap;
+
+  /// About how long today's workout takes; null when there is nothing to say.
+  final int? estimatedMinutes;
 
   @override
   Widget build(BuildContext context) {
@@ -457,12 +469,18 @@ class _WorkoutButton extends StatelessWidget {
                 children: [
                   const Icon(Icons.fitness_center, size: 22, color: Colors.white),
                   const SizedBox(width: 10),
-                  Text(
-                    l10n.homeWorkoutStart,
-                    style: const TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
+                  Flexible(
+                    child: Text(
+                      estimatedMinutes != null && estimatedMinutes! > 0
+                          ? l10n.homeWorkoutStartEstimate(estimatedMinutes!)
+                          : l10n.homeWorkoutStart,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                        fontSize: 17,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
                     ),
                   ),
                 ],

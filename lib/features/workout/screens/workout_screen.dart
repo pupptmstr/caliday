@@ -10,6 +10,7 @@ import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
 import '../../../core/services/sound_service.dart';
 import '../../../data/models/enums.dart';
+import '../../../domain/models/workout_plan.dart' show prepSecFor;
 import '../providers/workout_provider.dart';
 
 class WorkoutScreen extends ConsumerStatefulWidget {

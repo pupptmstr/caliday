@@ -52,25 +52,38 @@ class CustomWorkoutPlanNotifier extends Notifier<WorkoutPlan?> {
 final customWorkoutPlanProvider =
     NotifierProvider<CustomWorkoutPlanNotifier, WorkoutPlan?>(CustomWorkoutPlanNotifier.new);
 
+// ── Today's daily plan ────────────────────────────────────────────────────────
+
+/// The plan of "Today's workout": the one the workout screen runs when no
+/// challenge or custom routine is set. The Home button builds it too, for the
+/// time estimate, so both go through here and cannot drift apart. The workout
+/// of the day is deterministic; only a bonus workout (the primary one is
+/// done) picks random supplementary exercises on top.
+WorkoutPlan buildDailyPlan(Ref ref) {
+  final generator = ref.read(workoutGeneratorServiceProvider);
+  final profile = ref.read(userRepositoryProvider).getProfile();
+  final course = ref.read(activeCourseProvider);
+  final isPrimary = !ref.read(workoutRepositoryProvider).hasPrimaryWorkoutToday();
+  return generator.generateDailyForCourse(
+    course: course,
+    courseBranches: profile.branchesForCourse(course),
+    preferredMinutes: profile.preferredWorkoutMinutes ?? 10,
+    isPrimary: isPrimary,
+    hasPullUpBar: profile.hasPullUpBar == true,
+  );
+}
+
+/// Today's daily plan for the estimate on the Home button. Rebuilt whenever
+/// [homeDataProvider] is (a finished workout, a changed course, pull-up bar or
+/// workout size all invalidate it).
+final todayPlanProvider = Provider.autoDispose<WorkoutPlan>((ref) {
+  ref.watch(homeDataProvider);
+  return buildDailyPlan(ref);
+});
+
 // ── Phase ─────────────────────────────────────────────────────────────────────
 
 enum WorkoutPhase { exercise, rest, done }
-
-// ── Get-ready countdown ───────────────────────────────────────────────────────
-
-/// Seconds of "get ready" before the hold of a timed exercise that has just
-/// begun: time to take position and skim the description.
-const int kPrepNewExerciseSec = 10;
-
-/// The same before the next set of the same exercise: the position is known.
-const int kPrepNextSetSec = 5;
-
-/// Get-ready seconds before set [setIndex] of [planned]. A reps exercise has
-/// nothing that counts down by itself, so it gets none.
-int prepSecFor(PlannedExercise planned, int setIndex) {
-  if (planned.exercise.type != ExerciseType.timed) return 0;
-  return setIndex == 0 ? kPrepNewExerciseSec : kPrepNextSetSec;
-}
 
 // ── State ─────────────────────────────────────────────────────────────────────
 
@@ -277,24 +290,14 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
     if (customPlan != null) return customPlan;
 
     final challengeBranch = ref.read(challengeBranchProvider);
-    final generator = ref.read(workoutGeneratorServiceProvider);
-    final profile = ref.read(userRepositoryProvider).getProfile();
-    final course = ref.read(activeCourseProvider);
     if (challengeBranch != null) {
-      return generator.generateChallenge(
-        challengeBranch,
-        hasPullUpBar: profile.hasPullUpBar == true,
-      );
+      final profile = ref.read(userRepositoryProvider).getProfile();
+      return ref.read(workoutGeneratorServiceProvider).generateChallenge(
+            challengeBranch,
+            hasPullUpBar: profile.hasPullUpBar == true,
+          );
     }
-    final workoutRepo = ref.read(workoutRepositoryProvider);
-    final isPrimary = !workoutRepo.hasPrimaryWorkoutToday();
-    return generator.generateDailyForCourse(
-      course: course,
-      courseBranches: profile.branchesForCourse(course),
-      preferredMinutes: profile.preferredWorkoutMinutes ?? 10,
-      isPrimary: isPrimary,
-      hasPullUpBar: profile.hasPullUpBar == true,
-    );
+    return buildDailyPlan(ref);
   }
 
   bool _hasRealWork(List<ExerciseResult?> results) {

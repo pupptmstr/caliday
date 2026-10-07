@@ -121,6 +121,14 @@
   },
   "homeWorkoutDone": "Workout done",
   "homeWorkoutStart": "Today's workout",
+  "homeWorkoutStartEstimate": "Today's workout (≈ {minutes} min)",
+  "@homeWorkoutStartEstimate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "homeWorkoutAgain": "Again",
   "workoutTitle": "Workout",
   "workoutExitTitle": "Quit workout?",

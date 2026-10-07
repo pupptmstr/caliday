@@ -187,6 +187,19 @@ void main() {
       }
     });
 
+    test('no text promises how long a workout takes', () {
+      // The time depends on the size and the progress of the day, and a
+      // notification is written long before it (see WorkoutSize). The shown
+      // estimate lives on the Home button instead.
+      final promise = RegExp(r'\d+\s*(min|мин)', caseSensitive: false);
+      for (final locale in notificationStrings.keys) {
+        for (final entry in notificationStrings[locale]!.entries) {
+          expect(promise.hasMatch(entry.value), isFalse,
+              reason: '$locale ${entry.key}: ${entry.value}');
+        }
+      }
+    });
+
     test('every key the planner reads exists', () {
       // Run every kind of notification through both languages.
       for (final locale in ['ru', 'en']) {

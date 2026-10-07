@@ -368,15 +368,28 @@ void main() {
       expect(plan.totalSets, 4);
     });
 
-    test('estimatedDurationSec adds ~30 s per set and the rests between sets',
-        () {
-      const plan = WorkoutPlan(setType: SetType.daily, exercises: []);
-      expect(plan.estimatedDurationSec, 0);
-
-      final one = _generator().fromExerciseIds(['push_s1_wall_pushup']);
-      final e = one.exercises.single;
-      expect(one.estimatedDurationSec,
-          e.sets * 30 + (e.sets > 1 ? (e.sets - 1) * e.restSec : 0));
+    test('a bigger workout size takes longer, in either course', () {
+      // The estimate is what the Home button shows, so the three sizes must
+      // read as three different amounts of time.
+      for (final course in CourseId.values) {
+        for (var day = 0; day < 12; day++) {
+          int minutes(int code) => _generator()
+              .generateDailyForCourse(
+                course: course,
+                courseBranches: CourseCatalog.branchesFor(course),
+                preferredMinutes: code,
+                dayIndexOverride: day,
+                hasPullUpBar: true,
+              )
+              .estimatedMinutes;
+          expect(minutes(WorkoutSize.short.code),
+              lessThan(minutes(WorkoutSize.standard.code)),
+              reason: '$course day $day: short < standard');
+          expect(minutes(WorkoutSize.standard.code),
+              lessThanOrEqualTo(minutes(WorkoutSize.full.code)),
+              reason: '$course day $day: standard <= full (equal in a 3-branch course)');
+        }
+      }
     });
   });
 }

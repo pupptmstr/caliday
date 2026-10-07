@@ -151,6 +151,8 @@ class SettingsNotifier extends Notifier<SettingsState> {
     state = state.copyWith(workoutSize: size);
     final p = ref.read(userRepositoryProvider).getProfile()..preferredWorkoutMinutes = size.code;
     ref.read(userRepositoryProvider).saveProfile(p);
+    // Today's plan, and the estimate on the Home button, depend on it.
+    ref.invalidate(homeDataProvider);
   }
 
   void setLocale(String locale) {

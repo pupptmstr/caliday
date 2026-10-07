@@ -303,6 +303,47 @@ void main() {
     });
   });
 
+  group('the estimate is the length of the real run', () {
+    // Ticks a run of timed [slots] takes, counted on the real state machine.
+    // The very last tick is not played: it would finish the workout, which
+    // writes to Hive; it is the one that ends the final hold (timerSec 1).
+    int ticksOfRun(List<PlannedExercise> slots) {
+      final (:container, :notifier) = _start(slots);
+      var ticks = 0;
+      while (true) {
+        final s = read(container);
+        if (s.isHolding && s.isLastExercise && s.isLastSet && s.timerSec <= 1) {
+          return ticks + 1;
+        }
+        notifier.tick();
+        ticks++;
+        if (ticks > 100000) fail('the run does not end');
+      }
+    }
+
+    test('countdowns, holds and rests add up to the ticks of the run', () {
+      final plans = [
+        [_slot(_timed, sets: 1, rest: 0)],
+        [_slot(_timed, amount: 30, sets: 3, rest: 20)],
+        [
+          _slot(_timed, amount: 15, sets: 1, rest: 0), // a warm-up
+          _slot(_timed, amount: 40, sets: 2, rest: 45),
+          _slot(_timed, amount: 25, sets: 1, rest: 0), // a cool-down
+        ],
+        [
+          _slot(_timed, amount: 20, sets: 2, rest: 30),
+          _slot(_timed, amount: 10, sets: 2, rest: 0),
+          _slot(_timed, amount: 35, sets: 3, rest: 60),
+        ],
+      ];
+      for (final slots in plans) {
+        final plan = WorkoutPlan(setType: SetType.daily, exercises: slots);
+        expect(ticksOfRun(slots), plan.estimatedDurationSec,
+            reason: slots.map((s) => '${s.sets}x${s.targetAmount}/${s.restSec}').join(' '));
+      }
+    });
+  });
+
   group('runningCountdownSec follows what is counting down', () {
     test('rest, countdown, paused countdown, hold, reps', () {
       final (:container, :notifier) = _start([_slot(_timed)]);

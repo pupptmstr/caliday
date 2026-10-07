@@ -226,7 +226,7 @@ Notifications are a key retention tool:
 
 **Morning reminder** — configurable time (default 9:00). Texts rotate: "Time to work out! Your streak: 12 days 🔥".
 
-**Evening reminder** — if no workout today (20:00): "Don't forget your workout! Just 5 minutes — streak saved."
+**Evening reminder** — if no workout today (20:00): "You haven't trained today yet. Even a short workout counts." (no promised duration: the time depends on the day)
 
 **Streak threat** — 2 hours before end of day (22:00): "Your 12-day streak is at risk! Beat the clock before midnight!".
 

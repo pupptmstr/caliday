@@ -121,6 +121,14 @@
   },
   "homeWorkoutDone": "Тренировка выполнена",
   "homeWorkoutStart": "Тренировка дня",
+  "homeWorkoutStartEstimate": "Тренировка дня (≈ {minutes} мин)",
+  "@homeWorkoutStartEstimate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "homeWorkoutAgain": "Ещё раз",
   "workoutTitle": "Тренировка",
   "workoutExitTitle": "Прервать тренировку?",

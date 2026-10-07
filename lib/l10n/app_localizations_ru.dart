@@ -150,6 +150,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get homeWorkoutStart => 'Тренировка дня';
 
   @override
+  String homeWorkoutStartEstimate(int minutes) {
+    return 'Тренировка дня (≈ $minutes мин)';
+  }
+
+  @override
   String get homeWorkoutAgain => 'Ещё раз';
 
   @override
