@@ -1290,6 +1290,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0818 =>
+      'El widget de la pantalla de inicio habla el idioma de la app: la etiqueta «Hecho» y su descripción en la galería de widgets ya no aparecen siempre en ruso.\nAl cambiar el idioma de la app, el widget y los recordatorios cambian al momento.';
+
+  @override
   String get releaseNotes0817 =>
       'Los números y las palabras ahora concuerdan: «1 serie» en lugar de «1 series».';
 
@@ -2026,4 +2030,7 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get notificationRankAtRiskBody =>
       '14 días sin entrenar: tu rango empezará a bajar pronto. ¡Vuelve!';
+
+  @override
+  String get widgetDoneLabel => 'Hecho';
 }

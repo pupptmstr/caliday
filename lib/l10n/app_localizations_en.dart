@@ -1298,6 +1298,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0818 =>
+      'The home screen widget speaks the app’s language: its “Done” label and its description in the widget gallery are no longer always in Russian.\nWhen you change the app language, the widget and the reminders switch to it right away.';
+
+  @override
   String get releaseNotes0817 =>
       'Numbers now agree with their words: “1 set”, “1 rep” and “1 friend” instead of “1 sets”, “1 reps” and “1 friends”.';
 
@@ -2018,4 +2022,7 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get notificationRankAtRiskBody =>
       '14 days without training — your rank will start dropping soon. Come back!';
+
+  @override
+  String get widgetDoneLabel => 'Done';
 }

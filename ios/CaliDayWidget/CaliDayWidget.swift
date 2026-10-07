@@ -8,14 +8,16 @@ struct CaliDayEntry: TimelineEntry {
     let streak: Int
     let totalSP: Int
     let workoutDoneToday: Bool
+    // Texts come from the app in its own language (WidgetService.texts).
     let rankName: String
+    let doneLabel: String
 }
 
 // MARK: - Timeline provider
 
 struct CaliDayProvider: TimelineProvider {
     func placeholder(in context: Context) -> CaliDayEntry {
-        CaliDayEntry(date: Date(), streak: 7, totalSP: 340, workoutDoneToday: false, rankName: "Атлет")
+        CaliDayEntry(date: Date(), streak: 7, totalSP: 340, workoutDoneToday: false, rankName: "", doneLabel: "")
     }
 
     func getSnapshot(in context: Context, completion: @escaping (CaliDayEntry) -> Void) {
@@ -36,7 +38,8 @@ struct CaliDayProvider: TimelineProvider {
             streak: defaults.integer(forKey: "streak"),
             totalSP: defaults.integer(forKey: "totalSP"),
             workoutDoneToday: defaults.bool(forKey: "workoutDoneToday"),
-            rankName: defaults.string(forKey: "rankName") ?? ""
+            rankName: defaults.string(forKey: "rankName") ?? "",
+            doneLabel: defaults.string(forKey: "doneLabel") ?? ""
         )
     }
 }
@@ -145,9 +148,12 @@ struct CaliDayMediumView: View {
                                 Image(systemName: "checkmark.circle.fill")
                                     .foregroundColor(Color(red: 0.298, green: 0.686, blue: 0.314))
                                     .font(.system(size: 11))
-                                Text("Готово")
-                                    .font(.system(size: 11))
-                                    .foregroundColor(Color(red: 0.298, green: 0.686, blue: 0.314))
+                                // Empty until the app has written it: the check mark alone.
+                                if !entry.doneLabel.isEmpty {
+                                    Text(entry.doneLabel)
+                                        .font(.system(size: 11))
+                                        .foregroundColor(Color(red: 0.298, green: 0.686, blue: 0.314))
+                                }
                             }
                         }
                     }
@@ -187,9 +193,24 @@ struct CaliDayWidget: Widget {
                 .modifier(WidgetBackgroundModifier())
         }
         .configurationDisplayName("CaliDay")
-        .description("Стрик и SP одним взглядом.")
+        .description(galleryDescription())
         .supportedFamilies([.systemSmall, .systemMedium])
     }
+}
+
+/// The widget gallery shows the description before the app has ever run, so
+/// the app cannot hand it over like the other texts: one line per app language
+/// (the codes of `appLanguages`; a test in widget_service_test.dart keeps them
+/// in step), English for any other.
+private func galleryDescription() -> String {
+    let texts = [
+        "ru": "Стрик и SP одним взглядом.",
+        "en": "Your streak and SP at a glance.",
+        "de": "Serie und SP auf einen Blick.",
+        "es": "Tu racha y tus SP de un vistazo.",
+    ]
+    let code = Locale.preferredLanguages.first.map { String($0.prefix(2)) } ?? "en"
+    return texts[code] ?? texts["en"]!
 }
 
 private let widgetBackground = Color(red: 0.102, green: 0.145, blue: 0.204)
@@ -212,12 +233,12 @@ struct CaliDayWidget_Previews: PreviewProvider {
     static var previews: some View {
         Group {
             CaliDayWidgetEntryView(
-                entry: CaliDayEntry(date: Date(), streak: 12, totalSP: 340, workoutDoneToday: false, rankName: "Атлет")
+                entry: CaliDayEntry(date: Date(), streak: 12, totalSP: 340, workoutDoneToday: false, rankName: "Champion", doneLabel: "Done")
             )
             .previewContext(WidgetPreviewContext(family: .systemSmall))
 
             CaliDayWidgetEntryView(
-                entry: CaliDayEntry(date: Date(), streak: 12, totalSP: 380, workoutDoneToday: true, rankName: "Мастер")
+                entry: CaliDayEntry(date: Date(), streak: 12, totalSP: 380, workoutDoneToday: true, rankName: "Master", doneLabel: "Done")
             )
             .previewContext(WidgetPreviewContext(family: .systemMedium))
         }

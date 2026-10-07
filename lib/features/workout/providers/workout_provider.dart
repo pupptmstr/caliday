@@ -692,7 +692,8 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
       streak: ref.read(displayStreakProvider),
       totalSP: profile.totalSP,
       workoutDoneToday: true,
-      rankName: WidgetService.rankLabel(profile.rank, ref.read(localeProvider)),
+      rank: profile.rank,
+      locale: ref.read(localeProvider),
     ));
 
     state = state.copyWith(

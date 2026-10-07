@@ -1283,6 +1283,10 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0818 =>
+      'Das Widget auf dem Startbildschirm spricht die Sprache der App: Die Beschriftung „Erledigt“ und die Beschreibung in der Widget-Galerie sind nicht mehr immer auf Russisch.\nWenn du die Sprache der App änderst, wechseln Widget und Erinnerungen sofort mit.';
+
+  @override
   String get releaseNotes0817 =>
       'Zahlen und Wörter passen jetzt zusammen: „1 Satz“ statt „1 Sätze“.';
 
@@ -2019,4 +2023,7 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get notificationRankAtRiskBody =>
       '14 Tage ohne Training — dein Rang beginnt bald zu sinken. Komm zurück!';
+
+  @override
+  String get widgetDoneLabel => 'Erledigt';
 }

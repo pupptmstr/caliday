@@ -556,6 +556,7 @@
       }
     }
   },
+  "releaseNotes0818": "Das Widget auf dem Startbildschirm spricht die Sprache der App: Die Beschriftung „Erledigt“ und die Beschreibung in der Widget-Galerie sind nicht mehr immer auf Russisch.\nWenn du die Sprache der App änderst, wechseln Widget und Erinnerungen sofort mit.",
   "releaseNotes0817": "Zahlen und Wörter passen jetzt zusammen: „1 Satz“ statt „1 Sätze“.",
   "releaseNotes0816": "Die App gibt es jetzt auch auf Deutsch und Spanisch.\nDie Sprachauswahl auf dem Begrüßungsbildschirm ist jetzt ein Menü.\nDie Benachrichtigung über eine verlorene Serie nennt die Zahl der Tage auf Russisch jetzt grammatisch richtig.",
   "releaseNotes0815": "Eine Glocke im Profil zeigt jetzt, was sich mit jedem Update geändert hat.\nDer Bildschirm „Über die App“ ist kürzer: Die technische Zeile ist weg.",
@@ -821,5 +822,6 @@
     }
   },
   "notificationRankAtRiskTitle": "Rang in Gefahr! ⚠️",
-  "notificationRankAtRiskBody": "14 Tage ohne Training — dein Rang beginnt bald zu sinken. Komm zurück!"
+  "notificationRankAtRiskBody": "14 Tage ohne Training — dein Rang beginnt bald zu sinken. Komm zurück!",
+  "widgetDoneLabel": "Erledigt"
 }

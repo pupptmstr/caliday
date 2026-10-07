@@ -1272,6 +1272,10 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0818 =>
+      'Виджет на домашнем экране говорит на языке приложения: подпись «Готово» и описание в галерее виджетов больше не всегда на русском.\nПосле смены языка в настройках виджет и напоминания сразу переходят на новый язык.';
+
+  @override
   String get releaseNotes0817 =>
       'Числа теперь согласуются со словами: «1 друг», «21 упражнение», «стрик 3 дня», «потренировался 5 раз».';
 
@@ -2016,4 +2020,7 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get notificationRankAtRiskBody =>
       '14 дней без тренировок — ранг начнёт снижаться через неделю. Вернись!';
+
+  @override
+  String get widgetDoneLabel => 'Готово';
 }

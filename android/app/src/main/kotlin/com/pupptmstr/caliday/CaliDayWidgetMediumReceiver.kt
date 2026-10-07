@@ -31,12 +31,15 @@ class CaliDayWidgetMediumReceiver : AppWidgetProvider() {
             val streak = prefs.getInt("streak", 0)
             val totalSP = prefs.getInt("totalSP", 0)
             val done = prefs.getBoolean("workoutDoneToday", false)
+            // Texts come from the app in its own language (WidgetService.texts).
             val rankName = prefs.getString("rankName", "") ?: ""
+            val doneLabel = prefs.getString("doneLabel", "") ?: ""
 
             val views = RemoteViews(context.packageName, R.layout.caliday_widget_medium_layout)
             views.setTextViewText(R.id.widget_streak, "$streak")
             views.setTextViewText(R.id.widget_sp, "$totalSP SP")
             views.setTextViewText(R.id.widget_rank, rankName)
+            views.setTextViewText(R.id.widget_done_label, doneLabel)
             views.setImageViewResource(
                 R.id.widget_goro,
                 if (done) R.drawable.goro_flex else R.drawable.goro_idle,

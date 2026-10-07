@@ -6,6 +6,7 @@ import '../../../core/providers/theme_provider.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/services/sound_service.dart';
+import '../../../core/services/widget_service.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../home/providers/home_provider.dart';
@@ -160,6 +161,10 @@ class SettingsNotifier extends Notifier<SettingsState> {
     final p = ref.read(userRepositoryProvider).getProfile()..locale = locale;
     ref.read(userRepositoryProvider).saveProfile(p);
     ref.read(localeProvider.notifier).set(locale);
+    // Both take their texts when they are written: without this they would
+    // stay in the old language until the next start or workout.
+    NotificationService.instance.scheduleAll(p);
+    WidgetService.instance.updateTexts(rank: p.rank, locale: locale);
   }
 
   void setThemeMode(ThemeMode mode) {

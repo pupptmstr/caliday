@@ -83,7 +83,7 @@ void main() {
 
     test('older seen: only what came after, newest first', () {
       expect(ReleaseNotesCatalog.unseenSince('0.8.12').map((n) => n.version),
-          ['0.8.17', '0.8.16', '0.8.15', '0.8.14', '0.8.13']);
+          ['0.8.18', '0.8.17', '0.8.16', '0.8.15', '0.8.14', '0.8.13']);
     });
 
     test('a version older than the whole history: every entry', () {

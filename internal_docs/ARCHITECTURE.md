@@ -56,7 +56,7 @@ lib/
 │   │   ├── notification_service.dart  ← NotificationService singleton: hands what NotificationPlanner decided to the plugin (no-op on web)
 │   │   ├── sound_service.dart         ← SoundService singleton
 │   │   ├── health_service.dart        ← HealthService singleton (plugin calls only; the energy / weight logic is WorkoutEnergy)
-│   │   ├── widget_service.dart        ← WidgetService singleton (`rankLabel` reads the rank names from the ARB files through `l10nFor`)
+│   │   ├── widget_service.dart        ← WidgetService singleton (`texts(rank, locale)`: every text the native widgets show, from the ARB files through `l10nFor`)
 │   │   └── ble_service.dart           ← BleService singleton (Central: scan + GATT read; Peripheral: advertising + GATT server; the bytes are BleProfileCodec)
 │   ├── providers/
 │   │   ├── locale_provider.dart       ← LocaleNotifier (NotifierProvider<LocaleNotifier, String>)
@@ -705,7 +705,8 @@ The key is the Android channel id; the ids never change (`NotificationKind`).
 - Small (2×2): Goro + streak + SP
 - Medium (4×2): Goro + streak + SP + rank + "Done" status
 - Deep link: `caliday://workout`
-- SharedPreferences keys: `streak`, `totalSP`, `workoutDoneToday`, `rankName`
+- SharedPreferences keys: `streak`, `totalSP`, `workoutDoneToday`, `rankName`, `doneLabel`
+- **The native widgets have no texts of their own.** Native string resources would follow the system language, not the one picked in the app, so `WidgetService.texts(rank, locale)` writes every text (`rankName`, `doneLabel`) from the ARB files; `update(…, rank, locale)` sends them with the numbers, `updateTexts` alone after a language change in Settings (which also reschedules the notifications, whose texts are fixed when they are scheduled). An empty `doneLabel` (old data, before the first update) shows the check mark alone. The one exception is the iOS gallery description, shown before the app has ever run: a table of the app's languages in `galleryDescription()` (`CaliDayWidget.swift`), picked by `Locale.preferredLanguages`. `widget_service_test` checks that both platforms read every key, that the Android layouts hold no Russian, and that the Swift table has exactly the codes of `appLanguages`.
 - App Group ID (iOS): `group.com.pupptmstr.caliday`
 - Android receivers: `CaliDayWidgetReceiver` (small), `CaliDayWidgetMediumReceiver` (medium)
 
@@ -801,7 +802,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 - File naming: `snake_case`
 - Class naming: `PascalCase`
 - Public API comments in English
-- UI strings via l10n (`app_en.arb` is the template; every other `l10n/app_<code>.arb` must have the same messages and placeholders). **Adding a UI language:** its ARB file, `flutter gen-l10n`, a line in `appLanguages` (`core/l10n/app_languages.dart`) and in `CFBundleLocalizations` of `ios/Runner/Info.plist` (a test compares them) — the pickers, the system-language default, the notifications and the widget follow; `app_languages_test` and `arb_consistency_test` fail until the list and the files agree, and the "every language" tests (exercise texts, release notes not left in English, workout sizes, counted messages, notification texts) cover the new file by themselves through `test/helpers/all_translations.dart`. Text without a BuildContext comes from `l10nFor(code)` (`lookupAppLocalizations`), never from a hand-written table. `flutter gen-l10n` does not delete the generated `app_localizations_<code>.dart` of an ARB file that was removed. A counted noun is one plural message that includes the number (`{count, plural, one{{count} day} other{{count} days}}`): `arb_consistency_test` reads a bare word inside a plural branch as an undeclared placeholder. An amount and its unit are one message too (`workoutAmountReps(n)`, `durationSec(n)`), never a number followed by a separate unit word, which cannot agree with it ("1 reps"); English counts are plurals even where the number is usually above 1 (many stages start at 1 set, the hardest norms are 1 rep). Weekday and month names come from `intl` for the app locale, not from a hand-written list
+- UI strings via l10n (`app_en.arb` is the template; every other `l10n/app_<code>.arb` must have the same messages and placeholders). **Adding a UI language:** its ARB file, `flutter gen-l10n`, a line in `appLanguages` (`core/l10n/app_languages.dart`), in `CFBundleLocalizations` of `ios/Runner/Info.plist` and in `galleryDescription()` of `CaliDayWidget.swift` (tests compare them) — the pickers, the system-language default, the notifications and the widget follow; `app_languages_test` and `arb_consistency_test` fail until the list and the files agree, and the "every language" tests (exercise texts, release notes not left in English, workout sizes, counted messages, notification texts) cover the new file by themselves through `test/helpers/all_translations.dart`. Text without a BuildContext comes from `l10nFor(code)` (`lookupAppLocalizations`), never from a hand-written table. `flutter gen-l10n` does not delete the generated `app_localizations_<code>.dart` of an ARB file that was removed. A counted noun is one plural message that includes the number (`{count, plural, one{{count} day} other{{count} days}}`): `arb_consistency_test` reads a bare word inside a plural branch as an undeclared placeholder. An amount and its unit are one message too (`workoutAmountReps(n)`, `durationSec(n)`), never a number followed by a separate unit word, which cannot agree with it ("1 reps"); English counts are plurals even where the number is usually above 1 (many stages start at 1 set, the hardest norms are 1 rep). Weekday and month names come from `intl` for the app locale, not from a hand-written list
 - No clutter: do not add docstrings/comments to code you are not touching
 
 ### Key Patterns
@@ -837,7 +838,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 | Health energy | `test/domain/services/workout_energy_test.dart` | MET formula, which weight sample is used, implausible weights fall back to 70 kg |
 | Router redirect | `test/core/router/app_redirect_test.dart` | onboarding gate, widget and friend deep links, no redirect loops |
 | Workout timer | `test/features/workout/workout_timer_test.dart` | a timed exercise waits for Start in every transition (first, after rest, no-rest sets, next exercise), then counts down and confirms itself |
-| Widget labels | `test/core/widget_service_test.dart` | the widget's rank names are the app's in every language, an unknown language gets English |
+| Widget texts | `test/core/widget_service_test.dart` | the widget's texts are the app's in every language (unknown → English); the Swift and Kotlin code reads every key the app writes; no hard-coded Russian in the native widgets; the iOS gallery description has every app language |
 | Repository / CI files | `test/repo/workflows_test.dart` | the three workflows pin one Flutter version, the release workflow stays disabled and tag-only, ci.yml keeps its l10n / build steps |
 
 Conventions:

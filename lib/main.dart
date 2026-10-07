@@ -117,7 +117,8 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
         streak: displayStreak,
         totalSP: profile.totalSP,
         workoutDoneToday: workoutRepo.hasWorkoutToday(),
-        rankName: WidgetService.rankLabel(profile.rank, ref.read(localeProvider)),
+        rank: profile.rank,
+        locale: ref.read(localeProvider),
       ));
 
       // Handle deep links from the Home Screen Widget tap (caliday://workout).

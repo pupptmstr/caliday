@@ -2280,6 +2280,12 @@ abstract class AppLocalizations {
   /// **'Version {version}'**
   String whatsNewVersion(String version);
 
+  /// No description provided for @releaseNotes0818.
+  ///
+  /// In en, this message translates to:
+  /// **'The home screen widget speaks the app’s language: its “Done” label and its description in the widget gallery are no longer always in Russian.\nWhen you change the app language, the widget and the reminders switch to it right away.'**
+  String get releaseNotes0818;
+
   /// No description provided for @releaseNotes0817.
   ///
   /// In en, this message translates to:
@@ -3479,6 +3485,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'14 days without training — your rank will start dropping soon. Come back!'**
   String get notificationRankAtRiskBody;
+
+  /// No description provided for @widgetDoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get widgetDoneLabel;
 }
 
 class _AppLocalizationsDelegate

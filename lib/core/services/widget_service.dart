@@ -23,31 +23,63 @@ class WidgetService {
     await HomeWidget.setAppGroupId(_appGroupId);
   }
 
-  /// Saves widget data and triggers a native widget refresh.
+  /// Saves widget data and triggers a native widget refresh. The texts are
+  /// written in [locale] (see [texts]).
   Future<void> update({
     required int streak,
     required int totalSP,
     required bool workoutDoneToday,
-    required String rankName,
+    required Rank rank,
+    required String locale,
   }) async {
     if (kIsWeb) return;
     try {
       await HomeWidget.saveWidgetData<int>('streak', streak);
       await HomeWidget.saveWidgetData<int>('totalSP', totalSP);
       await HomeWidget.saveWidgetData<bool>('workoutDoneToday', workoutDoneToday);
-      await HomeWidget.saveWidgetData<String>('rankName', rankName);
-      await HomeWidget.updateWidget(
-        iOSName: _iOSName,
-        qualifiedAndroidName: _androidName,
-      );
-      await HomeWidget.updateWidget(qualifiedAndroidName: _androidNameMedium);
+      await _saveTexts(rank, locale);
+      await _refresh();
     } catch (_) {
       // Widget update is best-effort; never crash the app.
     }
   }
 
-  /// The rank name for the widget in [locale], from the ARB files (there is no
-  /// BuildContext here); English for a language the app does not have.
-  static String rankLabel(Rank rank, String locale) =>
-      rank.localizedName(l10nFor(locale));
+  /// Re-sends only the texts, after the user changed the app language.
+  Future<void> updateTexts({required Rank rank, required String locale}) async {
+    if (kIsWeb) return;
+    try {
+      await _saveTexts(rank, locale);
+      await _refresh();
+    } catch (_) {
+      // Widget update is best-effort; never crash the app.
+    }
+  }
+
+  /// Everything the widget shows as text, keyed as the native widgets read it.
+  /// The widgets have no strings of their own (native resources would follow
+  /// the system language, not the one picked in the app), so the texts come
+  /// from the ARB files of [locale]; English for a language the app does not
+  /// have. The only exception is the iOS gallery description, shown before the
+  /// app has ever run (see `CaliDayWidget.swift`).
+  static Map<String, String> texts(Rank rank, String locale) {
+    final l10n = l10nFor(locale);
+    return {
+      'rankName': rank.localizedName(l10n),
+      'doneLabel': l10n.widgetDoneLabel,
+    };
+  }
+
+  Future<void> _saveTexts(Rank rank, String locale) async {
+    for (final MapEntry(:key, :value) in texts(rank, locale).entries) {
+      await HomeWidget.saveWidgetData<String>(key, value);
+    }
+  }
+
+  Future<void> _refresh() async {
+    await HomeWidget.updateWidget(
+      iOSName: _iOSName,
+      qualifiedAndroidName: _androidName,
+    );
+    await HomeWidget.updateWidget(qualifiedAndroidName: _androidNameMedium);
+  }
 }

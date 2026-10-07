@@ -556,6 +556,7 @@
       }
     }
   },
+  "releaseNotes0818": "The home screen widget speaks the app’s language: its “Done” label and its description in the widget gallery are no longer always in Russian.\nWhen you change the app language, the widget and the reminders switch to it right away.",
   "releaseNotes0817": "Numbers now agree with their words: “1 set”, “1 rep” and “1 friend” instead of “1 sets”, “1 reps” and “1 friends”.",
   "releaseNotes0816": "The app is now also in German and Spanish.\nThe language switch on the welcome screen is now a menu.\nThe notification about a lost streak now gets the number of days right in Russian.",
   "releaseNotes0815": "A bell in the profile now shows what changed in each update.\nThe About screen is shorter: the technical line is gone.",
@@ -821,5 +822,6 @@
     }
   },
   "notificationRankAtRiskTitle": "Rank at risk! ⚠️",
-  "notificationRankAtRiskBody": "14 days without training — your rank will start dropping soon. Come back!"
+  "notificationRankAtRiskBody": "14 days without training — your rank will start dropping soon. Come back!",
+  "widgetDoneLabel": "Done"
 }

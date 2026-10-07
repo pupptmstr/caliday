@@ -125,13 +125,15 @@
                 android:textSize="11sp"
                 android:textStyle="bold" />
 
+            <!-- Filled by CaliDayWidgetMediumReceiver from "doneLabel" (the app's language). -->
             <TextView
+                android:id="@+id/widget_done_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#4CAF50"
                 android:textSize="11sp"
                 android:layout_marginStart="3dp"
-                android:text="Готово" />
+                android:text="" />
         </LinearLayout>
 
     </LinearLayout>
