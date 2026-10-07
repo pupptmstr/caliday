@@ -311,7 +311,7 @@ Loaded from `ExerciseCatalog`. `stage = 0` = warmup/cooldown.
 | Master | Мастер | `master` | 15,000 |
 | Legend | Легенда | `legend` | 50,000 |
 
-The two middle ranks are **not** translations of each other: the enum values follow the Russian names, so `Rank.sportsman` is shown as "Athlete" in English and `Rank.athlete` as "Champion" (`rankSportsman` / `rankAthlete` in the ARB files; the home screen widget reads the same keys).
+The two middle ranks are **not** translations of each other: the enum values follow the Russian names, so `Rank.sportsman` is shown as "Athlete" in English and `Rank.athlete` as "Champion" (`rankSportsman` / `rankAthlete` in the ARB files; the home screen widget reads the same keys). German and Spanish follow the Russian names: Anfänger, Amateur, Sportler, Athlet, Meister, Legende / Principiante, Aficionado, Deportista, Atleta, Maestro, Leyenda.
 
 ### Push Branch (7 stages)
 | Stage | ID | Name | Lottie |
@@ -801,7 +801,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 - File naming: `snake_case`
 - Class naming: `PascalCase`
 - Public API comments in English
-- UI strings via l10n (`app_en.arb` is the template; every other `l10n/app_<code>.arb` must have the same messages and placeholders). **Adding a UI language:** its ARB file, `flutter gen-l10n`, a line in `appLanguages` (`core/l10n/app_languages.dart`) — the pickers, the system-language default, the notifications and the widget follow; `app_languages_test` and `arb_consistency_test` fail until the list and the files agree, and the "every language" tests (exercise texts, release notes not left in English, workout sizes, counted messages, notification texts) cover the new file by themselves through `test/helpers/all_translations.dart`. Text without a BuildContext comes from `l10nFor(code)` (`lookupAppLocalizations`), never from a hand-written table. `flutter gen-l10n` does not delete the generated `app_localizations_<code>.dart` of an ARB file that was removed. A counted noun is one plural message that includes the number (`{count, plural, one{{count} day} other{{count} days}}`): `arb_consistency_test` reads a bare word inside a plural branch as an undeclared placeholder. Weekday and month names come from `intl` for the app locale, not from a hand-written list
+- UI strings via l10n (`app_en.arb` is the template; every other `l10n/app_<code>.arb` must have the same messages and placeholders). **Adding a UI language:** its ARB file, `flutter gen-l10n`, a line in `appLanguages` (`core/l10n/app_languages.dart`) and in `CFBundleLocalizations` of `ios/Runner/Info.plist` (a test compares them) — the pickers, the system-language default, the notifications and the widget follow; `app_languages_test` and `arb_consistency_test` fail until the list and the files agree, and the "every language" tests (exercise texts, release notes not left in English, workout sizes, counted messages, notification texts) cover the new file by themselves through `test/helpers/all_translations.dart`. Text without a BuildContext comes from `l10nFor(code)` (`lookupAppLocalizations`), never from a hand-written table. `flutter gen-l10n` does not delete the generated `app_localizations_<code>.dart` of an ARB file that was removed. A counted noun is one plural message that includes the number (`{count, plural, one{{count} day} other{{count} days}}`): `arb_consistency_test` reads a bare word inside a plural branch as an undeclared placeholder. Weekday and month names come from `intl` for the app locale, not from a hand-written list
 - No clutter: do not add docstrings/comments to code you are not touching
 
 ### Key Patterns
@@ -923,7 +923,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Telegram: the web build as a Mini App, reminders sent by a bot | 💡 idea, **parked** by the owner (2026-10-07): a thought on the side, not planned; the research is kept in DEV_NOTES § Telegram Mini App + bot |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
-| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | 📐 the code takes any number of languages (0.8.16); the texts are not started — see DEV_NOTES § Roadmap |
+| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages, the store listings and the native widget's texts are open — see DEV_NOTES § Roadmap |
 | v1.0 | Additional courses — Yoga, Morning Routine, Evening Stretch (owner's plan, 2nd) | 💡 idea — see DEV_NOTES § Roadmap |
 | v1.x | Custom course builder — the user builds a personal course; **the same update adds many more exercises** to make that easy (owner's plan, 3rd) | 💡 idea — the open question "what is a custom course" is in DEV_NOTES § Roadmap |
 

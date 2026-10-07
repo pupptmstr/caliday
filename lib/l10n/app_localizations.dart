@@ -5,7 +5,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart' as intl;
 
+import 'app_localizations_de.dart';
 import 'app_localizations_en.dart';
+import 'app_localizations_es.dart';
 import 'app_localizations_ru.dart';
 
 // ignore_for_file: type=lint
@@ -96,6 +98,8 @@ abstract class AppLocalizations {
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
     Locale('ru'),
+    Locale('de'),
+    Locale('es'),
   ];
 
   /// No description provided for @durationMin.
@@ -2279,7 +2283,7 @@ abstract class AppLocalizations {
   /// No description provided for @releaseNotes0816.
   ///
   /// In en, this message translates to:
-  /// **'The language switch on the welcome screen is now a menu, with room for more languages.\nThe notification about a lost streak now gets the number of days right in Russian.'**
+  /// **'The app is now also in German and Spanish.\nThe language switch on the welcome screen is now a menu.\nThe notification about a lost streak now gets the number of days right in Russian.'**
   String get releaseNotes0816;
 
   /// No description provided for @releaseNotes0815.
@@ -3482,7 +3486,7 @@ class _AppLocalizationsDelegate
 
   @override
   bool isSupported(Locale locale) =>
-      <String>['en', 'ru'].contains(locale.languageCode);
+      <String>['de', 'en', 'es', 'ru'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
@@ -3491,8 +3495,12 @@ class _AppLocalizationsDelegate
 AppLocalizations lookupAppLocalizations(Locale locale) {
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
+    case 'de':
+      return AppLocalizationsDe();
     case 'en':
       return AppLocalizationsEn();
+    case 'es':
+      return AppLocalizationsEs();
     case 'ru':
       return AppLocalizationsRu();
   }

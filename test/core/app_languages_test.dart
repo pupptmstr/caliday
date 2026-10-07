@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:caliday/core/l10n/app_languages.dart';
 import 'package:caliday/l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -30,6 +32,20 @@ void main() {
       expect(appLanguageOf(other).code, fallbackLanguageCode, reason: '$other');
       expect(l10nFor(other).localeName, fallbackLanguageCode, reason: '$other');
     }
+  });
+
+  test('iOS declares the same languages (CFBundleLocalizations)', () {
+    // Without the list iOS treats the app as English-only: the per-app
+    // language setting and the App Store listing do not offer the others.
+    final plist = File('ios/Runner/Info.plist').readAsStringSync();
+    final block = RegExp(r'<key>CFBundleLocalizations</key>\s*<array>(.*?)</array>', dotAll: true)
+        .firstMatch(plist);
+    expect(block, isNotNull, reason: 'CFBundleLocalizations is missing');
+    final declared = RegExp(r'<string>(\w+)</string>')
+        .allMatches(block!.group(1)!)
+        .map((m) => m.group(1))
+        .toSet();
+    expect(declared, appLanguages.map((l) => l.code).toSet());
   });
 
   test('the fallback is the template of the ARB files', () {

@@ -555,7 +555,7 @@
       }
     }
   },
-  "releaseNotes0816": "The language switch on the welcome screen is now a menu, with room for more languages.\nThe notification about a lost streak now gets the number of days right in Russian.",
+  "releaseNotes0816": "The app is now also in German and Spanish.\nThe language switch on the welcome screen is now a menu.\nThe notification about a lost streak now gets the number of days right in Russian.",
   "releaseNotes0815": "A bell in the profile now shows what changed in each update.\nThe About screen is shorter: the technical line is gone.",
   "releaseNotes0814": "The “Again” button shows about how long an extra workout takes.",
   "releaseNotes0813": "The time on the workout button now follows your own pace: after a few workouts it reflects how long they really take you.",

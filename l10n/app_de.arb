@@ -1,0 +1,823 @@
+{
+  "@@locale": "de",
+  "durationMin": "{mins} Min. {secs} Sek.",
+  "@durationMin": {
+    "placeholders": {
+      "mins": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "durationSec": "{secs} Sek.",
+  "@durationSec": {
+    "placeholders": {
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "navHome": "Training",
+  "navLibrary": "Kurse",
+  "navProfile": "Profil",
+  "libraryTitle": "Kurse",
+  "progressInfo": "Trainiere einfach weiter — die App bringt dich automatisch durch die Zweige. Hier siehst du, wie weit du schon bist. Und wenn du dich bereit fühlst, früher weiterzukommen, nimm die Challenge an und geh selbst den nächsten Schritt.",
+  "homeStreakDays": "{count, plural, one{{count} Tag} other{{count} Tage}}",
+  "@homeStreakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeBranchesTitle": "Skill-Zweige",
+  "homeBranchPush": "Drücken",
+  "homeBranchPull": "Ziehen",
+  "homeBranchCore": "Rumpf",
+  "homeBranchLegs": "Beine",
+  "homeBranchBalance": "Balance",
+  "homeBranchFlex": "Beweglichkeit",
+  "homeBranchPosture": "Haltung",
+  "homeBranchNeck": "Nacken",
+  "courseNameCalisthenics": "Calisthenics",
+  "courseNameHealthyBody": "Gesunder Körper",
+  "courseDescCalisthenics": "Übungen mit dem eigenen Körpergewicht, von einfach bis fortgeschritten. Für Kraft, Ausdauer und Körperkontrolle.",
+  "courseDescHealthyBody": "Übungen für alle, die viel sitzen. Für eine bessere Haltung, einen entspannten Nacken und mehr Beweglichkeit — schonend für die Gelenke.",
+  "onboardingQ4Courses": "Wähle einen Kurs",
+  "onboardingQ4CoursesBody": "Du kannst mit einem anfangen oder beide wählen — die Programme sind unabhängig voneinander.",
+  "branchJourneyProgress": "{done} von {total} Stufen abgeschlossen",
+  "@branchJourneyProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "branchJourneyStageCompleted": "✓ Abgeschlossen",
+  "branchJourneyStageCurrent": "Aktuelle Stufe",
+  "branchJourneyStageLocked": "Gesperrt",
+  "branchJourneyParams": "{reps} Wdh. × {sets} Sätze  ·  Pause {rest} s",
+  "@branchJourneyParams": {
+    "placeholders": {
+      "reps": {
+        "type": "int"
+      },
+      "sets": {
+        "type": "int"
+      },
+      "rest": {
+        "type": "int"
+      }
+    }
+  },
+  "branchJourneyParamsTimed": "{secs} s × {sets} Sätze  ·  Pause {rest} s",
+  "@branchJourneyParamsTimed": {
+    "placeholders": {
+      "secs": {
+        "type": "int"
+      },
+      "sets": {
+        "type": "int"
+      },
+      "rest": {
+        "type": "int"
+      }
+    }
+  },
+  "branchJourneyStartChallenge": "Challenge starten",
+  "homeStage": "Stufe {stage}/{total}",
+  "@homeStage": {
+    "placeholders": {
+      "stage": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeChallengeUnlocked": "Challenge bereit",
+  "homeChallengeButton": "Challenge annehmen",
+  "homeChallengeNormReps": "Ziel: {n} Wdh.",
+  "@homeChallengeNormReps": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "homeChallengeNormSec": "Ziel: {n} Sek.",
+  "@homeChallengeNormSec": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "homeWorkoutDone": "Training erledigt",
+  "homeWorkoutStart": "Training heute",
+  "homeWorkoutStartEstimate": "Training heute (≈ {minutes} Min.)",
+  "@homeWorkoutStartEstimate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "homeWorkoutAgain": "Noch einmal",
+  "homeWorkoutAgainEstimate": "Noch einmal (≈ {minutes} Min.)",
+  "@homeWorkoutAgainEstimate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutTitle": "Training",
+  "workoutExitTitle": "Training abbrechen?",
+  "workoutExitBody": "Dein Fortschritt wird nicht gespeichert.",
+  "workoutContinue": "Weiter",
+  "workoutAbort": "Abbrechen",
+  "workoutSetProgress": "Satz {current} von {total}",
+  "@workoutSetProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutSec": "Sek.",
+  "workoutRestLabel": "Pause",
+  "workoutReps": "Wdh.",
+  "workoutGetReady": "Mach dich bereit",
+  "workoutPaused": "pausiert",
+  "workoutPause": "Pause",
+  "workoutPrepHint": "Lies die Beschreibung und geh in Position. Der Timer startet von selbst; tippe auf Pause, wenn du mehr Zeit brauchst.",
+  "workoutPrepPausedHint": "Pausiert. Tippe auf Weiter, wenn du bereit bist: Der Countdown läuft dort weiter, wo er angehalten hat.",
+  "workoutStop": "Stopp",
+  "workoutDone": "✓  Fertig",
+  "workoutSkipRest": "Überspringen",
+  "workoutSetDone": "✅  Satz geschafft!",
+  "workoutExerciseDone": "✅  Übung geschafft!",
+  "workoutUnitReps": "Wdh.",
+  "workoutNextExercise": "Als Nächstes: {name} • {amount} {unit}",
+  "@workoutNextExercise": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "int"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "workoutNextSet": "Als Nächstes: Satz {setNum} • {amount} {unit}",
+  "@workoutNextSet": {
+    "placeholders": {
+      "setNum": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "int"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryTitle": "Starkes Training!",
+  "summarySubtitle": "Weiter so — wieder ein Schritt nach vorn",
+  "summaryLabelTime": "Zeit",
+  "summaryLabelExercises": "Übungen",
+  "summaryHome": "Start",
+  "summaryFreezeUsedTitle": "Der Serienschutz hat deine Serie gerettet!",
+  "summaryFreezeUsedBody": "Die Serie geht weiter — bleib dran",
+  "summaryFreezeEarnedTitle": "Serienschutz verdient!",
+  "summaryFreezeEarnedBody": "Er greift, wenn du einen Tag verpasst",
+  "achievementsTitle": "Erfolge",
+  "achievementsEarnedSection": "Erreicht",
+  "achievementsLockedSection": "Gesperrt",
+  "achievementsSecret": "???",
+  "achievementsSecretDesc": "Erfülle eine besondere Bedingung, um ihn freizuschalten",
+  "achievementsEarnedOn": "Erreicht: {date}",
+  "@achievementsEarnedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "profileAchievementsTitle": "Erfolge",
+  "profileAchievementsAll": "Alle Erfolge →",
+  "profileNoAchievements": "Noch keine Erfolge",
+  "summaryAchievementsTitle": "Neue Erfolge!",
+  "achievementFirstWorkoutName": "Erster Schritt",
+  "achievementFirstWorkoutDesc": "Dein erstes Training ist geschafft — die Reise beginnt!",
+  "achievementFirstChallengeName": "Challenge angenommen",
+  "achievementFirstChallengeDesc": "Die erste Challenge bestanden — jetzt weißt du, wozu du fähig bist",
+  "achievementStreak3Name": "Drei am Stück",
+  "achievementStreak3Desc": "3 Tage in Folge — die Gewohnheit entsteht",
+  "achievementStreak7Name": "Ganze Woche",
+  "achievementStreak7Desc": "Eine ganze Woche — damit bist du schon weiter als die meisten",
+  "achievementStreak30Name": "Marathonläufer",
+  "achievementStreak30Desc": "30 Tage ohne Pause — das ist echte Disziplin",
+  "achievementStreak100Name": "Eiserner Wille",
+  "achievementStreak100Desc": "100 Tage ohne Unterbrechung — eine legendäre Leistung",
+  "achievementWorkouts10Name": "Zehn",
+  "achievementWorkouts10Desc": "10 Trainings geschafft — ein guter Anfang",
+  "achievementWorkouts50Name": "Fünfzig",
+  "achievementWorkouts50Desc": "50 Trainings — du meinst es ernst",
+  "achievementWorkouts100Name": "Zenturio",
+  "achievementWorkouts100Desc": "100 Trainings — du gehörst zur Elite",
+  "achievementRankAmateurName": "Amateur",
+  "achievementRankAmateurDesc": "Rang Amateur erreicht — die SP sammeln sich",
+  "achievementRankSportsmanName": "Sportler",
+  "achievementRankSportsmanDesc": "Rang Sportler — du bist mehr als ein Freizeitsportler",
+  "achievementRankAthleteName": "Athlet",
+  "achievementRankAthleteDesc": "Rang Athlet — ein ernsthaftes Niveau",
+  "achievementRankMasterName": "Meister",
+  "achievementRankMasterDesc": "Rang Meister — nur wenige kommen so weit",
+  "achievementRankLegendName": "Legende",
+  "achievementRankLegendDesc": "Höchster Rang. Du bist eine Legende.",
+  "achievementPushS3Name": "Echter Liegestütz",
+  "achievementPushS3Desc": "Klassische Liegestütze am Boden gemeistert",
+  "achievementPushS6Name": "Bogenschütze",
+  "achievementPushS6Desc": "Archer-Liegestütze gemeistert — der Handstand ist in Reichweite",
+  "achievementPushCompleteName": "Meister im Drücken",
+  "achievementPushCompleteDesc": "Alle 7 Stufen im Drücken geschafft. Goro ist stolz.",
+  "achievementCoreS2Name": "Eiserne Plank",
+  "achievementCoreS2Desc": "Plank gemeistert — die Grundlage jedes Rumpftrainings",
+  "achievementCoreS5Name": "L-Sitz",
+  "achievementCoreS5Desc": "L-Sitz — der ultimative Test für die Rumpfkraft",
+  "achievementCoreCompleteName": "Eiserner Rumpf",
+  "achievementCoreCompleteDesc": "Alle 6 Rumpf-Stufen geschafft. Dein Rumpf ist aus Stahl.",
+  "achievementPullS3Name": "Erster Klimmzug",
+  "achievementPullS3Desc": "Das Kinn über der Stange — das ist ein Sieg",
+  "achievementPullCompleteName": "König der Stange",
+  "achievementPullCompleteDesc": "Alle 6 Stufen im Ziehen geschafft. Die Stange gehört dir.",
+  "achievementLegsS5Name": "Pistol Squat",
+  "achievementLegsS5Desc": "Kniebeuge auf einem Bein — Gleichgewicht und Kraft in einem",
+  "achievementLegsCompleteName": "Stahlbeine",
+  "achievementLegsCompleteDesc": "Alle 5 Bein-Stufen geschafft. Deine Beine sind aus Stahl.",
+  "achievementBalanceS4Name": "Krähe",
+  "achievementBalanceS4Desc": "Kakasana gehalten — du beherrschst dein Gleichgewicht",
+  "achievementBalanceS6Name": "Freier Handstand",
+  "achievementBalanceS6Desc": "Handstand ohne Wand — der Gipfel des Gleichgewichts",
+  "achievementBalanceCompleteName": "Meister der Balance",
+  "achievementBalanceCompleteDesc": "Alle 6 Balance-Stufen geschafft. Du bist ein Gleichgewichtskünstler.",
+  "achievementFlexCompleteName": "Meister der Beweglichkeit",
+  "achievementFlexCompleteDesc": "Alle 6 Stufen der Beweglichkeit geschafft. Dein Körper biegt sich in jede Richtung.",
+  "achievementAllCompleteName": "Komplette Sammlung",
+  "achievementAllCompleteDesc": "Alle 5 Zweige abgeschlossen. Absoluter Champion.",
+  "summaryBonusTitle": "Bonustraining",
+  "summaryBonusBody": "×½ SP · Fortschritt schon gespeichert",
+  "summaryBonusCount": "Du hast heute schon {count}-mal trainiert!",
+  "@summaryBonusCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryChallengeUnlockedTitle": "Die Challenge wartet!",
+  "summaryChallengeUnlockedBody": "Tippe auf dem Startbildschirm auf „Challenge annehmen“, wenn du bereit bist",
+  "summaryChallengePassedTitle": "Neue Stufe!",
+  "summaryChallengePassedBody": "Freigeschaltet: {exercise}",
+  "@summaryChallengePassedBody": {
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "profileTitle": "Profil",
+  "profileMaxRank": "Höchster Rang!",
+  "profileRankProgress": "Noch {remaining} SP bis {rankName}",
+  "@profileRankProgress": {
+    "placeholders": {
+      "remaining": {
+        "type": "int"
+      },
+      "rankName": {
+        "type": "String"
+      }
+    }
+  },
+  "profileStatDays": "Tage",
+  "profileStatRecord": "Rekord",
+  "profileStatWorkouts": "Trainings",
+  "profileStatFreezes": "Schutz",
+  "profileHistoryTitle": "Trainingsverlauf",
+  "profileNoHistory": "Noch keine abgeschlossenen Trainings",
+  "calendarTitle": "Kalender",
+  "calendarSeeAll": "Öffnen →",
+  "calendarFreezeUsedTitle": "Serienschutz verwendet",
+  "calendarFreezeUsedBody": "An diesem Tag gab es kein Training — ein Serienschutz hat die Serie erhalten.",
+  "calendarLegendOneWorkout": "1 Training",
+  "calendarLegendManyWorkouts": "2+ Trainings",
+  "calendarLegendFreeze": "Schutz",
+  "historyTypeDaily": "Tägliches Training",
+  "historyTypeChallenge": "Challenge",
+  "historyTypeBonus": "Bonus",
+  "historyDetailExercises": "Übungen",
+  "historyDetailReps": "{completed} / {target} Wdh.",
+  "@historyDetailReps": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "historyDetailSec": "{completed} / {target} Sek.",
+  "@historyDetailSec": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsTitle": "Einstellungen",
+  "settingsSectionNotifications": "BENACHRICHTIGUNGEN",
+  "settingsSectionLanguage": "SPRACHE",
+  "settingsNotificationsTitle": "Benachrichtigungen aktivieren",
+  "settingsNotificationsSubtitle": "Der App erlauben, Erinnerungen zu senden",
+  "settingsNotificationTimeTitle": "Erinnerungszeit",
+  "settingsNotificationTimeSubtitle": "Morgendliche Trainingserinnerung",
+  "settingsTimePickerDone": "Fertig",
+  "settingsEveningReminderTitle": "Abendliche Erinnerung",
+  "settingsEveningReminderSubtitle": "Abends erinnern, wenn noch kein Training gemacht wurde",
+  "settingsStreakThreatTitle": "Serie in Gefahr",
+  "settingsStreakThreatSubtitle": "Warnen, wenn deine Serie in Gefahr ist",
+  "settingsLanguageTitle": "App-Sprache",
+  "settingsSectionTheme": "DESIGN",
+  "settingsThemeSystem": "System",
+  "settingsThemeLight": "Hell",
+  "settingsThemeDark": "Dunkel",
+  "settingsSectionEquipment": "AUSRÜSTUNG",
+  "settingsEquipmentPullUpBar": "Klimmzugstange zu Hause",
+  "settingsEquipmentPullUpBarSubtitle": "Schaltet den Zweig Ziehen frei",
+  "settingsSectionWorkout": "TRAINING",
+  "settingsSoundTitle": "Töne",
+  "settingsSoundSubtitle": "Akustisches Feedback beim Training",
+  "settingsHapticTitle": "Vibration",
+  "settingsHapticSubtitle": "Haptisches Feedback beim Training",
+  "rankBeginner": "Anfänger",
+  "rankAmateur": "Amateur",
+  "rankSportsman": "Sportler",
+  "rankAthlete": "Athlet",
+  "rankMaster": "Meister",
+  "rankLegend": "Legende",
+  "onboardingWelcomeTitle": "Hallo! Ich bin Goro",
+  "onboardingWelcomeBody": "Kurze Sätze, Skill-Fortschritt, Serien und Punkte.\nVom Knie-Liegestütz bis zum Handstand — Schritt für Schritt.",
+  "onboardingWelcomeCta": "Lass uns alles in 1 Minute einrichten",
+  "onboardingContinue": "Weiter",
+  "onboardingStart": "Training starten 🔥",
+  "onboardingQ1": "Wie heißt du?",
+  "onboardingQ1Hint": "Dein Name (optional)",
+  "onboardingQ1Body": "Goro feuert dich damit an",
+  "onboardingQ2": "Wie viele Liegestütze schaffst du?",
+  "onboardingQ3": "Wie umfangreich soll dein Training sein?",
+  "workoutSizeShort": "Kurz",
+  "workoutSizeStandard": "Standard",
+  "workoutSizeFull": "Voll",
+  "workoutSizeShortDesc": "2 Skills",
+  "workoutSizeStandardDesc": "3 Skills",
+  "workoutSizeFullDesc": "Alle deine Skills",
+  "settingsWorkoutSizeTitle": "Trainingsumfang",
+  "settingsWorkoutSizeSubtitle": "Wie viele Skills das tägliche Training umfasst",
+  "onboardingQ5": "Hast du zu Hause eine Klimmzugstange oder Ringe?",
+  "onboardingEquipmentYes": "Ja, habe ich",
+  "onboardingEquipmentNo": "Nein",
+  "onboardingQ6Health": "Mit Health synchronisieren",
+  "onboardingHealthBody": "CaliDay kann deine Trainings automatisch in Apple Health (iOS) oder Health Connect (Android) speichern.",
+  "onboardingHealthEnable": "Aktivieren",
+  "onboardingHealthEnableDesc": "Trainings automatisch speichern",
+  "onboardingHealthSkip": "Nicht jetzt",
+  "onboardingHealthSkipDesc": "Du kannst es später in den Einstellungen aktivieren",
+  "onboardingQ7": "Wann sollen wir dich ans Training erinnern?",
+  "pushupZeroDesc": "Noch keinen",
+  "pushupOneToFiveDesc": "Nur ein paar",
+  "pushupFiveToFifteenDesc": "Auf gutem Weg",
+  "pushupMoreThan15Desc": "Solide Basis",
+  "timeOfDayMorning": "Morgen",
+  "timeOfDayDay": "Nachmittag",
+  "timeOfDayLunch": "Mittag",
+  "timeOfDayEvening": "Abend",
+  "exercisePushS1WallPushupName": "Wand-Liegestütz",
+  "exercisePushS1WallPushupDesc": "Stell dich einen Schritt von der Wand entfernt hin und leg die Handflächen auf Brusthöhe an. Beuge die Arme, bis die Brust die Wand berührt, und drück dich wieder weg.",
+  "exercisePushS1WallPushupTip": "Halte den Körper gerade — kein Hohlkreuz.",
+  "exercisePushS2KneePushupName": "Knie-Liegestütz",
+  "exercisePushS2KneePushupDesc": "Liegestützposition mit den Knien am Boden. Halte eine gerade Linie von den Knien bis zum Kopf. Senke die Brust zum Boden und drück dich wieder hoch.",
+  "exercisePushS2KneePushupTip": "Lass die Hüfte nicht durchhängen — eine gerade Linie von den Knien bis zu den Schultern.",
+  "exercisePushS3FullPushupName": "Klassischer Liegestütz",
+  "exercisePushS3FullPushupDesc": "Klassische Liegestützposition. Der Körper bildet eine gerade Linie von den Fersen bis zum Kopf. Die Brust berührt den Boden oder kommt ihm auf 2–3 cm nahe.",
+  "exercisePushS3FullPushupTip": "Spann Bauch und Po an, damit die Hüfte nicht durchhängt.",
+  "exercisePushS4DiamondPushupName": "Diamant-Liegestütz",
+  "exercisePushS4DiamondPushupDesc": "Hände unter der Brust, Daumen und Zeigefinger bilden eine Raute. Trainiert vor allem den Trizeps. Halte die Ellbogen beim Absenken nah am Körper.",
+  "exercisePushS4DiamondPushupTip": "Spreiz die Ellbogen nicht ab — lass sie am Körper entlanggleiten.",
+  "exercisePushS5WidePushupName": "Breiter Liegestütz",
+  "exercisePushS5WidePushupDesc": "Hände deutlich weiter als schulterbreit aufsetzen. Langsam absenken, der Körper bleibt eine gerade Linie. Brust und Trizeps arbeiten über einen großen Bewegungsumfang.",
+  "exercisePushS5WidePushupTip": "Je weiter die Hände, desto mehr arbeitet die Brust und desto weniger der Trizeps.",
+  "exercisePushS6ArcherPushupName": "Archer-Liegestütz",
+  "exercisePushS6ArcherPushupDesc": "Hände weit aufsetzen. Senk dich zu einem Arm ab, während der andere Arm gestreckt bleibt. Wechsle die Seiten.",
+  "exercisePushS6ArcherPushupTip": "Der Arbeitsarm geht den vollen Weg; der gestreckte Arm bleibt zur Stütze am Boden.",
+  "exercisePushS7HandstandPushupName": "Handstand-Liegestütz",
+  "exercisePushS7HandstandPushupDesc": "Handstand an der Wand (Rücken zur Wand). Senk den Kopf langsam Richtung Boden und drück den Körper wieder hoch.",
+  "exercisePushS7HandstandPushupTip": "Spreiz die Finger weit für mehr Stabilität. Schau zwischen deine Hände.",
+  "exerciseCoreS1CrunchesName": "Crunches",
+  "exerciseCoreS1CrunchesDesc": "Leg dich mit angewinkelten Knien auf den Rücken. Hände hinter dem Kopf oder vor der Brust gekreuzt. Heb die Schulterblätter vom Boden, indem du die Bauchmuskeln anspannst.",
+  "exerciseCoreS1CrunchesTip": "Zieh nicht mit den Händen am Nacken — zieh die Brust Richtung Decke.",
+  "exerciseCoreS2PlankName": "Plank",
+  "exerciseCoreS2PlankDesc": "Liegestützposition auf den Unterarmen. Der Körper bildet eine gerade Linie von den Fersen bis zum Kopf. Hüfte nicht anheben, kein Hohlkreuz.",
+  "exerciseCoreS2PlankTip": "Spann Bauch und Po an. Atme gleichmäßig — halte nicht die Luft an.",
+  "exerciseCoreS3LyingLegRaiseName": "Beinheben im Liegen",
+  "exerciseCoreS3LyingLegRaiseDesc": "Leg dich auf den Rücken, die Hände unter dem Po. Heb die gestreckten Beine bis in die Senkrechte und senk sie langsam wieder, ohne den Boden zu berühren.",
+  "exerciseCoreS3LyingLegRaiseTip": "Drück den unteren Rücken während der ganzen Bewegung in den Boden.",
+  "exerciseCoreS4HangingLegRaiseName": "Hängendes Beinheben",
+  "exerciseCoreS4HangingLegRaiseDesc": "Häng dich an eine Stange. Heb die gestreckten Beine bis parallel zum Boden oder höher. Senk sie kontrolliert ab.",
+  "exerciseCoreS4HangingLegRaiseTip": "Kein Schwung — die Bewegung kommt nur aus dem Bauch.",
+  "exerciseCoreS4FlutterKicksName": "Flutter Kicks",
+  "exerciseCoreS4FlutterKicksDesc": "Leg dich auf den Rücken, die Hände unter dem Po. Heb beide Beine 15–20 cm vom Boden. Heb und senk die Beine abwechselnd in kleinen, schnellen Bewegungen. Eine Wiederholung = ein Zyklus (rechts hoch + links hoch).",
+  "exerciseCoreS4FlutterKicksTip": "Drück den unteren Rücken in den Boden. Die Beine berühren den Boden zwischen den Wiederholungen nicht.",
+  "exerciseCoreS5LSitName": "L-Sitz",
+  "exerciseCoreS5LSitDesc": "Stütz dich auf Barren oder auf dem Boden ab. Die Beine sind gestreckt und parallel zum Boden. Halte die Position so lange wie möglich.",
+  "exerciseCoreS5LSitTip": "Zieh die Zehen zu dir; zieh die Schultern nach unten und hinten.",
+  "exerciseCoreS6DragonFlagName": "Dragon Flag",
+  "exerciseCoreS6DragonFlagDesc": "Leg dich auf eine Bank und greif hinter dem Kopf eine Stütze. Heb den Körper auf den Schulterblättern in eine gerade Linie und senk ihn langsam ab.",
+  "exerciseCoreS6DragonFlagTip": "Fang mit der negativen Phase an (nur absenken) — das ist leichter.",
+  "exerciseWarmupArmRotationsName": "Armkreisen",
+  "exerciseWarmupArmRotationsDesc": "Mach im Stehen große Kreise mit den Armen, vorwärts und rückwärts. Wärmt den Schultergürtel vor den Liegestützen auf.",
+  "exerciseWarmupJumpingJacksName": "Hampelmann",
+  "exerciseWarmupJumpingJacksDesc": "Klassische Hampelmänner. Bringen den Puls hoch und wärmen den ganzen Körper in 30–60 Sekunden auf.",
+  "exerciseCooldownShoulderStretchName": "Schulter- und Brustdehnung",
+  "exerciseCooldownShoulderStretchDesc": "Verschränk die Hände hinter dem Rücken und zieh die Schultern nach hinten und unten. Halte 30 Sekunden.",
+  "exerciseCooldownCatCowName": "Katze-Kuh",
+  "exerciseCooldownCatCowDesc": "Im Vierfüßlerstand: einatmen und den Rücken nach unten durchhängen lassen (Kuh), ausatmen und ihn nach oben runden (Katze). Löst Spannung im unteren Rücken und im Bauch.",
+  "exercisePullS1AustralianName": "Australischer Klimmzug",
+  "exercisePullS1AustralianDesc": "Leg dich unter eine Stange und greif etwas weiter als schulterbreit. Zieh die Brust zur Stange, der Körper bleibt eine gerade Linie. Senk dich kontrolliert ab.",
+  "exercisePullS1AustralianTip": "Je tiefer die Stange, desto schwerer die Übung.",
+  "exercisePullS2NegativeName": "Negativer Klimmzug",
+  "exercisePullS2NegativeDesc": "Spring hoch, sodass das Kinn über der Stange ist. Lass dich in 3–5 Sekunden langsam ab, bis die Arme ganz gestreckt sind.",
+  "exercisePullS2NegativeTip": "Je langsamer du dich ablässt, desto besser. Ziel: 5 Sekunden nach unten.",
+  "exercisePullS3PullupName": "Klimmzug",
+  "exercisePullS3PullupDesc": "Griff schulterbreit oder etwas weiter. Zieh die Brust zur Stange, bis das Kinn darüber ist. Streck unten die Arme ganz durch.",
+  "exercisePullS3PullupTip": "Zieh die Schulterblätter zusammen — du ziehst mit dem Rücken, nicht mit den Armen.",
+  "exercisePullS4CloseGripName": "Enger Klimmzug",
+  "exercisePullS4CloseGripDesc": "Griff enger als schulterbreit, Handflächen zu dir oder von dir weg. Trainiert Bizeps und unteren Latissimus. Zieh die Brust zur Stange.",
+  "exercisePullS4CloseGripTip": "Halte die Ellbogen nah am Körper, damit der Bizeps maximal arbeitet.",
+  "exercisePullS5ArcherName": "Archer-Klimmzug",
+  "exercisePullS5ArcherDesc": "Weiter Griff. Zieh den Körper zu einem Arm, während der andere Arm gestreckt bleibt. Wechsle die Seiten.",
+  "exercisePullS5ArcherTip": "Der gestreckte Arm stützt; der Arbeitsarm geht den vollen Weg.",
+  "exercisePullS6OneArmName": "Einarmiger Klimmzug",
+  "exercisePullS6OneArmDesc": "Eine Hand an der Stange, die andere am Handgelenk oder frei. Voller Bewegungsumfang mit dem Arbeitsarm.",
+  "exercisePullS6OneArmTip": "Halte den Rumpf fest — kein Schwung.",
+  "exerciseWarmupDeadHangName": "Passives Hängen",
+  "exerciseWarmupDeadHangDesc": "Häng dich im Obergriff an die Stange, die Arme ganz gestreckt. Lass die Schultern locker und halte das Hängen.",
+  "exerciseCooldownLatStretchName": "Latissimus-Dehnung",
+  "exerciseCooldownLatStretchDesc": "Stell dich seitlich zur Wand, heb einen Arm und drück ihn gegen die Wand. Lehn dich in die Dehnung, bis du sie an der Seite spürst.",
+  "exerciseLegsS1SquatName": "Kniebeuge",
+  "exerciseLegsS1SquatDesc": "Füße schulterbreit, Zehen leicht nach außen. Geh in die Hocke, bis die Oberschenkel parallel zum Boden sind, Knie über den Zehen. Oben ganz aufrichten.",
+  "exerciseLegsS1SquatTip": "Fersen am Boden lassen, Brust aufrecht.",
+  "exerciseLegsS2LungeName": "Ausfallschritt",
+  "exerciseLegsS2LungeDesc": "Mach einen Schritt nach vorn und senk das hintere Knie Richtung Boden, ohne ihn zu berühren. Beide Knie im 90°-Winkel. Drück dich mit dem vorderen Fuß zurück.",
+  "exerciseLegsS2LungeTip": "Das vordere Knie bleibt hinter den Zehen.",
+  "exerciseLegsS3BulgarianName": "Bulgarische Kniebeuge",
+  "exerciseLegsS3BulgarianDesc": "Der hintere Fuß liegt erhöht auf einem Stuhl oder Sofa. Senk dich auf dem vorderen Bein ab, bis der Oberschenkel parallel zum Boden ist. Oberkörper aufrecht.",
+  "exerciseLegsS3BulgarianTip": "Je weiter der vordere Fuß, desto mehr arbeitet der Po.",
+  "exerciseLegsS4AssistedPistolName": "Pistol Squat mit Hilfe",
+  "exerciseLegsS4AssistedPistolDesc": "Halte dich zur Unterstützung an einem Türrahmen oder einer Stange fest. Geh auf einem Bein in die Hocke, das andere bleibt gestreckt vor dir. Die Stütze nimmt dir Last ab.",
+  "exerciseLegsS4AssistedPistolTip": "Nutz die Hände nach und nach weniger, je stärker du wirst.",
+  "exerciseLegsS5PistolName": "Pistol Squat",
+  "exerciseLegsS5PistolDesc": "Kniebeuge auf einem Bein ohne Stütze. Das andere Bein gestreckt nach vorn. Voller Bewegungsumfang bis zum Boden und wieder hoch.",
+  "exerciseLegsS5PistolTip": "Arme als Gegengewicht nach vorn — das hilft beim Gleichgewicht.",
+  "exerciseWarmupLegSwingsName": "Beinschwingen",
+  "exerciseWarmupLegSwingsDesc": "Stell dich neben eine Wand und schwing ein Bein vor und zurück, dann seitlich. Wärmt das Hüftgelenk auf.",
+  "exerciseCooldownQuadStretchName": "Oberschenkeldehnung",
+  "exerciseCooldownQuadStretchDesc": "Stell dich auf ein Bein, beug das andere nach hinten und halte den Fuß mit der Hand. Spür die Dehnung an der Vorderseite des Oberschenkels.",
+  "exerciseWarmupHipCirclesName": "Hüftkreisen",
+  "exerciseWarmupHipCirclesDesc": "Stell dich mit schulterbreiten Füßen hin. Kreise die Hüfte langsam im Uhrzeigersinn und dann gegen den Uhrzeigersinn. Wärmt die Hüftgelenke auf.",
+  "exerciseCooldownHipFlexorName": "Hüftbeuger-Dehnung",
+  "exerciseCooldownHipFlexorDesc": "Geh in einen Ausfallschritt und senk das hintere Knie auf den Boden. Schieb die Hüfte nach vorn und unten, bis du die Dehnung in der Hüfte spürst. Halte auf jeder Seite.",
+  "exerciseBalS1OneLegStandName": "Einbeinstand",
+  "exerciseBalS1OneLegStandDesc": "Stell dich auf ein Bein, das andere leicht gebeugt in der Luft. Die Arme dürfen zur Balance zur Seite.",
+  "exerciseBalS1OneLegStandTip": "Fixier einen Punkt mit den Augen — das verbessert das Gleichgewicht enorm.",
+  "exerciseBalS2OneArmPlankName": "Einarmige Plank",
+  "exerciseBalS2OneArmPlankDesc": "Klassische Plank auf gestreckten Armen. Heb eine Hand vom Boden und halte die Position, der Körper parallel zum Boden.",
+  "exerciseBalS2OneArmPlankTip": "Halte die Hüfte parallel zum Boden — dreh den Oberkörper nicht.",
+  "exerciseBalS3CrowPrepName": "Krähe – Vorübung",
+  "exerciseBalS3CrowPrepDesc": "Geh in die Hocke und leg die Knie auf den Trizeps. Verlagere das Gewicht auf die Hände und heb die Füße sanft an. Halte das Gleichgewicht.",
+  "exerciseBalS3CrowPrepTip": "Schau nach vorn unten, nicht senkrecht nach unten — sonst kippst du nach vorn.",
+  "exerciseBalS4CrowPoseName": "Krähe (Kakasana)",
+  "exerciseBalS4CrowPoseDesc": "Beide Knie auf dem Trizeps, das ganze Gewicht auf den Händen. Arme leicht gebeugt, Finger weit gespreizt.",
+  "exerciseBalS4CrowPoseTip": "Mach einen runden Rücken — das aktiviert den Rumpf und gibt Gleichgewicht.",
+  "exerciseBalS5WallHsName": "Handstand an der Wand",
+  "exerciseBalS5WallHsDesc": "Schwing dich mit dem Rücken zur Wand in den Handstand. Die Fersen berühren die Wand zur Stütze. Halte die Position, der Körper eine gerade Linie.",
+  "exerciseBalS5WallHsTip": "Spreiz die Finger weit und drück über die Fingerballen — so steuerst du das Gleichgewicht.",
+  "exerciseBalS6FreeHsName": "Freier Handstand",
+  "exerciseBalS6FreeHsDesc": "Handstand ohne Wand. Halte das Gleichgewicht mit kleinen Bewegungen der Finger und Handgelenke.",
+  "exerciseBalS6FreeHsTip": "Schau auf den Boden 30–40 cm vor den Händen, nicht zwischen sie.",
+  "exerciseWarmupWristCirclesName": "Handgelenkkreisen",
+  "exerciseWarmupWristCirclesDesc": "Kreise die Handgelenke im und gegen den Uhrzeigersinn. Bereitet die Gelenke auf das Stützen auf den Händen vor.",
+  "exerciseCooldownDownwardDogName": "Herabschauender Hund",
+  "exerciseCooldownDownwardDogDesc": "Streck aus dem Vierfüßlerstand Arme und Beine und schieb die Hüfte nach oben. Der Körper bildet ein umgedrehtes V. Dehnt Handgelenke, Schultern und Beine.",
+  "aboutTitle": "Über die App",
+  "aboutSectionSupport": "SUPPORT",
+  "aboutContactUs": "Kontakt",
+  "aboutContactUsSubtitle": "Einen Fehler melden oder eine Frage stellen",
+  "aboutPrivacyPolicy": "Datenschutzerklärung",
+  "aboutTermsOfUse": "Nutzungsbedingungen",
+  "aboutLegalConsent": "Mit der Nutzung von CaliDay stimmst du der Datenschutzerklärung und den Nutzungsbedingungen zu.",
+  "aboutCopyright": "© 2026 pupptmstr",
+  "whatsNewTitle": "Was ist neu",
+  "whatsNewBadge": "NEU",
+  "whatsNewVersion": "Version {version}",
+  "@whatsNewVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "releaseNotes0816": "Die App gibt es jetzt auch auf Deutsch und Spanisch.\nDie Sprachauswahl auf dem Begrüßungsbildschirm ist jetzt ein Menü.\nDie Benachrichtigung über eine verlorene Serie nennt die Zahl der Tage auf Russisch jetzt grammatisch richtig.",
+  "releaseNotes0815": "Eine Glocke im Profil zeigt jetzt, was sich mit jedem Update geändert hat.\nDer Bildschirm „Über die App“ ist kürzer: Die technische Zeile ist weg.",
+  "releaseNotes0814": "Der Button „Noch einmal“ zeigt, wie lange ein zusätzliches Training ungefähr dauert.",
+  "releaseNotes0813": "Die Zeit auf dem Trainingsbutton richtet sich jetzt nach deinem eigenen Tempo: Nach ein paar Trainings zeigt sie, wie lange sie bei dir wirklich dauern.",
+  "releaseNotes0812": "Der Trainingsbutton zeigt, wie lange das heutige Training ungefähr dauert.\nDie abendliche Erinnerung verspricht keine „10 Minuten“ mehr.",
+  "releaseNotes0811": "Der Trainingsumfang ersetzt „5, 10 oder 15 Minuten“: Kurz, Standard oder Voll. Er legt fest, wie viele Skills ein Training umfasst, nicht wie lange es dauert.",
+  "releaseNotes0810": "Übungen auf Zeit starten jetzt von selbst nach einem kurzen Countdown zum Bereitmachen. Tippe auf Pause, wenn du mehr Zeit zum Lesen oder für die Position brauchst.\nDie Suche in der Übungsbibliothek funktioniert auf Russisch und Englisch.\nEinige Texte, die nur in einer Sprache waren, sind übersetzt.",
+  "settingsAbout": "Über die App",
+  "settingsSectionHealth": "GESUNDHEIT",
+  "settingsHealthWorkoutsTitle": "Trainings speichern",
+  "settingsHealthWorkoutsSubtitle": "In Apple Health / Health Connect speichern",
+  "settingsHealthWeightTitle": "Körpergewicht lesen",
+  "settingsHealthWeightSubtitle": "Für eine genauere Kalorienschätzung (Standard: 70 kg)",
+  "summaryHealthSaved": "In Health gespeichert ✓",
+  "friendsTitle": "Freunde",
+  "friendsMyQrTitle": "Mein Profil",
+  "friendsShareHint": "Zeig diesen Code einem Freund, um dein Profil zu teilen",
+  "friendsScanQr": "QR-Code scannen",
+  "friendsSectionNearby": "IN DER NÄHE",
+  "friendsSectionList": "FREUNDE",
+  "friendsNearbyEmpty": "Keine CaliDay-Nutzer in der Nähe gefunden",
+  "friendsNearbyScanning": "Suche läuft…",
+  "friendsNearbyBleOff": "Bluetooth ist aus",
+  "friendsNearbyConnect": "Profil abrufen",
+  "friendsEmpty": "Noch keine Freunde. Scann einen QR-Code, um deinen ersten Freund hinzuzufügen.",
+  "friendsAdded": "Freund hinzugefügt!",
+  "friendsUpdated": "Profil aktualisiert!",
+  "friendsScanError": "Ungültiger QR-Code",
+  "friendsScanTryAgain": "Erneut versuchen",
+  "friendsScanCameraDeniedTitle": "Kamerazugriff ist blockiert",
+  "friendsScanCameraDeniedWeb": "Erlaube die Kamera für diese Seite (das Kamera- oder Schloss-Symbol in der Adressleiste) und tippe dann auf „Erneut versuchen“. Oder zeig deinem Freund stattdessen deinen eigenen QR-Code.",
+  "friendsScanCameraDeniedApp": "Erlaube CaliDay in den Geräteeinstellungen den Kamerazugriff und tippe dann auf „Erneut versuchen“.",
+  "friendsScanCameraUnsupportedTitle": "Keine Kamera verfügbar",
+  "friendsScanCameraUnsupportedBody": "Dieses Gerät oder dieser Browser hat keine Kamera, die die App nutzen kann. Zeig deinem Freund stattdessen deinen eigenen QR-Code.",
+  "friendsScanCameraFailedTitle": "Kamera konnte nicht gestartet werden",
+  "friendsScanCameraFailedBody": "Prüfe, dass keine andere App die Kamera nutzt und dass du online bist (im Browser wird der Scanner beim ersten Mal heruntergeladen), und versuch es dann noch einmal.",
+  "friendsScanConfirmBody": "{sp} SP · Serie: {streak, plural, one{{streak} Tag} other{{streak} Tage}}",
+  "@friendsScanConfirmBody": {
+    "placeholders": {
+      "sp": {
+        "type": "int"
+      },
+      "streak": {
+        "type": "int"
+      }
+    }
+  },
+  "friendsCancel": "Abbrechen",
+  "friendsAdd": "Hinzufügen",
+  "friendsDetailLastSynced": "Synchronisiert: {date}",
+  "@friendsDetailLastSynced": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "friendsDeleteTitle": "Freund entfernen",
+  "friendsDeleteBody": "{name} aus deinen Freunden entfernen?",
+  "@friendsDeleteBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "friendsDeleteConfirm": "Entfernen",
+  "settingsSectionFriends": "FREUNDE",
+  "settingsFriendsNameTitle": "Anzeigename",
+  "settingsFriendsNamePlaceholder": "Gib deinen Namen ein",
+  "settingsFriendsDiscoverableTitle": "Per Bluetooth auffindbar",
+  "settingsFriendsDiscoverableSubtitle": "Andere CaliDay-Nutzer in der Nähe können dich finden",
+  "profileFriendsTitle": "Freunde",
+  "profileFriendsAll": "Alle Freunde →",
+  "profileFriendsEmpty": "Noch keine Freunde",
+  "profileFriendsCount": "{count, plural, one{{count} Freund} other{{count} Freunde}}",
+  "@profileFriendsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseFlexS1HipFlexorStretchName": "Hüftbeuger-Dehnung",
+  "exerciseFlexS1HipFlexorStretchDesc": "Geh in einen Ausfallschritt und senk das hintere Knie auf den Boden. Schieb die Hüfte nach vorn, bis du die Dehnung vorn an der Hüfte spürst. Halte auf jeder Seite.",
+  "exerciseFlexS1HipFlexorStretchTip": "Halte den Rücken gerade und schieb die Hüfte nach vorn — spür die Dehnung vorn an der Hüfte.",
+  "exerciseFlexS2WorldsGreatestStretchName": "World's Greatest Stretch",
+  "exerciseFlexS2WorldsGreatestStretchDesc": "Setz aus dem Ausfallschritt die Hand derselben Seite auf den Boden. Dreh den Oberkörper auf und streck den anderen Arm zur Decke. Bewege dich fließend.",
+  "exerciseFlexS2WorldsGreatestStretchTip": "Geh langsam durch jede Position — das ist ein Flow, kein Wettrennen.",
+  "exerciseFlexS3Hip9090Name": "90/90-Hüftmobilisation",
+  "exerciseFlexS3Hip9090Desc": "Setz dich auf den Boden, beide Beine im 90°-Winkel gebeugt, eins vorn und eins seitlich. Halte die Position und wechsle die Seiten.",
+  "exerciseFlexS3Hip9090Tip": "Lass beide Sitzbeinhöcker am Boden. Dreh aus der Hüfte, nicht aus dem unteren Rücken.",
+  "exerciseFlexS4ThoracicBridgeName": "Thorax-Brücke",
+  "exerciseFlexS4ThoracicBridgeDesc": "Heb aus dem Sitz, die Hände hinter dir, die Hüfte an und dreh die obere Wirbelsäule, sodass sich die Brust zur Decke öffnet.",
+  "exerciseFlexS4ThoracicBridgeTip": "Die Bewegung kommt aus dem oberen Rücken — knick nicht im unteren Rücken ein.",
+  "exerciseFlexS5DeepSquatHoldName": "Tiefe Hocke halten",
+  "exerciseFlexS5DeepSquatHoldDesc": "Füße schulterbreit, Zehen leicht nach außen. Geh ganz tief in die Hocke und halte. Halte dich bei Bedarf an einem Türrahmen fest.",
+  "exerciseFlexS5DeepSquatHoldTip": "Nutz anfangs einen Türrahmen oder eine Stange als Stütze. Das Ziel: Fersen flach am Boden.",
+  "exerciseFlexS6PikeStretchName": "Pike-Dehnung",
+  "exerciseFlexS6PikeStretchDesc": "Setz dich mit gestreckten Beinen auf den Boden. Greif mit den Händen Richtung Füße und beug dich dabei aus der Hüfte. Halte die Position.",
+  "exerciseFlexS6PikeStretchTip": "Beug dich aus der Hüfte nach vorn, nicht aus der Taille. Die Beine bleiben gestreckt.",
+  "exerciseSuppObliqueCrunchName": "Seitliche Crunches",
+  "exerciseSuppObliqueCrunchDesc": "Leg dich auf den Rücken, die Knie gebeugt. Führ den rechten Ellbogen zum linken Knie, dann den linken zum rechten. Abwechselnd.",
+  "exerciseSuppRussianTwistsName": "Russian Twists",
+  "exerciseSuppRussianTwistsDesc": "Setz dich hin, die Knie leicht angehoben, der Oberkörper zurückgelehnt. Dreh den Oberkörper nach links und rechts — jede Drehung zählt als eine Wiederholung.",
+  "exerciseSuppRussianTwistsTip": "Halte den Rücken gerade, mach keinen Buckel.",
+  "exerciseSuppSidePlankName": "Seitstütz",
+  "exerciseSuppSidePlankDesc": "Seitstütz auf dem Unterarm — der Körper eine gerade Linie vom Kopf bis zu den Füßen. Halte die Position und wiederhole auf der anderen Seite.",
+  "exerciseSuppSidePlankTip": "Lass die Hüfte nicht absinken — halte die Linie gerade.",
+  "exerciseSuppStandingCalfRaiseName": "Wadenheben im Stehen",
+  "exerciseSuppStandingCalfRaiseDesc": "Stell dich aufrecht hin und geh in 2–3 Sekunden langsam auf die Zehenspitzen, dann wieder runter. Halte dich bei Bedarf zur Balance an einer Wand fest.",
+  "exerciseSuppSingleLegCalfRaiseName": "Einbeiniges Wadenheben",
+  "exerciseSuppSingleLegCalfRaiseDesc": "Stell dich auf einen Fuß. Geh langsam auf die Zehenspitzen und wieder runter. Wiederhole auf dem anderen Bein.",
+  "exerciseSuppSingleLegCalfRaiseTip": "Langsames Tempo — mehr Wirkung.",
+  "exerciseSuppDeadBugName": "Dead Bug",
+  "exerciseSuppDeadBugDesc": "Leg dich auf den Rücken, die Arme zeigen nach oben, die Knie im 90°-Winkel. Senk gleichzeitig den rechten Arm über den Kopf und streck das linke Bein — fast bis zum Boden. Zurück. Abwechselnd.",
+  "exerciseSuppDeadBugTip": "Drück den unteren Rücken die ganze Zeit in den Boden.",
+  "exerciseSuppBirdDogName": "Bird-Dog",
+  "exerciseSuppBirdDogDesc": "Im Vierfüßlerstand: streck gleichzeitig den rechten Arm nach vorn und das linke Bein nach hinten. 2 Sekunden halten, zurück. Seiten abwechseln.",
+  "exerciseSuppBirdDogTip": "Dreh das Becken nicht — halte es gerade.",
+  "exerciseSuppNeckIsometricsName": "Isometrische Nackenübung",
+  "exerciseSuppNeckIsometricsDesc": "Drück die Handfläche gegen die Stirn und halte dagegen — der Nacken drückt zurück. Dann gegen den Hinterkopf und gegen jede Schläfe. Halte jede Richtung 5–10 Sekunden.",
+  "exerciseSuppNeckIsometricsTip": "Sanfter Druck — nicht mit Gewalt.",
+  "exerciseSuppWristCirclesName": "Handgelenkkreisen",
+  "exerciseSuppWristCirclesDesc": "Mach Fäuste und kreise die Handgelenke langsam im und gegen den Uhrzeigersinn. Stärkt Unterarme und Sehnen.",
+  "exerciseWarmupNeckRollsName": "Nackenkreisen",
+  "exerciseWarmupNeckRollsDesc": "Neig den Kopf langsam nach vorn, nach hinten und zu jeder Seite und mach dann einen sanften Halbkreis von Schulter zu Schulter. Wärmt die Nackenmuskeln auf.",
+  "exercisePostureS1PelvicTiltName": "Beckenkippen",
+  "exercisePostureS1PelvicTiltDesc": "Leg dich mit angewinkelten Knien auf den Rücken. Drück den unteren Rücken langsam in den Boden, indem du den Bauch anspannst. 5 Sekunden halten, entspannen.",
+  "exercisePostureS1PelvicTiltTip": "Halte nicht die Luft an — beweg dich gleichmäßig.",
+  "exercisePostureS2DeadBugName": "Dead Bug",
+  "exercisePostureS2DeadBugDesc": "Leg dich auf den Rücken, die Arme zeigen nach oben, die Knie im 90°-Winkel. Senk langsam einen Arm und das gegenüberliegende Bein, ohne ins Hohlkreuz zu gehen.",
+  "exercisePostureS2DeadBugTip": "Beweg dich langsam — es geht um Kontrolle, nicht um Tempo. Halte den unteren Rücken die ganze Zeit flach am Boden.",
+  "exercisePostureS3GluteBridgeName": "Beckenheben",
+  "exercisePostureS3GluteBridgeDesc": "Leg dich auf den Rücken, die Knie gebeugt, die Füße flach am Boden. Drück die Hüfte hoch, indem du den Po anspannst, halte kurz und senk sie wieder.",
+  "exercisePostureS3GluteBridgeTip": "Spann oben den Po fest an — drück nicht mit dem unteren Rücken.",
+  "exercisePostureS4HipMarchName": "Knieheben im Stand",
+  "exercisePostureS4HipMarchDesc": "Stell dich aufrecht hin. Heb langsam ein Knie auf Hüfthöhe und senk es wieder. Seiten abwechseln. Der Oberkörper bleibt aufrecht und ruhig.",
+  "exercisePostureS4HipMarchTip": "Heb jedes Knie auf Hüfthöhe, ohne dich mit dem Oberkörper zu neigen — die Arbeit macht der Hüftbeuger, nicht der Schwung.",
+  "exercisePostureS5KneelingLungeName": "Hüftbeuger-Dehnung im Knien",
+  "exercisePostureS5KneelingLungeDesc": "Knie dich auf ein Knie, der andere Fuß steht vorn. Schieb die Hüfte nach vorn, bis du vorn an der hinteren Hüfte eine Dehnung spürst. Halten.",
+  "exercisePostureS5KneelingLungeTip": "Halte den Rücken gerade und kipp das Becken sanft nach hinten, um die Dehnung zu vertiefen.",
+  "exercisePostureS6PigeonPoseName": "Taube",
+  "exercisePostureS6PigeonPoseDesc": "Bring aus dem Vierfüßlerstand das rechte Bein im 90°-Winkel gebeugt nach vorn. Streck das linke Bein nach hinten. Senk die Hüfte Richtung Boden und halte die Position.",
+  "exercisePostureS6PigeonPoseTip": "Atme tief — die Haltung öffnet die Hüfte nach und nach.",
+  "exerciseNeckS1NeckTiltName": "Kopf seitlich neigen",
+  "exerciseNeckS1NeckTiltDesc": "Neig den Kopf langsam zur rechten Schulter — ohne die Schulter hochzuziehen. 5 Sekunden halten, zurück. Seiten abwechseln.",
+  "exerciseNeckS1NeckTiltTip": "Lass die Schulter nach unten sinken — das vertieft die Dehnung.",
+  "exerciseNeckS2ChestOpenerName": "Brustöffner",
+  "exerciseNeckS2ChestOpenerDesc": "Stell dich aufrecht hin und verschränk die Hände hinter dem Rücken. Zieh die Schulterblätter zusammen und heb die Arme sanft an, während sich die Brust öffnet.",
+  "exerciseNeckS2ChestOpenerTip": "Konzentrier dich darauf, die Schulterblätter zusammenzuziehen — kein Hohlkreuz.",
+  "exerciseNeckS3ShoulderRollName": "Schulterkreisen",
+  "exerciseNeckS3ShoulderRollDesc": "Kreise die Schultern in großen, langsamen Kreisen — 5-mal nach vorn, dann 5-mal nach hinten. Der Nacken bleibt die ganze Zeit locker.",
+  "exerciseNeckS3ShoulderRollTip": "Mach die Kreise so groß wie möglich — übertreib die Bewegung.",
+  "exerciseNeckS4WallAngelName": "Wall Angels",
+  "exerciseNeckS4WallAngelDesc": "Stell dich mit Rücken, Kopf und Armen flach an eine Wand. Schieb die Arme über den Kopf, ohne den Kontakt zur Wand zu verlieren. Langsam wieder absenken.",
+  "exerciseNeckS4WallAngelTip": "Halte den unteren Rücken die ganze Zeit flach an der Wand — das ist schwerer, als es aussieht.",
+  "exerciseNeckS5DoorwayStretchName": "Brustdehnung im Türrahmen",
+  "exerciseNeckS5DoorwayStretchDesc": "Stell dich in einen Türrahmen. Leg beide Unterarme auf Schulterhöhe an den Rahmen. Lehn dich sanft nach vorn, bis du eine Dehnung in Brust und Schultern spürst. Halten.",
+  "exerciseNeckS5DoorwayStretchTip": "Halte den Rumpf angespannt und geh beim Vorlehnen nicht ins Hohlkreuz.",
+  "tooltipStreakTitle": "Aktuelle Serie",
+  "tooltipStreakBody": "Die Zahl der Tage, an denen du in Folge trainiert hast. Verpasst du einen Tag ohne Serienschutz, fällt sie auf null. Halte das Feuer am Brennen — Goro schaut zu!",
+  "tooltipLongestStreakTitle": "Persönlicher Rekord",
+  "tooltipLongestStreakBody": "Deine längste ununterbrochene Trainingsserie aller Zeiten. Dieser Rekord bleibt für immer — auch wenn deine aktuelle Serie zurückgesetzt wird.",
+  "tooltipTotalWorkoutsTitle": "Trainings insgesamt",
+  "tooltipTotalWorkoutsBody": "Die Gesamtzahl der Trainings, die du seit deinem Start abgeschlossen hast. Jedes zählt — auch Bonustrainings.",
+  "tooltipFreezesTitle": "Serienschutz",
+  "tooltipFreezesBody": "Ein Serienschutz rettet deine Serie, wenn du einen Tag verpasst. Du verdienst ihn automatisch, wenn du regelmäßig trainierst. Du kannst bis zu 3 gleichzeitig haben.",
+  "tooltipRankTitle": "Rang und Stärkepunkte",
+  "exerciseLibraryTitle": "Alle Übungen",
+  "exerciseLibrarySearchHint": "Übungen suchen...",
+  "exerciseLibraryCatalogButton": "Übungskatalog",
+  "exerciseLibraryEmpty": "Keine Übungen gefunden",
+  "exerciseLibraryReset": "Zurücksetzen",
+  "exerciseTagFilterAll": "Alle",
+  "exerciseLibraryCount": "{count, plural, one{{count} Übung} other{{count} Übungen}}",
+  "@exerciseLibraryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseDetailTipLabel": "Technik",
+  "exerciseDetailStageLabel": "Stufe {stage}",
+  "@exerciseDetailStageLabel": {
+    "placeholders": {
+      "stage": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseTagHipFlexor": "Hüftbeuger",
+  "exerciseTagGlutes": "Po",
+  "exerciseTagCore": "Rumpf",
+  "exerciseTagChest": "Brust",
+  "exerciseTagBack": "Rücken",
+  "exerciseTagShoulders": "Schultern",
+  "exerciseTagLegs": "Beine",
+  "exerciseTagNeck": "Nacken",
+  "exerciseTagStretch": "Dehnung",
+  "exerciseTagMobility": "Mobilität",
+  "exerciseTagStrength": "Kraft",
+  "exerciseTagEndurance": "Ausdauer",
+  "exerciseTagSittingRecovery": "Ausgleich zum Sitzen",
+  "exerciseTagFloorOnly": "Ohne Geräte",
+  "exerciseTagRequiresBar": "Stange nötig",
+  "exerciseTagPostureFocus": "Haltung",
+  "exerciseTagBeginner": "Einsteiger",
+  "exerciseTagWarmup": "Aufwärmen",
+  "exerciseTagCooldown": "Cool-down",
+  "customWorkoutNoWarmupTitle": "Aufwärmen und Cool-down hinzufügen?",
+  "customWorkoutNoWarmupBody": "Deine Routine hat kein Aufwärmen und kein Cool-down. Automatisch hinzufügen?",
+  "customWorkoutAdd": "Hinzufügen",
+  "customWorkoutSkip": "Überspringen",
+  "customWorkoutButtonLabel": "Eigenes Training",
+  "customWorkoutMyRoutines": "Meine Routinen",
+  "customWorkoutNewRoutine": "Neue Routine",
+  "customWorkoutQuickRoutine": "Schnelle Routine",
+  "customWorkoutQuickRoutineDesc": "Wähl einen Schwerpunkt — wir suchen die Übungen für dich aus",
+  "customWorkoutEmpty": "Noch keine gespeicherten Routinen",
+  "customWorkoutNameHint": "Name der Routine",
+  "customWorkoutNameRequired": "Gib einen Namen ein, um die Routine zu speichern",
+  "customWorkoutSave": "Routine speichern",
+  "customWorkoutStartNow": "Jetzt starten",
+  "customWorkoutDelete": "Löschen",
+  "customWorkoutEdit": "Bearbeiten",
+  "customWorkoutBuilderTitle": "Routine erstellen",
+  "customWorkoutBuilderDesc": "Wähl Übungen aus und stell deine eigene Reihenfolge zusammen",
+  "customWorkoutPickFocus": "Was möchtest du trainieren?",
+  "customWorkoutExerciseCount": "{count, plural, one{{count} Übung} other{{count} Übungen}}",
+  "@customWorkoutExerciseCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rankDecayWarning": "Du hast seit {days, plural, one{{days} Tag} other{{days} Tagen}} nicht trainiert — dein Rang ist gesunken. Leg wieder los!",
+  "@rankDecayWarning": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryRankRestoredTitle": "Rang wiederhergestellt!",
+  "summaryRankRestoredBody": "Trainiere weiter — dein Rang ist vollständig wiederhergestellt!",
+  "notificationMorningTitle": "Zeit fürs Training! 💪",
+  "notificationMorningBody": "Dein tägliches Training wartet. Halte deine Serie am Leben!",
+  "notificationEveningTitle": "Noch ist Zeit! 🏃",
+  "notificationEveningBody": "Du hast heute noch nicht trainiert. Auch ein kurzes Training zählt.",
+  "notificationStreakTitle": "Serie in Gefahr! 🔥",
+  "notificationStreakBody": "Trainiere vor Mitternacht, sonst endet deine Serie.",
+  "notificationStreakLostTitle": "Serie verloren 😔",
+  "notificationStreakLostBody": "Deine Serie von {days, plural, one{{days} Tag} other{{days} Tagen}} ist vorbei. Starte eine neue — der erste Schritt ist immer der schwerste!",
+  "@notificationStreakLostBody": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationRankAtRiskTitle": "Rang in Gefahr! ⚠️",
+  "notificationRankAtRiskBody": "14 Tage ohne Training — dein Rang beginnt bald zu sinken. Komm zurück!"
+}

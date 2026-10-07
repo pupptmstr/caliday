@@ -1255,7 +1255,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseNotes0816 =>
-      'The language switch on the welcome screen is now a menu, with room for more languages.\nThe notification about a lost streak now gets the number of days right in Russian.';
+      'The app is now also in German and Spanish.\nThe language switch on the welcome screen is now a menu.\nThe notification about a lost streak now gets the number of days right in Russian.';
 
   @override
   String get releaseNotes0815 =>

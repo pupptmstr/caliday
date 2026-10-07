@@ -23,6 +23,8 @@ class AppLanguage {
 const appLanguages = [
   AppLanguage('ru', 'Русский', '🇷🇺'),
   AppLanguage('en', 'English', '🇬🇧'),
+  AppLanguage('de', 'Deutsch', '🇩🇪'),
+  AppLanguage('es', 'Español', '🇪🇸'),
 ];
 
 /// The language the app falls back to: the template of the ARB files.

@@ -1,0 +1,823 @@
+{
+  "@@locale": "es",
+  "durationMin": "{mins} min {secs} s",
+  "@durationMin": {
+    "placeholders": {
+      "mins": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "durationSec": "{secs} s",
+  "@durationSec": {
+    "placeholders": {
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "navHome": "Entrenar",
+  "navLibrary": "Cursos",
+  "navProfile": "Perfil",
+  "libraryTitle": "Cursos",
+  "progressInfo": "Solo sigue entrenando: la app te hace avanzar por las ramas automáticamente. Aquí puedes ver cuánto has avanzado. Y si te sientes listo para adelantarte, acepta el reto y da el siguiente paso por tu cuenta.",
+  "homeStreakDays": "{count, plural, one{{count} día} other{{count} días}}",
+  "@homeStreakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeBranchesTitle": "Ramas de habilidades",
+  "homeBranchPush": "Empuje",
+  "homeBranchPull": "Tracción",
+  "homeBranchCore": "Core",
+  "homeBranchLegs": "Piernas",
+  "homeBranchBalance": "Equilibrio",
+  "homeBranchFlex": "Flexibilidad",
+  "homeBranchPosture": "Postura",
+  "homeBranchNeck": "Cuello",
+  "courseNameCalisthenics": "Calistenia",
+  "courseNameHealthyBody": "Cuerpo sano",
+  "courseDescCalisthenics": "Ejercicios con tu propio peso, de lo básico a lo avanzado. Gana fuerza, resistencia y control del cuerpo.",
+  "courseDescHealthyBody": "Ejercicios para quienes pasan el día sentados. Mejora la postura, libera la tensión del cuello y gana flexibilidad, sin castigar las articulaciones.",
+  "onboardingQ4Courses": "Elige un curso",
+  "onboardingQ4CoursesBody": "Puedes empezar con uno o elegir los dos: los programas son independientes.",
+  "branchJourneyProgress": "{done} de {total} etapas completadas",
+  "@branchJourneyProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "branchJourneyStageCompleted": "✓ Completada",
+  "branchJourneyStageCurrent": "Etapa actual",
+  "branchJourneyStageLocked": "Bloqueada",
+  "branchJourneyParams": "{reps} rep. × {sets} series  ·  Descanso {rest} s",
+  "@branchJourneyParams": {
+    "placeholders": {
+      "reps": {
+        "type": "int"
+      },
+      "sets": {
+        "type": "int"
+      },
+      "rest": {
+        "type": "int"
+      }
+    }
+  },
+  "branchJourneyParamsTimed": "{secs} s × {sets} series  ·  Descanso {rest} s",
+  "@branchJourneyParamsTimed": {
+    "placeholders": {
+      "secs": {
+        "type": "int"
+      },
+      "sets": {
+        "type": "int"
+      },
+      "rest": {
+        "type": "int"
+      }
+    }
+  },
+  "branchJourneyStartChallenge": "Hacer el reto",
+  "homeStage": "Etapa {stage}/{total}",
+  "@homeStage": {
+    "placeholders": {
+      "stage": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "homeChallengeUnlocked": "Reto disponible",
+  "homeChallengeButton": "Aceptar el reto",
+  "homeChallengeNormReps": "Meta: {n} rep.",
+  "@homeChallengeNormReps": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "homeChallengeNormSec": "Meta: {n} s",
+  "@homeChallengeNormSec": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "homeWorkoutDone": "Entrenamiento hecho",
+  "homeWorkoutStart": "Entreno de hoy",
+  "homeWorkoutStartEstimate": "Entreno de hoy (≈ {minutes} min)",
+  "@homeWorkoutStartEstimate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "homeWorkoutAgain": "Otra vez",
+  "homeWorkoutAgainEstimate": "Otra vez (≈ {minutes} min)",
+  "@homeWorkoutAgainEstimate": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutTitle": "Entrenamiento",
+  "workoutExitTitle": "¿Salir del entrenamiento?",
+  "workoutExitBody": "Tu progreso no se guardará.",
+  "workoutContinue": "Continuar",
+  "workoutAbort": "Salir",
+  "workoutSetProgress": "Serie {current} de {total}",
+  "@workoutSetProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutSec": "s",
+  "workoutRestLabel": "descanso",
+  "workoutReps": "Rep.",
+  "workoutGetReady": "prepárate",
+  "workoutPaused": "en pausa",
+  "workoutPause": "Pausa",
+  "workoutPrepHint": "Lee la descripción y ponte en posición. El temporizador arranca solo; toca Pausa si necesitas más tiempo.",
+  "workoutPrepPausedHint": "En pausa. Toca Continuar cuando estés listo: la cuenta atrás sigue donde se detuvo.",
+  "workoutStop": "Parar",
+  "workoutDone": "✓  Hecho",
+  "workoutSkipRest": "Saltar",
+  "workoutSetDone": "✅  ¡Serie hecha!",
+  "workoutExerciseDone": "✅  ¡Ejercicio hecho!",
+  "workoutUnitReps": "rep.",
+  "workoutNextExercise": "Siguiente: {name} • {amount} {unit}",
+  "@workoutNextExercise": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "amount": {
+        "type": "int"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "workoutNextSet": "Siguiente: serie {setNum} • {amount} {unit}",
+  "@workoutNextSet": {
+    "placeholders": {
+      "setNum": {
+        "type": "int"
+      },
+      "amount": {
+        "type": "int"
+      },
+      "unit": {
+        "type": "String"
+      }
+    }
+  },
+  "summaryTitle": "¡Gran entrenamiento!",
+  "summarySubtitle": "Sigue así: un paso más hacia delante",
+  "summaryLabelTime": "Tiempo",
+  "summaryLabelExercises": "Ejerc.",
+  "summaryHome": "Inicio",
+  "summaryFreezeUsedTitle": "¡Un protector salvó tu racha!",
+  "summaryFreezeUsedBody": "La racha continúa: sigue así",
+  "summaryFreezeEarnedTitle": "¡Protector de racha conseguido!",
+  "summaryFreezeEarnedBody": "Se usa si te saltas un día",
+  "achievementsTitle": "Logros",
+  "achievementsEarnedSection": "Conseguidos",
+  "achievementsLockedSection": "Bloqueados",
+  "achievementsSecret": "???",
+  "achievementsSecretDesc": "Cumple una condición especial para desbloquearlo",
+  "achievementsEarnedOn": "Conseguido: {date}",
+  "@achievementsEarnedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "profileAchievementsTitle": "Logros",
+  "profileAchievementsAll": "Todos los logros →",
+  "profileNoAchievements": "Aún no hay logros",
+  "summaryAchievementsTitle": "¡Nuevos logros!",
+  "achievementFirstWorkoutName": "Primer paso",
+  "achievementFirstWorkoutDesc": "Completaste tu primer entrenamiento: ¡empieza el viaje!",
+  "achievementFirstChallengeName": "Reto aceptado",
+  "achievementFirstChallengeDesc": "Primer reto superado: ahora sabes de lo que eres capaz",
+  "achievementStreak3Name": "Tres seguidos",
+  "achievementStreak3Desc": "3 días seguidos: el hábito se está formando",
+  "achievementStreak7Name": "Semana completa",
+  "achievementStreak7Desc": "Una semana entera: ya superas a la mayoría",
+  "achievementStreak30Name": "Maratoniano",
+  "achievementStreak30Desc": "30 días sin parar: eso es disciplina de verdad",
+  "achievementStreak100Name": "Voluntad de hierro",
+  "achievementStreak100Desc": "100 días sin descanso: un logro legendario",
+  "achievementWorkouts10Name": "Diez",
+  "achievementWorkouts10Desc": "10 entrenamientos completados: un buen comienzo",
+  "achievementWorkouts50Name": "Cincuenta",
+  "achievementWorkouts50Desc": "50 entrenamientos: vas en serio",
+  "achievementWorkouts100Name": "Centurión",
+  "achievementWorkouts100Desc": "100 entrenamientos: estás en la élite",
+  "achievementRankAmateurName": "Aficionado",
+  "achievementRankAmateurDesc": "Rango Aficionado alcanzado: los SP se van sumando",
+  "achievementRankSportsmanName": "Deportista",
+  "achievementRankSportsmanDesc": "Rango Deportista: ya eres más que un aficionado",
+  "achievementRankAthleteName": "Atleta",
+  "achievementRankAthleteDesc": "Rango Atleta: un nivel serio",
+  "achievementRankMasterName": "Maestro",
+  "achievementRankMasterDesc": "Rango Maestro: muy pocos llegan tan lejos",
+  "achievementRankLegendName": "Leyenda",
+  "achievementRankLegendDesc": "Rango máximo. Eres una leyenda.",
+  "achievementPushS3Name": "Flexión completa",
+  "achievementPushS3Desc": "Dominas las flexiones clásicas en el suelo",
+  "achievementPushS6Name": "Arquero",
+  "achievementPushS6Desc": "Dominas las flexiones arquero: la parada de manos está a tu alcance",
+  "achievementPushCompleteName": "Maestro del empuje",
+  "achievementPushCompleteDesc": "Las 7 etapas de Empuje superadas. Goro está orgulloso.",
+  "achievementCoreS2Name": "Plancha de hierro",
+  "achievementCoreS2Desc": "Plancha dominada: la base de todo el trabajo de core",
+  "achievementCoreS5Name": "L-sit",
+  "achievementCoreS5Desc": "L-sit: la prueba definitiva de fuerza del core",
+  "achievementCoreCompleteName": "Core de hierro",
+  "achievementCoreCompleteDesc": "Las 6 etapas de Core superadas. Tu core es de acero.",
+  "achievementPullS3Name": "Primera dominada",
+  "achievementPullS3Desc": "La barbilla por encima de la barra: eso es una victoria",
+  "achievementPullCompleteName": "Rey de la barra",
+  "achievementPullCompleteDesc": "Las 6 etapas de Tracción superadas. La barra es tuya.",
+  "achievementLegsS5Name": "Sentadilla pistol",
+  "achievementLegsS5Desc": "Sentadilla a una pierna: equilibrio y fuerza a la vez",
+  "achievementLegsCompleteName": "Piernas de acero",
+  "achievementLegsCompleteDesc": "Las 5 etapas de Piernas superadas. Tus piernas son de acero.",
+  "achievementBalanceS4Name": "Postura del cuervo",
+  "achievementBalanceS4Desc": "Kakasana sostenida: dominas tu equilibrio",
+  "achievementBalanceS6Name": "Parada de manos libre",
+  "achievementBalanceS6Desc": "Parada de manos sin pared: la cima del equilibrio",
+  "achievementBalanceCompleteName": "Maestro del equilibrio",
+  "achievementBalanceCompleteDesc": "Las 6 etapas de Equilibrio superadas. Eres un equilibrista.",
+  "achievementFlexCompleteName": "Maestro de la flexibilidad",
+  "achievementFlexCompleteDesc": "Las 6 etapas de Flexibilidad superadas. Tu cuerpo se dobla en todas las direcciones.",
+  "achievementAllCompleteName": "Colección completa",
+  "achievementAllCompleteDesc": "Las 5 ramas completadas. Campeón absoluto.",
+  "summaryBonusTitle": "Entrenamiento extra",
+  "summaryBonusBody": "×½ SP · el progreso ya está guardado",
+  "summaryBonusCount": "¡Hoy ya has entrenado {count, plural, one{{count} vez} other{{count} veces}}!",
+  "@summaryBonusCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryChallengeUnlockedTitle": "¡El reto te espera!",
+  "summaryChallengeUnlockedBody": "Toca «Aceptar el reto» en la pantalla de inicio cuando quieras",
+  "summaryChallengePassedTitle": "¡Nueva etapa!",
+  "summaryChallengePassedBody": "Has desbloqueado: {exercise}",
+  "@summaryChallengePassedBody": {
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "profileTitle": "Perfil",
+  "profileMaxRank": "¡Rango máximo!",
+  "profileRankProgress": "{remaining} SP para {rankName}",
+  "@profileRankProgress": {
+    "placeholders": {
+      "remaining": {
+        "type": "int"
+      },
+      "rankName": {
+        "type": "String"
+      }
+    }
+  },
+  "profileStatDays": "días",
+  "profileStatRecord": "récord",
+  "profileStatWorkouts": "entrenos",
+  "profileStatFreezes": "protectores",
+  "profileHistoryTitle": "Historial de entrenamientos",
+  "profileNoHistory": "Aún no hay entrenamientos completados",
+  "calendarTitle": "Calendario",
+  "calendarSeeAll": "Abrir →",
+  "calendarFreezeUsedTitle": "Protector de racha usado",
+  "calendarFreezeUsedBody": "Este día no hubo entrenamiento: se usó un protector de racha para mantenerla.",
+  "calendarLegendOneWorkout": "1 entreno",
+  "calendarLegendManyWorkouts": "2+ entrenos",
+  "calendarLegendFreeze": "Protector",
+  "historyTypeDaily": "Entrenamiento diario",
+  "historyTypeChallenge": "Reto",
+  "historyTypeBonus": "Extra",
+  "historyDetailExercises": "Ejercicios",
+  "historyDetailReps": "{completed} / {target} rep.",
+  "@historyDetailReps": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "historyDetailSec": "{completed} / {target} s",
+  "@historyDetailSec": {
+    "placeholders": {
+      "completed": {
+        "type": "int"
+      },
+      "target": {
+        "type": "int"
+      }
+    }
+  },
+  "settingsTitle": "Ajustes",
+  "settingsSectionNotifications": "NOTIFICACIONES",
+  "settingsSectionLanguage": "IDIOMA",
+  "settingsNotificationsTitle": "Activar notificaciones",
+  "settingsNotificationsSubtitle": "Permitir que la app envíe recordatorios",
+  "settingsNotificationTimeTitle": "Hora del recordatorio",
+  "settingsNotificationTimeSubtitle": "Recordatorio de entrenamiento por la mañana",
+  "settingsTimePickerDone": "Listo",
+  "settingsEveningReminderTitle": "Recordatorio por la noche",
+  "settingsEveningReminderSubtitle": "Recordar por la noche si no has entrenado",
+  "settingsStreakThreatTitle": "Racha en peligro",
+  "settingsStreakThreatSubtitle": "Avisar cuando tu racha esté en riesgo",
+  "settingsLanguageTitle": "Idioma de la app",
+  "settingsSectionTheme": "TEMA",
+  "settingsThemeSystem": "Sistema",
+  "settingsThemeLight": "Claro",
+  "settingsThemeDark": "Oscuro",
+  "settingsSectionEquipment": "EQUIPAMIENTO",
+  "settingsEquipmentPullUpBar": "Barra de dominadas en casa",
+  "settingsEquipmentPullUpBarSubtitle": "Activa la rama de Tracción",
+  "settingsSectionWorkout": "ENTRENAMIENTO",
+  "settingsSoundTitle": "Sonidos",
+  "settingsSoundSubtitle": "Sonidos durante el entrenamiento",
+  "settingsHapticTitle": "Vibración",
+  "settingsHapticSubtitle": "Respuesta háptica durante el entrenamiento",
+  "rankBeginner": "Principiante",
+  "rankAmateur": "Aficionado",
+  "rankSportsman": "Deportista",
+  "rankAthlete": "Atleta",
+  "rankMaster": "Maestro",
+  "rankLegend": "Leyenda",
+  "onboardingWelcomeTitle": "¡Hola! Soy Goro",
+  "onboardingWelcomeBody": "Series cortas, progreso de habilidades, rachas y puntos.\nDe las flexiones de rodillas a la parada de manos, paso a paso.",
+  "onboardingWelcomeCta": "Configuremos todo en 1 minuto",
+  "onboardingContinue": "Continuar",
+  "onboardingStart": "Empezar a entrenar 🔥",
+  "onboardingQ1": "¿Cómo te llamas?",
+  "onboardingQ1Hint": "Tu nombre (opcional)",
+  "onboardingQ1Body": "Goro lo usará para animarte",
+  "onboardingQ2": "¿Cuántas flexiones puedes hacer?",
+  "onboardingQ3": "¿Qué tamaño debe tener tu entrenamiento?",
+  "workoutSizeShort": "Corto",
+  "workoutSizeStandard": "Estándar",
+  "workoutSizeFull": "Completo",
+  "workoutSizeShortDesc": "2 habilidades",
+  "workoutSizeStandardDesc": "3 habilidades",
+  "workoutSizeFullDesc": "Todas tus habilidades",
+  "settingsWorkoutSizeTitle": "Tamaño del entrenamiento",
+  "settingsWorkoutSizeSubtitle": "Cuántas habilidades incluye el entrenamiento diario",
+  "onboardingQ5": "¿Tienes una barra de dominadas o anillas en casa?",
+  "onboardingEquipmentYes": "Sí, tengo",
+  "onboardingEquipmentNo": "No",
+  "onboardingQ6Health": "Sincronizar con Salud",
+  "onboardingHealthBody": "CaliDay puede guardar tus entrenamientos automáticamente en Apple Health (iOS) o Health Connect (Android).",
+  "onboardingHealthEnable": "Activar",
+  "onboardingHealthEnableDesc": "Guardar los entrenamientos automáticamente",
+  "onboardingHealthSkip": "Ahora no",
+  "onboardingHealthSkipDesc": "Puedes activarlo más tarde en Ajustes",
+  "onboardingQ7": "¿Cuándo te recordamos entrenar?",
+  "pushupZeroDesc": "Aún ninguna",
+  "pushupOneToFiveDesc": "Solo unas pocas",
+  "pushupFiveToFifteenDesc": "Voy progresando",
+  "pushupMoreThan15Desc": "Buena base",
+  "timeOfDayMorning": "Mañana",
+  "timeOfDayDay": "Tarde",
+  "timeOfDayLunch": "Mediodía",
+  "timeOfDayEvening": "Noche",
+  "exercisePushS1WallPushupName": "Flexión en la pared",
+  "exercisePushS1WallPushupDesc": "Colócate a un paso de la pared y apoya las palmas a la altura del pecho. Dobla los brazos hasta que el pecho toque la pared y empuja de vuelta.",
+  "exercisePushS1WallPushupTip": "Mantén el cuerpo recto: no arquees la zona lumbar.",
+  "exercisePushS2KneePushupName": "Flexión de rodillas",
+  "exercisePushS2KneePushupDesc": "Posición de flexión con las rodillas en el suelo. Mantén una línea recta de las rodillas a la cabeza. Baja el pecho al suelo y empuja hacia arriba.",
+  "exercisePushS2KneePushupTip": "No dejes caer la cadera: mantén una línea recta de las rodillas a los hombros.",
+  "exercisePushS3FullPushupName": "Flexión completa",
+  "exercisePushS3FullPushupDesc": "Posición clásica de flexión. El cuerpo forma una línea recta de los talones a la cabeza. El pecho toca el suelo o queda a 2–3 cm de él.",
+  "exercisePushS3FullPushupTip": "Aprieta el abdomen y los glúteos para que la cadera no se hunda.",
+  "exercisePushS4DiamondPushupName": "Flexión diamante",
+  "exercisePushS4DiamondPushupDesc": "Manos bajo el pecho, con los pulgares y los índices formando un diamante. Trabaja sobre todo el tríceps. Mantén los codos pegados al bajar.",
+  "exercisePushS4DiamondPushupTip": "No abras los codos: deja que se deslicen junto al cuerpo.",
+  "exercisePushS5WidePushupName": "Flexión abierta",
+  "exercisePushS5WidePushupDesc": "Manos bastante más abiertas que el ancho de los hombros. Baja despacio con el cuerpo en línea recta. Pecho y tríceps trabajan en un rango de movimiento amplio.",
+  "exercisePushS5WidePushupTip": "Cuanto más abiertas las manos, más trabaja el pecho y menos el tríceps.",
+  "exercisePushS6ArcherPushupName": "Flexión arquero",
+  "exercisePushS6ArcherPushupDesc": "Manos muy abiertas. Baja hacia un brazo mientras el otro se mantiene estirado. Alterna los lados.",
+  "exercisePushS6ArcherPushupTip": "El brazo que trabaja hace el recorrido completo; el brazo estirado se queda en el suelo como apoyo.",
+  "exercisePushS7HandstandPushupName": "Flexión en parada de manos",
+  "exercisePushS7HandstandPushupDesc": "Parada de manos contra la pared (de espaldas a ella). Baja despacio la cabeza hacia el suelo y vuelve a empujar el cuerpo hacia arriba.",
+  "exercisePushS7HandstandPushupTip": "Abre bien los dedos para tener estabilidad. Mira entre las manos.",
+  "exerciseCoreS1CrunchesName": "Crunch abdominal",
+  "exerciseCoreS1CrunchesDesc": "Acuéstate boca arriba con las rodillas dobladas. Manos detrás de la cabeza o cruzadas sobre el pecho. Despega los omóplatos del suelo contrayendo el abdomen.",
+  "exerciseCoreS1CrunchesTip": "No tires del cuello con las manos: lleva el pecho hacia el techo.",
+  "exerciseCoreS2PlankName": "Plancha",
+  "exerciseCoreS2PlankDesc": "Posición de flexión sobre los antebrazos. El cuerpo forma una línea recta de los talones a la cabeza. No subas la cadera ni arquees la zona lumbar.",
+  "exerciseCoreS2PlankTip": "Aprieta el abdomen y los glúteos. Respira con calma: no aguantes la respiración.",
+  "exerciseCoreS3LyingLegRaiseName": "Elevación de piernas boca arriba",
+  "exerciseCoreS3LyingLegRaiseDesc": "Acuéstate boca arriba con las manos bajo los glúteos. Sube las piernas estiradas hasta la vertical y bájalas despacio sin tocar el suelo.",
+  "exerciseCoreS3LyingLegRaiseTip": "Mantén la zona lumbar pegada al suelo durante todo el movimiento.",
+  "exerciseCoreS4HangingLegRaiseName": "Elevación de piernas colgado",
+  "exerciseCoreS4HangingLegRaiseDesc": "Cuélgate de una barra. Sube las piernas estiradas hasta quedar paralelas al suelo o más arriba. Controla la bajada.",
+  "exerciseCoreS4HangingLegRaiseTip": "No te balancees: el movimiento sale solo del abdomen.",
+  "exerciseCoreS4FlutterKicksName": "Patadas alternas",
+  "exerciseCoreS4FlutterKicksDesc": "Acuéstate boca arriba, con las manos bajo los glúteos. Levanta las dos piernas 15–20 cm del suelo. Sube y baja cada pierna por turnos con movimientos cortos y rápidos. Una repetición = un ciclo (derecha arriba + izquierda arriba).",
+  "exerciseCoreS4FlutterKicksTip": "Mantén la zona lumbar pegada al suelo. Las piernas no tocan el suelo entre repeticiones.",
+  "exerciseCoreS5LSitName": "L-sit",
+  "exerciseCoreS5LSitDesc": "Apóyate en unas paralelas o en el suelo. Piernas estiradas y paralelas al suelo. Mantén la posición todo lo que puedas.",
+  "exerciseCoreS5LSitTip": "Lleva las puntas de los pies hacia ti; baja los hombros y llévalos hacia atrás.",
+  "exerciseCoreS6DragonFlagName": "Dragon flag",
+  "exerciseCoreS6DragonFlagDesc": "Acuéstate en un banco y agarra un apoyo detrás de la cabeza. Eleva el cuerpo en línea recta apoyado en los omóplatos y bájalo despacio.",
+  "exerciseCoreS6DragonFlagTip": "Empieza por la fase negativa (solo la bajada): es más fácil.",
+  "exerciseWarmupArmRotationsName": "Círculos de brazos",
+  "exerciseWarmupArmRotationsDesc": "De pie, haz círculos amplios con los brazos hacia delante y hacia atrás. Calienta la cintura escapular antes de las flexiones.",
+  "exerciseWarmupJumpingJacksName": "Saltos de tijera",
+  "exerciseWarmupJumpingJacksDesc": "Los clásicos jumping jacks. Suben las pulsaciones y calientan todo el cuerpo en 30–60 segundos.",
+  "exerciseCooldownShoulderStretchName": "Estiramiento de hombros y pecho",
+  "exerciseCooldownShoulderStretchDesc": "Entrelaza las manos detrás de la espalda y lleva los hombros hacia atrás y hacia abajo. Mantén 30 segundos.",
+  "exerciseCooldownCatCowName": "Gato-vaca",
+  "exerciseCooldownCatCowDesc": "A cuatro patas: inhala y deja caer la espalda (vaca), exhala y redondéala hacia arriba (gato). Libera la tensión de la zona lumbar y del abdomen.",
+  "exercisePullS1AustralianName": "Dominada australiana",
+  "exercisePullS1AustralianDesc": "Acuéstate bajo una barra con un agarre algo más ancho que los hombros. Lleva el pecho a la barra con el cuerpo en línea recta. Controla la bajada.",
+  "exercisePullS1AustralianTip": "Cuanto más baja la barra, más difícil el ejercicio.",
+  "exercisePullS2NegativeName": "Dominada negativa",
+  "exercisePullS2NegativeDesc": "Salta hasta tener la barbilla por encima de la barra. Baja despacio durante 3–5 segundos hasta estirar del todo los brazos.",
+  "exercisePullS2NegativeTip": "Cuanto más lenta la bajada, mejor. Intenta bajar en 5 segundos.",
+  "exercisePullS3PullupName": "Dominada",
+  "exercisePullS3PullupDesc": "Agarre al ancho de los hombros o algo más ancho. Lleva el pecho a la barra hasta que la barbilla la supere. Estira del todo los brazos abajo.",
+  "exercisePullS3PullupTip": "Junta los omóplatos: tiras con la espalda, no con los brazos.",
+  "exercisePullS4CloseGripName": "Dominada con agarre cerrado",
+  "exercisePullS4CloseGripDesc": "Agarre más estrecho que los hombros, con las palmas hacia ti o hacia fuera. Trabaja los bíceps y la parte baja del dorsal. Lleva el pecho a la barra.",
+  "exercisePullS4CloseGripTip": "Mantén los codos cerca del cuerpo para que el bíceps trabaje al máximo.",
+  "exercisePullS5ArcherName": "Dominada arquero",
+  "exercisePullS5ArcherDesc": "Agarre ancho. Lleva el cuerpo hacia un brazo mientras el otro se mantiene estirado. Alterna los lados.",
+  "exercisePullS5ArcherTip": "El brazo estirado es de apoyo; el que trabaja hace el recorrido completo.",
+  "exercisePullS6OneArmName": "Dominada a una mano",
+  "exercisePullS6OneArmDesc": "Una mano en la barra, la otra sobre la muñeca o libre. Recorrido completo con el brazo que trabaja.",
+  "exercisePullS6OneArmTip": "Mantén el core firme: no te balancees.",
+  "exerciseWarmupDeadHangName": "Colgarse de la barra",
+  "exerciseWarmupDeadHangDesc": "Cuélgate de la barra con agarre prono y los brazos totalmente estirados. Relaja los hombros y mantén la suspensión.",
+  "exerciseCooldownLatStretchName": "Estiramiento de dorsales",
+  "exerciseCooldownLatStretchDesc": "Ponte de lado junto a una pared, levanta un brazo y apóyalo en ella. Inclínate hacia el estiramiento hasta sentirlo en el costado.",
+  "exerciseLegsS1SquatName": "Sentadilla",
+  "exerciseLegsS1SquatDesc": "Pies al ancho de los hombros, puntas ligeramente hacia fuera. Baja hasta que los muslos queden paralelos al suelo, con las rodillas sobre los pies. Estírate del todo arriba.",
+  "exerciseLegsS1SquatTip": "Talones en el suelo y pecho erguido.",
+  "exerciseLegsS2LungeName": "Zancada",
+  "exerciseLegsS2LungeDesc": "Da un paso al frente y baja la rodilla de atrás hacia el suelo sin tocarlo. Ambas rodillas a 90°. Empuja con el pie delantero para volver.",
+  "exerciseLegsS2LungeTip": "La rodilla delantera no pasa de la punta del pie.",
+  "exerciseLegsS3BulgarianName": "Sentadilla búlgara",
+  "exerciseLegsS3BulgarianDesc": "El pie trasero apoyado en alto, sobre una silla o un sofá. Baja con la pierna delantera hasta que el muslo quede paralelo al suelo. Torso erguido.",
+  "exerciseLegsS3BulgarianTip": "Cuanto más adelantado el pie delantero, más trabajan los glúteos.",
+  "exerciseLegsS4AssistedPistolName": "Sentadilla pistol asistida",
+  "exerciseLegsS4AssistedPistolDesc": "Sujétate a un marco de puerta o a un poste como apoyo. Baja sobre una pierna con la otra estirada al frente. El apoyo te quita carga.",
+  "exerciseLegsS4AssistedPistolTip": "Usa cada vez menos las manos a medida que ganes fuerza.",
+  "exerciseLegsS5PistolName": "Sentadilla pistol",
+  "exerciseLegsS5PistolDesc": "Sentadilla a una pierna sin apoyo. La otra pierna estirada al frente. Recorrido completo hasta el suelo y de vuelta arriba.",
+  "exerciseLegsS5PistolTip": "Brazos al frente como contrapeso: ayuda con el equilibrio.",
+  "exerciseWarmupLegSwingsName": "Balanceo de piernas",
+  "exerciseWarmupLegSwingsDesc": "De pie junto a una pared, balancea una pierna hacia delante y hacia atrás, y luego de lado a lado. Calienta la articulación de la cadera.",
+  "exerciseCooldownQuadStretchName": "Estiramiento de cuádriceps",
+  "exerciseCooldownQuadStretchDesc": "Apóyate en una pierna, dobla la otra hacia atrás y sujeta el pie con la mano. Siente el estiramiento en la parte delantera del muslo.",
+  "exerciseWarmupHipCirclesName": "Círculos de cadera",
+  "exerciseWarmupHipCirclesDesc": "De pie, con los pies al ancho de los hombros. Haz círculos lentos con la cadera en el sentido de las agujas del reloj y luego al revés. Calienta las articulaciones de la cadera.",
+  "exerciseCooldownHipFlexorName": "Estiramiento del flexor de cadera",
+  "exerciseCooldownHipFlexorDesc": "Da una zancada y apoya la rodilla de atrás en el suelo. Empuja la cadera hacia delante y hacia abajo hasta sentir el estiramiento en la cadera. Mantén en cada lado.",
+  "exerciseBalS1OneLegStandName": "Equilibrio a una pierna",
+  "exerciseBalS1OneLegStandDesc": "Apóyate en una pierna, con la otra ligeramente doblada y sin tocar el suelo. Puedes abrir los brazos para equilibrarte.",
+  "exerciseBalS1OneLegStandTip": "Fija la mirada en un punto: mejora mucho el equilibrio.",
+  "exerciseBalS2OneArmPlankName": "Plancha a una mano",
+  "exerciseBalS2OneArmPlankDesc": "Plancha clásica con los brazos estirados. Levanta una mano del suelo y mantén la posición, con el cuerpo paralelo al suelo.",
+  "exerciseBalS2OneArmPlankTip": "Mantén la cadera paralela al suelo: no gires el torso.",
+  "exerciseBalS3CrowPrepName": "Preparación del cuervo",
+  "exerciseBalS3CrowPrepDesc": "En cuclillas, apoya las rodillas en los tríceps. Pasa el peso a las manos y despega los pies con suavidad. Mantén el equilibrio.",
+  "exerciseBalS3CrowPrepTip": "Mira hacia delante y abajo, no justo abajo: si no, te irás hacia delante.",
+  "exerciseBalS4CrowPoseName": "Postura del cuervo (Kakasana)",
+  "exerciseBalS4CrowPoseDesc": "Ambas rodillas sobre los tríceps, todo el peso en las manos. Brazos ligeramente doblados, dedos bien abiertos.",
+  "exerciseBalS4CrowPoseTip": "Redondea la espalda: activa el core y te da equilibrio.",
+  "exerciseBalS5WallHsName": "Parada de manos en la pared",
+  "exerciseBalS5WallHsDesc": "Sube a la parada de manos de espaldas a la pared. Los talones tocan la pared como apoyo. Mantén la posición con el cuerpo en línea recta.",
+  "exerciseBalS5WallHsTip": "Abre bien los dedos y empuja con las yemas: así controlas el equilibrio.",
+  "exerciseBalS6FreeHsName": "Parada de manos libre",
+  "exerciseBalS6FreeHsDesc": "Parada de manos sin apoyo en la pared. Controla el equilibrio con pequeños movimientos de los dedos y las muñecas.",
+  "exerciseBalS6FreeHsTip": "Mira al suelo 30–40 cm por delante de las manos, no entre ellas.",
+  "exerciseWarmupWristCirclesName": "Círculos de muñecas",
+  "exerciseWarmupWristCirclesDesc": "Gira las muñecas en el sentido de las agujas del reloj y al revés. Prepara las articulaciones para cargar peso sobre las manos.",
+  "exerciseCooldownDownwardDogName": "Perro boca abajo",
+  "exerciseCooldownDownwardDogDesc": "Desde cuatro patas, estira brazos y piernas y sube la cadera. El cuerpo forma una V invertida. Estira muñecas, hombros y piernas.",
+  "aboutTitle": "Acerca de",
+  "aboutSectionSupport": "SOPORTE",
+  "aboutContactUs": "Contacto",
+  "aboutContactUsSubtitle": "Informa de un error o haz una pregunta",
+  "aboutPrivacyPolicy": "Política de privacidad",
+  "aboutTermsOfUse": "Condiciones de uso",
+  "aboutLegalConsent": "Al usar CaliDay aceptas la Política de privacidad y las Condiciones de uso.",
+  "aboutCopyright": "© 2026 pupptmstr",
+  "whatsNewTitle": "Novedades",
+  "whatsNewBadge": "NUEVO",
+  "whatsNewVersion": "Versión {version}",
+  "@whatsNewVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "releaseNotes0816": "La app ya está disponible también en alemán y español.\nEl selector de idioma de la pantalla de bienvenida ahora es un menú.\nLa notificación de racha perdida ahora declina bien el número de días en ruso.",
+  "releaseNotes0815": "Una campana en el perfil muestra ahora qué cambió en cada actualización.\nLa pantalla «Acerca de» es más corta: la línea técnica ya no está.",
+  "releaseNotes0814": "El botón «Otra vez» muestra cuánto dura aproximadamente un entrenamiento extra.",
+  "releaseNotes0813": "El tiempo del botón de entrenamiento ahora se ajusta a tu propio ritmo: tras unos cuantos entrenamientos refleja cuánto te llevan de verdad.",
+  "releaseNotes0812": "El botón de entrenamiento muestra cuánto dura aproximadamente el entrenamiento de hoy.\nEl recordatorio de la noche ya no promete «10 minutos».",
+  "releaseNotes0811": "El tamaño del entrenamiento sustituye a «5, 10 o 15 minutos»: Corto, Estándar o Completo. Indica cuántas habilidades incluye un entrenamiento, no cuánto dura.",
+  "releaseNotes0810": "Los ejercicios por tiempo ahora empiezan solos tras una breve cuenta atrás para prepararte. Toca Pausa si necesitas más tiempo para leer o colocarte.\nLa búsqueda en la biblioteca de ejercicios funciona en ruso y en inglés.\nAlgunos textos que se habían quedado en un solo idioma ya están traducidos.",
+  "settingsAbout": "Acerca de",
+  "settingsSectionHealth": "SALUD",
+  "settingsHealthWorkoutsTitle": "Registrar entrenamientos",
+  "settingsHealthWorkoutsSubtitle": "Guardar en Apple Health / Health Connect",
+  "settingsHealthWeightTitle": "Leer el peso corporal",
+  "settingsHealthWeightSubtitle": "Para estimar mejor las calorías (por defecto 70 kg)",
+  "summaryHealthSaved": "Guardado en Salud ✓",
+  "friendsTitle": "Amigos",
+  "friendsMyQrTitle": "Mi perfil",
+  "friendsShareHint": "Muestra este código a un amigo para compartir tu perfil",
+  "friendsScanQr": "Escanear código QR",
+  "friendsSectionNearby": "CERCA",
+  "friendsSectionList": "AMIGOS",
+  "friendsNearbyEmpty": "No hay usuarios de CaliDay cerca",
+  "friendsNearbyScanning": "Buscando…",
+  "friendsNearbyBleOff": "El Bluetooth está apagado",
+  "friendsNearbyConnect": "Obtener perfil",
+  "friendsEmpty": "Aún no tienes amigos. Escanea un código QR para añadir el primero.",
+  "friendsAdded": "¡Amigo añadido!",
+  "friendsUpdated": "¡Perfil actualizado!",
+  "friendsScanError": "Código QR no válido",
+  "friendsScanTryAgain": "Reintentar",
+  "friendsScanCameraDeniedTitle": "El acceso a la cámara está bloqueado",
+  "friendsScanCameraDeniedWeb": "Permite la cámara para este sitio (el icono de la cámara o del candado en la barra de direcciones) y pulsa Reintentar. O muestra tu propio código QR a tu amigo.",
+  "friendsScanCameraDeniedApp": "Permite el acceso a la cámara para CaliDay en los ajustes del dispositivo y pulsa Reintentar.",
+  "friendsScanCameraUnsupportedTitle": "No hay cámara disponible",
+  "friendsScanCameraUnsupportedBody": "Este dispositivo o navegador no tiene una cámara que la app pueda usar. Muestra tu propio código QR a tu amigo.",
+  "friendsScanCameraFailedTitle": "No se pudo iniciar la cámara",
+  "friendsScanCameraFailedBody": "Comprueba que ninguna otra app esté usando la cámara y que tienes conexión (en el navegador el escáner se descarga la primera vez) y vuelve a intentarlo.",
+  "friendsScanConfirmBody": "{sp} SP · racha de {streak, plural, one{{streak} día} other{{streak} días}}",
+  "@friendsScanConfirmBody": {
+    "placeholders": {
+      "sp": {
+        "type": "int"
+      },
+      "streak": {
+        "type": "int"
+      }
+    }
+  },
+  "friendsCancel": "Cancelar",
+  "friendsAdd": "Añadir",
+  "friendsDetailLastSynced": "Sincronizado: {date}",
+  "@friendsDetailLastSynced": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "friendsDeleteTitle": "Eliminar amigo",
+  "friendsDeleteBody": "¿Eliminar a {name} de tus amigos?",
+  "@friendsDeleteBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "friendsDeleteConfirm": "Eliminar",
+  "settingsSectionFriends": "AMIGOS",
+  "settingsFriendsNameTitle": "Nombre visible",
+  "settingsFriendsNamePlaceholder": "Escribe tu nombre",
+  "settingsFriendsDiscoverableTitle": "Visible por Bluetooth",
+  "settingsFriendsDiscoverableSubtitle": "Otros usuarios de CaliDay cerca pueden encontrarte",
+  "profileFriendsTitle": "Amigos",
+  "profileFriendsAll": "Todos los amigos →",
+  "profileFriendsEmpty": "Aún no tienes amigos",
+  "profileFriendsCount": "{count, plural, one{{count} amigo} other{{count} amigos}}",
+  "@profileFriendsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseFlexS1HipFlexorStretchName": "Estiramiento del flexor de cadera",
+  "exerciseFlexS1HipFlexorStretchDesc": "Da una zancada y apoya la rodilla de atrás en el suelo. Empuja la cadera hacia delante hasta sentir el estiramiento en la parte delantera de la cadera. Mantén en cada lado.",
+  "exerciseFlexS1HipFlexorStretchTip": "Espalda recta y cadera hacia delante: siente el estiramiento en la parte delantera de la cadera.",
+  "exerciseFlexS2WorldsGreatestStretchName": "World's Greatest Stretch",
+  "exerciseFlexS2WorldsGreatestStretchDesc": "Desde una zancada, apoya en el suelo la mano del mismo lado. Gira el tronco y lleva el otro brazo hacia el techo. Encadena los movimientos con fluidez.",
+  "exerciseFlexS2WorldsGreatestStretchTip": "Pasa despacio por cada posición: es un flujo, no una carrera.",
+  "exerciseFlexS3Hip9090Name": "Movilidad de cadera 90/90",
+  "exerciseFlexS3Hip9090Desc": "Siéntate en el suelo con las dos piernas dobladas a 90°, una delante y otra al lado. Mantén la posición y cambia de lado.",
+  "exerciseFlexS3Hip9090Tip": "Mantén los dos isquiones en el suelo. Gira desde la cadera, no desde la zona lumbar.",
+  "exerciseFlexS4ThoracicBridgeName": "Puente torácico",
+  "exerciseFlexS4ThoracicBridgeDesc": "Sentado y con las manos detrás, eleva la cadera y gira la parte alta de la columna para abrir el pecho hacia el techo.",
+  "exerciseFlexS4ThoracicBridgeTip": "El movimiento sale de la parte alta de la espalda: evita doblarte por la zona lumbar.",
+  "exerciseFlexS5DeepSquatHoldName": "Sentadilla profunda sostenida",
+  "exerciseFlexS5DeepSquatHoldDesc": "Pies al ancho de los hombros, puntas ligeramente hacia fuera. Baja del todo y mantén. Usa un marco de puerta como apoyo si lo necesitas.",
+  "exerciseFlexS5DeepSquatHoldTip": "Al principio apóyate en un marco de puerta o un poste. La meta: talones planos en el suelo.",
+  "exerciseFlexS6PikeStretchName": "Estiramiento en pica",
+  "exerciseFlexS6PikeStretchDesc": "Siéntate en el suelo con las piernas estiradas al frente. Lleva las manos hacia los pies doblándote desde la cadera. Mantén la posición.",
+  "exerciseFlexS6PikeStretchTip": "Inclínate desde la cadera, no desde la cintura. Mantén las piernas estiradas.",
+  "exerciseSuppObliqueCrunchName": "Crunch oblicuo",
+  "exerciseSuppObliqueCrunchDesc": "Acuéstate boca arriba con las rodillas dobladas. Lleva el codo derecho hacia la rodilla izquierda y luego el izquierdo hacia la derecha. Alterna.",
+  "exerciseSuppRussianTwistsName": "Giros rusos",
+  "exerciseSuppRussianTwistsDesc": "Siéntate con las rodillas algo elevadas y el torso inclinado hacia atrás. Gira el torso a la izquierda y a la derecha: cada giro cuenta como una repetición.",
+  "exerciseSuppRussianTwistsTip": "Mantén la espalda recta, no te encorves.",
+  "exerciseSuppSidePlankName": "Plancha lateral",
+  "exerciseSuppSidePlankDesc": "Plancha lateral sobre el antebrazo: el cuerpo en línea recta de la cabeza a los pies. Mantén la posición y repite del otro lado.",
+  "exerciseSuppSidePlankTip": "No dejes caer la cadera: mantén la línea recta.",
+  "exerciseSuppStandingCalfRaiseName": "Elevación de talones de pie",
+  "exerciseSuppStandingCalfRaiseDesc": "De pie y erguido, sube despacio de puntillas durante 2–3 segundos y luego baja. Apóyate en una pared si lo necesitas para el equilibrio.",
+  "exerciseSuppSingleLegCalfRaiseName": "Elevación de talón a una pierna",
+  "exerciseSuppSingleLegCalfRaiseDesc": "Apóyate en un pie. Sube despacio de puntillas y vuelve a bajar. Repite con la otra pierna.",
+  "exerciseSuppSingleLegCalfRaiseTip": "Ritmo lento: más beneficio.",
+  "exerciseSuppDeadBugName": "Dead bug",
+  "exerciseSuppDeadBugDesc": "Acuéstate boca arriba, con los brazos hacia arriba y las rodillas dobladas a 90°. Baja a la vez el brazo derecho por encima de la cabeza y estira la pierna izquierda, casi hasta el suelo. Vuelve. Alterna.",
+  "exerciseSuppDeadBugTip": "Mantén la zona lumbar pegada al suelo todo el tiempo.",
+  "exerciseSuppBirdDogName": "Bird dog",
+  "exerciseSuppBirdDogDesc": "A cuatro patas: estira a la vez el brazo derecho hacia delante y la pierna izquierda hacia atrás. Mantén 2 segundos y vuelve. Alterna los lados.",
+  "exerciseSuppBirdDogTip": "No gires la pelvis: mantenla nivelada.",
+  "exerciseSuppNeckIsometricsName": "Isometría de cuello",
+  "exerciseSuppNeckIsometricsDesc": "Presiona la palma contra la frente y resiste: el cuello empuja en sentido contrario. Luego contra la nuca y contra cada sien. Mantén 5–10 segundos en cada dirección.",
+  "exerciseSuppNeckIsometricsTip": "Presión suave: no fuerces.",
+  "exerciseSuppWristCirclesName": "Círculos de muñecas",
+  "exerciseSuppWristCirclesDesc": "Cierra los puños y gira despacio las muñecas en el sentido de las agujas del reloj y al revés. Fortalece antebrazos y tendones.",
+  "exerciseWarmupNeckRollsName": "Giros de cuello",
+  "exerciseWarmupNeckRollsDesc": "Inclina despacio la cabeza hacia delante, hacia atrás y a cada lado, y luego haz un semicírculo suave de un hombro al otro. Calienta los músculos del cuello.",
+  "exercisePostureS1PelvicTiltName": "Basculación pélvica",
+  "exercisePostureS1PelvicTiltDesc": "Acuéstate boca arriba con las rodillas dobladas. Presiona despacio la zona lumbar contra el suelo activando el abdomen. Mantén 5 segundos y relaja.",
+  "exercisePostureS1PelvicTiltTip": "No aguantes la respiración: muévete con suavidad.",
+  "exercisePostureS2DeadBugName": "Dead bug",
+  "exercisePostureS2DeadBugDesc": "Acuéstate boca arriba, con los brazos hacia arriba y las rodillas a 90°. Baja despacio un brazo y la pierna contraria sin dejar que se arquee la zona lumbar.",
+  "exercisePostureS2DeadBugTip": "Muévete despacio: se trata de control, no de velocidad. Mantén la zona lumbar plana todo el tiempo.",
+  "exercisePostureS3GluteBridgeName": "Puente de glúteos",
+  "exercisePostureS3GluteBridgeDesc": "Acuéstate boca arriba, con las rodillas dobladas y los pies planos en el suelo. Sube la cadera apretando los glúteos, mantén un momento y baja.",
+  "exercisePostureS3GluteBridgeTip": "Aprieta fuerte los glúteos arriba: no empujes con la zona lumbar.",
+  "exercisePostureS4HipMarchName": "Marcha de pie",
+  "exercisePostureS4HipMarchDesc": "De pie y erguido. Sube despacio una rodilla a la altura de la cadera y bájala. Alterna los lados. Mantén el torso recto y quieto.",
+  "exercisePostureS4HipMarchTip": "Sube cada rodilla a la altura de la cadera sin inclinar el torso: el trabajo lo hace el flexor de cadera, no el impulso.",
+  "exercisePostureS5KneelingLungeName": "Estiramiento del flexor de cadera de rodillas",
+  "exercisePostureS5KneelingLungeDesc": "Apoya una rodilla en el suelo con el otro pie delante. Empuja la cadera hacia delante hasta sentir un estiramiento en la parte delantera de la cadera de atrás. Mantén.",
+  "exercisePostureS5KneelingLungeTip": "Mantén la espalda recta y mete un poco la pelvis para profundizar el estiramiento.",
+  "exercisePostureS6PigeonPoseName": "Postura de la paloma",
+  "exercisePostureS6PigeonPoseDesc": "Desde cuatro patas, lleva la pierna derecha al frente doblada a 90°. Estira la pierna izquierda hacia atrás. Baja la cadera hacia el suelo y mantén la posición.",
+  "exercisePostureS6PigeonPoseTip": "Respira hondo: la postura abre la cadera poco a poco.",
+  "exerciseNeckS1NeckTiltName": "Inclinación de cuello",
+  "exerciseNeckS1NeckTiltDesc": "Inclina despacio la cabeza hacia el hombro derecho, sin subir el hombro. Mantén 5 segundos y vuelve. Alterna los lados.",
+  "exerciseNeckS1NeckTiltTip": "Deja caer el hombro: así el estiramiento es más profundo.",
+  "exerciseNeckS2ChestOpenerName": "Apertura de pecho",
+  "exerciseNeckS2ChestOpenerDesc": "De pie y erguido, entrelaza las manos detrás de la espalda. Junta los omóplatos y sube un poco los brazos mientras abres el pecho.",
+  "exerciseNeckS2ChestOpenerTip": "Céntrate en juntar los omóplatos: no arquees la zona lumbar.",
+  "exerciseNeckS3ShoulderRollName": "Círculos de hombros",
+  "exerciseNeckS3ShoulderRollDesc": "Haz círculos grandes y lentos con los hombros: 5 veces hacia delante y luego 5 hacia atrás. Mantén el cuello relajado todo el tiempo.",
+  "exerciseNeckS3ShoulderRollTip": "Haz los círculos lo más grandes posible: exagera el movimiento.",
+  "exerciseNeckS4WallAngelName": "Ángeles en la pared",
+  "exerciseNeckS4WallAngelDesc": "Apoya la espalda, la cabeza y los brazos en una pared. Desliza los brazos por encima de la cabeza sin perder el contacto con la pared. Baja despacio.",
+  "exerciseNeckS4WallAngelTip": "Mantén la zona lumbar pegada a la pared todo el tiempo: es más difícil de lo que parece.",
+  "exerciseNeckS5DoorwayStretchName": "Estiramiento de pecho en la puerta",
+  "exerciseNeckS5DoorwayStretchDesc": "Ponte en el hueco de una puerta. Apoya los dos antebrazos en el marco a la altura de los hombros. Inclínate con suavidad hacia delante hasta sentir el estiramiento en el pecho y los hombros. Mantén.",
+  "exerciseNeckS5DoorwayStretchTip": "Mantén el core activo y no arquees la zona lumbar al inclinarte.",
+  "tooltipStreakTitle": "Racha actual",
+  "tooltipStreakBody": "El número de días seguidos que has entrenado. Si te saltas un día sin protector de racha, vuelve a cero. Mantén vivo el fuego: ¡Goro te está mirando!",
+  "tooltipLongestStreakTitle": "Récord personal",
+  "tooltipLongestStreakBody": "Tu racha de entrenamiento más larga de todos los tiempos. Una vez marcado, este récord se queda para siempre, aunque tu racha actual vuelva a cero.",
+  "tooltipTotalWorkoutsTitle": "Entrenamientos totales",
+  "tooltipTotalWorkoutsBody": "El número total de entrenamientos que has completado desde que empezaste. Todos cuentan, también los extra.",
+  "tooltipFreezesTitle": "Protectores de racha",
+  "tooltipFreezesBody": "Los protectores salvan tu racha cuando te saltas un día. Los consigues automáticamente al entrenar con constancia. Puedes tener hasta 3 a la vez.",
+  "tooltipRankTitle": "Rango y puntos de fuerza",
+  "exerciseLibraryTitle": "Todos los ejercicios",
+  "exerciseLibrarySearchHint": "Buscar ejercicios...",
+  "exerciseLibraryCatalogButton": "Catálogo de ejercicios",
+  "exerciseLibraryEmpty": "No se encontraron ejercicios",
+  "exerciseLibraryReset": "Restablecer",
+  "exerciseTagFilterAll": "Todos",
+  "exerciseLibraryCount": "{count, plural, one{{count} ejercicio} other{{count} ejercicios}}",
+  "@exerciseLibraryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseDetailTipLabel": "Técnica",
+  "exerciseDetailStageLabel": "Etapa {stage}",
+  "@exerciseDetailStageLabel": {
+    "placeholders": {
+      "stage": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseTagHipFlexor": "Flexores de cadera",
+  "exerciseTagGlutes": "Glúteos",
+  "exerciseTagCore": "Core",
+  "exerciseTagChest": "Pecho",
+  "exerciseTagBack": "Espalda",
+  "exerciseTagShoulders": "Hombros",
+  "exerciseTagLegs": "Piernas",
+  "exerciseTagNeck": "Cuello",
+  "exerciseTagStretch": "Estiramiento",
+  "exerciseTagMobility": "Movilidad",
+  "exerciseTagStrength": "Fuerza",
+  "exerciseTagEndurance": "Resistencia",
+  "exerciseTagSittingRecovery": "Para la oficina",
+  "exerciseTagFloorOnly": "Sin material",
+  "exerciseTagRequiresBar": "Requiere barra",
+  "exerciseTagPostureFocus": "Postura",
+  "exerciseTagBeginner": "Principiante",
+  "exerciseTagWarmup": "Calentamiento",
+  "exerciseTagCooldown": "Vuelta a la calma",
+  "customWorkoutNoWarmupTitle": "¿Añadir calentamiento y vuelta a la calma?",
+  "customWorkoutNoWarmupBody": "Tu rutina no tiene calentamiento ni vuelta a la calma. ¿Los añadimos automáticamente?",
+  "customWorkoutAdd": "Añadir",
+  "customWorkoutSkip": "Omitir",
+  "customWorkoutButtonLabel": "Entreno personalizado",
+  "customWorkoutMyRoutines": "Mis rutinas",
+  "customWorkoutNewRoutine": "Nueva rutina",
+  "customWorkoutQuickRoutine": "Rutina rápida",
+  "customWorkoutQuickRoutineDesc": "Elige una zona y te seleccionamos los ejercicios",
+  "customWorkoutEmpty": "Aún no hay rutinas guardadas",
+  "customWorkoutNameHint": "Nombre de la rutina",
+  "customWorkoutNameRequired": "Escribe un nombre para guardar la rutina",
+  "customWorkoutSave": "Guardar rutina",
+  "customWorkoutStartNow": "Empezar ahora",
+  "customWorkoutDelete": "Eliminar",
+  "customWorkoutEdit": "Editar",
+  "customWorkoutBuilderTitle": "Crear rutina",
+  "customWorkoutBuilderDesc": "Elige ejercicios y arma tu propia secuencia",
+  "customWorkoutPickFocus": "¿Qué quieres entrenar?",
+  "customWorkoutExerciseCount": "{count, plural, one{{count} ejercicio} other{{count} ejercicios}}",
+  "@customWorkoutExerciseCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "rankDecayWarning": "Llevas {days, plural, one{{days} día} other{{days} días}} sin entrenar: tu rango ha bajado. ¡Vuelve a ello!",
+  "@rankDecayWarning": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "summaryRankRestoredTitle": "¡Rango recuperado!",
+  "summaryRankRestoredBody": "Sigue entrenando: ¡tu rango está totalmente recuperado!",
+  "notificationMorningTitle": "¡Hora de entrenar! 💪",
+  "notificationMorningBody": "Tu entrenamiento diario te espera. ¡Mantén viva la racha!",
+  "notificationEveningTitle": "¡Aún hay tiempo! 🏃",
+  "notificationEveningBody": "Hoy todavía no has entrenado. Incluso un entrenamiento corto cuenta.",
+  "notificationStreakTitle": "¡Racha en peligro! 🔥",
+  "notificationStreakBody": "Entrena antes de medianoche o tu racha terminará.",
+  "notificationStreakLostTitle": "Racha perdida 😔",
+  "notificationStreakLostBody": "Tu racha de {days, plural, one{{days} día} other{{days} días}} se ha perdido. Empieza una nueva: ¡el primer paso siempre es el más difícil!",
+  "@notificationStreakLostBody": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "notificationRankAtRiskTitle": "¡Rango en peligro! ⚠️",
+  "notificationRankAtRiskBody": "14 días sin entrenar: tu rango empezará a bajar pronto. ¡Vuelve!"
+}
