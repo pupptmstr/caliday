@@ -945,7 +945,7 @@ abstract class AppLocalizations {
   /// No description provided for @summaryBonusBody.
   ///
   /// In en, this message translates to:
-  /// **'×½ SP · progression already saved'**
+  /// **'×½ SP · each branch moves on once a day'**
   String get summaryBonusBody;
 
   /// No description provided for @summaryBonusCount.
@@ -2279,6 +2279,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version {version}'**
   String whatsNewVersion(String version);
+
+  /// No description provided for @releaseNotes0819.
+  ///
+  /// In en, this message translates to:
+  /// **'Every branch now moves on once a day, in any workout: the morning one, the evening one or your own routine. Two courses on one day both progress.\nFriends no longer see your stage in each branch: the friend code carries your rank, SP and streak, and it is easier to scan. Friends on an older version need to update to read it.'**
+  String get releaseNotes0819;
 
   /// No description provided for @releaseNotes0818.
   ///

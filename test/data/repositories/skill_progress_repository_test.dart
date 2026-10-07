@@ -71,6 +71,14 @@ void main() {
     expect(p.isChallengeUnlocked, isTrue);
   });
 
+  test('the day of the last daily step survives a restart', () async {
+    final day = DateTime(2026, 6, 10, 21, 15);
+    await repo.saveProgress(SkillProgress(branchId: BranchId.neck)..lastProgressedOn = day);
+    await env.reopen();
+    expect(SkillProgressRepository().getProgress(BranchId.neck).lastProgressedOn, day);
+    expect(SkillProgressRepository().getProgress(BranchId.push).lastProgressedOn, isNull);
+  });
+
   test('progress is stored per branch and shared by every course', () async {
     // Flex belongs to both courses but has a single record.
     await repo.saveProgress(SkillProgress(branchId: BranchId.flex, currentStage: 4));

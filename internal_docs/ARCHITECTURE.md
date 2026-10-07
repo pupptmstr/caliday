@@ -187,7 +187,7 @@ Reps ↑ → Sets ↑ (with reps reset) → Rest ↓ → Challenge test → Next
 - **Streak** — consecutive days; freezes (max 3, earned every 7 streak days)
 - **Ranks (English UI names):** Beginner → Amateur → Athlete → Champion → Master → Legend — enum values `beginner, amateur, sportsman, athlete, master, legend` (see § Rank SP Thresholds). A rank that is not trained for 21+ days is shown lower, see RankDecayService
 - **Achievements** — 29 total (one is secret), checked after each workout and stage advance
-- **Bonus workouts** — multiple workouts per day are allowed (50% SP, progression does not advance)
+- **Bonus workouts** — multiple workouts per day are allowed (50% SP; each branch still moves on once a day, see § Primary vs Bonus Workout)
 
 ### Workout size
 The user picks how big the daily workout is: **Short** (2 skill branches), **Standard** (3) or **Full** (all branches of the course), `WorkoutSize` in `data/models/enums.dart`. It used to be presented as "5 / 10 / 15 minutes", which promised a duration the app never computed: the real time follows reps, sets and rests and roughly doubles as the user progresses (about 6 / 8 / 15 min at the start for Calisthenics, about 10 / 15 / 29 min with 12×3 reps and 60 s rests). So the names describe the volume, not the time, and no text may promise minutes (a test checks the names).
@@ -206,7 +206,9 @@ The bell in the Profile app bar opens `/whats-new`: the history of what changed 
 - **The dot:** `UserProfile.lastSeenReleaseVersion` (HiveField 26) is the newest version the user opened; `hasUnseenReleaseNotesProvider` is true while an entry is newer (versions compare as numbers: 0.8.10 > 0.8.9). Opening the screen saves the newest version (after the first frame; the NEW tags of that visit stay until it closes). An existing user with null sees every entry as new; a new user is set to the current version by onboarding, so the bell lights up for the next update only.
 
 ### Primary vs Bonus Workout
-`WorkoutLog.isPrimary`: true = first of the day (full SP, advances progression, counts toward streak); false = 50% SP.
+`WorkoutLog.isPrimary`: true = first of the day (full SP, counts toward streak); false = 50% SP.
+
+**Progression is per branch and per day, not per workout** (owner's rule, 2026-10-07): a branch moves on at most once per calendar day, on the first *successful* set of its current stage that day, in any workout — primary or bonus, a daily plan or a custom routine (`ProgressionService.applyDailyResult`, the day in `SkillProgress.lastProgressedOn`, HiveField 6). So a morning course and an afternoon course both progress, and a branch they share (Flex) moves once. A failed set does not use the day up; an exercise of another stage than the branch's current one never counts (a custom routine may hold one — before 0.8.19 such an exercise moved the current stage by the other exercise's targets). The Challenge is unchanged: passing it always advances the stage.
 Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday()`. The first workout of the day is always primary — regardless of whether it is a daily plan or a custom routine. Custom-only users can build a streak this way. `courseIdIndex` is still `null` for custom routines (not tied to any course).
 
 ---
@@ -279,7 +281,7 @@ Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday
 | @3 | int | currentStreak |
 | @4 | int | longestStreak |
 | @5 | int | rankIndex (index into Rank.values) |
-| @6 | Map<String,int> | branchStages — branch name → current stage |
+| @6 | Map<String,int> | branchStages — no longer filled or shown (branch progress is not shared since 0.8.19); kept for the Hive layout |
 | @7 | DateTime | profileDate — when snapshot was taken on friend's device |
 | @8 | DateTime | lastSynced — when we last received an update |
 
@@ -471,7 +473,8 @@ otherwise                          → 0
 - `HomeData.effectiveRank` and `ProfileData.effectiveRank` expose this for display; computed in providers, not in widgets.
 
 ### ProgressionService
-- `applyResult(progress, exercise, result)` → bool (true = challenge unlocked)
+- `applyDailyResult(progress, exercise, result, now:)` → bool — what a finished workout calls: the once-a-day gate (current stage only, not yet today, a successful set), then `applyResult`; see § Primary vs Bonus Workout
+- `applyResult(progress, exercise, result)` → bool (true = challenge unlocked) — one step, no daily limit
 - `advanceStage(progress, nextExercise)` — stage transition after challenge
 - `applyRegression(progress, exercise, daysSkipped)` — rollback on 3+ days skipped
 - `nextExercise(progress)` — next stage from catalog
@@ -506,13 +509,14 @@ otherwise                          → 0
 - `friendsCountProvider` — derived `Provider<int>` for Profile screen badge
 
 ### QR Profile Exchange
-- The profile map has the fields `v, id, name, sp, streak, longestStreak, rank, stages, date` (built in `friends_screen.dart`; the same map goes over BLE as JSON, see `BleProfileCodec`).
+- The profile map has the fields `v, id, name, sp, streak, longestStreak, rank, date` (built in `friends_screen.dart`; the same map goes over BLE as JSON, see `BleProfileCodec`). **Branch progress is not shared** (owner's decision, 2026-10-07), so a new branch never changes the format; `stages` from an older build (QR format 1 / 2, BLE) is ignored, and the friend sheet shows no branches.
 - `FriendProfile.buildQrPayload(map)` → `FriendQrCodec.encode`; `FriendProfile.tryParseQrPayload(text)` → `FriendQrCodec.decode` + `fromQrJson` (null for anything invalid, never throws).
-- **Format 2 (written)**: `caliday://friend?d=<base64url, no padding>` of
-  `[2] [id: 16 bytes] [sp, streak, longestStreak: varints] [rank: 1 byte] [stages: 4 bytes, one nibble per branch in BranchId order] [date: varint] [name: UTF-8, the rest]`.
-  Varints are computed with arithmetic (not shifts) so they are exact on the web, where an int is a double; at most 7 bytes. The stage field is laid out for exactly eight branches: a ninth branch needs a new format version (`friend_qr_codec_test.dart` fails until it is handled).
-- **Format 1 (still read, and written when format 2 cannot hold the data)**: `caliday://friend?data=<base64url of the JSON>`. Used for an id that is not 32 lower-case hex characters, an empty name, a negative number, an unknown rank. Builds from before format 2 can only read this one, so they cannot scan a new code.
-- Size at error correction H (the screen needs it for the logo): typical profile 66 characters / QR version 8 / 49×49 modules (was 314 / 19 / 93×93); a 13-character Cyrillic name 94 / 9; the 30-character maximum 141 / 12. Guarded in `friend_qr_codec_test.dart`.
+- **Format 3 (written, since 0.8.19)**: `caliday://friend?d=<base64url, no padding>` of
+  `[3] [id: 16 bytes] [sp, streak, longestStreak: varints] [rank: 1 byte] [date: varint] [name: UTF-8, the rest]`.
+  Varints are computed with arithmetic (not shifts) so they are exact on the web, where an int is a double; at most 7 bytes. Builds before 0.8.19 cannot read it.
+- **Format 2 (still read)**: format 3 plus 4 bytes of branch stages after the rank byte (one nibble per branch); the bytes are skipped. A real format 2 code of 0.8.18 is a fixture in `friend_qr_codec_test.dart`.
+- **Format 1 (still read, and written when format 3 cannot hold the data)**: `caliday://friend?data=<base64url of the JSON>`. Used for an id that is not 32 lower-case hex characters, an empty name, a negative number, an unknown rank.
+- Size at error correction H (the screen needs it for the logo): typical profile 61 characters / QR version 7 / 45×45 modules (format 2: 66 / 8; format 1: 314 / 19); a 13-character Cyrillic name 89 / 9; the 30-character maximum 135 / 11. Guarded in `friend_qr_codec_test.dart`.
 
 ### SoundService (singleton)
 - Methods: `tick()`, `ding()`, `pop()`, `complete()`
@@ -834,7 +838,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 | Repositories | `test/data/repositories/` | real Hive via `test/helpers/hive_test_env.dart` (same adapters and box names as `main()`; `reopen()` proves a field really went through its adapter) |
 | Localization | `test/l10n/`, `test/core/app_languages_test.dart` | every ARB file has the keys and placeholders of the template, none undeclared, and is a language of the pickers (`appLanguages`); plural forms, and in every language a counted message carries its number; **no Cyrillic text in `lib/` outside a short allow-list** (`no_hardcoded_text_test.dart`: debug screen and the DEBUG tile, the debug test notification, the language list (each language named in itself), the search's "ё" — each with its reason; the test also fails when an allowed file no longer needs its exception) and **no English text in the places where text is shown**: the first argument of `Text(`/`Text.rich(` and the value of `label:`, `title:`, `subtitle:`, `hintText:`, `tooltip:`, `message:`… including a literal inside a ternary or a `+`, but not an argument of a call such as `DateFormat('d MMMM')`; "SP", "CaliDay", "dBm" are the same in every language; paths are compared with `/` on every OS (Windows lists `lib\...`); `lib/data/` (the catalog's source text) is not scanned; the test checks itself on probe snippets so that a scan that matches nothing cannot pass |
 | Notification plan | `test/domain/services/notification_planner_test.dart` | which reminders exist for which settings, their times, DST (Berlin) and other zones, the one-off streak-lost / rank-at-risk alerts, the language (none → Russian, unknown → English), every kind with its own text in every language |
-| Friend QR + BLE payloads | `test/data/friend_qr_codec_test.dart`, `ble_profile_codec_test.dart`, `test/features/friends/friend_qr_payload_test.dart` | round trips, all number ranges, size (QR version, 512-byte GATT limit), v1 compatibility, thousands of random / damaged inputs never throw |
+| Friend QR + BLE payloads | `test/data/friend_qr_codec_test.dart`, `ble_profile_codec_test.dart`, `test/features/friends/friend_qr_payload_test.dart` | round trips, all number ranges, size (QR version, 512-byte GATT limit), format 1 and 2 compatibility (a real format 2 code), branch progress never written and ignored when read, thousands of random / damaged inputs never throw |
 | Health energy | `test/domain/services/workout_energy_test.dart` | MET formula, which weight sample is used, implausible weights fall back to 70 kg |
 | Router redirect | `test/core/router/app_redirect_test.dart` | onboarding gate, widget and friend deep links, no redirect loops |
 | Workout timer | `test/features/workout/workout_timer_test.dart` | a timed exercise waits for Start in every transition (first, after rest, no-rest sets, next exercise), then counts down and confirms itself |
@@ -925,7 +929,8 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | — | Telegram: the web build as a Mini App, reminders sent by a bot | 💡 idea, **parked** by the owner (2026-10-07): a thought on the side, not planned; the research is kept in DEV_NOTES § Telegram Mini App + bot |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
 | v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages, the store listings and the native widget's texts are open — see DEV_NOTES § Roadmap |
-| v1.0 | Friends: a frozen list of shared branches, so a new branch never changes the QR / BLE format (prerequisite of every new branch) | 📐 designed — DEV_NOTES § Roadmap 2a |
+| v1.0 | Friends: branch progress no longer shared (QR format 3), so a new branch never changes the format | ✅ 0.8.19 |
+| v1.0 | Progression per branch and per day, in any workout (two courses on one day both progress) | ✅ 0.8.19 |
 | v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | 📐 decided 2026-10-07, content per course to design — DEV_NOTES § Roadmap 2b |
 | v1.x | More branches, also outside any course (to be picked in the builder) | 💡 idea — DEV_NOTES § Roadmap 2c |
 | v1.x | Custom course builder — (a) a course from existing branches, (b) a branch of one's own: own exercises in order, progression through them (owner's plan, 3rd) | 📐 decided 2026-10-07 — DEV_NOTES § Roadmap 3 |

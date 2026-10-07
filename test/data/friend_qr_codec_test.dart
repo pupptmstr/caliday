@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/models/friend_profile.dart';
@@ -16,10 +17,6 @@ Map<String, dynamic> _profile({
   int streak = 12,
   int longest = 30,
   int rank = 3,
-  Object? stages = const {
-    'push': 3, 'core': 2, 'pull': 1, 'legs': 2,
-    'balance': 1, 'flex': 2, 'posture': 1, 'neck': 1,
-  },
   int date = 1791309000,
 }) =>
     {
@@ -30,9 +27,14 @@ Map<String, dynamic> _profile({
       'streak': streak,
       'longestStreak': longest,
       'rank': rank,
-      'stages': stages,
       'date': date,
     };
+
+/// A real format 2 code, written by the build before format 3 (0.8.18) for
+/// Горо: 5230 SP, streak 12, record 30, rank 3, date 1791309000, and stages
+/// in all eight branches.
+const _format2Code =
+    'caliday://friend?d=AqGyw9Tl9gcYKTpLXG1-j5DuKAweAzISEhHI6ZTWBtCT0L7RgNC-';
 
 /// The first format, as the app wrote it before: JSON, then base64.
 String _legacy(Map<String, dynamic> json) =>
@@ -50,7 +52,7 @@ int _qrVersion(String text) {
 }
 
 void main() {
-  group('format 2 round trip', () {
+  group('format 3 round trip', () {
     test('every field comes back', () {
       final json = FriendQrCodec.decode(FriendQrCodec.encode(_profile()))!;
       expect(json['id'], _id);
@@ -60,10 +62,7 @@ void main() {
       expect(json['longestStreak'], 30);
       expect(json['rank'], 3);
       expect(json['date'], 1791309000);
-      expect(json['stages'], {
-        'push': 3, 'core': 2, 'pull': 1, 'legs': 2,
-        'balance': 1, 'flex': 2, 'posture': 1, 'neck': 1,
-      });
+      expect(json.containsKey('stages'), isFalse);
     });
 
     test('the compact format is the one that gets written', () {
@@ -108,25 +107,49 @@ void main() {
       }
     });
 
-    test('a branch the friend has not started is left out; stages are clamped', () {
-      final json = FriendQrCodec.decode(FriendQrCodec.encode(_profile(
-        stages: {'push': 3, 'neck': 0, 'flex': 99, 'core': -4, 'nope': 5},
-      )))!;
-      // 0 and negative mean "no stage"; 99 does not fit a nibble and becomes 15;
-      // a name that is not a branch is ignored.
-      expect(json['stages'], {'push': 3, 'flex': 15});
+    test('branch progress is not written: new branches cannot change the format', () {
+      // Branch progress is not shared with friends; a map that still carries
+      // it (any branches, any number of them) gives the same code.
+      final plain = FriendQrCodec.encode(_profile());
+      for (final stages in [
+        {for (final b in BranchId.values) b.name: 3},
+        {'push': 99, 'some_future_branch': 4, 'another': 1},
+      ]) {
+        expect(FriendQrCodec.encode(_profile()..['stages'] = stages), plain);
+      }
+    });
+  });
+
+  group('format 2 (codes of builds up to 0.8.18) is still read', () {
+    test('a real format 2 code: every field, the branch stages skipped', () {
+      final json = FriendQrCodec.decode(_format2Code)!;
+      expect(json['id'], _id);
+      expect(json['name'], 'Горо');
+      expect(json['sp'], 5230);
+      expect(json['streak'], 12);
+      expect(json['longestStreak'], 30);
+      expect(json['rank'], 3);
+      expect(json['date'], 1791309000);
+      expect(json.containsKey('stages'), isFalse);
     });
 
-    test('no stages at all', () {
-      final json =
-          FriendQrCodec.decode(FriendQrCodec.encode(_profile(stages: null)))!;
-      expect(json['stages'], isEmpty);
+    test('through FriendProfile, without branch progress', () {
+      final friend = FriendProfile.tryParseQrPayload(_format2Code)!;
+      expect(friend.displayName, 'Горо');
+      expect(friend.totalSP, 5230);
+      expect(friend.branchStages, isEmpty);
     });
 
-    test('the stage field is laid out for exactly eight branches', () {
-      // Adding a branch changes the byte layout: bump the format version in
-      // FriendQrCodec and teach it both layouts, then update this number.
-      expect(BranchId.values, hasLength(8));
+    test('format 3 is the format 2 bytes without the four stage bytes', () {
+      Uint8List bytesOf(String code) =>
+          base64Url.decode(base64Url.normalize(code.split('d=').last));
+      final v2 = bytesOf(_format2Code);
+      final v3 = bytesOf(FriendQrCodec.encode(_profile(name: 'Горо')));
+      // version | id, three varints, rank (21 bytes) | 4 stage bytes | date, name
+      expect(v2[0], 2);
+      expect(v3[0], 3);
+      expect(v3.sublist(1, 22), v2.sublist(1, 22));
+      expect(v3.sublist(22), v2.sublist(26));
     });
   });
 
@@ -146,19 +169,21 @@ void main() {
     test('it is much smaller than the first format', () {
       final json = _profile();
       final compact = FriendQrCodec.encode(json);
-      final old = _legacy(json);
+      // The first format as builds before format 2 wrote it: with the stages.
+      final old = _legacy({...json, 'stages': {for (final b in BranchId.values) b.name: 1}});
       expect(compact.length * 4, lessThan(old.length));
       expect(_qrVersion(compact), lessThan(_qrVersion(old) - 8));
     });
   });
 
   group('the first format is still understood', () {
-    test('a code made by an older build parses', () {
-      final friend = FriendProfile.tryParseQrPayload(_legacy(_profile()))!;
+    test('a code made by an older build parses (its branch stages ignored)', () {
+      final friend = FriendProfile.tryParseQrPayload(
+          _legacy(_profile()..['stages'] = {'push': 3, 'core': 2}))!;
       expect(friend.id, _id);
       expect(friend.displayName, 'Goro');
       expect(friend.totalSP, 5230);
-      expect(friend.branchStages['push'], 3);
+      expect(friend.branchStages, isEmpty);
     });
 
     test('an id that is not 32 hex characters is written in the first format', () {
@@ -199,7 +224,7 @@ void main() {
     });
 
     test('an unknown format version', () {
-      for (final version in [0, 1, 3, 255]) {
+      for (final version in [0, 1, 4, 255]) {
         final bytes = [version, ...good.sublist(1)];
         expect(FriendQrCodec.decode(compactBytes(bytes)), isNull,
             reason: 'version $version');
@@ -214,8 +239,10 @@ void main() {
     });
 
     test('an endless varint', () {
-      final bytes = [2, ...List.filled(16, 1), ...List.filled(12, 0xff)];
-      expect(FriendQrCodec.decode(compactBytes(bytes)), isNull);
+      for (final version in [2, 3]) {
+        final bytes = [version, ...List.filled(16, 1), ...List.filled(12, 0xff)];
+        expect(FriendQrCodec.decode(compactBytes(bytes)), isNull);
+      }
     });
 
     test('a name that is not UTF-8, or empty', () {
@@ -248,7 +275,7 @@ void main() {
       final random = Random(42);
       for (var i = 0; i < 500; i++) {
         final bytes = List.generate(random.nextInt(60), (_) => random.nextInt(256));
-        if (bytes.isNotEmpty && random.nextBool()) bytes[0] = 2;
+        if (bytes.isNotEmpty && random.nextBool()) bytes[0] = 2 + random.nextInt(2);
         FriendQrCodec.decode(compactBytes(bytes));
         FriendProfile.tryParseQrPayload(compactBytes(bytes));
       }
@@ -274,7 +301,7 @@ void main() {
       expect(friend.displayName, 'Горо');
       expect(friend.rankIndex, 3);
       expect(friend.profileDate, DateTime.fromMillisecondsSinceEpoch(1791309000 * 1000));
-      expect(friend.branchStages['legs'], 2);
+      expect(friend.branchStages, isEmpty);
     });
   });
 }

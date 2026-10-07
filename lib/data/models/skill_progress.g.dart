@@ -23,13 +23,14 @@ class SkillProgressAdapter extends TypeAdapter<SkillProgress> {
       currentSets: fields[3] == null ? 1 : (fields[3] as num).toInt(),
       currentRestSec: fields[4] == null ? 60 : (fields[4] as num).toInt(),
       isChallengeUnlocked: fields[5] == null ? false : fields[5] as bool,
+      lastProgressedOn: fields[6] as DateTime?,
     );
   }
 
   @override
   void write(BinaryWriter writer, SkillProgress obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.branchId)
       ..writeByte(1)
@@ -41,7 +42,9 @@ class SkillProgressAdapter extends TypeAdapter<SkillProgress> {
       ..writeByte(4)
       ..write(obj.currentRestSec)
       ..writeByte(5)
-      ..write(obj.isChallengeUnlocked);
+      ..write(obj.isChallengeUnlocked)
+      ..writeByte(6)
+      ..write(obj.lastProgressedOn);
   }
 
   @override

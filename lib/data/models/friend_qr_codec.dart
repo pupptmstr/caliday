@@ -8,30 +8,36 @@ import 'enums.dart';
 /// A QR code gets denser (more, smaller squares) the more bytes it holds, and a
 /// dense code is hard to scan from a phone screen. The first format was the
 /// profile as JSON, base64-encoded: about 315 characters, QR version 19–20 with
-/// the error correction the logo needs. Format 2 is a few bytes instead:
+/// the error correction the logo needs. Format 3 is a few bytes instead:
 ///
 /// ```
 /// caliday://friend?d=BASE64URL(bytes)        (no padding)
 ///
-/// byte    2                    format version
+/// byte    3                    format version
 /// 16 B    id                   the 32 hex characters of the peer id, as bytes
 /// varint  totalSP
 /// varint  currentStreak
 /// varint  longestStreak
 /// byte    rank index
-/// 4 B     branch stages        one nibble per branch, in BranchId order
 /// varint  date                 unix seconds of the snapshot
 /// rest    display name         UTF-8
 /// ```
 ///
-/// Format 1 (`?data=BASE64URL(json)`) is still read, and still written when the
-/// id is not a 32-character hex string, so nothing that worked stops working.
-/// Phones running an older build do not understand format 2.
-///
-/// Adding a branch changes the size of the stages field: bump [_formatVersion].
+/// Branch progress is not shared with friends (owner's decision, 2026-10-07),
+/// so a new branch never changes the format. Format 2 is format 3 with the
+/// stages of the first eight branches after the rank byte (4 bytes, one
+/// nibble each); it is still read and those bytes are skipped. Format 1
+/// (`?data=BASE64URL(json)`) is still read too, and still written when the id
+/// is not a 32-character hex string, so nothing that worked stops working.
+/// Phones running a build older than format 3 cannot read it.
 abstract final class FriendQrCodec {
   static const _prefix = 'caliday://friend?';
-  static const _formatVersion = 2;
+  static const _formatVersion = 3;
+
+  /// Format 2, still read: the same fields plus [_v2StageBytes] of branch
+  /// stages, which are skipped.
+  static const _v2 = 2;
+  static const _v2StageBytes = 4;
 
   /// A varint longer than this many bytes cannot be a value we wrote (and would
   /// overflow the 2^53 integers of a web build).
@@ -40,7 +46,8 @@ abstract final class FriendQrCodec {
   static final _hexId = RegExp(r'^[0-9a-f]{32}$');
 
   /// Builds the QR text for [json] (keys: v, id, name, sp, streak,
-  /// longestStreak, rank, stages, date — the same map BLE sends).
+  /// longestStreak, rank, date — the same map BLE sends). Any other key is not
+  /// written in the compact format.
   static String encode(Map<String, dynamic> json) {
     final compact = _tryEncodeCompact(json);
     if (compact != null) return '${_prefix}d=$compact';
@@ -67,7 +74,7 @@ abstract final class FriendQrCodec {
     }
   }
 
-  // ── format 2 ────────────────────────────────────────────────────────────────
+  // ── format 3 (and 2) ────────────────────────────────────────────────────────
 
   static String? _tryEncodeCompact(Map<String, dynamic> json) {
     final id = json['id'];
@@ -77,7 +84,6 @@ abstract final class FriendQrCodec {
     final longest = json['longestStreak'];
     final rank = json['rank'];
     final date = json['date'];
-    final stages = json['stages'];
     if (id is! String || !_hexId.hasMatch(id)) return null;
     if (name is! String || name.isEmpty) return null;
     if (sp is! int || streak is! int || longest is! int || date is! int) {
@@ -85,7 +91,6 @@ abstract final class FriendQrCodec {
     }
     if (sp < 0 || streak < 0 || longest < 0 || date < 0) return null;
     if (rank is! int || rank < 0 || rank >= Rank.values.length) return null;
-    if (stages != null && stages is! Map) return null;
 
     final out = BytesBuilder()
       ..addByte(_formatVersion)
@@ -97,17 +102,6 @@ abstract final class FriendQrCodec {
     _writeVarint(out, streak);
     _writeVarint(out, longest);
     out.addByte(rank);
-
-    final branches = BranchId.values;
-    final nibbles = [
-      for (final b in branches)
-        _clampNibble((stages as Map?)?[b.name]),
-    ];
-    for (var i = 0; i < nibbles.length; i += 2) {
-      final low = i + 1 < nibbles.length ? nibbles[i + 1] : 0;
-      out.addByte((nibbles[i] << 4) | low);
-    }
-
     _writeVarint(out, date);
     out.add(utf8.encode(name));
     return base64Url.encode(out.toBytes()).replaceAll('=', '');
@@ -115,8 +109,6 @@ abstract final class FriendQrCodec {
 
   static Map<String, dynamic>? _decodeCompact(String text) {
     final bytes = base64Url.decode(base64Url.normalize(text));
-    final branches = BranchId.values;
-    final stageBytes = (branches.length + 1) ~/ 2;
     var pos = 0;
 
     int readByte() {
@@ -136,7 +128,8 @@ abstract final class FriendQrCodec {
       throw const FormatException('varint too long');
     }
 
-    if (readByte() != _formatVersion) return null;
+    final version = readByte();
+    if (version != _formatVersion && version != _v2) return null;
 
     if (bytes.length - pos < 16) return null;
     final id = StringBuffer();
@@ -150,13 +143,9 @@ abstract final class FriendQrCodec {
     final rank = readByte();
     if (rank >= Rank.values.length) return null;
 
-    final stages = <String, int>{};
-    for (var i = 0; i < stageBytes; i++) {
-      final b = readByte();
-      for (final (index, value) in [(2 * i, b >> 4), (2 * i + 1, b & 0x0f)]) {
-        if (index < branches.length && value > 0) {
-          stages[branches[index].name] = value;
-        }
+    if (version == _v2) {
+      for (var i = 0; i < _v2StageBytes; i++) {
+        readByte();
       }
     }
 
@@ -172,13 +161,9 @@ abstract final class FriendQrCodec {
       'streak': streak,
       'longestStreak': longest,
       'rank': rank,
-      'stages': stages,
       'date': date,
     };
   }
-
-  static int _clampNibble(Object? stage) =>
-      stage is num ? stage.toInt().clamp(0, 15) : 0;
 
   /// Unsigned LEB128, by arithmetic so it also works with web integers.
   static void _writeVarint(BytesBuilder out, int value) {

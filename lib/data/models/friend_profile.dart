@@ -37,7 +37,9 @@ class FriendProfile extends HiveObject {
   @HiveField(5)
   int rankIndex;
 
-  /// Branch name → current stage (e.g. {'push': 3, 'core': 2}).
+  /// Branch name → current stage. No longer filled or shown: branch progress
+  /// is not shared with friends since 0.8.19 (see FriendQrCodec). Kept so the
+  /// stored friends keep their Hive layout.
   @HiveField(6)
   Map<String, int> branchStages;
 
@@ -78,10 +80,9 @@ class FriendProfile extends HiveObject {
         currentStreak: (json['streak'] as num).toInt(),
         longestStreak: (json['longestStreak'] as num).toInt(),
         rankIndex: (json['rank'] as num).toInt(),
-        branchStages: (json['stages'] as Map?)?.map(
-              (k, v) => MapEntry(k.toString(), (v as num).toInt()),
-            ) ??
-            {},
+        // Branch progress is no longer shared (see FriendQrCodec); a code or a
+        // BLE read from an older build may still carry it and it is ignored.
+        branchStages: {},
         profileDate: DateTime.fromMillisecondsSinceEpoch(
           (json['date'] as num).toInt() * 1000,
         ),

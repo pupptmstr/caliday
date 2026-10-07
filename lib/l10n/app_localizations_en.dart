@@ -525,7 +525,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get summaryBonusTitle => 'Bonus Workout';
 
   @override
-  String get summaryBonusBody => '×½ SP · progression already saved';
+  String get summaryBonusBody => '×½ SP · each branch moves on once a day';
 
   @override
   String summaryBonusCount(int count) {
@@ -1296,6 +1296,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get releaseNotes0819 =>
+      'Every branch now moves on once a day, in any workout: the morning one, the evening one or your own routine. Two courses on one day both progress.\nFriends no longer see your stage in each branch: the friend code carries your rank, SP and streak, and it is easier to scan. Friends on an older version need to update to read it.';
 
   @override
   String get releaseNotes0818 =>

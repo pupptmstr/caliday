@@ -282,7 +282,7 @@
   "achievementAllCompleteName": "Full Collection",
   "achievementAllCompleteDesc": "All 5 branches completed. Absolute champion.",
   "summaryBonusTitle": "Bonus Workout",
-  "summaryBonusBody": "×½ SP · progression already saved",
+  "summaryBonusBody": "×½ SP · each branch moves on once a day",
   "summaryBonusCount": "You've trained {count, plural, one{{count} time} other{{count} times}} today!",
   "@summaryBonusCount": {
     "placeholders": {
@@ -556,6 +556,7 @@
       }
     }
   },
+  "releaseNotes0819": "Every branch now moves on once a day, in any workout: the morning one, the evening one or your own routine. Two courses on one day both progress.\nFriends no longer see your stage in each branch: the friend code carries your rank, SP and streak, and it is easier to scan. Friends on an older version need to update to read it.",
   "releaseNotes0818": "The home screen widget speaks the app’s language: its “Done” label and its description in the widget gallery are no longer always in Russian.\nWhen you change the app language, the widget and the reminders switch to it right away.",
   "releaseNotes0817": "Numbers now agree with their words: “1 set”, “1 rep” and “1 friend” instead of “1 sets”, “1 reps” and “1 friends”.",
   "releaseNotes0816": "The app is now also in German and Spanish.\nThe language switch on the welcome screen is now a menu.\nThe notification about a lost streak now gets the number of days right in Russian.",

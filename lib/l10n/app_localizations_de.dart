@@ -515,7 +515,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get summaryBonusTitle => 'Bonustraining';
 
   @override
-  String get summaryBonusBody => '×½ SP · Fortschritt schon gespeichert';
+  String get summaryBonusBody => '×½ SP · jeder Zweig wächst einmal am Tag';
 
   @override
   String summaryBonusCount(int count) {
@@ -1281,6 +1281,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get releaseNotes0819 =>
+      'Jeder Zweig wächst jetzt einmal am Tag, in jedem Training — morgens, abends oder in deiner eigenen Routine. Zwei Kurse an einem Tag kommen beide voran.\nFreunde sehen deine Stufe in den einzelnen Zweigen nicht mehr: Der Freundes-Code enthält Rang, SP und Serie und lässt sich leichter scannen. Freunde mit einer älteren Version müssen aktualisieren, um ihn zu lesen.';
 
   @override
   String get releaseNotes0818 =>

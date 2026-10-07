@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/utils/calendar_days.dart';
 import '../../data/models/exercise.dart';
 import '../../data/models/exercise_result.dart';
 import '../../data/models/skill_progress.dart';
@@ -23,7 +24,37 @@ class ProgressionService {
   static const int _repStep = 2;
   static const int _restStep = 15; // seconds
 
-  /// Call after a workout where the user completed [result] for [exercise].
+  /// What a finished workout calls for each exercise of a branch (owner's
+  /// rule, 2026-10-07): a branch moves on at most once per calendar day, on
+  /// the first successful set of its current stage that day, in any workout —
+  /// the first of the day or not, a daily plan or a custom routine. So two
+  /// courses on one day both progress, and a branch they share moves once.
+  /// A failed set does not use the day up; an exercise of another stage (a
+  /// custom routine may hold one) never counts.
+  ///
+  /// Returns what [applyResult] returns: true when the Challenge unlocked.
+  bool applyDailyResult(
+    SkillProgress progress,
+    Exercise exercise,
+    ExerciseResult result, {
+    required DateTime now,
+  }) {
+    if (exercise.stage != progress.currentStage) return false;
+    if (hasProgressedOn(progress, now)) return false;
+    if (progress.isChallengeUnlocked) return false; // nothing more to progress
+    if (!_wasSuccessful(result, exercise)) return false;
+    progress.lastProgressedOn = now;
+    return applyResult(progress, exercise, result);
+  }
+
+  /// Whether [progress] has made its daily step on the calendar day of [day].
+  static bool hasProgressedOn(SkillProgress progress, DateTime day) {
+    final last = progress.lastProgressedOn;
+    return last != null && calendarDaysBetween(last, day) == 0;
+  }
+
+  /// One step of the in-stage progression for a successful [result]; no
+  /// daily limit (a workout goes through [applyDailyResult]).
   ///
   /// Returns true if the stage goal was reached and the Challenge is now
   /// unlocked for the first time.

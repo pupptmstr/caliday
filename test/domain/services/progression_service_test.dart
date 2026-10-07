@@ -52,6 +52,95 @@ ExerciseResult _failure(SkillProgress p) => ExerciseResult(
 void main() {
   const service = ProgressionService();
 
+  group('applyDailyResult: each branch once a calendar day, in any workout', () {
+    // Wall clock of the user's phone (local time).
+    final morning = DateTime(2026, 6, 10, 8);
+    final evening = DateTime(2026, 6, 10, 21);
+    final tomorrow = DateTime(2026, 6, 11, 7);
+
+    test('the first successful set of the day moves the branch and marks the day', () {
+      final p = _progress();
+      service.applyDailyResult(p, _exercise(), _success(p), now: morning);
+      expect(p.currentReps, 7);
+      expect(p.lastProgressedOn, morning);
+      expect(ProgressionService.hasProgressedOn(p, evening), isTrue);
+      expect(ProgressionService.hasProgressedOn(p, tomorrow), isFalse);
+    });
+
+    test('a second workout the same day does not move it again', () {
+      final p = _progress();
+      service.applyDailyResult(p, _exercise(), _success(p), now: morning);
+      service.applyDailyResult(p, _exercise(), _success(p), now: evening);
+      expect(p.currentReps, 7);
+      expect(p.lastProgressedOn, morning);
+    });
+
+    test('the next day it moves again', () {
+      final p = _progress();
+      service.applyDailyResult(p, _exercise(), _success(p), now: morning);
+      service.applyDailyResult(p, _exercise(), _success(p), now: tomorrow);
+      expect(p.currentReps, 9);
+      expect(p.lastProgressedOn, tomorrow);
+    });
+
+    test('a failed set does not use the day up', () {
+      final p = _progress();
+      service.applyDailyResult(p, _exercise(), _failure(p), now: morning);
+      expect(p.currentReps, 5);
+      expect(p.lastProgressedOn, isNull);
+      service.applyDailyResult(p, _exercise(), _success(p), now: evening);
+      expect(p.currentReps, 7);
+    });
+
+    test('two branches on one day both move (two courses, two workouts)', () {
+      final push = _progress();
+      final neck = _progress(branch: BranchId.neck);
+      final neckExercise = Exercise(
+        id: 'neck', name: 'Neck', description: 'Neck', branch: BranchId.neck,
+        stage: 1, type: ExerciseType.reps, startReps: 5, targetReps: 10,
+        startSets: 1, targetSets: 3, startRestSec: 60, targetRestSec: 30, spBase: 1,
+      );
+      service.applyDailyResult(neck, neckExercise, _success(neck), now: morning);
+      service.applyDailyResult(push, _exercise(), _success(push), now: evening);
+      expect(neck.currentReps, 7);
+      expect(push.currentReps, 7);
+    });
+
+    test('an exercise of another stage never counts (a custom routine can hold one)', () {
+      final p = _progress(stage: 3, reps: 5);
+      service.applyDailyResult(p, _exercise(), _success(p), now: morning); // stage 1
+      expect(p.currentReps, 5);
+      expect(p.lastProgressedOn, isNull);
+    });
+
+    test('nothing while the Challenge is waiting', () {
+      final p = _progress()..isChallengeUnlocked = true;
+      expect(service.applyDailyResult(p, _exercise(), _success(p), now: morning), isFalse);
+      expect(p.lastProgressedOn, isNull);
+    });
+
+    test('it returns true when the step unlocks the Challenge', () {
+      final p = _progress(reps: 10, sets: 3, rest: 30);
+      expect(service.applyDailyResult(p, _exercise(), _success(p), now: morning), isTrue);
+      expect(p.isChallengeUnlocked, isTrue);
+    });
+
+    test('calendar days, not 24 hours: across midnight and the DST changes', () {
+      // Berlin: the clocks go forward on 2026-03-29 and back on 2026-10-25;
+      // in a zone without DST these pass without proving anything.
+      final cases = [
+        (DateTime(2026, 3, 28, 23, 30), DateTime(2026, 3, 29, 0, 30), false),
+        (DateTime(2026, 3, 29, 0, 30), DateTime(2026, 3, 29, 23, 30), true),
+        (DateTime(2026, 10, 25, 0, 10), DateTime(2026, 10, 25, 23, 50), true),
+        (DateTime(2026, 10, 24, 23, 59), DateTime(2026, 10, 25, 0, 1), false),
+      ];
+      for (final (last, now, sameDay) in cases) {
+        final p = _progress()..lastProgressedOn = last;
+        expect(ProgressionService.hasProgressedOn(p, now), sameDay, reason: '$last -> $now');
+      }
+    });
+  });
+
   group('applyResult', () {
     test('a failed set changes nothing', () {
       final p = _progress();

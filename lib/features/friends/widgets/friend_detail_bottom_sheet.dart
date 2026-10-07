@@ -117,41 +117,6 @@ class _FriendDetailSheet extends StatelessWidget {
               ],
             ),
 
-            // Branch stages
-            if (friend.branchStages.isNotEmpty) ...[
-              const SizedBox(height: 14),
-              Wrap(
-                spacing: 8,
-                runSpacing: 8,
-                children: friend.branchStages.entries.map((e) {
-                  final branch = BranchId.values
-                      .where((b) => b.name == e.key)
-                      .firstOrNull;
-                  if (branch == null) return const SizedBox.shrink();
-                  return Container(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 6),
-                    decoration: BoxDecoration(
-                      color: scheme.surfaceContainerHighest,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(branch.icon, size: 16, color: scheme.primary),
-                        const SizedBox(width: 6),
-                        Text(
-                          'S${e.value}',
-                          style: const TextStyle(
-                              fontSize: 13, fontWeight: FontWeight.w600),
-                        ),
-                      ],
-                    ),
-                  );
-                }).toList(),
-              ),
-            ],
-
             const SizedBox(height: 14),
             Text(
               l10n.friendsDetailLastSynced(dateStr),

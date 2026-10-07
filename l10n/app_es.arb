@@ -282,7 +282,7 @@
   "achievementAllCompleteName": "Colección completa",
   "achievementAllCompleteDesc": "Las 5 ramas completadas. Campeón absoluto.",
   "summaryBonusTitle": "Entrenamiento extra",
-  "summaryBonusBody": "×½ SP · el progreso ya está guardado",
+  "summaryBonusBody": "×½ SP · cada rama avanza una vez al día",
   "summaryBonusCount": "¡Hoy ya has entrenado {count, plural, one{{count} vez} other{{count} veces}}!",
   "@summaryBonusCount": {
     "placeholders": {
@@ -556,6 +556,7 @@
       }
     }
   },
+  "releaseNotes0819": "Cada rama avanza ahora una vez al día, en cualquier entrenamiento: el de la mañana, el de la noche o tu propia rutina. Dos cursos en un mismo día avanzan los dos.\nTus amigos ya no ven tu etapa en cada rama: el código de amigo lleva tu rango, tus SP y tu racha, y se escanea más fácil. Los amigos con una versión antigua tienen que actualizar para leerlo.",
   "releaseNotes0818": "El widget de la pantalla de inicio habla el idioma de la app: la etiqueta «Hecho» y su descripción en la galería de widgets ya no aparecen siempre en ruso.\nAl cambiar el idioma de la app, el widget y los recordatorios cambian al momento.",
   "releaseNotes0817": "Los números y las palabras ahora concuerdan: «1 serie» en lugar de «1 series».",
   "releaseNotes0816": "La app ya está disponible también en alemán y español.\nEl selector de idioma de la pantalla de bienvenida ahora es un menú.\nLa notificación de racha perdida ahora declina bien el número de días en ruso.",

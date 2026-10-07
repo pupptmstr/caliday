@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 /// The profile as it travels over Bluetooth: the same map as in the QR code
-/// (keys v, id, name, sp, streak, longestStreak, rank, stages, date) as UTF-8
+/// (keys v, id, name, sp, streak, longestStreak, rank, date) as UTF-8
 /// JSON in one GATT characteristic. Pure, so the format and its limits can be
 /// tested without a radio.
 abstract final class BleProfileCodec {

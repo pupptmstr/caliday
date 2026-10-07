@@ -282,7 +282,7 @@
   "achievementAllCompleteName": "Komplette Sammlung",
   "achievementAllCompleteDesc": "Alle 5 Zweige abgeschlossen. Absoluter Champion.",
   "summaryBonusTitle": "Bonustraining",
-  "summaryBonusBody": "×½ SP · Fortschritt schon gespeichert",
+  "summaryBonusBody": "×½ SP · jeder Zweig wächst einmal am Tag",
   "summaryBonusCount": "Du hast heute schon {count}-mal trainiert!",
   "@summaryBonusCount": {
     "placeholders": {
@@ -556,6 +556,7 @@
       }
     }
   },
+  "releaseNotes0819": "Jeder Zweig wächst jetzt einmal am Tag, in jedem Training — morgens, abends oder in deiner eigenen Routine. Zwei Kurse an einem Tag kommen beide voran.\nFreunde sehen deine Stufe in den einzelnen Zweigen nicht mehr: Der Freundes-Code enthält Rang, SP und Serie und lässt sich leichter scannen. Freunde mit einer älteren Version müssen aktualisieren, um ihn zu lesen.",
   "releaseNotes0818": "Das Widget auf dem Startbildschirm spricht die Sprache der App: Die Beschriftung „Erledigt“ und die Beschreibung in der Widget-Galerie sind nicht mehr immer auf Russisch.\nWenn du die Sprache der App änderst, wechseln Widget und Erinnerungen sofort mit.",
   "releaseNotes0817": "Zahlen und Wörter passen jetzt zusammen: „1 Satz“ statt „1 Sätze“.",
   "releaseNotes0816": "Die App gibt es jetzt auch auf Deutsch und Spanisch.\nDie Sprachauswahl auf dem Begrüßungsbildschirm ist jetzt ein Menü.\nDie Benachrichtigung über eine verlorene Serie nennt die Zahl der Tage auf Russisch jetzt grammatisch richtig.",

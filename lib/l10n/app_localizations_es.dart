@@ -512,7 +512,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get summaryBonusTitle => 'Entrenamiento extra';
 
   @override
-  String get summaryBonusBody => '×½ SP · el progreso ya está guardado';
+  String get summaryBonusBody => '×½ SP · cada rama avanza una vez al día';
 
   @override
   String summaryBonusCount(int count) {
@@ -1288,6 +1288,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Versión $version';
   }
+
+  @override
+  String get releaseNotes0819 =>
+      'Cada rama avanza ahora una vez al día, en cualquier entrenamiento: el de la mañana, el de la noche o tu propia rutina. Dos cursos en un mismo día avanzan los dos.\nTus amigos ya no ven tu etapa en cada rama: el código de amigo lleva tu rango, tus SP y tu racha, y se escanea más fácil. Los amigos con una versión antigua tienen que actualizar para leerlo.';
 
   @override
   String get releaseNotes0818 =>

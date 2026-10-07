@@ -557,7 +557,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
     }
     userRepo.saveProfile(profile);
 
-    // ── Progression — primary only ────────────────────────────────────────
+    // ── Progression — each branch once a day, in any workout ──────────────
     final progressionService = ref.read(progressionServiceProvider);
     final progressRepo = ref.read(skillProgressRepositoryProvider);
     bool challengeUnlocked = false;
@@ -589,10 +589,12 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
         }
         // If failed: isChallengeUnlocked stays true, progress unchanged.
         progressRepo.saveProgress(progress);
-      } else if (isPrimary) {
-        // Regular progression: primary workouts only.
-        final unlocked =
-            progressionService.applyResult(progress, planned.exercise, result);
+      } else {
+        // Regular progression: the branch's first successful set of the day
+        // at its current stage, whether this workout is primary or a bonus.
+        final unlocked = progressionService.applyDailyResult(
+            progress, planned.exercise, result,
+            now: now);
         if (unlocked) challengeUnlocked = true;
         progressRepo.saveProgress(progress);
       }

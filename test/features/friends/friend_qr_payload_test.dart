@@ -12,7 +12,6 @@ Map<String, dynamic> _profileJson({String name = 'Goro'}) => {
       'streak': 12,
       'longestStreak': 30,
       'rank': 3,
-      'stages': {'push': 3, 'core': 2, 'pull': 1, 'legs': 2},
       'date': 1791309000,
     };
 
@@ -29,7 +28,7 @@ void main() {
       expect(friend.currentStreak, 12);
       expect(friend.longestStreak, 30);
       expect(friend.rankIndex, 3);
-      expect(friend.branchStages, {'push': 3, 'core': 2, 'pull': 1, 'legs': 2});
+      expect(friend.branchStages, isEmpty); // not shared with friends
       expect(friend.profileDate,
           DateTime.fromMillisecondsSinceEpoch(1791309000 * 1000));
     });
@@ -48,22 +47,10 @@ void main() {
       }
     });
 
-    test('a profile without branch stages still parses', () {
-      final json = _profileJson()..remove('stages');
-      final friend =
-          FriendProfile.tryParseQrPayload(FriendProfile.buildQrPayload(json))!;
-      expect(friend.branchStages, isEmpty);
-    });
-
-    test('a payload with all eight branches stays small', () {
+    test('the payload stays small', () {
       // Guard against the payload growing: a bigger one needs a denser QR code
       // that is harder to scan from a screen (sizes: friend_qr_codec_test.dart).
-      final json = _profileJson()
-        ..['stages'] = {
-          'push': 3, 'core': 2, 'pull': 1, 'legs': 2,
-          'balance': 1, 'flex': 2, 'posture': 1, 'neck': 1,
-        };
-      expect(FriendProfile.buildQrPayload(json).length, lessThan(100));
+      expect(FriendProfile.buildQrPayload(_profileJson()).length, lessThan(90));
     });
   });
 

@@ -497,7 +497,7 @@ class AppLocalizationsRu extends AppLocalizations {
   String get summaryBonusTitle => 'Бонусная тренировка';
 
   @override
-  String get summaryBonusBody => '×½ SP · прогрессия уже сохранена';
+  String get summaryBonusBody => '×½ SP · каждая ветка растёт раз в день';
 
   @override
   String summaryBonusCount(int count) {
@@ -1270,6 +1270,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Версия $version';
   }
+
+  @override
+  String get releaseNotes0819 =>
+      'Каждая ветка теперь растёт раз в день в любой тренировке — утренней, вечерней или своей подборке. Два курса в один день прогрессируют оба.\nДрузья больше не видят твой этап в каждой ветке: в коде друга остались ранг, SP и серия, и он легче сканируется. Друзьям со старой версией нужно обновиться, чтобы его прочитать.';
 
   @override
   String get releaseNotes0818 =>

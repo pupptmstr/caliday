@@ -9,7 +9,6 @@ import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/services/ble_service.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/friend_profile.dart';
-import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../providers/friends_provider.dart';
 import '../widgets/friend_detail_bottom_sheet.dart';
@@ -79,11 +78,7 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
 
   Map<String, dynamic> _buildProfileJson() {
     final profile = ref.read(userRepositoryProvider).getProfile();
-    final skillRepo = ref.read(skillProgressRepositoryProvider);
-    final stages = {
-      for (final b in BranchId.values)
-        b.name: skillRepo.getProgress(b).currentStage,
-    };
+    // No branch progress: it is not shared with friends (see FriendQrCodec).
     return {
       'v': 1,
       'id': profile.peerId ?? '',
@@ -94,7 +89,6 @@ class _FriendsScreenState extends ConsumerState<FriendsScreen> {
       'streak': profile.currentStreak,
       'longestStreak': profile.longestStreak,
       'rank': profile.rank.index,
-      'stages': stages,
       'date': DateTime.now().millisecondsSinceEpoch ~/ 1000,
     };
   }

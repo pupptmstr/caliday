@@ -14,7 +14,6 @@ Map<String, dynamic> _profile({String name = 'Goro'}) => {
       'streak': 12,
       'longestStreak': 30,
       'rank': 3,
-      'stages': {for (final b in BranchId.values) b.name: 3},
       'date': 1791309000,
     };
 
@@ -30,7 +29,15 @@ void main() {
       final friend = FriendProfile.fromBleJson(BleProfileCodec.decode(bytes)!);
       expect(friend.displayName, 'Пётр 🦍');
       expect(friend.totalSP, 5230);
-      expect(friend.branchStages, hasLength(BranchId.values.length));
+      expect(friend.branchStages, isEmpty); // not shared with friends
+    });
+
+    test('branch stages from an older build are ignored', () {
+      final older = {..._profile(), 'stages': {for (final b in BranchId.values) b.name: 3}};
+      final friend = FriendProfile.fromBleJson(
+          BleProfileCodec.decode(BleProfileCodec.encode(older))!);
+      expect(friend.totalSP, 5230);
+      expect(friend.branchStages, isEmpty);
     });
 
     test('the payload is plain UTF-8 JSON, readable by older builds', () {

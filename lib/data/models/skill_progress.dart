@@ -18,6 +18,7 @@ class SkillProgress extends HiveObject {
     this.currentSets = 1,
     this.currentRestSec = 60,
     this.isChallengeUnlocked = false,
+    this.lastProgressedOn,
   });
 
   @HiveField(0)
@@ -43,4 +44,10 @@ class SkillProgress extends HiveObject {
   /// the stage's targets and the Challenge test can be taken.
   @HiveField(5)
   bool isChallengeUnlocked;
+
+  /// When the branch last made its daily step (see
+  /// [ProgressionService.applyDailyResult]); only the calendar day matters.
+  /// Null: never (and for every progress saved before 0.8.19).
+  @HiveField(6)
+  DateTime? lastProgressedOn;
 }
