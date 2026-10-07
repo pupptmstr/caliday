@@ -29,14 +29,11 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       const Duration(seconds: 1),
       (_) {
         final s = ref.read(workoutProvider);
-        // Play tick for the last 5 seconds of rest and timed exercises
-        // (not on the final second). Reps exercises have timerSec=0 so they
-        // are naturally excluded by the timerSec >= 2 guard; a timed exercise
-        // that has not been started yet is not counting down.
-        if ((s.phase == WorkoutPhase.rest ||
-                (s.phase == WorkoutPhase.exercise && s.timerStarted)) &&
-            s.timerSec >= 2 &&
-            s.timerSec <= 6) {
+        // Play tick for the last 5 seconds of a rest, a get-ready countdown or
+        // a hold (not on the final second). Nothing counting down — a reps
+        // exercise, a paused countdown — reports 0 and is excluded by the guard.
+        final left = s.runningCountdownSec;
+        if (left >= 2 && left <= 6) {
           unawaited(SoundService.instance.tick());
         }
         ref.read(workoutProvider.notifier).tick();
@@ -129,6 +126,10 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
           next.phase == WorkoutPhase.rest) {
         // Set confirmed → rest begins.
         unawaited(svc.pop());
+      } else if (prev.isGettingReady && next.isHolding) {
+        // Get-ready countdown over → the hold begins by itself, so the user
+        // in position has to hear it.
+        unawaited(svc.ding());
       } else if (prev.phase == WorkoutPhase.exercise &&
           next.phase == WorkoutPhase.exercise &&
           prev.exerciseIndex != next.exerciseIndex) {
@@ -223,8 +224,13 @@ class _ExerciseView extends StatelessWidget {
     final planned = state.currentPlanned;
     final exercise = planned.exercise;
     final isTimed = exercise.type == ExerciseType.timed;
+    final gettingReady = state.isGettingReady;
+    final paused = state.prepPaused;
     final scheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
+    final buttonShape =
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(16));
+    const buttonSize = Size.fromHeight(56);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -306,11 +312,11 @@ class _ExerciseView extends StatelessWidget {
                   ),
                 ],
 
-                // The countdown only starts with the Start button.
-                if (isTimed && !state.timerStarted) ...[
+                // The hold starts by itself once the get-ready countdown ends.
+                if (gettingReady) ...[
                   const SizedBox(height: 16),
                   Text(
-                    l10n.workoutTimedHint,
+                    paused ? l10n.workoutPrepPausedHint : l10n.workoutPrepHint,
                     style: TextStyle(
                       fontSize: 13,
                       color: scheme.onSurfaceVariant,
@@ -328,50 +334,75 @@ class _ExerciseView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              if (isTimed)
-                _TimedDisplay(
-                  timerSec: state.timerSec,
-                  targetSec: planned.targetAmount,
-                )
-              else
+              if (!isTimed)
                 _RepsDisplay(
                   repsInput: state.repsInput,
                   onAdjust: notifier.adjustReps,
+                )
+              else if (gettingReady)
+                _TimedDisplay(
+                  seconds: state.prepSec,
+                  totalSec: prepSecFor(planned, state.setIndex),
+                  label: paused ? l10n.workoutPaused : l10n.workoutGetReady,
+                  color: paused ? scheme.outline : scheme.secondary,
+                )
+              else
+                _TimedDisplay(
+                  seconds: state.timerSec,
+                  totalSec: planned.targetAmount,
+                  label: l10n.workoutSec,
+                  color: scheme.primary,
                 ),
 
               const SizedBox(height: 24),
 
-              FilledButton.icon(
-                style: FilledButton.styleFrom(
-                  minimumSize: const Size.fromHeight(56),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(16),
+              // Get-ready: Pause (a quiet button, the countdown is the normal
+              // path) → Continue → hold: Stop. All three are 56 px high, so
+              // nothing moves when they swap.
+              if (gettingReady && !paused)
+                OutlinedButton.icon(
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: buttonSize,
+                    shape: buttonShape,
+                  ),
+                  onPressed: notifier.pausePrep,
+                  icon: const Icon(Icons.pause_rounded),
+                  label: Text(
+                    l10n.workoutPause,
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.w700),
+                  ),
+                )
+              else
+                FilledButton.icon(
+                  style: FilledButton.styleFrom(
+                    minimumSize: buttonSize,
+                    shape: buttonShape,
+                  ),
+                  onPressed: !isTimed
+                      ? () => notifier.confirmSet()
+                      : gettingReady
+                          ? notifier.resumePrep
+                          : () {
+                              final elapsed =
+                                  planned.targetAmount - state.timerSec;
+                              notifier.confirmSet(actualDurationSec: elapsed);
+                            },
+                  icon: isTimed
+                      ? Icon(gettingReady
+                          ? Icons.play_arrow_rounded
+                          : Icons.stop_rounded)
+                      : null,
+                  label: Text(
+                    !isTimed
+                        ? l10n.workoutDone
+                        : gettingReady
+                            ? l10n.workoutContinue
+                            : l10n.workoutStop,
+                    style: const TextStyle(
+                        fontSize: 17, fontWeight: FontWeight.w700),
                   ),
                 ),
-                onPressed: !isTimed
-                    ? () => notifier.confirmSet()
-                    : !state.timerStarted
-                        ? notifier.startTimer
-                        : () {
-                            final elapsed =
-                                planned.targetAmount - state.timerSec;
-                            notifier.confirmSet(actualDurationSec: elapsed);
-                          },
-                icon: isTimed
-                    ? Icon(state.timerStarted
-                        ? Icons.stop_rounded
-                        : Icons.play_arrow_rounded)
-                    : null,
-                label: Text(
-                  !isTimed
-                      ? l10n.workoutDone
-                      : state.timerStarted
-                          ? l10n.workoutStop
-                          : l10n.workoutStart,
-                  style: const TextStyle(
-                      fontSize: 17, fontWeight: FontWeight.w700),
-                ),
-              ),
             ],
           ),
         ),
@@ -382,21 +413,28 @@ class _ExerciseView extends StatelessWidget {
 
 // ── Timed display (circular countdown) ───────────────────────────────────────
 
+/// The ring of a timed exercise: the hold, or the get-ready countdown before it.
 class _TimedDisplay extends StatelessWidget {
-  const _TimedDisplay({required this.timerSec, required this.targetSec});
+  const _TimedDisplay({
+    required this.seconds,
+    required this.totalSec,
+    required this.label,
+    required this.color,
+  });
 
-  final int timerSec;
-  final int targetSec;
+  final int seconds;
+  final int totalSec;
+  final String label;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final l10n = context.l10n;
-    final progress = targetSec > 0 ? timerSec / targetSec : 0.0;
-    final mins = timerSec ~/ 60;
-    final secs = timerSec % 60;
+    final progress = totalSec > 0 ? seconds / totalSec : 0.0;
+    final mins = seconds ~/ 60;
+    final secs = seconds % 60;
     final timeStr =
-        mins > 0 ? '$mins:${secs.toString().padLeft(2, '0')}' : '$timerSec';
+        mins > 0 ? '$mins:${secs.toString().padLeft(2, '0')}' : '$seconds';
 
     return Center(
       child: SizedBox(
@@ -412,7 +450,7 @@ class _TimedDisplay extends StatelessWidget {
                 value: progress,
                 strokeWidth: 8,
                 backgroundColor: scheme.outlineVariant,
-                color: scheme.primary,
+                color: color,
               ),
             ),
             Column(
@@ -425,8 +463,7 @@ class _TimedDisplay extends StatelessWidget {
                       .displaySmall
                       ?.copyWith(fontWeight: FontWeight.w700),
                 ),
-                Text(l10n.workoutSec,
-                    style: TextStyle(color: scheme.onSurfaceVariant)),
+                Text(label, style: TextStyle(color: scheme.onSurfaceVariant)),
               ],
             ),
           ],

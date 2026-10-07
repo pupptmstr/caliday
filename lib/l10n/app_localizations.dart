@@ -380,17 +380,35 @@ abstract class AppLocalizations {
   /// **'Reps'**
   String get workoutReps;
 
-  /// No description provided for @workoutStart.
+  /// No description provided for @workoutGetReady.
   ///
   /// In en, this message translates to:
-  /// **'Start'**
-  String get workoutStart;
+  /// **'get ready'**
+  String get workoutGetReady;
 
-  /// No description provided for @workoutTimedHint.
+  /// No description provided for @workoutPaused.
   ///
   /// In en, this message translates to:
-  /// **'Read the description and get into position. The timer starts when you tap Start.'**
-  String get workoutTimedHint;
+  /// **'paused'**
+  String get workoutPaused;
+
+  /// No description provided for @workoutPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get workoutPause;
+
+  /// No description provided for @workoutPrepHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Read the description and get into position. The timer starts by itself; tap Pause if you need more time.'**
+  String get workoutPrepHint;
+
+  /// No description provided for @workoutPrepPausedHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused. Tap Continue when you are ready: the countdown picks up where it stopped.'**
+  String get workoutPrepPausedHint;
 
   /// No description provided for @workoutStop.
   ///

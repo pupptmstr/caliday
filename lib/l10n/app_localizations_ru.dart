@@ -182,11 +182,21 @@ class AppLocalizationsRu extends AppLocalizations {
   String get workoutReps => 'Повторения';
 
   @override
-  String get workoutStart => 'Старт';
+  String get workoutGetReady => 'приготовься';
 
   @override
-  String get workoutTimedHint =>
-      'Прочитай описание и прими позицию. Время пойдёт, когда нажмёшь «Старт».';
+  String get workoutPaused => 'пауза';
+
+  @override
+  String get workoutPause => 'Пауза';
+
+  @override
+  String get workoutPrepHint =>
+      'Прочитай описание и прими позицию. Таймер запустится сам; нажми «Пауза», если нужно больше времени.';
+
+  @override
+  String get workoutPrepPausedHint =>
+      'Пауза. Нажми «Продолжить», когда подготовишься: отсчёт пойдёт с того же места.';
 
   @override
   String get workoutStop => 'Стоп';

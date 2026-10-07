@@ -56,6 +56,22 @@ final customWorkoutPlanProvider =
 
 enum WorkoutPhase { exercise, rest, done }
 
+// ── Get-ready countdown ───────────────────────────────────────────────────────
+
+/// Seconds of "get ready" before the hold of a timed exercise that has just
+/// begun: time to take position and skim the description.
+const int kPrepNewExerciseSec = 10;
+
+/// The same before the next set of the same exercise: the position is known.
+const int kPrepNextSetSec = 5;
+
+/// Get-ready seconds before set [setIndex] of [planned]. A reps exercise has
+/// nothing that counts down by itself, so it gets none.
+int prepSecFor(PlannedExercise planned, int setIndex) {
+  if (planned.exercise.type != ExerciseType.timed) return 0;
+  return setIndex == 0 ? kPrepNewExerciseSec : kPrepNextSetSec;
+}
+
 // ── State ─────────────────────────────────────────────────────────────────────
 
 class WorkoutState {
@@ -68,7 +84,8 @@ class WorkoutState {
     required this.timerSec,
     required this.results,
     required this.startedAt,
-    this.timerStarted = false,
+    this.prepSec = 0,
+    this.prepPaused = false,
     this.spEarned = 0,
     this.durationSec = 0,
     this.isInterExerciseRest = false,
@@ -102,10 +119,14 @@ class WorkoutState {
   /// Timed exercise phase: seconds remaining in the hold.
   final int timerSec;
 
-  /// Timed exercise: false until the user taps Start, so the description can be
-  /// read before the hold begins; [timerSec] only counts down once it is true.
-  /// Always false in the rest phase and for reps exercises.
-  final bool timerStarted;
+  /// Timed exercise: seconds left of the get-ready countdown that runs before
+  /// the hold, so the description can be read and the position taken. The hold
+  /// ([timerSec]) only counts down once this reaches 0, which also is its value
+  /// in the rest phase and for reps exercises.
+  final int prepSec;
+
+  /// The user paused the get-ready countdown; [prepSec] stays put until resumed.
+  final bool prepPaused;
 
   /// One slot per [plan.exercises] entry; null until that slot is complete.
   final List<ExerciseResult?> results;
@@ -157,13 +178,32 @@ class WorkoutState {
   bool get isLastSet => setIndex >= currentPlanned.sets - 1;
   bool get isLastExercise => exerciseIndex >= plan.exercises.length - 1;
 
+  /// A timed exercise is in its get-ready countdown (running or paused).
+  bool get isGettingReady => phase == WorkoutPhase.exercise && prepSec > 0;
+
+  /// The hold of a timed exercise is counting down.
+  bool get isHolding =>
+      phase == WorkoutPhase.exercise &&
+      prepSec == 0 &&
+      currentPlanned.exercise.type == ExerciseType.timed;
+
+  /// Seconds left on the countdown that is ticking right now: the rest, the
+  /// get-ready countdown or the hold. 0 when none is (a reps exercise, a paused
+  /// get-ready countdown). The screen plays the last-seconds tick from this.
+  int get runningCountdownSec {
+    if (phase == WorkoutPhase.rest) return timerSec;
+    if (isGettingReady) return prepPaused ? 0 : prepSec;
+    return isHolding ? timerSec : 0;
+  }
+
   WorkoutState copyWith({
     int? exerciseIndex,
     int? setIndex,
     WorkoutPhase? phase,
     int? repsInput,
     int? timerSec,
-    bool? timerStarted,
+    int? prepSec,
+    bool? prepPaused,
     List<ExerciseResult?>? results,
     int? spEarned,
     int? durationSec,
@@ -186,7 +226,8 @@ class WorkoutState {
       phase: phase ?? this.phase,
       repsInput: repsInput ?? this.repsInput,
       timerSec: timerSec ?? this.timerSec,
-      timerStarted: timerStarted ?? this.timerStarted,
+      prepSec: prepSec ?? this.prepSec,
+      prepPaused: prepPaused ?? this.prepPaused,
       results: results ?? this.results,
       startedAt: startedAt,
       spEarned: spEarned ?? this.spEarned,
@@ -217,6 +258,7 @@ class WorkoutState {
               first.exercise.type == ExerciseType.timed)
           ? first.targetAmount
           : 0,
+      prepSec: first != null ? prepSecFor(first, 0) : 0,
       results: List.filled(plan.exercises.length, null),
       startedAt: DateTime.now(),
     );
@@ -317,7 +359,8 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
           state = state.copyWith(
             phase: WorkoutPhase.rest,
             timerSec: planned.restSec,
-            timerStarted: false,
+            prepSec: 0,
+            prepPaused: false,
             isInterExerciseRest: true,
             results: newResults,
           );
@@ -330,7 +373,8 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
             timerSec: next.exercise.type == ExerciseType.timed
                 ? next.targetAmount
                 : 0,
-            timerStarted: false,
+            prepSec: prepSecFor(next, 0),
+            prepPaused: false,
             results: newResults,
           );
         }
@@ -341,33 +385,43 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
         state = state.copyWith(
           phase: WorkoutPhase.rest,
           timerSec: planned.restSec,
-          timerStarted: false,
+          prepSec: 0,
+          prepPaused: false,
         );
       } else {
-        // No rest: the next set of a timed exercise waits for Start again.
+        // No rest: the next set of a timed exercise gets its get-ready
+        // countdown again.
         state = state.copyWith(
           setIndex: state.setIndex + 1,
           timerSec: planned.exercise.type == ExerciseType.timed
               ? planned.targetAmount
               : 0,
-          timerStarted: false,
+          prepSec: prepSecFor(planned, state.setIndex + 1),
+          prepPaused: false,
         );
       }
     }
   }
 
-  /// Starts the hold countdown of a timed exercise (the Start button). Does
-  /// nothing in any other situation, so a double tap is harmless.
-  void startTimer() {
-    if (state.phase != WorkoutPhase.exercise || state.timerStarted) return;
-    if (state.currentPlanned.exercise.type != ExerciseType.timed) return;
-    state = state.copyWith(timerStarted: true);
+  /// Pauses the get-ready countdown of a timed exercise (the Pause button), so
+  /// the description can be read in peace. Does nothing in any other situation.
+  void pausePrep() {
+    if (!state.isGettingReady || state.prepPaused) return;
+    state = state.copyWith(prepPaused: true);
+  }
+
+  /// Resumes a paused get-ready countdown from where it stopped. Does nothing
+  /// in any other situation.
+  void resumePrep() {
+    if (!state.isGettingReady || !state.prepPaused) return;
+    state = state.copyWith(prepPaused: false);
   }
 
   /// Decrements the active timer by one second.
   ///
-  /// Should be called once per second from the screen's [Timer.periodic]. The
-  /// hold of a timed exercise only counts down after [startTimer].
+  /// Should be called once per second from the screen's [Timer.periodic]. A
+  /// timed exercise first runs its get-ready countdown (frozen while paused),
+  /// and the hold begins by itself once that reaches 0.
   void tick() {
     if (state.phase == WorkoutPhase.rest) {
       if (state.timerSec <= 1) {
@@ -376,9 +430,12 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
         state = state.copyWith(timerSec: state.timerSec - 1);
       }
     } else if (state.phase == WorkoutPhase.exercise &&
-        state.timerStarted &&
         state.currentPlanned.exercise.type == ExerciseType.timed) {
-      if (state.timerSec <= 1) {
+      if (state.isGettingReady) {
+        if (!state.prepPaused) {
+          state = state.copyWith(prepSec: state.prepSec - 1);
+        }
+      } else if (state.timerSec <= 1) {
         // Full target duration reached → auto-confirm.
         confirmSet(actualDurationSec: state.currentPlanned.targetAmount);
       } else {
@@ -407,6 +464,8 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
         timerSec: next.exercise.type == ExerciseType.timed
             ? next.targetAmount
             : 0,
+        prepSec: prepSecFor(next, 0),
+        prepPaused: false,
         isInterExerciseRest: false,
       );
     } else {
@@ -419,6 +478,8 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
         timerSec: planned.exercise.type == ExerciseType.timed
             ? planned.targetAmount
             : 0,
+        prepSec: prepSecFor(planned, state.setIndex + 1),
+        prepPaused: false,
       );
     }
   }

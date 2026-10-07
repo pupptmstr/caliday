@@ -6,8 +6,9 @@ import 'package:caliday/features/workout/providers/workout_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// The hold of a timed exercise (plank, dead hang...) must not start counting
-/// until the user taps Start: after a rest there is time to read what to do.
+/// A timed exercise (plank, dead hang...) does not start its hold at once: a
+/// get-ready countdown runs first, so there is time to take position and read.
+/// It can be paused and resumed; when it ends the hold begins by itself.
 
 final Exercise _timed =
     ExerciseCatalog.libraryAll.firstWhere((e) => e.type == ExerciseType.timed);
@@ -40,150 +41,229 @@ void tick(WorkoutNotifier n, [int times = 1]) {
 void main() {
   WorkoutState read(ProviderContainer c) => c.read(workoutProvider);
 
-  group('a timed exercise waits for Start', () {
-    test('it begins with a full timer that does not run', () {
+  group('a timed exercise gets a get-ready countdown first', () {
+    test('it begins with the countdown running and a full hold waiting', () {
       final (:container, :notifier) = _start([_slot(_timed)]);
-      expect(read(container).timerStarted, isFalse);
-      expect(read(container).timerSec, 5);
+      var s = read(container);
+      expect(s.isGettingReady, isTrue);
+      expect(s.isHolding, isFalse);
+      expect(s.prepSec, kPrepNewExerciseSec);
+      expect(s.timerSec, 5);
 
-      tick(notifier, 30);
-      expect(read(container).timerSec, 5, reason: 'no countdown before Start');
-      expect(read(container).phase, WorkoutPhase.exercise);
+      tick(notifier, 3);
+      s = read(container);
+      expect(s.prepSec, kPrepNewExerciseSec - 3);
+      expect(s.timerSec, 5, reason: 'the hold has not started');
+      expect(s.phase, WorkoutPhase.exercise);
     });
 
-    test('after Start it counts down', () {
+    test('the hold begins by itself when the countdown ends', () {
       final (:container, :notifier) = _start([_slot(_timed)]);
-      notifier.startTimer();
-      expect(read(container).timerStarted, isTrue);
+      tick(notifier, kPrepNewExerciseSec - 1);
+      expect(read(container).isGettingReady, isTrue);
+
+      tick(notifier);
+      var s = read(container);
+      expect(s.isGettingReady, isFalse);
+      expect(s.isHolding, isTrue);
+      expect(s.timerSec, 5, reason: 'the hold starts from its full length');
 
       tick(notifier, 2);
-      expect(read(container).timerSec, 3);
-    });
-
-    test('a second tap on Start changes nothing', () {
-      final (:container, :notifier) = _start([_slot(_timed)]);
-      notifier.startTimer();
-      tick(notifier, 2);
-      notifier.startTimer();
-      expect(read(container).timerSec, 3, reason: 'not restarted');
+      s = read(container);
+      expect(s.timerSec, 3);
+      expect(s.prepSec, 0);
     });
 
     test('the full hold confirms the set by itself and goes to rest', () {
       final (:container, :notifier) = _start([_slot(_timed)]);
-      notifier.startTimer();
-      tick(notifier, 5);
+      tick(notifier, kPrepNewExerciseSec + 5);
 
       final s = read(container);
       expect(s.phase, WorkoutPhase.rest);
       expect(s.setIndex, 0);
-      expect(s.timerStarted, isFalse);
+      expect(s.prepSec, 0);
       expect(s.timerSec, 3, reason: 'the rest, not the hold');
     });
 
-    test('stopping early leaves the Start button for the next set', () {
+    test('stopping the hold early goes to rest', () {
       final (:container, :notifier) = _start([_slot(_timed)]);
-      notifier.startTimer();
-      tick(notifier, 2);
+      tick(notifier, kPrepNewExerciseSec + 2);
       notifier.confirmSet(actualDurationSec: 2);
       expect(read(container).phase, WorkoutPhase.rest);
-      expect(read(container).timerStarted, isFalse);
+      expect(read(container).isHolding, isFalse);
+    });
+  });
+
+  group('Pause and Continue', () {
+    test('Pause freezes the countdown, Continue picks it up where it stopped', () {
+      final (:container, :notifier) = _start([_slot(_timed)]);
+      tick(notifier, 4);
+      notifier.pausePrep();
+
+      var s = read(container);
+      expect(s.prepPaused, isTrue);
+      expect(s.prepSec, kPrepNewExerciseSec - 4);
+
+      tick(notifier, 30);
+      s = read(container);
+      expect(s.prepSec, kPrepNewExerciseSec - 4, reason: 'frozen while paused');
+      expect(s.timerSec, 5, reason: 'the hold has not started');
+      expect(s.phase, WorkoutPhase.exercise);
+
+      notifier.resumePrep();
+      expect(read(container).prepPaused, isFalse);
+      tick(notifier);
+      expect(read(container).prepSec, kPrepNewExerciseSec - 5,
+          reason: 'not restarted from the full countdown');
+
+      tick(notifier, kPrepNewExerciseSec - 5);
+      expect(read(container).isHolding, isTrue);
     });
 
-    test('after the rest the next set waits for Start again', () {
+    test('it can be paused again and again', () {
       final (:container, :notifier) = _start([_slot(_timed)]);
-      notifier.startTimer();
-      tick(notifier, 5); // set 1 done, rest begins
+      for (var i = 0; i < 3; i++) {
+        tick(notifier, 2);
+        notifier.pausePrep();
+        tick(notifier, 5);
+        notifier.resumePrep();
+      }
+      expect(read(container).prepSec, kPrepNewExerciseSec - 6);
+      expect(read(container).prepPaused, isFalse);
+    });
+
+    test('pausing twice or continuing without a pause changes nothing', () {
+      final (:container, :notifier) = _start([_slot(_timed)]);
+      tick(notifier, 2);
+      notifier.resumePrep();
+      expect(read(container).prepPaused, isFalse);
+
+      notifier.pausePrep();
+      notifier.pausePrep();
+      expect(read(container).prepPaused, isTrue);
+      expect(read(container).prepSec, kPrepNewExerciseSec - 2);
+    });
+
+    test('Pause does nothing once the hold runs', () {
+      final (:container, :notifier) = _start([_slot(_timed)]);
+      tick(notifier, kPrepNewExerciseSec + 1);
+      notifier.pausePrep();
+      expect(read(container).prepPaused, isFalse);
+
+      tick(notifier);
+      expect(read(container).timerSec, 3, reason: 'the hold keeps counting');
+    });
+
+    test('Pause does nothing during the rest', () {
+      final (:container, :notifier) = _start([_slot(_timed)]);
+      tick(notifier, kPrepNewExerciseSec + 5); // into the rest
+      notifier.pausePrep();
+      expect(read(container).prepPaused, isFalse);
+      tick(notifier);
+      expect(read(container).timerSec, 2, reason: 'the rest keeps counting');
+    });
+
+    test('a pause does not leak into the next set', () {
+      final (:container, :notifier) = _start([_slot(_timed)]);
+      notifier.pausePrep();
+      notifier.confirmSet(actualDurationSec: 1); // not reachable from the UI
+      expect(read(container).phase, WorkoutPhase.rest);
+      expect(read(container).prepPaused, isFalse);
+
+      notifier.skipRest();
+      final s = read(container);
+      expect(s.prepPaused, isFalse);
+      tick(notifier);
+      expect(read(container).prepSec, s.prepSec - 1, reason: 'it counts');
+    });
+
+    test('nor through a hand-over without a rest', () {
+      // Same set list twice: the next set, and the next exercise.
+      for (final slots in [
+        [_slot(_timed, sets: 2, rest: 0)],
+        [_slot(_timed, sets: 1, rest: 0), _slot(_timed, sets: 1, rest: 0)],
+      ]) {
+        final (:container, :notifier) = _start(slots);
+        notifier.pausePrep();
+        notifier.confirmSet(actualDurationSec: 1); // not reachable from the UI
+
+        final s = read(container);
+        expect(s.phase, WorkoutPhase.exercise, reason: '${slots.length} slots');
+        expect(s.prepPaused, isFalse, reason: '${slots.length} slots');
+        tick(notifier);
+        expect(read(container).prepSec, s.prepSec - 1,
+            reason: '${slots.length} slots: it counts');
+      }
+    });
+  });
+
+  group('every way into a timed exercise gets a countdown', () {
+    test('the next set after a rest gets the short one', () {
+      final (:container, :notifier) = _start([_slot(_timed)]);
+      tick(notifier, kPrepNewExerciseSec + 5); // set 1 done, rest begins
       tick(notifier, 3); // the rest runs out
 
       var s = read(container);
       expect(s.phase, WorkoutPhase.exercise);
       expect(s.setIndex, 1);
+      expect(s.prepSec, kPrepNextSetSec);
       expect(s.timerSec, 5, reason: 'a full hold again');
-      expect(s.timerStarted, isFalse);
+      expect(s.isHolding, isFalse);
 
-      tick(notifier, 20);
-      expect(read(container).timerSec, 5, reason: 'still waiting for Start');
-
-      notifier.skipRest(); // no effect outside the rest
-      notifier.startTimer();
-      tick(notifier);
+      tick(notifier, kPrepNextSetSec);
       s = read(container);
-      expect(s.timerSec, 4);
+      expect(s.isHolding, isTrue);
+      expect(s.timerSec, 5);
     });
 
-    test('skipping the rest also leaves the exercise waiting', () {
+    test('skipping the rest does not skip the countdown', () {
       final (:container, :notifier) = _start([_slot(_timed)]);
-      notifier.startTimer();
-      tick(notifier, 5);
+      tick(notifier, kPrepNewExerciseSec + 5);
       notifier.skipRest();
 
-      expect(read(container).phase, WorkoutPhase.exercise);
-      expect(read(container).timerStarted, isFalse);
-      tick(notifier, 10);
-      expect(read(container).timerSec, 5);
+      final s = read(container);
+      expect(s.phase, WorkoutPhase.exercise);
+      expect(s.prepSec, kPrepNextSetSec);
+      tick(notifier, 2);
+      expect(read(container).timerSec, 5, reason: 'the hold has not started');
     });
 
-    test('the next exercise waits for Start too, with and without rest', () {
+    test('the next exercise gets the long one, with and without a rest', () {
       for (final rest in [3, 0]) {
         final (:container, :notifier) = _start([
           _slot(_timed, sets: 1, rest: rest),
           _slot(_timed, amount: 7, sets: 1, rest: rest),
         ]);
-        notifier.startTimer();
-        tick(notifier, 5);
+        tick(notifier, kPrepNewExerciseSec + 5);
         if (rest > 0) tick(notifier, rest); // the rest between exercises
 
-        final s = read(container);
+        var s = read(container);
         expect(s.exerciseIndex, 1, reason: 'rest $rest');
         expect(s.phase, WorkoutPhase.exercise, reason: 'rest $rest');
+        expect(s.prepSec, kPrepNewExerciseSec, reason: 'rest $rest');
         expect(s.timerSec, 7, reason: 'rest $rest');
-        expect(s.timerStarted, isFalse, reason: 'rest $rest');
-        tick(notifier, 10);
-        expect(read(container).timerSec, 7, reason: 'rest $rest: no countdown');
+        expect(s.isHolding, isFalse, reason: 'rest $rest');
+
+        tick(notifier, kPrepNewExerciseSec);
+        s = read(container);
+        expect(s.isHolding, isTrue, reason: 'rest $rest');
+        expect(s.timerSec, 7, reason: 'rest $rest');
       }
     });
 
-    test('without any rest the next set of the same exercise waits too', () {
+    test('without any rest the next set of the same exercise gets the short one', () {
       final (:container, :notifier) = _start([_slot(_timed, sets: 2, rest: 0)]);
-      notifier.startTimer();
-      tick(notifier, 5);
+      tick(notifier, kPrepNewExerciseSec + 5);
 
       final s = read(container);
       expect(s.phase, WorkoutPhase.exercise);
       expect(s.setIndex, 1);
+      expect(s.prepSec, kPrepNextSetSec);
       expect(s.timerSec, 5, reason: 'a full hold, not what was left');
-      expect(s.timerStarted, isFalse);
-    });
-  });
-
-  group('everything else is unchanged', () {
-    test('Start does nothing for a reps exercise', () {
-      final (:container, :notifier) = _start([_slot(_reps, amount: 8)]);
-      notifier.startTimer();
-      expect(read(container).timerStarted, isFalse);
-      tick(notifier, 5);
-      expect(read(container).phase, WorkoutPhase.exercise);
-      expect(read(container).repsInput, 8);
+      expect(s.isHolding, isFalse);
     });
 
-    test('Start does nothing during the rest', () {
-      final (:container, :notifier) = _start([_slot(_timed)]);
-      notifier.startTimer();
-      tick(notifier, 5); // into the rest
-      notifier.startTimer();
-      expect(read(container).timerStarted, isFalse);
-      expect(read(container).phase, WorkoutPhase.rest);
-    });
-
-    test('the rest counts down on its own, no Start needed', () {
-      final (:container, :notifier) = _start([_slot(_reps, amount: 8)]);
-      notifier.confirmSet();
-      expect(read(container).phase, WorkoutPhase.rest);
-      tick(notifier);
-      expect(read(container).timerSec, 2);
-    });
-
-    test('a reps set followed by a timed exercise: the hold waits for Start', () {
+    test('a reps exercise followed by a timed one: the hold waits for its countdown', () {
       final (:container, :notifier) = _start([
         _slot(_reps, amount: 8, sets: 1),
         _slot(_timed, amount: 6, sets: 1),
@@ -192,8 +272,55 @@ void main() {
       tick(notifier, 3); // the rest between exercises
       final s = read(container);
       expect(s.exerciseIndex, 1);
+      expect(s.prepSec, kPrepNewExerciseSec);
       expect(s.timerSec, 6);
-      expect(s.timerStarted, isFalse);
+      expect(s.isHolding, isFalse);
+    });
+  });
+
+  group('reps exercises and rests are unchanged', () {
+    test('a reps exercise has no countdown and Pause does nothing', () {
+      final (:container, :notifier) = _start([_slot(_reps, amount: 8)]);
+      var s = read(container);
+      expect(s.prepSec, 0);
+      expect(s.isGettingReady, isFalse);
+      expect(s.isHolding, isFalse);
+
+      notifier.pausePrep();
+      tick(notifier, 30);
+      s = read(container);
+      expect(s.prepPaused, isFalse);
+      expect(s.phase, WorkoutPhase.exercise);
+      expect(s.repsInput, 8);
+    });
+
+    test('the rest counts down on its own', () {
+      final (:container, :notifier) = _start([_slot(_reps, amount: 8)]);
+      notifier.confirmSet();
+      expect(read(container).phase, WorkoutPhase.rest);
+      tick(notifier);
+      expect(read(container).timerSec, 2);
+    });
+  });
+
+  group('runningCountdownSec follows what is counting down', () {
+    test('rest, countdown, paused countdown, hold, reps', () {
+      final (:container, :notifier) = _start([_slot(_timed)]);
+      expect(read(container).runningCountdownSec, kPrepNewExerciseSec);
+
+      tick(notifier, 3);
+      notifier.pausePrep();
+      expect(read(container).runningCountdownSec, 0, reason: 'paused');
+
+      notifier.resumePrep();
+      tick(notifier, kPrepNewExerciseSec - 3);
+      expect(read(container).runningCountdownSec, 5, reason: 'the hold');
+
+      tick(notifier, 5); // set done, rest
+      expect(read(container).runningCountdownSec, 3, reason: 'the rest');
+
+      final reps = _start([_slot(_reps, amount: 8)]);
+      expect(read(reps.container).runningCountdownSec, 0);
     });
   });
 }

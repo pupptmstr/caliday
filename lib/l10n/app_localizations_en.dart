@@ -180,11 +180,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get workoutReps => 'Reps';
 
   @override
-  String get workoutStart => 'Start';
+  String get workoutGetReady => 'get ready';
 
   @override
-  String get workoutTimedHint =>
-      'Read the description and get into position. The timer starts when you tap Start.';
+  String get workoutPaused => 'paused';
+
+  @override
+  String get workoutPause => 'Pause';
+
+  @override
+  String get workoutPrepHint =>
+      'Read the description and get into position. The timer starts by itself; tap Pause if you need more time.';
+
+  @override
+  String get workoutPrepPausedHint =>
+      'Paused. Tap Continue when you are ready: the countdown picks up where it stopped.';
 
   @override
   String get workoutStop => 'Stop';
