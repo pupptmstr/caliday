@@ -18,6 +18,7 @@ class WorkoutLog extends HiveObject {
     this.courseIdIndex,
     this.freezeUsed = false,
     this.freezeEarned = false,
+    this.estimatedDurationSec,
   });
 
   /// The calendar date the workout was performed (time component zeroed).
@@ -55,4 +56,12 @@ class WorkoutLog extends HiveObject {
   /// True if a streak freeze was awarded after this workout (streak hit a multiple of 7).
   @HiveField(8)
   final bool freezeEarned;
+
+  /// What the plan of this workout was estimated to take when it started
+  /// (`WorkoutPlan.estimatedDurationSec`, the raw figure, never one already
+  /// corrected for the user's pace). Compared with [durationSec] it tells how
+  /// fast this user is (`WorkoutPace`). null for logs made before it was
+  /// recorded and for the fake ones of the debug screen.
+  @HiveField(9)
+  final int? estimatedDurationSec;
 }

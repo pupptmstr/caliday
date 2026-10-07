@@ -53,6 +53,27 @@ void main() {
     });
   });
 
+  group('estimatedMinutesAt: the estimate scaled by the user\'s pace', () {
+    final plan = _plan([_slot(_reps, amount: 40, rest: 0)]); // 120 s
+
+    test('a pace of 1.0 is the plain estimate', () {
+      expect(plan.estimatedMinutesAt(1.0), plan.estimatedMinutes);
+      expect(plan.estimatedMinutes, 2);
+    });
+
+    test('slower users get more minutes, faster ones fewer', () {
+      final ten = _plan([_slot(_reps, amount: 200, rest: 0)]); // 600 s
+      expect(ten.estimatedMinutes, 10);
+      expect(ten.estimatedMinutesAt(1.3), 13);
+      expect(ten.estimatedMinutesAt(0.8), 8);
+    });
+
+    test('never below 1 for a real plan, 0 for an empty one', () {
+      expect(plan.estimatedMinutesAt(0.1), 1);
+      expect(_plan([]).estimatedMinutesAt(1.5), 0);
+    });
+  });
+
   group('estimatedMinutes', () {
     test('rounds to the nearest minute, never below 1 for a real plan', () {
       expect(_plan([_slot(_timed, amount: 5)]).estimatedMinutes, 1,

@@ -13,6 +13,7 @@ import '../../../data/models/workout_log.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../data/repositories/workout_repository.dart';
+import '../../../domain/services/workout_pace.dart';
 import '../../home/providers/home_provider.dart';
 import '../../profile/providers/profile_provider.dart';
 
@@ -491,8 +492,12 @@ class _DeveloperOptionsScreenState
       );
     }
     buf.writeln();
-    buf.writeln(
-        'Total workouts: ${ref.read(workoutRepositoryProvider).totalCount}');
+    final workoutRepo = ref.read(workoutRepositoryProvider);
+    buf.writeln('Total workouts: ${workoutRepo.totalCount}');
+    final paceLogs = workoutRepo.getRecent(WorkoutPace.window * 4);
+    buf.writeln('Pace: x${WorkoutPace.factorFrom(paceLogs).toStringAsFixed(2)} '
+        'from ${WorkoutPace.samplesFrom(paceLogs).length} workouts '
+        '(needs ${WorkoutPace.minSamples})');
 
     showDialog<void>(
       context: context,

@@ -17,6 +17,7 @@ import '../../../domain/services/sp_service.dart';
 import '../../../domain/services/streak_service.dart';
 import '../../../domain/services/workout_energy.dart';
 import '../../../domain/services/workout_generator_service.dart';
+import '../../../domain/services/workout_pace.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/services/notification_service.dart';
@@ -79,6 +80,15 @@ WorkoutPlan buildDailyPlan(Ref ref) {
 final todayPlanProvider = Provider.autoDispose<WorkoutPlan>((ref) {
   ref.watch(homeDataProvider);
   return buildDailyPlan(ref);
+});
+
+/// How fast this user is against the estimate (see [WorkoutPace]); 1.0 until
+/// enough workouts are logged. Rebuilt with [homeDataProvider], which a
+/// finished workout invalidates.
+final workoutPaceProvider = Provider.autoDispose<double>((ref) {
+  ref.watch(homeDataProvider);
+  return WorkoutPace.factorFrom(
+      ref.read(workoutRepositoryProvider).getRecent(WorkoutPace.window * 4));
 });
 
 // ── Phase ─────────────────────────────────────────────────────────────────────
@@ -600,6 +610,8 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
       courseIdIndex: isCustomWorkout ? null : course.index,
       freezeUsed: freezeUsed,
       freezeEarned: freezeEarned,
+      // The raw estimate, so the pace can be learned from how long it took.
+      estimatedDurationSec: state.plan.estimatedDurationSec,
     )));
 
     // ── Health (Apple Health / Health Connect) ────────────────────────────

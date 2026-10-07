@@ -102,6 +102,7 @@ lib/
 │       ├── rank_decay_service.dart
 │       ├── notification_planner.dart  ← NotificationPlanner: what to schedule and when (pure, injectable `now`)
 │       ├── workout_energy.dart        ← WorkoutEnergy: kcal for Health + which body weight to use
+│       ├── workout_pace.dart          ← WorkoutPace: how fast the user is against the time estimate (pure; median of real / estimated over the last workouts)
 │       ├── progression_service.dart
 │       ├── workout_generator_service.dart
 │       └── achievement_service.dart
@@ -189,7 +190,9 @@ The user picks how big the daily workout is: **Short** (2 skill branches), **Sta
 
 The stored value is unchanged: `UserProfile.preferredWorkoutMinutes` (HiveField 12) keeps the old code 5 / 10 / 15 (`WorkoutSize.code`), so no migration; the generator parameter `preferredMinutes` keeps its historical name and reads the same code. `WorkoutSize.fromCode` reads any stored int the way the generator does (a test compares them for 0..30). Healthy Body has only 3 branches, so Standard and Full give the same workout there. Chosen in onboarding (step 3) and in Settings → Workout (a segmented control like the theme one); changing it invalidates `homeDataProvider`.
 
-**How long it takes.** The Home button reads "Today's workout (≈ N min)" on one line (`WorkoutPlan.estimatedMinutes`) — the honest replacement for the old promise. `WorkoutPlan.estimatedDurationSec` follows the workout screen: a timed set is its hold plus the get-ready countdown, a reps set is `kSecondsPerRep` (3 s) per rep, and the rest after each set runs everywhere but after the last set of the workout. For timed-only plans it equals the ticks of a real run (`workout_timer_test.dart` steps the state machine to prove it); reps are a guess at the user's pace, hence the "≈". Both the Home button and the workout screen build the day's plan with `buildDailyPlan` (`workout_provider.dart`), so the estimate is of the plan that will actually run; `todayPlanProvider` rebuilds with `homeDataProvider`. Not shown for a bonus workout (the primary one is done): it adds random supplementary exercises when it starts. Notification texts promise no duration either (a test checks).
+**How long it takes.** The Home button reads "Today's workout (≈ N min)" on one line (`WorkoutPlan.estimatedMinutes`) — the honest replacement for the old promise. `WorkoutPlan.estimatedDurationSec` follows the workout screen: a timed set is its hold plus the get-ready countdown, a reps set is `kSecondsPerRep` (3 s) per rep, and the rest after each set runs everywhere but after the last set of the workout. For timed-only plans it equals the ticks of a real run (`workout_timer_test.dart` steps the state machine to prove it); reps are a guess at the user's pace, hence the "≈". Both the Home button and the workout screen build the day's plan with `buildDailyPlan` (`workout_provider.dart`), so the estimate is of the plan that will actually run; `todayPlanProvider` rebuilds with `homeDataProvider`. Not shown for a bonus workout (the primary one is done): it adds random supplementary exercises when it starts.
+
+**Pace.** The estimate cannot know how fast one user does a rep, how long they read or whether they skip rests, so it learns it: each finished workout stores the raw estimate of its plan (`WorkoutLog.estimatedDurationSec`) beside the real `durationSec`, and `WorkoutPace.factorFrom` takes the **median of real / estimated over the last 7 workouts** that have both (1.0 until there are 3; clamped to 0.6–1.6 so one odd workout, a phone call in the middle, cannot move the figure far). The Home button shows `plan.estimatedMinutesAt(workoutPaceProvider)`. The raw estimate is what is stored, so the correction never feeds on itself; but if the formula of `estimatedDurationSec` is ever changed (`kSecondsPerRep`, the countdowns), the stored ratios of the last seven workouts were measured against the old one and the figure is off until they roll out of the window. Nothing in the UI says the figure is personal; the debug state dump prints `Pace: x1.12 from 5 workouts`. Notification texts promise no duration either (a test checks).
 
 ### Primary vs Bonus Workout
 `WorkoutLog.isPrimary`: true = first of the day (full SP, advances progression, counts toward streak); false = 50% SP.
@@ -252,6 +255,7 @@ Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday
 | @6 | int? | courseIdIndex — CourseId.index; null → 0 (calisthenics) |
 | @7 | bool | freezeUsed — a streak freeze was consumed for this workout; the skipped day is `date − 1` (default false) |
 | @8 | bool | freezeEarned — a freeze was awarded after this workout (default false) |
+| @9 | int? | estimatedDurationSec — the raw `WorkoutPlan.estimatedDurationSec` when the workout started (never the pace-corrected figure); null on logs from before it was recorded and on the debug screen's fake logs. Compared with `durationSec` to learn the pace |
 
 ### FriendProfile HiveFields
 

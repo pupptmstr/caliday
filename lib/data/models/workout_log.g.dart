@@ -26,13 +26,14 @@ class WorkoutLogAdapter extends TypeAdapter<WorkoutLog> {
       courseIdIndex: (fields[6] as num?)?.toInt(),
       freezeUsed: fields[7] == null ? false : fields[7] as bool,
       freezeEarned: fields[8] == null ? false : fields[8] as bool,
+      estimatedDurationSec: (fields[9] as num?)?.toInt(),
     );
   }
 
   @override
   void write(BinaryWriter writer, WorkoutLog obj) {
     writer
-      ..writeByte(9)
+      ..writeByte(10)
       ..writeByte(0)
       ..write(obj.date)
       ..writeByte(1)
@@ -50,7 +51,9 @@ class WorkoutLogAdapter extends TypeAdapter<WorkoutLog> {
       ..writeByte(7)
       ..write(obj.freezeUsed)
       ..writeByte(8)
-      ..write(obj.freezeEarned);
+      ..write(obj.freezeEarned)
+      ..writeByte(9)
+      ..write(obj.estimatedDurationSec);
   }
 
   @override

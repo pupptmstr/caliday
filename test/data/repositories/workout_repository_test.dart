@@ -173,6 +173,23 @@ void main() {
     expect(log.exercises[1].targetDurationSec, 30);
   });
 
+  test('the raw estimate of the plan is kept, and its absence reads as null', () async {
+    await repo.addLog(WorkoutLog(
+      date: DateTime(2026, 6, 10),
+      setType: SetType.daily,
+      exercises: const [],
+      spEarned: 0,
+      durationSec: 540,
+      estimatedDurationSec: 480,
+    ));
+    await repo.addLog(_log(DateTime(2026, 6, 11))); // as logs of older builds
+    await env.reopen();
+
+    final logs = WorkoutRepository().getAll();
+    expect(logs.map((l) => l.estimatedDurationSec), [null, 480]);
+    expect(logs.last.durationSec, 540);
+  });
+
   test('defaults: primary, no course, no freeze markers', () async {
     await repo.addLog(WorkoutLog(
       date: DateTime(2026, 6, 10),

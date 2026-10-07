@@ -83,6 +83,11 @@ class WorkoutPlan {
 
   /// [estimatedDurationSec] in whole minutes for display: at least 1, and 0
   /// for an empty plan.
-  int get estimatedMinutes =>
-      exercises.isEmpty ? 0 : max(1, (estimatedDurationSec / 60).round());
+  int get estimatedMinutes => estimatedMinutesAt(1.0);
+
+  /// The same scaled by the user's pace (`WorkoutPace.factorFrom`: 1.25 means
+  /// workouts take a quarter longer than estimated).
+  int estimatedMinutesAt(double pace) => exercises.isEmpty
+      ? 0
+      : max(1, (estimatedDurationSec * pace / 60).round());
 }

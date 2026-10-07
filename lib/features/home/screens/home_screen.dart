@@ -141,7 +141,9 @@ class HomeScreen extends ConsumerWidget {
                       // bonus one picks random exercises when it starts.
                       estimatedMinutes: data.hasWorkoutToday
                           ? null
-                          : ref.watch(todayPlanProvider).estimatedMinutes,
+                          : ref
+                              .watch(todayPlanProvider)
+                              .estimatedMinutesAt(ref.watch(workoutPaceProvider)),
                       onTap: () => context.push('/workout'),
                     ),
                     const SizedBox(height: 10),
