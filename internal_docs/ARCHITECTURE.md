@@ -906,6 +906,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v0.8 | Challenge norms for the six hardest final stages (handstand push-up, dragon flag, one-arm pull-up, pistol, free handstand, pike) | ✅ |
 | — | CI for release builds — APK / AAB / iOS build / draft GitHub Release | 📐 drafted and disabled; needs the store accounts (see DEV_NOTES) |
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
+| — | Telegram: the web build as a Mini App, reminders sent by a bot | 💡 idea, **parked** by the owner (2026-10-07): a thought on the side, not planned; the research is kept in DEV_NOTES § Telegram Mini App + bot |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
 | v1.0 | Additional courses — Yoga, Morning Routine, Evening Stretch | 💡 idea |
 | v1.x | Custom course builder — user picks branches to form a personal path | 💡 idea |
