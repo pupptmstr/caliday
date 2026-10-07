@@ -36,7 +36,7 @@ calisthenics (handstand push-ups) through short daily sets of 5–15 minutes.
 | QR scanning | `mobile_scanner: ^7.2.0` |
 | BLE Central | `flutter_blue_plus: ^2.2.1` (scan + GATT client; `License.free` required on `connect()`) |
 | BLE Peripheral | `ble_peripheral: ^2.4.0` (advertising + GATT server) |
-| Target platforms | iOS (primary), Android (secondary), Web (PWA on GitHub Pages — see § Web Build) |
+| Target platforms | iOS (primary), Android (secondary), Web (PWA on GitHub Pages — see § Web Build). No desktop: the `linux/`, `windows/` and `macos/` folders were an untouched `flutter create` template and were removed (2026-10-07); `flutter create --platforms=… .` brings them back |
 
 ---
 
