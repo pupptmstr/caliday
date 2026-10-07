@@ -2276,6 +2276,12 @@ abstract class AppLocalizations {
   /// **'Version {version}'**
   String whatsNewVersion(String version);
 
+  /// No description provided for @releaseNotes0816.
+  ///
+  /// In en, this message translates to:
+  /// **'The language switch on the welcome screen is now a menu, with room for more languages.\nThe notification about a lost streak now gets the number of days right in Russian.'**
+  String get releaseNotes0816;
+
   /// No description provided for @releaseNotes0815.
   ///
   /// In en, this message translates to:
@@ -3403,6 +3409,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Keep training — your rank is fully restored!'**
   String get summaryRankRestoredBody;
+
+  /// No description provided for @notificationMorningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to work out! 💪'**
+  String get notificationMorningTitle;
+
+  /// No description provided for @notificationMorningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your daily workout is waiting. Keep the streak alive!'**
+  String get notificationMorningBody;
+
+  /// No description provided for @notificationEveningTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Still time! 🏃'**
+  String get notificationEveningTitle;
+
+  /// No description provided for @notificationEveningBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t trained today yet. Even a short workout counts.'**
+  String get notificationEveningBody;
+
+  /// No description provided for @notificationStreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak at risk! 🔥'**
+  String get notificationStreakTitle;
+
+  /// No description provided for @notificationStreakBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Work out before midnight or your streak will end.'**
+  String get notificationStreakBody;
+
+  /// No description provided for @notificationStreakLostTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak is gone 😔'**
+  String get notificationStreakLostTitle;
+
+  /// No description provided for @notificationStreakLostBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your {days}-day streak is gone. Start a new one — the first step is always the hardest!'**
+  String notificationStreakLostBody(int days);
+
+  /// No description provided for @notificationRankAtRiskTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rank at risk! ⚠️'**
+  String get notificationRankAtRiskTitle;
+
+  /// No description provided for @notificationRankAtRiskBody.
+  ///
+  /// In en, this message translates to:
+  /// **'14 days without training — your rank will start dropping soon. Come back!'**
+  String get notificationRankAtRiskBody;
 }
 
 class _AppLocalizationsDelegate

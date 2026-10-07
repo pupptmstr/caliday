@@ -2,7 +2,26 @@ import 'package:caliday/l10n/app_localizations_en.dart';
 import 'package:caliday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/all_translations.dart';
+
 void main() {
+  test('every language: a counted message always carries its number', () {
+    // A plural branch that drops the number ("one{a day}") reads fine in one
+    // language and says nothing in the next one.
+    for (final l10n in allTranslations) {
+      for (final n in [0, 1, 2, 3, 5, 11, 21, 22, 101]) {
+        for (final text in [
+          l10n.homeStreakDays(n),
+          l10n.exerciseLibraryCount(n),
+          l10n.rankDecayWarning(n),
+          l10n.notificationStreakLostBody(n),
+        ]) {
+          expect(text, contains('$n'), reason: '${l10n.localeName}: $text');
+        }
+      }
+    }
+  });
+
   group('Russian day plurals', () {
     final ru = AppLocalizationsRu();
 

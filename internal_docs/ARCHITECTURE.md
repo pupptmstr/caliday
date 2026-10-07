@@ -56,13 +56,14 @@ lib/
 │   │   ├── notification_service.dart  ← NotificationService singleton: hands what NotificationPlanner decided to the plugin (no-op on web)
 │   │   ├── sound_service.dart         ← SoundService singleton
 │   │   ├── health_service.dart        ← HealthService singleton (plugin calls only; the energy / weight logic is WorkoutEnergy)
-│   │   ├── widget_service.dart        ← WidgetService singleton (`rankLabel` mirrors the ARB rank names; pinned by a test)
+│   │   ├── widget_service.dart        ← WidgetService singleton (`rankLabel` reads the rank names from the ARB files through `l10nFor`)
 │   │   └── ble_service.dart           ← BleService singleton (Central: scan + GATT read; Peripheral: advertising + GATT server; the bytes are BleProfileCodec)
 │   ├── providers/
 │   │   ├── locale_provider.dart       ← LocaleNotifier (NotifierProvider<LocaleNotifier, String>)
 │   │   ├── theme_provider.dart        ← ThemeNotifier (system / light / dark)
 │   │   └── goro_expression_provider.dart
 │   ├── theme/app_theme.dart           ← AppTheme: brand tokens, light / dark ThemeData, gradients, shadows
+│   ├── l10n/app_languages.dart        ← appLanguages (the UI languages: code, name in itself, flag), supportedLanguageCode, appLanguageOf, l10nFor (texts without a BuildContext)
 │   ├── extensions/
 │   │   ├── build_context_l10n.dart    ← context.l10n shortcut
 │   │   ├── exercise_l10n.dart         ← ExerciseL10n static helper (name / description / tip by exercise id)
@@ -310,7 +311,7 @@ Loaded from `ExerciseCatalog`. `stage = 0` = warmup/cooldown.
 | Master | Мастер | `master` | 15,000 |
 | Legend | Легенда | `legend` | 50,000 |
 
-The two middle ranks are **not** translations of each other: the enum values follow the Russian names, so `Rank.sportsman` is shown as "Athlete" in English and `Rank.athlete` as "Champion" (`rankSportsman` / `rankAthlete` in the ARB files; `WidgetService` hard-codes the same English names).
+The two middle ranks are **not** translations of each other: the enum values follow the Russian names, so `Rank.sportsman` is shown as "Athlete" in English and `Rank.athlete` as "Champion" (`rankSportsman` / `rankAthlete` in the ARB files; the home screen widget reads the same keys).
 
 ### Push Branch (7 stages)
 | Stage | ID | Name | Lottie |
@@ -584,7 +585,7 @@ Both entry points lead to the same flow: `challengeBranchProvider = branch` → 
 
 | Step | Content |
 |------|---------|
-| 0 | Welcome — Goro + description |
+| 0 | Welcome — Goro + description; the language menu (a chip with the current code, top right) lists every language of `appLanguages` |
 | 1 | Name (optional) |
 | 2 | How many push-ups can you do? (Push calibration) |
 | 3 | How big should a workout be? Short / Standard / Full (→ `preferredWorkoutMinutes` as the code 5 / 10 / 15, see § Workout size) |
@@ -675,7 +676,7 @@ Exercise animations are flat "paper-doll" Lottie files (one shape layer per body
 - **UI chrome** → Material Icons in all widgets (consistently replaced)
 - `BranchId.icon` getter → `IconData` (in `enums.dart`)
 - `BranchId.emoji` — kept for `achievement_catalog.dart` (content)
-- Flags 🇷🇺/🇬🇧 in language dialog — intentional
+- Flags in the language pickers (settings dialog, onboarding menu), from `appLanguages` — intentional
 - Achievement emojis in tiles — game content, keep as-is
 - Toast ✅ — celebratory feedback, keep as-is
 
@@ -692,6 +693,8 @@ Exercise animations are flat "paper-doll" Lottie files (one shape layer per body
 | 5 | `rank_risk` | Rank at risk: 14 days after the last workout (reminder time) |
 
 The key is the Android channel id; the ids never change (`NotificationKind`).
+
+**Texts** are ARB messages (`notificationMorningTitle` … `notificationRankAtRiskBody`; the streak-lost body is a plural of the days) read without a BuildContext: `NotificationPlanner.textsFor(profile.locale)` = `l10nFor(locale ?? 'ru')` — Russian when the profile has no language (the old default of `UserProfile.locale`), English for one the app is not translated into. A new language gets its notifications with its ARB file.
 
 **Who does what.** `NotificationPlanner` (`domain/services/notification_planner.dart`, pure) takes the profile and `now` (a `tz.TZDateTime`) and returns the list of `PlannedNotification`s; `NotificationService` only cancels and hands that list to `flutter_local_notifications`. A repeating reminder takes its time of day from the first date, so "tomorrow" is computed from the calendar date, never as `now + 24 h` — on a DST change that lands an hour off and stays there (this was a bug; `notification_planner_test.dart` pins it for Berlin 2026-03-29 and 2026-10-25).
 
@@ -798,7 +801,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 - File naming: `snake_case`
 - Class naming: `PascalCase`
 - Public API comments in English
-- UI strings via l10n (English primary, Russian secondary; `app_en.arb` is the template). A counted noun is one plural message that includes the number (`{count, plural, one{{count} day} other{{count} days}}`): `arb_consistency_test` reads a bare word inside a plural branch as an undeclared placeholder. Weekday and month names come from `intl` for the app locale, not from a hand-written list
+- UI strings via l10n (`app_en.arb` is the template; every other `l10n/app_<code>.arb` must have the same messages and placeholders). **Adding a UI language:** its ARB file, `flutter gen-l10n`, a line in `appLanguages` (`core/l10n/app_languages.dart`) — the pickers, the system-language default, the notifications and the widget follow; `app_languages_test` and `arb_consistency_test` fail until the list and the files agree, and the "every language" tests (exercise texts, release notes not left in English, workout sizes, counted messages, notification texts) cover the new file by themselves through `test/helpers/all_translations.dart`. Text without a BuildContext comes from `l10nFor(code)` (`lookupAppLocalizations`), never from a hand-written table. `flutter gen-l10n` does not delete the generated `app_localizations_<code>.dart` of an ARB file that was removed. A counted noun is one plural message that includes the number (`{count, plural, one{{count} day} other{{count} days}}`): `arb_consistency_test` reads a bare word inside a plural branch as an undeclared placeholder. Weekday and month names come from `intl` for the app locale, not from a hand-written list
 - No clutter: do not add docstrings/comments to code you are not touching
 
 ### Key Patterns
@@ -825,16 +828,16 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 |------|-------|------------------|
 | Domain services | `test/domain/services/` | SP, progression, streak, rank decay, workout generator (with a Hive-free progress source), achievements |
 | Day arithmetic | `test/core/utils/calendar_days_test.dart`, `streak_service_test.dart`, `test/features/profile/compact_heatmap_test.dart` | DST: Berlin dates around 2026-03-29 and 2026-10-25 |
-| Catalog integrity | `test/data/exercise_catalog_integrity_test.dart` | unique ids, consecutive stages, start ≤ target, every animation exists, is valid Lottie and belongs to an exercise (no orphans), EN + RU name / description / tip for every exercise, tags |
+| Catalog integrity | `test/data/exercise_catalog_integrity_test.dart` | unique ids, consecutive stages, start ≤ target, every animation exists, is valid Lottie and belongs to an exercise (no orphans), a name / description / tip for every exercise in every language, tags |
 | Enums | `test/data/enums_test.dart` | rank thresholds, `stageCount` = catalog length, frozen Hive indices, course → branch mapping |
 | Repositories | `test/data/repositories/` | real Hive via `test/helpers/hive_test_env.dart` (same adapters and box names as `main()`; `reopen()` proves a field really went through its adapter) |
-| Localization | `test/l10n/` | EN and RU have the same keys and placeholders, none undeclared; plural forms; **no Cyrillic text in `lib/` outside a short allow-list** (`no_hardcoded_text_test.dart`: debug screen, widget rank names, notification table, language picker — each with its reason; the test also fails when an allowed file no longer needs its exception) and **no English text in the places where text is shown**: the first argument of `Text(`/`Text.rich(` and the value of `label:`, `title:`, `subtitle:`, `hintText:`, `tooltip:`, `message:`… including a literal inside a ternary or a `+`, but not an argument of a call such as `DateFormat('d MMMM')`; "SP", "CaliDay", "dBm", "RU", "EN" are the same in every language; `lib/data/` (the catalog's source text) is not scanned; the test checks itself on probe snippets so that a scan that matches nothing cannot pass |
-| Notification plan | `test/domain/services/notification_planner_test.dart` | which reminders exist for which settings, their times, DST (Berlin) and other zones, the one-off streak-lost / rank-at-risk alerts, RU / EN texts |
+| Localization | `test/l10n/`, `test/core/app_languages_test.dart` | every ARB file has the keys and placeholders of the template, none undeclared, and is a language of the pickers (`appLanguages`); plural forms, and in every language a counted message carries its number; **no Cyrillic text in `lib/` outside a short allow-list** (`no_hardcoded_text_test.dart`: debug screen and the DEBUG tile, the debug test notification, the language list (each language named in itself), the search's "ё" — each with its reason; the test also fails when an allowed file no longer needs its exception) and **no English text in the places where text is shown**: the first argument of `Text(`/`Text.rich(` and the value of `label:`, `title:`, `subtitle:`, `hintText:`, `tooltip:`, `message:`… including a literal inside a ternary or a `+`, but not an argument of a call such as `DateFormat('d MMMM')`; "SP", "CaliDay", "dBm" are the same in every language; paths are compared with `/` on every OS (Windows lists `lib\...`); `lib/data/` (the catalog's source text) is not scanned; the test checks itself on probe snippets so that a scan that matches nothing cannot pass |
+| Notification plan | `test/domain/services/notification_planner_test.dart` | which reminders exist for which settings, their times, DST (Berlin) and other zones, the one-off streak-lost / rank-at-risk alerts, the language (none → Russian, unknown → English), every kind with its own text in every language |
 | Friend QR + BLE payloads | `test/data/friend_qr_codec_test.dart`, `ble_profile_codec_test.dart`, `test/features/friends/friend_qr_payload_test.dart` | round trips, all number ranges, size (QR version, 512-byte GATT limit), v1 compatibility, thousands of random / damaged inputs never throw |
 | Health energy | `test/domain/services/workout_energy_test.dart` | MET formula, which weight sample is used, implausible weights fall back to 70 kg |
 | Router redirect | `test/core/router/app_redirect_test.dart` | onboarding gate, widget and friend deep links, no redirect loops |
 | Workout timer | `test/features/workout/workout_timer_test.dart` | a timed exercise waits for Start in every transition (first, after rest, no-rest sets, next exercise), then counts down and confirms itself |
-| Widget labels | `test/core/widget_service_test.dart` | the widget's hard-coded rank names equal the ARB ones |
+| Widget labels | `test/core/widget_service_test.dart` | the widget's rank names are the app's in every language, an unknown language gets English |
 | Repository / CI files | `test/repo/workflows_test.dart` | the three workflows pin one Flutter version, the release workflow stays disabled and tag-only, ci.yml keeps its l10n / build steps |
 
 Conventions:
@@ -920,7 +923,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Telegram: the web build as a Mini App, reminders sent by a bot | 💡 idea, **parked** by the owner (2026-10-07): a thought on the side, not planned; the research is kept in DEV_NOTES § Telegram Mini App + bot |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
-| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | 💡 idea — touch points in DEV_NOTES § Roadmap |
+| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | 📐 the code takes any number of languages (0.8.16); the texts are not started — see DEV_NOTES § Roadmap |
 | v1.0 | Additional courses — Yoga, Morning Routine, Evening Stretch (owner's plan, 2nd) | 💡 idea — see DEV_NOTES § Roadmap |
 | v1.x | Custom course builder — the user builds a personal course; **the same update adds many more exercises** to make that easy (owner's plan, 3rd) | 💡 idea — the open question "what is a custom course" is in DEV_NOTES § Roadmap |
 

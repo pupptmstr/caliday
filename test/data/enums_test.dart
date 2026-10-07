@@ -5,6 +5,8 @@ import 'package:caliday/l10n/app_localizations_en.dart';
 import 'package:caliday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
 
+import '../helpers/all_translations.dart';
+
 void main() {
   group('WorkoutSize', () {
     test('the stored codes stay 5 / 10 / 15: saved profiles rely on them', () {
@@ -28,8 +30,8 @@ void main() {
       });
     });
 
-    test('every size has its own name and description in both languages', () {
-      for (final l10n in [AppLocalizationsEn(), AppLocalizationsRu()]) {
+    test('every size has its own name and description in every language', () {
+      for (final l10n in allTranslations) {
         final names = WorkoutSize.values.map((s) => s.localizedName(l10n)).toList();
         final descriptions =
             WorkoutSize.values.map((s) => s.localizedDescription(l10n)).toList();
@@ -40,7 +42,7 @@ void main() {
     });
 
     test('no name promises a duration', () {
-      for (final l10n in [AppLocalizationsEn(), AppLocalizationsRu()]) {
+      for (final l10n in allTranslations) {
         for (final size in WorkoutSize.values) {
           final text =
               '${size.localizedName(l10n)} ${size.localizedDescription(l10n)}';

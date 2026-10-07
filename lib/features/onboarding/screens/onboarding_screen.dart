@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
+import '../../../core/l10n/app_languages.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../data/models/enums.dart';
 import '../providers/onboarding_provider.dart';
@@ -105,60 +106,45 @@ class _LanguageToggle extends StatelessWidget {
   final String currentLocale;
   final void Function(String) onChanged;
 
+  /// One chip with the current language and a menu of all of them: a row of
+  /// buttons, one per language, would run into the progress dots at four.
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        _LangButton(
-          label: 'RU',
-          selected: currentLocale == 'ru',
-          onTap: () => onChanged('ru'),
-          scheme: scheme,
-        ),
-        const SizedBox(width: 4),
-        _LangButton(
-          label: 'EN',
-          selected: currentLocale == 'en',
-          onTap: () => onChanged('en'),
-          scheme: scheme,
-        ),
+    final color = scheme.onSurfaceVariant;
+    return PopupMenuButton<String>(
+      tooltip: context.l10n.settingsLanguageTitle,
+      initialValue: currentLocale,
+      position: PopupMenuPosition.under,
+      onSelected: onChanged,
+      itemBuilder: (context) => [
+        for (final language in appLanguages)
+          PopupMenuItem(
+            value: language.code,
+            child: Text('${language.flag}  ${language.nativeName}'),
+          ),
       ],
-    );
-  }
-}
-
-class _LangButton extends StatelessWidget {
-  const _LangButton({
-    required this.label,
-    required this.selected,
-    required this.onTap,
-    required this.scheme,
-  });
-
-  final String label;
-  final bool selected;
-  final VoidCallback onTap;
-  final ColorScheme scheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+        padding: const EdgeInsets.fromLTRB(10, 5, 4, 5),
         decoration: BoxDecoration(
-          color: selected ? scheme.primary : scheme.surfaceContainerHighest,
+          color: scheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: Text(
-          label,
-          style: TextStyle(
-            fontSize: 13,
-            fontWeight: FontWeight.w700,
-            color: selected ? scheme.onPrimary : scheme.onSurfaceVariant,
-          ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.language_rounded, size: 16, color: color),
+            const SizedBox(width: 6),
+            Text(
+              appLanguageOf(currentLocale).code.toUpperCase(),
+              style: TextStyle(
+                fontSize: 13,
+                fontWeight: FontWeight.w700,
+                color: color,
+              ),
+            ),
+            Icon(Icons.arrow_drop_down_rounded, size: 20, color: color),
+          ],
         ),
       ),
     );

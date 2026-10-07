@@ -13,12 +13,9 @@ const _allowed = {
       'debug-only screen, Russian by design',
   'lib/core/services/notification_service.dart':
       'debugShowNow: a test notification fired from the debug screen',
-  'lib/core/services/widget_service.dart':
-      'rank names for the home screen widget; they mirror the ARB, pinned by a test',
-  'lib/domain/services/notification_planner.dart':
-      'its own Russian / English table of notification texts',
-  'lib/features/settings/screens/settings_screen.dart':
-      'the language picker names each language in itself; the DEBUG tile is debug-only',
+  'lib/core/l10n/app_languages.dart':
+      'the pickers name each language in itself ("Русский"), the same in every UI language',
+  'lib/features/settings/screens/settings_screen.dart': 'the DEBUG tile is debug-only',
   'lib/features/library/providers/exercise_library_provider.dart':
       "the 'ё' that the search folds into 'е'",
 };
@@ -36,18 +33,20 @@ List<String> _cyrillicLines(File file) {
   return found;
 }
 
+/// Every Dart file under `lib/`, with `/` in the path on every OS (Windows
+/// lists `lib\core\...`, which would match no entry of the allow-lists).
 Iterable<File> _libFiles() => Directory('lib')
     .listSync(recursive: true)
     .whereType<File>()
+    .map((f) => File(f.path.replaceAll(r'\', '/')))
     .where((f) => f.path.endsWith('.dart'))
     .where((f) => !f.path.startsWith('lib/l10n/'));
 
 // ── English ───────────────────────────────────────────────────────────────────
 
 /// Words that read the same in every language: the brand, the unit of the
-/// strength points, the unit of the signal strength, the language codes of the
-/// switch in the onboarding.
-const _sameInEveryLanguage = {'CaliDay', 'SP', 'dBm', 'RU', 'EN'};
+/// strength points, the unit of the signal strength.
+const _sameInEveryLanguage = {'CaliDay', 'SP', 'dBm'};
 
 /// Files that may show English-looking text, and why. Everything under
 /// `lib/data/` is left out of the scan: the exercise catalog holds the source
@@ -57,7 +56,7 @@ const _englishAllowed = {
   'lib/features/settings/screens/developer_options_screen.dart':
       'debug-only screen ("OK", "Challenge"), Russian by design',
   'lib/features/settings/screens/settings_screen.dart':
-      'the language picker names each language in itself ("English")',
+      'the "[DEBUG]" tile is debug-only',
 };
 
 /// Where the expression that is shown begins: after `Text(`, or after

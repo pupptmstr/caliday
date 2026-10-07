@@ -1,41 +1,27 @@
 import 'package:caliday/core/services/widget_service.dart';
 import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/l10n/app_localizations.dart';
 import 'package:caliday/l10n/app_localizations_en.dart';
-import 'package:caliday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-/// The widget cannot read the .arb files (it has no BuildContext), so its rank
-/// names are written out in [WidgetService.rankLabel]. They must say what the
-/// app says.
-String _appName(AppLocalizations l10n, Rank rank) => switch (rank) {
-      Rank.beginner => l10n.rankBeginner,
-      Rank.amateur => l10n.rankAmateur,
-      Rank.sportsman => l10n.rankSportsman,
-      Rank.athlete => l10n.rankAthlete,
-      Rank.master => l10n.rankMaster,
-      Rank.legend => l10n.rankLegend,
-    };
+import '../helpers/all_translations.dart';
 
+/// The widget has no BuildContext, so [WidgetService.rankLabel] reads the rank
+/// names straight from the ARB files of the language.
 void main() {
-  group('WidgetService.rankLabel matches the names in the app', () {
-    for (final rank in Rank.values) {
-      test('${rank.name}: en', () {
-        expect(WidgetService.rankLabel(rank, 'en'), _appName(AppLocalizationsEn(), rank));
-      });
-      test('${rank.name}: ru', () {
-        expect(WidgetService.rankLabel(rank, 'ru'), _appName(AppLocalizationsRu(), rank));
-      });
+  test('every language: the names the app shows, all distinct', () {
+    for (final l10n in allTranslations) {
+      final names = [
+        for (final rank in Rank.values) WidgetService.rankLabel(rank, l10n.localeName),
+      ];
+      expect(names, [for (final rank in Rank.values) rank.localizedName(l10n)],
+          reason: l10n.localeName);
+      expect(names.toSet(), hasLength(Rank.values.length), reason: l10n.localeName);
     }
   });
 
-  test('an unknown locale gets English; every rank has a distinct name', () {
+  test('a language the app does not have gets English', () {
     for (final rank in Rank.values) {
-      expect(WidgetService.rankLabel(rank, 'fr'), WidgetService.rankLabel(rank, 'en'));
-    }
-    for (final locale in ['en', 'ru']) {
-      final names = {for (final r in Rank.values) WidgetService.rankLabel(r, locale)};
-      expect(names, hasLength(Rank.values.length), reason: locale);
+      expect(WidgetService.rankLabel(rank, 'fr'), rank.localizedName(AppLocalizationsEn()));
     }
   });
 }

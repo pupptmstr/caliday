@@ -1262,6 +1262,10 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0816 =>
+      'Переключатель языка на приветственном экране стал меню — в нём хватит места для новых языков.\nУведомление о прерванной серии теперь правильно склоняет число дней.';
+
+  @override
   String get releaseNotes0815 =>
       'Колокольчик в профиле показывает, что изменилось в каждом обновлении.\nЭкран «О приложении» стал короче: убрали техническую строку.';
 
@@ -1930,4 +1934,48 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get summaryRankRestoredBody =>
       'Продолжай тренироваться — ранг снова на месте!';
+
+  @override
+  String get notificationMorningTitle => 'Время тренироваться! 💪';
+
+  @override
+  String get notificationMorningBody =>
+      'Твоя ежедневная тренировка ждёт. Не прерывай серию!';
+
+  @override
+  String get notificationEveningTitle => 'Ещё не поздно! 🏃';
+
+  @override
+  String get notificationEveningBody =>
+      'Ты сегодня ещё не тренировался. Даже короткая тренировка засчитается.';
+
+  @override
+  String get notificationStreakTitle => 'Серия под угрозой! 🔥';
+
+  @override
+  String get notificationStreakBody =>
+      'Успей потренироваться до полуночи — иначе серия прервётся.';
+
+  @override
+  String get notificationStreakLostTitle => 'Серия прервалась 😔';
+
+  @override
+  String notificationStreakLostBody(int days) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: '$days дня',
+      many: '$days дней',
+      few: '$days дня',
+      one: '$days день',
+    );
+    return 'Твой стрик $_temp0 пропал. Начни новую серию — первый шаг всегда самый важный!';
+  }
+
+  @override
+  String get notificationRankAtRiskTitle => 'Ранг под угрозой! ⚠️';
+
+  @override
+  String get notificationRankAtRiskBody =>
+      '14 дней без тренировок — ранг начнёт снижаться через неделю. Вернись!';
 }

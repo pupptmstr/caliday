@@ -1,6 +1,8 @@
 import 'package:timezone/timezone.dart' as tz;
 
+import '../../core/l10n/app_languages.dart';
 import '../../data/models/user_profile.dart';
+import '../../l10n/app_localizations.dart';
 import 'rank_decay_service.dart';
 import 'streak_service.dart';
 
@@ -59,27 +61,28 @@ class NotificationPlanner {
   /// notifications are switched off.
   List<PlannedNotification> planAll(UserProfile profile, tz.TZDateTime now) {
     if (!profile.notificationsEnabled) return const [];
-    final strings = stringsFor(profile.locale);
+    final texts = textsFor(profile.locale);
 
     PlannedNotification daily(NotificationKind kind, int hour, int minute,
-            String titleKey, String bodyKey) =>
+            String title, String body) =>
         PlannedNotification(
           kind: kind,
-          title: strings[titleKey]!,
-          body: strings[bodyKey]!,
+          title: title,
+          body: body,
           when: nextInstanceOf(now, hour, minute),
           repeatsDaily: true,
         );
 
     return [
       daily(NotificationKind.morning, profile.notificationHour,
-          profile.notificationMinute, 'morningTitle', 'morningBody'),
+          profile.notificationMinute, texts.notificationMorningTitle,
+          texts.notificationMorningBody),
       if (profile.eveningReminderEnabled)
-        daily(NotificationKind.evening, eveningHour, 0, 'eveningTitle',
-            'eveningBody'),
+        daily(NotificationKind.evening, eveningHour, 0,
+            texts.notificationEveningTitle, texts.notificationEveningBody),
       if (profile.streakThreatEnabled)
         daily(NotificationKind.streakThreat, streakThreatHour, 0,
-            'streakTitle', 'streakBody'),
+            texts.notificationStreakTitle, texts.notificationStreakBody),
       ?streakLost(profile, now),
       ?rankAtRisk(profile, now),
     ];
@@ -113,12 +116,11 @@ class NotificationPlanner {
         now.location, lostOn.year, lostOn.month, lostOn.day, hour, minute);
     if (!fireAt.isAfter(now)) return null;
 
-    final strings = stringsFor(profile.locale);
+    final texts = textsFor(profile.locale);
     return PlannedNotification(
       kind: NotificationKind.streakLost,
-      title: strings['streakLostTitle']!,
-      body: strings['streakLostBody']!
-          .replaceAll('{days}', '${profile.currentStreak}'),
+      title: texts.notificationStreakLostTitle,
+      body: texts.notificationStreakLostBody(profile.currentStreak),
       when: fireAt,
     );
   }
@@ -135,11 +137,11 @@ class NotificationPlanner {
     final daysUntilRisk = RankDecayService.warningDays - daysSince;
     if (daysUntilRisk <= 0) return null;
 
-    final strings = stringsFor(profile.locale);
+    final texts = textsFor(profile.locale);
     return PlannedNotification(
       kind: NotificationKind.rankAtRisk,
-      title: strings['rankAtRiskTitle']!,
-      body: strings['rankAtRiskBody']!,
+      title: texts.notificationRankAtRiskTitle,
+      body: texts.notificationRankAtRiskBody,
       when: tz.TZDateTime(
         now.location,
         now.year,
@@ -165,36 +167,8 @@ class NotificationPlanner {
         now.location, now.year, now.month, now.day + 1, hour, minute);
   }
 
-  /// The texts for [locale]; anything but 'en' and 'ru' (and null) gets Russian.
-  static Map<String, String> stringsFor(String? locale) =>
-      notificationStrings[locale ?? 'ru'] ?? notificationStrings['ru']!;
+  /// The notification texts (the ARB files) for [locale]: Russian when the
+  /// profile has none (the default of [UserProfile.locale]), English for a
+  /// language the app is not translated into.
+  static AppLocalizations textsFor(String? locale) => l10nFor(locale ?? 'ru');
 }
-
-/// Notification texts. They live here, not in the .arb files, because a
-/// notification is scheduled without a BuildContext.
-const notificationStrings = {
-  'ru': {
-    'morningTitle': 'Время тренироваться! 💪',
-    'morningBody': 'Твоя ежедневная тренировка ждёт. Не прерывай серию!',
-    'eveningTitle': 'Ещё не поздно! 🏃',
-    'eveningBody': 'Ты сегодня ещё не тренировался. Даже короткая тренировка засчитается.',
-    'streakTitle': 'Серия под угрозой! 🔥',
-    'streakBody': 'Успей потренироваться до полуночи — иначе серия прервётся.',
-    'streakLostTitle': 'Серия прервалась 😔',
-    'streakLostBody': 'Твой стрик {days} дней пропал. Начни новую серию — первый шаг всегда самый важный!',
-    'rankAtRiskTitle': 'Ранг под угрозой! ⚠️',
-    'rankAtRiskBody': '14 дней без тренировок — ранг начнёт снижаться через неделю. Вернись!',
-  },
-  'en': {
-    'morningTitle': 'Time to work out! 💪',
-    'morningBody': 'Your daily workout is waiting. Keep the streak alive!',
-    'eveningTitle': 'Still time! 🏃',
-    'eveningBody': "You haven't trained today yet. Even a short workout counts.",
-    'streakTitle': 'Streak at risk! 🔥',
-    'streakBody': 'Work out before midnight or your streak will end.',
-    'streakLostTitle': 'Streak is gone 😔',
-    'streakLostBody': 'Your {days}-day streak is gone. Start a new one — the first step is always the hardest!',
-    'rankAtRiskTitle': 'Rank at risk! ⚠️',
-    'rankAtRiskBody': '14 days without training — your rank will start dropping soon. Come back!',
-  },
-};

@@ -2,8 +2,9 @@ import 'dart:io';
 
 import 'package:caliday/data/static/release_notes_catalog.dart';
 import 'package:caliday/l10n/app_localizations_en.dart';
-import 'package:caliday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../helpers/all_translations.dart';
 
 /// The "What's new" history has to stay in step with the app: a version that
 /// is bumped without a note is a release nobody is told about.
@@ -17,7 +18,7 @@ void main() {
     final version = line.split(':').last.trim().split('+').first;
     expect(ReleaseNotesCatalog.latest.version, version,
         reason: 'bumped pubspec.yaml? add the user-facing entry to '
-            'lib/data/static/release_notes_catalog.dart and the two ARB files');
+            'lib/data/static/release_notes_catalog.dart and every ARB file');
   });
 
   test('versions are unique and run from newest to oldest', () {
@@ -31,8 +32,8 @@ void main() {
     }
   });
 
-  test('every entry has text in both languages, one non-empty change per line', () {
-    for (final l10n in [AppLocalizationsEn(), AppLocalizationsRu()]) {
+  test('every entry has text in every language, one non-empty change per line', () {
+    for (final l10n in allTranslations) {
       for (final note in all) {
         final text = note.text(l10n);
         final lines = text.split('\n');
@@ -43,9 +44,11 @@ void main() {
         }
       }
     }
-    for (final note in all) {
-      expect(note.text(AppLocalizationsEn()), isNot(note.text(AppLocalizationsRu())),
-          reason: '${note.version}: the Russian text is the English one');
+    for (final l10n in allTranslations.where((l) => l.localeName != 'en')) {
+      for (final note in all) {
+        expect(note.text(l10n), isNot(note.text(AppLocalizationsEn())),
+            reason: '${note.version}: the ${l10n.localeName} text is the English one');
+      }
     }
   });
 
@@ -80,7 +83,7 @@ void main() {
 
     test('older seen: only what came after, newest first', () {
       expect(ReleaseNotesCatalog.unseenSince('0.8.12').map((n) => n.version),
-          ['0.8.15', '0.8.14', '0.8.13']);
+          ['0.8.16', '0.8.15', '0.8.14', '0.8.13']);
     });
 
     test('a version older than the whole history: every entry', () {

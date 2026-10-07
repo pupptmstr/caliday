@@ -52,9 +52,12 @@ void main() {
     expect(find.textContaining('A bell in the profile'), findsOneWidget);
   });
 
+  // Seen up to the third newest entry: the two above it are new.
+  final twoBehind = ReleaseNotesCatalog.all[2].version;
+
   testWidgets('only the entries not seen yet are tagged NEW', (tester) async {
-    await _open(tester, seen: '0.8.13');
-    expect(find.text('NEW'), findsNWidgets(2), reason: '0.8.15 and 0.8.14');
+    await _open(tester, seen: twoBehind);
+    expect(find.text('NEW'), findsNWidgets(2), reason: 'the two newest entries');
   });
 
   testWidgets('a user who is up to date sees no tag', (tester) async {
@@ -63,7 +66,7 @@ void main() {
   });
 
   testWidgets('opening it marks the notes as seen, but the tags stay for this visit', (tester) async {
-    final fake = await _open(tester, seen: '0.8.13');
+    final fake = await _open(tester, seen: twoBehind);
     await tester.pump();
     expect(fake.marked, 1);
     expect(fake.state, ReleaseNotesCatalog.latest.version);

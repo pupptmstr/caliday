@@ -22,9 +22,14 @@ class ReleaseNote {
 ///
 /// Every version bump in `pubspec.yaml` needs an entry here (a test fails
 /// without it): write what the user sees, not what the code does. Texts live in
-/// `l10n/app_en.arb` and `app_ru.arb` as `releaseNotes<version without dots>`.
+/// every ARB file (`l10n/app_<code>.arb`) as `releaseNotes<version without dots>`.
 abstract final class ReleaseNotesCatalog {
   static final List<ReleaseNote> all = [
+    ReleaseNote(
+      version: '0.8.16',
+      date: DateTime(2026, 10, 7),
+      text: (l) => l.releaseNotes0816,
+    ),
     ReleaseNote(
       version: '0.8.15',
       date: DateTime(2026, 10, 7),

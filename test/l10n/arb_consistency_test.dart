@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:caliday/l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Map<String, dynamic> _load(String path) =>
@@ -23,54 +24,72 @@ Set<String> _declaredPlaceholders(Map<String, dynamic> arb, String key) {
   return placeholders is Map ? placeholders.keys.cast<String>().toSet() : {};
 }
 
-void main() {
-  final en = _load('l10n/app_en.arb'); // template (see l10n.yaml)
-  final ru = _load('l10n/app_ru.arb');
+const _template = 'en'; // see l10n.yaml
 
-  test('English and Russian have exactly the same messages', () {
-    final enKeys = _messageKeys(en);
-    final ruKeys = _messageKeys(ru);
-    expect(enKeys.difference(ruKeys), isEmpty, reason: 'missing in Russian');
-    expect(ruKeys.difference(enKeys), isEmpty, reason: 'missing in English');
+void main() {
+  // Every language file, keyed by the code in its name (`app_<code>.arb`).
+  final arbs = {
+    for (final file in Directory('l10n').listSync().whereType<File>())
+      if (RegExp(r'app_(\w+)\.arb$').firstMatch(file.path) case final m?)
+        m.group(1)!: _load(file.path),
+  };
+  final template = arbs[_template]!;
+  final others = {...arbs}..remove(_template);
+
+  test('the ARB files are the languages the app is built with', () {
+    expect(arbs.keys.toSet(),
+        AppLocalizations.supportedLocales.map((l) => l.languageCode).toSet(),
+        reason: 'run flutter gen-l10n');
+    expect(others, isNotEmpty);
+  });
+
+  test('every language has exactly the messages of the template', () {
+    final keys = _messageKeys(template);
+    others.forEach((code, arb) {
+      expect(keys.difference(_messageKeys(arb)), isEmpty, reason: 'missing in $code');
+      expect(_messageKeys(arb).difference(keys), isEmpty,
+          reason: 'in $code but not in $_template');
+    });
   });
 
   test('every message is a non-empty string', () {
-    for (final arb in [en, ru]) {
+    arbs.forEach((code, arb) {
       for (final key in _messageKeys(arb)) {
-        expect(arb[key], isA<String>(), reason: key);
-        expect((arb[key] as String).trim(), isNotEmpty, reason: key);
+        expect(arb[key], isA<String>(), reason: '$code $key');
+        expect((arb[key] as String).trim(), isNotEmpty, reason: '$code $key');
       }
-    }
+    });
   });
 
-  test('both languages use the same placeholders', () {
-    for (final key in _messageKeys(en)) {
-      expect(_declaredPlaceholders(ru, key), _declaredPlaceholders(en, key),
-          reason: 'placeholders of "$key" differ between en and ru');
-    }
+  test('every language declares the placeholders of the template', () {
+    others.forEach((code, arb) {
+      for (final key in _messageKeys(template)) {
+        expect(_declaredPlaceholders(arb, key), _declaredPlaceholders(template, key),
+            reason: 'placeholders of "$key" differ between $_template and $code');
+      }
+    });
   });
 
   test('every placeholder used in a message is declared, and vice versa', () {
-    for (final (name, arb) in [('en', en), ('ru', ru)]) {
+    arbs.forEach((code, arb) {
       for (final key in _messageKeys(arb)) {
         final used = _usedPlaceholders(arb[key] as String);
         final declared = _declaredPlaceholders(arb, key);
-        expect(used, declared, reason: '$name "$key"');
+        expect(used, declared, reason: '$code "$key"');
       }
-    }
+    });
   });
 
   test('metadata entries belong to a message', () {
-    for (final arb in [en, ru]) {
+    arbs.forEach((code, arb) {
       final keys = _messageKeys(arb);
       for (final meta in arb.keys.where((k) => k.startsWith('@') && k != '@@locale')) {
-        expect(keys, contains(meta.substring(1)), reason: 'orphan $meta');
+        expect(keys, contains(meta.substring(1)), reason: '$code: orphan $meta');
       }
-    }
+    });
   });
 
-  test('the locales are declared', () {
-    expect(en['@@locale'], 'en');
-    expect(ru['@@locale'], 'ru');
+  test('each file declares the locale of its name', () {
+    arbs.forEach((code, arb) => expect(arb['@@locale'], code));
   });
 }

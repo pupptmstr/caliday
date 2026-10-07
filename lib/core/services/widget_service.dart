@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:home_widget/home_widget.dart';
 
 import '../../data/models/enums.dart';
+import '../l10n/app_languages.dart';
 
 /// Communicates with the native Home Screen Widget (iOS WidgetKit + Android AppWidgetProvider).
 ///
@@ -45,26 +46,8 @@ class WidgetService {
     }
   }
 
-  /// Returns a locale-aware rank display name for use in the widget
-  /// (no BuildContext required).
-  static String rankLabel(Rank rank, String locale) {
-    if (locale == 'ru') {
-      return switch (rank) {
-        Rank.beginner => 'Новичок',
-        Rank.amateur => 'Любитель',
-        Rank.sportsman => 'Спортсмен',
-        Rank.athlete => 'Атлет',
-        Rank.master => 'Мастер',
-        Rank.legend => 'Легенда',
-      };
-    }
-    return switch (rank) {
-      Rank.beginner => 'Beginner',
-      Rank.amateur => 'Amateur',
-      Rank.sportsman => 'Athlete',
-      Rank.athlete => 'Champion',
-      Rank.master => 'Master',
-      Rank.legend => 'Legend',
-    };
-  }
+  /// The rank name for the widget in [locale], from the ARB files (there is no
+  /// BuildContext here); English for a language the app does not have.
+  static String rankLabel(Rank rank, String locale) =>
+      rank.localizedName(l10nFor(locale));
 }

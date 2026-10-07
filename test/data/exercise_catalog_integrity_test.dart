@@ -6,9 +6,9 @@ import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/static/exercise_catalog.dart';
 import 'package:caliday/data/static/exercise_tags_catalog.dart';
 import 'package:caliday/data/static/supplementary_exercise_catalog.dart';
-import 'package:caliday/l10n/app_localizations_en.dart';
-import 'package:caliday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../helpers/all_translations.dart';
 
 /// Data-integrity checks for the static exercise catalogs. They cost nothing
 /// at runtime and catch the mistakes that otherwise only show up as a missing
@@ -146,14 +146,12 @@ void main() {
   });
 
   group('translations', () {
-    final en = AppLocalizationsEn();
-    final ru = AppLocalizationsRu();
-
     // ExerciseL10n falls back to the raw id, so a missing translation shows up
     // in the UI as "push_s7_handstand_pushup".
     for (final e in everything) {
-      test('${e.id} has an English and a Russian name and description', () {
-        for (final (locale, l10n) in [('en', en), ('ru', ru)]) {
+      test('${e.id} has a name and a description in every language', () {
+        for (final l10n in allTranslations) {
+          final locale = l10n.localeName;
           expect(ExerciseL10n.name(l10n, e.id), isNot(e.id),
               reason: '$locale name');
           expect(ExerciseL10n.name(l10n, e.id).trim(), isNotEmpty);

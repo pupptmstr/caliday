@@ -6,6 +6,7 @@ import 'package:timezone/timezone.dart' as tz;
 
 import '../../data/models/user_profile.dart';
 import '../../domain/services/notification_planner.dart';
+import '../../l10n/app_localizations.dart';
 
 // ── Service ───────────────────────────────────────────────────────────────────
 
@@ -209,33 +210,42 @@ class NotificationService {
 
   /// Fires one of the real notification types immediately for testing.
   /// Only call from debug code.
-  Future<bool> debugShowMorning(UserProfile p) =>
-      _debugFireNow(NotificationKind.morning, 'morningTitle', 'morningBody', p);
+  Future<bool> debugShowMorning(UserProfile p) => _debugFireNow(
+      NotificationKind.morning,
+      p,
+      (t) => (t.notificationMorningTitle, t.notificationMorningBody));
 
-  Future<bool> debugShowEvening(UserProfile p) =>
-      _debugFireNow(NotificationKind.evening, 'eveningTitle', 'eveningBody', p);
+  Future<bool> debugShowEvening(UserProfile p) => _debugFireNow(
+      NotificationKind.evening,
+      p,
+      (t) => (t.notificationEveningTitle, t.notificationEveningBody));
 
   Future<bool> debugShowStreakThreat(UserProfile p) => _debugFireNow(
-      NotificationKind.streakThreat, 'streakTitle', 'streakBody', p);
+      NotificationKind.streakThreat,
+      p,
+      (t) => (t.notificationStreakTitle, t.notificationStreakBody));
 
   Future<bool> debugShowStreakLost(UserProfile p) => _debugFireNow(
-      NotificationKind.streakLost, 'streakLostTitle', 'streakLostBody', p);
+      NotificationKind.streakLost,
+      p,
+      (t) => (
+            t.notificationStreakLostTitle,
+            t.notificationStreakLostBody(p.currentStreak)
+          ));
 
   Future<bool> debugShowRankAtRisk(UserProfile p) => _debugFireNow(
-      NotificationKind.rankAtRisk, 'rankAtRiskTitle', 'rankAtRiskBody', p);
+      NotificationKind.rankAtRisk,
+      p,
+      (t) => (t.notificationRankAtRiskTitle, t.notificationRankAtRiskBody));
 
-  Future<bool> _debugFireNow(
-      NotificationKind kind, String titleKey, String bodyKey, UserProfile p) async {
+  Future<bool> _debugFireNow(NotificationKind kind, UserProfile p,
+      (String, String) Function(AppLocalizations) texts) async {
     if (!_initialized) await init();
     try {
-      final strings = NotificationPlanner.stringsFor(p.locale);
-      var body = strings[bodyKey]!;
-      if (bodyKey == 'streakLostBody') {
-        body = body.replaceAll('{days}', '${p.currentStreak}');
-      }
+      final (title, body) = texts(NotificationPlanner.textsFor(p.locale));
       await _plugin.show(
         id: kind.id,
-        title: strings[titleKey]!,
+        title: title,
         body: body,
         notificationDetails: _details(channelId: 'debug', channelName: 'Debug'),
       );

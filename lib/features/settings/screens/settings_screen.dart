@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
+import '../../../core/l10n/app_languages.dart';
 import '../../../data/models/enums.dart';
 import '../providers/settings_provider.dart' show settingsProvider;
 
@@ -80,7 +81,7 @@ class SettingsScreen extends ConsumerWidget {
 
             _SettingsTile(
               title: l10n.settingsLanguageTitle,
-              subtitle: state.locale == 'ru' ? 'Русский' : 'English',
+              subtitle: appLanguageOf(state.locale).nativeName,
               trailing: const Icon(Icons.language_rounded),
               onTap: () => _showLanguagePicker(context, state.locale, notifier.setLocale),
             ),
@@ -349,7 +350,7 @@ Future<void> _showLanguagePicker(
   await showDialog<void>(
     context: context,
     builder: (ctx) => SimpleDialog(
-      title: const Text('Язык / Language'),
+      title: Text(context.l10n.settingsLanguageTitle),
       children: [
         RadioGroup<String>(
           groupValue: currentLocale,
@@ -360,15 +361,12 @@ Future<void> _showLanguagePicker(
             }
           },
           child: Column(
-            children: const [
-              RadioListTile<String>(
-                title: Text('🇷🇺  Русский'),
-                value: 'ru',
-              ),
-              RadioListTile<String>(
-                title: Text('🇬🇧  English'),
-                value: 'en',
-              ),
+            children: [
+              for (final language in appLanguages)
+                RadioListTile<String>(
+                  title: Text('${language.flag}  ${language.nativeName}'),
+                  value: language.code,
+                ),
             ],
           ),
         ),

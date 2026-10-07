@@ -1254,6 +1254,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0816 =>
+      'The language switch on the welcome screen is now a menu, with room for more languages.\nThe notification about a lost streak now gets the number of days right in Russian.';
+
+  @override
   String get releaseNotes0815 =>
       'A bell in the profile now shows what changed in each update.\nThe About screen is shorter: the technical line is gone.';
 
@@ -1918,4 +1922,40 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get summaryRankRestoredBody =>
       'Keep training — your rank is fully restored!';
+
+  @override
+  String get notificationMorningTitle => 'Time to work out! 💪';
+
+  @override
+  String get notificationMorningBody =>
+      'Your daily workout is waiting. Keep the streak alive!';
+
+  @override
+  String get notificationEveningTitle => 'Still time! 🏃';
+
+  @override
+  String get notificationEveningBody =>
+      'You haven\'t trained today yet. Even a short workout counts.';
+
+  @override
+  String get notificationStreakTitle => 'Streak at risk! 🔥';
+
+  @override
+  String get notificationStreakBody =>
+      'Work out before midnight or your streak will end.';
+
+  @override
+  String get notificationStreakLostTitle => 'Streak is gone 😔';
+
+  @override
+  String notificationStreakLostBody(int days) {
+    return 'Your $days-day streak is gone. Start a new one — the first step is always the hardest!';
+  }
+
+  @override
+  String get notificationRankAtRiskTitle => 'Rank at risk! ⚠️';
+
+  @override
+  String get notificationRankAtRiskBody =>
+      '14 days without training — your rank will start dropping soon. Come back!';
 }

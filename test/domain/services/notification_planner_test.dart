@@ -1,8 +1,12 @@
 import 'package:caliday/data/models/user_profile.dart';
 import 'package:caliday/domain/services/notification_planner.dart';
+import 'package:caliday/l10n/app_localizations_en.dart';
+import 'package:caliday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
+
+import '../../helpers/all_translations.dart';
 
 late tz.Location berlin;
 
@@ -162,28 +166,36 @@ void main() {
   });
 
   group('texts', () {
-    test('Russian by default and for an unknown locale, English on request', () {
-      final ru = planner.planAll(profile(), at(2026, 6, 10, 8)).first;
-      expect(ru.title, notificationStrings['ru']!['morningTitle']);
-      expect(planner.planAll(profile(locale: 'fr'), at(2026, 6, 10, 8)).first.title,
-          ru.title);
+    test('the language of the profile; Russian when it has none, English for '
+        'a language the app does not have', () {
+      String morning(String? locale) => planner
+          .planAll(profile(locale: locale), at(2026, 6, 10, 8))
+          .first
+          .title;
+      expect(morning(null), AppLocalizationsRu().notificationMorningTitle);
+      expect(morning('ru'), AppLocalizationsRu().notificationMorningTitle);
+      expect(morning('en'), AppLocalizationsEn().notificationMorningTitle);
+      expect(morning('fr'), AppLocalizationsEn().notificationMorningTitle);
       final en = planner.planAll(profile(locale: 'en'), at(2026, 6, 10, 8)).first;
-      expect(en.title, notificationStrings['en']!['morningTitle']);
-      expect(en.body, notificationStrings['en']!['morningBody']);
+      expect(en.body, AppLocalizationsEn().notificationMorningBody);
     });
 
-    test('Russian and English have exactly the same keys', () {
-      expect(notificationStrings['ru']!.keys.toSet(),
-          notificationStrings['en']!.keys.toSet());
-    });
+    /// Every kind of notification, in the language [locale].
+    List<PlannedNotification> everyKind(String locale) => planner.planAll(
+        profile(locale: locale, streak: 5, last: DateTime(2026, 6, 10)),
+        at(2026, 6, 10, 12));
 
-    test('no text is empty and the streak text has its {days} placeholder', () {
-      for (final locale in notificationStrings.keys) {
-        final strings = notificationStrings[locale]!;
-        for (final entry in strings.entries) {
-          expect(entry.value.trim(), isNotEmpty, reason: '$locale ${entry.key}');
+    test('every language: every kind has its own non-empty title and a body', () {
+      for (final l10n in allTranslations) {
+        final plan = everyKind(l10n.localeName);
+        expect(plan.map((n) => n.kind).toSet(), NotificationKind.values.toSet(),
+            reason: l10n.localeName);
+        for (final n in plan) {
+          expect(n.title.trim(), isNotEmpty, reason: '${l10n.localeName} ${n.kind}');
+          expect(n.body.trim(), isNotEmpty, reason: '${l10n.localeName} ${n.kind}');
         }
-        expect(strings['streakLostBody'], contains('{days}'), reason: locale);
+        expect(plan.map((n) => n.title).toSet(), hasLength(plan.length),
+            reason: '${l10n.localeName}: two kinds share a title');
       }
     });
 
@@ -192,21 +204,11 @@ void main() {
       // notification is written long before it (see WorkoutSize). The shown
       // estimate lives on the Home button instead.
       final promise = RegExp(r'\d+\s*(min|мин)', caseSensitive: false);
-      for (final locale in notificationStrings.keys) {
-        for (final entry in notificationStrings[locale]!.entries) {
-          expect(promise.hasMatch(entry.value), isFalse,
-              reason: '$locale ${entry.key}: ${entry.value}');
+      for (final l10n in allTranslations) {
+        for (final n in everyKind(l10n.localeName)) {
+          expect(promise.hasMatch('${n.title} ${n.body}'), isFalse,
+              reason: '${l10n.localeName} ${n.kind}: ${n.body}');
         }
-      }
-    });
-
-    test('every key the planner reads exists', () {
-      // Run every kind of notification through both languages.
-      for (final locale in ['ru', 'en']) {
-        final p = profile(locale: locale, streak: 5, last: DateTime(2026, 6, 10));
-        final plan = planner.planAll(p, at(2026, 6, 10, 12));
-        expect(plan.map((n) => n.kind).toSet(), NotificationKind.values.toSet(),
-            reason: locale);
       }
     });
   });
@@ -286,6 +288,16 @@ void main() {
       expect(en.body, contains('12-day'));
     });
 
+    test('the Russian text declines the number of days', () {
+      String body(int streak) => alert(
+              profile(streak: streak, last: DateTime(2026, 6, 10)),
+              at(2026, 6, 10, 12))!
+          .body;
+      expect(body(21), contains('21 день'));
+      expect(body(3), contains('3 дня'));
+      expect(body(12), contains('12 дней'));
+    });
+
     test('across the DST change it still fires at 09:30 local time', () {
       // Trained Fri 2026-03-27 -> lost on Sun 03-29, the day the clocks change.
       final n = alert(profile(streak: 5, last: DateTime(2026, 3, 27)),
@@ -334,7 +346,7 @@ void main() {
       final n = alert(profile(hour: 7, minute: 15, locale: 'en', last: DateTime(2026, 6, 10)),
           at(2026, 6, 10, 12))!;
       expectWall(n.when, 2026, 6, 24, 7, 15);
-      expect(n.title, notificationStrings['en']!['rankAtRiskTitle']);
+      expect(n.title, AppLocalizationsEn().notificationRankAtRiskTitle);
     });
   });
 
