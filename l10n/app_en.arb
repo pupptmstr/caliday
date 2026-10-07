@@ -308,6 +308,9 @@
   "calendarSeeAll": "Open →",
   "calendarFreezeUsedTitle": "Streak freeze used",
   "calendarFreezeUsedBody": "No workout on this day — a streak freeze was used to keep the streak going.",
+  "calendarLegendOneWorkout": "1 workout",
+  "calendarLegendManyWorkouts": "2+ workouts",
+  "calendarLegendFreeze": "Freeze",
   "historyTypeDaily": "Daily Workout",
   "historyTypeChallenge": "Challenge",
   "historyTypeBonus": "Bonus",
@@ -698,6 +701,16 @@
   "exerciseLibrarySearchHint": "Search exercises...",
   "exerciseLibraryCatalogButton": "Exercise Catalog",
   "exerciseLibraryEmpty": "No exercises found",
+  "exerciseLibraryReset": "Reset",
+  "exerciseTagFilterAll": "All",
+  "exerciseLibraryCount": "{count, plural, one{{count} exercise} other{{count} exercises}}",
+  "@exerciseLibraryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "exerciseDetailTipLabel": "Technique",
   "exerciseDetailStageLabel": "Stage {stage}",
   "@exerciseDetailStageLabel": {

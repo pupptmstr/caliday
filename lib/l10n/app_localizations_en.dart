@@ -548,6 +548,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'No workout on this day — a streak freeze was used to keep the streak going.';
 
   @override
+  String get calendarLegendOneWorkout => '1 workout';
+
+  @override
+  String get calendarLegendManyWorkouts => '2+ workouts';
+
+  @override
+  String get calendarLegendFreeze => 'Freeze';
+
+  @override
   String get historyTypeDaily => 'Daily Workout';
 
   @override
@@ -1698,6 +1707,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exerciseLibraryEmpty => 'No exercises found';
+
+  @override
+  String get exerciseLibraryReset => 'Reset';
+
+  @override
+  String get exerciseTagFilterAll => 'All';
+
+  @override
+  String exerciseLibraryCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count exercises',
+      one: '$count exercise',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get exerciseDetailTipLabel => 'Technique';

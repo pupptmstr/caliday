@@ -121,18 +121,10 @@ class _ExerciseLibraryScreenState extends ConsumerState<ExerciseLibraryScreen> {
               child: Row(
                 children: [
                   Text(
-                    '${state.results.length}',
+                    l10n.exerciseLibraryCount(state.results.length),
                     style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
-                      color: scheme.onSurfaceVariant,
-                    ),
-                  ),
-                  const SizedBox(width: 4),
-                  Text(
-                    _exerciseCountLabel(state.results.length),
-                    style: TextStyle(
-                      fontSize: 13,
                       color: scheme.onSurfaceVariant,
                     ),
                   ),
@@ -144,7 +136,7 @@ class _ExerciseLibraryScreenState extends ConsumerState<ExerciseLibraryScreen> {
                         _search.clear();
                       },
                       child: Text(
-                        'Сбросить',
+                        l10n.exerciseLibraryReset,
                         style: TextStyle(
                           fontSize: 13,
                           color: AppTheme.brandBlue,
@@ -184,12 +176,6 @@ class _ExerciseLibraryScreenState extends ConsumerState<ExerciseLibraryScreen> {
         ],
       ),
     );
-  }
-
-  String _exerciseCountLabel(int count) {
-    if (count == 1) return 'упражнение';
-    if (count >= 2 && count <= 4) return 'упражнения';
-    return 'упражнений';
   }
 }
 

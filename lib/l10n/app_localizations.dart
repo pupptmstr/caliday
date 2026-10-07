@@ -1040,6 +1040,24 @@ abstract class AppLocalizations {
   /// **'No workout on this day — a streak freeze was used to keep the streak going.'**
   String get calendarFreezeUsedBody;
 
+  /// No description provided for @calendarLegendOneWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'1 workout'**
+  String get calendarLegendOneWorkout;
+
+  /// No description provided for @calendarLegendManyWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'2+ workouts'**
+  String get calendarLegendManyWorkouts;
+
+  /// No description provided for @calendarLegendFreeze.
+  ///
+  /// In en, this message translates to:
+  /// **'Freeze'**
+  String get calendarLegendFreeze;
+
   /// No description provided for @historyTypeDaily.
   ///
   /// In en, this message translates to:
@@ -3031,6 +3049,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No exercises found'**
   String get exerciseLibraryEmpty;
+
+  /// No description provided for @exerciseLibraryReset.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get exerciseLibraryReset;
+
+  /// No description provided for @exerciseTagFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get exerciseTagFilterAll;
+
+  /// No description provided for @exerciseLibraryCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} exercise} other{{count} exercises}}'**
+  String exerciseLibraryCount(int count);
 
   /// No description provided for @exerciseDetailTipLabel.
   ///

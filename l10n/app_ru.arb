@@ -308,6 +308,9 @@
   "calendarSeeAll": "Открыть →",
   "calendarFreezeUsedTitle": "Заморозка стрика",
   "calendarFreezeUsedBody": "В этот день тренировки не было, но была использована заморозка — серия не прервалась.",
+  "calendarLegendOneWorkout": "1 тренировка",
+  "calendarLegendManyWorkouts": "2+ тренировки",
+  "calendarLegendFreeze": "Заморозка",
   "historyTypeDaily": "Тренировка дня",
   "historyTypeChallenge": "Испытание",
   "historyTypeBonus": "Бонусная",
@@ -698,6 +701,16 @@
   "exerciseLibrarySearchHint": "Поиск упражнений...",
   "exerciseLibraryCatalogButton": "Каталог упражнений",
   "exerciseLibraryEmpty": "Упражнения не найдены",
+  "exerciseLibraryReset": "Сбросить",
+  "exerciseTagFilterAll": "Все",
+  "exerciseLibraryCount": "{count, plural, one{{count} упражнение} few{{count} упражнения} many{{count} упражнений} other{{count} упражнения}}",
+  "@exerciseLibraryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "exerciseDetailTipLabel": "Техника",
   "exerciseDetailStageLabel": "Этап {stage}",
   "@exerciseDetailStageLabel": {

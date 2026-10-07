@@ -197,7 +197,7 @@ class _CustomRoutineBuilderScreenState
               padding: const EdgeInsets.symmetric(horizontal: 16),
               children: [
                 _TagChip(
-                  label: 'All',
+                  label: l10n.exerciseTagFilterAll,
                   selected: _filterTag == null,
                   onTap: () => setState(() => _filterTag = null),
                 ),

@@ -41,12 +41,6 @@ void main() {
       expect(Rank.legend.next, isNull);
     });
 
-    test('every rank has a display name', () {
-      for (final rank in Rank.values) {
-        expect(rank.displayName, isNotEmpty);
-      }
-    });
-
     test('displayed names: the middle ranks differ between English and Russian',
         () {
       // The enum values follow the Russian names, so `sportsman` is "Athlete"

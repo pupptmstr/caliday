@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive_ce.dart';
 
+import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/router/app_router.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/utils/calendar_days.dart';
@@ -143,7 +144,7 @@ class _DeveloperOptionsScreenState
             items: Rank.values
                 .map((r) => DropdownMenuItem(
                       value: r,
-                      child: Text(r.displayName),
+                      child: Text(r.localizedName(context.l10n)),
                     ))
                 .toList(),
             onChanged: (r) {

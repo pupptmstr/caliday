@@ -550,6 +550,15 @@ class AppLocalizationsRu extends AppLocalizations {
       'В этот день тренировки не было, но была использована заморозка — серия не прервалась.';
 
   @override
+  String get calendarLegendOneWorkout => '1 тренировка';
+
+  @override
+  String get calendarLegendManyWorkouts => '2+ тренировки';
+
+  @override
+  String get calendarLegendFreeze => 'Заморозка';
+
+  @override
   String get historyTypeDaily => 'Тренировка дня';
 
   @override
@@ -1705,6 +1714,25 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get exerciseLibraryEmpty => 'Упражнения не найдены';
+
+  @override
+  String get exerciseLibraryReset => 'Сбросить';
+
+  @override
+  String get exerciseTagFilterAll => 'Все';
+
+  @override
+  String exerciseLibraryCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count упражнения',
+      many: '$count упражнений',
+      few: '$count упражнения',
+      one: '$count упражнение',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get exerciseDetailTipLabel => 'Техника';

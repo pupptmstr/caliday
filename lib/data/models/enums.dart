@@ -103,23 +103,6 @@ extension RankExtension on Rank {
     }
   }
 
-  String get displayName {
-    switch (this) {
-      case Rank.beginner:
-        return 'Новичок';
-      case Rank.amateur:
-        return 'Любитель';
-      case Rank.sportsman:
-        return 'Спортсмен';
-      case Rank.athlete:
-        return 'Атлет';
-      case Rank.master:
-        return 'Мастер';
-      case Rank.legend:
-        return 'Легенда';
-    }
-  }
-
   /// Returns the next rank, or null if already at the top.
   Rank? get next {
     final values = Rank.values;

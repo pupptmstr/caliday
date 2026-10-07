@@ -31,6 +31,24 @@ void main() {
       expect(ru.rankDecayWarning(23), contains('23 дня'));
       expect(ru.rankDecayWarning(35), contains('35 дней'));
     });
+
+    test('exerciseLibraryCount names the exercises', () {
+      const expected = {
+        0: '0 упражнений',
+        1: '1 упражнение',
+        2: '2 упражнения',
+        4: '4 упражнения',
+        5: '5 упражнений',
+        11: '11 упражнений',
+        21: '21 упражнение',
+        22: '22 упражнения',
+        25: '25 упражнений',
+        61: '61 упражнение',
+      };
+      expected.forEach((n, text) {
+        expect(ru.exerciseLibraryCount(n), text, reason: '$n');
+      });
+    });
   });
 
   group('English day plurals', () {
@@ -45,6 +63,12 @@ void main() {
     test('rankDecayWarning', () {
       expect(en.rankDecayWarning(21), contains('21 days'));
       expect(en.rankDecayWarning(1), contains('1 day '));
+    });
+
+    test('exerciseLibraryCount', () {
+      expect(en.exerciseLibraryCount(0), '0 exercises');
+      expect(en.exerciseLibraryCount(1), '1 exercise');
+      expect(en.exerciseLibraryCount(2), '2 exercises');
     });
   });
 }

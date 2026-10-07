@@ -297,18 +297,31 @@ class _MonthNav extends StatelessWidget {
 
 // ── Day-of-week header row ────────────────────────────────────────────────────
 
+/// Short weekday names for the header, Monday first like the month grid, in
+/// [locale] ("Пн … Вс", "Mon … Sun"). A new language needs no code here.
+List<String> calendarWeekdayHeaders(String locale) {
+  final monday = DateTime(2024, 1, 1); // a Monday
+  return [
+    for (var i = 0; i < 7; i++)
+      _capitalized(DateFormat.E(locale).format(addCalendarDays(monday, i))),
+  ];
+}
+
+String _capitalized(String s) =>
+    s.isEmpty ? s : s[0].toUpperCase() + s.substring(1);
+
 class _WeekDayHeader extends StatelessWidget {
   const _WeekDayHeader();
-
-  static const _days = ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'];
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
+    final days =
+        calendarWeekdayHeaders(Localizations.localeOf(context).languageCode);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Row(
-        children: _days
+        children: days
             .map(
               (d) => Expanded(
                 child: Center(
@@ -518,6 +531,7 @@ class _CalendarLegend extends StatelessWidget {
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final l10n = context.l10n;
 
     return Padding(
       padding: const EdgeInsets.fromLTRB(20, 4, 20, 0),
@@ -527,19 +541,19 @@ class _CalendarLegend extends StatelessWidget {
         children: [
           _LegendItem(
             color: AppTheme.brandBlue.withAlpha(110),
-            label: '1 тренировка',
+            label: l10n.calendarLegendOneWorkout,
             scheme: scheme,
           ),
           _LegendItem(
             color: AppTheme.brandBlue.withAlpha(210),
-            label: '2+ тренировки',
+            label: l10n.calendarLegendManyWorkouts,
             scheme: scheme,
           ),
           _LegendItem(
             color: isDark ? Colors.cyan.withAlpha(35) : Colors.cyan.withAlpha(28),
             icon: Icons.ac_unit,
             iconColor: Colors.cyan.shade500,
-            label: 'Заморозка',
+            label: l10n.calendarLegendFreeze,
             scheme: scheme,
           ),
         ],

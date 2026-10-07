@@ -775,7 +775,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 - File naming: `snake_case`
 - Class naming: `PascalCase`
 - Public API comments in English
-- UI strings via l10n (English primary, Russian secondary; `app_en.arb` is the template)
+- UI strings via l10n (English primary, Russian secondary; `app_en.arb` is the template). A counted noun is one plural message that includes the number (`{count, plural, one{{count} day} other{{count} days}}`): `arb_consistency_test` reads a bare word inside a plural branch as an undeclared placeholder. Weekday and month names come from `intl` for the app locale, not from a hand-written list
 - No clutter: do not add docstrings/comments to code you are not touching
 
 ### Key Patterns
@@ -805,7 +805,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 | Catalog integrity | `test/data/exercise_catalog_integrity_test.dart` | unique ids, consecutive stages, start ≤ target, every animation exists, is valid Lottie and belongs to an exercise (no orphans), EN + RU name / description / tip for every exercise, tags |
 | Enums | `test/data/enums_test.dart` | rank thresholds, `stageCount` = catalog length, frozen Hive indices, course → branch mapping |
 | Repositories | `test/data/repositories/` | real Hive via `test/helpers/hive_test_env.dart` (same adapters and box names as `main()`; `reopen()` proves a field really went through its adapter) |
-| Localization | `test/l10n/` | EN and RU have the same keys and placeholders, none undeclared; plural forms |
+| Localization | `test/l10n/` | EN and RU have the same keys and placeholders, none undeclared; plural forms; **no Cyrillic text in `lib/` outside a short allow-list** (`no_hardcoded_text_test.dart`: debug screen, widget rank names, notification table, language picker — each with its reason; the test also fails when an allowed file no longer needs its exception) |
 | Notification plan | `test/domain/services/notification_planner_test.dart` | which reminders exist for which settings, their times, DST (Berlin) and other zones, the one-off streak-lost / rank-at-risk alerts, RU / EN texts |
 | Friend QR + BLE payloads | `test/data/friend_qr_codec_test.dart`, `ble_profile_codec_test.dart`, `test/features/friends/friend_qr_payload_test.dart` | round trips, all number ranges, size (QR version, 512-byte GATT limit), v1 compatibility, thousands of random / damaged inputs never throw |
 | Health energy | `test/domain/services/workout_energy_test.dart` | MET formula, which weight sample is used, implausible weights fall back to 70 kg |

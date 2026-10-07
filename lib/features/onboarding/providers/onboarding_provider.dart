@@ -10,31 +10,30 @@ import '../../../data/models/user_profile.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 
+/// The texts shown for these options come from l10n (`PushupCountL10n` /
+/// `WorkoutMinutesL10n` in onboarding_screen.dart); the label of a push-up
+/// count is numeric and the same in every language.
 enum PushupCount {
-  zero('0', 'Пока ни одного', '🌱'),
-  oneToFive('1–5', 'Совсем немного', '🌿'),
-  fiveToFifteen('5–15', 'Уже неплохо', '🌳'),
-  moreThan15('15+', 'Отличная база', '🏆');
+  zero('0', '🌱'),
+  oneToFive('1–5', '🌿'),
+  fiveToFifteen('5–15', '🌳'),
+  moreThan15('15+', '🏆');
 
-  const PushupCount(this.label, this.description, this.emoji);
+  const PushupCount(this.label, this.emoji);
 
   final String label;
-  final String description;
   final String emoji;
 }
 
 enum WorkoutMinutes {
-  five(5, 'Быстро и эффективно', '⚡'),
-  ten(10, 'Оптимальный вариант', '🎯'),
-  fifteen(15, 'Полноценная тренировка', '🔥');
+  five(5, '⚡'),
+  ten(10, '🎯'),
+  fifteen(15, '🔥');
 
-  const WorkoutMinutes(this.minutes, this.description, this.emoji);
+  const WorkoutMinutes(this.minutes, this.emoji);
 
   final int minutes;
-  final String description;
   final String emoji;
-
-  String get label => '$minutes минут';
 }
 
 // ── State ────────────────────────────────────────────────────────────────────
