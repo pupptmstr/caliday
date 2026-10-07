@@ -1,10 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/exercise.dart';
 import '../../../data/static/exercise_catalog.dart';
 import '../../../data/static/exercise_tags_catalog.dart';
+import '../../../l10n/app_localizations.dart';
 
 @immutable
 class ExerciseLibraryState {
@@ -55,11 +57,31 @@ class ExerciseLibraryNotifier extends Notifier<ExerciseLibraryState> {
     state = ExerciseLibraryState(results: ExerciseCatalog.libraryAll);
   }
 
+  /// Lower case, with "ё" folded to "е": nobody types the dots on a phone
+  /// keyboard, and "подъемы" has to find "Подъёмы".
+  static String _fold(String s) => s.toLowerCase().replaceAll('ё', 'е');
+
+  /// The names a query is matched against: the name in every supported
+  /// language (so "планка" works in the English UI and "plank" in the Russian
+  /// one) plus the catalog's own English name.
+  static List<String> _searchNames(
+      Exercise e, List<AppLocalizations> languages) {
+    return [
+      e.name,
+      for (final l10n in languages) ExerciseL10n.name(l10n, e.id),
+    ].map(_fold).toList();
+  }
+
   static List<Exercise> _filter(ExerciseLibraryState s) {
     var list = ExerciseCatalog.libraryAll;
-    if (s.query.isNotEmpty) {
-      final q = s.query.toLowerCase();
-      list = list.where((e) => e.name.toLowerCase().contains(q)).toList();
+    final q = _fold(s.query.trim());
+    if (q.isNotEmpty) {
+      final languages = AppLocalizations.supportedLocales
+          .map(lookupAppLocalizations)
+          .toList();
+      list = list
+          .where((e) => _searchNames(e, languages).any((n) => n.contains(q)))
+          .toList();
     }
     if (s.selectedTags.isNotEmpty) {
       list = list.where((e) {

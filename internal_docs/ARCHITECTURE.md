@@ -116,7 +116,7 @@ lib/
     │   ├── exercise_library_screen.dart ← /library/exercises (search + 2-col grid)
     │   └── custom_routine_builder_screen.dart ← /library/routine-builder (exercise picker + save)
     ├── library/providers/
-    │   └── exercise_library_provider.dart ← ExerciseLibraryNotifier (search + tag filter)
+    │   └── exercise_library_provider.dart ← ExerciseLibraryNotifier (search by the name in every supported language, "ё" = "е", + tag filter)
     ├── library/widgets/
     │   └── exercise_detail_sheet.dart ← Exercise detail bottom sheet
     ├── workout/
