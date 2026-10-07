@@ -184,6 +184,11 @@ Reps ↑ → Sets ↑ (with reps reset) → Rest ↓ → Challenge test → Next
 - **Achievements** — 29 total (one is secret), checked after each workout and stage advance
 - **Bonus workouts** — multiple workouts per day are allowed (50% SP, progression does not advance)
 
+### Workout size
+The user picks how big the daily workout is: **Short** (2 skill branches), **Standard** (3) or **Full** (all branches of the course), `WorkoutSize` in `data/models/enums.dart`. It used to be presented as "5 / 10 / 15 minutes", which promised a duration the app never computed: the real time follows reps, sets and rests and roughly doubles as the user progresses (about 6 / 8 / 15 min at the start for Calisthenics, about 10 / 15 / 29 min with 12×3 reps and 60 s rests). So the names describe the volume, not the time, and no text may promise minutes (a test checks the names).
+
+The stored value is unchanged: `UserProfile.preferredWorkoutMinutes` (HiveField 12) keeps the old code 5 / 10 / 15 (`WorkoutSize.code`), so no migration; the generator parameter `preferredMinutes` keeps its historical name and reads the same code. `WorkoutSize.fromCode` reads any stored int the way the generator does (a test compares them for 0..30). Healthy Body has only 3 branches, so Standard and Full give the same workout there. Chosen in onboarding (step 3) and in Settings → Workout (a segmented control like the theme one).
+
 ### Primary vs Bonus Workout
 `WorkoutLog.isPrimary`: true = first of the day (full SP, advances progression, counts toward streak); false = 50% SP.
 Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday()`. The first workout of the day is always primary — regardless of whether it is a daily plan or a custom routine. Custom-only users can build a streak this way. `courseIdIndex` is still `null` for custom routines (not tied to any course).
@@ -454,7 +459,7 @@ otherwise                          → 0
 - `nextExercise(progress)` — next stage from catalog
 
 ### WorkoutGeneratorService
-- `generateDailyForCourse({course, courseBranches, preferredMinutes, dayIndexOverride, isPrimary, hasPullUpBar})` — primary method; progress comes from the injected `SkillProgressRepository`; rotates branches by dayIndex (days since 2020-01-01, overridable for tests). N branches: min(2,total) at ≤5min, min(3,total) at 10min, total at ≥15min. Warm-up of the first branch, one main exercise per branch, at most two distinct cool-downs; a bonus workout (`isPrimary: false`) gets two random supplementary exercises on top. Without a pull-up bar an equipment exercise is swapped for its alternative when one exists (core stage 4 → flutter kicks).
+- `generateDailyForCourse({course, courseBranches, preferredMinutes, dayIndexOverride, isPrimary, hasPullUpBar})` — primary method; progress comes from the injected `SkillProgressRepository`; rotates branches by dayIndex (days since 2020-01-01, overridable for tests). N branches by the workout size code (`WorkoutSize`: 5 short / 10 standard / 15 full): min(2,total) at ≤5, min(3,total) at 10, total at ≥15. Warm-up of the first branch, one main exercise per branch, at most two distinct cool-downs; a bonus workout (`isPrimary: false`) gets two random supplementary exercises on top. Without a pull-up bar an equipment exercise is swapped for its alternative when one exists (core stage 4 → flutter kicks).
 - `generateDaily(...)` — legacy wrapper, calls `generateDailyForCourse` with `course: CourseId.calisthenics`.
 - `generateChallenge(branch)` — warmup → current stage (1 easy set) → next stage (challengeTargetReps) → cooldown
 - `fromExerciseIds(List<String> ids)` → `WorkoutPlan` — builds a plan from explicit exercise IDs; uses `startReps/Sets/RestSec`; search order: `byId` → `libraryAll` → `SupplementaryExerciseCatalog.all`
@@ -564,7 +569,7 @@ Both entry points lead to the same flow: `challengeBranchProvider = branch` → 
 | 0 | Welcome — Goro + description |
 | 1 | Name (optional) |
 | 2 | How many push-ups can you do? (Push calibration) |
-| 3 | How many minutes per day? (→ `preferredWorkoutMinutes`) |
+| 3 | How big should a workout be? Short / Standard / Full (→ `preferredWorkoutMinutes` as the code 5 / 10 / 15, see § Workout size) |
 | 4 | Choose course(s) — multi-select cards (Calisthenics / Healthy Body) |
 | 5 | Do you have a pull-up bar? (only shown if calisthenics selected; → `hasPullUpBar`) |
 | 6 | Health integration (opt-in) |

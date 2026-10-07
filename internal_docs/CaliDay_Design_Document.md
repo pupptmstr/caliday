@@ -327,7 +327,7 @@ On the first launch the app runs a short survey to calibrate the starting level:
 
 1. "How often do you exercise?" — Never / Sometimes / Regularly
 2. "How many push-ups can you do?" — 0 / 1–5 / 5–15 / 15+
-3. "How many minutes per day can you spare?" — 5 / 10 / 15
+3. "How big should a workout be?" — Short / Standard / Full (2 / 3 / all skills; was "5 / 10 / 15 minutes" until 0.8.11, see ARCHITECTURE § Workout size)
 4. "What is your goal?" — General fitness / Push strength / Calisthenics & skills
 5. Notification time selection
 6. First trial set (immediately after onboarding!)

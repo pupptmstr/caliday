@@ -358,8 +358,6 @@
   "settingsEquipmentPullUpBar": "Турник дома",
   "settingsEquipmentPullUpBarSubtitle": "Открывает ветку прогрессии «Тяга»",
   "settingsSectionWorkout": "ТРЕНИРОВКА",
-  "settingsWorkoutDurationTitle": "Длительность сета",
-  "settingsWorkoutDurationSubtitle": "Сколько минут уделять ежедневной тренировке",
   "settingsSoundTitle": "Звуки",
   "settingsSoundSubtitle": "Звуки обратной связи во время тренировки",
   "settingsHapticTitle": "Вибрация",
@@ -379,7 +377,15 @@
   "onboardingQ1Hint": "Твоё имя (необязательно)",
   "onboardingQ1Body": "Горо будет обращаться к тебе по имени",
   "onboardingQ2": "Сколько отжиманий ты можешь сделать?",
-  "onboardingQ3": "Сколько минут в день готов уделять?",
+  "onboardingQ3": "Какого размера должна быть тренировка?",
+  "workoutSizeShort": "Короткая",
+  "workoutSizeStandard": "Стандартная",
+  "workoutSizeFull": "Полная",
+  "workoutSizeShortDesc": "2 навыка",
+  "workoutSizeStandardDesc": "3 навыка",
+  "workoutSizeFullDesc": "Все навыки",
+  "settingsWorkoutSizeTitle": "Размер тренировки",
+  "settingsWorkoutSizeSubtitle": "Сколько навыков тренировать в ежедневной тренировке",
   "onboardingQ5": "Есть ли у тебя турник или кольца дома?",
   "onboardingEquipmentYes": "Да, есть",
   "onboardingEquipmentNo": "Нет",
@@ -394,17 +400,6 @@
   "pushupOneToFiveDesc": "Совсем немного",
   "pushupFiveToFifteenDesc": "Уже неплохо",
   "pushupMoreThan15Desc": "Отличная база",
-  "minutesLabel": "{minutes} минут",
-  "@minutesLabel": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-  "minutesFiveDesc": "Быстро и эффективно",
-  "minutesTenDesc": "Оптимальный вариант",
-  "minutesFifteenDesc": "Полноценная тренировка",
   "timeOfDayMorning": "Утро",
   "timeOfDayDay": "День",
   "timeOfDayLunch": "Обед",

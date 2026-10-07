@@ -358,8 +358,6 @@
   "settingsEquipmentPullUpBar": "Pull-up bar at home",
   "settingsEquipmentPullUpBarSubtitle": "Enables the Pull skill progression branch",
   "settingsSectionWorkout": "WORKOUT",
-  "settingsWorkoutDurationTitle": "Session length",
-  "settingsWorkoutDurationSubtitle": "How many minutes to spend on the daily workout",
   "settingsSoundTitle": "Sounds",
   "settingsSoundSubtitle": "Audio feedback during workouts",
   "settingsHapticTitle": "Haptics",
@@ -379,7 +377,15 @@
   "onboardingQ1Hint": "Your name (optional)",
   "onboardingQ1Body": "Goro will use it to cheer you on",
   "onboardingQ2": "How many push-ups can you do?",
-  "onboardingQ3": "How many minutes a day are you ready to spend?",
+  "onboardingQ3": "How big should your workout be?",
+  "workoutSizeShort": "Short",
+  "workoutSizeStandard": "Standard",
+  "workoutSizeFull": "Full",
+  "workoutSizeShortDesc": "2 skills",
+  "workoutSizeStandardDesc": "3 skills",
+  "workoutSizeFullDesc": "All your skills",
+  "settingsWorkoutSizeTitle": "Workout size",
+  "settingsWorkoutSizeSubtitle": "How many skills to train in the daily workout",
   "onboardingQ5": "Do you have a pull-up bar or rings at home?",
   "onboardingEquipmentYes": "Yes, I do",
   "onboardingEquipmentNo": "No",
@@ -394,17 +400,6 @@
   "pushupOneToFiveDesc": "Just a few",
   "pushupFiveToFifteenDesc": "Getting there",
   "pushupMoreThan15Desc": "Solid base",
-  "minutesLabel": "{minutes} minutes",
-  "@minutesLabel": {
-    "placeholders": {
-      "minutes": {
-        "type": "int"
-      }
-    }
-  },
-  "minutesFiveDesc": "Quick and efficient",
-  "minutesTenDesc": "Optimal choice",
-  "minutesFifteenDesc": "Full workout",
   "timeOfDayMorning": "Morning",
   "timeOfDayDay": "Afternoon",
   "timeOfDayLunch": "Lunch",

@@ -1220,18 +1220,6 @@ abstract class AppLocalizations {
   /// **'WORKOUT'**
   String get settingsSectionWorkout;
 
-  /// No description provided for @settingsWorkoutDurationTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Session length'**
-  String get settingsWorkoutDurationTitle;
-
-  /// No description provided for @settingsWorkoutDurationSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'How many minutes to spend on the daily workout'**
-  String get settingsWorkoutDurationSubtitle;
-
   /// No description provided for @settingsSoundTitle.
   ///
   /// In en, this message translates to:
@@ -1349,8 +1337,56 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingQ3.
   ///
   /// In en, this message translates to:
-  /// **'How many minutes a day are you ready to spend?'**
+  /// **'How big should your workout be?'**
   String get onboardingQ3;
+
+  /// No description provided for @workoutSizeShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Short'**
+  String get workoutSizeShort;
+
+  /// No description provided for @workoutSizeStandard.
+  ///
+  /// In en, this message translates to:
+  /// **'Standard'**
+  String get workoutSizeStandard;
+
+  /// No description provided for @workoutSizeFull.
+  ///
+  /// In en, this message translates to:
+  /// **'Full'**
+  String get workoutSizeFull;
+
+  /// No description provided for @workoutSizeShortDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'2 skills'**
+  String get workoutSizeShortDesc;
+
+  /// No description provided for @workoutSizeStandardDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'3 skills'**
+  String get workoutSizeStandardDesc;
+
+  /// No description provided for @workoutSizeFullDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All your skills'**
+  String get workoutSizeFullDesc;
+
+  /// No description provided for @settingsWorkoutSizeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout size'**
+  String get settingsWorkoutSizeTitle;
+
+  /// No description provided for @settingsWorkoutSizeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How many skills to train in the daily workout'**
+  String get settingsWorkoutSizeSubtitle;
 
   /// No description provided for @onboardingQ5.
   ///
@@ -1435,30 +1471,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Solid base'**
   String get pushupMoreThan15Desc;
-
-  /// No description provided for @minutesLabel.
-  ///
-  /// In en, this message translates to:
-  /// **'{minutes} minutes'**
-  String minutesLabel(int minutes);
-
-  /// No description provided for @minutesFiveDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Quick and efficient'**
-  String get minutesFiveDesc;
-
-  /// No description provided for @minutesTenDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Optimal choice'**
-  String get minutesTenDesc;
-
-  /// No description provided for @minutesFifteenDesc.
-  ///
-  /// In en, this message translates to:
-  /// **'Full workout'**
-  String get minutesFifteenDesc;
 
   /// No description provided for @timeOfDayMorning.
   ///

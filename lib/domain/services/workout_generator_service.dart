@@ -24,10 +24,13 @@ class WorkoutGeneratorService {
   /// Generates a [SetType.daily] plan for the given [course] and its branches.
   ///
   /// Branch rotation is deterministic: based on the number of days since
-  /// 2020-01-01. [preferredMinutes] controls how many branches to train today:
-  /// - ≤ 5 min  → min(2, total) branches
-  /// - 10 min   → min(3, total) branches
-  /// - ≥ 15 min → all branches
+  /// 2020-01-01. [preferredMinutes] is the workout size code (`WorkoutSize`:
+  /// 5 short, 10 standard, 15 full). The name is historical: it is not a
+  /// duration, how long the day takes depends on reps, sets and rests. It
+  /// controls how many branches to train today:
+  /// - ≤ 5  → min(2, total) branches
+  /// - 10   → min(3, total) branches
+  /// - ≥ 15 → all branches
   WorkoutPlan generateDailyForCourse({
     required CourseId course,
     required List<BranchId> courseBranches,

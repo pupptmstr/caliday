@@ -6,6 +6,52 @@ import 'package:caliday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  group('WorkoutSize', () {
+    test('the stored codes stay 5 / 10 / 15: saved profiles rely on them', () {
+      expect(WorkoutSize.short.code, 5);
+      expect(WorkoutSize.standard.code, 10);
+      expect(WorkoutSize.full.code, 15);
+    });
+
+    test('fromCode reads a stored value, also an unusual one', () {
+      const expected = {
+        0: WorkoutSize.short,
+        5: WorkoutSize.short,
+        6: WorkoutSize.standard,
+        10: WorkoutSize.standard,
+        14: WorkoutSize.standard,
+        15: WorkoutSize.full,
+        99: WorkoutSize.full,
+      };
+      expected.forEach((code, size) {
+        expect(WorkoutSize.fromCode(code), size, reason: '$code');
+      });
+    });
+
+    test('every size has its own name and description in both languages', () {
+      for (final l10n in [AppLocalizationsEn(), AppLocalizationsRu()]) {
+        final names = WorkoutSize.values.map((s) => s.localizedName(l10n)).toList();
+        final descriptions =
+            WorkoutSize.values.map((s) => s.localizedDescription(l10n)).toList();
+        expect(names.toSet(), hasLength(3), reason: l10n.localeName);
+        expect(descriptions.toSet(), hasLength(3), reason: l10n.localeName);
+        expect([...names, ...descriptions].every((t) => t.trim().isNotEmpty), isTrue);
+      }
+    });
+
+    test('no name promises a duration', () {
+      for (final l10n in [AppLocalizationsEn(), AppLocalizationsRu()]) {
+        for (final size in WorkoutSize.values) {
+          final text =
+              '${size.localizedName(l10n)} ${size.localizedDescription(l10n)}';
+          expect(RegExp(r'\d+\s*(min|мин)', caseSensitive: false).hasMatch(text),
+              isFalse,
+              reason: text);
+        }
+      }
+    });
+  });
+
   group('Rank', () {
     test('fromSP picks the highest rank whose threshold is reached', () {
       const expected = {

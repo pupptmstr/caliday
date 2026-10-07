@@ -6,6 +6,7 @@ import '../../../core/providers/theme_provider.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/services/notification_service.dart';
 import '../../../core/services/sound_service.dart';
+import '../../../data/models/enums.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../home/providers/home_provider.dart';
 
@@ -19,7 +20,7 @@ class SettingsState {
     required this.notificationHour,
     required this.notificationMinute,
     required this.locale,
-    required this.preferredWorkoutMinutes,
+    required this.workoutSize,
     required this.themeMode,
     required this.hasPullUpBar,
     required this.soundEnabled,
@@ -36,7 +37,7 @@ class SettingsState {
   final int notificationHour;
   final int notificationMinute;
   final String locale;
-  final int preferredWorkoutMinutes;
+  final WorkoutSize workoutSize;
   final ThemeMode themeMode;
   final bool hasPullUpBar;
   final bool soundEnabled;
@@ -60,7 +61,7 @@ class SettingsState {
     int? notificationHour,
     int? notificationMinute,
     String? locale,
-    int? preferredWorkoutMinutes,
+    WorkoutSize? workoutSize,
     ThemeMode? themeMode,
     bool? hasPullUpBar,
     bool? soundEnabled,
@@ -78,8 +79,7 @@ class SettingsState {
       notificationHour: notificationHour ?? this.notificationHour,
       notificationMinute: notificationMinute ?? this.notificationMinute,
       locale: locale ?? this.locale,
-      preferredWorkoutMinutes:
-          preferredWorkoutMinutes ?? this.preferredWorkoutMinutes,
+      workoutSize: workoutSize ?? this.workoutSize,
       themeMode: themeMode ?? this.themeMode,
       hasPullUpBar: hasPullUpBar ?? this.hasPullUpBar,
       soundEnabled: soundEnabled ?? this.soundEnabled,
@@ -113,7 +113,7 @@ class SettingsNotifier extends Notifier<SettingsState> {
       notificationHour: p.notificationHour,
       notificationMinute: p.notificationMinute,
       locale: p.locale ?? 'ru',
-      preferredWorkoutMinutes: p.preferredWorkoutMinutes ?? 10,
+      workoutSize: WorkoutSize.fromCode(p.preferredWorkoutMinutes ?? 10),
       themeMode: themeModeFromString(p.themeModeName),
       hasPullUpBar: p.hasPullUpBar ?? false,
       soundEnabled: sound,
@@ -147,9 +147,9 @@ class SettingsNotifier extends Notifier<SettingsState> {
     _save();
   }
 
-  void setWorkoutMinutes(int minutes) {
-    state = state.copyWith(preferredWorkoutMinutes: minutes);
-    final p = ref.read(userRepositoryProvider).getProfile()..preferredWorkoutMinutes = minutes;
+  void setWorkoutSize(WorkoutSize size) {
+    state = state.copyWith(workoutSize: size);
+    final p = ref.read(userRepositoryProvider).getProfile()..preferredWorkoutMinutes = size.code;
     ref.read(userRepositoryProvider).saveProfile(p);
   }
 

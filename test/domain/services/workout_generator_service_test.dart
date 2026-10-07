@@ -125,6 +125,16 @@ void main() {
         expect(branchesFor(15, _calisthenics), _calisthenics.length);
       });
 
+      test('a stored code off the 5 / 10 / 15 grid acts as its WorkoutSize', () {
+        // The settings and onboarding only write 5, 10 or 15, but the profile
+        // keeps a plain int; the enum has to read it the way the generator does.
+        for (var code = 0; code <= 30; code++) {
+          expect(branchesFor(code, _calisthenics),
+              branchesFor(WorkoutSize.fromCode(code).code, _calisthenics),
+              reason: 'code $code');
+        }
+      });
+
       test('never more than the course has', () {
         final healthy = CourseCatalog.branchesFor(CourseId.healthyBody); // 3
         expect(branchesFor(15, healthy), 3);

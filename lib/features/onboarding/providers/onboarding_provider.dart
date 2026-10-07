@@ -10,9 +10,9 @@ import '../../../data/models/user_profile.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 
-/// The texts shown for these options come from l10n (`PushupCountL10n` /
-/// `WorkoutMinutesL10n` in onboarding_screen.dart); the label of a push-up
-/// count is numeric and the same in every language.
+/// The texts shown for these options come from l10n (`PushupCountL10n` in
+/// onboarding_screen.dart); the label of a push-up count is numeric and the
+/// same in every language.
 enum PushupCount {
   zero('0', '🌱'),
   oneToFive('1–5', '🌿'),
@@ -25,17 +25,6 @@ enum PushupCount {
   final String emoji;
 }
 
-enum WorkoutMinutes {
-  five(5, '⚡'),
-  ten(10, '🎯'),
-  fifteen(15, '🔥');
-
-  const WorkoutMinutes(this.minutes, this.emoji);
-
-  final int minutes;
-  final String emoji;
-}
-
 // ── State ────────────────────────────────────────────────────────────────────
 
 class OnboardingState {
@@ -43,7 +32,7 @@ class OnboardingState {
     this.step = 0,
     this.displayName = '',
     this.pushupCount,
-    this.workoutMinutes,
+    this.workoutSize,
     this.selectedCourseIds = const [CourseId.calisthenics],
     this.hasPullUpBar,
     this.healthEnabled = false,
@@ -55,7 +44,7 @@ class OnboardingState {
   final int step;
   final String displayName;
   final PushupCount? pushupCount;
-  final WorkoutMinutes? workoutMinutes;
+  final WorkoutSize? workoutSize;
 
   /// Courses selected during onboarding. Defaults to [calisthenics].
   final List<CourseId> selectedCourseIds;
@@ -86,7 +75,7 @@ class OnboardingState {
       case 2:
         return pushupCount != null;
       case 3:
-        return workoutMinutes != null;
+        return workoutSize != null;
       case 4:
         return selectedCourseIds.isNotEmpty;
       case 5:
@@ -107,7 +96,7 @@ class OnboardingState {
     int? step,
     String? displayName,
     PushupCount? pushupCount,
-    WorkoutMinutes? workoutMinutes,
+    WorkoutSize? workoutSize,
     List<CourseId>? selectedCourseIds,
     bool? hasPullUpBar,
     bool? healthEnabled,
@@ -119,7 +108,7 @@ class OnboardingState {
       step: step ?? this.step,
       displayName: displayName ?? this.displayName,
       pushupCount: pushupCount ?? this.pushupCount,
-      workoutMinutes: workoutMinutes ?? this.workoutMinutes,
+      workoutSize: workoutSize ?? this.workoutSize,
       selectedCourseIds: selectedCourseIds ?? this.selectedCourseIds,
       hasPullUpBar: hasPullUpBar ?? this.hasPullUpBar,
       healthEnabled: healthEnabled ?? this.healthEnabled,
@@ -134,7 +123,7 @@ class OnboardingState {
         step: step,
         displayName: displayName,
         pushupCount: pushupCount,
-        workoutMinutes: workoutMinutes,
+        workoutSize: workoutSize,
         selectedCourseIds: selectedCourseIds,
         hasPullUpBar: value,
         healthEnabled: healthEnabled,
@@ -156,8 +145,8 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
   void selectPushupCount(PushupCount value) =>
       state = state.copyWith(pushupCount: value);
 
-  void selectWorkoutMinutes(WorkoutMinutes value) =>
-      state = state.copyWith(workoutMinutes: value);
+  void selectWorkoutSize(WorkoutSize value) =>
+      state = state.copyWith(workoutSize: value);
 
   void toggleCourse(CourseId course) {
     final current = List<CourseId>.from(state.selectedCourseIds);
@@ -214,7 +203,7 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
         notificationHour: state.reminderHour,
         notificationMinute: state.reminderMinute,
         locale: ref.read(localeProvider),
-        preferredWorkoutMinutes: state.workoutMinutes?.minutes,
+        preferredWorkoutMinutes: state.workoutSize?.code,
         hasPullUpBar: hasPullUpBar,
         displayName: name,
         healthWorkoutsEnabled: state.healthEnabled && healthGranted,

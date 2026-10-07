@@ -61,7 +61,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
                       _WelcomeStep(),
                       _NameStep(),
                       _PushupStep(),
-                      _DurationStep(),
+                      _WorkoutSizeStep(),
                       _CourseStep(),
                       _PullUpBarStep(),
                       if (!kIsWeb) ...[
@@ -422,26 +422,26 @@ class _PushupStep extends ConsumerWidget {
   }
 }
 
-// ── Step 3: Workout duration ──────────────────────────────────────────────────
+// ── Step 3: Workout size ──────────────────────────────────────────────────────
 
-class _DurationStep extends ConsumerWidget {
+class _WorkoutSizeStep extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final selected =
-        ref.watch(onboardingProvider.select((s) => s.workoutMinutes));
+        ref.watch(onboardingProvider.select((s) => s.workoutSize));
     final notifier = ref.read(onboardingProvider.notifier);
     final l10n = context.l10n;
 
     return _StepScaffold(
       question: l10n.onboardingQ3,
-      children: WorkoutMinutes.values
+      children: WorkoutSize.values
           .map(
             (v) => OptionCard(
               emoji: v.emoji,
-              label: l10n.minutesLabel(v.minutes),
+              label: v.localizedName(l10n),
               description: v.localizedDescription(l10n),
               isSelected: selected == v,
-              onTap: () => notifier.selectWorkoutMinutes(v),
+              onTap: () => notifier.selectWorkoutSize(v),
             ),
           )
           .toList(),
@@ -647,11 +647,11 @@ extension PushupCountL10n on PushupCount {
       };
 }
 
-extension WorkoutMinutesL10n on WorkoutMinutes {
-  String localizedDescription(AppLocalizations l10n) => switch (this) {
-        WorkoutMinutes.five => l10n.minutesFiveDesc,
-        WorkoutMinutes.ten => l10n.minutesTenDesc,
-        WorkoutMinutes.fifteen => l10n.minutesFifteenDesc,
+extension WorkoutSizeOnboarding on WorkoutSize {
+  String get emoji => switch (this) {
+        WorkoutSize.short => '⚡',
+        WorkoutSize.standard => '🎯',
+        WorkoutSize.full => '🔥',
       };
 }
 

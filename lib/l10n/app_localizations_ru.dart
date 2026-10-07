@@ -649,13 +649,6 @@ class AppLocalizationsRu extends AppLocalizations {
   String get settingsSectionWorkout => 'ТРЕНИРОВКА';
 
   @override
-  String get settingsWorkoutDurationTitle => 'Длительность сета';
-
-  @override
-  String get settingsWorkoutDurationSubtitle =>
-      'Сколько минут уделять ежедневной тренировке';
-
-  @override
   String get settingsSoundTitle => 'Звуки';
 
   @override
@@ -715,7 +708,32 @@ class AppLocalizationsRu extends AppLocalizations {
   String get onboardingQ2 => 'Сколько отжиманий ты можешь сделать?';
 
   @override
-  String get onboardingQ3 => 'Сколько минут в день готов уделять?';
+  String get onboardingQ3 => 'Какого размера должна быть тренировка?';
+
+  @override
+  String get workoutSizeShort => 'Короткая';
+
+  @override
+  String get workoutSizeStandard => 'Стандартная';
+
+  @override
+  String get workoutSizeFull => 'Полная';
+
+  @override
+  String get workoutSizeShortDesc => '2 навыка';
+
+  @override
+  String get workoutSizeStandardDesc => '3 навыка';
+
+  @override
+  String get workoutSizeFullDesc => 'Все навыки';
+
+  @override
+  String get settingsWorkoutSizeTitle => 'Размер тренировки';
+
+  @override
+  String get settingsWorkoutSizeSubtitle =>
+      'Сколько навыков тренировать в ежедневной тренировке';
 
   @override
   String get onboardingQ5 => 'Есть ли у тебя турник или кольца дома?';
@@ -760,20 +778,6 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get pushupMoreThan15Desc => 'Отличная база';
-
-  @override
-  String minutesLabel(int minutes) {
-    return '$minutes минут';
-  }
-
-  @override
-  String get minutesFiveDesc => 'Быстро и эффективно';
-
-  @override
-  String get minutesTenDesc => 'Оптимальный вариант';
-
-  @override
-  String get minutesFifteenDesc => 'Полноценная тренировка';
 
   @override
   String get timeOfDayMorning => 'Утро';

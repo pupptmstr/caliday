@@ -271,3 +271,42 @@ extension BranchIdExtension on BranchId {
 
   bool get requiresEquipment => this == BranchId.pull;
 }
+
+/// How big the daily workout is: how many skill branches it covers (2, 3 or all
+/// of the course's). It never meant real minutes: how long it takes depends on
+/// the reps, sets and rests of the day. The profile keeps it as the old code
+/// 5 / 10 / 15 (`UserProfile.preferredWorkoutMinutes`), so nothing is migrated.
+/// Not stored by Hive itself.
+enum WorkoutSize {
+  short(5),
+  standard(10),
+  full(15);
+
+  const WorkoutSize(this.code);
+
+  /// The value saved in `UserProfile.preferredWorkoutMinutes` and passed to
+  /// `WorkoutGeneratorService` as `preferredMinutes`.
+  final int code;
+
+  /// The size a stored [code] stands for, read the way the generator reads it:
+  /// up to 5 is short, 15 and more is full, anything between is standard.
+  static WorkoutSize fromCode(int code) => code <= 5
+      ? short
+      : code >= 15
+          ? full
+          : standard;
+}
+
+extension WorkoutSizeLocalization on WorkoutSize {
+  String localizedName(AppLocalizations l10n) => switch (this) {
+        WorkoutSize.short => l10n.workoutSizeShort,
+        WorkoutSize.standard => l10n.workoutSizeStandard,
+        WorkoutSize.full => l10n.workoutSizeFull,
+      };
+
+  String localizedDescription(AppLocalizations l10n) => switch (this) {
+        WorkoutSize.short => l10n.workoutSizeShortDesc,
+        WorkoutSize.standard => l10n.workoutSizeStandardDesc,
+        WorkoutSize.full => l10n.workoutSizeFullDesc,
+      };
+}

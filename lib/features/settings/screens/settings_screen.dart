@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
+import '../../../data/models/enums.dart';
 import '../providers/settings_provider.dart' show settingsProvider;
 
 class SettingsScreen extends ConsumerWidget {
@@ -122,11 +123,22 @@ class SettingsScreen extends ConsumerWidget {
             ),
 
             _SettingsTile(
-              title: l10n.settingsWorkoutDurationTitle,
-              subtitle: l10n.settingsWorkoutDurationSubtitle,
-              trailing: _MinuteChips(
-                selected: state.preferredWorkoutMinutes,
-                onSelect: notifier.setWorkoutMinutes,
+              title: l10n.settingsWorkoutSizeTitle,
+              subtitle: l10n.settingsWorkoutSizeSubtitle,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+              child: SegmentedButton<WorkoutSize>(
+                showSelectedIcon: false,
+                segments: [
+                  for (final size in WorkoutSize.values)
+                    ButtonSegment(
+                      value: size,
+                      label: Text(size.localizedName(l10n)),
+                    ),
+                ],
+                selected: {state.workoutSize},
+                onSelectionChanged: (s) => notifier.setWorkoutSize(s.first),
               ),
             ),
 
@@ -370,7 +382,7 @@ Future<void> _showLanguagePicker(
 class _SettingsTile extends StatelessWidget {
   const _SettingsTile({
     required this.title,
-    required this.trailing,
+    this.trailing,
     this.subtitle,
     this.enabled = true,
     this.onTap,
@@ -378,7 +390,7 @@ class _SettingsTile extends StatelessWidget {
 
   final String title;
   final String? subtitle;
-  final Widget trailing;
+  final Widget? trailing;
   final bool enabled;
   final VoidCallback? onTap;
 
@@ -437,54 +449,6 @@ class _TimeChip extends StatelessWidget {
           color: enabled ? scheme.onPrimaryContainer : scheme.onSurfaceVariant,
         ),
       ),
-    );
-  }
-}
-
-// ── Minute chips (5 / 10 / 15) ───────────────────────────────────────────────
-
-class _MinuteChips extends StatelessWidget {
-  const _MinuteChips({required this.selected, required this.onSelect});
-
-  final int selected;
-  final void Function(int) onSelect;
-
-  static const _options = [5, 10, 15];
-
-  @override
-  Widget build(BuildContext context) {
-    final scheme = Theme.of(context).colorScheme;
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      children: _options.map((min) {
-        final isSelected = min == selected;
-        return Padding(
-          padding: const EdgeInsets.only(left: 6),
-          child: GestureDetector(
-            onTap: () => onSelect(min),
-            child: AnimatedContainer(
-              duration: const Duration(milliseconds: 150),
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 7),
-              decoration: BoxDecoration(
-                color: isSelected
-                    ? scheme.primary
-                    : scheme.surfaceContainerHighest,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Text(
-                '$min',
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 13,
-                  color: isSelected
-                      ? scheme.onPrimary
-                      : scheme.onSurfaceVariant,
-                ),
-              ),
-            ),
-          ),
-        );
-      }).toList(),
     );
   }
 }

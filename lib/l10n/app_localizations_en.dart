@@ -644,13 +644,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsSectionWorkout => 'WORKOUT';
 
   @override
-  String get settingsWorkoutDurationTitle => 'Session length';
-
-  @override
-  String get settingsWorkoutDurationSubtitle =>
-      'How many minutes to spend on the daily workout';
-
-  @override
   String get settingsSoundTitle => 'Sounds';
 
   @override
@@ -709,7 +702,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get onboardingQ2 => 'How many push-ups can you do?';
 
   @override
-  String get onboardingQ3 => 'How many minutes a day are you ready to spend?';
+  String get onboardingQ3 => 'How big should your workout be?';
+
+  @override
+  String get workoutSizeShort => 'Short';
+
+  @override
+  String get workoutSizeStandard => 'Standard';
+
+  @override
+  String get workoutSizeFull => 'Full';
+
+  @override
+  String get workoutSizeShortDesc => '2 skills';
+
+  @override
+  String get workoutSizeStandardDesc => '3 skills';
+
+  @override
+  String get workoutSizeFullDesc => 'All your skills';
+
+  @override
+  String get settingsWorkoutSizeTitle => 'Workout size';
+
+  @override
+  String get settingsWorkoutSizeSubtitle =>
+      'How many skills to train in the daily workout';
 
   @override
   String get onboardingQ5 => 'Do you have a pull-up bar or rings at home?';
@@ -753,20 +771,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pushupMoreThan15Desc => 'Solid base';
-
-  @override
-  String minutesLabel(int minutes) {
-    return '$minutes minutes';
-  }
-
-  @override
-  String get minutesFiveDesc => 'Quick and efficient';
-
-  @override
-  String get minutesTenDesc => 'Optimal choice';
-
-  @override
-  String get minutesFifteenDesc => 'Full workout';
 
   @override
   String get timeOfDayMorning => 'Morning';
