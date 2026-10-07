@@ -544,8 +544,23 @@
   "aboutPrivacyPolicy": "Privacy Policy",
   "aboutTermsOfUse": "Terms of Use",
   "aboutLegalConsent": "By using CaliDay you agree to the Privacy Policy and Terms of Use.",
-  "aboutBuiltWith": "BUILT WITH",
   "aboutCopyright": "© 2026 pupptmstr",
+  "whatsNewTitle": "What's new",
+  "whatsNewBadge": "NEW",
+  "whatsNewVersion": "Version {version}",
+  "@whatsNewVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "releaseNotes0815": "A bell in the profile now shows what changed in each update.\nThe About screen is shorter: the technical line is gone.",
+  "releaseNotes0814": "The “Again” button shows about how long an extra workout takes.",
+  "releaseNotes0813": "The time on the workout button now follows your own pace: after a few workouts it reflects how long they really take you.",
+  "releaseNotes0812": "The workout button shows about how long today's workout takes.\nThe evening reminder no longer promises “10 minutes”.",
+  "releaseNotes0811": "Workout size replaces “5, 10 or 15 minutes”: Short, Standard or Full. It sets how many skills a workout covers, not how long it lasts.",
+  "releaseNotes0810": "Timed exercises now start by themselves after a short “get ready” countdown. Tap Pause if you need more time to read or take position.\nSearch in the exercise library works in Russian and English.\nA few texts that stayed in one language are translated.",
   "settingsAbout": "About",
   "settingsSectionHealth": "HEALTH",
   "settingsHealthWorkoutsTitle": "Record workouts",

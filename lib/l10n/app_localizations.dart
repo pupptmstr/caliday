@@ -2252,17 +2252,65 @@ abstract class AppLocalizations {
   /// **'By using CaliDay you agree to the Privacy Policy and Terms of Use.'**
   String get aboutLegalConsent;
 
-  /// No description provided for @aboutBuiltWith.
-  ///
-  /// In en, this message translates to:
-  /// **'BUILT WITH'**
-  String get aboutBuiltWith;
-
   /// No description provided for @aboutCopyright.
   ///
   /// In en, this message translates to:
   /// **'© 2026 pupptmstr'**
   String get aboutCopyright;
+
+  /// No description provided for @whatsNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s new'**
+  String get whatsNewTitle;
+
+  /// No description provided for @whatsNewBadge.
+  ///
+  /// In en, this message translates to:
+  /// **'NEW'**
+  String get whatsNewBadge;
+
+  /// No description provided for @whatsNewVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Version {version}'**
+  String whatsNewVersion(String version);
+
+  /// No description provided for @releaseNotes0815.
+  ///
+  /// In en, this message translates to:
+  /// **'A bell in the profile now shows what changed in each update.\nThe About screen is shorter: the technical line is gone.'**
+  String get releaseNotes0815;
+
+  /// No description provided for @releaseNotes0814.
+  ///
+  /// In en, this message translates to:
+  /// **'The “Again” button shows about how long an extra workout takes.'**
+  String get releaseNotes0814;
+
+  /// No description provided for @releaseNotes0813.
+  ///
+  /// In en, this message translates to:
+  /// **'The time on the workout button now follows your own pace: after a few workouts it reflects how long they really take you.'**
+  String get releaseNotes0813;
+
+  /// No description provided for @releaseNotes0812.
+  ///
+  /// In en, this message translates to:
+  /// **'The workout button shows about how long today\'s workout takes.\nThe evening reminder no longer promises “10 minutes”.'**
+  String get releaseNotes0812;
+
+  /// No description provided for @releaseNotes0811.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout size replaces “5, 10 or 15 minutes”: Short, Standard or Full. It sets how many skills a workout covers, not how long it lasts.'**
+  String get releaseNotes0811;
+
+  /// No description provided for @releaseNotes0810.
+  ///
+  /// In en, this message translates to:
+  /// **'Timed exercises now start by themselves after a short “get ready” countdown. Tap Pause if you need more time to read or take position.\nSearch in the exercise library works in Russian and English.\nA few texts that stayed in one language are translated.'**
+  String get releaseNotes0810;
 
   /// No description provided for @settingsAbout.
   ///

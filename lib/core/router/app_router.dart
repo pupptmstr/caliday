@@ -13,6 +13,7 @@ import '../../features/library/screens/exercise_library_screen.dart';
 import '../../features/library/screens/library_screen.dart';
 import '../../features/onboarding/screens/onboarding_screen.dart';
 import '../../features/profile/screens/achievements_screen.dart';
+import '../../features/profile/screens/whats_new_screen.dart';
 import '../../features/profile/screens/profile_screen.dart';
 import '../../features/profile/screens/workout_calendar_screen.dart';
 import '../../features/friends/screens/friends_screen.dart';
@@ -113,6 +114,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/settings',
         builder: (_, _) => const SettingsScreen(),
+      ),
+      GoRoute(
+        path: '/whats-new',
+        builder: (_, _) => const WhatsNewScreen(),
       ),
       GoRoute(
         path: '/about',

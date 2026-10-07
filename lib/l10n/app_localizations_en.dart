@@ -1240,10 +1240,42 @@ class AppLocalizationsEn extends AppLocalizations {
       'By using CaliDay you agree to the Privacy Policy and Terms of Use.';
 
   @override
-  String get aboutBuiltWith => 'BUILT WITH';
+  String get aboutCopyright => '© 2026 pupptmstr';
 
   @override
-  String get aboutCopyright => '© 2026 pupptmstr';
+  String get whatsNewTitle => 'What\'s new';
+
+  @override
+  String get whatsNewBadge => 'NEW';
+
+  @override
+  String whatsNewVersion(String version) {
+    return 'Version $version';
+  }
+
+  @override
+  String get releaseNotes0815 =>
+      'A bell in the profile now shows what changed in each update.\nThe About screen is shorter: the technical line is gone.';
+
+  @override
+  String get releaseNotes0814 =>
+      'The “Again” button shows about how long an extra workout takes.';
+
+  @override
+  String get releaseNotes0813 =>
+      'The time on the workout button now follows your own pace: after a few workouts it reflects how long they really take you.';
+
+  @override
+  String get releaseNotes0812 =>
+      'The workout button shows about how long today\'s workout takes.\nThe evening reminder no longer promises “10 minutes”.';
+
+  @override
+  String get releaseNotes0811 =>
+      'Workout size replaces “5, 10 or 15 minutes”: Short, Standard or Full. It sets how many skills a workout covers, not how long it lasts.';
+
+  @override
+  String get releaseNotes0810 =>
+      'Timed exercises now start by themselves after a short “get ready” countdown. Tap Pause if you need more time to read or take position.\nSearch in the exercise library works in Russian and English.\nA few texts that stayed in one language are translated.';
 
   @override
   String get settingsAbout => 'About';

@@ -93,7 +93,8 @@ lib/
 │       ├── supplementary_exercise_catalog.dart ← 9 supplementary exercises (bonus workouts, custom routines)
 │       ├── exercise_tags_catalog.dart ← static map exerciseId → List<ExerciseTag> (separate from catalog)
 │       ├── course_catalog.dart        ← CourseCatalog.branchesFor(CourseId)
-│       └── achievement_catalog.dart   ← 29 achievements
+│       ├── achievement_catalog.dart   ← 29 achievements
+│       └── release_notes_catalog.dart ← ReleaseNotesCatalog: the "What's new" history (one entry per version, newest first; texts in the ARB files)
 ├── domain/
 │   ├── models/workout_plan.dart       ← WorkoutPlan (+ the time estimate), PlannedExercise, the get-ready constants (`prepSecFor`)
 │   └── services/
@@ -127,9 +128,11 @@ lib/
     │       └── summary_screen.dart
     ├── profile/
     │   ├── providers/profile_provider.dart ← ProfileData, profileDataProvider
+    │   ├── providers/whats_new_provider.dart ← seenReleaseVersionProvider (the newest note the user opened), hasUnseenReleaseNotesProvider (the dot on the bell)
     │   ├── screens/
     │   │   ├── profile_screen.dart
     │   │   ├── achievements_screen.dart   ← /achievements
+    │   │   ├── whats_new_screen.dart      ← /whats-new (the bell in the profile)
     │   │   └── workout_calendar_screen.dart ← /calendar
     │   └── widgets/
     │       ├── compact_heatmap.dart       ← GitHub-style 13×7 heatmap (Profile; navigates to /calendar)
@@ -194,6 +197,13 @@ The stored value is unchanged: `UserProfile.preferredWorkoutMinutes` (HiveField 
 
 **Pace.** The estimate cannot know how fast one user does a rep, how long they read or whether they skip rests, so it learns it: each finished workout stores the raw estimate of its plan (`WorkoutLog.estimatedDurationSec`) beside the real `durationSec`, and `WorkoutPace.factorFrom` takes the **median of real / estimated over the last 7 workouts** that have both (1.0 until there are 3; clamped to 0.6–1.6 so one odd workout, a phone call in the middle, cannot move the figure far). The Home button shows `plan.estimatedMinutesAt(workoutPaceProvider)`. The raw estimate is what is stored, so the correction never feeds on itself; but if the formula of `estimatedDurationSec` is ever changed (`kSecondsPerRep`, the countdowns), the stored ratios of the last seven workouts were measured against the old one and the figure is off until they roll out of the window. Nothing in the UI says the figure is personal; the debug state dump prints `Pace: x1.12 from 5 workouts`. Notification texts promise no duration either (a test checks).
 
+### What's new (release notes)
+The bell in the Profile app bar opens `/whats-new`: the history of what changed in each version, newest first, in the user's words. **The app has no backend, so this is the history of the versions the installed build contains, not a notice that a newer one exists** (that would need a network check, e.g. the GitHub Releases API, and is not done).
+
+- **Content:** `ReleaseNotesCatalog.all` (`data/static/release_notes_catalog.dart`): `ReleaseNote(version, date, text: (l10n) => …)`. The text is one ARB string, `releaseNotes<version without dots>`, one change per line; an entry without both languages does not compile.
+- **A rule with a test:** every version bump needs an entry; `test/data/release_notes_catalog_test.dart` fails while the newest entry is not the `pubspec.yaml` version. The step is written into the `implement-feature` and `pre-commit` skills.
+- **The dot:** `UserProfile.lastSeenReleaseVersion` (HiveField 26) is the newest version the user opened; `hasUnseenReleaseNotesProvider` is true while an entry is newer (versions compare as numbers: 0.8.10 > 0.8.9). Opening the screen saves the newest version (after the first frame; the NEW tags of that visit stay until it closes). An existing user with null sees every entry as new; a new user is set to the current version by onboarding, so the bell lights up for the next update only.
+
 ### Primary vs Bonus Workout
 `WorkoutLog.isPrimary`: true = first of the day (full SP, advances progression, counts toward streak); false = 50% SP.
 Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday()`. The first workout of the day is always primary — regardless of whether it is a daily plan or a custom routine. Custom-only users can build a streak this way. `courseIdIndex` is still `null` for custom routines (not tied to any course).
@@ -236,6 +246,7 @@ Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday
 | @23 | bool? | bleDiscoverable (v1.4 Friends) |
 | @24 | List<int>? | activeCourseIds — CourseId indices; null → [0] (calisthenics) |
 | @25 | int? | activeCourseIndex — index into activeCourseIds; null → 0 |
+| @26 | String? | lastSeenReleaseVersion — the newest "What's new" version the user has opened; null → none yet (every entry is new). A new user starts at the current version (set by `completeOnboarding`) |
 
 ### CustomRoutine HiveFields
 
@@ -528,6 +539,7 @@ Persistence is the responsibility of the calling code via repositories.
 - `/achievements` — all achievements
 - `/calendar` — workout calendar heatmap (month grid + day-detail sheet)
 - `/settings` — settings
+- `/whats-new` — "What's new": the history of what changed in each version (bell in the Profile app bar, with a dot while an entry is unseen)
 - `/about` — about the app
 - `/friends` — friends list + QR + BLE nearby
 - `/dev-options` — devtools (`kDebugMode` only)

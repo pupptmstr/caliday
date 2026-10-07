@@ -1248,10 +1248,42 @@ class AppLocalizationsRu extends AppLocalizations {
       'Используя CaliDay, вы соглашаетесь с Политикой конфиденциальности и Условиями использования.';
 
   @override
-  String get aboutBuiltWith => 'СДЕЛАНО НА';
+  String get aboutCopyright => '© 2026 pupptmstr';
 
   @override
-  String get aboutCopyright => '© 2026 pupptmstr';
+  String get whatsNewTitle => 'Что нового';
+
+  @override
+  String get whatsNewBadge => 'НОВОЕ';
+
+  @override
+  String whatsNewVersion(String version) {
+    return 'Версия $version';
+  }
+
+  @override
+  String get releaseNotes0815 =>
+      'Колокольчик в профиле показывает, что изменилось в каждом обновлении.\nЭкран «О приложении» стал короче: убрали техническую строку.';
+
+  @override
+  String get releaseNotes0814 =>
+      'Кнопка «Ещё раз» показывает, сколько примерно займёт дополнительная тренировка.';
+
+  @override
+  String get releaseNotes0813 =>
+      'Время на кнопке тренировки теперь учитывает твой темп: после нескольких тренировок оно отражает, сколько они реально у тебя занимают.';
+
+  @override
+  String get releaseNotes0812 =>
+      'Кнопка тренировки показывает, сколько примерно займёт сегодняшняя тренировка.\nВечернее напоминание больше не обещает «10 минут».';
+
+  @override
+  String get releaseNotes0811 =>
+      'Размер тренировки вместо «5, 10 или 15 минут»: короткая, стандартная или полная. Он задаёт, сколько навыков войдёт в тренировку, а не сколько она продлится.';
+
+  @override
+  String get releaseNotes0810 =>
+      'Упражнения на время теперь запускаются сами после короткого отсчёта «приготовься». Нажми «Пауза», если нужно больше времени, чтобы прочитать или занять позицию.\nПоиск в каталоге упражнений работает и на русском, и на английском.\nПереведены несколько текстов, которые оставались на одном языке.';
 
   @override
   String get settingsAbout => 'О приложении';

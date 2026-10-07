@@ -104,28 +104,6 @@ class _AboutScreenState extends State<AboutScreen> {
               ),
             ),
 
-            // ── Built with section ────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: Text(
-                l10n.aboutBuiltWith,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 1.2,
-                  color: scheme.primary,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
-              child: Text(
-                'Flutter · Riverpod 3 · Hive CE · go_router',
-                style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                      color: scheme.onSurfaceVariant,
-                    ),
-              ),
-            ),
             const SizedBox(height: 24),
 
             // ── Copyright ─────────────────────────────────────────────────

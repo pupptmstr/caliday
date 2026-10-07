@@ -1,12 +1,19 @@
 import 'package:caliday/data/models/enums.dart';
+import 'package:caliday/data/repositories/user_repository.dart';
+import 'package:caliday/data/static/release_notes_catalog.dart';
 import 'package:caliday/features/onboarding/providers/onboarding_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+
+import '../../helpers/hive_test_env.dart';
 
 /// The choices of the onboarding steps have to reach the end: the state is
 /// copied by hand in `withHasPullUpBar`, which silently drops a field it does
 /// not list.
 void main() {
+  // The locale provider reads the platform locale from the binding.
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   test('every choice survives the pull-up bar answer', () {
     final container = ProviderContainer();
     addTearDown(container.dispose);
@@ -45,5 +52,22 @@ void main() {
 
     notifier.selectWorkoutSize(WorkoutSize.short);
     expect(container.read(onboardingProvider).canAdvance, isTrue);
+  });
+
+  test('a new user starts with the current "What\'s new" seen: no dot on the bell', () async {
+    final env = await HiveTestEnv.open();
+    addTearDown(env.dispose);
+    final container = ProviderContainer();
+    addTearDown(container.dispose);
+    final notifier = container.read(onboardingProvider.notifier);
+    notifier.selectPushupCount(PushupCount.zero);
+    notifier.selectWorkoutSize(WorkoutSize.standard);
+    notifier.selectHasPullUpBar(false);
+
+    await notifier.completeOnboarding();
+
+    final profile = UserRepository().getProfile();
+    expect(profile.lastSeenReleaseVersion, ReleaseNotesCatalog.latest.version);
+    expect(ReleaseNotesCatalog.unseenSince(profile.lastSeenReleaseVersion), isEmpty);
   });
 }

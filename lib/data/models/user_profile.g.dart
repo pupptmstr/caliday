@@ -42,13 +42,14 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       bleDiscoverable: fields[23] as bool?,
       activeCourseIds: (fields[24] as List?)?.cast<int>(),
       activeCourseIndex: (fields[25] as num?)?.toInt(),
+      lastSeenReleaseVersion: fields[26] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProfile obj) {
     writer
-      ..writeByte(25)
+      ..writeByte(26)
       ..writeByte(0)
       ..write(obj.rank)
       ..writeByte(1)
@@ -98,7 +99,9 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..writeByte(24)
       ..write(obj.activeCourseIds)
       ..writeByte(25)
-      ..write(obj.activeCourseIndex);
+      ..write(obj.activeCourseIndex)
+      ..writeByte(26)
+      ..write(obj.lastSeenReleaseVersion);
   }
 
   @override

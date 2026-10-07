@@ -11,6 +11,10 @@ Perform the following steps in order before every commit.
 
 `flutter analyze` (zero issues) and `flutter test` must pass. If the change touches the UI, run the app and look at it.
 
+## Step 0.5 — Release note (only if the version was bumped)
+
+The version in `pubspec.yaml` and the newest entry of `lib/data/static/release_notes_catalog.dart` (the "What's new" under the bell in the profile) must be the same: a test checks it. New entry on top, texts `releaseNotes<version without dots>` in both ARB files, then `flutter gen-l10n`. Write what the user sees, one change per line.
+
 ## Step 1 — Update history in DEV_NOTES.md
 
 Add an entry to the "Change History" section (`internal_docs/DEV_NOTES.md`).

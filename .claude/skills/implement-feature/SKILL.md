@@ -72,6 +72,7 @@ For UI, also run the app and look at it (`flutter run -d web-server` + the in-ap
 Before committing, update `pubspec.yaml` version to match the backlog milestone:
 - `version: X.Y.Z+build` — bump minor (Y) for a new feature milestone (e.g. v0.7 → v0.8), patch (Z) for bugfixes within a milestone
 - Always increment the build number (+N) by 1
+- **Write the "What's new" entry for the new version** (the bell in the profile): add a `ReleaseNote` to the top of `lib/data/static/release_notes_catalog.dart` and `releaseNotes<version without dots>` to `l10n/app_en.arb` and `app_ru.arb` (one change per line, in the user's words, not the code's). `test/data/release_notes_catalog_test.dart` fails while the newest entry is not the `pubspec.yaml` version. A change that bumps no version needs no entry
 
 ## Step 7 — Document and commit
 

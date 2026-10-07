@@ -36,6 +36,7 @@ class UserProfile extends HiveObject {
     this.bleDiscoverable,
     this.activeCourseIds,
     this.activeCourseIndex,
+    this.lastSeenReleaseVersion,
   });
 
   @HiveField(0)
@@ -143,6 +144,12 @@ class UserProfile extends HiveObject {
   /// null → 0 (first enrolled course).
   @HiveField(25)
   int? activeCourseIndex;
+
+  /// The version of the newest "What's new" entry the user has opened (null:
+  /// none yet; a new user starts at the current version). Drives the dot on the
+  /// bell in the profile.
+  @HiveField(26)
+  String? lastSeenReleaseVersion;
 
   // ── Computed helpers ────────────────────────────────────────────────────────
 

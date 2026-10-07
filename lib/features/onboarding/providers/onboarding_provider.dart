@@ -9,6 +9,7 @@ import '../../../data/models/skill_progress.dart';
 import '../../../data/models/user_profile.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
+import '../../../data/static/release_notes_catalog.dart';
 
 /// The texts shown for these options come from l10n (`PushupCountL10n` in
 /// onboarding_screen.dart); the label of a push-up count is numeric and the
@@ -209,6 +210,8 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
         healthWorkoutsEnabled: state.healthEnabled && healthGranted,
         activeCourseIds: courseIds,
         activeCourseIndex: 0,
+        // Nothing to catch up on: the bell lights up for the next update.
+        lastSeenReleaseVersion: ReleaseNotesCatalog.latest.version,
       ),
     );
 

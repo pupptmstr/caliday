@@ -49,9 +49,6 @@ Iterable<File> _libFiles() => Directory('lib')
 /// switch in the onboarding.
 const _sameInEveryLanguage = {'CaliDay', 'SP', 'dBm', 'RU', 'EN'};
 
-/// Whole literals that are no prose: the technologies on the About screen.
-const _notProse = {'Flutter · Riverpod 3 · Hive CE · go_router'};
-
 /// Files that may show English-looking text, and why. Everything under
 /// `lib/data/` is left out of the scan: the exercise catalog holds the source
 /// text of names, descriptions and tips, and the screens read them through
@@ -150,7 +147,6 @@ List<String> _englishLiterals(File file) {
   final found = <String>{};
   for (final begin in _visibleStart.allMatches(src)) {
     for (final (index, literal) in _shownLiterals(src, begin.end)) {
-      if (_notProse.contains(literal)) continue;
       var words = literal.replaceAll(RegExp(r'\$\{[^}]*\}|\$\w+'), ' ');
       for (final same in _sameInEveryLanguage) {
         words = words.replaceAll(RegExp('\\b$same\\b'), ' ');

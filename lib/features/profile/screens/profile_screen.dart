@@ -15,6 +15,7 @@ import '../../../core/theme/app_theme.dart';
 import '../providers/profile_provider.dart';
 import '../widgets/compact_heatmap.dart';
 import '../widgets/rank_info_sheet.dart';
+import '../widgets/whats_new_bell.dart';
 import '../widgets/workout_log_tile.dart';
 
 class ProfileScreen extends ConsumerWidget {
@@ -100,6 +101,7 @@ class ProfileScreen extends ConsumerWidget {
       appBar: AppBar(
         title: Text(l10n.profileTitle),
         actions: [
+          const WhatsNewBell(),
           IconButton(
             icon: const Icon(Icons.settings_outlined),
             tooltip: l10n.settingsTitle,
