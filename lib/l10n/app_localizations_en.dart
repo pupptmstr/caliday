@@ -109,12 +109,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String branchJourneyParams(int reps, int sets, int rest) {
-    return '$reps reps × $sets sets  ·  Rest $rest s';
+    String _temp0 = intl.Intl.pluralLogic(
+      reps,
+      locale: localeName,
+      other: '$reps reps',
+      one: '$reps rep',
+    );
+    String _temp1 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets sets',
+      one: '$sets set',
+    );
+    return '$_temp0 × $_temp1  ·  Rest $rest s';
   }
 
   @override
   String branchJourneyParamsTimed(int secs, int sets, int rest) {
-    return '$secs s × $sets sets  ·  Rest $rest s';
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets sets',
+      one: '$sets set',
+    );
+    return '$secs s × $_temp0  ·  Rest $rest s';
   }
 
   @override
@@ -133,7 +151,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String homeChallengeNormReps(int n) {
-    return 'Goal: $n reps';
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n reps',
+      one: '$n rep',
+    );
+    return 'Goal: $_temp0';
   }
 
   @override
@@ -222,16 +246,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get workoutExerciseDone => '✅  Exercise done!';
 
   @override
-  String get workoutUnitReps => 'reps';
-
-  @override
-  String workoutNextExercise(String name, int amount, String unit) {
-    return 'Next: $name • $amount $unit';
+  String workoutAmountReps(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count reps',
+      one: '$count rep',
+    );
+    return '$_temp0';
   }
 
   @override
-  String workoutNextSet(int setNum, int amount, String unit) {
-    return 'Next: set $setNum • $amount $unit';
+  String workoutNextExercise(String name, String amount) {
+    return 'Next: $name • $amount';
+  }
+
+  @override
+  String workoutNextSet(int setNum, String amount) {
+    return 'Next: set $setNum • $amount';
   }
 
   @override
@@ -497,7 +529,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String summaryBonusCount(int count) {
-    return 'You\'ve trained $count times today!';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count times',
+      one: '$count time',
+    );
+    return 'You\'ve trained $_temp0 today!';
   }
 
   @override
@@ -580,7 +618,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String historyDetailReps(int completed, int target) {
-    return '$completed / $target reps';
+    String _temp0 = intl.Intl.pluralLogic(
+      target,
+      locale: localeName,
+      other: '$target reps',
+      one: '$target rep',
+    );
+    return '$completed / $_temp0';
   }
 
   @override
@@ -1254,6 +1298,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0817 =>
+      'Numbers now agree with their words: “1 set”, “1 rep” and “1 friend” instead of “1 sets”, “1 reps” and “1 friends”.';
+
+  @override
   String get releaseNotes0816 =>
       'The app is now also in German and Spanish.\nThe language switch on the welcome screen is now a menu.\nThe notification about a lost streak now gets the number of days right in Russian.';
 
@@ -1430,7 +1478,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String profileFriendsCount(int count) {
-    return '$count friends';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count friends',
+      one: '$count friend',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1902,7 +1956,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String customWorkoutExerciseCount(int count) {
-    return '$count exercises';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count exercises',
+      one: '$count exercise',
+    );
+    return '$_temp0';
   }
 
   @override

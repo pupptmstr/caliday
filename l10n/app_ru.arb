@@ -167,31 +167,32 @@
   "workoutSkipRest": "Пропустить",
   "workoutSetDone": "✅  Подход выполнен!",
   "workoutExerciseDone": "✅  Упражнение выполнено!",
-  "workoutUnitReps": "повт.",
-  "workoutNextExercise": "Следующее: {name} • {amount} {unit}",
+  "workoutAmountReps": "{count} повт.",
+  "@workoutAmountReps": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutNextExercise": "Следующее: {name} • {amount}",
   "@workoutNextExercise": {
     "placeholders": {
       "name": {
         "type": "String"
       },
       "amount": {
-        "type": "int"
-      },
-      "unit": {
         "type": "String"
       }
     }
   },
-  "workoutNextSet": "Следующий: подход {setNum} • {amount} {unit}",
+  "workoutNextSet": "Следующий: подход {setNum} • {amount}",
   "@workoutNextSet": {
     "placeholders": {
       "setNum": {
         "type": "int"
       },
       "amount": {
-        "type": "int"
-      },
-      "unit": {
         "type": "String"
       }
     }
@@ -282,7 +283,7 @@
   "achievementAllCompleteDesc": "Все 5 веток пройдены до конца. Абсолютный чемпион.",
   "summaryBonusTitle": "Бонусная тренировка",
   "summaryBonusBody": "×½ SP · прогрессия уже сохранена",
-  "summaryBonusCount": "Сегодня ты уже потренировался {count} раза!",
+  "summaryBonusCount": "Сегодня ты уже потренировался {count, plural, one{{count} раз} few{{count} раза} many{{count} раз} other{{count} раза}}!",
   "@summaryBonusCount": {
     "placeholders": {
       "count": {
@@ -551,6 +552,7 @@
       }
     }
   },
+  "releaseNotes0817": "Числа теперь согласуются со словами: «1 друг», «21 упражнение», «стрик 3 дня», «потренировался 5 раз».",
   "releaseNotes0816": "Приложение теперь есть и на немецком и испанском.\nПереключатель языка на приветственном экране стал меню.\nУведомление о прерванной серии теперь правильно склоняет число дней.",
   "releaseNotes0815": "Колокольчик в профиле показывает, что изменилось в каждом обновлении.\nЭкран «О приложении» стал короче: убрали техническую строку.",
   "releaseNotes0814": "Кнопка «Ещё раз» показывает, сколько примерно займёт дополнительная тренировка.",
@@ -587,7 +589,7 @@
   "friendsScanCameraUnsupportedBody": "На этом устройстве или в браузере нет камеры, доступной приложению. Покажите другу свой QR-код.",
   "friendsScanCameraFailedTitle": "Не удалось запустить камеру",
   "friendsScanCameraFailedBody": "Проверьте, что камеру не занимает другое приложение и что есть интернет (в браузере сканер загружается при первом использовании), и повторите.",
-  "friendsScanConfirmBody": "{sp} SP · стрик {streak} дней",
+  "friendsScanConfirmBody": "{sp} SP · стрик {streak, plural, one{{streak} день} few{{streak} дня} many{{streak} дней} other{{streak} дня}}",
   "@friendsScanConfirmBody": {
     "placeholders": {
       "sp": {
@@ -626,7 +628,7 @@
   "profileFriendsTitle": "Друзья",
   "profileFriendsAll": "Все друзья →",
   "profileFriendsEmpty": "Друзей пока нет",
-  "profileFriendsCount": "{count} друзей",
+  "profileFriendsCount": "{count, plural, one{{count} друг} few{{count} друга} many{{count} друзей} other{{count} друга}}",
   "@profileFriendsCount": {
     "placeholders": {
       "count": {
@@ -785,7 +787,7 @@
   "customWorkoutBuilderTitle": "Конструктор тренировки",
   "customWorkoutBuilderDesc": "Выбери упражнения и составь свою последовательность",
   "customWorkoutPickFocus": "Что хотите потренировать?",
-  "customWorkoutExerciseCount": "{count} упражнений",
+  "customWorkoutExerciseCount": "{count, plural, one{{count} упражнение} few{{count} упражнения} many{{count} упражнений} other{{count} упражнения}}",
   "@customWorkoutExerciseCount": {
     "placeholders": {
       "count": {

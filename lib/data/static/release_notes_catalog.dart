@@ -26,6 +26,11 @@ class ReleaseNote {
 abstract final class ReleaseNotesCatalog {
   static final List<ReleaseNote> all = [
     ReleaseNote(
+      version: '0.8.17',
+      date: DateTime(2026, 10, 7),
+      text: (l) => l.releaseNotes0817,
+    ),
+    ReleaseNote(
       version: '0.8.16',
       date: DateTime(2026, 10, 7),
       text: (l) => l.releaseNotes0816,

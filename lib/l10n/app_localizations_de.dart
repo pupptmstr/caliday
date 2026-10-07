@@ -109,12 +109,24 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String branchJourneyParams(int reps, int sets, int rest) {
-    return '$reps Wdh. × $sets Sätze  ·  Pause $rest s';
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets Sätze',
+      one: '$sets Satz',
+    );
+    return '$reps Wdh. × $_temp0  ·  Pause $rest s';
   }
 
   @override
   String branchJourneyParamsTimed(int secs, int sets, int rest) {
-    return '$secs s × $sets Sätze  ·  Pause $rest s';
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets Sätze',
+      one: '$sets Satz',
+    );
+    return '$secs s × $_temp0  ·  Pause $rest s';
   }
 
   @override
@@ -222,16 +234,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get workoutExerciseDone => '✅  Übung geschafft!';
 
   @override
-  String get workoutUnitReps => 'Wdh.';
-
-  @override
-  String workoutNextExercise(String name, int amount, String unit) {
-    return 'Als Nächstes: $name • $amount $unit';
+  String workoutAmountReps(int count) {
+    return '$count Wdh.';
   }
 
   @override
-  String workoutNextSet(int setNum, int amount, String unit) {
-    return 'Als Nächstes: Satz $setNum • $amount $unit';
+  String workoutNextExercise(String name, String amount) {
+    return 'Als Nächstes: $name • $amount';
+  }
+
+  @override
+  String workoutNextSet(int setNum, String amount) {
+    return 'Als Nächstes: Satz $setNum • $amount';
   }
 
   @override
@@ -1267,6 +1281,10 @@ class AppLocalizationsDe extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get releaseNotes0817 =>
+      'Zahlen und Wörter passen jetzt zusammen: „1 Satz“ statt „1 Sätze“.';
 
   @override
   String get releaseNotes0816 =>

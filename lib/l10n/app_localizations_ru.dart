@@ -224,16 +224,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get workoutExerciseDone => '✅  Упражнение выполнено!';
 
   @override
-  String get workoutUnitReps => 'повт.';
-
-  @override
-  String workoutNextExercise(String name, int amount, String unit) {
-    return 'Следующее: $name • $amount $unit';
+  String workoutAmountReps(int count) {
+    return '$count повт.';
   }
 
   @override
-  String workoutNextSet(int setNum, int amount, String unit) {
-    return 'Следующий: подход $setNum • $amount $unit';
+  String workoutNextExercise(String name, String amount) {
+    return 'Следующее: $name • $amount';
+  }
+
+  @override
+  String workoutNextSet(int setNum, String amount) {
+    return 'Следующий: подход $setNum • $amount';
   }
 
   @override
@@ -499,7 +501,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String summaryBonusCount(int count) {
-    return 'Сегодня ты уже потренировался $count раза!';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count раза',
+      many: '$count раз',
+      few: '$count раза',
+      one: '$count раз',
+    );
+    return 'Сегодня ты уже потренировался $_temp0!';
   }
 
   @override
@@ -1262,6 +1272,10 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0817 =>
+      'Числа теперь согласуются со словами: «1 друг», «21 упражнение», «стрик 3 дня», «потренировался 5 раз».';
+
+  @override
   String get releaseNotes0816 =>
       'Приложение теперь есть и на немецком и испанском.\nПереключатель языка на приветственном экране стал меню.\nУведомление о прерванной серии теперь правильно склоняет число дней.';
 
@@ -1386,7 +1400,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String friendsScanConfirmBody(int sp, int streak) {
-    return '$sp SP · стрик $streak дней';
+    String _temp0 = intl.Intl.pluralLogic(
+      streak,
+      locale: localeName,
+      other: '$streak дня',
+      many: '$streak дней',
+      few: '$streak дня',
+      one: '$streak день',
+    );
+    return '$sp SP · стрик $_temp0';
   }
 
   @override
@@ -1438,7 +1460,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String profileFriendsCount(int count) {
-    return '$count друзей';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count друга',
+      many: '$count друзей',
+      few: '$count друга',
+      one: '$count друг',
+    );
+    return '$_temp0';
   }
 
   @override
@@ -1912,7 +1942,15 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String customWorkoutExerciseCount(int count) {
-    return '$count упражнений';
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count упражнения',
+      many: '$count упражнений',
+      few: '$count упражнения',
+      one: '$count упражнение',
+    );
+    return '$_temp0';
   }
 
   @override

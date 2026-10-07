@@ -267,13 +267,13 @@ abstract class AppLocalizations {
   /// No description provided for @branchJourneyParams.
   ///
   /// In en, this message translates to:
-  /// **'{reps} reps × {sets} sets  ·  Rest {rest} s'**
+  /// **'{reps, plural, one{{reps} rep} other{{reps} reps}} × {sets, plural, one{{sets} set} other{{sets} sets}}  ·  Rest {rest} s'**
   String branchJourneyParams(int reps, int sets, int rest);
 
   /// No description provided for @branchJourneyParamsTimed.
   ///
   /// In en, this message translates to:
-  /// **'{secs} s × {sets} sets  ·  Rest {rest} s'**
+  /// **'{secs} s × {sets, plural, one{{sets} set} other{{sets} sets}}  ·  Rest {rest} s'**
   String branchJourneyParamsTimed(int secs, int sets, int rest);
 
   /// No description provided for @branchJourneyStartChallenge.
@@ -303,7 +303,7 @@ abstract class AppLocalizations {
   /// No description provided for @homeChallengeNormReps.
   ///
   /// In en, this message translates to:
-  /// **'Goal: {n} reps'**
+  /// **'Goal: {n, plural, one{{n} rep} other{{n} reps}}'**
   String homeChallengeNormReps(int n);
 
   /// No description provided for @homeChallengeNormSec.
@@ -456,23 +456,23 @@ abstract class AppLocalizations {
   /// **'✅  Exercise done!'**
   String get workoutExerciseDone;
 
-  /// No description provided for @workoutUnitReps.
+  /// No description provided for @workoutAmountReps.
   ///
   /// In en, this message translates to:
-  /// **'reps'**
-  String get workoutUnitReps;
+  /// **'{count, plural, one{{count} rep} other{{count} reps}}'**
+  String workoutAmountReps(int count);
 
   /// No description provided for @workoutNextExercise.
   ///
   /// In en, this message translates to:
-  /// **'Next: {name} • {amount} {unit}'**
-  String workoutNextExercise(String name, int amount, String unit);
+  /// **'Next: {name} • {amount}'**
+  String workoutNextExercise(String name, String amount);
 
   /// No description provided for @workoutNextSet.
   ///
   /// In en, this message translates to:
-  /// **'Next: set {setNum} • {amount} {unit}'**
-  String workoutNextSet(int setNum, int amount, String unit);
+  /// **'Next: set {setNum} • {amount}'**
+  String workoutNextSet(int setNum, String amount);
 
   /// No description provided for @summaryTitle.
   ///
@@ -951,7 +951,7 @@ abstract class AppLocalizations {
   /// No description provided for @summaryBonusCount.
   ///
   /// In en, this message translates to:
-  /// **'You\'ve trained {count} times today!'**
+  /// **'You\'ve trained {count, plural, one{{count} time} other{{count} times}} today!'**
   String summaryBonusCount(int count);
 
   /// No description provided for @summaryChallengeUnlockedTitle.
@@ -1101,7 +1101,7 @@ abstract class AppLocalizations {
   /// No description provided for @historyDetailReps.
   ///
   /// In en, this message translates to:
-  /// **'{completed} / {target} reps'**
+  /// **'{completed} / {target, plural, one{{target} rep} other{{target} reps}}'**
   String historyDetailReps(int completed, int target);
 
   /// No description provided for @historyDetailSec.
@@ -2280,6 +2280,12 @@ abstract class AppLocalizations {
   /// **'Version {version}'**
   String whatsNewVersion(String version);
 
+  /// No description provided for @releaseNotes0817.
+  ///
+  /// In en, this message translates to:
+  /// **'Numbers now agree with their words: “1 set”, “1 rep” and “1 friend” instead of “1 sets”, “1 reps” and “1 friends”.'**
+  String get releaseNotes0817;
+
   /// No description provided for @releaseNotes0816.
   ///
   /// In en, this message translates to:
@@ -2589,7 +2595,7 @@ abstract class AppLocalizations {
   /// No description provided for @profileFriendsCount.
   ///
   /// In en, this message translates to:
-  /// **'{count} friends'**
+  /// **'{count, plural, one{{count} friend} other{{count} friends}}'**
   String profileFriendsCount(int count);
 
   /// No description provided for @exerciseFlexS1HipFlexorStretchName.
@@ -3393,7 +3399,7 @@ abstract class AppLocalizations {
   /// No description provided for @customWorkoutExerciseCount.
   ///
   /// In en, this message translates to:
-  /// **'{count} exercises'**
+  /// **'{count, plural, one{{count} exercise} other{{count} exercises}}'**
   String customWorkoutExerciseCount(int count);
 
   /// No description provided for @rankDecayWarning.

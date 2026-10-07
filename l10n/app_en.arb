@@ -61,7 +61,7 @@
   "branchJourneyStageCompleted": "✓ Completed",
   "branchJourneyStageCurrent": "Current stage",
   "branchJourneyStageLocked": "Locked",
-  "branchJourneyParams": "{reps} reps × {sets} sets  ·  Rest {rest} s",
+  "branchJourneyParams": "{reps, plural, one{{reps} rep} other{{reps} reps}} × {sets, plural, one{{sets} set} other{{sets} sets}}  ·  Rest {rest} s",
   "@branchJourneyParams": {
     "placeholders": {
       "reps": {
@@ -75,7 +75,7 @@
       }
     }
   },
-  "branchJourneyParamsTimed": "{secs} s × {sets} sets  ·  Rest {rest} s",
+  "branchJourneyParamsTimed": "{secs} s × {sets, plural, one{{sets} set} other{{sets} sets}}  ·  Rest {rest} s",
   "@branchJourneyParamsTimed": {
     "placeholders": {
       "secs": {
@@ -103,7 +103,7 @@
   },
   "homeChallengeUnlocked": "Challenge Ready",
   "homeChallengeButton": "Accept Challenge",
-  "homeChallengeNormReps": "Goal: {n} reps",
+  "homeChallengeNormReps": "Goal: {n, plural, one{{n} rep} other{{n} reps}}",
   "@homeChallengeNormReps": {
     "placeholders": {
       "n": {
@@ -167,31 +167,32 @@
   "workoutSkipRest": "Skip",
   "workoutSetDone": "✅  Set done!",
   "workoutExerciseDone": "✅  Exercise done!",
-  "workoutUnitReps": "reps",
-  "workoutNextExercise": "Next: {name} • {amount} {unit}",
+  "workoutAmountReps": "{count, plural, one{{count} rep} other{{count} reps}}",
+  "@workoutAmountReps": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutNextExercise": "Next: {name} • {amount}",
   "@workoutNextExercise": {
     "placeholders": {
       "name": {
         "type": "String"
       },
       "amount": {
-        "type": "int"
-      },
-      "unit": {
         "type": "String"
       }
     }
   },
-  "workoutNextSet": "Next: set {setNum} • {amount} {unit}",
+  "workoutNextSet": "Next: set {setNum} • {amount}",
   "@workoutNextSet": {
     "placeholders": {
       "setNum": {
         "type": "int"
       },
       "amount": {
-        "type": "int"
-      },
-      "unit": {
         "type": "String"
       }
     }
@@ -282,7 +283,7 @@
   "achievementAllCompleteDesc": "All 5 branches completed. Absolute champion.",
   "summaryBonusTitle": "Bonus Workout",
   "summaryBonusBody": "×½ SP · progression already saved",
-  "summaryBonusCount": "You've trained {count} times today!",
+  "summaryBonusCount": "You've trained {count, plural, one{{count} time} other{{count} times}} today!",
   "@summaryBonusCount": {
     "placeholders": {
       "count": {
@@ -331,7 +332,7 @@
   "historyTypeChallenge": "Challenge",
   "historyTypeBonus": "Bonus",
   "historyDetailExercises": "Exercises",
-  "historyDetailReps": "{completed} / {target} reps",
+  "historyDetailReps": "{completed} / {target, plural, one{{target} rep} other{{target} reps}}",
   "@historyDetailReps": {
     "placeholders": {
       "completed": {
@@ -555,6 +556,7 @@
       }
     }
   },
+  "releaseNotes0817": "Numbers now agree with their words: “1 set”, “1 rep” and “1 friend” instead of “1 sets”, “1 reps” and “1 friends”.",
   "releaseNotes0816": "The app is now also in German and Spanish.\nThe language switch on the welcome screen is now a menu.\nThe notification about a lost streak now gets the number of days right in Russian.",
   "releaseNotes0815": "A bell in the profile now shows what changed in each update.\nThe About screen is shorter: the technical line is gone.",
   "releaseNotes0814": "The “Again” button shows about how long an extra workout takes.",
@@ -630,7 +632,7 @@
   "profileFriendsTitle": "Friends",
   "profileFriendsAll": "All friends →",
   "profileFriendsEmpty": "No friends yet",
-  "profileFriendsCount": "{count} friends",
+  "profileFriendsCount": "{count, plural, one{{count} friend} other{{count} friends}}",
   "@profileFriendsCount": {
     "placeholders": {
       "count": {
@@ -785,7 +787,7 @@
   "customWorkoutBuilderTitle": "Routine Builder",
   "customWorkoutBuilderDesc": "Pick exercises and build your own sequence",
   "customWorkoutPickFocus": "What do you want to train?",
-  "customWorkoutExerciseCount": "{count} exercises",
+  "customWorkoutExerciseCount": "{count, plural, one{{count} exercise} other{{count} exercises}}",
   "@customWorkoutExerciseCount": {
     "placeholders": {
       "count": {

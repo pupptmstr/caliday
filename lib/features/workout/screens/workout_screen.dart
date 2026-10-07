@@ -572,22 +572,19 @@ class _RestView extends StatelessWidget {
       final nextExercise = nextPlanned.exercise;
       final isTimed = nextExercise.type == ExerciseType.timed;
       final amount = nextPlanned.targetAmount;
-      final unit = isTimed ? l10n.workoutSec : l10n.workoutUnitReps;
       title = l10n.workoutExerciseDone;
       upcomingLabel = l10n.workoutNextExercise(
         ExerciseL10n.name(l10n, nextExercise.id),
-        amount,
-        unit,
+        isTimed ? l10n.durationSec(amount) : l10n.workoutAmountReps(amount),
       );
     } else {
       final planned = state.currentPlanned;
       final isTimed = planned.exercise.type == ExerciseType.timed;
-      final unit = isTimed ? l10n.workoutSec : l10n.workoutUnitReps;
+      final amount = planned.targetAmount;
       title = l10n.workoutSetDone;
       upcomingLabel = l10n.workoutNextSet(
         state.setIndex + 2,
-        planned.targetAmount,
-        unit,
+        isTimed ? l10n.durationSec(amount) : l10n.workoutAmountReps(amount),
       );
     }
 

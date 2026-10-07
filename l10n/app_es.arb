@@ -61,7 +61,7 @@
   "branchJourneyStageCompleted": "✓ Completada",
   "branchJourneyStageCurrent": "Etapa actual",
   "branchJourneyStageLocked": "Bloqueada",
-  "branchJourneyParams": "{reps} rep. × {sets} series  ·  Descanso {rest} s",
+  "branchJourneyParams": "{reps} rep. × {sets, plural, one{{sets} serie} other{{sets} series}}  ·  Descanso {rest} s",
   "@branchJourneyParams": {
     "placeholders": {
       "reps": {
@@ -75,7 +75,7 @@
       }
     }
   },
-  "branchJourneyParamsTimed": "{secs} s × {sets} series  ·  Descanso {rest} s",
+  "branchJourneyParamsTimed": "{secs} s × {sets, plural, one{{sets} serie} other{{sets} series}}  ·  Descanso {rest} s",
   "@branchJourneyParamsTimed": {
     "placeholders": {
       "secs": {
@@ -167,31 +167,32 @@
   "workoutSkipRest": "Saltar",
   "workoutSetDone": "✅  ¡Serie hecha!",
   "workoutExerciseDone": "✅  ¡Ejercicio hecho!",
-  "workoutUnitReps": "rep.",
-  "workoutNextExercise": "Siguiente: {name} • {amount} {unit}",
+  "workoutAmountReps": "{count} rep.",
+  "@workoutAmountReps": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutNextExercise": "Siguiente: {name} • {amount}",
   "@workoutNextExercise": {
     "placeholders": {
       "name": {
         "type": "String"
       },
       "amount": {
-        "type": "int"
-      },
-      "unit": {
         "type": "String"
       }
     }
   },
-  "workoutNextSet": "Siguiente: serie {setNum} • {amount} {unit}",
+  "workoutNextSet": "Siguiente: serie {setNum} • {amount}",
   "@workoutNextSet": {
     "placeholders": {
       "setNum": {
         "type": "int"
       },
       "amount": {
-        "type": "int"
-      },
-      "unit": {
         "type": "String"
       }
     }
@@ -555,6 +556,7 @@
       }
     }
   },
+  "releaseNotes0817": "Los números y las palabras ahora concuerdan: «1 serie» en lugar de «1 series».",
   "releaseNotes0816": "La app ya está disponible también en alemán y español.\nEl selector de idioma de la pantalla de bienvenida ahora es un menú.\nLa notificación de racha perdida ahora declina bien el número de días en ruso.",
   "releaseNotes0815": "Una campana en el perfil muestra ahora qué cambió en cada actualización.\nLa pantalla «Acerca de» es más corta: la línea técnica ya no está.",
   "releaseNotes0814": "El botón «Otra vez» muestra cuánto dura aproximadamente un entrenamiento extra.",

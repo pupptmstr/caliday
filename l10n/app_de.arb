@@ -61,7 +61,7 @@
   "branchJourneyStageCompleted": "✓ Abgeschlossen",
   "branchJourneyStageCurrent": "Aktuelle Stufe",
   "branchJourneyStageLocked": "Gesperrt",
-  "branchJourneyParams": "{reps} Wdh. × {sets} Sätze  ·  Pause {rest} s",
+  "branchJourneyParams": "{reps} Wdh. × {sets, plural, one{{sets} Satz} other{{sets} Sätze}}  ·  Pause {rest} s",
   "@branchJourneyParams": {
     "placeholders": {
       "reps": {
@@ -75,7 +75,7 @@
       }
     }
   },
-  "branchJourneyParamsTimed": "{secs} s × {sets} Sätze  ·  Pause {rest} s",
+  "branchJourneyParamsTimed": "{secs} s × {sets, plural, one{{sets} Satz} other{{sets} Sätze}}  ·  Pause {rest} s",
   "@branchJourneyParamsTimed": {
     "placeholders": {
       "secs": {
@@ -167,31 +167,32 @@
   "workoutSkipRest": "Überspringen",
   "workoutSetDone": "✅  Satz geschafft!",
   "workoutExerciseDone": "✅  Übung geschafft!",
-  "workoutUnitReps": "Wdh.",
-  "workoutNextExercise": "Als Nächstes: {name} • {amount} {unit}",
+  "workoutAmountReps": "{count} Wdh.",
+  "@workoutAmountReps": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "workoutNextExercise": "Als Nächstes: {name} • {amount}",
   "@workoutNextExercise": {
     "placeholders": {
       "name": {
         "type": "String"
       },
       "amount": {
-        "type": "int"
-      },
-      "unit": {
         "type": "String"
       }
     }
   },
-  "workoutNextSet": "Als Nächstes: Satz {setNum} • {amount} {unit}",
+  "workoutNextSet": "Als Nächstes: Satz {setNum} • {amount}",
   "@workoutNextSet": {
     "placeholders": {
       "setNum": {
         "type": "int"
       },
       "amount": {
-        "type": "int"
-      },
-      "unit": {
         "type": "String"
       }
     }
@@ -555,6 +556,7 @@
       }
     }
   },
+  "releaseNotes0817": "Zahlen und Wörter passen jetzt zusammen: „1 Satz“ statt „1 Sätze“.",
   "releaseNotes0816": "Die App gibt es jetzt auch auf Deutsch und Spanisch.\nDie Sprachauswahl auf dem Begrüßungsbildschirm ist jetzt ein Menü.\nDie Benachrichtigung über eine verlorene Serie nennt die Zahl der Tage auf Russisch jetzt grammatisch richtig.",
   "releaseNotes0815": "Eine Glocke im Profil zeigt jetzt, was sich mit jedem Update geändert hat.\nDer Bildschirm „Über die App“ ist kürzer: Die technische Zeile ist weg.",
   "releaseNotes0814": "Der Button „Noch einmal“ zeigt, wie lange ein zusätzliches Training ungefähr dauert.",
