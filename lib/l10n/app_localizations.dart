@@ -3651,7 +3651,7 @@ abstract class AppLocalizations {
   /// No description provided for @releaseNotes091.
   ///
   /// In en, this message translates to:
-  /// **'New course: Yoga. Poses from easy to hard in four new skills: standing poses, balancing on one leg, backbends and sun salutations. It shares the Balance skill with Calisthenics: one progress for both.'**
+  /// **'New course: Yoga. Poses from easy to hard in four new skills: standing poses, balancing on one leg, backbends and sun salutations. It shares the Balance skill with Calisthenics: one progress for both.\nMiso the cat leads Yoga: on the home screen and in the profile while the course is active, and with paws raised overhead at the end of a workout.'**
   String get releaseNotes091;
 
   /// No description provided for @releaseNotes090.

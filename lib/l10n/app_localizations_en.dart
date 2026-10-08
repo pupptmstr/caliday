@@ -2136,7 +2136,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseNotes091 =>
-      'New course: Yoga. Poses from easy to hard in four new skills: standing poses, balancing on one leg, backbends and sun salutations. It shares the Balance skill with Calisthenics: one progress for both.';
+      'New course: Yoga. Poses from easy to hard in four new skills: standing poses, balancing on one leg, backbends and sun salutations. It shares the Balance skill with Calisthenics: one progress for both.\nMiso the cat leads Yoga: on the home screen and in the profile while the course is active, and with paws raised overhead at the end of a workout.';
 
   @override
   String get releaseNotes090 =>

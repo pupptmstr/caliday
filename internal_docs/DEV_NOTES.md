@@ -7,7 +7,7 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.9.0 (Morning Routine, merged into `main` 2026-10-08). Yoga is in progress on `session/2026-10-08-yoga` as **0.9.1** (the course is in the app; Miso and 13 animations to do): the owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
+**Version:** v0.9.0 (Morning Routine, merged into `main` 2026-10-08). Yoga is in progress on `session/2026-10-08-yoga` as **0.9.1** (the course and Miso are in the app; 13 animations to do): the owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
 **Next priority:** v1.0 release. What still stands in the way:
 - Friends has never been tested on two real phones (checklist below).
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
@@ -291,7 +291,7 @@ The owner chose to drop branch progress from the friend exchange altogether (rat
 - **Costs:** 21 new exercises (20 stages + warm-up + cool-down), each a name, a description and a tip in four languages, tags and a Lottie animation; 4 branches, 1 course, 4 branch achievements, Aurora (six faces + idle + cheer, `tools/characters/gen_hosts.py`).
 - **Order of work:** (1) the four ⚠️ animations drafted first in the rig (torso twist, windmill, knee circles, speed skater) — **done, approved by the owner 2026-10-08, in `assets/`**; (2) the course, branches and exercises, texts in four languages, version 0.9.0 — **done (Change History)**; (3) Aurora — **done, approved by the owner 2026-10-08**; (4) the other 18 animations — **done, approved by the owner 2026-10-08 (the cross crunch redrawn once), in `assets/`**. The branch `0.9.0` is merged only when all of it is in.
 
-#### 2b-3. Yoga — the third new course (owner, 2026-10-08; in the app since 0.9.1, animations and Miso to do)
+#### 2b-3. Yoga — the third new course (owner, 2026-10-08; in the app since 0.9.1, 13 animations to do)
 - **Concept:** a ladder of harder and harder poses (the owner's 2026-10-07 decision), holds mostly, one-sided ones held on each side (§ Per-side holds). Host: **Miso** the cat. Version **0.9.1** on `session/2026-10-08-yoga` (the owner keeps 0.9.x until 1.0).
 - **Reuse is allowed (owner, 2026-10-08):** exercises and whole branches may be shared with other courses (§ Decisions on courses). Yoga takes the existing **Balance** branch of Calisthenics as it is (crow, handstands; progress shared) and reuses the sphinx (Evening Stretch), the downward dog hold (`cooldown_downward_dog`), plank to dog (Morning Routine), the cat-cow (warm-up) and the lying relaxation (cool-down).
 - **The branches** (agreed 2026-10-08; ↔ = on each side; the numbers are in ARCHITECTURE § Exercise Catalog):
@@ -307,13 +307,13 @@ The owner chose to drop branch progress from the friend exchange altogether (rat
 - **Decided (owner, 2026-10-08):** the Balance branch is in; every stage as Morning Routine (sets 1→2, rest 15→10 s, `spBase` 1); the bonus workout adds the supplementary block; every new branch starts at stage 1 in the onboarding. Warm-up cat-cow, cool-down lying relaxation (both reused; Balance keeps its own wrist circles / downward dog).
 - **The one-leg branch is called «Равновесие»** (owner, 2026-10-08), so the course has one «Баланс» (the shared branch); a separate branch rather than the one-leg poses at the end of Standing. Names elsewhere (drafts for the proofreaders): Equilibrium / Gleichgewicht / Estabilidad (the Spanish Balance is already «Equilibrio»). Hive name `yogaOneLeg`.
 - **The camel keeps the hands on the lower back** (owner, 2026-10-08, after the stand showed both versions).
-- **Order of work** (as the other courses): (1) the risky animations drafted first — eagle, half moon, camel, wheel, sun salutation A — **done 2026-10-08, in `assets/`** (the owner chose the camel version and raised nothing on the other four); (2) the course, branches and exercises with texts in four languages (0.9.1) — **done (Change History)**; (3) Miso; (4) the other 13 animations: chair, warrior I and II, triangle, side angle, tree, warrior III, dancer, locust, bridge, bow, half sun salutation, Sun Salutation B. The branch is merged when all of it is in.
+- **Order of work** (as the other courses): (1) the risky animations drafted first — eagle, half moon, camel, wheel, sun salutation A — **done 2026-10-08, in `assets/`** (the owner chose the camel version and raised nothing on the other four); (2) the course, branches and exercises with texts in four languages (0.9.1) — **done (Change History)**; (3) Miso — **drawn 2026-10-08, in the app, stand published for the owner's review**; (4) the other 13 animations: chair, warrior I and II, triangle, side angle, tree, warrior III, dancer, locust, bridge, bow, half sun salutation, Sun Salutation B. The branch is merged when all of it is in.
 - **Draft findings:** Goro's arms reach the heels in the camel only with the chest level behind him, which reads as a bow. The wheel is low (the torso is long next to the limbs) and starts with the hands by the shoulders rather than by the ears, or the feet could not stay planted.
 
 #### Per-side holds — done (0.8.20)
 Implemented as decided; see ARCHITECTURE § Timed exercises (Holds on each side) and the Change History entry.
 
-#### Course hosts — decided (owner, 2026-10-08); Raffi and Luna done in 0.8.20, Aurora in 0.9.0
+#### Course hosts — decided (owner, 2026-10-08); Raffi and Luna done in 0.8.20, Aurora in 0.9.0, Miso in 0.9.1
 - **Every course gets its own host character.** Calisthenics — **Goro** (gorilla); Healthy Body — **Raffi** (giraffe: neck and posture); Evening Stretch — **Luna** (owl); Morning Routine — **Aurora** (lark: "жаворонок / сова", early bird / night owl, Lerche / Eule, alondra / búho); Yoga — **Miso** (cat). Names chosen by the owner; they read the same in RU / EN / DE / ES (Луна, Аврора, Мисо, Раффи).
 - **Goro stays the coach:** the Home hero, the notifications, and he performs **every** exercise animation — no animation is redrawn for a host. **Skala stays the judge** of every course's challenge.
 - **A host is static SVG art in 2–3 poses**, like Skala, in Goro's flat style (BRAND.md), drawn in-house.
@@ -374,6 +374,16 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-08 — Miso, the Yoga host (0.9.1)
+
+**What was done:** step (3) of § Roadmap 2b-3. `tools/characters/gen_hosts.py` draws Miso like the other hosts: six faces, an idle and a cheer pose (`assets/hosts/miso_*`). A ginger tabby on a calm teal tile, a collar in Goro's blue with a gold bell; the ears droop when sad or asleep, flatten sideways when stern, perk up when excited. The idle pose sits in lotus on a yoga mat in Goro's blue with the paws on the knees; the cheer pose raises both paws overhead, eyes closed happily. `CourseId.yoga` now maps to Miso (Home, Profile, course cards, summary); a line in the 0.9.1 "What's new" in four languages. The other hosts regenerate unchanged. A stand (Artifact) shows the six faces at 200 px and the poses at 100 / 120 / 48 px beside Luna, Aurora and Raffi for the owner's review.
+
+**Key issues and solutions:** the first cheer pose drew the raised legs from the shoulders straight up: they ran behind the head and only the paw tips showed above it. Drawn over the head they wrapped it like a hood and covered the ears. They are now behind the head with the elbows out wide (a teal gap between arm and head) in a shade darker than the fur, and the paws are drawn over the head where they meet above the ears.
+
+**New / modified files:** `tools/characters/gen_hosts.py`, `assets/hosts/miso_*.svg` (8), `lib/data/models/enums.dart`, `l10n/*.arb` (`releaseNotes091`, + generated), BRAND.md, the design concept, ARCHITECTURE.md, DEV_NOTES.md.
+
+---
 
 ### 2026-10-08 — Yoga: the course in the app (0.9.1+31)
 

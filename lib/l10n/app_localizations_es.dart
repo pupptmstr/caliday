@@ -2131,7 +2131,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseNotes091 =>
-      'Curso nuevo, Yoga: posturas de fáciles a difíciles en cuatro habilidades nuevas: de pie, estabilidad, extensiones y saludos al sol. Comparte la habilidad Equilibrio con Calistenia: un solo progreso para las dos.';
+      'Curso nuevo, Yoga: posturas de fáciles a difíciles en cuatro habilidades nuevas: de pie, estabilidad, extensiones y saludos al sol. Comparte la habilidad Equilibrio con Calistenia: un solo progreso para las dos.\nEl Yoga lo guía Miso, el gato: mientras el curso está activo, te recibe en la pantalla principal y en el perfil, y al final de cada entrenamiento levanta las patas por encima de la cabeza.';
 
   @override
   String get releaseNotes090 =>

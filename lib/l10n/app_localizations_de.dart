@@ -2122,7 +2122,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseNotes091 =>
-      'Neuer Kurs „Yoga“: Haltungen von leicht bis schwer in vier neuen Skills — Standhaltungen, Gleichgewicht, Rückbeugen und Sonnengrüße. Den Skill Balance teilt er sich mit Calisthenics: ein Fortschritt für beide.';
+      'Neuer Kurs „Yoga“: Haltungen von leicht bis schwer in vier neuen Skills — Standhaltungen, Gleichgewicht, Rückbeugen und Sonnengrüße. Den Skill Balance teilt er sich mit Calisthenics: ein Fortschritt für beide.\nYoga leitet Miso, der Kater: Solange der Kurs aktiv ist, begrüßt er dich auf dem Startbildschirm und im Profil und hebt am Ende eines Trainings die Pfoten über den Kopf.';
 
   @override
   String get releaseNotes090 =>

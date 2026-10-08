@@ -199,7 +199,7 @@ extension CourseIdExtension on CourseId {
       };
 
   /// The course host's portrait (course cards): its happy face. Goro, Raffi
-  /// the giraffe, Luna the owl, Aurora the lark; art from
+  /// the giraffe, Luna the owl, Aurora the lark, Miso the cat; art from
   /// tools/characters/gen_hosts.py.
   String get hostPortrait => hostFace('happy');
 
@@ -210,7 +210,7 @@ extension CourseIdExtension on CourseId {
         CourseId.healthyBody => 'assets/hosts/raffi_face_$mood.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_face_$mood.svg',
         CourseId.morningRoutine => 'assets/hosts/aurora_face_$mood.svg',
-        CourseId.yoga => 'assets/goro/goro_face_$mood.svg',
+        CourseId.yoga => 'assets/hosts/miso_face_$mood.svg',
       };
 
   /// The host standing calmly (Profile).
@@ -219,7 +219,7 @@ extension CourseIdExtension on CourseId {
         CourseId.healthyBody => 'assets/hosts/raffi_idle.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_idle.svg',
         CourseId.morningRoutine => 'assets/hosts/aurora_idle.svg',
-        CourseId.yoga => 'assets/goro/goro_idle_v2.svg',
+        CourseId.yoga => 'assets/hosts/miso_idle.svg',
       };
 
   /// The course host cheering on the summary of a workout of this course.
@@ -228,7 +228,7 @@ extension CourseIdExtension on CourseId {
         CourseId.healthyBody => 'assets/hosts/raffi_cheer.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_cheer.svg',
         CourseId.morningRoutine => 'assets/hosts/aurora_cheer.svg',
-        CourseId.yoga => 'assets/goro/goro_flex_v2.svg',
+        CourseId.yoga => 'assets/hosts/miso_cheer.svg',
       };
 }
 

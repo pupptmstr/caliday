@@ -1,5 +1,5 @@
 """The course hosts: Luna the owl (Evening Stretch), Raffi the giraffe
-(Healthy Body) and Aurora the lark (Morning Routine), drawn in Goro's flat style (rounded tile, soft glow, no
+(Healthy Body), Aurora the lark (Morning Routine) and Miso the cat (Yoga), drawn in Goro's flat style (rounded tile, soft glow, no
 outlines, big eyes with highlights, the light-blue accent of Goro's headband).
 
     python3 tools/characters/gen_hosts.py [OUT_DIR]
@@ -614,15 +614,251 @@ def aurora_cheer():
     return svg_text.replace('\n</svg>', f'\n  {notes}\n</svg>')
 
 
+# ══ Miso, the cat ════════════════════════════════════════════════════════════
+
+M_FUR = '#F0A35E'       # ginger
+M_STRIPE = '#D77F3B'
+M_CREAM = '#FCE6C8'     # muzzle, chest, paws
+M_EAR_IN = '#F7AEB9'
+M_NOSE = '#EE8A9E'
+M_MOUTH = '#8A4B2A'
+M_WHISKER = '#FFF6EA'
+M_BELL = '#F5C842'
+M_FUR_BACK = '#E2914C'   # a raised leg behind the head, a shade darker
+
+
+def calm_teal():
+    out = [tile('misoBg', '#62CFC0', '#1E7F86', '#DFFFF8')]
+    out.append('<circle cx="512" cy="470" r="360" fill="#FFFFFF" opacity="0.12"/>')
+    for x, y, r in ((176, 236, 14), (232, 176, 9), (846, 300, 12), (884, 372, 7), (150, 640, 9), (878, 700, 11)):
+        out.append(f'<circle cx="{x}" cy="{y}" r="{r}" fill="#FFFFFF" opacity="0.5"/>')
+    return '\n  '.join(out)
+
+
+def miso_head(cx, cy, s=1.0, mood='happy'):
+    """Head of the cat in one of the ``MOODS`` (plus 'joy': eyes closed, a
+    happy open mouth, for the cheer pose). The ears droop when sad or asleep,
+    flatten sideways when stern and perk up when excited."""
+    def p(x, y):
+        return f'{cx + x * s:.0f} {cy + y * s:.0f}'
+    ear = {'sad': -34, 'sleeping': -18, 'angry': -48, 'excited': 6, 'joy': 4}.get(mood, 0)
+    parts = []
+    for sx in (-1, 1):
+        base = (cx + sx * 132 * s, cy - 150 * s)
+        rot_ = f'transform="rotate({sx * -ear} {base[0]:.0f} {base[1]:.0f})"'
+        parts.append(f'<path d="M{p(sx * 214, -96)} L{p(sx * 186, -318)} L{p(sx * 40, -182)} Z" fill="{M_FUR}" '
+                     f'stroke="{M_FUR}" stroke-width="{36 * s:.0f}" stroke-linejoin="round" {rot_}/>')
+        parts.append(f'<path d="M{p(sx * 176, -132)} L{p(sx * 168, -262)} L{p(sx * 86, -176)} Z" fill="{M_EAR_IN}" '
+                     f'stroke="{M_EAR_IN}" stroke-width="{16 * s:.0f}" stroke-linejoin="round" {rot_}/>')
+    parts += [
+        # cheek fluff under the wide head
+        f'<path d="M{p(-232, 30)} L{p(-262, 96)} L{p(-196, 84)} L{p(-214, 136)} L{p(-150, 120)} Z" fill="{M_FUR}"/>',
+        f'<path d="M{p(232, 30)} L{p(262, 96)} L{p(196, 84)} L{p(214, 136)} L{p(150, 120)} Z" fill="{M_FUR}"/>',
+        f'<ellipse cx="{cx}" cy="{cy}" rx="{238 * s:.0f}" ry="{196 * s:.0f}" fill="{M_FUR}"/>',
+    ]
+    # tabby marks on the forehead and the cheeks
+    for dx, h in ((-46, 64), (0, 84), (46, 64)):
+        parts.append(f'<rect x="{cx + (dx - 11) * s:.0f}" y="{cy - 192 * s:.0f}" width="{22 * s:.0f}" height="{h * s:.0f}" '
+                     f'rx="{11 * s:.0f}" fill="{M_STRIPE}"/>')
+    for sx in (-1, 1):
+        for i, y in enumerate((20, 56)):
+            parts.append(f'<path d="M{p(sx * 238, y)} L{p(sx * (176 + 14 * i), y + 8)}" stroke="{M_STRIPE}" '
+                         f'stroke-width="{16 * s:.0f}" stroke-linecap="round"/>')
+    # muzzle: two cream lobes and a chin
+    parts += [f'<ellipse cx="{cx}" cy="{cy + 150 * s:.0f}" rx="{58 * s:.0f}" ry="{34 * s:.0f}" fill="{M_CREAM}"/>',
+              f'<circle cx="{cx - 52 * s:.0f}" cy="{cy + 104 * s:.0f}" r="{64 * s:.0f}" fill="{M_CREAM}"/>',
+              f'<circle cx="{cx + 52 * s:.0f}" cy="{cy + 104 * s:.0f}" r="{64 * s:.0f}" fill="{M_CREAM}"/>']
+    ex, ey, er = 92 * s, cy - 6 * s, 60 * s
+    if mood in ('joy', 'supportive'):
+        parts.append(eye(cx - ex, ey, er, closed=True, closed_color=M_MOUTH))
+        parts.append(eye(cx + ex, ey, er, closed=True, closed_color=M_MOUTH))
+    elif mood == 'sleeping':
+        parts.append(sleep_eye(cx - ex, ey, er, M_MOUTH))
+        parts.append(sleep_eye(cx + ex, ey, er, M_MOUTH))
+    elif mood == 'sad':
+        parts.append(eye(cx - ex, ey, er, look=(4 * s, 16 * s)))
+        parts.append(eye(cx + ex, ey, er, look=(-4 * s, 16 * s)))
+    elif mood == 'angry':
+        parts.append(eye(cx - ex, ey, er * 0.92, look=(8 * s, 2 * s)))
+        parts.append(eye(cx + ex, ey, er * 0.92, look=(-8 * s, 2 * s)))
+    elif mood == 'excited':
+        parts.append(eye(cx - ex, ey, er * 1.12, look=(4 * s, 0)))
+        parts.append(eye(cx + ex, ey, er * 1.12, look=(-4 * s, 0)))
+    else:
+        parts.append(eye(cx - ex, ey, er, look=(6 * s, 6 * s)))
+        parts.append(eye(cx + ex, ey, er, look=(-6 * s, 6 * s)))
+    bw = 15 * s
+    if mood == 'sad':
+        parts += [brow(cx - 150 * s, cy - 54 * s, cx - 52 * s, cy - 84 * s, M_STRIPE, bw),
+                  brow(cx + 150 * s, cy - 54 * s, cx + 52 * s, cy - 84 * s, M_STRIPE, bw)]
+    elif mood == 'angry':
+        parts += [brow(cx - 150 * s, cy - 86 * s, cx - 54 * s, cy - 60 * s, M_STRIPE, bw),
+                  brow(cx + 150 * s, cy - 86 * s, cx + 54 * s, cy - 60 * s, M_STRIPE, bw)]
+    # nose and mouth
+    parts.append(f'<path d="M{p(-26, 62)} L{p(26, 62)} L{p(0, 92)} Z" fill="{M_NOSE}" stroke="{M_NOSE}" '
+                 f'stroke-width="{12 * s:.0f}" stroke-linejoin="round"/>')
+    mw = 9 * s
+    if mood in ('excited', 'joy'):
+        parts += [f'<path d="M{p(-46, 112)} Q{p(0, 104)} {p(46, 112)} Q{p(36, 176)} {p(0, 176)} Q{p(-36, 176)} {p(-46, 112)} Z" fill="{M_MOUTH}"/>',
+                  f'<ellipse cx="{cx}" cy="{cy + 160 * s:.0f}" rx="{22 * s:.0f}" ry="{12 * s:.0f}" fill="#F08A8A"/>']
+    elif mood == 'sad':
+        parts.append(f'<path d="M{p(-36, 140)} Q{p(0, 112)} {p(36, 140)}" stroke="{M_MOUTH}" stroke-width="{mw:.0f}" '
+                     f'stroke-linecap="round" fill="none"/>')
+    elif mood == 'angry':
+        parts.append(f'<path d="M{p(-34, 128)} L{p(34, 128)}" stroke="{M_MOUTH}" stroke-width="{mw:.0f}" stroke-linecap="round"/>')
+    else:
+        parts.append(f'<path d="M{p(0, 92)} L{p(0, 110)} M{p(-44, 112)} Q{p(-22, 136)} {p(0, 110)} Q{p(22, 136)} {p(44, 112)}" '
+                     f'stroke="{M_MOUTH}" stroke-width="{mw:.0f}" stroke-linecap="round" stroke-linejoin="round" fill="none"/>')
+    # whiskers
+    for sx in (-1, 1):
+        for y0, y1 in ((96, 70), (116, 118), (136, 164)):
+            parts.append(f'<path d="M{p(sx * 120, y0)} L{p(sx * 286, y1)}" stroke="{M_WHISKER}" stroke-width="{7 * s:.0f}" '
+                         f'stroke-linecap="round" opacity="0.9"/>')
+    if mood not in ('angry',):
+        parts += [f'<ellipse cx="{cx - 168 * s:.0f}" cy="{cy + 84 * s:.0f}" rx="{30 * s:.0f}" ry="{16 * s:.0f}" fill="{M_EAR_IN}" opacity="0.55"/>',
+                  f'<ellipse cx="{cx + 168 * s:.0f}" cy="{cy + 84 * s:.0f}" rx="{30 * s:.0f}" ry="{16 * s:.0f}" fill="{M_EAR_IN}" opacity="0.55"/>']
+    if mood == 'sad':
+        parts.append(tear(cx + ex + 34 * s, ey + 82 * s, s))
+    if mood == 'sleeping':
+        parts.append(zzz(cx + 200 * s, cy - 170 * s, s))
+    if mood == 'excited':
+        parts += [sparkle(int(cx - 290 * s), int(cy - 180 * s), int(34 * s)),
+                  sparkle(int(cx + 300 * s), int(cy - 110 * s), int(28 * s)),
+                  sparkle(int(cx + 250 * s), int(cy - 270 * s), int(20 * s))]
+    return '\n  '.join(parts)
+
+
+def miso_paw(x, y, s, angle=0.0):
+    """A front paw: a cream oval with three toe marks."""
+    out = [f'<g transform="rotate({angle:.0f} {x:.0f} {y:.0f})">',
+           f'<ellipse cx="{x:.0f}" cy="{y:.0f}" rx="{46 * s:.0f}" ry="{36 * s:.0f}" fill="{M_CREAM}"/>']
+    for dx in (-18, 0, 18):
+        out.append(f'<path d="M{x + dx * s:.0f} {y - 30 * s:.0f} L{x + dx * s:.0f} {y - 14 * s:.0f}" stroke="{M_STRIPE}" '
+                   f'stroke-width="{5 * s:.0f}" stroke-linecap="round" opacity="0.6"/>')
+    out.append('</g>')
+    return '\n  '.join(out)
+
+
+def miso_arm(sx, x0, y0, x1, y1, s):
+    """A front leg from the shoulder (x0, y0) to the paw (x1, y1)."""
+    return (f'<path d="M{x0:.0f} {y0:.0f} L{x1:.0f} {y1:.0f}" stroke="{M_FUR}" stroke-width="{70 * s:.0f}" '
+            f'stroke-linecap="round"/>')
+
+
+def miso_body(cx, top, s=1.0, paws='down', lotus=False):
+    """Body below the head: a round sitting body with a cream chest, the
+    collar (Goro's headband blue) with a bell, a tail curled round, and front
+    paws (``paws`` down: resting in front | knees: on the knees of the lotus |
+    up: both raised over the head, palms together | both: both raised in a V |
+    heart: one over the chest holding a heart). ``lotus`` adds crossed legs."""
+    h = 360 * s
+    w = 250 * s
+    parts = [
+        # tail, behind the body, curling up on the right
+        f'<path d="M{cx + w * 0.6:.0f} {top + h * 0.95:.0f} Q{cx + w * 1.45:.0f} {top + h * 0.9:.0f} '
+        f'{cx + w * 1.3:.0f} {top + h * 0.35:.0f} Q{cx + w * 1.22:.0f} {top + h * 0.12:.0f} {cx + w * 1.05:.0f} {top + h * 0.2:.0f}" '
+        f'stroke="{M_FUR}" stroke-width="{58 * s:.0f}" stroke-linecap="round" fill="none"/>',
+        f'<path d="M{cx + w * 1.32:.0f} {top + h * 0.42:.0f} L{cx + w * 1.18:.0f} {top + h * 0.44:.0f} '
+        f'M{cx + w * 1.38:.0f} {top + h * 0.66:.0f} L{cx + w * 1.22:.0f} {top + h * 0.62:.0f}" '
+        f'stroke="{M_STRIPE}" stroke-width="{16 * s:.0f}" stroke-linecap="round"/>',
+        f'<ellipse cx="{cx}" cy="{top + h * 0.55:.0f}" rx="{w * 0.86:.0f}" ry="{h * 0.56:.0f}" fill="{M_FUR}"/>',
+        f'<ellipse cx="{cx}" cy="{top + h * 0.56:.0f}" rx="{w * 0.5:.0f}" ry="{h * 0.42:.0f}" fill="{M_CREAM}"/>',
+    ]
+    for sx in (-1, 1):
+        parts.append(f'<path d="M{cx + sx * w * 0.86:.0f} {top + h * 0.5:.0f} L{cx + sx * w * 0.62:.0f} {top + h * 0.54:.0f} '
+                     f'M{cx + sx * w * 0.84:.0f} {top + h * 0.72:.0f} L{cx + sx * w * 0.64:.0f} {top + h * 0.74:.0f}" '
+                     f'stroke="{M_STRIPE}" stroke-width="{16 * s:.0f}" stroke-linecap="round"/>')
+    if lotus:
+        # crossed hind legs: the thighs out to the sides, the feet crossed in front
+        for sx in (-1, 1):
+            parts.append(f'<ellipse cx="{cx + sx * w * 0.62:.0f}" cy="{top + h * 1.02:.0f}" rx="{w * 0.6:.0f}" ry="{h * 0.15:.0f}" '
+                         f'fill="{M_FUR}" transform="rotate({sx * 6} {cx + sx * w * 0.62:.0f} {top + h * 1.02:.0f})"/>')
+        parts += [f'<ellipse cx="{cx - w * 0.2:.0f}" cy="{top + h * 1.08:.0f}" rx="{w * 0.22:.0f}" ry="{h * 0.08:.0f}" fill="{M_CREAM}"/>',
+                  f'<ellipse cx="{cx + w * 0.2:.0f}" cy="{top + h * 1.04:.0f}" rx="{w * 0.22:.0f}" ry="{h * 0.08:.0f}" fill="{M_CREAM}"/>']
+    sh_y = top + h * 0.22
+    if paws == 'both':
+        for sx in (-1, 1):
+            x0 = cx + sx * w * 0.62
+            x1, y1 = cx + sx * w * 1.25, top - h * 0.62
+            parts.append(miso_arm(sx, x0, sh_y, x1, y1, s))
+            parts.append(miso_paw(x1, y1, s * 0.9, sx * 30))
+    elif paws == 'heart':
+        parts.append(miso_arm(-1, cx - w * 0.6, sh_y, cx - w * 0.42, top + h * 0.98, s))
+        parts.append(miso_paw(cx - w * 0.42, top + h * 0.98, s))
+        parts.append(miso_arm(1, cx + w * 0.6, sh_y, cx + w * 0.08, top + h * 0.5, s))
+        parts.append(heart(int(cx - w * 0.06), int(top + h * 0.5), int(36 * s)))
+        parts.append(miso_paw(cx + w * 0.14, top + h * 0.52, s * 0.9, -30))
+    elif paws == 'knees':
+        for sx in (-1, 1):
+            parts.append(miso_arm(sx, cx + sx * w * 0.6, sh_y, cx + sx * w * 0.86, top + h * 0.9, s))
+            parts.append(miso_paw(cx + sx * w * 0.9, top + h * 0.92, s * 0.9))
+    else:
+        for sx in (-1, 1):
+            parts.append(miso_arm(sx, cx + sx * w * 0.5, sh_y, cx + sx * w * 0.36, top + h * 0.98, s))
+            parts.append(miso_paw(cx + sx * w * 0.36, top + h * 0.98, s))
+    # collar with a bell
+    parts += [f'<path d="M{cx - w * 0.66:.0f} {top + h * 0.06:.0f} Q{cx:.0f} {top + h * 0.2:.0f} {cx + w * 0.66:.0f} {top + h * 0.06:.0f} '
+              f'L{cx + w * 0.62:.0f} {top + h * 0.17:.0f} Q{cx:.0f} {top + h * 0.31:.0f} {cx - w * 0.62:.0f} {top + h * 0.17:.0f} Z" fill="{ACCENT}"/>',
+              f'<circle cx="{cx}" cy="{top + h * 0.3:.0f}" r="{26 * s:.0f}" fill="{M_BELL}"/>',
+              f'<path d="M{cx - 14 * s:.0f} {top + h * 0.31:.0f} L{cx + 14 * s:.0f} {top + h * 0.31:.0f}" stroke="#B88A1E" '
+              f'stroke-width="{6 * s:.0f}" stroke-linecap="round"/>']
+    return '\n  '.join(parts)
+
+
+def miso_face(mood):
+    paws = {'excited': 'both', 'supportive': 'heart'}.get(mood, 'down')
+    body = [calm_teal(), miso_body(512, 700, 1.05, paws=paws), miso_head(512, 500, 1.0, mood)]
+    return svg(f'MISO — {mood} (Yoga host, the cat)', '\n  '.join(body))
+
+
+def miso_mat():
+    return (f'<rect x="132" y="872" width="760" height="42" rx="21" fill="{ACCENT}"/>'
+            f'<rect x="172" y="884" width="680" height="8" rx="4" fill="{WHITE}" opacity="0.55"/>')
+
+
+def miso_idle():
+    body = [calm_teal(), miso_mat(), miso_body(512, 470, 0.9, paws='knees', lotus=True),
+            miso_head(512, 330, 0.8, 'happy')]
+    return svg('MISO — idle (sitting in lotus, paws on the knees)', '\n  '.join(body))
+
+
+def miso_arms_overhead(cx, sh_y, head_cy, hs, bs):
+    """Both front legs raised overhead, elbows out wide round the head (``hs``
+    its scale); drawn behind the head, which covers their inner part."""
+    w = 250 * bs
+    out = []
+    for sx in (-1, 1):
+        x0 = cx + sx * w * 0.62
+        ctrl = (cx + sx * 470 * hs, head_cy - 250 * hs)
+        end = (cx + sx * 24 * hs, head_cy - 360 * hs)
+        out.append(f'<path d="M{x0:.0f} {sh_y:.0f} Q{ctrl[0]:.0f} {ctrl[1]:.0f} {end[0]:.0f} {end[1]:.0f}" '
+                   f'stroke="{M_FUR}" stroke-width="{66 * bs:.0f}" stroke-linecap="round" fill="none"/>')
+    return '\n  '.join(out)
+
+
+def miso_cheer():
+    hs, bs, head_cy, top = 0.68, 0.8, 420, 556
+    sh_y = top + 360 * bs * 0.22
+    tip_y = head_cy - 372 * hs
+    body = [calm_teal(), miso_mat(), miso_arms_overhead(512, sh_y, head_cy, hs, bs),
+            miso_body(512, top, bs, paws='up', lotus=True),
+            miso_head(512, head_cy, hs, 'joy'),
+            miso_paw(512 - 22 * hs, tip_y, bs * 0.9, -90), miso_paw(512 + 22 * hs, tip_y, bs * 0.9, 90),
+            sparkle(200, 330, 30), sparkle(836, 300, 24), sparkle(800, 560, 18)]
+    return svg('MISO — cheer (lotus, paws together over the head, eyes closed happily)', '\n  '.join(body))
+
+
 def all_art():
     out = {}
     for mood in MOODS:
         out[f'luna_face_{mood}'] = luna_face(mood)
         out[f'raffi_face_{mood}'] = raffi_face(mood)
         out[f'aurora_face_{mood}'] = aurora_face(mood)
+        out[f'miso_face_{mood}'] = miso_face(mood)
     out.update(luna_idle=luna_idle(), luna_cheer=luna_cheer(),
                raffi_idle=raffi_idle(), raffi_cheer=raffi_cheer(),
-               aurora_idle=aurora_idle(), aurora_cheer=aurora_cheer())
+               aurora_idle=aurora_idle(), aurora_cheer=aurora_cheer(),
+               miso_idle=miso_idle(), miso_cheer=miso_cheer())
     return out
 
 
