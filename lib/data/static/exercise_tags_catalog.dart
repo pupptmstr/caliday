@@ -243,6 +243,74 @@ class ExerciseTagsCatalog {
       ExerciseTag.cooldown, ExerciseTag.floorOnly, ExerciseTag.beginner,
     ],
 
+    // ── Morning Routine ───────────────────────────────────────────────────────
+    'morning_spine_s1_side_bend': [
+      ExerciseTag.back, ExerciseTag.core, ExerciseTag.mobility, ExerciseTag.beginner,
+    ],
+    'morning_spine_s2_torso_twist': [
+      ExerciseTag.back, ExerciseTag.core, ExerciseTag.mobility,
+    ],
+    'morning_spine_s3_good_morning': [
+      ExerciseTag.back, ExerciseTag.glutes, ExerciseTag.mobility, ExerciseTag.strength,
+    ],
+    'morning_spine_s4_roll_down': [
+      ExerciseTag.back, ExerciseTag.stretch, ExerciseTag.mobility,
+    ],
+    'morning_spine_s5_windmill': [
+      ExerciseTag.back, ExerciseTag.core, ExerciseTag.stretch, ExerciseTag.mobility,
+    ],
+    'morning_joints_s1_knee_circles': [
+      ExerciseTag.legs, ExerciseTag.mobility, ExerciseTag.beginner,
+    ],
+    'morning_joints_s2_open_the_gate': [
+      ExerciseTag.hipFlexor, ExerciseTag.glutes, ExerciseTag.mobility,
+    ],
+    'morning_joints_s3_knee_hug': [
+      ExerciseTag.glutes, ExerciseTag.legs, ExerciseTag.mobility,
+    ],
+    'morning_joints_s4_side_lunge': [
+      ExerciseTag.legs, ExerciseTag.glutes, ExerciseTag.mobility, ExerciseTag.strength,
+    ],
+    'morning_joints_s5_cossack_squat': [
+      ExerciseTag.legs, ExerciseTag.glutes, ExerciseTag.stretch, ExerciseTag.mobility, ExerciseTag.strength,
+    ],
+    'morning_arms_s1_arm_swings': [
+      ExerciseTag.shoulders, ExerciseTag.chest, ExerciseTag.mobility, ExerciseTag.beginner,
+    ],
+    'morning_arms_s2_y_raises': [
+      ExerciseTag.shoulders, ExerciseTag.back, ExerciseTag.strength, ExerciseTag.postureFocus,
+    ],
+    'morning_arms_s3_cactus_arms': [
+      ExerciseTag.shoulders, ExerciseTag.chest, ExerciseTag.mobility, ExerciseTag.postureFocus,
+    ],
+    'morning_arms_s4_inchworm': [
+      ExerciseTag.shoulders, ExerciseTag.core, ExerciseTag.stretch, ExerciseTag.strength,
+    ],
+    'morning_arms_s5_plank_to_dog': [
+      ExerciseTag.shoulders, ExerciseTag.core, ExerciseTag.stretch, ExerciseTag.strength,
+    ],
+    'morning_energy_s1_step_jacks': [
+      ExerciseTag.legs, ExerciseTag.shoulders, ExerciseTag.endurance, ExerciseTag.beginner,
+    ],
+    'morning_energy_s2_butt_kicks': [
+      ExerciseTag.legs, ExerciseTag.endurance,
+    ],
+    'morning_energy_s3_cross_crunch': [
+      ExerciseTag.core, ExerciseTag.endurance,
+    ],
+    'morning_energy_s4_speed_skater': [
+      ExerciseTag.legs, ExerciseTag.glutes, ExerciseTag.endurance,
+    ],
+    'morning_energy_s5_mountain_climbers': [
+      ExerciseTag.core, ExerciseTag.shoulders, ExerciseTag.endurance, ExerciseTag.strength,
+    ],
+    'warmup_morning_stretch_up': [
+      ExerciseTag.warmup, ExerciseTag.mobility, ExerciseTag.beginner,
+    ],
+    'cooldown_shake_out': [
+      ExerciseTag.cooldown, ExerciseTag.mobility, ExerciseTag.beginner,
+    ],
+
     // ── Warmups ───────────────────────────────────────────────────────────────
     'warmup_arm_rotations': [
       ExerciseTag.warmup, ExerciseTag.shoulders, ExerciseTag.mobility,

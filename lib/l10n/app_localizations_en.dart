@@ -90,6 +90,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeBranchEveningShoulders => 'Shoulders';
 
   @override
+  String get homeBranchMorningSpine => 'Spine';
+
+  @override
+  String get homeBranchMorningJoints => 'Joints';
+
+  @override
+  String get homeBranchMorningArms => 'Arms';
+
+  @override
+  String get homeBranchMorningEnergy => 'Energy';
+
+  @override
   String get courseNameCalisthenics => 'Calisthenics';
 
   @override
@@ -97,6 +109,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get courseNameEveningStretch => 'Evening Stretch';
+
+  @override
+  String get courseNameMorningRoutine => 'Morning Routine';
 
   @override
   String get courseDescCalisthenics =>
@@ -109,6 +124,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get courseDescEveningStretch =>
       'A calm stretch before sleep. Back, hips, legs and shoulders: slowly, on the floor, ending lying down.';
+
+  @override
+  String get courseDescMorningRoutine =>
+      'Wake your body up. Spine, joints, arms and a little energy: standing, quietly, no jumps.';
 
   @override
   String get onboardingQ4Courses => 'Choose a Course';
@@ -593,6 +612,34 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get achievementEveningShouldersCompleteDesc =>
       'All 5 stages of the evening Shoulders skill cleared. Fingers hooked behind your back.';
+
+  @override
+  String get achievementMorningSpineCompleteName => 'Windmill';
+
+  @override
+  String get achievementMorningSpineCompleteDesc =>
+      'All 5 stages of the morning Spine skill cleared. From side bends to the windmill.';
+
+  @override
+  String get achievementMorningJointsCompleteName => 'Well-Oiled';
+
+  @override
+  String get achievementMorningJointsCompleteDesc =>
+      'All 5 stages of the morning Joints skill cleared. All the way to the Cossack squat.';
+
+  @override
+  String get achievementMorningArmsCompleteName => 'Open Arms';
+
+  @override
+  String get achievementMorningArmsCompleteDesc =>
+      'All 5 stages of the morning Arms skill cleared. From arm swings to plank to downward dog.';
+
+  @override
+  String get achievementMorningEnergyCompleteName => 'Early Bird';
+
+  @override
+  String get achievementMorningEnergyCompleteDesc =>
+      'All 5 stages of the morning Energy skill cleared. Wide awake before the first coffee.';
 
   @override
   String get achievementAllCompleteName => 'Full Collection';
@@ -1564,6 +1611,249 @@ class AppLocalizationsEn extends AppLocalizations {
       'Breathe out longer than you breathe in.';
 
   @override
+  String get exerciseMorningSpineS1SideBendName => 'Standing Side Bend';
+
+  @override
+  String get exerciseMorningSpineS1SideBendDesc =>
+      'Stand with your feet hip-width apart. Raise one arm over your head and lean to the other side, sliding the other hand down your thigh. Come back up and switch sides. Each side counts as one rep.';
+
+  @override
+  String get exerciseMorningSpineS1SideBendTip =>
+      'Lean straight to the side, not forward; your hips stay still.';
+
+  @override
+  String get exerciseMorningSpineS2TorsoTwistName => 'Torso Twist';
+
+  @override
+  String get exerciseMorningSpineS2TorsoTwistDesc =>
+      'Stand with your feet a little wider than your hips, knees soft, arms loose. Turn your upper body from side to side and let your arms swing around you. Your hips keep facing forward. Each side counts as one rep.';
+
+  @override
+  String get exerciseMorningSpineS2TorsoTwistTip =>
+      'Let the arms follow the turn; don\'t throw them.';
+
+  @override
+  String get exerciseMorningSpineS3GoodMorningName => 'Good Morning';
+
+  @override
+  String get exerciseMorningSpineS3GoodMorningDesc =>
+      'Stand with your feet hip-width apart, hands behind your head. Push your hips back and lean forward with a flat back until you feel the back of your thighs, then stand tall again.';
+
+  @override
+  String get exerciseMorningSpineS3GoodMorningTip =>
+      'Bend at the hips, not at the waist: your back stays straight the whole way.';
+
+  @override
+  String get exerciseMorningSpineS4RollDownName => 'Roll-Down';
+
+  @override
+  String get exerciseMorningSpineS4RollDownDesc =>
+      'Stand tall. Drop your chin to your chest and roll down slowly, one vertebra at a time, letting your arms hang toward the floor. Roll back up the same way, your head coming up last.';
+
+  @override
+  String get exerciseMorningSpineS4RollDownTip =>
+      'Bend your knees as much as you need; the point is the spine, not touching the floor.';
+
+  @override
+  String get exerciseMorningSpineS5WindmillName => 'Windmill';
+
+  @override
+  String get exerciseMorningSpineS5WindmillDesc =>
+      'Stand with your feet wide, arms out to the sides. Bend forward and turn, reaching one hand to the opposite foot while the other arm points at the ceiling. Come back up to the T and switch sides. Each side counts as one rep.';
+
+  @override
+  String get exerciseMorningSpineS5WindmillTip =>
+      'Keep both arms in one straight line, like the sails of a windmill.';
+
+  @override
+  String get exerciseMorningJointsS1KneeCirclesName => 'Knee Circles';
+
+  @override
+  String get exerciseMorningJointsS1KneeCirclesDesc =>
+      'Stand with your feet together, bend your knees slightly and rest your hands just above them. Draw slow circles with your knees: half of them one way, half the other.';
+
+  @override
+  String get exerciseMorningJointsS1KneeCirclesTip =>
+      'Small, smooth circles; your heels stay on the floor.';
+
+  @override
+  String get exerciseMorningJointsS2OpenTheGateName => 'Open the Gate';
+
+  @override
+  String get exerciseMorningJointsS2OpenTheGateDesc =>
+      'Stand tall. Lift one knee in front of you to hip height, open it out to the side and lower the foot back down. Switch legs. Each side counts as one rep.';
+
+  @override
+  String get exerciseMorningJointsS2OpenTheGateTip =>
+      'Hold on to a wall or a chair if you wobble; keep your chest up.';
+
+  @override
+  String get exerciseMorningJointsS3KneeHugName => 'Standing Knee Hug';
+
+  @override
+  String get exerciseMorningJointsS3KneeHugDesc =>
+      'Stand tall. Pull one knee to your chest with both hands and rise onto the toes of the standing foot. Lower it and switch legs. Each side counts as one rep.';
+
+  @override
+  String get exerciseMorningJointsS3KneeHugTip =>
+      'Rise slowly and look at a point in front of you to keep your balance.';
+
+  @override
+  String get exerciseMorningJointsS4SideLungeName => 'Side Lunge';
+
+  @override
+  String get exerciseMorningJointsS4SideLungeDesc =>
+      'Stand with your feet together. Step wide to one side and sit back into that hip, the other leg straight, both feet flat on the floor. Push back to the start and switch sides. Each side counts as one rep.';
+
+  @override
+  String get exerciseMorningJointsS4SideLungeTip =>
+      'Your bent knee points the same way as your toes.';
+
+  @override
+  String get exerciseMorningJointsS5CossackSquatName => 'Cossack Squat';
+
+  @override
+  String get exerciseMorningJointsS5CossackSquatDesc =>
+      'Stand with your feet very wide. Sink deep onto one leg while the other stays straight, toes pointing up. Move through the middle to the other side. Each side counts as one rep.';
+
+  @override
+  String get exerciseMorningJointsS5CossackSquatTip =>
+      'Keep the heel of the bent leg down; reach your arms forward for balance.';
+
+  @override
+  String get exerciseMorningArmsS1ArmSwingsName => 'Arm Swings';
+
+  @override
+  String get exerciseMorningArmsS1ArmSwingsDesc =>
+      'Stand tall. Open your arms wide to the sides, then swing them in and hug yourself, changing which arm is on top each time. Keep it loose and easy.';
+
+  @override
+  String get exerciseMorningArmsS1ArmSwingsTip =>
+      'Open your chest at the wide point and breathe in.';
+
+  @override
+  String get exerciseMorningArmsS2YRaisesName => 'Y Raises';
+
+  @override
+  String get exerciseMorningArmsS2YRaisesDesc =>
+      'Knees soft, lean forward from the hips with a flat back. Thumbs up, raise your straight arms forward and up into a Y, squeezing your shoulder blades, then lower them.';
+
+  @override
+  String get exerciseMorningArmsS2YRaisesTip =>
+      'Lift with the shoulder blades, not by arching your lower back.';
+
+  @override
+  String get exerciseMorningArmsS3CactusArmsName => 'Cactus Arms';
+
+  @override
+  String get exerciseMorningArmsS3CactusArmsDesc =>
+      'Raise your arms to the sides, elbows at shoulder height and bent at 90°, forearms pointing up like a cactus. Keeping the elbows in place, turn your forearms forward and down until they point at the floor, then back up, squeezing your shoulder blades.';
+
+  @override
+  String get exerciseMorningArmsS3CactusArmsTip =>
+      'Move slowly: only the forearms travel, the elbows stay at shoulder height.';
+
+  @override
+  String get exerciseMorningArmsS4InchwormName => 'Inchworm';
+
+  @override
+  String get exerciseMorningArmsS4InchwormDesc =>
+      'Stand tall, bend forward and put your hands on the floor (bend your knees if you need to). Walk your hands out to a plank, then walk them back to your feet and roll up to standing.';
+
+  @override
+  String get exerciseMorningArmsS4InchwormTip =>
+      'In the plank, keep your body in one straight line.';
+
+  @override
+  String get exerciseMorningArmsS5PlankToDogName => 'Plank to Downward Dog';
+
+  @override
+  String get exerciseMorningArmsS5PlankToDogDesc =>
+      'Start in a high plank, hands under your shoulders. Push your hips up and back into an upside-down V, heels toward the floor, then lower back to the plank.';
+
+  @override
+  String get exerciseMorningArmsS5PlankToDogTip =>
+      'Push the floor away with your hands and let your head hang between your arms.';
+
+  @override
+  String get exerciseMorningEnergyS1StepJacksName => 'Step Jacks';
+
+  @override
+  String get exerciseMorningEnergyS1StepJacksDesc =>
+      'Jumping jacks without the jump: step one foot out to the side as both arms go up over your head, bring it back as the arms come down, then the other foot. Keep a steady rhythm.';
+
+  @override
+  String get exerciseMorningEnergyS1StepJacksTip =>
+      'Stay light on your feet and never jump, so nobody wakes up.';
+
+  @override
+  String get exerciseMorningEnergyS2ButtKicksName => 'Butt Kicks';
+
+  @override
+  String get exerciseMorningEnergyS2ButtKicksDesc =>
+      'On the spot, kick one heel up toward your glutes, then the other, at a brisk pace. Arms bent, swinging with your legs. One foot always stays on the floor.';
+
+  @override
+  String get exerciseMorningEnergyS2ButtKicksTip =>
+      'Quiet steps on the balls of your feet: brisk, but no jumping.';
+
+  @override
+  String get exerciseMorningEnergyS3CrossCrunchName => 'Standing Cross Crunch';
+
+  @override
+  String get exerciseMorningEnergyS3CrossCrunchDesc =>
+      'Stand with your hands behind your head. Lift one knee and bring the opposite elbow down to meet it, then switch sides, at a steady pace.';
+
+  @override
+  String get exerciseMorningEnergyS3CrossCrunchTip =>
+      'Turn from the waist and open your chest between reps.';
+
+  @override
+  String get exerciseMorningEnergyS4SpeedSkaterName => 'Speed Skater';
+
+  @override
+  String get exerciseMorningEnergyS4SpeedSkaterDesc =>
+      'Like a skater, but without the hop: step wide to one side onto a bent leg and sweep the other foot behind it, swinging the opposite arm across your body. Then step to the other side.';
+
+  @override
+  String get exerciseMorningEnergyS4SpeedSkaterTip =>
+      'Sink into the standing leg and keep your chest over it.';
+
+  @override
+  String get exerciseMorningEnergyS5MountainClimbersName =>
+      'Slow Mountain Climbers';
+
+  @override
+  String get exerciseMorningEnergyS5MountainClimbersDesc =>
+      'In a high plank, hands under your shoulders, bring one knee toward your chest and put the foot back, then the other. A steady pace, no jumping from foot to foot.';
+
+  @override
+  String get exerciseMorningEnergyS5MountainClimbersTip =>
+      'Hips level with your shoulders; don\'t let them pop up.';
+
+  @override
+  String get exerciseWarmupMorningStretchUpName => 'Morning Stretch-Up';
+
+  @override
+  String get exerciseWarmupMorningStretchUpDesc =>
+      'Stand tall. Breathing in, reach both arms up over your head and rise onto your toes; breathing out, lower your heels and arms. Stretch as if you have just woken up.';
+
+  @override
+  String get exerciseWarmupMorningStretchUpTip =>
+      'Reach long through your fingertips; wake up slowly.';
+
+  @override
+  String get exerciseCooldownShakeOutName => 'Shake-Out';
+
+  @override
+  String get exerciseCooldownShakeOutDesc =>
+      'Stand loosely and shake out your hands, arms and legs, bouncing softly in your knees. Finish with a deep breath: the day can begin.';
+
+  @override
+  String get exerciseCooldownShakeOutTip =>
+      'Let everything hang loose: wrists, shoulders, jaw.';
+
+  @override
   String get aboutTitle => 'About';
 
   @override
@@ -1598,6 +1888,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get releaseNotes090 =>
+      'New course: Morning Routine. Wake your body up in four skills: spine, joints, arms and energy. Everything standing and quiet, no jumps.';
 
   @override
   String get releaseNotes0820 =>

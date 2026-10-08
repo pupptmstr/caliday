@@ -116,12 +116,13 @@ void main() {
       expect(BranchId.values.map((b) => b.name), [
         'push', 'core', 'pull', 'legs', 'balance', 'flex', 'posture', 'neck',
         'eveningBack', 'eveningHips', 'eveningFolds', 'eveningShoulders',
+        'morningSpine', 'morningJoints', 'morningArms', 'morningEnergy',
       ]);
       expect(Rank.values.map((r) => r.name), [
         'beginner', 'amateur', 'sportsman', 'athlete', 'master', 'legend',
       ]);
       expect(CourseId.values.map((c) => c.name),
-          ['calisthenics', 'healthyBody', 'eveningStretch']);
+          ['calisthenics', 'healthyBody', 'eveningStretch', 'morningRoutine']);
       expect(ExerciseType.values.map((t) => t.name), ['reps', 'timed']);
       expect(SetType.values.map((t) => t.name), ['daily', 'skill', 'challenge']);
     });

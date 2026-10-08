@@ -35,6 +35,10 @@ abstract final class AchievementL10n {
         'evening_hips_complete' => l.achievementEveningHipsCompleteName,
         'evening_folds_complete' => l.achievementEveningFoldsCompleteName,
         'evening_shoulders_complete' => l.achievementEveningShouldersCompleteName,
+        'morning_spine_complete' => l.achievementMorningSpineCompleteName,
+        'morning_joints_complete' => l.achievementMorningJointsCompleteName,
+        'morning_arms_complete' => l.achievementMorningArmsCompleteName,
+        'morning_energy_complete' => l.achievementMorningEnergyCompleteName,
         'all_complete' => l.achievementAllCompleteName,
         _ => id,
       };
@@ -72,6 +76,10 @@ abstract final class AchievementL10n {
         'evening_hips_complete' => l.achievementEveningHipsCompleteDesc,
         'evening_folds_complete' => l.achievementEveningFoldsCompleteDesc,
         'evening_shoulders_complete' => l.achievementEveningShouldersCompleteDesc,
+        'morning_spine_complete' => l.achievementMorningSpineCompleteDesc,
+        'morning_joints_complete' => l.achievementMorningJointsCompleteDesc,
+        'morning_arms_complete' => l.achievementMorningArmsCompleteDesc,
+        'morning_energy_complete' => l.achievementMorningEnergyCompleteDesc,
         'all_complete' => l.achievementAllCompleteDesc,
         _ => '',
       };

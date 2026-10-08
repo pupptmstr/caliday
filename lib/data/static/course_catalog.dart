@@ -26,6 +26,12 @@ class CourseCatalog {
             BranchId.eveningFolds,
             BranchId.eveningShoulders,
           ],
+        CourseId.morningRoutine => const [
+            BranchId.morningSpine,
+            BranchId.morningJoints,
+            BranchId.morningArms,
+            BranchId.morningEnergy,
+          ],
       };
 
   /// Whether a bonus workout of [course] adds two exercises of the

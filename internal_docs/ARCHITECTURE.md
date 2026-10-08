@@ -171,13 +171,14 @@ CaliDay supports multiple **courses** (like Duolingo). Each course has its own b
 - `CourseId.calisthenics` → push, pull, core, legs, balance, flex
 - `CourseId.healthyBody` → posture, neck, flex
 - `CourseId.eveningStretch` → eveningBack, eveningHips, eveningFolds, eveningShoulders (0.8.20; a bonus workout of this course adds **no** supplementary exercises — `CourseCatalog.addsSupplementary`)
+- `CourseId.morningRoutine` → morningSpine, morningJoints, morningArms, morningEnergy (0.9.0; every pose standing, no jumps; the bonus workout keeps the supplementary block)
 
 **Progression is global per branch:** `SkillProgress` keys are `branch.name` only (e.g. `"push"`). Branches are physical skills — progress is shared across all courses containing that branch.
 **Streak and SP are global.** Enrolled courses are `UserProfile.activeCourseIds`, the one shown now is `activeCourseIndex` (read through the `enrolledCourses` / `activeCourse` getters).
 Switching courses happens in the Library tab via pill tabs.
 
 ### Progression Branches
-12 branches total across all courses (the four Evening Stretch ones are `BranchId` HiveFields 8–11, appended; `CourseId.eveningStretch` is HiveField 2). Pull requires a pull-up bar (`requiresEquipment = true`).
+16 branches total across all courses (appended `BranchId` HiveFields: Evening Stretch 8–11, Morning Routine 12–15; `CourseId.eveningStretch` is HiveField 2, `CourseId.morningRoutine` 3). Pull requires a pull-up bar (`requiresEquipment = true`).
 `UserProfile.activeBranches` deduplicates branches across all enrolled courses.
 
 ### In-Stage Progression
@@ -187,7 +188,7 @@ Reps ↑ → Sets ↑ (with reps reset) → Rest ↓ → Challenge test → Next
 - **SP (Strength Points)** — points earned for exercises
 - **Streak** — consecutive days; freezes (max 3, earned every 7 streak days)
 - **Ranks (English UI names):** Beginner → Amateur → Athlete → Champion → Master → Legend — enum values `beginner, amateur, sportsman, athlete, master, legend` (see § Rank SP Thresholds). A rank that is not trained for 21+ days is shown lower, see RankDecayService
-- **Achievements** — 29 total (one is secret), checked after each workout and stage advance
+- **Achievements** — 37 total (one is secret; the four of each new course are `<course>_<branch>_complete`), checked after each workout and stage advance
 - **Bonus workouts** — multiple workouts per day are allowed (50% SP; each branch still moves on once a day, see § Primary vs Bonus Workout)
 
 ### Workout size
@@ -415,6 +416,18 @@ A calm stretch before sleep (content agreed with the owner, DEV_NOTES § Roadmap
 
 Ids: `evening_<branch>_s<N>_<name>` (e.g. `evening_folds_s2_towel_hamstring`). Achievements: `evening_back_complete`, `evening_hips_complete`, `evening_folds_complete`, `evening_shoulders_complete`.
 
+### Morning Routine — four branches (0.9.0)
+Waking the body up (content agreed with the owner, DEV_NOTES § Roadmap 2b-2): every pose standing, quiet (no jumps), dynamic — mobility in reps, the cardio of Energy timed. An alternating move counts each side as one rep (`perSide` is for timed holds only). No stage repeats a stage of another branch. Every stage: sets 1→2, rest 15→10 s, `spBase` 1. Warm-up of every branch: `warmup_morning_stretch_up` (5 reps); cool-down of every branch: `cooldown_shake_out` (20 s). Animations from `tools/lottie/gen_morning.py`; so far the torso twist, the windmill, knee circles and the speed skater.
+
+| Branch (`BranchId`) | Stages (start→target, challenge to enter) |
+|---------------------|--------------------------------------------|
+| `morningSpine` (Spine / Позвоночник, 5) | side bend 6→16 reps · torso twist 10→24 (12) · good morning 8→20 (8) · roll-down 3→8 (4) · windmill 6→16 (8) |
+| `morningJoints` (Joints / Суставы, 5) | knee circles 8→20 · open the gate 6→16 (8) · standing knee hug 6→16 (8) · side lunge 6→16 (8) · Cossack squat 4→12 (6) |
+| `morningArms` (Arms / Руки, 5) | arm swings 10→24 · Y raises 8→20 (10) · cactus arms 8→20 (10) · inchworm 3→8 (4) · plank to downward dog 4→10 (5) |
+| `morningEnergy` (Energy / Бодрость, 5) | step jacks 20→60 s · butt kicks 20→45 (30) · standing cross crunch 20→45 (30) · speed skater 20→45 (30) · slow mountain climbers 20→45 (30) |
+
+Ids: `morning_<branch>_s<N>_<name>` (e.g. `morning_joints_s2_open_the_gate`). Achievements: `morning_spine_complete`, `morning_joints_complete`, `morning_arms_complete`, `morning_energy_complete`. The host is Aurora the lark; until she is drawn `CourseId.morningRoutine` shows Goro's art.
+
 ### Warmup Accessories (stage 0)
 | ID | Name | Used by | Lottie |
 |----|------|---------|--------|
@@ -425,6 +438,7 @@ Ids: `evening_<branch>_s<N>_<name>` (e.g. `evening_folds_s2_towel_hamstring`). A
 | `warmup_hip_circles` | Hip Circles | Legs, Posture | ✅ |
 | `warmup_wrist_circles` | Wrist Circles | Balance | ✅ |
 | `warmup_neck_rolls` | Neck Rolls | Neck, every Evening Stretch branch | ✅ (front) |
+| `warmup_morning_stretch_up` | Morning Stretch-Up (5 reps) | every Morning Routine branch | ❌ (to draw) |
 
 ### Cooldown Accessories (stage 0)
 | ID | Name | Used by | Lottie |
@@ -436,6 +450,7 @@ Ids: `evening_<branch>_s<N>_<name>` (e.g. `evening_folds_s2_towel_hamstring`). A
 | `cooldown_hip_flexor` | Hip Flexor Stretch | Legs, Posture | ✅ |
 | `cooldown_downward_dog` | Downward-Facing Dog | Balance | ✅ |
 | `cooldown_lying_relaxation` | Lying Relaxation (60 s) | every Evening Stretch branch | ✅ (side) |
+| `cooldown_shake_out` | Shake-Out (20 s) | every Morning Routine branch | ❌ (to draw) |
 
 ### Supplementary Pool (9 exercises, stage 0)
 `SupplementaryExerciseCatalog.all` — used in custom workouts and bonus sessions. All nine have an animation; `supp_wrist_circles` reuses the existing front-view `warmup_wrist_circles.json`, the other eight are generated by `tools/lottie/gen_supp.py`.
@@ -950,7 +965,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages and the store listings are open (the widget's texts follow the app's language since 0.8.18) — see DEV_NOTES § Roadmap |
 | v1.0 | Friends: branch progress no longer shared (QR format 3), so a new branch never changes the format | ✅ 0.8.19 |
 | v1.0 | Progression per branch and per day, in any workout (two courses on one day both progress) | ✅ 0.8.19 |
-| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | **Evening Stretch: ✅ in 0.8.20 (4 branches, 19 exercises, texts in 4 languages, all animations, the host Luna)** — § Exercise Catalog, DEV_NOTES § Roadmap 2b-1. **Morning Routine: 📐 content agreed 2026-10-08** (4 standing, quiet branches — Spine, Joints, Arms, Energy — 19 stages + warm-up + cool-down, host Aurora; DEV_NOTES § Roadmap 2b-2), on branch `0.9.0`. Yoga to design |
+| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | **Evening Stretch: ✅ in 0.8.20 (4 branches, 19 exercises, texts in 4 languages, all animations, the host Luna)** — § Exercise Catalog, DEV_NOTES § Roadmap 2b-1. **Morning Routine: ✅/📐 0.9.0, on branch `0.9.0`** — the course, its 4 branches (Spine, Joints, Arms, Energy), 21 exercises, texts in 4 languages and 4 achievements are in; 4 of 21 animations; Aurora and the other animations to do (§ Exercise Catalog, DEV_NOTES § Roadmap 2b-2). Yoga to design |
 | v1.0 | Per-side holds — a one-sided hold runs side 1 → "switch sides" countdown → side 2, hands-free (prerequisite of Evening Stretch; also for existing one-sided stretches) | ✅ 0.8.20 — § Timed exercises: the get-ready countdown |
 | v1.0 | Course hosts — a character per course (Goro, Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat) on the course cards, the summary and the achievements; Goro keeps Home and every animation | ✅/📐 0.8.20: Raffi and Luna drawn with the six moods, an idle and a cheer pose; the active course's host is on Home (`GoroExpression.assetFor(course)`), Profile, the course cards (onboarding, Library) and the summary (`CourseId.hostFace` / `hostPortrait` / `hostIdle` / `hostCheer`); Goro keeps the icon, onboarding welcome, notifications, widget and About; Aurora and Miso come with their courses; not yet on the achievements |
 | v1.0 | Skala redrawn as a real bull (it was a recoloured Goro with horns) | ✅ 0.8.20 — `tools/characters/gen_skala.py` |

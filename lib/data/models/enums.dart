@@ -41,6 +41,18 @@ enum BranchId {
 
   @HiveField(11)
   eveningShoulders,
+
+  @HiveField(12)
+  morningSpine,
+
+  @HiveField(13)
+  morningJoints,
+
+  @HiveField(14)
+  morningArms,
+
+  @HiveField(15)
+  morningEnergy,
 }
 
 @HiveType(typeId: 10)
@@ -53,6 +65,9 @@ enum CourseId {
 
   @HiveField(2)
   eveningStretch,
+
+  @HiveField(3)
+  morningRoutine,
 }
 
 @HiveType(typeId: 5)
@@ -164,6 +179,7 @@ extension CourseIdExtension on CourseId {
         CourseId.calisthenics => l10n.courseNameCalisthenics,
         CourseId.healthyBody => l10n.courseNameHealthyBody,
         CourseId.eveningStretch => l10n.courseNameEveningStretch,
+        CourseId.morningRoutine => l10n.courseNameMorningRoutine,
       };
 
   /// The course host's portrait (course cards): its happy face. Goro, Raffi
@@ -176,6 +192,7 @@ extension CourseIdExtension on CourseId {
         CourseId.calisthenics => 'assets/goro/goro_face_$mood.svg',
         CourseId.healthyBody => 'assets/hosts/raffi_face_$mood.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_face_$mood.svg',
+        CourseId.morningRoutine => 'assets/goro/goro_face_$mood.svg',
       };
 
   /// The host standing calmly (Profile).
@@ -183,6 +200,7 @@ extension CourseIdExtension on CourseId {
         CourseId.calisthenics => 'assets/goro/goro_idle_v2.svg',
         CourseId.healthyBody => 'assets/hosts/raffi_idle.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_idle.svg',
+        CourseId.morningRoutine => 'assets/goro/goro_idle_v2.svg',
       };
 
   /// The course host cheering on the summary of a workout of this course.
@@ -190,6 +208,7 @@ extension CourseIdExtension on CourseId {
         CourseId.calisthenics => 'assets/goro/goro_flex_v2.svg',
         CourseId.healthyBody => 'assets/hosts/raffi_cheer.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_cheer.svg',
+        CourseId.morningRoutine => 'assets/goro/goro_flex_v2.svg',
       };
 }
 
@@ -280,6 +299,10 @@ extension BranchIdExtension on BranchId {
         BranchId.eveningHips => '🦋',
         BranchId.eveningFolds => '🌙',
         BranchId.eveningShoulders => '🦅',
+        BranchId.morningSpine => '🌀',
+        BranchId.morningJoints => '⚙️',
+        BranchId.morningArms => '🙌',
+        BranchId.morningEnergy => '⚡',
       };
 
   IconData get icon => switch (this) {
@@ -295,6 +318,10 @@ extension BranchIdExtension on BranchId {
         BranchId.eveningHips => Icons.spa,
         BranchId.eveningFolds => Icons.nightlight_round,
         BranchId.eveningShoulders => Icons.accessibility,
+        BranchId.morningSpine => Icons.sync,
+        BranchId.morningJoints => Icons.threesixty,
+        BranchId.morningArms => Icons.front_hand,
+        BranchId.morningEnergy => Icons.bolt,
       };
 
   String localizedName(AppLocalizations l10n) => switch (this) {
@@ -310,6 +337,10 @@ extension BranchIdExtension on BranchId {
         BranchId.eveningHips => l10n.homeBranchEveningHips,
         BranchId.eveningFolds => l10n.homeBranchEveningFolds,
         BranchId.eveningShoulders => l10n.homeBranchEveningShoulders,
+        BranchId.morningSpine => l10n.homeBranchMorningSpine,
+        BranchId.morningJoints => l10n.homeBranchMorningJoints,
+        BranchId.morningArms => l10n.homeBranchMorningArms,
+        BranchId.morningEnergy => l10n.homeBranchMorningEnergy,
       };
 
   int get stageCount => switch (this) {
@@ -325,6 +356,10 @@ extension BranchIdExtension on BranchId {
         BranchId.eveningHips => 5,
         BranchId.eveningFolds => 4,
         BranchId.eveningShoulders => 5,
+        BranchId.morningSpine => 5,
+        BranchId.morningJoints => 5,
+        BranchId.morningArms => 5,
+        BranchId.morningEnergy => 5,
       };
 
   bool get requiresEquipment => this == BranchId.pull;

@@ -59,6 +59,11 @@ abstract final class AchievementCatalog {
     Achievement(id: 'evening_hips_complete', emoji: '🦋'),
     Achievement(id: 'evening_folds_complete', emoji: '🌙'),
     Achievement(id: 'evening_shoulders_complete', emoji: '🦅'),
+    // ── Morning Routine ───────────────────────────────────────────────────────
+    Achievement(id: 'morning_spine_complete', emoji: '🌀'),
+    Achievement(id: 'morning_joints_complete', emoji: '⚙️'),
+    Achievement(id: 'morning_arms_complete', emoji: '🙌'),
+    Achievement(id: 'morning_energy_complete', emoji: '⚡'),
     // ── Secret ────────────────────────────────────────────────────────────────
     Achievement(id: 'all_complete', emoji: '🌟', isSecret: true),
   ];

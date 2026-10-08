@@ -122,6 +122,10 @@ class SkillProgressRepository {
       case BranchId.eveningHips:
       case BranchId.eveningFolds:
       case BranchId.eveningShoulders:
+      case BranchId.morningSpine:
+      case BranchId.morningJoints:
+      case BranchId.morningArms:
+      case BranchId.morningEnergy:
         // The stage-1 exercise's own starting values.
         final first = ExerciseCatalog.forStage(branch, 1)!;
         return SkillProgress(

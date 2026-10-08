@@ -92,6 +92,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get homeBranchEveningShoulders => 'Плечи';
 
   @override
+  String get homeBranchMorningSpine => 'Позвоночник';
+
+  @override
+  String get homeBranchMorningJoints => 'Суставы';
+
+  @override
+  String get homeBranchMorningArms => 'Руки';
+
+  @override
+  String get homeBranchMorningEnergy => 'Бодрость';
+
+  @override
   String get courseNameCalisthenics => 'Калистеника';
 
   @override
@@ -99,6 +111,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get courseNameEveningStretch => 'Вечерняя растяжка';
+
+  @override
+  String get courseNameMorningRoutine => 'Утренняя зарядка';
 
   @override
   String get courseDescCalisthenics =>
@@ -111,6 +126,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get courseDescEveningStretch =>
       'Спокойная растяжка перед сном. Спина, бёдра, ноги и плечи — медленно, на полу, в конце лёжа.';
+
+  @override
+  String get courseDescMorningRoutine =>
+      'Разбуди тело. Позвоночник, суставы, руки и немного бодрости — стоя, тихо, без прыжков.';
 
   @override
   String get onboardingQ4Courses => 'Выбери курс';
@@ -559,6 +578,34 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get achievementEveningShouldersCompleteDesc =>
       'Все 5 этапов вечерних «Плеч» пройдены. Пальцы сцеплены за спиной.';
+
+  @override
+  String get achievementMorningSpineCompleteName => 'Мельница';
+
+  @override
+  String get achievementMorningSpineCompleteDesc =>
+      'Все 5 этапов утреннего «Позвоночника» пройдены. От наклонов в стороны до мельницы.';
+
+  @override
+  String get achievementMorningJointsCompleteName => 'Как по маслу';
+
+  @override
+  String get achievementMorningJointsCompleteDesc =>
+      'Все 5 этапов утренних «Суставов» пройдены. Вплоть до казачьего приседа.';
+
+  @override
+  String get achievementMorningArmsCompleteName => 'Руки нараспашку';
+
+  @override
+  String get achievementMorningArmsCompleteDesc =>
+      'Все 5 этапов утренних «Рук» пройдены. От махов руками до «собаки» из планки.';
+
+  @override
+  String get achievementMorningEnergyCompleteName => 'Жаворонок';
+
+  @override
+  String get achievementMorningEnergyCompleteDesc =>
+      'Все 5 этапов утренней «Бодрости» пройдены. Бодрость до первой чашки кофе.';
 
   @override
   String get achievementAllCompleteName => 'Полный комплект';
@@ -1531,6 +1578,249 @@ class AppLocalizationsRu extends AppLocalizations {
   String get exerciseCooldownLyingRelaxationTip => 'Выдох длиннее вдоха.';
 
   @override
+  String get exerciseMorningSpineS1SideBendName => 'Наклоны в стороны';
+
+  @override
+  String get exerciseMorningSpineS1SideBendDesc =>
+      'Стопы на ширине таза. Подними одну руку над головой и наклонись в другую сторону, вторая рука скользит по бедру. Вернись и смени сторону. Каждая сторона — один повтор.';
+
+  @override
+  String get exerciseMorningSpineS1SideBendTip =>
+      'Наклоняйся строго вбок, а не вперёд; таз неподвижен.';
+
+  @override
+  String get exerciseMorningSpineS2TorsoTwistName => 'Повороты корпуса';
+
+  @override
+  String get exerciseMorningSpineS2TorsoTwistDesc =>
+      'Стопы чуть шире таза, колени мягкие, руки расслаблены. Поворачивай верх тела из стороны в сторону, руки свободно обвивают корпус. Таз смотрит вперёд. Каждая сторона — один повтор.';
+
+  @override
+  String get exerciseMorningSpineS2TorsoTwistTip =>
+      'Руки следуют за поворотом, не бросай их.';
+
+  @override
+  String get exerciseMorningSpineS3GoodMorningName => 'Наклон «Доброе утро»';
+
+  @override
+  String get exerciseMorningSpineS3GoodMorningDesc =>
+      'Стопы на ширине таза, руки за головой. Отведи таз назад и наклонись вперёд с прямой спиной, пока не почувствуешь заднюю поверхность бёдер, затем выпрямись.';
+
+  @override
+  String get exerciseMorningSpineS3GoodMorningTip =>
+      'Сгибайся в тазобедренных суставах, а не в пояснице: спина прямая всё время.';
+
+  @override
+  String get exerciseMorningSpineS4RollDownName => 'Скручивание вниз';
+
+  @override
+  String get exerciseMorningSpineS4RollDownDesc =>
+      'Встань прямо. Опусти подбородок к груди и медленно скручивайся вниз, позвонок за позвонком; руки свисают к полу. Так же медленно поднимайся, голова — последней.';
+
+  @override
+  String get exerciseMorningSpineS4RollDownTip =>
+      'Сгибай колени сколько нужно: цель — позвоночник, а не коснуться пола.';
+
+  @override
+  String get exerciseMorningSpineS5WindmillName => 'Мельница';
+
+  @override
+  String get exerciseMorningSpineS5WindmillDesc =>
+      'Ноги широко, руки в стороны. Наклонись с поворотом: одна рука тянется к противоположной стопе, другая смотрит в потолок. Вернись в букву «Т» и смени сторону. Каждая сторона — один повтор.';
+
+  @override
+  String get exerciseMorningSpineS5WindmillTip =>
+      'Руки держи на одной прямой, как крылья мельницы.';
+
+  @override
+  String get exerciseMorningJointsS1KneeCirclesName => 'Круги коленями';
+
+  @override
+  String get exerciseMorningJointsS1KneeCirclesDesc =>
+      'Стопы вместе, колени слегка согнуты, ладони чуть выше колен. Рисуй коленями медленные круги: половину в одну сторону, половину в другую.';
+
+  @override
+  String get exerciseMorningJointsS1KneeCirclesTip =>
+      'Круги небольшие и плавные, пятки на полу.';
+
+  @override
+  String get exerciseMorningJointsS2OpenTheGateName => 'Открыть ворота';
+
+  @override
+  String get exerciseMorningJointsS2OpenTheGateDesc =>
+      'Встань прямо. Подними колено перед собой до уровня таза, отведи его в сторону и опусти стопу. Смени ногу. Каждая сторона — один повтор.';
+
+  @override
+  String get exerciseMorningJointsS2OpenTheGateTip =>
+      'Если шатает, держись за стену или стул; грудь поднята.';
+
+  @override
+  String get exerciseMorningJointsS3KneeHugName => 'Колено к груди стоя';
+
+  @override
+  String get exerciseMorningJointsS3KneeHugDesc =>
+      'Встань прямо. Подтяни колено к груди обеими руками и поднимись на носок опорной ноги. Опусти ногу и смени её. Каждая сторона — один повтор.';
+
+  @override
+  String get exerciseMorningJointsS3KneeHugTip =>
+      'Поднимайся медленно и смотри в одну точку перед собой — так легче держать равновесие.';
+
+  @override
+  String get exerciseMorningJointsS4SideLungeName => 'Боковой выпад';
+
+  @override
+  String get exerciseMorningJointsS4SideLungeDesc =>
+      'Стопы вместе. Сделай широкий шаг в сторону и сядь в это бедро, другая нога прямая, обе стопы на полу. Оттолкнись обратно и смени сторону. Каждая сторона — один повтор.';
+
+  @override
+  String get exerciseMorningJointsS4SideLungeTip =>
+      'Согнутое колено смотрит туда же, куда носок.';
+
+  @override
+  String get exerciseMorningJointsS5CossackSquatName => 'Казачий присед';
+
+  @override
+  String get exerciseMorningJointsS5CossackSquatDesc =>
+      'Ноги очень широко. Опустись глубоко на одну ногу, другая прямая, носок смотрит вверх. Перейди через середину на другую сторону. Каждая сторона — один повтор.';
+
+  @override
+  String get exerciseMorningJointsS5CossackSquatTip =>
+      'Пятка согнутой ноги на полу; руки вперёд для равновесия.';
+
+  @override
+  String get exerciseMorningArmsS1ArmSwingsName => 'Махи руками';
+
+  @override
+  String get exerciseMorningArmsS1ArmSwingsDesc =>
+      'Встань прямо. Широко разведи руки в стороны, затем махом обними себя, каждый раз меняя, какая рука сверху. Движение свободное и лёгкое.';
+
+  @override
+  String get exerciseMorningArmsS1ArmSwingsTip =>
+      'В крайней точке раскрывай грудь и делай вдох.';
+
+  @override
+  String get exerciseMorningArmsS2YRaisesName => 'Y-подъёмы';
+
+  @override
+  String get exerciseMorningArmsS2YRaisesDesc =>
+      'Колени мягкие, наклонись вперёд от таза с прямой спиной. Большие пальцы вверх: подними прямые руки вперёд-вверх буквой Y, сведи лопатки, опусти.';
+
+  @override
+  String get exerciseMorningArmsS2YRaisesTip =>
+      'Поднимай лопатками, а не прогибом в пояснице.';
+
+  @override
+  String get exerciseMorningArmsS3CactusArmsName => 'Кактус';
+
+  @override
+  String get exerciseMorningArmsS3CactusArmsDesc =>
+      'Подними руки в стороны: локти на уровне плеч и согнуты под 90°, предплечья смотрят вверх, как у кактуса. Не сдвигая локти, поверни предплечья вперёд и вниз, пока они не укажут в пол, затем верни вверх и сведи лопатки.';
+
+  @override
+  String get exerciseMorningArmsS3CactusArmsTip =>
+      'Двигайся медленно: ходят только предплечья, локти остаются на уровне плеч.';
+
+  @override
+  String get exerciseMorningArmsS4InchwormName => 'Гусеница';
+
+  @override
+  String get exerciseMorningArmsS4InchwormDesc =>
+      'Встань прямо, наклонись и поставь ладони на пол (колени можно согнуть). Переступая руками, дойди до планки, затем вернись руками к стопам и поднимись.';
+
+  @override
+  String get exerciseMorningArmsS4InchwormTip =>
+      'В планке тело — одна прямая линия.';
+
+  @override
+  String get exerciseMorningArmsS5PlankToDogName => 'Из планки в «собаку»';
+
+  @override
+  String get exerciseMorningArmsS5PlankToDogDesc =>
+      'Встань в планку на прямых руках, ладони под плечами. Подними таз вверх и назад в перевёрнутую букву V, пятки тянутся к полу, затем вернись в планку.';
+
+  @override
+  String get exerciseMorningArmsS5PlankToDogTip =>
+      'Отталкивай пол руками, голова свободно между руками.';
+
+  @override
+  String get exerciseMorningEnergyS1StepJacksName => 'Шаги с руками вверх';
+
+  @override
+  String get exerciseMorningEnergyS1StepJacksDesc =>
+      'Как «джампинг-джек», только без прыжка: шаг одной ногой в сторону — обе руки вверх; приставь ногу — руки вниз; затем другой ногой. Держи ровный ритм.';
+
+  @override
+  String get exerciseMorningEnergyS1StepJacksTip =>
+      'Шагай мягко и без прыжков — никого не разбудишь.';
+
+  @override
+  String get exerciseMorningEnergyS2ButtKicksName => 'Захлёст голени';
+
+  @override
+  String get exerciseMorningEnergyS2ButtKicksDesc =>
+      'На месте поднимай пятку к ягодицам то одной, то другой ногой в бодром темпе. Руки согнуты и работают в такт. Одна стопа всегда на полу.';
+
+  @override
+  String get exerciseMorningEnergyS2ButtKicksTip =>
+      'Тихие шаги на носках: бодро, но без прыжков.';
+
+  @override
+  String get exerciseMorningEnergyS3CrossCrunchName => 'Локоть к колену стоя';
+
+  @override
+  String get exerciseMorningEnergyS3CrossCrunchDesc =>
+      'Встань, руки за головой. Подними колено и опусти к нему противоположный локоть, затем смени сторону — в ровном темпе.';
+
+  @override
+  String get exerciseMorningEnergyS3CrossCrunchTip =>
+      'Поворачивайся в талии, между повторами раскрывай грудь.';
+
+  @override
+  String get exerciseMorningEnergyS4SpeedSkaterName => 'Конькобежец';
+
+  @override
+  String get exerciseMorningEnergyS4SpeedSkaterDesc =>
+      'Как конькобежец, но без прыжка: широкий шаг в сторону на согнутую ногу, другая стопа уходит назад за неё, противоположная рука махом идёт через корпус. Затем шаг в другую сторону.';
+
+  @override
+  String get exerciseMorningEnergyS4SpeedSkaterTip =>
+      'Садись в опорную ногу, грудь над ней.';
+
+  @override
+  String get exerciseMorningEnergyS5MountainClimbersName =>
+      'Скалолаз в медленном темпе';
+
+  @override
+  String get exerciseMorningEnergyS5MountainClimbersDesc =>
+      'В планке на прямых руках, ладони под плечами, подтяни одно колено к груди и верни стопу, затем другое. Ровный темп, без прыжков при смене ног.';
+
+  @override
+  String get exerciseMorningEnergyS5MountainClimbersTip =>
+      'Таз на уровне плеч, не задирай его.';
+
+  @override
+  String get exerciseWarmupMorningStretchUpName => 'Потягивание';
+
+  @override
+  String get exerciseWarmupMorningStretchUpDesc =>
+      'Встань прямо. На вдохе потянись обеими руками вверх и поднимись на носки, на выдохе опусти пятки и руки. Потягивайся, как сразу после сна.';
+
+  @override
+  String get exerciseWarmupMorningStretchUpTip =>
+      'Тянись кончиками пальцев, просыпайся не спеша.';
+
+  @override
+  String get exerciseCooldownShakeOutName => 'Встряхнуться';
+
+  @override
+  String get exerciseCooldownShakeOutDesc =>
+      'Встань свободно и встряхни кисти, руки и ноги, мягко пружиня в коленях. В конце глубокий вдох — и можно начинать день.';
+
+  @override
+  String get exerciseCooldownShakeOutTip =>
+      'Всё расслаблено: запястья, плечи, челюсть.';
+
+  @override
   String get aboutTitle => 'О приложении';
 
   @override
@@ -1565,6 +1855,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Версия $version';
   }
+
+  @override
+  String get releaseNotes090 =>
+      'Новый курс «Утренняя зарядка»: разбуди тело в четырёх навыках — позвоночник, суставы, руки и бодрость. Всё стоя и тихо, без прыжков.';
 
   @override
   String get releaseNotes0820 =>
