@@ -165,6 +165,21 @@ extension CourseIdExtension on CourseId {
         CourseId.healthyBody => l10n.courseNameHealthyBody,
         CourseId.eveningStretch => l10n.courseNameEveningStretch,
       };
+
+  /// The course host's portrait (course cards): Goro, Raffi the giraffe,
+  /// Luna the owl. Art from tools/characters/gen_hosts.py.
+  String get hostPortrait => switch (this) {
+        CourseId.calisthenics => 'assets/goro/goro_face_happy.svg',
+        CourseId.healthyBody => 'assets/hosts/raffi_portrait.svg',
+        CourseId.eveningStretch => 'assets/hosts/luna_portrait.svg',
+      };
+
+  /// The course host cheering on the summary of a workout of this course.
+  String get hostCheer => switch (this) {
+        CourseId.calisthenics => 'assets/goro/goro_flex_v2.svg',
+        CourseId.healthyBody => 'assets/hosts/raffi_cheer.svg',
+        CourseId.eveningStretch => 'assets/hosts/luna_cheer.svg',
+      };
 }
 
 enum ExerciseTag {

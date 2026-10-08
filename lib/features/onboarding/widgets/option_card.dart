@@ -11,11 +11,15 @@ class OptionCard extends StatelessWidget {
     required this.onTap,
     this.description,
     this.emoji,
+    this.leading,
   });
 
   final String label;
   final String? description;
   final String? emoji;
+
+  /// A picture in place of [emoji] (a course host's portrait).
+  final Widget? leading;
   final bool isSelected;
   final VoidCallback onTap;
 
@@ -38,7 +42,10 @@ class OptionCard extends StatelessWidget {
         ),
         child: Row(
           children: [
-            if (emoji != null) ...[
+            if (leading != null) ...[
+              leading!,
+              const SizedBox(width: 14),
+            ] else if (emoji != null) ...[
               Text(emoji!, style: const TextStyle(fontSize: 26)),
               const SizedBox(width: 14),
             ],

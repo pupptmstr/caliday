@@ -131,6 +131,7 @@ class WorkoutState {
     this.newAchievementIds = const [],
     this.healthSaved = false,
     this.rankRestored = false,
+    this.courseIdIndex,
   });
 
   final WorkoutPlan plan;
@@ -213,6 +214,10 @@ class WorkoutState {
   /// meaning the rank is now restored to the earned rank.
   final bool rankRestored;
 
+  /// The course of a finished workout (its host cheers on the summary); null
+  /// for a custom routine, which belongs to no course.
+  final int? courseIdIndex;
+
   // ── Convenience ───────────────────────────────────────────────────────────
 
   PlannedExercise get currentPlanned => plan.exercises[exerciseIndex];
@@ -267,6 +272,7 @@ class WorkoutState {
     List<String>? newAchievementIds,
     bool? healthSaved,
     bool? rankRestored,
+    int? courseIdIndex,
   }) {
     return WorkoutState(
       plan: plan,
@@ -294,6 +300,7 @@ class WorkoutState {
       newAchievementIds: newAchievementIds ?? this.newAchievementIds,
       healthSaved: healthSaved ?? this.healthSaved,
       rankRestored: rankRestored ?? this.rankRestored,
+      courseIdIndex: courseIdIndex ?? this.courseIdIndex,
     );
   }
 
@@ -756,6 +763,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
       newAchievementIds: newAchievements,
       rankRestored: rankWasDecayed,
       healthSaved: healthSaved,
+      courseIdIndex: isCustomWorkout ? null : course.index,
     );
   }
 }

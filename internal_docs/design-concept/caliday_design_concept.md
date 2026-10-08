@@ -54,8 +54,8 @@ Goro is the gorilla mascot of the CaliDay app. The central brand character.
 |-----------|------|-------------|--------|--------|
 | **Goro** (main) | Coach / mentor | Friendly, encouraging | Gorilla, blue headband | ✅ Ready |
 | **Skala** | Challenge host | Strict but fair | Bull | ✅ Integrated (Workout screen, Challenge phase); redrawn as a real bull 2026-10-08 (`tools/characters/gen_skala.py`) |
-| **Raffi** | Host of Healthy Body | — | Giraffe | 📐 Decided 2026-10-08, not drawn |
-| **Luna** | Host of Evening Stretch | — | Owl | 📐 Decided 2026-10-08, not drawn |
+| **Raffi** | Host of Healthy Body | Cheerful, upright | Giraffe, blue neck band | ✅ Drawn 0.8.20 (portrait + cheer) |
+| **Luna** | Host of Evening Stretch | Calm, gentle | Owl, blue scarf, night sky | ✅ Drawn 0.8.20 (portrait + cheer) |
 | **Aurora** | Host of Morning Routine | — | Lark | 📐 Decided 2026-10-08, not drawn |
 | **Miso** | Host of Yoga | — | Cat | 📐 Decided 2026-10-08, not drawn |
 | **Bruno** | Exercise demonstrator | Calm, technical | Bear | ❌ Dropped in that role (2026-10-08): stage previews will play Goro's animations |

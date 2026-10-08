@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
+import '../../../data/models/enums.dart';
 import '../../../data/static/achievement_catalog.dart';
 
 /// Post-workout summary screen.
@@ -36,6 +37,11 @@ class SummaryScreen extends StatelessWidget {
         rawIds is List ? rawIds.cast<String>() : <String>[];
     final healthSaved = extras['healthSaved'] as bool? ?? false;
     final rankRestored = extras['rankRestored'] as bool? ?? false;
+    final courseIndex = extras['courseIdIndex'] as int?;
+    // The course's host cheers; a custom routine (no course) gets Goro.
+    final cheer = courseIndex != null && courseIndex < CourseId.values.length
+        ? CourseId.values[courseIndex].hostCheer
+        : 'assets/goro/goro_flex_v2.svg';
 
     final mins = durationSec ~/ 60;
     final secs = durationSec % 60;
@@ -52,10 +58,7 @@ class SummaryScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Center(
-                child: SvgPicture.asset(
-                  'assets/goro/goro_flex_v2.svg',
-                  height: 120,
-                ),
+                child: SvgPicture.asset(cheer, height: 120),
               ),
               const SizedBox(height: 16),
               Text(

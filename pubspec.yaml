@@ -71,6 +71,7 @@ flutter:
   assets:
     - assets/goro/
     - assets/skala/
+    - assets/hosts/
     - assets/sounds/
     - assets/animations/
     - assets/icon/

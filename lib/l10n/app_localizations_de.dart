@@ -1585,7 +1585,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseNotes0820 =>
-      'Übungen für eine Seite laufen jetzt auf beiden: Nach der ersten Seite gibt dir ein kurzer Countdown Zeit zum Wechseln, dann wird die andere Seite gemessen. Du musst nichts antippen.\nDas gilt für die Hüftbeuger-Dehnungen, 90/90, das Kopfneigen, die Taube, den Einbeinstand, die einarmige Plank, den Seitstütz und die Bein- und Flankendehnungen nach dem Training.\nSkala, der Richter der Challenges, ist neu gezeichnet: Jetzt ist er wirklich ein Stier.\nNeuer Kurs „Dehnen am Abend“: ruhiges Dehnen vor dem Schlafen in vier Skills — Rücken, Hüften, Vorbeugen und Schultern.';
+      'Übungen für eine Seite laufen jetzt auf beiden: Nach der ersten Seite gibt dir ein kurzer Countdown Zeit zum Wechseln, dann wird die andere Seite gemessen. Du musst nichts antippen.\nDas gilt für die Hüftbeuger-Dehnungen, 90/90, das Kopfneigen, die Taube, den Einbeinstand, die einarmige Plank, den Seitstütz und die Bein- und Flankendehnungen nach dem Training.\nSkala, der Richter der Challenges, ist neu gezeichnet: Jetzt ist er wirklich ein Stier.\nNeuer Kurs „Dehnen am Abend“: ruhiges Dehnen vor dem Schlafen in vier Skills — Rücken, Hüften, Vorbeugen und Schultern.\nJeder Kurs hat jetzt seinen Host: Giraffe Raffi leitet „Gesunder Körper“, Eule Luna „Dehnen am Abend“, Goro bleibt bei „Calisthenics“. Sie begrüßen dich auf den Kurskarten und jubeln am Ende des Trainings.';
 
   @override
   String get releaseNotes0819 =>

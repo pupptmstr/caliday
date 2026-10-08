@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:caliday/data/models/enums.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -10,12 +11,19 @@ void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
   final files = [
-    for (final dir in ['assets/goro', 'assets/skala'])
+    for (final dir in ['assets/goro', 'assets/skala', 'assets/hosts'])
       ...Directory(dir).listSync().whereType<File>().where((f) => f.path.endsWith('.svg')),
   ]..sort((a, b) => a.path.compareTo(b.path));
 
   test('there are character files to check', () {
-    expect(files.length, greaterThanOrEqualTo(10));
+    expect(files.length, greaterThanOrEqualTo(14));
+  });
+
+  test('every course has a host portrait and a cheering pose on disk', () {
+    for (final course in CourseId.values) {
+      expect(File(course.hostPortrait).existsSync(), isTrue, reason: course.name);
+      expect(File(course.hostCheer).existsSync(), isTrue, reason: course.name);
+    }
   });
 
   for (final file in files) {

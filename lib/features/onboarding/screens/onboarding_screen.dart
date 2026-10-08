@@ -451,7 +451,7 @@ class _CourseStep extends ConsumerWidget {
       children: CourseId.values
           .map(
             (course) => OptionCard(
-              emoji: course.emoji,
+              leading: SvgPicture.asset(course.hostPortrait, width: 48, height: 48),
               label: course.localizedName(l10n),
               description: course.localizedDescription(l10n),
               isSelected: selected.contains(course),
@@ -642,12 +642,6 @@ extension WorkoutSizeOnboarding on WorkoutSize {
 }
 
 extension CourseIdOnboarding on CourseId {
-  String get emoji => switch (this) {
-        CourseId.calisthenics => '🦍',
-        CourseId.healthyBody => '🌿',
-        CourseId.eveningStretch => '🦉',
-      };
-
   String localizedDescription(AppLocalizations l10n) => switch (this) {
         CourseId.calisthenics => l10n.courseDescCalisthenics,
         CourseId.healthyBody => l10n.courseDescHealthyBody,
