@@ -132,7 +132,7 @@ Spec: `internal_docs/DEV_NOTES.md` § Course hosts.
 
 ## Animation System
 
-**Goro exercise animations:** 65 Lottie JSON files, format `assets/animations/[exercise_id].json`.
+**Goro exercise animations:** 84 Lottie JSON files, format `assets/animations/[exercise_id].json` (the 19 of Evening Stretch since 0.8.20: seated poses from the front, cow face from behind, lying / kneeling poses from the side, the twist, figure four and frog from above; legs folded over the body are drawn a lighter slate so they stand out from the torso).
 Canvas: 400×400px, 2–4s seamless loop. Flat style matching Goro's colors.
 
 **UI transitions:**

@@ -813,7 +813,7 @@ class ExerciseCatalog {
     animationPath: 'assets/animations/flex_s6_pike_stretch.json',
   );
 
-  // ── EVENING STRETCH (no animations yet, except the reused cat-cow) ──────────
+  // ── EVENING STRETCH (animations: tools/lottie/gen_evening.py; cat-cow reused) ─
 
   static const Exercise eveningBackS1CatCow = Exercise(
     id: 'evening_back_s1_cat_cow',
@@ -851,6 +851,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: 'Let your hips sink toward your heels with every breath out.',
+    animationPath: 'assets/animations/evening_back_s2_childs_pose.json',
   );
 
   static const Exercise eveningBackS3SupineTwist = Exercise(
@@ -871,6 +872,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: "Don't push the knee down: the weight of the leg does the work.",
+    animationPath: 'assets/animations/evening_back_s3_supine_twist.json',
   );
 
   static const Exercise eveningBackS4Sphinx = Exercise(
@@ -890,6 +892,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 45,
     techniqueTip: 'Draw your shoulders away from your ears; the arch is gentle, never pinching.',
+    animationPath: 'assets/animations/evening_back_s4_sphinx.json',
   );
 
   static const Exercise eveningBackS5Cobra = Exercise(
@@ -909,6 +912,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 45,
     techniqueTip: 'Keep the elbows soft and the shoulders down; stop where your back feels good.',
+    animationPath: 'assets/animations/evening_back_s5_cobra.json',
   );
 
   static const Exercise eveningHipsS1KneesToChest = Exercise(
@@ -927,6 +931,7 @@ class ExerciseCatalog {
     targetRestSec: 10,
     spBase: 1,
     techniqueTip: 'Keep your lower back and your head on the floor.',
+    animationPath: 'assets/animations/evening_hips_s1_knees_to_chest.json',
   );
 
   static const Exercise eveningHipsS2FigureFour = Exercise(
@@ -947,6 +952,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: 'Press the crossed knee gently away from you to go deeper.',
+    animationPath: 'assets/animations/evening_hips_s2_figure_four.json',
   );
 
   static const Exercise eveningHipsS3HappyBaby = Exercise(
@@ -966,6 +972,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: 'Keep your tailbone down; rocking a little is fine.',
+    animationPath: 'assets/animations/evening_hips_s3_happy_baby.json',
   );
 
   static const Exercise eveningHipsS4Butterfly = Exercise(
@@ -985,6 +992,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 45,
     techniqueTip: 'Stay tall; to go deeper, lean forward from your hips.',
+    animationPath: 'assets/animations/evening_hips_s4_butterfly.json',
   );
 
   static const Exercise eveningHipsS5Frog = Exercise(
@@ -1004,6 +1012,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 45,
     techniqueTip: 'Open only as far as it feels like a stretch, never a pain in the knees.',
+    animationPath: 'assets/animations/evening_hips_s5_frog.json',
   );
 
   static const Exercise eveningFoldsS1LegsUpWall = Exercise(
@@ -1022,6 +1031,7 @@ class ExerciseCatalog {
     targetRestSec: 10,
     spBase: 1,
     techniqueTip: 'Bend your knees a little if the backs of your legs pull too much.',
+    animationPath: 'assets/animations/evening_folds_s1_legs_up_wall.json',
   );
 
   static const Exercise eveningFoldsS2TowelHamstring = Exercise(
@@ -1042,6 +1052,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: 'Pull with the towel, not with your back: your hips stay on the floor.',
+    animationPath: 'assets/animations/evening_folds_s2_towel_hamstring.json',
   );
 
   static const Exercise eveningFoldsS3HeadToKnee = Exercise(
@@ -1062,6 +1073,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 45,
     techniqueTip: 'Lead with your chest, not your head; the straight knee may bend a little.',
+    animationPath: 'assets/animations/evening_folds_s3_head_to_knee.json',
   );
 
   static const Exercise eveningFoldsS4StraddleFold = Exercise(
@@ -1081,6 +1093,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 45,
     techniqueTip: 'Tilt from your hips with a long back; rounding the back adds nothing.',
+    animationPath: 'assets/animations/evening_folds_s4_straddle_fold.json',
   );
 
   static const Exercise eveningShouldersS1SelfHug = Exercise(
@@ -1099,6 +1112,7 @@ class ExerciseCatalog {
     targetRestSec: 10,
     spBase: 1,
     techniqueTip: 'Relax your neck and let your chin drop a little.',
+    animationPath: 'assets/animations/evening_shoulders_s1_self_hug.json',
   );
 
   static const Exercise eveningShouldersS2TricepsStretch = Exercise(
@@ -1119,6 +1133,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: 'Keep your head up and your ribs down.',
+    animationPath: 'assets/animations/evening_shoulders_s2_triceps_stretch.json',
   );
 
   static const Exercise eveningShouldersS3EagleArms = Exercise(
@@ -1139,6 +1154,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: "If your palms don't meet, press the backs of your hands together.",
+    animationPath: 'assets/animations/evening_shoulders_s3_eagle_arms.json',
   );
 
   static const Exercise eveningShouldersS4PuppyPose = Exercise(
@@ -1158,6 +1174,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 45,
     techniqueTip: 'Rest your forehead on the floor and let your chest melt down.',
+    animationPath: 'assets/animations/evening_shoulders_s4_puppy_pose.json',
   );
 
   static const Exercise eveningShouldersS5CowFaceArms = Exercise(
@@ -1178,6 +1195,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 45,
     techniqueTip: 'Keep the upper elbow pointing up and your back straight.',
+    animationPath: 'assets/animations/evening_shoulders_s5_cow_face_arms.json',
   );
 
   /// Lying relaxation: the one cool-down of every Evening Stretch branch.
@@ -1197,6 +1215,7 @@ class ExerciseCatalog {
     targetRestSec: 0,
     spBase: 0,
     techniqueTip: 'Breathe out longer than you breathe in.',
+    animationPath: 'assets/animations/cooldown_lying_relaxation.json',
   );
 
   // ── WARMUP / COOLDOWN (stage 0) ──────────────────────────────────────────

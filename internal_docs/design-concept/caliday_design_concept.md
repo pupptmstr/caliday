@@ -387,7 +387,7 @@ The files are in `assets/goro/` and `assets/skala/` (the designer's delivery not
 
 ### Exercise animations — delivered
 
-All exercises have an animation except two chosen by the owner (90/90 hip mobility and the pigeon pose): **65 Lottie files in `assets/animations/`** for 70 exercises (some are shared). The list of files per exercise is in `ARCHITECTURE.md` → Exercise Catalog. The character is Goro in all of them; part of the set was drawn by the designer, the rest is generated with `tools/lottie` (see `ARCHITECTURE.md` → Lottie Animation Tooling).
+All exercises have an animation except two chosen by the owner (90/90 hip mobility and the pigeon pose): **84 Lottie files in `assets/animations/`** for 89 exercises (some are shared; the 19 of Evening Stretch were added in 0.8.20). The list of files per exercise is in `ARCHITECTURE.md` → Exercise Catalog. The character is Goro in all of them; part of the set was drawn by the designer, the rest is generated with `tools/lottie` (see `ARCHITECTURE.md` → Lottie Animation Tooling).
 
 ### Home screen widget — delivered
 
