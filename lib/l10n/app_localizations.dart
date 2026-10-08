@@ -114,6 +114,12 @@ abstract class AppLocalizations {
   /// **'{secs} sec'**
   String durationSec(int secs);
 
+  /// No description provided for @durationSecPerSide.
+  ///
+  /// In en, this message translates to:
+  /// **'{secs} sec each side'**
+  String durationSecPerSide(int secs);
+
   /// No description provided for @navHome.
   ///
   /// In en, this message translates to:
@@ -276,6 +282,12 @@ abstract class AppLocalizations {
   /// **'{secs} s × {sets, plural, one{{sets} set} other{{sets} sets}}  ·  Rest {rest} s'**
   String branchJourneyParamsTimed(int secs, int sets, int rest);
 
+  /// No description provided for @branchJourneyParamsTimedPerSide.
+  ///
+  /// In en, this message translates to:
+  /// **'{secs} s each side × {sets, plural, one{{sets} set} other{{sets} sets}}  ·  Rest {rest} s'**
+  String branchJourneyParamsTimedPerSide(int secs, int sets, int rest);
+
   /// No description provided for @branchJourneyStartChallenge.
   ///
   /// In en, this message translates to:
@@ -311,6 +323,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Goal: {n} sec'**
   String homeChallengeNormSec(int n);
+
+  /// No description provided for @homeChallengeNormSecPerSide.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal: {n} sec each side'**
+  String homeChallengeNormSecPerSide(int n);
 
   /// No description provided for @homeWorkoutDone.
   ///
@@ -378,6 +396,12 @@ abstract class AppLocalizations {
   /// **'Set {current} of {total}'**
   String workoutSetProgress(int current, int total);
 
+  /// No description provided for @workoutSetSideProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Set {current} of {total}  ·  side {side} of 2'**
+  String workoutSetSideProgress(int current, int total, int side);
+
   /// No description provided for @workoutSec.
   ///
   /// In en, this message translates to:
@@ -402,6 +426,12 @@ abstract class AppLocalizations {
   /// **'get ready'**
   String get workoutGetReady;
 
+  /// No description provided for @workoutSwitchSides.
+  ///
+  /// In en, this message translates to:
+  /// **'switch sides'**
+  String get workoutSwitchSides;
+
   /// No description provided for @workoutPaused.
   ///
   /// In en, this message translates to:
@@ -425,6 +455,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Paused. Tap Continue when you are ready: the countdown picks up where it stopped.'**
   String get workoutPrepPausedHint;
+
+  /// No description provided for @workoutSwitchSidesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to the other side. The timer starts by itself; tap Pause if you need more time.'**
+  String get workoutSwitchSidesHint;
 
   /// No description provided for @workoutStop.
   ///
@@ -2280,6 +2316,12 @@ abstract class AppLocalizations {
   /// **'Version {version}'**
   String whatsNewVersion(String version);
 
+  /// No description provided for @releaseNotes0820.
+  ///
+  /// In en, this message translates to:
+  /// **'Holds done one side at a time now cover both sides: after the first side a short countdown gives you time to switch, then the other side is timed. Nothing to tap.\nThis applies to the hip flexor stretches, 90/90, neck tilts, the pigeon pose, the single-leg stand, the one-arm plank, the side plank and the leg and side stretches after a workout.'**
+  String get releaseNotes0820;
+
   /// No description provided for @releaseNotes0819.
   ///
   /// In en, this message translates to:
@@ -2991,7 +3033,7 @@ abstract class AppLocalizations {
   /// No description provided for @exerciseNeckS1NeckTiltDesc.
   ///
   /// In en, this message translates to:
-  /// **'Slowly tilt your head toward your right shoulder — without raising the shoulder. Hold 5 seconds, return. Alternate sides.'**
+  /// **'Slowly tilt your head toward your right shoulder — without raising the shoulder — and hold the gentle stretch. Then the other side.'**
   String get exerciseNeckS1NeckTiltDesc;
 
   /// No description provided for @exerciseNeckS1NeckTiltTip.

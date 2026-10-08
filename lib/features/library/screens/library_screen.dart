@@ -1247,7 +1247,9 @@ class _ChallengeCard extends ConsumerWidget {
 
     final isTimed = next.type == ExerciseType.timed;
     final normLabel = isTimed
-        ? l10n.homeChallengeNormSec(next.challengeTargetReps)
+        ? (next.holdsPerSet > 1
+            ? l10n.homeChallengeNormSecPerSide
+            : l10n.homeChallengeNormSec)(next.challengeTargetReps)
         : l10n.homeChallengeNormReps(next.challengeTargetReps);
 
     return Container(

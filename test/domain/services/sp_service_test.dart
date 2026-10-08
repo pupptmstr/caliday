@@ -9,6 +9,7 @@ Exercise _exercise({
   ExerciseType type = ExerciseType.reps,
   int stage = 1,
   int spBase = 2,
+  bool perSide = false,
 }) =>
     Exercise(
       id: 'test',
@@ -24,6 +25,7 @@ Exercise _exercise({
       startRestSec: 60,
       targetRestSec: 30,
       spBase: spBase,
+      perSide: perSide,
     );
 
 /// A reps result: [done] of [target].
@@ -55,6 +57,18 @@ void main() {
       expect(service.forExercise(_timed(45), plank), 9); // 4.5 * 2
       expect(service.forExercise(_timed(9), plank), 1); // 0.9 * 2 = 1.8
       expect(service.forExercise(_timed(0), plank), 0);
+    });
+
+    test('a hold on each side counts both sides', () {
+      final sidePlank =
+          _exercise(type: ExerciseType.timed, spBase: 2, perSide: true);
+      // The result holds the weaker side: 25 s on each side are 50 s held.
+      expect(service.forExercise(_timed(25), sidePlank), 10);
+      expect(service.forExercise(_timed(4), sidePlank), 1); // 0.8 * 2 = 1.6
+    });
+
+    test('perSide means nothing for a reps exercise', () {
+      expect(service.forExercise(_reps(10), _exercise(perSide: true)), 20);
     });
 
     test('a timed result without a duration gives nothing', () {

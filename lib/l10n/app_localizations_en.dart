@@ -19,6 +19,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String durationSecPerSide(int secs) {
+    return '$secs sec each side';
+  }
+
+  @override
   String get navHome => 'Workout';
 
   @override
@@ -136,6 +141,17 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String branchJourneyParamsTimedPerSide(int secs, int sets, int rest) {
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets sets',
+      one: '$sets set',
+    );
+    return '$secs s each side × $_temp0  ·  Rest $rest s';
+  }
+
+  @override
   String get branchJourneyStartChallenge => 'Take the Challenge';
 
   @override
@@ -163,6 +179,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String homeChallengeNormSec(int n) {
     return 'Goal: $n sec';
+  }
+
+  @override
+  String homeChallengeNormSecPerSide(int n) {
+    return 'Goal: $n sec each side';
   }
 
   @override
@@ -205,6 +226,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String workoutSetSideProgress(int current, int total, int side) {
+    return 'Set $current of $total  ·  side $side of 2';
+  }
+
+  @override
   String get workoutSec => 'sec';
 
   @override
@@ -215,6 +241,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get workoutGetReady => 'get ready';
+
+  @override
+  String get workoutSwitchSides => 'switch sides';
 
   @override
   String get workoutPaused => 'paused';
@@ -229,6 +258,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get workoutPrepPausedHint =>
       'Paused. Tap Continue when you are ready: the countdown picks up where it stopped.';
+
+  @override
+  String get workoutSwitchSidesHint =>
+      'Switch to the other side. The timer starts by itself; tap Pause if you need more time.';
 
   @override
   String get workoutStop => 'Stop';
@@ -1298,6 +1331,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0820 =>
+      'Holds done one side at a time now cover both sides: after the first side a short countdown gives you time to switch, then the other side is timed. Nothing to tap.\nThis applies to the hip flexor stretches, 90/90, neck tilts, the pigeon pose, the single-leg stand, the one-arm plank, the side plank and the leg and side stretches after a workout.';
+
+  @override
   String get releaseNotes0819 =>
       'Every branch now moves on once a day, in any workout: the morning one, the evening one or your own routine. Two courses on one day both progress.\nFriends no longer see your stage in each branch: the friend code carries your rank, SP and streak, and it is easier to scan. Friends on an older version need to update to read it.';
 
@@ -1727,7 +1764,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exerciseNeckS1NeckTiltDesc =>
-      'Slowly tilt your head toward your right shoulder — without raising the shoulder. Hold 5 seconds, return. Alternate sides.';
+      'Slowly tilt your head toward your right shoulder — without raising the shoulder — and hold the gentle stretch. Then the other side.';
 
   @override
   String get exerciseNeckS1NeckTiltTip =>

@@ -19,6 +19,11 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String durationSecPerSide(int secs) {
+    return '$secs Sek. pro Seite';
+  }
+
+  @override
   String get navHome => 'Training';
 
   @override
@@ -130,6 +135,17 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String branchJourneyParamsTimedPerSide(int secs, int sets, int rest) {
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets Sätze',
+      one: '$sets Satz',
+    );
+    return '$secs s pro Seite × $_temp0  ·  Pause $rest s';
+  }
+
+  @override
   String get branchJourneyStartChallenge => 'Challenge starten';
 
   @override
@@ -151,6 +167,11 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String homeChallengeNormSec(int n) {
     return 'Ziel: $n Sek.';
+  }
+
+  @override
+  String homeChallengeNormSecPerSide(int n) {
+    return 'Ziel: $n Sek. pro Seite';
   }
 
   @override
@@ -193,6 +214,11 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String workoutSetSideProgress(int current, int total, int side) {
+    return 'Satz $current von $total  ·  Seite $side von 2';
+  }
+
+  @override
   String get workoutSec => 'Sek.';
 
   @override
@@ -203,6 +229,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get workoutGetReady => 'Mach dich bereit';
+
+  @override
+  String get workoutSwitchSides => 'Seite wechseln';
 
   @override
   String get workoutPaused => 'pausiert';
@@ -217,6 +246,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get workoutPrepPausedHint =>
       'Pausiert. Tippe auf Weiter, wenn du bereit bist: Der Countdown läuft dort weiter, wo er angehalten hat.';
+
+  @override
+  String get workoutSwitchSidesHint =>
+      'Wechsle auf die andere Seite. Der Timer startet von selbst; tippe auf Pause, wenn du mehr Zeit brauchst.';
 
   @override
   String get workoutStop => 'Stopp';
@@ -1283,6 +1316,10 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0820 =>
+      'Übungen für eine Seite laufen jetzt auf beiden: Nach der ersten Seite gibt dir ein kurzer Countdown Zeit zum Wechseln, dann wird die andere Seite gemessen. Du musst nichts antippen.\nDas gilt für die Hüftbeuger-Dehnungen, 90/90, das Kopfneigen, die Taube, den Einbeinstand, die einarmige Plank, den Seitstütz und die Bein- und Flankendehnungen nach dem Training.';
+
+  @override
   String get releaseNotes0819 =>
       'Jeder Zweig wächst jetzt einmal am Tag, in jedem Training — morgens, abends oder in deiner eigenen Routine. Zwei Kurse an einem Tag kommen beide voran.\nFreunde sehen deine Stufe in den einzelnen Zweigen nicht mehr: Der Freundes-Code enthält Rang, SP und Serie und lässt sich leichter scannen. Freunde mit einer älteren Version müssen aktualisieren, um ihn zu lesen.';
 
@@ -1720,7 +1757,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get exerciseNeckS1NeckTiltDesc =>
-      'Neig den Kopf langsam zur rechten Schulter — ohne die Schulter hochzuziehen. 5 Sekunden halten, zurück. Seiten abwechseln.';
+      'Neig den Kopf langsam zur rechten Schulter — ohne die Schulter hochzuziehen — und halte die sanfte Dehnung. Dann die andere Seite.';
 
   @override
   String get exerciseNeckS1NeckTiltTip =>

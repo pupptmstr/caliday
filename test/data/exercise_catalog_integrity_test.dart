@@ -92,6 +92,14 @@ void main() {
       });
     }
 
+    test('only timed holds are done on each side', () {
+      for (final e in everything.where((e) => e.perSide)) {
+        expect(e.type, ExerciseType.timed, reason: e.id);
+        expect(e.holdsPerSet, 2, reason: e.id);
+      }
+      expect(everything.where((e) => e.perSide), isNotEmpty);
+    });
+
     test('warm-ups and cool-downs earn no SP and need no rest', () {
       for (final e in [...ExerciseCatalog.warmups, ...ExerciseCatalog.cooldowns]) {
         expect(e.stage, 0, reason: e.id);

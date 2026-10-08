@@ -19,6 +19,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String durationSecPerSide(int secs) {
+    return '$secs s por lado';
+  }
+
+  @override
   String get navHome => 'Entrenar';
 
   @override
@@ -130,6 +135,17 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String branchJourneyParamsTimedPerSide(int secs, int sets, int rest) {
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets series',
+      one: '$sets serie',
+    );
+    return '$secs s por lado × $_temp0  ·  Descanso $rest s';
+  }
+
+  @override
   String get branchJourneyStartChallenge => 'Hacer el reto';
 
   @override
@@ -151,6 +167,11 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String homeChallengeNormSec(int n) {
     return 'Meta: $n s';
+  }
+
+  @override
+  String homeChallengeNormSecPerSide(int n) {
+    return 'Meta: $n s por lado';
   }
 
   @override
@@ -193,6 +214,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String workoutSetSideProgress(int current, int total, int side) {
+    return 'Serie $current de $total  ·  lado $side de 2';
+  }
+
+  @override
   String get workoutSec => 's';
 
   @override
@@ -203,6 +229,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get workoutGetReady => 'prepárate';
+
+  @override
+  String get workoutSwitchSides => 'cambia de lado';
 
   @override
   String get workoutPaused => 'en pausa';
@@ -217,6 +246,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get workoutPrepPausedHint =>
       'En pausa. Toca Continuar cuando estés listo: la cuenta atrás sigue donde se detuvo.';
+
+  @override
+  String get workoutSwitchSidesHint =>
+      'Cambia al otro lado. El temporizador arranca solo; toca Pausa si necesitas más tiempo.';
 
   @override
   String get workoutStop => 'Parar';
@@ -1290,6 +1323,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0820 =>
+      'Los ejercicios a un lado ahora se hacen a ambos: tras el primer lado, una cuenta atrás corta te da tiempo para cambiar y luego se cronometra el otro. No hay que tocar nada.\nEsto vale para los estiramientos del flexor de cadera, el 90/90, las inclinaciones de cuello, la paloma, el equilibrio a una pierna, la plancha a un brazo, la plancha lateral y los estiramientos de piernas y costados tras el entrenamiento.';
+
+  @override
   String get releaseNotes0819 =>
       'Cada rama avanza ahora una vez al día, en cualquier entrenamiento: el de la mañana, el de la noche o tu propia rutina. Dos cursos en un mismo día avanzan los dos.\nTus amigos ya no ven tu etapa en cada rama: el código de amigo lleva tu rango, tus SP y tu racha, y se escanea más fácil. Los amigos con una versión antigua tienen que actualizar para leerlo.';
 
@@ -1726,7 +1763,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get exerciseNeckS1NeckTiltDesc =>
-      'Inclina despacio la cabeza hacia el hombro derecho, sin subir el hombro. Mantén 5 segundos y vuelve. Alterna los lados.';
+      'Inclina despacio la cabeza hacia el hombro derecho, sin subir el hombro, y mantén el estiramiento suave. Luego el otro lado.';
 
   @override
   String get exerciseNeckS1NeckTiltTip =>

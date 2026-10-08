@@ -82,8 +82,11 @@ void main() {
     });
 
     test('older seen: only what came after, newest first', () {
+      // Everything above 0.8.12 in the history, so a new release needs no edit.
       expect(ReleaseNotesCatalog.unseenSince('0.8.12').map((n) => n.version),
-          ['0.8.19', '0.8.18', '0.8.17', '0.8.16', '0.8.15', '0.8.14', '0.8.13']);
+          versions.sublist(0, versions.indexOf('0.8.12')));
+      expect(versions.sublist(versions.indexOf('0.8.12') - 2, versions.indexOf('0.8.12')),
+          ['0.8.14', '0.8.13']);
     });
 
     test('a version older than the whole history: every entry', () {

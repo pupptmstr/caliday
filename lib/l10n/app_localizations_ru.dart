@@ -19,6 +19,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String durationSecPerSide(int secs) {
+    return '$secs сек на каждую сторону';
+  }
+
+  @override
   String get navHome => 'Тренировка';
 
   @override
@@ -120,6 +125,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String branchJourneyParamsTimedPerSide(int secs, int sets, int rest) {
+    return '$secs с на сторону × $sets подх.  ·  Отдых $rest с';
+  }
+
+  @override
   String get branchJourneyStartChallenge => 'Пройти испытание';
 
   @override
@@ -141,6 +151,11 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String homeChallengeNormSec(int n) {
     return 'Норматив: $n сек';
+  }
+
+  @override
+  String homeChallengeNormSecPerSide(int n) {
+    return 'Норматив: $n сек на каждую сторону';
   }
 
   @override
@@ -183,6 +198,11 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String workoutSetSideProgress(int current, int total, int side) {
+    return 'Подход $current из $total  ·  сторона $side из 2';
+  }
+
+  @override
   String get workoutSec => 'сек';
 
   @override
@@ -193,6 +213,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get workoutGetReady => 'приготовься';
+
+  @override
+  String get workoutSwitchSides => 'смени сторону';
 
   @override
   String get workoutPaused => 'пауза';
@@ -207,6 +230,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get workoutPrepPausedHint =>
       'Пауза. Нажми «Продолжить», когда подготовишься: отсчёт пойдёт с того же места.';
+
+  @override
+  String get workoutSwitchSidesHint =>
+      'Смени сторону. Таймер запустится сам; нажми «Пауза», если нужно больше времени.';
 
   @override
   String get workoutStop => 'Стоп';
@@ -1272,6 +1299,10 @@ class AppLocalizationsRu extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes0820 =>
+      'Упражнения на одну сторону теперь идут на обе: после первой стороны короткий отсчёт даёт время поменять сторону, потом таймер считает вторую. Нажимать ничего не нужно.\nЭто растяжки сгибателя бедра, 90/90, наклоны головы, поза голубя, стойка на одной ноге, планка на одной руке, боковая планка и растяжки ног и боков после тренировки.';
+
+  @override
   String get releaseNotes0819 =>
       'Каждая ветка теперь растёт раз в день в любой тренировке — утренней, вечерней или своей подборке. Два курса в один день прогрессируют оба.\nДрузья больше не видят твой этап в каждой ветке: в коде друга остались ранг, SP и серия, и он легче сканируется. Друзьям со старой версией нужно обновиться, чтобы его прочитать.';
 
@@ -1710,7 +1741,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get exerciseNeckS1NeckTiltDesc =>
-      'Медленно наклоняй голову к правому плечу — без подъёма плеча. Удержи 5 секунд, вернись. Поочерёдно.';
+      'Медленно наклони голову к правому плечу — без подъёма плеча — и удерживай мягкую растяжку. Потом другая сторона.';
 
   @override
   String get exerciseNeckS1NeckTiltTip =>
