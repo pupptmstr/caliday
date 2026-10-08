@@ -78,10 +78,25 @@ class AppLocalizationsDe extends AppLocalizations {
   String get homeBranchNeck => 'Nacken';
 
   @override
+  String get homeBranchEveningBack => 'Rücken';
+
+  @override
+  String get homeBranchEveningHips => 'Hüften';
+
+  @override
+  String get homeBranchEveningFolds => 'Vorbeugen';
+
+  @override
+  String get homeBranchEveningShoulders => 'Schultern';
+
+  @override
   String get courseNameCalisthenics => 'Calisthenics';
 
   @override
   String get courseNameHealthyBody => 'Gesunder Körper';
+
+  @override
+  String get courseNameEveningStretch => 'Dehnen am Abend';
 
   @override
   String get courseDescCalisthenics =>
@@ -92,11 +107,15 @@ class AppLocalizationsDe extends AppLocalizations {
       'Übungen für alle, die viel sitzen. Für eine bessere Haltung, einen entspannten Nacken und mehr Beweglichkeit — schonend für die Gelenke.';
 
   @override
+  String get courseDescEveningStretch =>
+      'Ruhiges Dehnen vor dem Schlafen. Rücken, Hüften, Beine und Schultern — langsam, auf dem Boden, am Ende im Liegen.';
+
+  @override
   String get onboardingQ4Courses => 'Wähle einen Kurs';
 
   @override
   String get onboardingQ4CoursesBody =>
-      'Du kannst mit einem anfangen oder beide wählen — die Programme sind unabhängig voneinander.';
+      'Du kannst mit einem anfangen oder mehrere wählen — die Programme sind unabhängig voneinander.';
 
   @override
   String branchJourneyProgress(int done, int total) {
@@ -536,6 +555,34 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get achievementFlexCompleteDesc =>
       'Alle 6 Stufen der Beweglichkeit geschafft. Dein Körper biegt sich in jede Richtung.';
+
+  @override
+  String get achievementEveningBackCompleteName => 'Geschmeidiger Rücken';
+
+  @override
+  String get achievementEveningBackCompleteDesc =>
+      'Alle 5 Stufen von Rücken (Dehnen am Abend) geschafft. Deine Wirbelsäule sagt danke.';
+
+  @override
+  String get achievementEveningHipsCompleteName => 'Offene Hüften';
+
+  @override
+  String get achievementEveningHipsCompleteDesc =>
+      'Alle 5 Stufen von Hüften (Dehnen am Abend) geschafft. Von Knie zur Brust bis zum Frosch.';
+
+  @override
+  String get achievementEveningFoldsCompleteName => 'Tiefe Vorbeuge';
+
+  @override
+  String get achievementEveningFoldsCompleteDesc =>
+      'Alle 4 Stufen von Vorbeugen (Dehnen am Abend) geschafft. Bis zum Boden zwischen den Beinen.';
+
+  @override
+  String get achievementEveningShouldersCompleteName => 'Freie Schultern';
+
+  @override
+  String get achievementEveningShouldersCompleteDesc =>
+      'Alle 5 Stufen von Schultern (Dehnen am Abend) geschafft. Die Finger hinter dem Rücken verhakt.';
 
   @override
   String get achievementAllCompleteName => 'Komplette Sammlung';
@@ -1279,6 +1326,227 @@ class AppLocalizationsDe extends AppLocalizations {
       'Streck aus dem Vierfüßlerstand Arme und Beine und schieb die Hüfte nach oben. Der Körper bildet ein umgedrehtes V. Dehnt Handgelenke, Schultern und Beine.';
 
   @override
+  String get exerciseEveningBackS1CatCowName => 'Katze-Kuh';
+
+  @override
+  String get exerciseEveningBackS1CatCowDesc =>
+      'Im Vierfüßlerstand: Hände unter den Schultern, Knie unter der Hüfte. Beim Einatmen den Bauch sinken lassen und die Brust heben, beim Ausatmen den Rücken zur Decke runden. Langsam, im Rhythmus des Atems.';
+
+  @override
+  String get exerciseEveningBackS1CatCowTip =>
+      'Lass den Atem führen: ein langsamer Atemzug ein und aus pro Wiederholung.';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseName => 'Kindhaltung';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseDesc =>
+      'Knie dich hin, große Zehen zusammen, Knie auseinander. Setz dich auf die Fersen und leg die Brust zwischen den Knien ab, Arme nach vorn gestreckt, Stirn am Boden. Atme in den Rücken.';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseTip =>
+      'Lass die Hüfte mit jedem Ausatmen Richtung Fersen sinken.';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistName => 'Drehung im Liegen';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistDesc =>
+      'Leg dich auf den Rücken, Arme zur Seite. Beug ein Knie und lass es über den Körper zum Boden sinken, schau zur anderen Seite. Beide Schultern bleiben unten.';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistTip =>
+      'Drück das Knie nicht runter — das Gewicht des Beins macht die Arbeit.';
+
+  @override
+  String get exerciseEveningBackS4SphinxName => 'Sphinx';
+
+  @override
+  String get exerciseEveningBackS4SphinxDesc =>
+      'Leg dich auf den Bauch, Ellbogen unter den Schultern, Unterarme am Boden. Heb die Brust; Hüfte und Beine bleiben locker am Boden.';
+
+  @override
+  String get exerciseEveningBackS4SphinxTip =>
+      'Zieh die Schultern weg von den Ohren; die Beugung ist sanft und drückt nicht.';
+
+  @override
+  String get exerciseEveningBackS5CobraName => 'Kobra';
+
+  @override
+  String get exerciseEveningBackS5CobraDesc =>
+      'Leg dich auf den Bauch, Hände unter den Schultern. Drück dich hoch und streck die Arme so weit, wie es der untere Rücken erlaubt; die Hüfte bleibt am Boden.';
+
+  @override
+  String get exerciseEveningBackS5CobraTip =>
+      'Ellbogen locker, Schultern tief; hör dort auf, wo es dem Rücken guttut.';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestName => 'Knie zur Brust';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestDesc =>
+      'Leg dich auf den Rücken, umarme beide Knie, zieh sie zur Brust und halte. Sanftes Wiegen von Seite zu Seite ist erlaubt.';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestTip =>
+      'Unterer Rücken und Kopf bleiben am Boden.';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourName => 'Liegende Vier';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourDesc =>
+      'Leg dich auf den Rücken, Knie gebeugt. Leg einen Knöchel auf das andere Knie und zieh diesen Oberschenkel zur Brust, bis du die Dehnung im Gesäß spürst.';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourTip =>
+      'Drück das gekreuzte Knie sanft von dir weg, dann wird die Dehnung tiefer.';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyName => 'Glückliches Baby';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyDesc =>
+      'Leg dich auf den Rücken, zieh die Knie Richtung Achseln und fass die Außenkanten der Füße, Fußsohlen zur Decke. Zieh die Knie sanft Richtung Boden.';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyTip =>
+      'Das Steißbein bleibt unten; leichtes Wiegen ist erlaubt.';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyName => 'Schmetterling';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyDesc =>
+      'Setz dich aufrecht hin, Fußsohlen zusammen, Knie zur Seite. Halte die Füße und lass die Knie Richtung Boden sinken.';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyTip =>
+      'Bleib aufrecht; für mehr Dehnung aus der Hüfte nach vorn neigen.';
+
+  @override
+  String get exerciseEveningHipsS5FrogName => 'Frosch';
+
+  @override
+  String get exerciseEveningHipsS5FrogDesc =>
+      'Im Vierfüßlerstand die Knie weit auseinander, Knöchel auf einer Linie mit den Knien, Füße nach außen. Geh auf die Unterarme und schieb die Hüfte sanft nach hinten.';
+
+  @override
+  String get exerciseEveningHipsS5FrogTip =>
+      'Nur so weit öffnen, wie es dehnt — nie bis zum Schmerz in den Knien.';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallName => 'Beine an die Wand';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallDesc =>
+      'Leg dich auf den Rücken, die Hüfte nah an der Wand, die gestreckten Beine an der Wand hoch. Arme locker neben dem Körper, atme langsam.';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallTip =>
+      'Beug die Knie ein wenig, wenn die Beinrückseiten zu sehr ziehen.';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringName =>
+      'Beinrückseite im Liegen';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringDesc =>
+      'Leg dich auf den Rücken, leg ein Handtuch um einen Fuß und heb dieses Bein so gestreckt wie möglich. Das andere Bein bleibt am Boden.';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringTip =>
+      'Zieh mit dem Handtuch, nicht mit dem Rücken — die Hüfte bleibt am Boden.';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeName => 'Vorbeuge über ein Bein';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeDesc =>
+      'Setz dich, ein Bein gestreckt, die Fußsohle des anderen an der Innenseite dieses Oberschenkels. Beug dich über das gestreckte Bein nach vorn, Richtung Fuß.';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeTip =>
+      'Führ mit der Brust, nicht mit dem Kopf; das gestreckte Knie darf leicht gebeugt sein.';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldName => 'Grätsche mit Vorbeuge';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldDesc =>
+      'Setz dich mit weit gegrätschten Beinen hin, die Knie zeigen nach oben. Wandere mit den Händen nach vorn und senk den Oberkörper zwischen den Beinen zum Boden.';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldTip =>
+      'Kipp aus der Hüfte mit langem Rücken; ein runder Rücken bringt nichts.';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugName => 'Selbstumarmung';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugDesc =>
+      'Im Sitzen oder Stehen: Leg die Arme um dich und fass die Schulterblätter. Lass den oberen Rücken rund werden und atme hinein.';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugTip =>
+      'Entspann den Nacken, das Kinn sinkt leicht.';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchName =>
+      'Trizepsdehnung über Kopf';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchDesc =>
+      'Heb einen Arm, beug den Ellbogen und lass die Hand hinter den Nacken sinken. Schieb den Ellbogen mit der anderen Hand sanft nach hinten.';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchTip =>
+      'Kopf aufrecht, Rippen unten.';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsName => 'Adlerarme';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsDesc =>
+      'Kreuz die Arme an den Ellbogen, einen unter dem anderen, beug sie und leg die Handflächen zusammen. Heb die Ellbogen auf Schulterhöhe.';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsTip =>
+      'Wenn die Handflächen nicht zusammenkommen, leg die Handrücken aneinander.';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseName => 'Welpenhaltung';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseDesc =>
+      'Im Vierfüßlerstand mit den Händen nach vorn wandern und die Brust Richtung Boden senken; Hüfte über den Knien, Arme gestreckt.';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseTip =>
+      'Leg die Stirn ab und lass die Brust nach unten sinken.';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsName => 'Kuhgesicht-Arme';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsDesc =>
+      'Führ eine Hand von oben hinter den Nacken, die andere von unten hinter den Rücken und versuch, die Finger zu verhaken. Reichen sie nicht, nimm ein Handtuch dazwischen.';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsTip =>
+      'Der obere Ellbogen zeigt nach oben, der Rücken bleibt gerade.';
+
+  @override
+  String get exerciseCooldownLyingRelaxationName => 'Entspannung im Liegen';
+
+  @override
+  String get exerciseCooldownLyingRelaxationDesc =>
+      'Leg dich auf den Rücken, Arme neben dem Körper, Handflächen nach oben. Schließ die Augen und atme langsam; lass den ganzen Körper schwer werden.';
+
+  @override
+  String get exerciseCooldownLyingRelaxationTip => 'Atme länger aus als ein.';
+
+  @override
   String get aboutTitle => 'Über die App';
 
   @override
@@ -1317,7 +1585,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseNotes0820 =>
-      'Übungen für eine Seite laufen jetzt auf beiden: Nach der ersten Seite gibt dir ein kurzer Countdown Zeit zum Wechseln, dann wird die andere Seite gemessen. Du musst nichts antippen.\nDas gilt für die Hüftbeuger-Dehnungen, 90/90, das Kopfneigen, die Taube, den Einbeinstand, die einarmige Plank, den Seitstütz und die Bein- und Flankendehnungen nach dem Training.\nSkala, der Richter der Challenges, ist neu gezeichnet: Jetzt ist er wirklich ein Stier.';
+      'Übungen für eine Seite laufen jetzt auf beiden: Nach der ersten Seite gibt dir ein kurzer Countdown Zeit zum Wechseln, dann wird die andere Seite gemessen. Du musst nichts antippen.\nDas gilt für die Hüftbeuger-Dehnungen, 90/90, das Kopfneigen, die Taube, den Einbeinstand, die einarmige Plank, den Seitstütz und die Bein- und Flankendehnungen nach dem Training.\nSkala, der Richter der Challenges, ist neu gezeichnet: Jetzt ist er wirklich ein Stier.\nNeuer Kurs „Dehnen am Abend“: ruhiges Dehnen vor dem Schlafen in vier Skills — Rücken, Hüften, Vorbeugen und Schultern.';
 
   @override
   String get releaseNotes0819 =>

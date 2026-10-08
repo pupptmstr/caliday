@@ -201,16 +201,7 @@ class _DeveloperOptionsScreenState
     );
   }
 
-  static int _maxStage(BranchId b) => switch (b) {
-        BranchId.push => 7,
-        BranchId.core => 6,
-        BranchId.pull => 6,
-        BranchId.legs => 5,
-        BranchId.balance => 6,
-        BranchId.flex => 6,
-        BranchId.posture => 6,
-        BranchId.neck => 5,
-      };
+  static int _maxStage(BranchId b) => b.stageCount;
 
   static String _branchLabel(BranchId b) => switch (b) {
         BranchId.push => 'Push',
@@ -221,6 +212,10 @@ class _DeveloperOptionsScreenState
         BranchId.flex => 'Flex',
         BranchId.posture => 'Posture',
         BranchId.neck => 'Neck',
+        BranchId.eveningBack => 'Evening back',
+        BranchId.eveningHips => 'Evening hips',
+        BranchId.eveningFolds => 'Evening folds',
+        BranchId.eveningShoulders => 'Evening shoulders',
       };
 
   Widget _buildBranchCard(BranchId branch) {

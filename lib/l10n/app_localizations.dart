@@ -210,6 +210,30 @@ abstract class AppLocalizations {
   /// **'Neck'**
   String get homeBranchNeck;
 
+  /// No description provided for @homeBranchEveningBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get homeBranchEveningBack;
+
+  /// No description provided for @homeBranchEveningHips.
+  ///
+  /// In en, this message translates to:
+  /// **'Hips'**
+  String get homeBranchEveningHips;
+
+  /// No description provided for @homeBranchEveningFolds.
+  ///
+  /// In en, this message translates to:
+  /// **'Folds'**
+  String get homeBranchEveningFolds;
+
+  /// No description provided for @homeBranchEveningShoulders.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders'**
+  String get homeBranchEveningShoulders;
+
   /// No description provided for @courseNameCalisthenics.
   ///
   /// In en, this message translates to:
@@ -221,6 +245,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Healthy Body'**
   String get courseNameHealthyBody;
+
+  /// No description provided for @courseNameEveningStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening Stretch'**
+  String get courseNameEveningStretch;
 
   /// No description provided for @courseDescCalisthenics.
   ///
@@ -234,6 +264,12 @@ abstract class AppLocalizations {
   /// **'Exercises for desk workers. Fix posture, release neck tension, and improve flexibility — joint-friendly.'**
   String get courseDescHealthyBody;
 
+  /// No description provided for @courseDescEveningStretch.
+  ///
+  /// In en, this message translates to:
+  /// **'A calm stretch before sleep. Back, hips, legs and shoulders: slowly, on the floor, ending lying down.'**
+  String get courseDescEveningStretch;
+
   /// No description provided for @onboardingQ4Courses.
   ///
   /// In en, this message translates to:
@@ -243,7 +279,7 @@ abstract class AppLocalizations {
   /// No description provided for @onboardingQ4CoursesBody.
   ///
   /// In en, this message translates to:
-  /// **'You can start with one or pick both — the programs are independent.'**
+  /// **'You can start with one or pick several — the programs are independent.'**
   String get onboardingQ4CoursesBody;
 
   /// No description provided for @branchJourneyProgress.
@@ -959,6 +995,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All 6 Flex stages cleared. Your body bends in every direction.'**
   String get achievementFlexCompleteDesc;
+
+  /// No description provided for @achievementEveningBackCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Soft Spine'**
+  String get achievementEveningBackCompleteName;
+
+  /// No description provided for @achievementEveningBackCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 5 stages of the evening Back skill cleared. Your spine says thank you.'**
+  String get achievementEveningBackCompleteDesc;
+
+  /// No description provided for @achievementEveningHipsCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Hips'**
+  String get achievementEveningHipsCompleteName;
+
+  /// No description provided for @achievementEveningHipsCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 5 stages of the evening Hips skill cleared. From knees-to-chest to the frog.'**
+  String get achievementEveningHipsCompleteDesc;
+
+  /// No description provided for @achievementEveningFoldsCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Deep Fold'**
+  String get achievementEveningFoldsCompleteName;
+
+  /// No description provided for @achievementEveningFoldsCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 4 stages of the evening Folds skill cleared. Down to the floor between your legs.'**
+  String get achievementEveningFoldsCompleteDesc;
+
+  /// No description provided for @achievementEveningShouldersCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Free Shoulders'**
+  String get achievementEveningShouldersCompleteName;
+
+  /// No description provided for @achievementEveningShouldersCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 5 stages of the evening Shoulders skill cleared. Fingers hooked behind your back.'**
+  String get achievementEveningShouldersCompleteDesc;
 
   /// No description provided for @achievementAllCompleteName.
   ///
@@ -2250,6 +2334,366 @@ abstract class AppLocalizations {
   /// **'From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs.'**
   String get exerciseCooldownDownwardDogDesc;
 
+  /// No description provided for @exerciseEveningBackS1CatCowName.
+  ///
+  /// In en, this message translates to:
+  /// **'Cat-Cow'**
+  String get exerciseEveningBackS1CatCowName;
+
+  /// No description provided for @exerciseEveningBackS1CatCowDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'On all fours, hands under your shoulders, knees under your hips. Breathing in, let your belly drop and lift your chest; breathing out, round your back toward the ceiling. Move slowly with your breath.'**
+  String get exerciseEveningBackS1CatCowDesc;
+
+  /// No description provided for @exerciseEveningBackS1CatCowTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Let the breath lead: one slow breath in and one out per rep.'**
+  String get exerciseEveningBackS1CatCowTip;
+
+  /// No description provided for @exerciseEveningBackS2ChildsPoseName.
+  ///
+  /// In en, this message translates to:
+  /// **'Child\'s Pose'**
+  String get exerciseEveningBackS2ChildsPoseName;
+
+  /// No description provided for @exerciseEveningBackS2ChildsPoseDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Kneel with your big toes together and knees apart. Sit back on your heels and lay your chest down between your knees, arms stretched forward, forehead on the floor. Breathe into your back.'**
+  String get exerciseEveningBackS2ChildsPoseDesc;
+
+  /// No description provided for @exerciseEveningBackS2ChildsPoseTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Let your hips sink toward your heels with every breath out.'**
+  String get exerciseEveningBackS2ChildsPoseTip;
+
+  /// No description provided for @exerciseEveningBackS3SupineTwistName.
+  ///
+  /// In en, this message translates to:
+  /// **'Supine Twist'**
+  String get exerciseEveningBackS3SupineTwistName;
+
+  /// No description provided for @exerciseEveningBackS3SupineTwistDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, arms out to the sides. Bend one knee and let it fall across your body to the floor, looking the other way. Keep both shoulders down.'**
+  String get exerciseEveningBackS3SupineTwistDesc;
+
+  /// No description provided for @exerciseEveningBackS3SupineTwistTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Don\'t push the knee down: the weight of the leg does the work.'**
+  String get exerciseEveningBackS3SupineTwistTip;
+
+  /// No description provided for @exerciseEveningBackS4SphinxName.
+  ///
+  /// In en, this message translates to:
+  /// **'Sphinx'**
+  String get exerciseEveningBackS4SphinxName;
+
+  /// No description provided for @exerciseEveningBackS4SphinxDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your stomach, elbows under your shoulders, forearms on the floor. Lift your chest; your hips and legs stay relaxed on the floor.'**
+  String get exerciseEveningBackS4SphinxDesc;
+
+  /// No description provided for @exerciseEveningBackS4SphinxTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Draw your shoulders away from your ears; the arch is gentle, never pinching.'**
+  String get exerciseEveningBackS4SphinxTip;
+
+  /// No description provided for @exerciseEveningBackS5CobraName.
+  ///
+  /// In en, this message translates to:
+  /// **'Cobra'**
+  String get exerciseEveningBackS5CobraName;
+
+  /// No description provided for @exerciseEveningBackS5CobraDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your stomach, hands under your shoulders. Press up and straighten your arms as far as your lower back allows; your hips stay on the floor.'**
+  String get exerciseEveningBackS5CobraDesc;
+
+  /// No description provided for @exerciseEveningBackS5CobraTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the elbows soft and the shoulders down; stop where your back feels good.'**
+  String get exerciseEveningBackS5CobraTip;
+
+  /// No description provided for @exerciseEveningHipsS1KneesToChestName.
+  ///
+  /// In en, this message translates to:
+  /// **'Knees to Chest'**
+  String get exerciseEveningHipsS1KneesToChestName;
+
+  /// No description provided for @exerciseEveningHipsS1KneesToChestDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, hug both knees to your chest and hold. You may rock gently from side to side.'**
+  String get exerciseEveningHipsS1KneesToChestDesc;
+
+  /// No description provided for @exerciseEveningHipsS1KneesToChestTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your lower back and your head on the floor.'**
+  String get exerciseEveningHipsS1KneesToChestTip;
+
+  /// No description provided for @exerciseEveningHipsS2FigureFourName.
+  ///
+  /// In en, this message translates to:
+  /// **'Reclined Figure Four'**
+  String get exerciseEveningHipsS2FigureFourName;
+
+  /// No description provided for @exerciseEveningHipsS2FigureFourDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, knees bent. Cross one ankle over the other knee, then pull that thigh toward your chest until you feel the stretch in the buttock.'**
+  String get exerciseEveningHipsS2FigureFourDesc;
+
+  /// No description provided for @exerciseEveningHipsS2FigureFourTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Press the crossed knee gently away from you to go deeper.'**
+  String get exerciseEveningHipsS2FigureFourTip;
+
+  /// No description provided for @exerciseEveningHipsS3HappyBabyName.
+  ///
+  /// In en, this message translates to:
+  /// **'Happy Baby'**
+  String get exerciseEveningHipsS3HappyBabyName;
+
+  /// No description provided for @exerciseEveningHipsS3HappyBabyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, bring your knees toward your armpits and hold the outer edges of your feet, soles to the ceiling. Gently pull your knees toward the floor.'**
+  String get exerciseEveningHipsS3HappyBabyDesc;
+
+  /// No description provided for @exerciseEveningHipsS3HappyBabyTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your tailbone down; rocking a little is fine.'**
+  String get exerciseEveningHipsS3HappyBabyTip;
+
+  /// No description provided for @exerciseEveningHipsS4ButterflyName.
+  ///
+  /// In en, this message translates to:
+  /// **'Butterfly'**
+  String get exerciseEveningHipsS4ButterflyName;
+
+  /// No description provided for @exerciseEveningHipsS4ButterflyDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sit up tall with the soles of your feet together and your knees out to the sides. Hold your feet and let your knees sink toward the floor.'**
+  String get exerciseEveningHipsS4ButterflyDesc;
+
+  /// No description provided for @exerciseEveningHipsS4ButterflyTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay tall; to go deeper, lean forward from your hips.'**
+  String get exerciseEveningHipsS4ButterflyTip;
+
+  /// No description provided for @exerciseEveningHipsS5FrogName.
+  ///
+  /// In en, this message translates to:
+  /// **'Frog'**
+  String get exerciseEveningHipsS5FrogName;
+
+  /// No description provided for @exerciseEveningHipsS5FrogDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'On all fours, slide your knees wide apart, ankles in line with the knees, feet turned out. Lower onto your forearms and ease your hips back.'**
+  String get exerciseEveningHipsS5FrogDesc;
+
+  /// No description provided for @exerciseEveningHipsS5FrogTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Open only as far as it feels like a stretch, never a pain in the knees.'**
+  String get exerciseEveningHipsS5FrogTip;
+
+  /// No description provided for @exerciseEveningFoldsS1LegsUpWallName.
+  ///
+  /// In en, this message translates to:
+  /// **'Legs Up the Wall'**
+  String get exerciseEveningFoldsS1LegsUpWallName;
+
+  /// No description provided for @exerciseEveningFoldsS1LegsUpWallDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back with your hips close to a wall and your legs straight up along it. Arms relaxed at your sides; breathe slowly.'**
+  String get exerciseEveningFoldsS1LegsUpWallDesc;
+
+  /// No description provided for @exerciseEveningFoldsS1LegsUpWallTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Bend your knees a little if the backs of your legs pull too much.'**
+  String get exerciseEveningFoldsS1LegsUpWallTip;
+
+  /// No description provided for @exerciseEveningFoldsS2TowelHamstringName.
+  ///
+  /// In en, this message translates to:
+  /// **'Lying Hamstring Stretch'**
+  String get exerciseEveningFoldsS2TowelHamstringName;
+
+  /// No description provided for @exerciseEveningFoldsS2TowelHamstringDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, loop a towel around one foot and raise that leg as straight as you can. The other leg stays on the floor.'**
+  String get exerciseEveningFoldsS2TowelHamstringDesc;
+
+  /// No description provided for @exerciseEveningFoldsS2TowelHamstringTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull with the towel, not with your back: your hips stay on the floor.'**
+  String get exerciseEveningFoldsS2TowelHamstringTip;
+
+  /// No description provided for @exerciseEveningFoldsS3HeadToKneeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Head-to-Knee Fold'**
+  String get exerciseEveningFoldsS3HeadToKneeName;
+
+  /// No description provided for @exerciseEveningFoldsS3HeadToKneeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sit with one leg straight and the other foot against the inside of that thigh. Fold forward over the straight leg, reaching toward the foot.'**
+  String get exerciseEveningFoldsS3HeadToKneeDesc;
+
+  /// No description provided for @exerciseEveningFoldsS3HeadToKneeTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Lead with your chest, not your head; the straight knee may bend a little.'**
+  String get exerciseEveningFoldsS3HeadToKneeTip;
+
+  /// No description provided for @exerciseEveningFoldsS4StraddleFoldName.
+  ///
+  /// In en, this message translates to:
+  /// **'Straddle Fold'**
+  String get exerciseEveningFoldsS4StraddleFoldName;
+
+  /// No description provided for @exerciseEveningFoldsS4StraddleFoldDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sit with your legs wide apart, knees pointing up. Walk your hands forward and lower your body toward the floor between your legs.'**
+  String get exerciseEveningFoldsS4StraddleFoldDesc;
+
+  /// No description provided for @exerciseEveningFoldsS4StraddleFoldTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Tilt from your hips with a long back; rounding the back adds nothing.'**
+  String get exerciseEveningFoldsS4StraddleFoldTip;
+
+  /// No description provided for @exerciseEveningShouldersS1SelfHugName.
+  ///
+  /// In en, this message translates to:
+  /// **'Self-Hug'**
+  String get exerciseEveningShouldersS1SelfHugName;
+
+  /// No description provided for @exerciseEveningShouldersS1SelfHugDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Sitting or standing, wrap your arms around yourself and hold your shoulder blades. Let your upper back round and breathe into it.'**
+  String get exerciseEveningShouldersS1SelfHugDesc;
+
+  /// No description provided for @exerciseEveningShouldersS1SelfHugTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Relax your neck and let your chin drop a little.'**
+  String get exerciseEveningShouldersS1SelfHugTip;
+
+  /// No description provided for @exerciseEveningShouldersS2TricepsStretchName.
+  ///
+  /// In en, this message translates to:
+  /// **'Overhead Triceps Stretch'**
+  String get exerciseEveningShouldersS2TricepsStretchName;
+
+  /// No description provided for @exerciseEveningShouldersS2TricepsStretchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Raise one arm, bend the elbow and let your hand drop behind your neck. Use the other hand to ease the elbow back.'**
+  String get exerciseEveningShouldersS2TricepsStretchDesc;
+
+  /// No description provided for @exerciseEveningShouldersS2TricepsStretchTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your head up and your ribs down.'**
+  String get exerciseEveningShouldersS2TricepsStretchTip;
+
+  /// No description provided for @exerciseEveningShouldersS3EagleArmsName.
+  ///
+  /// In en, this message translates to:
+  /// **'Eagle Arms'**
+  String get exerciseEveningShouldersS3EagleArmsName;
+
+  /// No description provided for @exerciseEveningShouldersS3EagleArmsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Cross one arm under the other at the elbows, bend them and bring your palms together. Lift your elbows to shoulder height.'**
+  String get exerciseEveningShouldersS3EagleArmsDesc;
+
+  /// No description provided for @exerciseEveningShouldersS3EagleArmsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'If your palms don\'t meet, press the backs of your hands together.'**
+  String get exerciseEveningShouldersS3EagleArmsTip;
+
+  /// No description provided for @exerciseEveningShouldersS4PuppyPoseName.
+  ///
+  /// In en, this message translates to:
+  /// **'Puppy Pose'**
+  String get exerciseEveningShouldersS4PuppyPoseName;
+
+  /// No description provided for @exerciseEveningShouldersS4PuppyPoseDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'On all fours, walk your hands forward and lower your chest toward the floor, hips above your knees, arms straight.'**
+  String get exerciseEveningShouldersS4PuppyPoseDesc;
+
+  /// No description provided for @exerciseEveningShouldersS4PuppyPoseTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest your forehead on the floor and let your chest melt down.'**
+  String get exerciseEveningShouldersS4PuppyPoseTip;
+
+  /// No description provided for @exerciseEveningShouldersS5CowFaceArmsName.
+  ///
+  /// In en, this message translates to:
+  /// **'Cow Face Arms'**
+  String get exerciseEveningShouldersS5CowFaceArmsName;
+
+  /// No description provided for @exerciseEveningShouldersS5CowFaceArmsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach one hand down behind your neck and the other up behind your back, and try to hook your fingers. If they don\'t meet, hold a towel between your hands.'**
+  String get exerciseEveningShouldersS5CowFaceArmsDesc;
+
+  /// No description provided for @exerciseEveningShouldersS5CowFaceArmsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the upper elbow pointing up and your back straight.'**
+  String get exerciseEveningShouldersS5CowFaceArmsTip;
+
+  /// No description provided for @exerciseCooldownLyingRelaxationName.
+  ///
+  /// In en, this message translates to:
+  /// **'Lying Relaxation'**
+  String get exerciseCooldownLyingRelaxationName;
+
+  /// No description provided for @exerciseCooldownLyingRelaxationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, arms by your sides, palms up. Close your eyes and breathe slowly; let your whole body go heavy.'**
+  String get exerciseCooldownLyingRelaxationDesc;
+
+  /// No description provided for @exerciseCooldownLyingRelaxationTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathe out longer than you breathe in.'**
+  String get exerciseCooldownLyingRelaxationTip;
+
   /// No description provided for @aboutTitle.
   ///
   /// In en, this message translates to:
@@ -2319,7 +2763,7 @@ abstract class AppLocalizations {
   /// No description provided for @releaseNotes0820.
   ///
   /// In en, this message translates to:
-  /// **'Holds done one side at a time now cover both sides: after the first side a short countdown gives you time to switch, then the other side is timed. Nothing to tap.\nThis applies to the hip flexor stretches, 90/90, neck tilts, the pigeon pose, the single-leg stand, the one-arm plank, the side plank and the leg and side stretches after a workout.\nSkala, the judge of the challenges, is redrawn: now he really is a bull.'**
+  /// **'Holds done one side at a time now cover both sides: after the first side a short countdown gives you time to switch, then the other side is timed. Nothing to tap.\nThis applies to the hip flexor stretches, 90/90, neck tilts, the pigeon pose, the single-leg stand, the one-arm plank, the side plank and the leg and side stretches after a workout.\nSkala, the judge of the challenges, is redrawn: now he really is a bull.\nNew course: Evening Stretch, a calm stretch before sleep in four skills: back, hips, folds and shoulders.'**
   String get releaseNotes0820;
 
   /// No description provided for @releaseNotes0819.

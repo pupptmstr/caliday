@@ -80,10 +80,25 @@ class AppLocalizationsRu extends AppLocalizations {
   String get homeBranchNeck => 'Шея';
 
   @override
+  String get homeBranchEveningBack => 'Спина';
+
+  @override
+  String get homeBranchEveningHips => 'Бёдра';
+
+  @override
+  String get homeBranchEveningFolds => 'Наклоны';
+
+  @override
+  String get homeBranchEveningShoulders => 'Плечи';
+
+  @override
   String get courseNameCalisthenics => 'Калистеника';
 
   @override
   String get courseNameHealthyBody => 'Здоровое тело';
+
+  @override
+  String get courseNameEveningStretch => 'Вечерняя растяжка';
 
   @override
   String get courseDescCalisthenics =>
@@ -94,11 +109,15 @@ class AppLocalizationsRu extends AppLocalizations {
       'Упражнения для тех, кто много сидит. Осанка, шея, гибкость — без нагрузки на суставы.';
 
   @override
+  String get courseDescEveningStretch =>
+      'Спокойная растяжка перед сном. Спина, бёдра, ноги и плечи — медленно, на полу, в конце лёжа.';
+
+  @override
   String get onboardingQ4Courses => 'Выбери курс';
 
   @override
   String get onboardingQ4CoursesBody =>
-      'Можно начать с одного или взять оба сразу — программы независимы.';
+      'Можно начать с одного или взять несколько — программы независимы.';
 
   @override
   String branchJourneyProgress(int done, int total) {
@@ -512,6 +531,34 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get achievementFlexCompleteDesc =>
       'Все 6 этапов Flex пройдены. Твоё тело гнётся во все стороны.';
+
+  @override
+  String get achievementEveningBackCompleteName => 'Мягкая спина';
+
+  @override
+  String get achievementEveningBackCompleteDesc =>
+      'Все 5 этапов вечерней «Спины» пройдены. Позвоночник говорит спасибо.';
+
+  @override
+  String get achievementEveningHipsCompleteName => 'Свободные бёдра';
+
+  @override
+  String get achievementEveningHipsCompleteDesc =>
+      'Все 5 этапов вечерних «Бёдер» пройдены. От коленей к груди до лягушки.';
+
+  @override
+  String get achievementEveningFoldsCompleteName => 'Глубокий наклон';
+
+  @override
+  String get achievementEveningFoldsCompleteDesc =>
+      'Все 4 этапа вечерних «Наклонов» пройдены. До пола между ногами.';
+
+  @override
+  String get achievementEveningShouldersCompleteName => 'Свободные плечи';
+
+  @override
+  String get achievementEveningShouldersCompleteDesc =>
+      'Все 5 этапов вечерних «Плеч» пройдены. Пальцы сцеплены за спиной.';
 
   @override
   String get achievementAllCompleteName => 'Полный комплект';
@@ -1263,6 +1310,227 @@ class AppLocalizationsRu extends AppLocalizations {
       'На четвереньках выпрями руки и ноги, подними таз вверх. Тело — перевёрнутая V. Растяжка запястий, плеч и ног.';
 
   @override
+  String get exerciseEveningBackS1CatCowName => 'Кошка-корова';
+
+  @override
+  String get exerciseEveningBackS1CatCowDesc =>
+      'На четвереньках: ладони под плечами, колени под тазом. На вдохе прогни спину и подними грудь, на выдохе округли спину к потолку. Двигайся медленно, в ритме дыхания.';
+
+  @override
+  String get exerciseEveningBackS1CatCowTip =>
+      'Пусть ведёт дыхание: один медленный вдох и выдох на повтор.';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseName => 'Поза ребёнка';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseDesc =>
+      'Встань на колени, большие пальцы ног вместе, колени врозь. Сядь на пятки и опусти грудь между коленями, руки вытянуты вперёд, лоб на полу. Дыши в спину.';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseTip =>
+      'С каждым выдохом таз опускается к пяткам.';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistName => 'Скручивание лёжа';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistDesc =>
+      'Лёжа на спине, руки в стороны. Согни одно колено и опусти его через корпус на пол, взгляд в другую сторону. Оба плеча остаются на полу.';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistTip =>
+      'Не дави на колено — его опускает вес ноги.';
+
+  @override
+  String get exerciseEveningBackS4SphinxName => 'Сфинкс';
+
+  @override
+  String get exerciseEveningBackS4SphinxDesc =>
+      'Лёжа на животе, локти под плечами, предплечья на полу. Подними грудь; таз и ноги расслаблены на полу.';
+
+  @override
+  String get exerciseEveningBackS4SphinxTip =>
+      'Отводи плечи от ушей; прогиб мягкий, без зажима в пояснице.';
+
+  @override
+  String get exerciseEveningBackS5CobraName => 'Кобра';
+
+  @override
+  String get exerciseEveningBackS5CobraDesc =>
+      'Лёжа на животе, ладони под плечами. Выпрямляй руки настолько, насколько позволяет поясница; таз остаётся на полу.';
+
+  @override
+  String get exerciseEveningBackS5CobraTip =>
+      'Локти чуть согнуты, плечи вниз; останавливайся там, где спине хорошо.';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestName => 'Колени к груди';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestDesc =>
+      'Лёжа на спине, обними оба колена, притяни их к груди и удерживай. Можно мягко покачиваться из стороны в сторону.';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestTip =>
+      'Поясница и голова остаются на полу.';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourName => '«Четвёрка» лёжа';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourDesc =>
+      'Лёжа на спине, колени согнуты. Положи лодыжку одной ноги на колено другой и притяни бедро нижней ноги к груди, пока не почувствуешь растяжение в ягодице.';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourTip =>
+      'Мягко отводи колено скрещённой ноги от себя — растяжка станет глубже.';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyName => 'Счастливый ребёнок';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyDesc =>
+      'Лёжа на спине, подтяни колени к подмышкам и возьмись за внешние края стоп, подошвы смотрят в потолок. Мягко тяни колени к полу.';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyTip =>
+      'Копчик прижат к полу; покачиваться можно.';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyName => 'Бабочка';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyDesc =>
+      'Сядь ровно, соедини стопы, колени в стороны. Держись за стопы и позволь коленям опускаться к полу.';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyTip =>
+      'Спина прямая; чтобы углубить, наклоняйся вперёд от таза.';
+
+  @override
+  String get exerciseEveningHipsS5FrogName => 'Лягушка';
+
+  @override
+  String get exerciseEveningHipsS5FrogDesc =>
+      'На четвереньках широко разведи колени, лодыжки на одной линии с коленями, стопы развёрнуты наружу. Опустись на предплечья и мягко отведи таз назад.';
+
+  @override
+  String get exerciseEveningHipsS5FrogTip =>
+      'Разводи колени только до ощущения растяжки, без боли в коленях.';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallName => 'Ноги на стену';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallDesc =>
+      'Ляг на спину, таз близко к стене, прямые ноги подняты вдоль неё. Руки расслаблены вдоль тела, дыши медленно.';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallTip =>
+      'Если задняя поверхность ног тянет слишком сильно, чуть согни колени.';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringName =>
+      'Растяжка лёжа с полотенцем';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringDesc =>
+      'Лёжа на спине, накинь полотенце на стопу и подними эту ногу как можно прямее. Другая нога остаётся на полу.';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringTip =>
+      'Тяни полотенцем, а не спиной — таз прижат к полу.';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeName => 'Наклон к одной ноге';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeDesc =>
+      'Сядь: одна нога прямая, стопа другой упирается во внутреннюю сторону её бедра. Наклонись вперёд над прямой ногой, тянись к стопе.';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeTip =>
+      'Тянись грудью, а не головой; колено прямой ноги можно чуть согнуть.';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldName => 'Наклон в широком седе';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldDesc =>
+      'Сядь, широко разведя ноги, колени смотрят вверх. Переступай руками вперёд и опускай корпус к полу между ногами.';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldTip =>
+      'Наклоняйся от таза с длинной спиной: круглая спина ничего не добавляет.';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugName => 'Объятия';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugDesc =>
+      'Сидя или стоя, обхвати себя руками и возьмись за лопатки. Дай верхней части спины округлиться и дыши в неё.';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugTip =>
+      'Расслабь шею, подбородок чуть опущен.';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchName =>
+      'Растяжка трицепса за головой';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchDesc =>
+      'Подними одну руку, согни локоть и опусти ладонь за шею. Другой рукой мягко отводи локоть назад.';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchTip =>
+      'Голова прямо, рёбра не выпячивай.';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsName => 'Руки «орёл»';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsDesc =>
+      'Скрести руки в локтях, одну под другой, согни их и соедини ладони. Подними локти до уровня плеч.';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsTip =>
+      'Если ладони не сходятся, соедини тыльные стороны кистей.';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseName => 'Щенок';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseDesc =>
+      'На четвереньках переступай руками вперёд и опускай грудь к полу; таз над коленями, руки прямые.';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseTip =>
+      'Положи лоб на пол и дай груди опуститься.';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsName => 'Руки «корова»';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsDesc =>
+      'Заведи одну руку сверху за шею, другую снизу за спину и попробуй сцепить пальцы. Если не достают, возьми между руками полотенце.';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsTip =>
+      'Верхний локоть смотрит вверх, спина прямая.';
+
+  @override
+  String get exerciseCooldownLyingRelaxationName => 'Расслабление лёжа';
+
+  @override
+  String get exerciseCooldownLyingRelaxationDesc =>
+      'Ляг на спину, руки вдоль тела, ладони вверх. Закрой глаза и дыши медленно; позволь всему телу стать тяжёлым.';
+
+  @override
+  String get exerciseCooldownLyingRelaxationTip => 'Выдох длиннее вдоха.';
+
+  @override
   String get aboutTitle => 'О приложении';
 
   @override
@@ -1300,7 +1568,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get releaseNotes0820 =>
-      'Упражнения на одну сторону теперь идут на обе: после первой стороны короткий отсчёт даёт время поменять сторону, потом таймер считает вторую. Нажимать ничего не нужно.\nЭто растяжки сгибателя бедра, 90/90, наклоны головы, поза голубя, стойка на одной ноге, планка на одной руке, боковая планка и растяжки ног и боков после тренировки.\nСкала, судья испытаний, перерисован: теперь он и правда бык.';
+      'Упражнения на одну сторону теперь идут на обе: после первой стороны короткий отсчёт даёт время поменять сторону, потом таймер считает вторую. Нажимать ничего не нужно.\nЭто растяжки сгибателя бедра, 90/90, наклоны головы, поза голубя, стойка на одной ноге, планка на одной руке, боковая планка и растяжки ног и боков после тренировки.\nСкала, судья испытаний, перерисован: теперь он и правда бык.\nНовый курс «Вечерняя растяжка»: спокойная растяжка перед сном, четыре навыка — спина, бёдра, наклоны и плечи.';
 
   @override
   String get releaseNotes0819 =>

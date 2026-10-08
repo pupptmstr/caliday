@@ -29,6 +29,14 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
         return BranchId.posture;
       case 7:
         return BranchId.neck;
+      case 8:
+        return BranchId.eveningBack;
+      case 9:
+        return BranchId.eveningHips;
+      case 10:
+        return BranchId.eveningFolds;
+      case 11:
+        return BranchId.eveningShoulders;
       default:
         return BranchId.push;
     }
@@ -53,6 +61,14 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
         writer.writeByte(6);
       case BranchId.neck:
         writer.writeByte(7);
+      case BranchId.eveningBack:
+        writer.writeByte(8);
+      case BranchId.eveningHips:
+        writer.writeByte(9);
+      case BranchId.eveningFolds:
+        writer.writeByte(10);
+      case BranchId.eveningShoulders:
+        writer.writeByte(11);
     }
   }
 
@@ -78,6 +94,8 @@ class CourseIdAdapter extends TypeAdapter<CourseId> {
         return CourseId.calisthenics;
       case 1:
         return CourseId.healthyBody;
+      case 2:
+        return CourseId.eveningStretch;
       default:
         return CourseId.calisthenics;
     }
@@ -90,6 +108,8 @@ class CourseIdAdapter extends TypeAdapter<CourseId> {
         writer.writeByte(0);
       case CourseId.healthyBody:
         writer.writeByte(1);
+      case CourseId.eveningStretch:
+        writer.writeByte(2);
     }
   }
 

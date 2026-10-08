@@ -1,4 +1,5 @@
 import 'package:caliday/data/models/enums.dart';
+import 'package:caliday/data/static/course_catalog.dart';
 import 'package:caliday/data/models/user_profile.dart';
 import 'package:caliday/data/repositories/achievement_repository.dart';
 import 'package:caliday/data/repositories/user_repository.dart';
@@ -134,8 +135,14 @@ void main() {
     test('activeBranches merges the enrolled courses without duplicates', () {
       final both = UserProfile(activeCourseIds: [0, 1], hasPullUpBar: true);
       final branches = both.activeBranches;
-      expect(branches.toSet(), BranchId.values.toSet());
+      expect(branches.toSet(), {
+        ...CourseCatalog.branchesFor(CourseId.calisthenics),
+        ...CourseCatalog.branchesFor(CourseId.healthyBody),
+      });
       expect(branches.where((b) => b == BranchId.flex), hasLength(1));
+
+      final all = UserProfile(activeCourseIds: [0, 1, 2], hasPullUpBar: true);
+      expect(all.activeBranches.toSet(), BranchId.values.toSet());
     });
   });
 

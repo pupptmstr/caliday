@@ -170,13 +170,14 @@ A short session: 3–6 exercises, 5–15 minutes. Types: `Daily`, `Skill`, `Chal
 CaliDay supports multiple **courses** (like Duolingo). Each course has its own branch set and progression:
 - `CourseId.calisthenics` → push, pull, core, legs, balance, flex
 - `CourseId.healthyBody` → posture, neck, flex
+- `CourseId.eveningStretch` → eveningBack, eveningHips, eveningFolds, eveningShoulders (0.8.20; a bonus workout of this course adds **no** supplementary exercises — `CourseCatalog.addsSupplementary`)
 
 **Progression is global per branch:** `SkillProgress` keys are `branch.name` only (e.g. `"push"`). Branches are physical skills — progress is shared across all courses containing that branch.
 **Streak and SP are global.** Enrolled courses are `UserProfile.activeCourseIds`, the one shown now is `activeCourseIndex` (read through the `enrolledCourses` / `activeCourse` getters).
 Switching courses happens in the Library tab via pill tabs.
 
 ### Progression Branches
-8 branches total across all courses. Pull requires a pull-up bar (`requiresEquipment = true`).
+12 branches total across all courses (the four Evening Stretch ones are `BranchId` HiveFields 8–11, appended; `CourseId.eveningStretch` is HiveField 2). Pull requires a pull-up bar (`requiresEquipment = true`).
 `UserProfile.activeBranches` deduplicates branches across all enrolled courses.
 
 ### In-Stage Progression
@@ -192,7 +193,7 @@ Reps ↑ → Sets ↑ (with reps reset) → Rest ↓ → Challenge test → Next
 ### Workout size
 The user picks how big the daily workout is: **Short** (2 skill branches), **Standard** (3) or **Full** (all branches of the course), `WorkoutSize` in `data/models/enums.dart`. It used to be presented as "5 / 10 / 15 minutes", which promised a duration the app never computed: the real time follows reps, sets and rests and roughly doubles as the user progresses (about 6 / 8 / 15 min at the start for Calisthenics, about 10 / 15 / 29 min with 12×3 reps and 60 s rests). So the names describe the volume, not the time, and no text may promise minutes (a test checks the names).
 
-The stored value is unchanged: `UserProfile.preferredWorkoutMinutes` (HiveField 12) keeps the old code 5 / 10 / 15 (`WorkoutSize.code`), so no migration; the generator parameter `preferredMinutes` keeps its historical name and reads the same code. `WorkoutSize.fromCode` reads any stored int the way the generator does (a test compares them for 0..30). Healthy Body has only 3 branches, so Standard and Full give the same workout there. Chosen in onboarding (step 3) and in Settings → Workout (a segmented control like the theme one); changing it invalidates `homeDataProvider`.
+The stored value is unchanged: `UserProfile.preferredWorkoutMinutes` (HiveField 12) keeps the old code 5 / 10 / 15 (`WorkoutSize.code`), so no migration; the generator parameter `preferredMinutes` keeps its historical name and reads the same code. `WorkoutSize.fromCode` reads any stored int the way the generator does (a test compares them for 0..30). Healthy Body has only 3 branches, so Standard and Full give the same workout there (Evening Stretch has 4, so they differ). Chosen in onboarding (step 3) and in Settings → Workout (a segmented control like the theme one); changing it invalidates `homeDataProvider`.
 
 **How long it takes.** The Home button reads "Today's workout (≈ N min)" on one line (`WorkoutPlan.estimatedMinutes`) — the honest replacement for the old promise. `WorkoutPlan.estimatedDurationSec` follows the workout screen: a timed set is its hold plus the get-ready countdown (twice, the second time the switch-sides one, for a hold on each side), a reps set is `kSecondsPerRep` (3 s) per rep, and the rest after each set runs everywhere but after the last set of the workout. For timed-only plans it equals the ticks of a real run (`workout_timer_test.dart` steps the state machine to prove it); reps are a guess at the user's pace, hence the "≈". Both the Home button and the workout screen build the day's plan with `buildDailyPlan` (`workout_provider.dart`), so the estimate is of the plan that will actually run; `todayPlanProvider` rebuilds with `homeDataProvider`. It is shown on the "Again" button too ("Again (≈ N min)"): a bonus workout adds two supplementary exercises, and `buildDailyPlan` picks them with a seeded `Random` (`WorkoutGeneratorService.supplementarySeed(date, workouts done today)`), so Home and the workout screen, each building the plan on its own, get the same two; the next bonus workout (one more done today) gets others. `daily_plan_test.dart` proves the two sides agree, with real repositories.
 
@@ -402,6 +403,18 @@ Warmup: `warmup_neck_rolls` ✅. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_s
 | 4 | `neck_s4_wall_angel` | Wall Angels | reps | ✅ (side) |
 | 5 | `neck_s5_doorway_stretch` | Doorway Pec Stretch | timed | ✅ (front) |
 
+### Evening Stretch — four branches (0.8.20, no animations yet)
+A calm stretch before sleep (content agreed with the owner, DEV_NOTES § Roadmap 2b-1). No stage repeats a Flex / Posture / Neck stage. Every stage: sets 1→2, rest 15→10 s, `spBase` 1; ↔ = `perSide`. Warm-up of every branch: `warmup_neck_rolls`; cool-down of every branch: `cooldown_lying_relaxation` (so each evening workout ends lying down, once). Only `evening_back_s1_cat_cow` has an animation (it reuses `cooldown_cat_cow.json`); the other 18 are to be drawn — several need a seated front view in `tools/lottie/frontview.py`.
+
+| Branch (`BranchId`) | Stages (start→target, challenge to enter) |
+|---------------------|--------------------------------------------|
+| `eveningBack` (Back / Спина, 5) | cat-cow 5→12 reps · child's pose 20→60 s (30) · supine twist ↔ 20→60 (30) · sphinx 20→60 (45) · cobra 30→90 (45) |
+| `eveningHips` (Hips / Бёдра, 5) | knees to chest 20→60 · reclined figure four ↔ 20→60 (30) · happy baby 20→60 (30) · butterfly 20→60 (45) · frog 30→90 (45) |
+| `eveningFolds` (Folds / Наклоны, 4) | legs up the wall 30→90 · lying hamstring stretch with a towel ↔ 20→60 (30) · head-to-knee fold ↔ 20→60 (45) · straddle fold 30→90 (45) |
+| `eveningShoulders` (Shoulders / Плечи, 5) | self-hug 20→60 · overhead triceps ↔ 20→60 (30) · eagle arms ↔ 20→60 (30) · puppy pose 30→90 (45) · cow face arms ↔ 20→60 (45) |
+
+Ids: `evening_<branch>_s<N>_<name>` (e.g. `evening_folds_s2_towel_hamstring`). Achievements: `evening_back_complete`, `evening_hips_complete`, `evening_folds_complete`, `evening_shoulders_complete`.
+
 ### Warmup Accessories (stage 0)
 | ID | Name | Used by | Lottie |
 |----|------|---------|--------|
@@ -411,7 +424,7 @@ Warmup: `warmup_neck_rolls` ✅. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_s
 | `warmup_leg_swings` | Leg Swings | Flex | ✅ |
 | `warmup_hip_circles` | Hip Circles | Legs, Posture | ✅ |
 | `warmup_wrist_circles` | Wrist Circles | Balance | ✅ |
-| `warmup_neck_rolls` | Neck Rolls | Neck | ✅ (front) |
+| `warmup_neck_rolls` | Neck Rolls | Neck, every Evening Stretch branch | ✅ (front) |
 
 ### Cooldown Accessories (stage 0)
 | ID | Name | Used by | Lottie |
@@ -422,6 +435,7 @@ Warmup: `warmup_neck_rolls` ✅. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_s
 | `cooldown_quad_stretch` | Quad Stretch | Legs, Posture | ✅ |
 | `cooldown_hip_flexor` | Hip Flexor Stretch | Legs, Posture | ✅ |
 | `cooldown_downward_dog` | Downward-Facing Dog | Balance | ✅ |
+| `cooldown_lying_relaxation` | Lying Relaxation (60 s) | every Evening Stretch branch | ❌ to draw |
 
 ### Supplementary Pool (9 exercises, stage 0)
 `SupplementaryExerciseCatalog.all` — used in custom workouts and bonus sessions. All nine have an animation; `supp_wrist_circles` reuses the existing front-view `warmup_wrist_circles.json`, the other eight are generated by `tools/lottie/gen_supp.py`.
@@ -480,7 +494,7 @@ otherwise                          → 0
 - `nextExercise(progress)` — next stage from catalog
 
 ### WorkoutGeneratorService
-- `generateDailyForCourse({course, courseBranches, preferredMinutes, dayIndexOverride, isPrimary, hasPullUpBar})` — primary method; progress comes from the injected `SkillProgressRepository`; rotates branches by dayIndex (days since 2020-01-01, overridable for tests). N branches by the workout size code (`WorkoutSize`: 5 short / 10 standard / 15 full): min(2,total) at ≤5, min(3,total) at 10, total at ≥15. Warm-up of the first branch, one main exercise per branch, at most two distinct cool-downs; a bonus workout (`isPrimary: false`) gets two supplementary exercises on top, shuffled with an injectable `random` (a fresh `Random()` by default; the app passes the seeded one, see § Workout size). Without a pull-up bar an equipment exercise is swapped for its alternative when one exists (core stage 4 → flutter kicks).
+- `generateDailyForCourse({course, courseBranches, preferredMinutes, dayIndexOverride, isPrimary, hasPullUpBar})` — primary method; progress comes from the injected `SkillProgressRepository`; rotates branches by dayIndex (days since 2020-01-01, overridable for tests). N branches by the workout size code (`WorkoutSize`: 5 short / 10 standard / 15 full): min(2,total) at ≤5, min(3,total) at 10, total at ≥15. Warm-up of the first branch, one main exercise per branch, at most two distinct cool-downs; a bonus workout (`isPrimary: false`) gets two supplementary exercises on top (not in a course where `CourseCatalog.addsSupplementary` is false: Evening Stretch), shuffled with an injectable `random` (a fresh `Random()` by default; the app passes the seeded one, see § Workout size). Without a pull-up bar an equipment exercise is swapped for its alternative when one exists (core stage 4 → flutter kicks).
 - `generateDaily(...)` — legacy wrapper, calls `generateDailyForCourse` with `course: CourseId.calisthenics`.
 - `generateChallenge(branch)` — warmup → current stage (1 easy set) → next stage (challengeTargetReps) → cooldown
 - `fromExerciseIds(List<String> ids)` → `WorkoutPlan` — builds a plan from explicit exercise IDs; uses `startReps/Sets/RestSec`; search order: `byId` → `libraryAll` → `SupplementaryExerciseCatalog.all`
@@ -607,6 +621,7 @@ Both entry points lead to the same flow: `challengeBranchProvider = branch` → 
 **Course initialization on completion:**
 - Calisthenics selected: push (calibrated) + core s1 + legs s1 + balance s1 + pull s1 (if hasPullUpBar)
 - Healthy Body selected: posture s1 + neck s1
+- Evening Stretch selected: its four branches at stage 1 (`SkillProgressRepository` defaults = the stage-1 exercise's own start values)
 
 ---
 
@@ -933,7 +948,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages, the store listings and the native widget's texts are open — see DEV_NOTES § Roadmap |
 | v1.0 | Friends: branch progress no longer shared (QR format 3), so a new branch never changes the format | ✅ 0.8.19 |
 | v1.0 | Progression per branch and per day, in any workout (two courses on one day both progress) | ✅ 0.8.19 |
-| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | 📐 decided 2026-10-07; **Evening Stretch first**, its content agreed 2026-10-08 (4 branches, 19 new exercises) — DEV_NOTES § Roadmap 2b-1; Morning Routine and Yoga to design |
+| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | **Evening Stretch: ✅ code in 0.8.20 (4 branches, 19 exercises, texts in 4 languages), animations and the host Luna open** — § Exercise Catalog, DEV_NOTES § Roadmap 2b-1; Morning Routine and Yoga to design |
 | v1.0 | Per-side holds — a one-sided hold runs side 1 → "switch sides" countdown → side 2, hands-free (prerequisite of Evening Stretch; also for existing one-sided stretches) | ✅ 0.8.20 — § Timed exercises: the get-ready countdown |
 | v1.0 | Course hosts — a character per course (Goro, Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat) on the course cards, the summary and the achievements; Goro keeps Home and every animation | 📐 decided 2026-10-08 — DEV_NOTES § Course hosts |
 | v1.0 | Skala redrawn as a real bull (it was a recoloured Goro with horns) | ✅ 0.8.20 — `tools/characters/gen_skala.py` |

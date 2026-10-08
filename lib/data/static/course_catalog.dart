@@ -20,7 +20,19 @@ class CourseCatalog {
             BranchId.neck,
             BranchId.flex,
           ],
+        CourseId.eveningStretch => const [
+            BranchId.eveningBack,
+            BranchId.eveningHips,
+            BranchId.eveningFolds,
+            BranchId.eveningShoulders,
+          ],
       };
+
+  /// Whether a bonus workout of [course] adds two exercises of the
+  /// supplementary pool. That pool is strength work (Russian twists, side
+  /// plank, calf raises), out of place in a calm stretch before sleep.
+  static bool addsSupplementary(CourseId course) =>
+      course != CourseId.eveningStretch;
 
   static const List<CourseId> all = CourseId.values;
 }

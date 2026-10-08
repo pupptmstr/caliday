@@ -813,6 +813,392 @@ class ExerciseCatalog {
     animationPath: 'assets/animations/flex_s6_pike_stretch.json',
   );
 
+  // ── EVENING STRETCH (no animations yet, except the reused cat-cow) ──────────
+
+  static const Exercise eveningBackS1CatCow = Exercise(
+    id: 'evening_back_s1_cat_cow',
+    name: 'Cat-Cow',
+    description:
+        'On all fours, hands under your shoulders, knees under your hips. Breathing in, let your belly drop and lift your chest; breathing out, round your back toward the ceiling. Move slowly with your breath.',
+    branch: BranchId.eveningBack,
+    stage: 1,
+    type: ExerciseType.reps,
+    startReps: 5,
+    targetReps: 12,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    techniqueTip: 'Let the breath lead: one slow breath in and one out per rep.',
+    animationPath: 'assets/animations/cooldown_cat_cow.json',
+  );
+
+  static const Exercise eveningBackS2ChildsPose = Exercise(
+    id: 'evening_back_s2_childs_pose',
+    name: "Child's Pose",
+    description:
+        'Kneel with your big toes together and knees apart. Sit back on your heels and lay your chest down between your knees, arms stretched forward, forehead on the floor. Breathe into your back.',
+    branch: BranchId.eveningBack,
+    stage: 2,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Let your hips sink toward your heels with every breath out.',
+  );
+
+  static const Exercise eveningBackS3SupineTwist = Exercise(
+    id: 'evening_back_s3_supine_twist',
+    name: 'Supine Twist',
+    description:
+        'Lie on your back, arms out to the sides. Bend one knee and let it fall across your body to the floor, looking the other way. Keep both shoulders down.',
+    branch: BranchId.eveningBack,
+    stage: 3,
+    type: ExerciseType.timed,
+    perSide: true,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: "Don't push the knee down: the weight of the leg does the work.",
+  );
+
+  static const Exercise eveningBackS4Sphinx = Exercise(
+    id: 'evening_back_s4_sphinx',
+    name: 'Sphinx',
+    description:
+        'Lie on your stomach, elbows under your shoulders, forearms on the floor. Lift your chest; your hips and legs stay relaxed on the floor.',
+    branch: BranchId.eveningBack,
+    stage: 4,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Draw your shoulders away from your ears; the arch is gentle, never pinching.',
+  );
+
+  static const Exercise eveningBackS5Cobra = Exercise(
+    id: 'evening_back_s5_cobra',
+    name: 'Cobra',
+    description:
+        'Lie on your stomach, hands under your shoulders. Press up and straighten your arms as far as your lower back allows; your hips stay on the floor.',
+    branch: BranchId.eveningBack,
+    stage: 5,
+    type: ExerciseType.timed,
+    startReps: 30,
+    targetReps: 90,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Keep the elbows soft and the shoulders down; stop where your back feels good.',
+  );
+
+  static const Exercise eveningHipsS1KneesToChest = Exercise(
+    id: 'evening_hips_s1_knees_to_chest',
+    name: 'Knees to Chest',
+    description:
+        'Lie on your back, hug both knees to your chest and hold. You may rock gently from side to side.',
+    branch: BranchId.eveningHips,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    techniqueTip: 'Keep your lower back and your head on the floor.',
+  );
+
+  static const Exercise eveningHipsS2FigureFour = Exercise(
+    id: 'evening_hips_s2_figure_four',
+    name: 'Reclined Figure Four',
+    description:
+        'Lie on your back, knees bent. Cross one ankle over the other knee, then pull that thigh toward your chest until you feel the stretch in the buttock.',
+    branch: BranchId.eveningHips,
+    stage: 2,
+    type: ExerciseType.timed,
+    perSide: true,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Press the crossed knee gently away from you to go deeper.',
+  );
+
+  static const Exercise eveningHipsS3HappyBaby = Exercise(
+    id: 'evening_hips_s3_happy_baby',
+    name: 'Happy Baby',
+    description:
+        'Lie on your back, bring your knees toward your armpits and hold the outer edges of your feet, soles to the ceiling. Gently pull your knees toward the floor.',
+    branch: BranchId.eveningHips,
+    stage: 3,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Keep your tailbone down; rocking a little is fine.',
+  );
+
+  static const Exercise eveningHipsS4Butterfly = Exercise(
+    id: 'evening_hips_s4_butterfly',
+    name: 'Butterfly',
+    description:
+        'Sit up tall with the soles of your feet together and your knees out to the sides. Hold your feet and let your knees sink toward the floor.',
+    branch: BranchId.eveningHips,
+    stage: 4,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Stay tall; to go deeper, lean forward from your hips.',
+  );
+
+  static const Exercise eveningHipsS5Frog = Exercise(
+    id: 'evening_hips_s5_frog',
+    name: 'Frog',
+    description:
+        'On all fours, slide your knees wide apart, ankles in line with the knees, feet turned out. Lower onto your forearms and ease your hips back.',
+    branch: BranchId.eveningHips,
+    stage: 5,
+    type: ExerciseType.timed,
+    startReps: 30,
+    targetReps: 90,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Open only as far as it feels like a stretch, never a pain in the knees.',
+  );
+
+  static const Exercise eveningFoldsS1LegsUpWall = Exercise(
+    id: 'evening_folds_s1_legs_up_wall',
+    name: 'Legs Up the Wall',
+    description:
+        'Lie on your back with your hips close to a wall and your legs straight up along it. Arms relaxed at your sides; breathe slowly.',
+    branch: BranchId.eveningFolds,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 30,
+    targetReps: 90,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    techniqueTip: 'Bend your knees a little if the backs of your legs pull too much.',
+  );
+
+  static const Exercise eveningFoldsS2TowelHamstring = Exercise(
+    id: 'evening_folds_s2_towel_hamstring',
+    name: 'Lying Hamstring Stretch',
+    description:
+        'Lie on your back, loop a towel around one foot and raise that leg as straight as you can. The other leg stays on the floor.',
+    branch: BranchId.eveningFolds,
+    stage: 2,
+    type: ExerciseType.timed,
+    perSide: true,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Pull with the towel, not with your back: your hips stay on the floor.',
+  );
+
+  static const Exercise eveningFoldsS3HeadToKnee = Exercise(
+    id: 'evening_folds_s3_head_to_knee',
+    name: 'Head-to-Knee Fold',
+    description:
+        'Sit with one leg straight and the other foot against the inside of that thigh. Fold forward over the straight leg, reaching toward the foot.',
+    branch: BranchId.eveningFolds,
+    stage: 3,
+    type: ExerciseType.timed,
+    perSide: true,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Lead with your chest, not your head; the straight knee may bend a little.',
+  );
+
+  static const Exercise eveningFoldsS4StraddleFold = Exercise(
+    id: 'evening_folds_s4_straddle_fold',
+    name: 'Straddle Fold',
+    description:
+        'Sit with your legs wide apart, knees pointing up. Walk your hands forward and lower your body toward the floor between your legs.',
+    branch: BranchId.eveningFolds,
+    stage: 4,
+    type: ExerciseType.timed,
+    startReps: 30,
+    targetReps: 90,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Tilt from your hips with a long back; rounding the back adds nothing.',
+  );
+
+  static const Exercise eveningShouldersS1SelfHug = Exercise(
+    id: 'evening_shoulders_s1_self_hug',
+    name: 'Self-Hug',
+    description:
+        'Sitting or standing, wrap your arms around yourself and hold your shoulder blades. Let your upper back round and breathe into it.',
+    branch: BranchId.eveningShoulders,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    techniqueTip: 'Relax your neck and let your chin drop a little.',
+  );
+
+  static const Exercise eveningShouldersS2TricepsStretch = Exercise(
+    id: 'evening_shoulders_s2_triceps_stretch',
+    name: 'Overhead Triceps Stretch',
+    description:
+        'Raise one arm, bend the elbow and let your hand drop behind your neck. Use the other hand to ease the elbow back.',
+    branch: BranchId.eveningShoulders,
+    stage: 2,
+    type: ExerciseType.timed,
+    perSide: true,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Keep your head up and your ribs down.',
+  );
+
+  static const Exercise eveningShouldersS3EagleArms = Exercise(
+    id: 'evening_shoulders_s3_eagle_arms',
+    name: 'Eagle Arms',
+    description:
+        'Cross one arm under the other at the elbows, bend them and bring your palms together. Lift your elbows to shoulder height.',
+    branch: BranchId.eveningShoulders,
+    stage: 3,
+    type: ExerciseType.timed,
+    perSide: true,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: "If your palms don't meet, press the backs of your hands together.",
+  );
+
+  static const Exercise eveningShouldersS4PuppyPose = Exercise(
+    id: 'evening_shoulders_s4_puppy_pose',
+    name: 'Puppy Pose',
+    description:
+        'On all fours, walk your hands forward and lower your chest toward the floor, hips above your knees, arms straight.',
+    branch: BranchId.eveningShoulders,
+    stage: 4,
+    type: ExerciseType.timed,
+    startReps: 30,
+    targetReps: 90,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Rest your forehead on the floor and let your chest melt down.',
+  );
+
+  static const Exercise eveningShouldersS5CowFaceArms = Exercise(
+    id: 'evening_shoulders_s5_cow_face_arms',
+    name: 'Cow Face Arms',
+    description:
+        "Reach one hand down behind your neck and the other up behind your back, and try to hook your fingers. If they don't meet, hold a towel between your hands.",
+    branch: BranchId.eveningShoulders,
+    stage: 5,
+    type: ExerciseType.timed,
+    perSide: true,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 45,
+    techniqueTip: 'Keep the upper elbow pointing up and your back straight.',
+  );
+
+  /// Lying relaxation: the one cool-down of every Evening Stretch branch.
+  static const Exercise cooldownLyingRelaxation = Exercise(
+    id: 'cooldown_lying_relaxation',
+    name: 'Lying Relaxation',
+    description:
+        'Lie on your back, arms by your sides, palms up. Close your eyes and breathe slowly; let your whole body go heavy.',
+    branch: BranchId.eveningBack,
+    stage: 0,
+    type: ExerciseType.timed,
+    startReps: 60,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 1,
+    startRestSec: 0,
+    targetRestSec: 0,
+    spBase: 0,
+    techniqueTip: 'Breathe out longer than you breathe in.',
+  );
+
   // ── WARMUP / COOLDOWN (stage 0) ──────────────────────────────────────────
   //
   // These are accessories used at the start and end of any session.
@@ -1405,6 +1791,41 @@ class ExerciseCatalog {
     neckS5DoorwayStretch,
   ];
 
+  /// Evening Stretch — Back progression ordered by stage.
+  static const List<Exercise> eveningBackProgression = [
+    eveningBackS1CatCow,
+    eveningBackS2ChildsPose,
+    eveningBackS3SupineTwist,
+    eveningBackS4Sphinx,
+    eveningBackS5Cobra,
+  ];
+
+  /// Evening Stretch — Hips progression ordered by stage.
+  static const List<Exercise> eveningHipsProgression = [
+    eveningHipsS1KneesToChest,
+    eveningHipsS2FigureFour,
+    eveningHipsS3HappyBaby,
+    eveningHipsS4Butterfly,
+    eveningHipsS5Frog,
+  ];
+
+  /// Evening Stretch — Folds progression ordered by stage.
+  static const List<Exercise> eveningFoldsProgression = [
+    eveningFoldsS1LegsUpWall,
+    eveningFoldsS2TowelHamstring,
+    eveningFoldsS3HeadToKnee,
+    eveningFoldsS4StraddleFold,
+  ];
+
+  /// Evening Stretch — Shoulders progression ordered by stage.
+  static const List<Exercise> eveningShouldersProgression = [
+    eveningShouldersS1SelfHug,
+    eveningShouldersS2TricepsStretch,
+    eveningShouldersS3EagleArms,
+    eveningShouldersS4PuppyPose,
+    eveningShouldersS5CowFaceArms,
+  ];
+
   /// Warmup exercises (stage = 0).
   static const List<Exercise> warmups = [
     warmupArmRotations,
@@ -1424,6 +1845,7 @@ class ExerciseCatalog {
     cooldownQuadStretch,
     cooldownHipFlexor,
     cooldownDownwardDog,
+    cooldownLyingRelaxation,
   ];
 
   /// All exercises available for browsing and building custom routines.
@@ -1441,6 +1863,10 @@ class ExerciseCatalog {
     ...flexProgression,
     ...postureProgression,
     ...neckProgression,
+    ...eveningBackProgression,
+    ...eveningHipsProgression,
+    ...eveningFoldsProgression,
+    ...eveningShouldersProgression,
     ...warmups,
     ...cooldowns,
   ];
@@ -1455,6 +1881,10 @@ class ExerciseCatalog {
     ...flexProgression,
     ...postureProgression,
     ...neckProgression,
+    ...eveningBackProgression,
+    ...eveningHipsProgression,
+    ...eveningFoldsProgression,
+    ...eveningShouldersProgression,
     ...warmups,
     ...cooldowns,
   ];
@@ -1469,6 +1899,10 @@ class ExerciseCatalog {
         BranchId.flex => flexProgression,
         BranchId.posture => postureProgression,
         BranchId.neck => neckProgression,
+        BranchId.eveningBack => eveningBackProgression,
+        BranchId.eveningHips => eveningHipsProgression,
+        BranchId.eveningFolds => eveningFoldsProgression,
+        BranchId.eveningShoulders => eveningShouldersProgression,
       };
 
   /// Returns the exercise for [branch] at [stage], or null if not found.
@@ -1503,6 +1937,11 @@ class ExerciseCatalog {
         BranchId.flex => warmupLegSwings,
         BranchId.posture => warmupHipCircles,
         BranchId.neck => warmupNeckRolls,
+        BranchId.eveningBack ||
+        BranchId.eveningHips ||
+        BranchId.eveningFolds ||
+        BranchId.eveningShoulders =>
+          warmupNeckRolls,
       };
 
   /// Returns the cooldown exercise(s) for the given [branch].
@@ -1515,5 +1954,10 @@ class ExerciseCatalog {
         BranchId.flex => [cooldownCatCow],
         BranchId.posture => [cooldownHipFlexor, cooldownQuadStretch],
         BranchId.neck => [cooldownCatCow, cooldownShoulderStretch],
+        BranchId.eveningBack ||
+        BranchId.eveningHips ||
+        BranchId.eveningFolds ||
+        BranchId.eveningShoulders =>
+          [cooldownLyingRelaxation],
       };
 }

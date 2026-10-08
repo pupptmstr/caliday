@@ -645,10 +645,12 @@ extension CourseIdOnboarding on CourseId {
   String get emoji => switch (this) {
         CourseId.calisthenics => '🦍',
         CourseId.healthyBody => '🌿',
+        CourseId.eveningStretch => '🦉',
       };
 
   String localizedDescription(AppLocalizations l10n) => switch (this) {
         CourseId.calisthenics => l10n.courseDescCalisthenics,
         CourseId.healthyBody => l10n.courseDescHealthyBody,
+        CourseId.eveningStretch => l10n.courseDescEveningStretch,
       };
 }

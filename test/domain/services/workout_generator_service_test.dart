@@ -43,6 +43,34 @@ List<PlannedExercise> _main(WorkoutPlan plan) =>
     plan.exercises.where((e) => e.exercise.stage > 0).toList();
 
 void main() {
+  group('Evening Stretch', () {
+    final evening = CourseCatalog.branchesFor(CourseId.eveningStretch);
+
+    test('neck rolls first, one stretch per branch, the lying relaxation last', () {
+      final plan = _generator().generateDailyForCourse(
+        course: CourseId.eveningStretch,
+        courseBranches: evening,
+        preferredMinutes: 15, // Full: every branch
+        dayIndexOverride: 0,
+      );
+      expect(_ids(plan).first, 'warmup_neck_rolls');
+      expect(_main(plan).map((e) => e.exercise.branch), evening);
+      expect(_ids(plan).last, 'cooldown_lying_relaxation');
+      expect(_ids(plan).where((id) => id == 'cooldown_lying_relaxation'), hasLength(1));
+    });
+
+    test('four branches, so Standard (3) and Full (all) differ', () {
+      int mainCount(int minutes) => _main(_generator().generateDailyForCourse(
+            course: CourseId.eveningStretch,
+            courseBranches: evening,
+            preferredMinutes: minutes,
+            dayIndexOverride: 0,
+          )).length;
+      expect(evening, hasLength(4));
+      expect([mainCount(5), mainCount(10), mainCount(15)], [2, 3, 4]);
+    });
+  });
+
   group('generateDailyForCourse', () {
     test('an empty branch list gives an empty plan', () {
       final plan = _generator().generateDailyForCourse(
@@ -215,6 +243,18 @@ void main() {
           course: CourseId.calisthenics,
           courseBranches: _calisthenics,
           dayIndexOverride: 0,
+        );
+        final supplementary =
+            SupplementaryExerciseCatalog.all.map((e) => e.id).toSet();
+        expect(_ids(plan).where(supplementary.contains), isEmpty);
+      });
+
+      test('Evening Stretch adds no supplementary exercises, even to a bonus workout', () {
+        final plan = _generator().generateDailyForCourse(
+          course: CourseId.eveningStretch,
+          courseBranches: CourseCatalog.branchesFor(CourseId.eveningStretch),
+          dayIndexOverride: 0,
+          isPrimary: false,
         );
         final supplementary =
             SupplementaryExerciseCatalog.all.map((e) => e.id).toSet();

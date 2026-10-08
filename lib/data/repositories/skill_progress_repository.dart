@@ -3,6 +3,7 @@ import 'package:hive_ce/hive_ce.dart';
 
 import '../models/enums.dart';
 import '../models/skill_progress.dart';
+import '../static/exercise_catalog.dart';
 
 /// Provides access to per-branch [SkillProgress] records stored in Hive.
 ///
@@ -116,6 +117,19 @@ class SkillProgressRepository {
           currentReps: 15,
           currentSets: 1,
           currentRestSec: 15,
+        );
+      case BranchId.eveningBack:
+      case BranchId.eveningHips:
+      case BranchId.eveningFolds:
+      case BranchId.eveningShoulders:
+        // The stage-1 exercise's own starting values.
+        final first = ExerciseCatalog.forStage(branch, 1)!;
+        return SkillProgress(
+          branchId: branch,
+          currentStage: 1,
+          currentReps: first.startReps,
+          currentSets: first.startSets,
+          currentRestSec: first.startRestSec,
         );
     }
   }
