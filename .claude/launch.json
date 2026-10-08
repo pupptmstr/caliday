@@ -6,6 +6,12 @@
       "runtimeExecutable": "flutter",
       "runtimeArgs": ["run", "-d", "web-server", "--web-port", "8099"],
       "port": 8099
+    },
+    {
+      "name": "lottie-sheets",
+      "runtimeExecutable": "python",
+      "runtimeArgs": ["-m", "http.server", "8098", "--directory", "build"],
+      "port": 8098
     }
   ]
 }
