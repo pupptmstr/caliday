@@ -1236,6 +1236,7 @@ class ExerciseCatalog {
     targetRestSec: 10,
     spBase: 1,
     techniqueTip: 'Lean straight to the side, not forward; your hips stay still.',
+    animationPath: 'assets/animations/morning_spine_s1_side_bend.json',
   );
 
   static const Exercise morningSpineS2TorsoTwist = Exercise(
@@ -1275,6 +1276,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 8,
     techniqueTip: 'Bend at the hips, not at the waist: your back stays straight the whole way.',
+    animationPath: 'assets/animations/morning_spine_s3_good_morning.json',
   );
 
   static const Exercise morningSpineS4RollDown = Exercise(
@@ -1294,6 +1296,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 4,
     techniqueTip: 'Bend your knees as much as you need; the point is the spine, not touching the floor.',
+    animationPath: 'assets/animations/morning_spine_s4_roll_down.json',
   );
 
   static const Exercise morningSpineS5Windmill = Exercise(
@@ -1352,6 +1355,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 8,
     techniqueTip: 'Hold on to a wall or a chair if you wobble; keep your chest up.',
+    animationPath: 'assets/animations/morning_joints_s2_open_the_gate.json',
   );
 
   static const Exercise morningJointsS3KneeHug = Exercise(
@@ -1371,6 +1375,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 8,
     techniqueTip: 'Rise slowly and look at a point in front of you to keep your balance.',
+    animationPath: 'assets/animations/morning_joints_s3_knee_hug.json',
   );
 
   static const Exercise morningJointsS4SideLunge = Exercise(
@@ -1390,6 +1395,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 8,
     techniqueTip: 'Your bent knee points the same way as your toes.',
+    animationPath: 'assets/animations/morning_joints_s4_side_lunge.json',
   );
 
   static const Exercise morningJointsS5CossackSquat = Exercise(
@@ -1409,6 +1415,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 6,
     techniqueTip: 'Keep the heel of the bent leg down; reach your arms forward for balance.',
+    animationPath: 'assets/animations/morning_joints_s5_cossack_squat.json',
   );
 
   static const Exercise morningArmsS1ArmSwings = Exercise(
@@ -1427,6 +1434,7 @@ class ExerciseCatalog {
     targetRestSec: 10,
     spBase: 1,
     techniqueTip: 'Open your chest at the wide point and breathe in.',
+    animationPath: 'assets/animations/morning_arms_s1_arm_swings.json',
   );
 
   static const Exercise morningArmsS2YRaises = Exercise(
@@ -1446,6 +1454,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 10,
     techniqueTip: 'Lift with the shoulder blades, not by arching your lower back.',
+    animationPath: 'assets/animations/morning_arms_s2_y_raises.json',
   );
 
   static const Exercise morningArmsS3CactusArms = Exercise(
@@ -1465,6 +1474,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 10,
     techniqueTip: 'Move slowly: only the forearms travel, the elbows stay at shoulder height.',
+    animationPath: 'assets/animations/morning_arms_s3_cactus_arms.json',
   );
 
   static const Exercise morningArmsS4Inchworm = Exercise(
@@ -1484,6 +1494,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 4,
     techniqueTip: 'In the plank, keep your body in one straight line.',
+    animationPath: 'assets/animations/morning_arms_s4_inchworm.json',
   );
 
   static const Exercise morningArmsS5PlankToDog = Exercise(
@@ -1503,6 +1514,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 5,
     techniqueTip: 'Push the floor away with your hands and let your head hang between your arms.',
+    animationPath: 'assets/animations/morning_arms_s5_plank_to_dog.json',
   );
 
   static const Exercise morningEnergyS1StepJacks = Exercise(
@@ -1521,6 +1533,7 @@ class ExerciseCatalog {
     targetRestSec: 10,
     spBase: 1,
     techniqueTip: 'Stay light on your feet and never jump, so nobody wakes up.',
+    animationPath: 'assets/animations/morning_energy_s1_step_jacks.json',
   );
 
   static const Exercise morningEnergyS2ButtKicks = Exercise(
@@ -1540,6 +1553,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: 'Quiet steps on the balls of your feet: brisk, but no jumping.',
+    animationPath: 'assets/animations/morning_energy_s2_butt_kicks.json',
   );
 
   static const Exercise morningEnergyS3CrossCrunch = Exercise(
@@ -1559,6 +1573,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: 'Turn from the waist and open your chest between reps.',
+    animationPath: 'assets/animations/morning_energy_s3_cross_crunch.json',
   );
 
   static const Exercise morningEnergyS4SpeedSkater = Exercise(
@@ -1598,6 +1613,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 30,
     techniqueTip: "Hips level with your shoulders; don't let them pop up.",
+    animationPath: 'assets/animations/morning_energy_s5_mountain_climbers.json',
   );
 
   /// Morning stretch-up: the one warm-up of every Morning Routine branch.
@@ -1617,6 +1633,7 @@ class ExerciseCatalog {
     targetRestSec: 0,
     spBase: 0,
     techniqueTip: 'Reach long through your fingertips; wake up slowly.',
+    animationPath: 'assets/animations/warmup_morning_stretch_up.json',
   );
 
   /// Shake-out: the one cool-down of every Morning Routine branch.
@@ -1636,6 +1653,7 @@ class ExerciseCatalog {
     targetRestSec: 0,
     spBase: 0,
     techniqueTip: 'Let everything hang loose: wrists, shoulders, jaw.',
+    animationPath: 'assets/animations/cooldown_shake_out.json',
   );
 
   // ── WARMUP / COOLDOWN (stage 0) ──────────────────────────────────────────

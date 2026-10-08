@@ -625,53 +625,57 @@ def step_jacks():
 
 # ── morning_energy_s3_cross_crunch ───────────────────────────────────────────
 # Hands behind the head, elbows wide. One knee comes up towards the camera and
-# across while the opposite elbow comes down to meet it (that shoulder drops
-# and turns in, the torso narrows); then the other side.
+# across while the torso crunches towards it (it shortens, leans, the head
+# drops) and the opposite elbow comes forward and down in front of the chest to
+# the knee (the upper arm foreshortens on the way, towards the camera). No
+# segment is ever drawn longer than it is: the forearm reaches back towards the
+# head as far as it can, so the fist comes off the head to the chin.
 
 def cross_crunch():
-    T = 48
+    T = 56
 
     def pose(t):
-        s = 1 if t < 24 else -1                     # the knee that lifts
-        u = ramp(t % 24, [(0, 0), (1, 0), (11, 1), (13, 1), (23, 0), (24, 0)])
+        s = 1 if t < 28 else -1                     # the knee that lifts
+        u = ramp(t % 28, [(0, 0), (1, 0), (13, 1), (15, 1), (27, 0), (28, 0)])
         hips = (200 + s * 2 * u, 288 - 2 * u)
-        knee_side = 'r' if s > 0 else 'l'
         hx = hips[0] + s * HIP_DX
         # the knee comes up towards the camera to hip height (never past the
         # hip joint, or the foreshortened thigh would flip)
-        lifted = dict(knee=(hx - s * 8 * u, 334 - 44 * u), ankle=(hx - s * 4 * u, 372 - 40 * u),
-                      near=1 + 0.4 * u) if u > 1e-6 else None
-        legs = figure(hips=hips, **{'leg_' + knee_side: lifted})
-        ts = (1 - 0.12 * u, 1 - 0.1 * u)
-        lean = s * 6 * u
+        knee = (hx - s * 12 * u, 334 - 44 * u)
+        lifted = dict(knee=knee, ankle=(hx - s * 7 * u, 372 - 40 * u),
+                      near=1 + 0.45 * u) if u > 1e-6 else None
+        legs = figure(hips=hips, **{'leg_' + ('r' if s > 0 else 'l'): lifted})
+        ts = (1 - 0.12 * u, 1 - 0.2 * u)
+        lean = s * 10 * u
         c = add(hips, rot((0, -51 * ts[1]), lean))
-        sh_def = shoulder_points(c, lean, ts)
-        head_c = add(c, (s * 6 * u, -54 * ts[1] - 36 + 8 * u))
-        arms, offs = {}, {}
-        for i, (side, sx) in enumerate((('l', -1), ('r', 1))):
-            crunching = sx == -s                    # the elbow that goes to the knee
-            off = (s * 14 * u, 12 * u) if crunching else (0, -2 * u)
-            offs['sh_' + side] = off
-            shp = add(sh_def[i], off)
-            wrist = (head_c[0] + sx * 14, head_c[1] - 4)
-            rest_e = elbow_of(shp, wrist, (sx, -0.4))[0]
-            if crunching:
-                # the upper arm turns down to the knee by its angle
-                tgt = (hx - s * 10, 262.0)
-                a0 = ang_of(rest_e[0] - shp[0], rest_e[1] - shp[1])
-                a1 = ang_of(tgt[0] - shp[0], tgt[1] - shp[1])
-                delta = (a1 - a0) % 360           # always round the outside
-                if sx < 0:
-                    delta -= 360
-                a = a0 + delta * u
-                r0, r1 = math.dist(rest_e, shp), math.dist(tgt, shp)
-                elbow = add(shp, mul(dirv(a), r0 + (r1 - r0) * u))
+        top = dict(hips=hips_for(c, lean), lean=lean, torso_scale=ts,
+                   head=(s * 8 * u, 20 * u, s * 6 * u),
+                   sh_l=(s * 10 * u, 10 * u) if s > 0 else (0, -2 * u),
+                   sh_r=(s * 10 * u, 10 * u) if s < 0 else (0, -2 * u))
+        probe = figure(**top)
+        head_p = probe['head']['p']
+        arms = {}
+        for side, sx in (('l', -1), ('r', 1)):
+            sh = probe['cap_' + side]['p']
+            behind = add(head_p, (sx * 14, -4))     # at the back of the head
+            rest_e = elbow_of(sh, behind, (sx, -0.4))[0]
+            if sx == -s:                            # comes down to the knee
+                to_knee = (knee[0] - sh[0], knee[1] - sh[1])
+                down_e = add(sh, mul(to_knee, UARM / (math.hypot(*to_knee) or 1.0)))
+                # the chord, bowed a little outwards so the short upper arm
+                # does not spin round the shoulder; never longer than it is
+                bow = math.sin(math.pi * u)
+                elbow = add(mix(rest_e, down_e, u), (sx * 20 * bow, 8 * bow))
+                e = (elbow[0] - sh[0], elbow[1] - sh[1])
+                if math.hypot(*e) > UARM:
+                    elbow = add(sh, mul(e, UARM / math.hypot(*e)))
+                d = (behind[0] - elbow[0], behind[1] - elbow[1])
+                n = math.hypot(*d) or 1.0
+                wrist = behind if n <= FARM else add(elbow, mul(d, FARM / n))
                 arms['arm_' + side] = (wrist, (0, 1), elbow)
             else:
-                arms['arm_' + side] = (wrist, (sx, -0.4))
-        upper = figure(hips=hips_for(c, lean), lean=lean, torso_scale=ts,
-                       head=(s * 6 * u, 8 * u, s * 4 * u), **offs, **arms)
-        return compose(legs, upper)
+                arms['arm_' + side] = (behind, (sx, -0.4))
+        return compose(legs, figure(**top, **arms))
 
     # hands behind the head: the head is drawn over the fists and forearms
     return Animation('morning_energy_s3_cross_crunch', T, pose, order=HEAD_OVER_HANDS)
