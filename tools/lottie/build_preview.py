@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds a self-contained preview page that plays Lottie animations.
 
-Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening]
+Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning]
                                               [--out FILE] [--fragment]
                                               [--dir DIR] [name ...]
 
@@ -239,6 +239,22 @@ EVENING_INFO = {
 }
 INFO.update(EVENING_INFO)
 
+MORNING_INFO = {
+    'morning_spine_s2_torso_twist': (
+        'Повороты корпуса', 'Позвоночник · этап 2', '10–24 повторения',
+        'Спереди: таз смотрит прямо, корпус поворачивается, руки свободно обвивают его — одна по животу, другая за спину.'),
+    'morning_spine_s5_windmill': (
+        'Мельница', 'Позвоночник · этап 5', '6–16 повторений',
+        'Спереди: ноги широко, руки в стороны; наклон с поворотом — рука к противоположной стопе, другая вверх, руки вращаются как крылья мельницы.'),
+    'morning_joints_s1_knee_circles': (
+        'Круги коленями', 'Суставы · этап 1', '8–20 повторений',
+        'Спереди: стопы вместе, наклон, ладони над коленями; колени описывают круги — два в одну сторону, два в другую.'),
+    'morning_energy_s4_speed_skater': (
+        'Конькобежец без прыжка', 'Бодрость · этап 4', '20–45 с',
+        'Спереди: шаг в сторону, вес на согнутую ногу, другая уходит назад за неё, рука махом через корпус; затем в другую сторону.'),
+}
+INFO.update(MORNING_INFO)
+
 # name -> (page title, heading, lead, file names). A card's file may differ from
 # its id (supp_wrist_circles reuses warmup_wrist_circles.json).
 PRESETS = {
@@ -300,6 +316,11 @@ PRESETS = {
         'сбоку, скручивание, «четвёрка» и лягушка сверху. Упражнения на одну сторону показаны на одной '
         'стороне: вторую приложение отсчитывает само.',
         [(n, None) for n in EVENING_INFO]),
+    'morning': (
+        'Стенд утренней зарядки', 'Анимации курса «Утренняя зарядка»',
+        'Анимации курса, как они играют в приложении: по кругу, 12 кадров в секунду. Все позы стоя; '
+        'повороты, мельница, круги коленями и конькобежец показаны спереди.',
+        [(n, None) for n in MORNING_INFO]),
     'cooldown': (
         'Стенд заминки Cat-Cow', 'Заминка «Кошка-корова»',
         'Новая анимация заминки Core, Flex и Neck, как она играет в приложении: по кругу, '
