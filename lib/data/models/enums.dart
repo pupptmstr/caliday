@@ -29,6 +29,18 @@ enum BranchId {
 
   @HiveField(7)
   neck,
+
+  @HiveField(8)
+  eveningBack,
+
+  @HiveField(9)
+  eveningHips,
+
+  @HiveField(10)
+  eveningFolds,
+
+  @HiveField(11)
+  eveningShoulders,
 }
 
 @HiveType(typeId: 10)
@@ -38,6 +50,9 @@ enum CourseId {
 
   @HiveField(1)
   healthyBody,
+
+  @HiveField(2)
+  eveningStretch,
 }
 
 @HiveType(typeId: 5)
@@ -148,6 +163,33 @@ extension CourseIdExtension on CourseId {
   String localizedName(AppLocalizations l10n) => switch (this) {
         CourseId.calisthenics => l10n.courseNameCalisthenics,
         CourseId.healthyBody => l10n.courseNameHealthyBody,
+        CourseId.eveningStretch => l10n.courseNameEveningStretch,
+      };
+
+  /// The course host's portrait (course cards): its happy face. Goro, Raffi
+  /// the giraffe, Luna the owl; art from tools/characters/gen_hosts.py.
+  String get hostPortrait => hostFace('happy');
+
+  /// One of the host's six faces (Home), by mood name: happy, sad, angry,
+  /// sleeping, excited, supportive.
+  String hostFace(String mood) => switch (this) {
+        CourseId.calisthenics => 'assets/goro/goro_face_$mood.svg',
+        CourseId.healthyBody => 'assets/hosts/raffi_face_$mood.svg',
+        CourseId.eveningStretch => 'assets/hosts/luna_face_$mood.svg',
+      };
+
+  /// The host standing calmly (Profile).
+  String get hostIdle => switch (this) {
+        CourseId.calisthenics => 'assets/goro/goro_idle_v2.svg',
+        CourseId.healthyBody => 'assets/hosts/raffi_idle.svg',
+        CourseId.eveningStretch => 'assets/hosts/luna_idle.svg',
+      };
+
+  /// The course host cheering on the summary of a workout of this course.
+  String get hostCheer => switch (this) {
+        CourseId.calisthenics => 'assets/goro/goro_flex_v2.svg',
+        CourseId.healthyBody => 'assets/hosts/raffi_cheer.svg',
+        CourseId.eveningStretch => 'assets/hosts/luna_cheer.svg',
       };
 }
 
@@ -234,6 +276,10 @@ extension BranchIdExtension on BranchId {
         BranchId.flex => '🧘',
         BranchId.posture => '🏃',
         BranchId.neck => '🦒',
+        BranchId.eveningBack => '🐈',
+        BranchId.eveningHips => '🦋',
+        BranchId.eveningFolds => '🌙',
+        BranchId.eveningShoulders => '🦅',
       };
 
   IconData get icon => switch (this) {
@@ -245,6 +291,10 @@ extension BranchIdExtension on BranchId {
         BranchId.flex => Icons.self_improvement,
         BranchId.posture => Icons.airline_seat_recline_normal,
         BranchId.neck => Icons.person_outline,
+        BranchId.eveningBack => Icons.airline_seat_flat,
+        BranchId.eveningHips => Icons.spa,
+        BranchId.eveningFolds => Icons.nightlight_round,
+        BranchId.eveningShoulders => Icons.accessibility,
       };
 
   String localizedName(AppLocalizations l10n) => switch (this) {
@@ -256,6 +306,10 @@ extension BranchIdExtension on BranchId {
         BranchId.flex => l10n.homeBranchFlex,
         BranchId.posture => l10n.homeBranchPosture,
         BranchId.neck => l10n.homeBranchNeck,
+        BranchId.eveningBack => l10n.homeBranchEveningBack,
+        BranchId.eveningHips => l10n.homeBranchEveningHips,
+        BranchId.eveningFolds => l10n.homeBranchEveningFolds,
+        BranchId.eveningShoulders => l10n.homeBranchEveningShoulders,
       };
 
   int get stageCount => switch (this) {
@@ -267,6 +321,10 @@ extension BranchIdExtension on BranchId {
         BranchId.flex => 6,
         BranchId.posture => 6,
         BranchId.neck => 5,
+        BranchId.eveningBack => 5,
+        BranchId.eveningHips => 5,
+        BranchId.eveningFolds => 4,
+        BranchId.eveningShoulders => 5,
       };
 
   bool get requiresEquipment => this == BranchId.pull;

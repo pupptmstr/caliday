@@ -181,6 +181,68 @@ class ExerciseTagsCatalog {
       ExerciseTag.postureFocus, ExerciseTag.sittingRecovery,
     ],
 
+    // ── Evening Stretch ───────────────────────────────────────────────────────
+    'evening_back_s1_cat_cow': [
+      ExerciseTag.back, ExerciseTag.mobility, ExerciseTag.stretch, ExerciseTag.floorOnly, ExerciseTag.beginner,
+    ],
+    'evening_back_s2_childs_pose': [
+      ExerciseTag.back, ExerciseTag.stretch, ExerciseTag.floorOnly, ExerciseTag.beginner,
+    ],
+    'evening_back_s3_supine_twist': [
+      ExerciseTag.back, ExerciseTag.glutes, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'evening_back_s4_sphinx': [
+      ExerciseTag.back, ExerciseTag.stretch, ExerciseTag.floorOnly, ExerciseTag.postureFocus,
+    ],
+    'evening_back_s5_cobra': [
+      ExerciseTag.back, ExerciseTag.chest, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'evening_hips_s1_knees_to_chest': [
+      ExerciseTag.back, ExerciseTag.glutes, ExerciseTag.stretch, ExerciseTag.floorOnly, ExerciseTag.beginner,
+    ],
+    'evening_hips_s2_figure_four': [
+      ExerciseTag.glutes, ExerciseTag.hipFlexor, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'evening_hips_s3_happy_baby': [
+      ExerciseTag.glutes, ExerciseTag.hipFlexor, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'evening_hips_s4_butterfly': [
+      ExerciseTag.hipFlexor, ExerciseTag.legs, ExerciseTag.stretch, ExerciseTag.mobility, ExerciseTag.floorOnly,
+    ],
+    'evening_hips_s5_frog': [
+      ExerciseTag.hipFlexor, ExerciseTag.legs, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'evening_folds_s1_legs_up_wall': [
+      ExerciseTag.legs, ExerciseTag.stretch, ExerciseTag.floorOnly, ExerciseTag.beginner,
+    ],
+    'evening_folds_s2_towel_hamstring': [
+      ExerciseTag.legs, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'evening_folds_s3_head_to_knee': [
+      ExerciseTag.legs, ExerciseTag.back, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'evening_folds_s4_straddle_fold': [
+      ExerciseTag.legs, ExerciseTag.back, ExerciseTag.stretch, ExerciseTag.mobility, ExerciseTag.floorOnly,
+    ],
+    'evening_shoulders_s1_self_hug': [
+      ExerciseTag.shoulders, ExerciseTag.back, ExerciseTag.stretch, ExerciseTag.beginner, ExerciseTag.sittingRecovery,
+    ],
+    'evening_shoulders_s2_triceps_stretch': [
+      ExerciseTag.shoulders, ExerciseTag.stretch, ExerciseTag.sittingRecovery,
+    ],
+    'evening_shoulders_s3_eagle_arms': [
+      ExerciseTag.shoulders, ExerciseTag.back, ExerciseTag.stretch, ExerciseTag.sittingRecovery,
+    ],
+    'evening_shoulders_s4_puppy_pose': [
+      ExerciseTag.shoulders, ExerciseTag.chest, ExerciseTag.back, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'evening_shoulders_s5_cow_face_arms': [
+      ExerciseTag.shoulders, ExerciseTag.chest, ExerciseTag.stretch, ExerciseTag.mobility,
+    ],
+    'cooldown_lying_relaxation': [
+      ExerciseTag.cooldown, ExerciseTag.floorOnly, ExerciseTag.beginner,
+    ],
+
     // ── Warmups ───────────────────────────────────────────────────────────────
     'warmup_arm_rotations': [
       ExerciseTag.warmup, ExerciseTag.shoulders, ExerciseTag.mobility,

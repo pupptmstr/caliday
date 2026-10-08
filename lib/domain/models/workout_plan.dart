@@ -35,10 +35,15 @@ const int kPrepNewExerciseSec = 10;
 /// The same before the next set of the same exercise: the position is known.
 const int kPrepNextSetSec = 5;
 
-/// Get-ready seconds before set [setIndex] of [planned]. A reps exercise has
+/// The same between the two sides of a [Exercise.perSide] hold.
+const int kPrepSwitchSideSec = 5;
+
+/// Get-ready seconds before set [setIndex] of [planned], on [side] (0 or 1;
+/// only a [Exercise.perSide] hold has a second one). A reps exercise has
 /// nothing that counts down by itself, so it gets none.
-int prepSecFor(PlannedExercise planned, int setIndex) {
+int prepSecFor(PlannedExercise planned, int setIndex, {int side = 0}) {
   if (planned.exercise.type != ExerciseType.timed) return 0;
+  if (side > 0) return kPrepSwitchSideSec;
   return setIndex == 0 ? kPrepNewExerciseSec : kPrepNextSetSec;
 }
 
@@ -61,19 +66,24 @@ class WorkoutPlan {
 
   /// Estimated duration in seconds, following what the workout screen does:
   /// a timed set takes its hold plus the get-ready countdown before it
-  /// ([prepSecFor]), a reps set takes [kSecondsPerRep] per rep, and the rest
-  /// after a set runs everywhere except after the last set of the workout.
-  /// For a plan of timed exercises only, this is exactly the number of ticks
-  /// the run takes (a test steps the real state machine to prove it); reps
-  /// are a guess at the user's pace.
+  /// ([prepSecFor]), twice for a [Exercise.perSide] hold, a reps set takes
+  /// [kSecondsPerRep] per rep, and the rest after a set runs everywhere except
+  /// after the last set of the workout. For a plan of timed exercises only,
+  /// this is exactly the number of ticks the run takes (a test steps the real
+  /// state machine to prove it); reps are a guess at the user's pace.
   int get estimatedDurationSec {
     var total = 0;
     for (var i = 0; i < exercises.length; i++) {
       final e = exercises[i];
       final timed = e.exercise.type == ExerciseType.timed;
       for (var set = 0; set < e.sets; set++) {
-        total += timed ? e.targetAmount : e.targetAmount * kSecondsPerRep;
-        total += prepSecFor(e, set);
+        if (timed) {
+          for (var side = 0; side < e.exercise.holdsPerSet; side++) {
+            total += e.targetAmount + prepSecFor(e, set, side: side);
+          }
+        } else {
+          total += e.targetAmount * kSecondsPerRep;
+        }
         final isLastSet = i == exercises.length - 1 && set == e.sets - 1;
         if (!isLastSet) total += e.restSec;
       }

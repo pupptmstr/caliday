@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/exercise.dart';
 import '../../data/repositories/skill_progress_repository.dart';
+import '../../data/static/course_catalog.dart';
 import '../../data/static/exercise_catalog.dart';
 import '../../data/static/exercise_tags_catalog.dart';
 import '../../data/static/supplementary_exercise_catalog.dart';
@@ -110,8 +111,10 @@ class WorkoutGeneratorService {
       if (addedIds.length >= 2) break;
     }
 
-    // ── 4. Supplementary block (bonus workouts only) ──────────────────────────
-    if (!isPrimary && SupplementaryExerciseCatalog.all.isNotEmpty) {
+    // ── 4. Supplementary block (bonus workouts only, not in every course) ─────
+    if (!isPrimary &&
+        CourseCatalog.addsSupplementary(course) &&
+        SupplementaryExerciseCatalog.all.isNotEmpty) {
       final pool = [...SupplementaryExerciseCatalog.all]..shuffle(random ?? Random());
       for (final supp in pool.take(2)) {
         exercises.add(PlannedExercise(

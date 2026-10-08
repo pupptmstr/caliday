@@ -7,6 +7,7 @@ import 'package:intl/intl.dart';
 import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../friends/providers/friends_provider.dart';
+import '../../home/providers/home_provider.dart' show activeCourseProvider;
 import '../../../data/models/enums.dart';
 import '../../../data/repositories/achievement_repository.dart';
 import '../../../data/repositories/workout_repository.dart';
@@ -115,10 +116,10 @@ class ProfileScreen extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // ── Goro mascot ───────────────────────────────────────────
+              // ── The active course's host ──────────────────────────────
               Center(
                 child: SvgPicture.asset(
-                  'assets/goro/goro_idle_v2.svg',
+                  ref.watch(activeCourseProvider).hostIdle,
                   height: 100,
                 ),
               ),

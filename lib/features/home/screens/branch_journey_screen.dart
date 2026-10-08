@@ -135,7 +135,9 @@ class _StageRow extends StatelessWidget {
     if (isCurrent && p != null) {
       final isTimed = exercise.type == ExerciseType.timed;
       paramsLabel = isTimed
-          ? l10n.branchJourneyParamsTimed(
+          ? (exercise.holdsPerSet > 1
+              ? l10n.branchJourneyParamsTimedPerSide
+              : l10n.branchJourneyParamsTimed)(
               p.currentReps, p.currentSets, p.currentRestSec)
           : l10n.branchJourneyParams(
               p.currentReps, p.currentSets, p.currentRestSec);

@@ -31,6 +31,10 @@ abstract final class AchievementL10n {
         'balance_s6' => l.achievementBalanceS6Name,
         'balance_complete' => l.achievementBalanceCompleteName,
         'flex_complete' => l.achievementFlexCompleteName,
+        'evening_back_complete' => l.achievementEveningBackCompleteName,
+        'evening_hips_complete' => l.achievementEveningHipsCompleteName,
+        'evening_folds_complete' => l.achievementEveningFoldsCompleteName,
+        'evening_shoulders_complete' => l.achievementEveningShouldersCompleteName,
         'all_complete' => l.achievementAllCompleteName,
         _ => id,
       };
@@ -64,6 +68,10 @@ abstract final class AchievementL10n {
         'balance_s6' => l.achievementBalanceS6Desc,
         'balance_complete' => l.achievementBalanceCompleteDesc,
         'flex_complete' => l.achievementFlexCompleteDesc,
+        'evening_back_complete' => l.achievementEveningBackCompleteDesc,
+        'evening_hips_complete' => l.achievementEveningHipsCompleteDesc,
+        'evening_folds_complete' => l.achievementEveningFoldsCompleteDesc,
+        'evening_shoulders_complete' => l.achievementEveningShouldersCompleteDesc,
         'all_complete' => l.achievementAllCompleteDesc,
         _ => '',
       };

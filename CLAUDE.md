@@ -72,6 +72,12 @@ Agent Skills in `.claude/skills/`. Auto-triggered by context.
 | `implement-feature` | When starting a new feature or bug fix |
 | `document-idea` | When a new product idea or proposal appears |
 
+## Branches and Versions (owner's rule, 2026-10-08)
+
+- **Every session works on its own branch** (`session/<date>-<topic>`), never directly on `main`. Create it at the start of the session from an up-to-date `main`.
+- **The version is bumped once per branch**, with the first change that the user sees. Everything else on the branch (more fixes, animations, a feature) goes under that same version: extend its `releaseNotes<version>` text instead of adding a new entry, so one merge gives one "What's new" entry.
+- **The branch is merged into `main` when the owner says it is done.** A push to `main` deploys the web build (`web.yml`); CI also runs on pull requests.
+
 ## Required Pre-Commit Process
 
 Use the `/pre-commit` skill or do manually:

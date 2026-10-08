@@ -57,6 +57,7 @@ class SupplementaryExerciseCatalog {
     branch: BranchId.core,
     stage: 0,
     type: ExerciseType.timed,
+    perSide: true,
     startReps: 20,
     targetReps: 20,
     startSets: 2,

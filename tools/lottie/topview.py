@@ -6,8 +6,10 @@ the camera), so he looks like the existing front-view asset
 fit the whole body. Parts are placed by their end points; a segment is a
 rounded rectangle stretched between two joints.
 
-Currently used by ``supp_oblique_crunch`` (elbow to the opposite knee reads
-clearly from above, while a side view tangled the arms).
+Used by ``supp_oblique_crunch`` (elbow to the opposite knee reads clearly
+from above, while a side view tangled the arms) and, with their own pose
+functions (``TopViewAnimation(name, frames, pose_fn)``), the supine twist and
+the reclined figure four of Evening Stretch (``gen_evening.py``).
 """
 
 import math
@@ -221,23 +223,30 @@ ORDER = ['hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l', 'uarm_r', 'head',
 
 
 class TopViewAnimation:
-    """Spec-compatible object: ``write()`` in goro_rig calls ``build()``."""
+    """Spec-compatible object: ``write()`` in goro_rig calls ``build()``.
+    ``pose_fn(t)`` returns the layer transforms of frame ``t`` (by default the
+    oblique crunch); ``order`` lists the layers, top first."""
 
-    def __init__(self, name, frames, step=2):
+    def __init__(self, name, frames, pose_fn=None, order=None, step=2,
+                 shapes_fn=None):
         self.name = name
         self.frames = frames
+        self.pose_fn = pose_fn or _pose
+        self.order = order or ORDER
         self.step = step
+        # Layer name -> shapes; e.g. Goro seen from above lying face down.
+        self.shapes_fn = shapes_fn or _shapes
 
     def build(self):
         times = list(range(0, self.frames + 1, self.step))
         if times[-1] != self.frames:
             times.append(self.frames)
-        poses = [_pose(t) for t in times]
+        poses = [self.pose_fn(t) for t in times]
         layers = []
-        for idx, nm in enumerate(ORDER, start=1):
+        for idx, nm in enumerate(self.order, start=1):
             if nm == 'mat':
                 layers.append(_layer(
-                    nm, idx, self.frames, _shapes(nm), {"a": 0, "k": [0, 0]},
+                    nm, idx, self.frames, self.shapes_fn(nm), {"a": 0, "k": [0, 0]},
                     {"a": 0, "k": [0]}, {"a": 0, "k": [100, 100]},
                     {"a": 0, "k": [100]}))
                 continue
@@ -245,7 +254,7 @@ class TopViewAnimation:
             rots = _unwrap([f[nm]['r'] for f in poses])
             scl = [f[nm]['s'] for f in poses]
             layers.append(_layer(
-                nm, idx, self.frames, _shapes(nm), _prop(times, pos),
+                nm, idx, self.frames, self.shapes_fn(nm), _prop(times, pos),
                 _prop(times, [(r,) for r in rots]), _prop(times, scl),
                 {"a": 0, "k": [100]}))
         return {"v": "5.7.4", "fr": FPS, "ip": 0, "op": self.frames,

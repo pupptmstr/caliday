@@ -4,8 +4,10 @@ import 'package:caliday/data/static/exercise_catalog.dart';
 import 'package:caliday/domain/models/workout_plan.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-final Exercise _timed =
-    ExerciseCatalog.libraryAll.firstWhere((e) => e.type == ExerciseType.timed);
+final Exercise _timed = ExerciseCatalog.libraryAll
+    .firstWhere((e) => e.type == ExerciseType.timed && !e.perSide);
+final Exercise _perSide = ExerciseCatalog.libraryAll
+    .firstWhere((e) => e.type == ExerciseType.timed && e.perSide);
 final Exercise _reps =
     ExerciseCatalog.libraryAll.firstWhere((e) => e.type == ExerciseType.reps);
 
@@ -31,6 +33,15 @@ void main() {
       final plan = _plan([_slot(_timed, amount: 30, sets: 2, rest: 30)]);
       expect(plan.estimatedDurationSec,
           (kPrepNewExerciseSec + 30) + 30 + (kPrepNextSetSec + 30));
+    });
+
+    test('a hold on each side: both holds, with the switch-sides countdown between', () {
+      final plan = _plan([_slot(_perSide, amount: 30, sets: 2, rest: 20)]);
+      expect(
+          plan.estimatedDurationSec,
+          (kPrepNewExerciseSec + 30 + kPrepSwitchSideSec + 30) +
+              20 +
+              (kPrepNextSetSec + 30 + kPrepSwitchSideSec + 30));
     });
 
     test('the rest after the last set of an exercise counts when another follows', () {

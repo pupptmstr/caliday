@@ -21,6 +21,7 @@ class Exercise {
     required this.spBase,
     this.challengeTargetReps = 0,
     this.requiresEquipment = false,
+    this.perSide = false,
     this.techniqueTip,
     this.imagePath,
     this.animationPath,
@@ -73,6 +74,14 @@ class Exercise {
 
   /// Whether this exercise requires gym equipment (e.g. pull-up bar).
   final bool requiresEquipment;
+
+  /// A one-sided hold (a stretch, a balance) done on each side: every set of a
+  /// timed exercise runs the hold twice, with a switch-sides countdown between
+  /// the two. The amounts (start, target, challenge) are per side.
+  final bool perSide;
+
+  /// Holds in one set: 2 for a [perSide] timed exercise, otherwise 1.
+  int get holdsPerSet => perSide && type == ExerciseType.timed ? 2 : 1;
 
   /// Optional short technique cue shown during workout.
   final String? techniqueTip;

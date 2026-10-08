@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'dart:math' show Random;
+import 'dart:math' show Random, min;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -116,6 +116,8 @@ class WorkoutState {
     required this.startedAt,
     this.prepSec = 0,
     this.prepPaused = false,
+    this.sideIndex = 0,
+    this.firstSideSec = 0,
     this.spEarned = 0,
     this.durationSec = 0,
     this.isInterExerciseRest = false,
@@ -129,6 +131,7 @@ class WorkoutState {
     this.newAchievementIds = const [],
     this.healthSaved = false,
     this.rankRestored = false,
+    this.courseIdIndex,
   });
 
   final WorkoutPlan plan;
@@ -157,6 +160,15 @@ class WorkoutState {
 
   /// The user paused the get-ready countdown; [prepSec] stays put until resumed.
   final bool prepPaused;
+
+  /// The side of a [Exercise.perSide] hold the current set is on: 0, then 1
+  /// after the switch-sides countdown. Always 0 for any other exercise and in
+  /// the rest phase.
+  final int sideIndex;
+
+  /// Seconds held on the first side of the current set of a
+  /// [Exercise.perSide] hold, kept for its result (the weaker side counts).
+  final int firstSideSec;
 
   /// One slot per [plan.exercises] entry; null until that slot is complete.
   final List<ExerciseResult?> results;
@@ -202,14 +214,24 @@ class WorkoutState {
   /// meaning the rank is now restored to the earned rank.
   final bool rankRestored;
 
+  /// The course of a finished workout (its host cheers on the summary); null
+  /// for a custom routine, which belongs to no course.
+  final int? courseIdIndex;
+
   // ── Convenience ───────────────────────────────────────────────────────────
 
   PlannedExercise get currentPlanned => plan.exercises[exerciseIndex];
   bool get isLastSet => setIndex >= currentPlanned.sets - 1;
+
+  /// No other side of the current set is left to hold.
+  bool get isLastSide => sideIndex >= currentPlanned.exercise.holdsPerSet - 1;
   bool get isLastExercise => exerciseIndex >= plan.exercises.length - 1;
 
   /// A timed exercise is in its get-ready countdown (running or paused).
   bool get isGettingReady => phase == WorkoutPhase.exercise && prepSec > 0;
+
+  /// The get-ready countdown between the two sides of a [Exercise.perSide] hold.
+  bool get isSwitchingSides => isGettingReady && sideIndex > 0;
 
   /// The hold of a timed exercise is counting down.
   bool get isHolding =>
@@ -234,6 +256,8 @@ class WorkoutState {
     int? timerSec,
     int? prepSec,
     bool? prepPaused,
+    int? sideIndex,
+    int? firstSideSec,
     List<ExerciseResult?>? results,
     int? spEarned,
     int? durationSec,
@@ -248,6 +272,7 @@ class WorkoutState {
     List<String>? newAchievementIds,
     bool? healthSaved,
     bool? rankRestored,
+    int? courseIdIndex,
   }) {
     return WorkoutState(
       plan: plan,
@@ -258,6 +283,8 @@ class WorkoutState {
       timerSec: timerSec ?? this.timerSec,
       prepSec: prepSec ?? this.prepSec,
       prepPaused: prepPaused ?? this.prepPaused,
+      sideIndex: sideIndex ?? this.sideIndex,
+      firstSideSec: firstSideSec ?? this.firstSideSec,
       results: results ?? this.results,
       startedAt: startedAt,
       spEarned: spEarned ?? this.spEarned,
@@ -273,6 +300,7 @@ class WorkoutState {
       newAchievementIds: newAchievementIds ?? this.newAchievementIds,
       healthSaved: healthSaved ?? this.healthSaved,
       rankRestored: rankRestored ?? this.rankRestored,
+      courseIdIndex: courseIdIndex ?? this.courseIdIndex,
     );
   }
 
@@ -335,18 +363,34 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
   /// Confirms completion of the current set.
   ///
   /// For timed exercises pass [actualDurationSec]; for reps exercises
-  /// the current [WorkoutState.repsInput] is used automatically.
+  /// the current [WorkoutState.repsInput] is used automatically. The first
+  /// side of a [Exercise.perSide] hold does not end the set: the other side
+  /// follows after a switch-sides countdown, with no tap.
   void confirmSet({int? actualDurationSec}) {
     if (state.phase != WorkoutPhase.exercise) return;
 
     final planned = state.currentPlanned;
     final isTimed = planned.exercise.type == ExerciseType.timed;
 
+    if (isTimed && !state.isLastSide) {
+      final side = state.sideIndex + 1;
+      state = state.copyWith(
+        sideIndex: side,
+        firstSideSec: actualDurationSec ?? planned.targetAmount,
+        timerSec: planned.targetAmount,
+        prepSec: prepSecFor(planned, state.setIndex, side: side),
+        prepPaused: false,
+      );
+      return;
+    }
+
     // Build a result only when this is the last set of the exercise.
     ExerciseResult? completedResult;
     if (state.isLastSet) {
       if (isTimed) {
-        final actual = actualDurationSec ?? planned.targetAmount;
+        var actual = actualDurationSec ?? planned.targetAmount;
+        // A hold on each side counts by its weaker side.
+        if (state.sideIndex > 0) actual = min(actual, state.firstSideSec);
         completedResult = ExerciseResult(
           exerciseId: planned.exercise.id,
           targetReps: planned.targetAmount,
@@ -381,6 +425,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
             timerSec: planned.restSec,
             prepSec: 0,
             prepPaused: false,
+            sideIndex: 0,
             isInterExerciseRest: true,
             results: newResults,
           );
@@ -395,6 +440,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
                 : 0,
             prepSec: prepSecFor(next, 0),
             prepPaused: false,
+            sideIndex: 0,
             results: newResults,
           );
         }
@@ -407,6 +453,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
           timerSec: planned.restSec,
           prepSec: 0,
           prepPaused: false,
+          sideIndex: 0,
         );
       } else {
         // No rest: the next set of a timed exercise gets its get-ready
@@ -418,6 +465,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
               : 0,
           prepSec: prepSecFor(planned, state.setIndex + 1),
           prepPaused: false,
+          sideIndex: 0,
         );
       }
     }
@@ -486,6 +534,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
             : 0,
         prepSec: prepSecFor(next, 0),
         prepPaused: false,
+        sideIndex: 0,
         isInterExerciseRest: false,
       );
     } else {
@@ -500,6 +549,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
             : 0,
         prepSec: prepSecFor(planned, state.setIndex + 1),
         prepPaused: false,
+        sideIndex: 0,
       );
     }
   }
@@ -713,6 +763,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
       newAchievementIds: newAchievements,
       rankRestored: rankWasDecayed,
       healthSaved: healthSaved,
+      courseIdIndex: isCustomWorkout ? null : course.index,
     );
   }
 }

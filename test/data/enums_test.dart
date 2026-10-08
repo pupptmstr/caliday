@@ -112,13 +112,16 @@ void main() {
 
     test('Hive indices of the enums are frozen', () {
       // Changing the order would corrupt every stored profile / progress.
+      // New values only ever go at the end.
       expect(BranchId.values.map((b) => b.name), [
         'push', 'core', 'pull', 'legs', 'balance', 'flex', 'posture', 'neck',
+        'eveningBack', 'eveningHips', 'eveningFolds', 'eveningShoulders',
       ]);
       expect(Rank.values.map((r) => r.name), [
         'beginner', 'amateur', 'sportsman', 'athlete', 'master', 'legend',
       ]);
-      expect(CourseId.values.map((c) => c.name), ['calisthenics', 'healthyBody']);
+      expect(CourseId.values.map((c) => c.name),
+          ['calisthenics', 'healthyBody', 'eveningStretch']);
       expect(ExerciseType.values.map((t) => t.name), ['reps', 'timed']);
       expect(SetType.values.map((t) => t.name), ['daily', 'skill', 'challenge']);
     });

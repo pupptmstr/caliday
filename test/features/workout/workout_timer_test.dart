@@ -10,8 +10,10 @@ import 'package:flutter_test/flutter_test.dart';
 /// get-ready countdown runs first, so there is time to take position and read.
 /// It can be paused and resumed; when it ends the hold begins by itself.
 
-final Exercise _timed =
-    ExerciseCatalog.libraryAll.firstWhere((e) => e.type == ExerciseType.timed);
+final Exercise _timed = ExerciseCatalog.libraryAll
+    .firstWhere((e) => e.type == ExerciseType.timed && !e.perSide);
+final Exercise _perSide = ExerciseCatalog.libraryAll
+    .firstWhere((e) => e.type == ExerciseType.timed && e.perSide);
 final Exercise _reps =
     ExerciseCatalog.libraryAll.firstWhere((e) => e.type == ExerciseType.reps);
 
@@ -312,7 +314,11 @@ void main() {
       var ticks = 0;
       while (true) {
         final s = read(container);
-        if (s.isHolding && s.isLastExercise && s.isLastSet && s.timerSec <= 1) {
+        if (s.isHolding &&
+            s.isLastExercise &&
+            s.isLastSet &&
+            s.isLastSide &&
+            s.timerSec <= 1) {
           return ticks + 1;
         }
         notifier.tick();
@@ -335,12 +341,120 @@ void main() {
           _slot(_timed, amount: 10, sets: 2, rest: 0),
           _slot(_timed, amount: 35, sets: 3, rest: 60),
         ],
+        // Holds on each side.
+        [_slot(_perSide, amount: 30, sets: 2, rest: 15)],
+        [
+          _slot(_timed, amount: 15, sets: 1, rest: 0),
+          _slot(_perSide, amount: 20, sets: 2, rest: 0),
+          _slot(_perSide, amount: 25, sets: 1, rest: 10),
+          _slot(_timed, amount: 30, sets: 2, rest: 20),
+        ],
       ];
       for (final slots in plans) {
         final plan = WorkoutPlan(setType: SetType.daily, exercises: slots);
         expect(ticksOfRun(slots), plan.estimatedDurationSec,
             reason: slots.map((s) => '${s.sets}x${s.targetAmount}/${s.restSec}').join(' '));
       }
+    });
+  });
+
+  group('a hold on each side: side 1, switch sides, side 2, then the rest', () {
+    test('the first side ends in a switch-sides countdown, not in the rest', () {
+      final (:container, :notifier) = _start([_slot(_perSide)]);
+      var s = read(container);
+      expect(s.sideIndex, 0);
+      expect(s.isSwitchingSides, isFalse);
+      expect(s.isLastSide, isFalse);
+
+      tick(notifier, kPrepNewExerciseSec + 5); // countdown + side 1
+      s = read(container);
+      expect(s.phase, WorkoutPhase.exercise);
+      expect(s.setIndex, 0, reason: 'the same set goes on');
+      expect(s.sideIndex, 1);
+      expect(s.isSwitchingSides, isTrue);
+      expect(s.isLastSide, isTrue);
+      expect(s.prepSec, kPrepSwitchSideSec);
+      expect(s.timerSec, 5, reason: 'side 2 waits with its full hold');
+      expect(s.runningCountdownSec, kPrepSwitchSideSec);
+    });
+
+    test('side 2 begins by itself and its end goes to the rest', () {
+      final (:container, :notifier) = _start([_slot(_perSide)]);
+      tick(notifier, kPrepNewExerciseSec + 5 + kPrepSwitchSideSec);
+      var s = read(container);
+      expect(s.isHolding, isTrue);
+      expect(s.sideIndex, 1);
+
+      tick(notifier, 5);
+      s = read(container);
+      expect(s.phase, WorkoutPhase.rest);
+      expect(s.sideIndex, 0);
+      expect(s.timerSec, 3, reason: 'the rest');
+    });
+
+    test('Stop on the first side goes to the other side, not to the rest', () {
+      final (:container, :notifier) = _start([_slot(_perSide)]);
+      tick(notifier, kPrepNewExerciseSec + 2);
+      notifier.confirmSet(actualDurationSec: 2);
+      final s = read(container);
+      expect(s.phase, WorkoutPhase.exercise);
+      expect(s.isSwitchingSides, isTrue);
+      expect(s.firstSideSec, 2);
+    });
+
+    test('the switch-sides countdown can be paused like any other', () {
+      final (:container, :notifier) = _start([_slot(_perSide)]);
+      tick(notifier, kPrepNewExerciseSec + 5 + 2);
+      notifier.pausePrep();
+      tick(notifier, 10);
+      var s = read(container);
+      expect(s.isSwitchingSides, isTrue);
+      expect(s.prepSec, kPrepSwitchSideSec - 2, reason: 'frozen while paused');
+      expect(s.runningCountdownSec, 0);
+
+      notifier.resumePrep();
+      tick(notifier, kPrepSwitchSideSec - 2);
+      s = read(container);
+      expect(s.isHolding, isTrue);
+      expect(s.sideIndex, 1);
+    });
+
+    test('the next set starts again on the first side, with the short countdown', () {
+      final (:container, :notifier) = _start([_slot(_perSide)]);
+      tick(notifier, kPrepNewExerciseSec + 5 + kPrepSwitchSideSec + 5); // set 1
+      notifier.skipRest();
+      final s = read(container);
+      expect(s.setIndex, 1);
+      expect(s.sideIndex, 0);
+      expect(s.isSwitchingSides, isFalse);
+      expect(s.prepSec, kPrepNextSetSec);
+    });
+
+    test('the result counts the weaker side', () {
+      // One set, then another exercise: the result is recorded without
+      // finishing the workout.
+      final (:container, :notifier) =
+          _start([_slot(_perSide, amount: 20, sets: 1, rest: 0), _slot(_timed)]);
+      tick(notifier, kPrepNewExerciseSec + 20); // side 1, full
+      tick(notifier, kPrepSwitchSideSec + 12);
+      notifier.confirmSet(actualDurationSec: 12); // side 2, stopped at 12 s
+      var r = read(container).results[0]!;
+      expect(r.actualDurationSec, 12);
+      expect(r.targetDurationSec, 20);
+
+      final other = _start([_slot(_perSide, amount: 20, sets: 1, rest: 0), _slot(_timed)]);
+      tick(other.notifier, kPrepNewExerciseSec + 7);
+      other.notifier.confirmSet(actualDurationSec: 7); // side 1, stopped at 7 s
+      tick(other.notifier, kPrepSwitchSideSec + 20); // side 2, full
+      r = read(other.container).results[0]!;
+      expect(r.actualDurationSec, 7);
+    });
+
+    test('an exercise held once is unchanged', () {
+      final (:container, :notifier) = _start([_slot(_timed)]);
+      expect(read(container).isLastSide, isTrue);
+      tick(notifier, kPrepNewExerciseSec + 5);
+      expect(read(container).phase, WorkoutPhase.rest);
     });
   });
 

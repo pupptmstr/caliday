@@ -104,6 +104,7 @@ class HomeScreen extends ConsumerWidget {
           // ── Hero zone ─────────────────────────────────────────────────────
           _HeroZone(
             expression: expression,
+            course: data.activeCourse,
             streak: data.displayStreak,
             totalSP: data.profile.totalSP,
             rank: data.effectiveRank,
@@ -163,6 +164,7 @@ class HomeScreen extends ConsumerWidget {
 class _HeroZone extends StatelessWidget {
   const _HeroZone({
     required this.expression,
+    required this.course,
     required this.streak,
     required this.totalSP,
     required this.rank,
@@ -174,6 +176,9 @@ class _HeroZone extends StatelessWidget {
   });
 
   final GoroExpression expression;
+
+  /// The active course: its host is the face of the hero zone.
+  final CourseId course;
   final int streak;
   final int totalSP;
   final Rank rank;
@@ -259,13 +264,13 @@ class _HeroZone extends StatelessWidget {
 
             const SizedBox(height: 8),
 
-            // ── Goro ──────────────────────────────────────────────────────
+            // ── The active course's host (Goro, Raffi, Luna) ──────────────
             Center(
               child: AnimatedSwitcher(
                 duration: const Duration(milliseconds: 400),
                 child: SvgPicture.asset(
-                  expression.assetPath,
-                  key: ValueKey(expression),
+                  expression.assetFor(course),
+                  key: ValueKey((course, expression)),
                   height: 200,
                 ),
               ),

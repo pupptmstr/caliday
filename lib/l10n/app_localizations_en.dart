@@ -19,6 +19,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String durationSecPerSide(int secs) {
+    return '$secs sec each side';
+  }
+
+  @override
   String get navHome => 'Workout';
 
   @override
@@ -73,10 +78,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeBranchNeck => 'Neck';
 
   @override
+  String get homeBranchEveningBack => 'Back';
+
+  @override
+  String get homeBranchEveningHips => 'Hips';
+
+  @override
+  String get homeBranchEveningFolds => 'Folds';
+
+  @override
+  String get homeBranchEveningShoulders => 'Shoulders';
+
+  @override
   String get courseNameCalisthenics => 'Calisthenics';
 
   @override
   String get courseNameHealthyBody => 'Healthy Body';
+
+  @override
+  String get courseNameEveningStretch => 'Evening Stretch';
 
   @override
   String get courseDescCalisthenics =>
@@ -87,11 +107,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'Exercises for desk workers. Fix posture, release neck tension, and improve flexibility — joint-friendly.';
 
   @override
+  String get courseDescEveningStretch =>
+      'A calm stretch before sleep. Back, hips, legs and shoulders: slowly, on the floor, ending lying down.';
+
+  @override
   String get onboardingQ4Courses => 'Choose a Course';
 
   @override
   String get onboardingQ4CoursesBody =>
-      'You can start with one or pick both — the programs are independent.';
+      'You can start with one or pick several — the programs are independent.';
 
   @override
   String branchJourneyProgress(int done, int total) {
@@ -136,6 +160,17 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String branchJourneyParamsTimedPerSide(int secs, int sets, int rest) {
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets sets',
+      one: '$sets set',
+    );
+    return '$secs s each side × $_temp0  ·  Rest $rest s';
+  }
+
+  @override
   String get branchJourneyStartChallenge => 'Take the Challenge';
 
   @override
@@ -163,6 +198,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String homeChallengeNormSec(int n) {
     return 'Goal: $n sec';
+  }
+
+  @override
+  String homeChallengeNormSecPerSide(int n) {
+    return 'Goal: $n sec each side';
   }
 
   @override
@@ -205,6 +245,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String workoutSetSideProgress(int current, int total, int side) {
+    return 'Set $current of $total  ·  side $side of 2';
+  }
+
+  @override
   String get workoutSec => 'sec';
 
   @override
@@ -215,6 +260,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get workoutGetReady => 'get ready';
+
+  @override
+  String get workoutSwitchSides => 'switch sides';
 
   @override
   String get workoutPaused => 'paused';
@@ -229,6 +277,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get workoutPrepPausedHint =>
       'Paused. Tap Continue when you are ready: the countdown picks up where it stopped.';
+
+  @override
+  String get workoutSwitchSidesHint =>
+      'Switch to the other side. The timer starts by itself; tap Pause if you need more time.';
 
   @override
   String get workoutStop => 'Stop';
@@ -513,6 +565,34 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get achievementFlexCompleteDesc =>
       'All 6 Flex stages cleared. Your body bends in every direction.';
+
+  @override
+  String get achievementEveningBackCompleteName => 'Soft Spine';
+
+  @override
+  String get achievementEveningBackCompleteDesc =>
+      'All 5 stages of the evening Back skill cleared. Your spine says thank you.';
+
+  @override
+  String get achievementEveningHipsCompleteName => 'Open Hips';
+
+  @override
+  String get achievementEveningHipsCompleteDesc =>
+      'All 5 stages of the evening Hips skill cleared. From knees-to-chest to the frog.';
+
+  @override
+  String get achievementEveningFoldsCompleteName => 'Deep Fold';
+
+  @override
+  String get achievementEveningFoldsCompleteDesc =>
+      'All 4 stages of the evening Folds skill cleared. Down to the floor between your legs.';
+
+  @override
+  String get achievementEveningShouldersCompleteName => 'Free Shoulders';
+
+  @override
+  String get achievementEveningShouldersCompleteDesc =>
+      'All 5 stages of the evening Shoulders skill cleared. Fingers hooked behind your back.';
 
   @override
   String get achievementAllCompleteName => 'Full Collection';
@@ -1262,6 +1342,228 @@ class AppLocalizationsEn extends AppLocalizations {
       'From all fours, straighten arms and legs and lift your hips up. Body forms an inverted V. Stretches wrists, shoulders, and legs.';
 
   @override
+  String get exerciseEveningBackS1CatCowName => 'Cat-Cow';
+
+  @override
+  String get exerciseEveningBackS1CatCowDesc =>
+      'On all fours, hands under your shoulders, knees under your hips. Breathing in, let your belly drop and lift your chest; breathing out, round your back toward the ceiling. Move slowly with your breath.';
+
+  @override
+  String get exerciseEveningBackS1CatCowTip =>
+      'Let the breath lead: one slow breath in and one out per rep.';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseName => 'Child\'s Pose';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseDesc =>
+      'Kneel with your big toes together and knees apart. Sit back on your heels and lay your chest down between your knees, arms stretched forward, forehead on the floor. Breathe into your back.';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseTip =>
+      'Let your hips sink toward your heels with every breath out.';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistName => 'Supine Twist';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistDesc =>
+      'Lie on your back, arms out to the sides. Bend one knee and let it fall across your body to the floor, looking the other way. Keep both shoulders down.';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistTip =>
+      'Don\'t push the knee down: the weight of the leg does the work.';
+
+  @override
+  String get exerciseEveningBackS4SphinxName => 'Sphinx';
+
+  @override
+  String get exerciseEveningBackS4SphinxDesc =>
+      'Lie on your stomach, elbows under your shoulders, forearms on the floor. Lift your chest; your hips and legs stay relaxed on the floor.';
+
+  @override
+  String get exerciseEveningBackS4SphinxTip =>
+      'Draw your shoulders away from your ears; the arch is gentle, never pinching.';
+
+  @override
+  String get exerciseEveningBackS5CobraName => 'Cobra';
+
+  @override
+  String get exerciseEveningBackS5CobraDesc =>
+      'Lie on your stomach, hands under your shoulders. Press up and straighten your arms as far as your lower back allows; your hips stay on the floor.';
+
+  @override
+  String get exerciseEveningBackS5CobraTip =>
+      'Keep the elbows soft and the shoulders down; stop where your back feels good.';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestName => 'Knees to Chest';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestDesc =>
+      'Lie on your back, hug both knees to your chest and hold. You may rock gently from side to side.';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestTip =>
+      'Keep your lower back and your head on the floor.';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourName => 'Reclined Figure Four';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourDesc =>
+      'Lie on your back, knees bent. Cross one ankle over the other knee, then pull that thigh toward your chest until you feel the stretch in the buttock.';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourTip =>
+      'Press the crossed knee gently away from you to go deeper.';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyName => 'Happy Baby';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyDesc =>
+      'Lie on your back, bring your knees toward your armpits and hold the outer edges of your feet, soles to the ceiling. Gently pull your knees toward the floor.';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyTip =>
+      'Keep your tailbone down; rocking a little is fine.';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyName => 'Butterfly';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyDesc =>
+      'Sit up tall with the soles of your feet together and your knees out to the sides. Hold your feet and let your knees sink toward the floor.';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyTip =>
+      'Stay tall; to go deeper, lean forward from your hips.';
+
+  @override
+  String get exerciseEveningHipsS5FrogName => 'Frog';
+
+  @override
+  String get exerciseEveningHipsS5FrogDesc =>
+      'On all fours, slide your knees wide apart, ankles in line with the knees, feet turned out. Lower onto your forearms and ease your hips back.';
+
+  @override
+  String get exerciseEveningHipsS5FrogTip =>
+      'Open only as far as it feels like a stretch, never a pain in the knees.';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallName => 'Legs Up the Wall';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallDesc =>
+      'Lie on your back with your hips close to a wall and your legs straight up along it. Arms relaxed at your sides; breathe slowly.';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallTip =>
+      'Bend your knees a little if the backs of your legs pull too much.';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringName =>
+      'Lying Hamstring Stretch';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringDesc =>
+      'Lie on your back, loop a towel around one foot and raise that leg as straight as you can. The other leg stays on the floor.';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringTip =>
+      'Pull with the towel, not with your back: your hips stay on the floor.';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeName => 'Head-to-Knee Fold';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeDesc =>
+      'Sit with one leg straight and the other foot against the inside of that thigh. Fold forward over the straight leg, reaching toward the foot.';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeTip =>
+      'Lead with your chest, not your head; the straight knee may bend a little.';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldName => 'Straddle Fold';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldDesc =>
+      'Sit with your legs wide apart, knees pointing up. Walk your hands forward and lower your body toward the floor between your legs.';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldTip =>
+      'Tilt from your hips with a long back; rounding the back adds nothing.';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugName => 'Self-Hug';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugDesc =>
+      'Sitting or standing, wrap your arms around yourself and hold your shoulder blades. Let your upper back round and breathe into it.';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugTip =>
+      'Relax your neck and let your chin drop a little.';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchName =>
+      'Overhead Triceps Stretch';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchDesc =>
+      'Raise one arm, bend the elbow and let your hand drop behind your neck. Use the other hand to ease the elbow back.';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchTip =>
+      'Keep your head up and your ribs down.';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsName => 'Eagle Arms';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsDesc =>
+      'Cross one arm under the other at the elbows, bend them and bring your palms together. Lift your elbows to shoulder height.';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsTip =>
+      'If your palms don\'t meet, press the backs of your hands together.';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseName => 'Puppy Pose';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseDesc =>
+      'On all fours, walk your hands forward and lower your chest toward the floor, hips above your knees, arms straight.';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseTip =>
+      'Rest your forehead on the floor and let your chest melt down.';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsName => 'Cow Face Arms';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsDesc =>
+      'Reach one hand down behind your neck and the other up behind your back, and try to hook your fingers. If they don\'t meet, hold a towel between your hands.';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsTip =>
+      'Keep the upper elbow pointing up and your back straight.';
+
+  @override
+  String get exerciseCooldownLyingRelaxationName => 'Lying Relaxation';
+
+  @override
+  String get exerciseCooldownLyingRelaxationDesc =>
+      'Lie on your back, arms by your sides, palms up. Close your eyes and breathe slowly; let your whole body go heavy.';
+
+  @override
+  String get exerciseCooldownLyingRelaxationTip =>
+      'Breathe out longer than you breathe in.';
+
+  @override
   String get aboutTitle => 'About';
 
   @override
@@ -1296,6 +1598,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get releaseNotes0820 =>
+      'Holds done one side at a time now cover both sides: after the first side a short countdown gives you time to switch, then the other side is timed. Nothing to tap.\nThis applies to the hip flexor stretches, 90/90, neck tilts, the pigeon pose, the single-leg stand, the one-arm plank, the side plank and the leg and side stretches after a workout.\nSkala, the judge of the challenges, is redrawn: now he really is a bull.\nNew course: Evening Stretch, a calm stretch before sleep in four skills: back, hips, folds and shoulders.\nEvery course now has its host: Raffi the giraffe leads Healthy Body, Luna the owl leads Evening Stretch, Goro stays with Calisthenics. The host of your current course now greets you on the home screen and in the profile, with all its moods, and cheers at the end of a workout.';
 
   @override
   String get releaseNotes0819 =>
@@ -1727,7 +2033,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exerciseNeckS1NeckTiltDesc =>
-      'Slowly tilt your head toward your right shoulder — without raising the shoulder. Hold 5 seconds, return. Alternate sides.';
+      'Slowly tilt your head toward your right shoulder — without raising the shoulder — and hold the gentle stretch. Then the other side.';
 
   @override
   String get exerciseNeckS1NeckTiltTip =>

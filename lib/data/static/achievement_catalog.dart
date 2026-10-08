@@ -54,6 +54,11 @@ abstract final class AchievementCatalog {
     Achievement(id: 'balance_complete', emoji: '⚖️'),
     // ── Flex ──────────────────────────────────────────────────────────────────
     Achievement(id: 'flex_complete', emoji: '🧘'),
+    // ── Evening Stretch ───────────────────────────────────────────────────────
+    Achievement(id: 'evening_back_complete', emoji: '🐈'),
+    Achievement(id: 'evening_hips_complete', emoji: '🦋'),
+    Achievement(id: 'evening_folds_complete', emoji: '🌙'),
+    Achievement(id: 'evening_shoulders_complete', emoji: '🦅'),
     // ── Secret ────────────────────────────────────────────────────────────────
     Achievement(id: 'all_complete', emoji: '🌟', isSecret: true),
   ];

@@ -67,12 +67,12 @@ flutter gen-l10n         # If .arb files changed
 
 For UI, also run the app and look at it (`flutter run -d web-server` + the in-app browser; dev options are debug-only). Static checks do not show a screen that renders wrong.
 
-## Step 6 — Bump version in pubspec.yaml
+## Step 6 — Version: once per branch
 
-Before committing, update `pubspec.yaml` version to match the backlog milestone:
-- `version: X.Y.Z+build` — bump minor (Y) for a new feature milestone (e.g. v0.7 → v0.8), patch (Z) for bugfixes within a milestone
-- Always increment the build number (+N) by 1
-- **Write the "What's new" entry for the new version** (the bell in the profile): add a `ReleaseNote` to the top of `lib/data/static/release_notes_catalog.dart` and `releaseNotes<version without dots>` to `l10n/app_en.arb` and `app_ru.arb` (one change per line, in the user's words, not the code's). `test/data/release_notes_catalog_test.dart` fails while the newest entry is not the `pubspec.yaml` version. A change that bumps no version needs no entry
+Work happens on the session branch, never on `main` (CLAUDE.md § Branches and Versions).
+- **If the branch has not bumped the version yet** (`git diff main -- pubspec.yaml` shows nothing): update `pubspec.yaml` to match the backlog milestone — `version: X.Y.Z+build`, minor (Y) for a new feature milestone, patch (Z) for bugfixes within a milestone, build number (+N) +1 — and **write the "What's new" entry**: a `ReleaseNote` on top of `lib/data/static/release_notes_catalog.dart` and `releaseNotes<version without dots>` in **every** ARB file (`l10n/app_<code>.arb`; one change per line, in the user's words, not the code's). `test/data/release_notes_catalog_test.dart` fails while the newest entry is not the `pubspec.yaml` version.
+- **If the branch has already bumped it:** do not bump again; add the new change as another line of that version's `releaseNotes<version>` text in every ARB file.
+- A change the user does not see needs no line.
 
 ## Step 7 — Document and commit
 

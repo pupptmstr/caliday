@@ -53,9 +53,15 @@ Goro is the gorilla mascot of the CaliDay app. The central brand character.
 | Character | Role | Personality | Visual | Status |
 |-----------|------|-------------|--------|--------|
 | **Goro** (main) | Coach / mentor | Friendly, encouraging | Gorilla, blue headband | ✅ Ready |
-| **Skala** | Challenge host | Strict but fair | Bull / bison | ✅ Ready, integrated (Workout screen, Challenge phase) |
-| **Bruno** | Exercise demonstrator | Calm, technical | Bear | 🔲 Future concept (not designed, not planned) |
-| **Rex** | Streak motivator | Energetic, hyperactive | Small monkey, flame | 🔲 Future concept |
+| **Skala** | Challenge host | Strict but fair | Bull | ✅ Integrated (Workout screen, Challenge phase); redrawn as a real bull 2026-10-08 (`tools/characters/gen_skala.py`) |
+| **Raffi** | Host of Healthy Body | Cheerful, upright | Giraffe, blue neck band | ✅ Drawn 0.8.20 (portrait + cheer) |
+| **Luna** | Host of Evening Stretch | Calm, gentle | Owl, blue scarf, night sky | ✅ Drawn 0.8.20 (portrait + cheer) |
+| **Aurora** | Host of Morning Routine | — | Lark | 📐 Decided 2026-10-08, not drawn |
+| **Miso** | Host of Yoga | — | Cat | 📐 Decided 2026-10-08, not drawn |
+| **Bruno** | Exercise demonstrator | Calm, technical | Bear | ❌ Dropped in that role (2026-10-08): stage previews will play Goro's animations |
+| **Rex** | Streak motivator | Energetic, hyperactive | Small monkey, flame | 🔲 Deferred |
+
+**Course hosts (decided 2026-10-08):** every course has its own host — static art in 2–3 poses, like Skala — on the course cards, the workout summary of that course and its achievements. Goro stays the coach (Home, notifications) and performs every exercise animation. Details and the Skala redraw brief: `internal_docs/DEV_NOTES.md` § Course hosts.
 
 **Skala — details (v1.1) ✅ Ready:**
 Appears on the Challenge screen. Visually larger and more monumental than Goro — commands respect.
@@ -65,11 +71,11 @@ Colour palette:
 
 | Element | HEX |
 |---------|-----|
-| Body (dark) | `#2E2A22` |
-| Body (light) | `#3D3728` / `#4A4232` |
-| Face | `#6B4F38` → `#8A6848` |
-| Horns | `#8B7355` → `#A89060`, highlight `#C8B080` |
-| Nose ring (gold) | `#C8A040` / `#E8C060` |
+| Body | `#2A1F17` / `#3B2C21` / `#52402F` |
+| Forearms, fists | `#5C4836` / `#7A6250` |
+| Muzzle | `#C9A07A` → `#A97D5A` |
+| Horns | `#F2E6C8` → `#CDB78C`, tips `#3A2E24` |
+| Nose ring (gold) | `#D4A73C` / `#F4D676` |
 | Background | `#5C1A1A` → `#3A0C0C` (dark red) |
 
 The dark red background distinguishes the Challenge screen from Goro's blue — it creates the feeling of an "arena of trials".
@@ -381,7 +387,7 @@ The files are in `assets/goro/` and `assets/skala/` (the designer's delivery not
 
 ### Exercise animations — delivered
 
-All exercises have an animation except two chosen by the owner (90/90 hip mobility and the pigeon pose): **65 Lottie files in `assets/animations/`** for 70 exercises (some are shared). The list of files per exercise is in `ARCHITECTURE.md` → Exercise Catalog. The character is Goro in all of them; part of the set was drawn by the designer, the rest is generated with `tools/lottie` (see `ARCHITECTURE.md` → Lottie Animation Tooling).
+All exercises have an animation except two chosen by the owner (90/90 hip mobility and the pigeon pose): **84 Lottie files in `assets/animations/`** for 89 exercises (some are shared; the 19 of Evening Stretch were added in 0.8.20). The list of files per exercise is in `ARCHITECTURE.md` → Exercise Catalog. The character is Goro in all of them; part of the set was drawn by the designer, the rest is generated with `tools/lottie` (see `ARCHITECTURE.md` → Lottie Animation Tooling).
 
 ### Home screen widget — delivered
 

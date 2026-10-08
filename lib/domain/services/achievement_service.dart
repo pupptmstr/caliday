@@ -100,6 +100,14 @@ class AchievementService {
       case BranchId.neck:
         // No achievements defined yet for Healthy Body branches.
         break;
+      case BranchId.eveningBack:
+        check('evening_back_complete', newStage >= BranchId.eveningBack.stageCount);
+      case BranchId.eveningHips:
+        check('evening_hips_complete', newStage >= BranchId.eveningHips.stageCount);
+      case BranchId.eveningFolds:
+        check('evening_folds_complete', newStage >= BranchId.eveningFolds.stageCount);
+      case BranchId.eveningShoulders:
+        check('evening_shoulders_complete', newStage >= BranchId.eveningShoulders.stageCount);
     }
 
     // all_complete: every branch at max stage

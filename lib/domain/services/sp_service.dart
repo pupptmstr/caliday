@@ -9,7 +9,8 @@ import '../../data/models/user_profile.dart';
 ///
 /// SP rules:
 ///   - [ExerciseType.reps]  → [Exercise.spBase] × completedReps
-///   - [ExerciseType.timed] → [Exercise.spBase] × (actualDurationSec / 10), floored
+///   - [ExerciseType.timed] → [Exercise.spBase] × (actualDurationSec / 10), floored;
+///     a [Exercise.perSide] hold counts both sides
 ///   - +50% bonus when it is the user's first workout of the day
 ///   - +10% completion bonus when every exercise was fully completed
 class SPService {
@@ -22,7 +23,7 @@ class SPService {
     if (exercise.type == ExerciseType.reps) {
       return result.completedReps * exercise.spBase;
     } else {
-      final secs = result.actualDurationSec ?? 0;
+      final secs = (result.actualDurationSec ?? 0) * exercise.holdsPerSet;
       return (secs / 10 * exercise.spBase).floor();
     }
   }

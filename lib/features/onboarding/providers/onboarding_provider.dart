@@ -9,6 +9,7 @@ import '../../../data/models/skill_progress.dart';
 import '../../../data/models/user_profile.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
+import '../../../data/static/course_catalog.dart';
 import '../../../data/static/release_notes_catalog.dart';
 
 /// The texts shown for these options come from l10n (`PushupCountL10n` in
@@ -284,6 +285,13 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
           currentRestSec: 15,
         ),
       );
+    }
+
+    // Evening Stretch: every branch at stage 1 (no calibration question).
+    if (state.selectedCourseIds.contains(CourseId.eveningStretch)) {
+      for (final branch in CourseCatalog.branchesFor(CourseId.eveningStretch)) {
+        await progressRepo.saveProgress(progressRepo.getProgress(branch));
+      }
     }
 
     // Signal the router to redirect to /home.

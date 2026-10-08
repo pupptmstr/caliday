@@ -19,6 +19,14 @@
       }
     }
   },
+  "durationSecPerSide": "{secs} Sek. pro Seite",
+  "@durationSecPerSide": {
+    "placeholders": {
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
   "navHome": "Training",
   "navLibrary": "Kurse",
   "navProfile": "Profil",
@@ -41,12 +49,18 @@
   "homeBranchFlex": "Beweglichkeit",
   "homeBranchPosture": "Haltung",
   "homeBranchNeck": "Nacken",
+  "homeBranchEveningBack": "Rücken",
+  "homeBranchEveningHips": "Hüften",
+  "homeBranchEveningFolds": "Vorbeugen",
+  "homeBranchEveningShoulders": "Schultern",
   "courseNameCalisthenics": "Calisthenics",
   "courseNameHealthyBody": "Gesunder Körper",
+  "courseNameEveningStretch": "Dehnen am Abend",
   "courseDescCalisthenics": "Übungen mit dem eigenen Körpergewicht, von einfach bis fortgeschritten. Für Kraft, Ausdauer und Körperkontrolle.",
   "courseDescHealthyBody": "Übungen für alle, die viel sitzen. Für eine bessere Haltung, einen entspannten Nacken und mehr Beweglichkeit — schonend für die Gelenke.",
+  "courseDescEveningStretch": "Ruhiges Dehnen vor dem Schlafen. Rücken, Hüften, Beine und Schultern — langsam, auf dem Boden, am Ende im Liegen.",
   "onboardingQ4Courses": "Wähle einen Kurs",
-  "onboardingQ4CoursesBody": "Du kannst mit einem anfangen oder beide wählen — die Programme sind unabhängig voneinander.",
+  "onboardingQ4CoursesBody": "Du kannst mit einem anfangen oder mehrere wählen — die Programme sind unabhängig voneinander.",
   "branchJourneyProgress": "{done} von {total} Stufen abgeschlossen",
   "@branchJourneyProgress": {
     "placeholders": {
@@ -89,6 +103,20 @@
       }
     }
   },
+  "branchJourneyParamsTimedPerSide": "{secs} s pro Seite × {sets, plural, one{{sets} Satz} other{{sets} Sätze}}  ·  Pause {rest} s",
+  "@branchJourneyParamsTimedPerSide": {
+    "placeholders": {
+      "secs": {
+        "type": "int"
+      },
+      "sets": {
+        "type": "int"
+      },
+      "rest": {
+        "type": "int"
+      }
+    }
+  },
   "branchJourneyStartChallenge": "Challenge starten",
   "homeStage": "Stufe {stage}/{total}",
   "@homeStage": {
@@ -113,6 +141,14 @@
   },
   "homeChallengeNormSec": "Ziel: {n} Sek.",
   "@homeChallengeNormSec": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "homeChallengeNormSecPerSide": "Ziel: {n} Sek. pro Seite",
+  "@homeChallengeNormSecPerSide": {
     "placeholders": {
       "n": {
         "type": "int"
@@ -154,14 +190,30 @@
       }
     }
   },
+  "workoutSetSideProgress": "Satz {current} von {total}  ·  Seite {side} von 2",
+  "@workoutSetSideProgress": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "side": {
+        "type": "int"
+      }
+    }
+  },
   "workoutSec": "Sek.",
   "workoutRestLabel": "Pause",
   "workoutReps": "Wdh.",
   "workoutGetReady": "Mach dich bereit",
+  "workoutSwitchSides": "Seite wechseln",
   "workoutPaused": "pausiert",
   "workoutPause": "Pause",
   "workoutPrepHint": "Lies die Beschreibung und geh in Position. Der Timer startet von selbst; tippe auf Pause, wenn du mehr Zeit brauchst.",
   "workoutPrepPausedHint": "Pausiert. Tippe auf Weiter, wenn du bereit bist: Der Countdown läuft dort weiter, wo er angehalten hat.",
+  "workoutSwitchSidesHint": "Wechsle auf die andere Seite. Der Timer startet von selbst; tippe auf Pause, wenn du mehr Zeit brauchst.",
   "workoutStop": "Stopp",
   "workoutDone": "✓  Fertig",
   "workoutSkipRest": "Überspringen",
@@ -279,6 +331,14 @@
   "achievementBalanceCompleteDesc": "Alle 6 Balance-Stufen geschafft. Du bist ein Gleichgewichtskünstler.",
   "achievementFlexCompleteName": "Meister der Beweglichkeit",
   "achievementFlexCompleteDesc": "Alle 6 Stufen der Beweglichkeit geschafft. Dein Körper biegt sich in jede Richtung.",
+  "achievementEveningBackCompleteName": "Geschmeidiger Rücken",
+  "achievementEveningBackCompleteDesc": "Alle 5 Stufen von Rücken (Dehnen am Abend) geschafft. Deine Wirbelsäule sagt danke.",
+  "achievementEveningHipsCompleteName": "Offene Hüften",
+  "achievementEveningHipsCompleteDesc": "Alle 5 Stufen von Hüften (Dehnen am Abend) geschafft. Von Knie zur Brust bis zum Frosch.",
+  "achievementEveningFoldsCompleteName": "Tiefe Vorbeuge",
+  "achievementEveningFoldsCompleteDesc": "Alle 4 Stufen von Vorbeugen (Dehnen am Abend) geschafft. Bis zum Boden zwischen den Beinen.",
+  "achievementEveningShouldersCompleteName": "Freie Schultern",
+  "achievementEveningShouldersCompleteDesc": "Alle 5 Stufen von Schultern (Dehnen am Abend) geschafft. Die Finger hinter dem Rücken verhakt.",
   "achievementAllCompleteName": "Komplette Sammlung",
   "achievementAllCompleteDesc": "Alle 5 Zweige abgeschlossen. Absoluter Champion.",
   "summaryBonusTitle": "Bonustraining",
@@ -538,6 +598,66 @@
   "exerciseWarmupWristCirclesDesc": "Kreise die Handgelenke im und gegen den Uhrzeigersinn. Bereitet die Gelenke auf das Stützen auf den Händen vor.",
   "exerciseCooldownDownwardDogName": "Herabschauender Hund",
   "exerciseCooldownDownwardDogDesc": "Streck aus dem Vierfüßlerstand Arme und Beine und schieb die Hüfte nach oben. Der Körper bildet ein umgedrehtes V. Dehnt Handgelenke, Schultern und Beine.",
+  "exerciseEveningBackS1CatCowName": "Katze-Kuh",
+  "exerciseEveningBackS1CatCowDesc": "Im Vierfüßlerstand: Hände unter den Schultern, Knie unter der Hüfte. Beim Einatmen den Bauch sinken lassen und die Brust heben, beim Ausatmen den Rücken zur Decke runden. Langsam, im Rhythmus des Atems.",
+  "exerciseEveningBackS1CatCowTip": "Lass den Atem führen: ein langsamer Atemzug ein und aus pro Wiederholung.",
+  "exerciseEveningBackS2ChildsPoseName": "Kindhaltung",
+  "exerciseEveningBackS2ChildsPoseDesc": "Knie dich hin, große Zehen zusammen, Knie auseinander. Setz dich auf die Fersen und leg die Brust zwischen den Knien ab, Arme nach vorn gestreckt, Stirn am Boden. Atme in den Rücken.",
+  "exerciseEveningBackS2ChildsPoseTip": "Lass die Hüfte mit jedem Ausatmen Richtung Fersen sinken.",
+  "exerciseEveningBackS3SupineTwistName": "Drehung im Liegen",
+  "exerciseEveningBackS3SupineTwistDesc": "Leg dich auf den Rücken, Arme zur Seite. Beug ein Knie und lass es über den Körper zum Boden sinken, schau zur anderen Seite. Beide Schultern bleiben unten.",
+  "exerciseEveningBackS3SupineTwistTip": "Drück das Knie nicht runter — das Gewicht des Beins macht die Arbeit.",
+  "exerciseEveningBackS4SphinxName": "Sphinx",
+  "exerciseEveningBackS4SphinxDesc": "Leg dich auf den Bauch, Ellbogen unter den Schultern, Unterarme am Boden. Heb die Brust; Hüfte und Beine bleiben locker am Boden.",
+  "exerciseEveningBackS4SphinxTip": "Zieh die Schultern weg von den Ohren; die Beugung ist sanft und drückt nicht.",
+  "exerciseEveningBackS5CobraName": "Kobra",
+  "exerciseEveningBackS5CobraDesc": "Leg dich auf den Bauch, Hände unter den Schultern. Drück dich hoch und streck die Arme so weit, wie es der untere Rücken erlaubt; die Hüfte bleibt am Boden.",
+  "exerciseEveningBackS5CobraTip": "Ellbogen locker, Schultern tief; hör dort auf, wo es dem Rücken guttut.",
+  "exerciseEveningHipsS1KneesToChestName": "Knie zur Brust",
+  "exerciseEveningHipsS1KneesToChestDesc": "Leg dich auf den Rücken, umarme beide Knie, zieh sie zur Brust und halte. Sanftes Wiegen von Seite zu Seite ist erlaubt.",
+  "exerciseEveningHipsS1KneesToChestTip": "Unterer Rücken und Kopf bleiben am Boden.",
+  "exerciseEveningHipsS2FigureFourName": "Liegende Vier",
+  "exerciseEveningHipsS2FigureFourDesc": "Leg dich auf den Rücken, Knie gebeugt. Leg einen Knöchel auf das andere Knie und zieh diesen Oberschenkel zur Brust, bis du die Dehnung im Gesäß spürst.",
+  "exerciseEveningHipsS2FigureFourTip": "Drück das gekreuzte Knie sanft von dir weg, dann wird die Dehnung tiefer.",
+  "exerciseEveningHipsS3HappyBabyName": "Glückliches Baby",
+  "exerciseEveningHipsS3HappyBabyDesc": "Leg dich auf den Rücken, zieh die Knie Richtung Achseln und fass die Außenkanten der Füße, Fußsohlen zur Decke. Zieh die Knie sanft Richtung Boden.",
+  "exerciseEveningHipsS3HappyBabyTip": "Das Steißbein bleibt unten; leichtes Wiegen ist erlaubt.",
+  "exerciseEveningHipsS4ButterflyName": "Schmetterling",
+  "exerciseEveningHipsS4ButterflyDesc": "Setz dich aufrecht hin, Fußsohlen zusammen, Knie zur Seite. Halte die Füße und lass die Knie Richtung Boden sinken.",
+  "exerciseEveningHipsS4ButterflyTip": "Bleib aufrecht; für mehr Dehnung aus der Hüfte nach vorn neigen.",
+  "exerciseEveningHipsS5FrogName": "Frosch",
+  "exerciseEveningHipsS5FrogDesc": "Im Vierfüßlerstand die Knie weit auseinander, Knöchel auf einer Linie mit den Knien, Füße nach außen. Geh auf die Unterarme und schieb die Hüfte sanft nach hinten.",
+  "exerciseEveningHipsS5FrogTip": "Nur so weit öffnen, wie es dehnt — nie bis zum Schmerz in den Knien.",
+  "exerciseEveningFoldsS1LegsUpWallName": "Beine an die Wand",
+  "exerciseEveningFoldsS1LegsUpWallDesc": "Leg dich auf den Rücken, die Hüfte nah an der Wand, die gestreckten Beine an der Wand hoch. Arme locker neben dem Körper, atme langsam.",
+  "exerciseEveningFoldsS1LegsUpWallTip": "Beug die Knie ein wenig, wenn die Beinrückseiten zu sehr ziehen.",
+  "exerciseEveningFoldsS2TowelHamstringName": "Beinrückseite im Liegen",
+  "exerciseEveningFoldsS2TowelHamstringDesc": "Leg dich auf den Rücken, leg ein Handtuch um einen Fuß und heb dieses Bein so gestreckt wie möglich. Das andere Bein bleibt am Boden.",
+  "exerciseEveningFoldsS2TowelHamstringTip": "Zieh mit dem Handtuch, nicht mit dem Rücken — die Hüfte bleibt am Boden.",
+  "exerciseEveningFoldsS3HeadToKneeName": "Vorbeuge über ein Bein",
+  "exerciseEveningFoldsS3HeadToKneeDesc": "Setz dich, ein Bein gestreckt, die Fußsohle des anderen an der Innenseite dieses Oberschenkels. Beug dich über das gestreckte Bein nach vorn, Richtung Fuß.",
+  "exerciseEveningFoldsS3HeadToKneeTip": "Führ mit der Brust, nicht mit dem Kopf; das gestreckte Knie darf leicht gebeugt sein.",
+  "exerciseEveningFoldsS4StraddleFoldName": "Grätsche mit Vorbeuge",
+  "exerciseEveningFoldsS4StraddleFoldDesc": "Setz dich mit weit gegrätschten Beinen hin, die Knie zeigen nach oben. Wandere mit den Händen nach vorn und senk den Oberkörper zwischen den Beinen zum Boden.",
+  "exerciseEveningFoldsS4StraddleFoldTip": "Kipp aus der Hüfte mit langem Rücken; ein runder Rücken bringt nichts.",
+  "exerciseEveningShouldersS1SelfHugName": "Selbstumarmung",
+  "exerciseEveningShouldersS1SelfHugDesc": "Im Sitzen oder Stehen: Leg die Arme um dich und fass die Schulterblätter. Lass den oberen Rücken rund werden und atme hinein.",
+  "exerciseEveningShouldersS1SelfHugTip": "Entspann den Nacken, das Kinn sinkt leicht.",
+  "exerciseEveningShouldersS2TricepsStretchName": "Trizepsdehnung über Kopf",
+  "exerciseEveningShouldersS2TricepsStretchDesc": "Heb einen Arm, beug den Ellbogen und lass die Hand hinter den Nacken sinken. Schieb den Ellbogen mit der anderen Hand sanft nach hinten.",
+  "exerciseEveningShouldersS2TricepsStretchTip": "Kopf aufrecht, Rippen unten.",
+  "exerciseEveningShouldersS3EagleArmsName": "Adlerarme",
+  "exerciseEveningShouldersS3EagleArmsDesc": "Kreuz die Arme an den Ellbogen, einen unter dem anderen, beug sie und leg die Handflächen zusammen. Heb die Ellbogen auf Schulterhöhe.",
+  "exerciseEveningShouldersS3EagleArmsTip": "Wenn die Handflächen nicht zusammenkommen, leg die Handrücken aneinander.",
+  "exerciseEveningShouldersS4PuppyPoseName": "Welpenhaltung",
+  "exerciseEveningShouldersS4PuppyPoseDesc": "Im Vierfüßlerstand mit den Händen nach vorn wandern und die Brust Richtung Boden senken; Hüfte über den Knien, Arme gestreckt.",
+  "exerciseEveningShouldersS4PuppyPoseTip": "Leg die Stirn ab und lass die Brust nach unten sinken.",
+  "exerciseEveningShouldersS5CowFaceArmsName": "Kuhgesicht-Arme",
+  "exerciseEveningShouldersS5CowFaceArmsDesc": "Führ eine Hand von oben hinter den Nacken, die andere von unten hinter den Rücken und versuch, die Finger zu verhaken. Reichen sie nicht, nimm ein Handtuch dazwischen.",
+  "exerciseEveningShouldersS5CowFaceArmsTip": "Der obere Ellbogen zeigt nach oben, der Rücken bleibt gerade.",
+  "exerciseCooldownLyingRelaxationName": "Entspannung im Liegen",
+  "exerciseCooldownLyingRelaxationDesc": "Leg dich auf den Rücken, Arme neben dem Körper, Handflächen nach oben. Schließ die Augen und atme langsam; lass den ganzen Körper schwer werden.",
+  "exerciseCooldownLyingRelaxationTip": "Atme länger aus als ein.",
   "aboutTitle": "Über die App",
   "aboutSectionSupport": "SUPPORT",
   "aboutContactUs": "Kontakt",
@@ -556,6 +676,7 @@
       }
     }
   },
+  "releaseNotes0820": "Übungen für eine Seite laufen jetzt auf beiden: Nach der ersten Seite gibt dir ein kurzer Countdown Zeit zum Wechseln, dann wird die andere Seite gemessen. Du musst nichts antippen.\nDas gilt für die Hüftbeuger-Dehnungen, 90/90, das Kopfneigen, die Taube, den Einbeinstand, die einarmige Plank, den Seitstütz und die Bein- und Flankendehnungen nach dem Training.\nSkala, der Richter der Challenges, ist neu gezeichnet: Jetzt ist er wirklich ein Stier.\nNeuer Kurs „Dehnen am Abend“: ruhiges Dehnen vor dem Schlafen in vier Skills — Rücken, Hüften, Vorbeugen und Schultern.\nJeder Kurs hat jetzt seinen Host: Giraffe Raffi leitet „Gesunder Körper“, Eule Luna „Dehnen am Abend“, Goro bleibt bei „Calisthenics“. Der Host deines aktuellen Kurses begrüßt dich jetzt auf dem Startbildschirm und im Profil, mit all seinen Stimmungen, und jubelt am Ende des Trainings.",
   "releaseNotes0819": "Jeder Zweig wächst jetzt einmal am Tag, in jedem Training — morgens, abends oder in deiner eigenen Routine. Zwei Kurse an einem Tag kommen beide voran.\nFreunde sehen deine Stufe in den einzelnen Zweigen nicht mehr: Der Freundes-Code enthält Rang, SP und Serie und lässt sich leichter scannen. Freunde mit einer älteren Version müssen aktualisieren, um ihn zu lesen.",
   "releaseNotes0818": "Das Widget auf dem Startbildschirm spricht die Sprache der App: Die Beschriftung „Erledigt“ und die Beschreibung in der Widget-Galerie sind nicht mehr immer auf Russisch.\nWenn du die Sprache der App änderst, wechseln Widget und Erinnerungen sofort mit.",
   "releaseNotes0817": "Zahlen und Wörter passen jetzt zusammen: „1 Satz“ statt „1 Sätze“.",
@@ -705,7 +826,7 @@
   "exercisePostureS6PigeonPoseDesc": "Bring aus dem Vierfüßlerstand das rechte Bein im 90°-Winkel gebeugt nach vorn. Streck das linke Bein nach hinten. Senk die Hüfte Richtung Boden und halte die Position.",
   "exercisePostureS6PigeonPoseTip": "Atme tief — die Haltung öffnet die Hüfte nach und nach.",
   "exerciseNeckS1NeckTiltName": "Kopf seitlich neigen",
-  "exerciseNeckS1NeckTiltDesc": "Neig den Kopf langsam zur rechten Schulter — ohne die Schulter hochzuziehen. 5 Sekunden halten, zurück. Seiten abwechseln.",
+  "exerciseNeckS1NeckTiltDesc": "Neig den Kopf langsam zur rechten Schulter — ohne die Schulter hochzuziehen — und halte die sanfte Dehnung. Dann die andere Seite.",
   "exerciseNeckS1NeckTiltTip": "Lass die Schulter nach unten sinken — das vertieft die Dehnung.",
   "exerciseNeckS2ChestOpenerName": "Brustöffner",
   "exerciseNeckS2ChestOpenerDesc": "Stell dich aufrecht hin und verschränk die Hände hinter dem Rücken. Zieh die Schulterblätter zusammen und heb die Arme sanft an, während sich die Brust öffnet.",

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -360,6 +361,8 @@ class _CourseOptionTile extends StatelessWidget {
         ),
         child: Row(
           children: [
+            SvgPicture.asset(course.hostPortrait, width: 40, height: 40),
+            const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -1247,7 +1250,9 @@ class _ChallengeCard extends ConsumerWidget {
 
     final isTimed = next.type == ExerciseType.timed;
     final normLabel = isTimed
-        ? l10n.homeChallengeNormSec(next.challengeTargetReps)
+        ? (next.holdsPerSet > 1
+            ? l10n.homeChallengeNormSecPerSide
+            : l10n.homeChallengeNormSec)(next.challengeTargetReps)
         : l10n.homeChallengeNormReps(next.challengeTargetReps);
 
     return Container(

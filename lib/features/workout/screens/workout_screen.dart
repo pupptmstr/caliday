@@ -10,7 +10,9 @@ import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
 import '../../../core/services/sound_service.dart';
 import '../../../data/models/enums.dart';
+import '../../../data/models/exercise.dart';
 import '../../../domain/models/workout_plan.dart' show prepSecFor;
+import '../../../l10n/app_localizations.dart';
 import '../providers/workout_provider.dart';
 
 class WorkoutScreen extends ConsumerStatefulWidget {
@@ -107,6 +109,7 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
             'newAchievementIds': s.newAchievementIds,
             'healthSaved': s.healthSaved,
             'rankRestored': s.rankRestored,
+            'courseIdIndex': s.courseIdIndex,
           });
         }
       },
@@ -131,6 +134,10 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
         // Get-ready countdown over → the hold begins by itself, so the user
         // in position has to hear it.
         unawaited(svc.ding());
+      } else if (prev.isHolding && next.isGettingReady) {
+        // One side of a hold done → switch sides (or the next set without a
+        // rest); the user may not be looking at the screen.
+        unawaited(svc.pop());
       } else if (prev.phase == WorkoutPhase.exercise &&
           next.phase == WorkoutPhase.exercise &&
           prev.exerciseIndex != next.exerciseIndex) {
@@ -226,6 +233,7 @@ class _ExerciseView extends StatelessWidget {
     final exercise = planned.exercise;
     final isTimed = exercise.type == ExerciseType.timed;
     final gettingReady = state.isGettingReady;
+    final switchingSides = state.isSwitchingSides;
     final paused = state.prepPaused;
     final scheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
@@ -255,9 +263,12 @@ class _ExerciseView extends StatelessWidget {
                 if (exercise.animationPath != null)
                   const SizedBox(height: 16),
 
-                // Set indicator
+                // Set indicator (and the side of a hold on each side)
                 Text(
-                  l10n.workoutSetProgress(state.setIndex + 1, planned.sets),
+                  exercise.holdsPerSet > 1
+                      ? l10n.workoutSetSideProgress(state.setIndex + 1,
+                          planned.sets, state.sideIndex + 1)
+                      : l10n.workoutSetProgress(state.setIndex + 1, planned.sets),
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                         color: scheme.primary,
                         fontWeight: FontWeight.w600,
@@ -317,7 +328,11 @@ class _ExerciseView extends StatelessWidget {
                 if (gettingReady) ...[
                   const SizedBox(height: 16),
                   Text(
-                    paused ? l10n.workoutPrepPausedHint : l10n.workoutPrepHint,
+                    paused
+                        ? l10n.workoutPrepPausedHint
+                        : switchingSides
+                            ? l10n.workoutSwitchSidesHint
+                            : l10n.workoutPrepHint,
                     style: TextStyle(
                       fontSize: 13,
                       color: scheme.onSurfaceVariant,
@@ -343,8 +358,13 @@ class _ExerciseView extends StatelessWidget {
               else if (gettingReady)
                 _TimedDisplay(
                   seconds: state.prepSec,
-                  totalSec: prepSecFor(planned, state.setIndex),
-                  label: paused ? l10n.workoutPaused : l10n.workoutGetReady,
+                  totalSec:
+                      prepSecFor(planned, state.setIndex, side: state.sideIndex),
+                  label: paused
+                      ? l10n.workoutPaused
+                      : switchingSides
+                          ? l10n.workoutSwitchSides
+                          : l10n.workoutGetReady,
                   color: paused ? scheme.outline : scheme.secondary,
                 )
               else
@@ -550,6 +570,14 @@ class _CounterButton extends StatelessWidget {
 
 // ── Rest phase ────────────────────────────────────────────────────────────────
 
+/// What the next set holds: reps, seconds, or seconds on each side.
+String _amountLabel(AppLocalizations l10n, Exercise exercise, int amount) {
+  if (exercise.type != ExerciseType.timed) return l10n.workoutAmountReps(amount);
+  return exercise.holdsPerSet > 1
+      ? l10n.durationSecPerSide(amount)
+      : l10n.durationSec(amount);
+}
+
 class _RestView extends StatelessWidget {
   const _RestView({required this.state, required this.notifier});
 
@@ -570,21 +598,19 @@ class _RestView extends StatelessWidget {
     if (state.isInterExerciseRest) {
       final nextPlanned = state.plan.exercises[state.exerciseIndex + 1];
       final nextExercise = nextPlanned.exercise;
-      final isTimed = nextExercise.type == ExerciseType.timed;
       final amount = nextPlanned.targetAmount;
       title = l10n.workoutExerciseDone;
       upcomingLabel = l10n.workoutNextExercise(
         ExerciseL10n.name(l10n, nextExercise.id),
-        isTimed ? l10n.durationSec(amount) : l10n.workoutAmountReps(amount),
+        _amountLabel(l10n, nextExercise, amount),
       );
     } else {
       final planned = state.currentPlanned;
-      final isTimed = planned.exercise.type == ExerciseType.timed;
       final amount = planned.targetAmount;
       title = l10n.workoutSetDone;
       upcomingLabel = l10n.workoutNextSet(
         state.setIndex + 2,
-        isTimed ? l10n.durationSec(amount) : l10n.workoutAmountReps(amount),
+        _amountLabel(l10n, planned.exercise, amount),
       );
     }
 

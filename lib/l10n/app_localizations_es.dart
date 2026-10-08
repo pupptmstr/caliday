@@ -19,6 +19,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String durationSecPerSide(int secs) {
+    return '$secs s por lado';
+  }
+
+  @override
   String get navHome => 'Entrenar';
 
   @override
@@ -73,10 +78,25 @@ class AppLocalizationsEs extends AppLocalizations {
   String get homeBranchNeck => 'Cuello';
 
   @override
+  String get homeBranchEveningBack => 'Espalda';
+
+  @override
+  String get homeBranchEveningHips => 'Caderas';
+
+  @override
+  String get homeBranchEveningFolds => 'Pinzas';
+
+  @override
+  String get homeBranchEveningShoulders => 'Hombros';
+
+  @override
   String get courseNameCalisthenics => 'Calistenia';
 
   @override
   String get courseNameHealthyBody => 'Cuerpo sano';
+
+  @override
+  String get courseNameEveningStretch => 'Estiramiento nocturno';
 
   @override
   String get courseDescCalisthenics =>
@@ -87,11 +107,15 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ejercicios para quienes pasan el día sentados. Mejora la postura, libera la tensión del cuello y gana flexibilidad, sin castigar las articulaciones.';
 
   @override
+  String get courseDescEveningStretch =>
+      'Un estiramiento tranquilo antes de dormir. Espalda, caderas, piernas y hombros, despacio y en el suelo, para terminar en reposo.';
+
+  @override
   String get onboardingQ4Courses => 'Elige un curso';
 
   @override
   String get onboardingQ4CoursesBody =>
-      'Puedes empezar con uno o elegir los dos: los programas son independientes.';
+      'Puedes empezar con uno o elegir varios: los programas son independientes.';
 
   @override
   String branchJourneyProgress(int done, int total) {
@@ -130,6 +154,17 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String branchJourneyParamsTimedPerSide(int secs, int sets, int rest) {
+    String _temp0 = intl.Intl.pluralLogic(
+      sets,
+      locale: localeName,
+      other: '$sets series',
+      one: '$sets serie',
+    );
+    return '$secs s por lado × $_temp0  ·  Descanso $rest s';
+  }
+
+  @override
   String get branchJourneyStartChallenge => 'Hacer el reto';
 
   @override
@@ -151,6 +186,11 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String homeChallengeNormSec(int n) {
     return 'Meta: $n s';
+  }
+
+  @override
+  String homeChallengeNormSecPerSide(int n) {
+    return 'Meta: $n s por lado';
   }
 
   @override
@@ -193,6 +233,11 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String workoutSetSideProgress(int current, int total, int side) {
+    return 'Serie $current de $total  ·  lado $side de 2';
+  }
+
+  @override
   String get workoutSec => 's';
 
   @override
@@ -203,6 +248,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get workoutGetReady => 'prepárate';
+
+  @override
+  String get workoutSwitchSides => 'cambia de lado';
 
   @override
   String get workoutPaused => 'en pausa';
@@ -217,6 +265,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get workoutPrepPausedHint =>
       'En pausa. Toca Continuar cuando estés listo: la cuenta atrás sigue donde se detuvo.';
+
+  @override
+  String get workoutSwitchSidesHint =>
+      'Cambia al otro lado. El temporizador arranca solo; toca Pausa si necesitas más tiempo.';
 
   @override
   String get workoutStop => 'Parar';
@@ -500,6 +552,34 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get achievementFlexCompleteDesc =>
       'Las 6 etapas de Flexibilidad superadas. Tu cuerpo se dobla en todas las direcciones.';
+
+  @override
+  String get achievementEveningBackCompleteName => 'Espalda flexible';
+
+  @override
+  String get achievementEveningBackCompleteDesc =>
+      'Las 5 etapas de Espalda del estiramiento nocturno, superadas. Tu columna te da las gracias.';
+
+  @override
+  String get achievementEveningHipsCompleteName => 'Caderas libres';
+
+  @override
+  String get achievementEveningHipsCompleteDesc =>
+      'Las 5 etapas de Caderas del estiramiento nocturno, superadas. De rodillas al pecho a la rana.';
+
+  @override
+  String get achievementEveningFoldsCompleteName => 'Pinza profunda';
+
+  @override
+  String get achievementEveningFoldsCompleteDesc =>
+      'Las 4 etapas de Pinzas del estiramiento nocturno, superadas. Hasta el suelo entre las piernas.';
+
+  @override
+  String get achievementEveningShouldersCompleteName => 'Hombros libres';
+
+  @override
+  String get achievementEveningShouldersCompleteDesc =>
+      'Las 5 etapas de Hombros del estiramiento nocturno, superadas. Dedos enganchados tras la espalda.';
 
   @override
   String get achievementAllCompleteName => 'Colección completa';
@@ -1254,6 +1334,230 @@ class AppLocalizationsEs extends AppLocalizations {
       'Desde cuatro patas, estira brazos y piernas y sube la cadera. El cuerpo forma una V invertida. Estira muñecas, hombros y piernas.';
 
   @override
+  String get exerciseEveningBackS1CatCowName => 'Gato-vaca';
+
+  @override
+  String get exerciseEveningBackS1CatCowDesc =>
+      'A cuatro patas, manos bajo los hombros y rodillas bajo la cadera. Al inspirar, deja caer el abdomen y eleva el pecho; al espirar, redondea la espalda hacia el techo. Muévete despacio, al ritmo de la respiración.';
+
+  @override
+  String get exerciseEveningBackS1CatCowTip =>
+      'Deja que mande la respiración: una inspiración y una espiración lentas por repetición.';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseName => 'Postura del niño';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseDesc =>
+      'De rodillas, con los dedos gordos juntos y las rodillas separadas. Siéntate sobre los talones y baja el pecho entre las rodillas, brazos estirados hacia delante y frente en el suelo. Respira hacia la espalda.';
+
+  @override
+  String get exerciseEveningBackS2ChildsPoseTip =>
+      'Con cada espiración, deja que la cadera baje hacia los talones.';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistName => 'Torsión supina';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistDesc =>
+      'Túmbate boca arriba con los brazos en cruz. Dobla una rodilla y déjala caer al otro lado del cuerpo hasta el suelo, mirando hacia el lado contrario. Los dos hombros siguen en el suelo.';
+
+  @override
+  String get exerciseEveningBackS3SupineTwistTip =>
+      'No empujes la rodilla: el peso de la pierna hace el trabajo.';
+
+  @override
+  String get exerciseEveningBackS4SphinxName => 'Esfinge';
+
+  @override
+  String get exerciseEveningBackS4SphinxDesc =>
+      'Túmbate boca abajo, codos bajo los hombros y antebrazos en el suelo. Eleva el pecho; la cadera y las piernas quedan relajadas en el suelo.';
+
+  @override
+  String get exerciseEveningBackS4SphinxTip =>
+      'Aleja los hombros de las orejas; el arco es suave, sin presión en la zona lumbar.';
+
+  @override
+  String get exerciseEveningBackS5CobraName => 'Cobra';
+
+  @override
+  String get exerciseEveningBackS5CobraDesc =>
+      'Túmbate boca abajo con las manos bajo los hombros. Empuja y estira los brazos hasta donde te deje la zona lumbar; la cadera se queda en el suelo.';
+
+  @override
+  String get exerciseEveningBackS5CobraTip =>
+      'Codos un poco flexionados y hombros abajo; para donde la espalda se sienta bien.';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestName => 'Rodillas al pecho';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestDesc =>
+      'Boca arriba, abraza las dos rodillas, llévalas al pecho y mantén. Puedes balancearte suavemente de lado a lado.';
+
+  @override
+  String get exerciseEveningHipsS1KneesToChestTip =>
+      'La zona lumbar y la cabeza siguen en el suelo.';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourName => 'Figura cuatro en el suelo';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourDesc =>
+      'Boca arriba, con las rodillas dobladas. Cruza un tobillo sobre la otra rodilla y lleva ese muslo hacia el pecho hasta notar el estiramiento en el glúteo.';
+
+  @override
+  String get exerciseEveningHipsS2FigureFourTip =>
+      'Empuja suavemente la rodilla cruzada hacia fuera para estirar más.';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyName => 'Bebé feliz';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyDesc =>
+      'Boca arriba, lleva las rodillas hacia las axilas y sujeta el borde exterior de los pies, con las plantas hacia el techo. Tira suavemente de las rodillas hacia el suelo.';
+
+  @override
+  String get exerciseEveningHipsS3HappyBabyTip =>
+      'El coxis sigue abajo; puedes balancearte un poco.';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyName => 'Mariposa';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyDesc =>
+      'Siéntate con la espalda recta, las plantas de los pies juntas y las rodillas hacia los lados. Sujeta los pies y deja que las rodillas bajen hacia el suelo.';
+
+  @override
+  String get exerciseEveningHipsS4ButterflyTip =>
+      'Espalda recta; para ir más lejos, inclínate hacia delante desde la cadera.';
+
+  @override
+  String get exerciseEveningHipsS5FrogName => 'Rana';
+
+  @override
+  String get exerciseEveningHipsS5FrogDesc =>
+      'A cuatro patas, abre mucho las rodillas, con los tobillos en línea con ellas y los pies hacia fuera. Baja a los antebrazos y lleva la cadera suavemente hacia atrás.';
+
+  @override
+  String get exerciseEveningHipsS5FrogTip =>
+      'Abre solo hasta notar estiramiento, nunca dolor en las rodillas.';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallName => 'Piernas en la pared';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallDesc =>
+      'Túmbate boca arriba con la cadera cerca de una pared y las piernas estiradas hacia arriba, apoyadas en ella. Brazos relajados junto al cuerpo; respira despacio.';
+
+  @override
+  String get exerciseEveningFoldsS1LegsUpWallTip =>
+      'Dobla un poco las rodillas si la parte de atrás de las piernas tira demasiado.';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringName =>
+      'Isquiotibiales con toalla';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringDesc =>
+      'Boca arriba, pasa una toalla por un pie y sube esa pierna lo más recta que puedas. La otra pierna sigue en el suelo.';
+
+  @override
+  String get exerciseEveningFoldsS2TowelHamstringTip =>
+      'Tira con la toalla, no con la espalda: la cadera se queda en el suelo.';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeName => 'Pinza a una pierna';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeDesc =>
+      'Siéntate con una pierna estirada y la planta del otro pie contra el interior de ese muslo. Inclínate hacia delante sobre la pierna estirada, hacia el pie.';
+
+  @override
+  String get exerciseEveningFoldsS3HeadToKneeTip =>
+      'Avanza con el pecho, no con la cabeza; puedes doblar un poco la rodilla estirada.';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldName =>
+      'Pinza con piernas abiertas';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldDesc =>
+      'Siéntate con las piernas muy abiertas y las rodillas hacia arriba. Avanza con las manos y baja el tronco hacia el suelo entre las piernas.';
+
+  @override
+  String get exerciseEveningFoldsS4StraddleFoldTip =>
+      'Inclínate desde la cadera con la espalda larga; redondearla no suma nada.';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugName => 'Autoabrazo';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugDesc =>
+      'De pie o en el suelo, rodéate con los brazos y sujeta los omóplatos. Deja que la parte alta de la espalda se redondee y respira hacia ella.';
+
+  @override
+  String get exerciseEveningShouldersS1SelfHugTip =>
+      'Relaja el cuello y baja un poco la barbilla.';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchName =>
+      'Tríceps por encima de la cabeza';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchDesc =>
+      'Levanta un brazo, dobla el codo y deja caer la mano detrás de la nuca. Con la otra mano, lleva el codo suavemente hacia atrás.';
+
+  @override
+  String get exerciseEveningShouldersS2TricepsStretchTip =>
+      'Cabeza erguida y costillas abajo.';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsName => 'Brazos de águila';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsDesc =>
+      'Cruza los brazos por los codos, uno debajo del otro, dóblalos y junta las palmas. Sube los codos a la altura de los hombros.';
+
+  @override
+  String get exerciseEveningShouldersS3EagleArmsTip =>
+      'Si las palmas no se juntan, une el dorso de las manos.';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseName => 'Postura del cachorro';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseDesc =>
+      'A cuatro patas, avanza con las manos y baja el pecho hacia el suelo, con la cadera sobre las rodillas y los brazos estirados.';
+
+  @override
+  String get exerciseEveningShouldersS4PuppyPoseTip =>
+      'Apoya la frente y deja que el pecho baje.';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsName =>
+      'Brazos de cara de vaca';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsDesc =>
+      'Lleva una mano por arriba detrás de la nuca y la otra por abajo detrás de la espalda, e intenta enganchar los dedos. Si no llegan, usa una toalla entre las manos.';
+
+  @override
+  String get exerciseEveningShouldersS5CowFaceArmsTip =>
+      'El codo de arriba apunta al techo y la espalda sigue recta.';
+
+  @override
+  String get exerciseCooldownLyingRelaxationName => 'Relajación boca arriba';
+
+  @override
+  String get exerciseCooldownLyingRelaxationDesc =>
+      'Túmbate boca arriba, brazos junto al cuerpo y palmas hacia arriba. Cierra los ojos y respira despacio; deja que todo el cuerpo pese.';
+
+  @override
+  String get exerciseCooldownLyingRelaxationTip =>
+      'Espira más largo de lo que inspiras.';
+
+  @override
   String get aboutTitle => 'Acerca de';
 
   @override
@@ -1288,6 +1592,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Versión $version';
   }
+
+  @override
+  String get releaseNotes0820 =>
+      'Los ejercicios a un lado ahora se hacen a ambos: tras el primer lado, una cuenta atrás corta te da tiempo para cambiar y luego se cronometra el otro. No hay que tocar nada.\nEsto vale para los estiramientos del flexor de cadera, el 90/90, las inclinaciones de cuello, la paloma, el equilibrio a una pierna, la plancha a un brazo, la plancha lateral y los estiramientos de piernas y costados tras el entrenamiento.\nSkala, el juez de los retos, tiene un dibujo nuevo: ahora sí es un toro.\nCurso nuevo, Estiramiento nocturno: estiramientos tranquilos antes de dormir en cuatro habilidades: espalda, caderas, pinzas y hombros.\nCada curso tiene ahora su anfitrión: la jirafa Raffi guía Cuerpo sano, la lechuza Luna guía Estiramiento nocturno y Goro sigue con Calistenia. El anfitrión de tu curso actual te recibe ahora en la pantalla de inicio y en el perfil, con todos sus estados de ánimo, y te anima al final del entrenamiento.';
 
   @override
   String get releaseNotes0819 =>
@@ -1726,7 +2034,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get exerciseNeckS1NeckTiltDesc =>
-      'Inclina despacio la cabeza hacia el hombro derecho, sin subir el hombro. Mantén 5 segundos y vuelve. Alterna los lados.';
+      'Inclina despacio la cabeza hacia el hombro derecho, sin subir el hombro, y mantén el estiramiento suave. Luego el otro lado.';
 
   @override
   String get exerciseNeckS1NeckTiltTip =>
