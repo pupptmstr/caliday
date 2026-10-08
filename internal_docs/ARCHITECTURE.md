@@ -403,7 +403,7 @@ Warmup: `warmup_neck_rolls` ✅. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_s
 | 4 | `neck_s4_wall_angel` | Wall Angels | reps | ✅ (side) |
 | 5 | `neck_s5_doorway_stretch` | Doorway Pec Stretch | timed | ✅ (front) |
 
-### Evening Stretch — four branches (0.8.20, no animations yet)
+### Evening Stretch — four branches (0.8.20)
 A calm stretch before sleep (content agreed with the owner, DEV_NOTES § Roadmap 2b-1). No stage repeats a Flex / Posture / Neck stage. Every stage: sets 1→2, rest 15→10 s, `spBase` 1; ↔ = `perSide`. Warm-up of every branch: `warmup_neck_rolls`; cool-down of every branch: `cooldown_lying_relaxation` (so each evening workout ends lying down, once). Every exercise has an animation: `evening_back_s1_cat_cow` reuses `cooldown_cat_cow.json`, the other 18 and the cool-down come from `tools/lottie/gen_evening.py` (seated front views, cow face from behind, side views, the twist / figure four / frog from above).
 
 | Branch (`BranchId`) | Stages (start→target, challenge to enter) |
@@ -946,10 +946,10 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Telegram: the web build as a Mini App, reminders sent by a bot | 💡 idea, **parked** by the owner (2026-10-07): a thought on the side, not planned; the research is kept in DEV_NOTES § Telegram Mini App + bot |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
-| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages, the store listings and the native widget's texts are open — see DEV_NOTES § Roadmap |
+| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages and the store listings are open (the widget's texts follow the app's language since 0.8.18) — see DEV_NOTES § Roadmap |
 | v1.0 | Friends: branch progress no longer shared (QR format 3), so a new branch never changes the format | ✅ 0.8.19 |
 | v1.0 | Progression per branch and per day, in any workout (two courses on one day both progress) | ✅ 0.8.19 |
-| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | **Evening Stretch: ✅ in 0.8.20 (4 branches, 19 exercises, texts in 4 languages, all animations); the host Luna open** — § Exercise Catalog, DEV_NOTES § Roadmap 2b-1; Morning Routine and Yoga to design |
+| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | **Evening Stretch: ✅ in 0.8.20 (4 branches, 19 exercises, texts in 4 languages, all animations, the host Luna)** — § Exercise Catalog, DEV_NOTES § Roadmap 2b-1. **Morning Routine: 📐 content agreed 2026-10-08** (4 standing, quiet branches — Spine, Joints, Arms, Energy — 19 stages + warm-up + cool-down, host Aurora; DEV_NOTES § Roadmap 2b-2), on branch `0.9.0`. Yoga to design |
 | v1.0 | Per-side holds — a one-sided hold runs side 1 → "switch sides" countdown → side 2, hands-free (prerequisite of Evening Stretch; also for existing one-sided stretches) | ✅ 0.8.20 — § Timed exercises: the get-ready countdown |
 | v1.0 | Course hosts — a character per course (Goro, Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat) on the course cards, the summary and the achievements; Goro keeps Home and every animation | ✅/📐 0.8.20: Raffi and Luna drawn with the six moods, an idle and a cheer pose; the active course's host is on Home (`GoroExpression.assetFor(course)`), Profile, the course cards (onboarding, Library) and the summary (`CourseId.hostFace` / `hostPortrait` / `hostIdle` / `hostCheer`); Goro keeps the icon, onboarding welcome, notifications, widget and About; Aurora and Miso come with their courses; not yet on the achievements |
 | v1.0 | Skala redrawn as a real bull (it was a recoloured Goro with horns) | ✅ 0.8.20 — `tools/characters/gen_skala.py` |

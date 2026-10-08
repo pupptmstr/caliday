@@ -30,7 +30,7 @@ The owner's plan for the **big features after that** (2026-10-07), in his order:
 | Notifications (5 types: morning, evening, streak at risk, streak lost, rank at risk) | ✅ |
 | Dark theme | ✅ |
 | Goro (6 expressions) + Skala | ✅ |
-| Lottie animations (87 of 89 exercises; 90/90 hip mobility and the pigeon pose intentionally have none) | ✅ |
+| Lottie animations (88 of 90 exercises; 90/90 hip mobility and the pigeon pose intentionally have none) | ✅ |
 | Sound + haptics | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
@@ -192,7 +192,7 @@ The owner's order: **(1) German and Spanish translations (done as drafts, 0.8.16
 #### 1. German and Spanish
 - **Part 1, the code, is done (2026-10-07, 0.8.16):** nothing assumes two languages any more. The UI languages are one list, `appLanguages` (`core/l10n/app_languages.dart`); the settings dialog, the onboarding menu, the system-language default (`LocaleNotifier`), the notification texts and the widget's rank names all follow it, the last two through the ARB files (`l10nFor`). The tests check every ARB file against the template and run their "every language" checks over all of them (`test/helpers/all_translations.dart`). Tried with a copy of `app_en.arb` as `app_de.arb`: exactly two tests failed, the missing line in `appLanguages` and the "What's new" entries left in English. See the Change History entry.
 - **Part 2, the texts, is in as drafts (2026-10-07, also 0.8.16, at the owner's request):** `l10n/app_de.arb` and `app_es.arb`, all 562 messages each, written by Claude. **The owner will have native speakers proofread them**; until then the wording is provisional. Choices a proofreader should know: informal address (du / tú, like the Russian ты); German keeps the calisthenics anglicisms the community uses (Challenge, Skills, Plank, Pistol Squat, Dragon Flag, Crunches) and "Serie / Serienschutz" for streak / freeze; Spanish is neutral rather than Spain-only where it could be ("acuéstate", "parada de manos"), with "racha / protector de racha / reto / etapa"; the rank names follow the Russian ones (Anfänger, Amateur, Sportler, Athlet, Meister, Legende / Principiante, Aficionado, Deportista, Atleta, Maestro, Leyenda); counted messages are plurals even where the English one is not ("1 Freund", "1 vez"). Adding a message from now on means writing it in all four files.
-- **Not translated yet:** the legal pages in `docs/` and the store listings; the native widget's own texts (see below).
+- **Not translated yet:** the legal pages in `docs/` and the store listings.
 - **Still assuming Russian on purpose:** a profile without a language (`UserProfile.locale == null`, older profiles) gets Russian notifications and shows "Русский" in Settings (`SettingsState.locale`), as before; a new profile always stores its language. `l10n.yaml` `preferred-supported-locales: en, ru` only orders the locale resolution and needs no change.
 - **Checked on a 375 px screen (web):** German — the onboarding, Home, the Courses tab, Profile, Settings; Spanish — Settings, Home, Profile, the workout screen and its quit dialog. Nothing overflowed and the console showed no layout errors; the long rank names ("Principiante") shrink inside their chip. The segmented controls fit in both; only the Russian "Системная" breaks mid-word (an older problem, not about the new languages).
 - ~~The native home screen widget is not localized~~ — fixed in 0.8.18 (Change History).
@@ -250,6 +250,45 @@ The owner chose to drop branch progress from the friend exchange altogether (rat
 - **Costs:** 19 new exercises (18 stages + Lying Relaxation), each a name, a description and a tip in four languages, tags, and a Lottie animation; 4 branches, 1 course, 4 branch achievements, the course card with Luna.
 - **Rig work first:** a **seated front view** in `tools/lottie/frontview.py` (it draws standing poses only today) is needed by about seven animations (butterfly, straddle, the four arm stretches, maybe the frog). Build it and check that the ⚠️ poses read before drawing the rest; a pose that does not read is replaced, not shipped without an animation.
 - **Order of work:** (1) per-side holds — done, 0.8.20; (2) — **done, 0.8.20 (Change History)** — the course, its branches and exercises **without animations** (the app already shows an exercise without one, as 90/90 and the pigeon) and their texts in four languages; (3) Luna and the host slot; (4) the animations, branch by branch — **done, 0.8.20, all 19 approved by the owner**. Users should see the course only once the animations are in — the web build is public, so either it lands in one go or it stays behind a debug-only switch until then (to decide at implementation).
+
+#### 2b-2. Morning Routine — the second new course, content agreed (owner, 2026-10-08)
+- **Concept:** wake the body up — the opposite of Evening Stretch (calm holds lying down). Host: **Aurora** the lark (§ Course hosts). Course name: Morning Routine / Утренняя зарядка / Morgenroutine / Rutina matutina (to settle with the texts).
+- **Principles:** everything **standing** (next to the bed, in pyjamas, no mat, no lying down — hands go to the floor only in the top stages); **quiet, no jumps** (the household and the neighbours may still be asleep); **dynamic** — mobility moves are counted in reps, the cardio is timed (hands-free through the get-ready countdown). An alternating move counts each side as one rep (`perSide` stays for timed holds only).
+- **No stage repeats a progression stage of another branch** (Flex, Posture, Neck, Evening, Calisthenics). Accepted by the owner as different enough: the side lunge (the Legs lunge goes forward), the standing knee hug (Evening's knees to chest is lying), plank to downward dog (the Balance cool-down is a static hold), step jacks (jumping jacks is a warm-up, not a stage).
+- **Branch names differ from the Evening ones** (Спина, Бёдра, Плечи) so that the Library and later the builder do not show two "Плечи".
+
+| Branch | # | Exercise | Grows within the stage | Challenge to enter | Animation |
+|--------|---|----------|------------------------|--------------------|-----------|
+| **Spine** (Позвоночник) | 1 | Standing Side Bend | 6→16 reps | — | front |
+| | 2 | Torso Twist | 10→24 reps | 12 | ⚠️ front, faked torso turn |
+| | 3 | Good Morning (hands behind the head, hinge with a flat back) | 8→20 reps | 8 | side |
+| | 4 | Roll-Down (vertebra by vertebra) | 3→8 reps | 4 | side (three-part spine) |
+| | 5 | Windmill | 6→16 reps | 8 | ⚠️ front, fold + turn |
+| **Joints** (Суставы) | 1 | Knee Circles | 8→20 reps | — | ⚠️ front |
+| | 2 | Open the Gate (knee up and out) | 6→16 reps | 8 | front |
+| | 3 | Standing Knee Hug, up on the toes | 6→16 reps | 8 | side |
+| | 4 | Side Lunge | 6→16 reps | 8 | front |
+| | 5 | Cossack Squat | 4→12 reps | 6 | front |
+| **Arms** (Руки) | 1 | Arm Swings (hug yourself, open wide) | 10→24 reps | — | front |
+| | 2 | Y Raises (leaning forward from the hips) | 8→20 reps | 10 | side |
+| | 3 | Cactus Arms (elbows at 90°, rotate the shoulders) | 8→20 reps | 10 | front |
+| | 4 | Inchworm (walk the hands out to a plank and back) | 3→8 reps | 4 | side |
+| | 5 | Plank to Downward Dog | 4→10 reps | 5 | side |
+| **Energy** (Бодрость) | 1 | Step Jacks (jumping jacks without the jump: step out, arms up) | 20→60 s | — | front |
+| | 2 | Butt Kicks on the spot, soft | 20→45 s | 30 | side |
+| | 3 | Standing Cross Crunch (elbow to the opposite knee) | 20→45 s | 30 | front |
+| | 4 | Speed Skater without the hop | 20→45 s | 30 | ⚠️ front |
+| | 5 | Slow Mountain Climbers | 20→45 s | 30 | side |
+
+- The owner replaced shadow boxing (first proposed for Energy 1): most people do not know what it is or how to do it.
+- **Common to every stage:** sets 1→2, rest 15→10 s, `spBase` 1 (as Evening Stretch).
+- **Warm-up** of every branch: a new stage-0 **Morning Stretch-Up** (reach up on the toes, 5 reps). **Cool-down** of every branch: a new stage-0 **Shake-Out** (shake the arms and legs loose, 20 s) — an upbeat end, "ready for the day". The generator de-duplicates both.
+- **Branch order in the workout:** unchanged — the daily rotation of `generateDailyForCourse` (owner, 2026-10-08; playing the branches in course order was offered and declined).
+- **Bonus workout:** adds the two supplementary exercises like every course but Evening Stretch (owner, 2026-10-08) — `CourseCatalog.addsSupplementary` needs no change.
+- **Onboarding:** all four branches start at stage 1, no calibration question.
+- **Identifiers** (Hive enum values, cannot be renamed later): `CourseId.morningRoutine` (HiveField 3); `BranchId.morningSpine`, `morningJoints`, `morningArms`, `morningEnergy` (HiveFields 12–15, appended). Exercise ids `morning_<branch>_s<N>_<name>`, `warmup_morning_stretch_up`, `cooldown_shake_out`; achievements `morning_<branch>_complete` (and `all_complete` needs them).
+- **Costs:** 21 new exercises (19 stages + warm-up + cool-down), each a name, a description and a tip in four languages, tags and a Lottie animation; 4 branches, 1 course, 4 branch achievements, Aurora (six faces + idle + cheer, `tools/characters/gen_hosts.py`).
+- **Order of work:** (1) the four ⚠️ animations drafted first in the rig (torso twist, windmill, knee circles, speed skater) — a pose that does not read is replaced before any text is written; (2) the course, branches and exercises without animations, texts in four languages, version 0.9.0; (3) Aurora; (4) the other animations, drafts → the owner's review → `assets/`. The branch `0.9.0` is merged only when all of it is in.
 
 #### Per-side holds — done (0.8.20)
 Implemented as decided; see ARCHITECTURE § Timed exercises (Holds on each side) and the Change History entry.
@@ -315,6 +354,14 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-08 — Morning Routine: the content agreed; stale lines fixed
+
+**What was done:** branch `0.9.0` cut from `main` after the Evening Stretch merge (787 tests, analyze clean). With the owner: Morning Routine is the next course — four standing, quiet branches (Spine, Joints, Arms, Energy), 19 stages, a stretch-up warm-up and a shake-out cool-down, Aurora as host; the branch order keeps the daily rotation; the bonus workout keeps the supplementary block. Shadow boxing was replaced by step jacks (the owner: few people know how to shadow-box). Written into Active Specs § Roadmap 2b-2 and the backlog. Also fixed stale lines: the Evening Stretch catalog heading ("no animations yet"), the backlog ("the host Luna open"; "the native widget's texts" — localized since 0.8.18), the animation count (88 of 90). No code changed.
+
+**Modified files:** `DEV_NOTES.md`, `ARCHITECTURE.md`.
+
+---
 
 ### 2026-10-08 — The active course's host on Home and in the Profile (0.8.20)
 
