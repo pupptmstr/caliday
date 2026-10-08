@@ -287,9 +287,11 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
       );
     }
 
-    // Evening Stretch: every branch at stage 1 (no calibration question).
-    if (state.selectedCourseIds.contains(CourseId.eveningStretch)) {
-      for (final branch in CourseCatalog.branchesFor(CourseId.eveningStretch)) {
+    // Evening Stretch, Morning Routine: every branch at stage 1 (no
+    // calibration question).
+    for (final course in const [CourseId.eveningStretch, CourseId.morningRoutine]) {
+      if (!state.selectedCourseIds.contains(course)) continue;
+      for (final branch in CourseCatalog.branchesFor(course)) {
         await progressRepo.saveProgress(progressRepo.getProgress(branch));
       }
     }

@@ -141,7 +141,7 @@ void main() {
       });
       expect(branches.where((b) => b == BranchId.flex), hasLength(1));
 
-      final all = UserProfile(activeCourseIds: [0, 1, 2], hasPullUpBar: true);
+      final all = UserProfile(activeCourseIds: [0, 1, 2, 3], hasPullUpBar: true);
       expect(all.activeBranches.toSet(), BranchId.values.toSet());
     });
   });

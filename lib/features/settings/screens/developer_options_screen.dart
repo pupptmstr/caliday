@@ -216,6 +216,10 @@ class _DeveloperOptionsScreenState
         BranchId.eveningHips => 'Evening hips',
         BranchId.eveningFolds => 'Evening folds',
         BranchId.eveningShoulders => 'Evening shoulders',
+        BranchId.morningSpine => 'Morning spine',
+        BranchId.morningJoints => 'Morning joints',
+        BranchId.morningArms => 'Morning arms',
+        BranchId.morningEnergy => 'Morning energy',
       };
 
   Widget _buildBranchCard(BranchId branch) {

@@ -234,6 +234,30 @@ abstract class AppLocalizations {
   /// **'Shoulders'**
   String get homeBranchEveningShoulders;
 
+  /// No description provided for @homeBranchMorningSpine.
+  ///
+  /// In en, this message translates to:
+  /// **'Spine'**
+  String get homeBranchMorningSpine;
+
+  /// No description provided for @homeBranchMorningJoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Joints'**
+  String get homeBranchMorningJoints;
+
+  /// No description provided for @homeBranchMorningArms.
+  ///
+  /// In en, this message translates to:
+  /// **'Arms'**
+  String get homeBranchMorningArms;
+
+  /// No description provided for @homeBranchMorningEnergy.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy'**
+  String get homeBranchMorningEnergy;
+
   /// No description provided for @courseNameCalisthenics.
   ///
   /// In en, this message translates to:
@@ -252,6 +276,12 @@ abstract class AppLocalizations {
   /// **'Evening Stretch'**
   String get courseNameEveningStretch;
 
+  /// No description provided for @courseNameMorningRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning Routine'**
+  String get courseNameMorningRoutine;
+
   /// No description provided for @courseDescCalisthenics.
   ///
   /// In en, this message translates to:
@@ -269,6 +299,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A calm stretch before sleep. Back, hips, legs and shoulders: slowly, on the floor, ending lying down.'**
   String get courseDescEveningStretch;
+
+  /// No description provided for @courseDescMorningRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Wake your body up. Spine, joints, arms and a little energy: standing, quietly, no jumps.'**
+  String get courseDescMorningRoutine;
 
   /// No description provided for @onboardingQ4Courses.
   ///
@@ -1043,6 +1079,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All 5 stages of the evening Shoulders skill cleared. Fingers hooked behind your back.'**
   String get achievementEveningShouldersCompleteDesc;
+
+  /// No description provided for @achievementMorningSpineCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Windmill'**
+  String get achievementMorningSpineCompleteName;
+
+  /// No description provided for @achievementMorningSpineCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 5 stages of the morning Spine skill cleared. From side bends to the windmill.'**
+  String get achievementMorningSpineCompleteDesc;
+
+  /// No description provided for @achievementMorningJointsCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Well-Oiled'**
+  String get achievementMorningJointsCompleteName;
+
+  /// No description provided for @achievementMorningJointsCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 5 stages of the morning Joints skill cleared. All the way to the Cossack squat.'**
+  String get achievementMorningJointsCompleteDesc;
+
+  /// No description provided for @achievementMorningArmsCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Arms'**
+  String get achievementMorningArmsCompleteName;
+
+  /// No description provided for @achievementMorningArmsCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 5 stages of the morning Arms skill cleared. From arm swings to plank to downward dog.'**
+  String get achievementMorningArmsCompleteDesc;
+
+  /// No description provided for @achievementMorningEnergyCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Early Bird'**
+  String get achievementMorningEnergyCompleteName;
+
+  /// No description provided for @achievementMorningEnergyCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 5 stages of the morning Energy skill cleared. Wide awake before the first coffee.'**
+  String get achievementMorningEnergyCompleteDesc;
 
   /// No description provided for @achievementAllCompleteName.
   ///
@@ -2694,6 +2778,402 @@ abstract class AppLocalizations {
   /// **'Breathe out longer than you breathe in.'**
   String get exerciseCooldownLyingRelaxationTip;
 
+  /// No description provided for @exerciseMorningSpineS1SideBendName.
+  ///
+  /// In en, this message translates to:
+  /// **'Standing Side Bend'**
+  String get exerciseMorningSpineS1SideBendName;
+
+  /// No description provided for @exerciseMorningSpineS1SideBendDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with your feet hip-width apart. Raise one arm over your head and lean to the other side, sliding the other hand down your thigh. Come back up and switch sides. Each side counts as one rep.'**
+  String get exerciseMorningSpineS1SideBendDesc;
+
+  /// No description provided for @exerciseMorningSpineS1SideBendTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Lean straight to the side, not forward; your hips stay still.'**
+  String get exerciseMorningSpineS1SideBendTip;
+
+  /// No description provided for @exerciseMorningSpineS2TorsoTwistName.
+  ///
+  /// In en, this message translates to:
+  /// **'Torso Twist'**
+  String get exerciseMorningSpineS2TorsoTwistName;
+
+  /// No description provided for @exerciseMorningSpineS2TorsoTwistDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with your feet a little wider than your hips, knees soft, arms loose. Turn your upper body from side to side and let your arms swing around you. Your hips keep facing forward. Each side counts as one rep.'**
+  String get exerciseMorningSpineS2TorsoTwistDesc;
+
+  /// No description provided for @exerciseMorningSpineS2TorsoTwistTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Let the arms follow the turn; don\'t throw them.'**
+  String get exerciseMorningSpineS2TorsoTwistTip;
+
+  /// No description provided for @exerciseMorningSpineS3GoodMorningName.
+  ///
+  /// In en, this message translates to:
+  /// **'Good Morning'**
+  String get exerciseMorningSpineS3GoodMorningName;
+
+  /// No description provided for @exerciseMorningSpineS3GoodMorningDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with your feet hip-width apart, hands behind your head. Push your hips back and lean forward with a flat back until you feel the back of your thighs, then stand tall again.'**
+  String get exerciseMorningSpineS3GoodMorningDesc;
+
+  /// No description provided for @exerciseMorningSpineS3GoodMorningTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Bend at the hips, not at the waist: your back stays straight the whole way.'**
+  String get exerciseMorningSpineS3GoodMorningTip;
+
+  /// No description provided for @exerciseMorningSpineS4RollDownName.
+  ///
+  /// In en, this message translates to:
+  /// **'Roll-Down'**
+  String get exerciseMorningSpineS4RollDownName;
+
+  /// No description provided for @exerciseMorningSpineS4RollDownDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall. Drop your chin to your chest and roll down slowly, one vertebra at a time, letting your arms hang toward the floor. Roll back up the same way, your head coming up last.'**
+  String get exerciseMorningSpineS4RollDownDesc;
+
+  /// No description provided for @exerciseMorningSpineS4RollDownTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Bend your knees as much as you need; the point is the spine, not touching the floor.'**
+  String get exerciseMorningSpineS4RollDownTip;
+
+  /// No description provided for @exerciseMorningSpineS5WindmillName.
+  ///
+  /// In en, this message translates to:
+  /// **'Windmill'**
+  String get exerciseMorningSpineS5WindmillName;
+
+  /// No description provided for @exerciseMorningSpineS5WindmillDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with your feet wide, arms out to the sides. Bend forward and turn, reaching one hand to the opposite foot while the other arm points at the ceiling. Come back up to the T and switch sides. Each side counts as one rep.'**
+  String get exerciseMorningSpineS5WindmillDesc;
+
+  /// No description provided for @exerciseMorningSpineS5WindmillTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep both arms in one straight line, like the sails of a windmill.'**
+  String get exerciseMorningSpineS5WindmillTip;
+
+  /// No description provided for @exerciseMorningJointsS1KneeCirclesName.
+  ///
+  /// In en, this message translates to:
+  /// **'Knee Circles'**
+  String get exerciseMorningJointsS1KneeCirclesName;
+
+  /// No description provided for @exerciseMorningJointsS1KneeCirclesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with your feet together, bend your knees slightly and rest your hands just above them. Draw slow circles with your knees: half of them one way, half the other.'**
+  String get exerciseMorningJointsS1KneeCirclesDesc;
+
+  /// No description provided for @exerciseMorningJointsS1KneeCirclesTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Small, smooth circles; your heels stay on the floor.'**
+  String get exerciseMorningJointsS1KneeCirclesTip;
+
+  /// No description provided for @exerciseMorningJointsS2OpenTheGateName.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the Gate'**
+  String get exerciseMorningJointsS2OpenTheGateName;
+
+  /// No description provided for @exerciseMorningJointsS2OpenTheGateDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall. Lift one knee in front of you to hip height, open it out to the side and lower the foot back down. Switch legs. Each side counts as one rep.'**
+  String get exerciseMorningJointsS2OpenTheGateDesc;
+
+  /// No description provided for @exerciseMorningJointsS2OpenTheGateTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Hold on to a wall or a chair if you wobble; keep your chest up.'**
+  String get exerciseMorningJointsS2OpenTheGateTip;
+
+  /// No description provided for @exerciseMorningJointsS3KneeHugName.
+  ///
+  /// In en, this message translates to:
+  /// **'Standing Knee Hug'**
+  String get exerciseMorningJointsS3KneeHugName;
+
+  /// No description provided for @exerciseMorningJointsS3KneeHugDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall. Pull one knee to your chest with both hands and rise onto the toes of the standing foot. Lower it and switch legs. Each side counts as one rep.'**
+  String get exerciseMorningJointsS3KneeHugDesc;
+
+  /// No description provided for @exerciseMorningJointsS3KneeHugTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Rise slowly and look at a point in front of you to keep your balance.'**
+  String get exerciseMorningJointsS3KneeHugTip;
+
+  /// No description provided for @exerciseMorningJointsS4SideLungeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Side Lunge'**
+  String get exerciseMorningJointsS4SideLungeName;
+
+  /// No description provided for @exerciseMorningJointsS4SideLungeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with your feet together. Step wide to one side and sit back into that hip, the other leg straight, both feet flat on the floor. Push back to the start and switch sides. Each side counts as one rep.'**
+  String get exerciseMorningJointsS4SideLungeDesc;
+
+  /// No description provided for @exerciseMorningJointsS4SideLungeTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Your bent knee points the same way as your toes.'**
+  String get exerciseMorningJointsS4SideLungeTip;
+
+  /// No description provided for @exerciseMorningJointsS5CossackSquatName.
+  ///
+  /// In en, this message translates to:
+  /// **'Cossack Squat'**
+  String get exerciseMorningJointsS5CossackSquatName;
+
+  /// No description provided for @exerciseMorningJointsS5CossackSquatDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with your feet very wide. Sink deep onto one leg while the other stays straight, toes pointing up. Move through the middle to the other side. Each side counts as one rep.'**
+  String get exerciseMorningJointsS5CossackSquatDesc;
+
+  /// No description provided for @exerciseMorningJointsS5CossackSquatTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the heel of the bent leg down; reach your arms forward for balance.'**
+  String get exerciseMorningJointsS5CossackSquatTip;
+
+  /// No description provided for @exerciseMorningArmsS1ArmSwingsName.
+  ///
+  /// In en, this message translates to:
+  /// **'Arm Swings'**
+  String get exerciseMorningArmsS1ArmSwingsName;
+
+  /// No description provided for @exerciseMorningArmsS1ArmSwingsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall. Open your arms wide to the sides, then swing them in and hug yourself, changing which arm is on top each time. Keep it loose and easy.'**
+  String get exerciseMorningArmsS1ArmSwingsDesc;
+
+  /// No description provided for @exerciseMorningArmsS1ArmSwingsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Open your chest at the wide point and breathe in.'**
+  String get exerciseMorningArmsS1ArmSwingsTip;
+
+  /// No description provided for @exerciseMorningArmsS2YRaisesName.
+  ///
+  /// In en, this message translates to:
+  /// **'Y Raises'**
+  String get exerciseMorningArmsS2YRaisesName;
+
+  /// No description provided for @exerciseMorningArmsS2YRaisesDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Knees soft, lean forward from the hips with a flat back. Thumbs up, raise your straight arms forward and up into a Y, squeezing your shoulder blades, then lower them.'**
+  String get exerciseMorningArmsS2YRaisesDesc;
+
+  /// No description provided for @exerciseMorningArmsS2YRaisesTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Lift with the shoulder blades, not by arching your lower back.'**
+  String get exerciseMorningArmsS2YRaisesTip;
+
+  /// No description provided for @exerciseMorningArmsS3CactusArmsName.
+  ///
+  /// In en, this message translates to:
+  /// **'Cactus Arms'**
+  String get exerciseMorningArmsS3CactusArmsName;
+
+  /// No description provided for @exerciseMorningArmsS3CactusArmsDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Raise your arms to the sides, elbows at shoulder height and bent at 90°, forearms pointing up like a cactus. Keeping the elbows in place, turn your forearms forward and down until they point at the floor, then back up, squeezing your shoulder blades.'**
+  String get exerciseMorningArmsS3CactusArmsDesc;
+
+  /// No description provided for @exerciseMorningArmsS3CactusArmsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Move slowly: only the forearms travel, the elbows stay at shoulder height.'**
+  String get exerciseMorningArmsS3CactusArmsTip;
+
+  /// No description provided for @exerciseMorningArmsS4InchwormName.
+  ///
+  /// In en, this message translates to:
+  /// **'Inchworm'**
+  String get exerciseMorningArmsS4InchwormName;
+
+  /// No description provided for @exerciseMorningArmsS4InchwormDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall, bend forward and put your hands on the floor (bend your knees if you need to). Walk your hands out to a plank, then walk them back to your feet and roll up to standing.'**
+  String get exerciseMorningArmsS4InchwormDesc;
+
+  /// No description provided for @exerciseMorningArmsS4InchwormTip.
+  ///
+  /// In en, this message translates to:
+  /// **'In the plank, keep your body in one straight line.'**
+  String get exerciseMorningArmsS4InchwormTip;
+
+  /// No description provided for @exerciseMorningArmsS5PlankToDogName.
+  ///
+  /// In en, this message translates to:
+  /// **'Plank to Downward Dog'**
+  String get exerciseMorningArmsS5PlankToDogName;
+
+  /// No description provided for @exerciseMorningArmsS5PlankToDogDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Start in a high plank, hands under your shoulders. Push your hips up and back into an upside-down V, heels toward the floor, then lower back to the plank.'**
+  String get exerciseMorningArmsS5PlankToDogDesc;
+
+  /// No description provided for @exerciseMorningArmsS5PlankToDogTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Push the floor away with your hands and let your head hang between your arms.'**
+  String get exerciseMorningArmsS5PlankToDogTip;
+
+  /// No description provided for @exerciseMorningEnergyS1StepJacksName.
+  ///
+  /// In en, this message translates to:
+  /// **'Step Jacks'**
+  String get exerciseMorningEnergyS1StepJacksName;
+
+  /// No description provided for @exerciseMorningEnergyS1StepJacksDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumping jacks without the jump: step one foot out to the side as both arms go up over your head, bring it back as the arms come down, then the other foot. Keep a steady rhythm.'**
+  String get exerciseMorningEnergyS1StepJacksDesc;
+
+  /// No description provided for @exerciseMorningEnergyS1StepJacksTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Stay light on your feet and never jump, so nobody wakes up.'**
+  String get exerciseMorningEnergyS1StepJacksTip;
+
+  /// No description provided for @exerciseMorningEnergyS2ButtKicksName.
+  ///
+  /// In en, this message translates to:
+  /// **'Butt Kicks'**
+  String get exerciseMorningEnergyS2ButtKicksName;
+
+  /// No description provided for @exerciseMorningEnergyS2ButtKicksDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'On the spot, kick one heel up toward your glutes, then the other, at a brisk pace. Arms bent, swinging with your legs. One foot always stays on the floor.'**
+  String get exerciseMorningEnergyS2ButtKicksDesc;
+
+  /// No description provided for @exerciseMorningEnergyS2ButtKicksTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Quiet steps on the balls of your feet: brisk, but no jumping.'**
+  String get exerciseMorningEnergyS2ButtKicksTip;
+
+  /// No description provided for @exerciseMorningEnergyS3CrossCrunchName.
+  ///
+  /// In en, this message translates to:
+  /// **'Standing Cross Crunch'**
+  String get exerciseMorningEnergyS3CrossCrunchName;
+
+  /// No description provided for @exerciseMorningEnergyS3CrossCrunchDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand with your hands behind your head. Lift one knee and bring the opposite elbow down to meet it, then switch sides, at a steady pace.'**
+  String get exerciseMorningEnergyS3CrossCrunchDesc;
+
+  /// No description provided for @exerciseMorningEnergyS3CrossCrunchTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn from the waist and open your chest between reps.'**
+  String get exerciseMorningEnergyS3CrossCrunchTip;
+
+  /// No description provided for @exerciseMorningEnergyS4SpeedSkaterName.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed Skater'**
+  String get exerciseMorningEnergyS4SpeedSkaterName;
+
+  /// No description provided for @exerciseMorningEnergyS4SpeedSkaterDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Like a skater, but without the hop: step wide to one side onto a bent leg and sweep the other foot behind it, swinging the opposite arm across your body. Then step to the other side.'**
+  String get exerciseMorningEnergyS4SpeedSkaterDesc;
+
+  /// No description provided for @exerciseMorningEnergyS4SpeedSkaterTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Sink into the standing leg and keep your chest over it.'**
+  String get exerciseMorningEnergyS4SpeedSkaterTip;
+
+  /// No description provided for @exerciseMorningEnergyS5MountainClimbersName.
+  ///
+  /// In en, this message translates to:
+  /// **'Slow Mountain Climbers'**
+  String get exerciseMorningEnergyS5MountainClimbersName;
+
+  /// No description provided for @exerciseMorningEnergyS5MountainClimbersDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'In a high plank, hands under your shoulders, bring one knee toward your chest and put the foot back, then the other. A steady pace, no jumping from foot to foot.'**
+  String get exerciseMorningEnergyS5MountainClimbersDesc;
+
+  /// No description provided for @exerciseMorningEnergyS5MountainClimbersTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Hips level with your shoulders; don\'t let them pop up.'**
+  String get exerciseMorningEnergyS5MountainClimbersTip;
+
+  /// No description provided for @exerciseWarmupMorningStretchUpName.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning Stretch-Up'**
+  String get exerciseWarmupMorningStretchUpName;
+
+  /// No description provided for @exerciseWarmupMorningStretchUpDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall. Breathing in, reach both arms up over your head and rise onto your toes; breathing out, lower your heels and arms. Stretch as if you have just woken up.'**
+  String get exerciseWarmupMorningStretchUpDesc;
+
+  /// No description provided for @exerciseWarmupMorningStretchUpTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Reach long through your fingertips; wake up slowly.'**
+  String get exerciseWarmupMorningStretchUpTip;
+
+  /// No description provided for @exerciseCooldownShakeOutName.
+  ///
+  /// In en, this message translates to:
+  /// **'Shake-Out'**
+  String get exerciseCooldownShakeOutName;
+
+  /// No description provided for @exerciseCooldownShakeOutDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand loosely and shake out your hands, arms and legs, bouncing softly in your knees. Finish with a deep breath: the day can begin.'**
+  String get exerciseCooldownShakeOutDesc;
+
+  /// No description provided for @exerciseCooldownShakeOutTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Let everything hang loose: wrists, shoulders, jaw.'**
+  String get exerciseCooldownShakeOutTip;
+
   /// No description provided for @aboutTitle.
   ///
   /// In en, this message translates to:
@@ -2759,6 +3239,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version {version}'**
   String whatsNewVersion(String version);
+
+  /// No description provided for @releaseNotes090.
+  ///
+  /// In en, this message translates to:
+  /// **'New course: Morning Routine. Wake your body up in four skills: spine, joints, arms and energy. Everything standing and quiet, no jumps.\nAurora the lark leads Morning Routine: she greets you on the home screen and in the profile while the course is active, and sings at the end of a workout.'**
+  String get releaseNotes090;
 
   /// No description provided for @releaseNotes0820.
   ///

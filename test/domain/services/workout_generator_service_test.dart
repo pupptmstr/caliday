@@ -71,6 +71,46 @@ void main() {
     });
   });
 
+  group('Morning Routine', () {
+    final morning = CourseCatalog.branchesFor(CourseId.morningRoutine);
+
+    test('the stretch-up first, one move per branch, the shake-out last', () {
+      final plan = _generator().generateDailyForCourse(
+        course: CourseId.morningRoutine,
+        courseBranches: morning,
+        preferredMinutes: 15, // Full: every branch
+        dayIndexOverride: 0,
+      );
+      expect(_ids(plan).first, 'warmup_morning_stretch_up');
+      expect(_main(plan).map((e) => e.exercise.branch), morning);
+      expect(_ids(plan).last, 'cooldown_shake_out');
+      expect(_ids(plan).where((id) => id == 'cooldown_shake_out'), hasLength(1));
+    });
+
+    test('four branches, so Standard (3) and Full (all) differ', () {
+      int mainCount(int minutes) => _main(_generator().generateDailyForCourse(
+            course: CourseId.morningRoutine,
+            courseBranches: morning,
+            preferredMinutes: minutes,
+            dayIndexOverride: 0,
+          )).length;
+      expect(morning, hasLength(4));
+      expect([mainCount(5), mainCount(10), mainCount(15)], [2, 3, 4]);
+    });
+
+    test('a bonus workout adds two supplementary exercises, as in most courses', () {
+      final plan = _generator().generateDailyForCourse(
+        course: CourseId.morningRoutine,
+        courseBranches: morning,
+        dayIndexOverride: 0,
+        isPrimary: false,
+      );
+      final supplementary =
+          SupplementaryExerciseCatalog.all.map((e) => e.id).toSet();
+      expect(_ids(plan).where(supplementary.contains), hasLength(2));
+    });
+  });
+
   group('generateDailyForCourse', () {
     test('an empty branch list gives an empty plan', () {
       final plan = _generator().generateDailyForCourse(

@@ -309,7 +309,8 @@ class Animation:
     """Spec-compatible: ``write()`` in goro_rig calls ``build()``."""
 
     def __init__(self, name, frames, pose_fn, step=2, order=None, props=None,
-                 props_index=None, style='sleeve', floor=True, view='front'):
+                 props_index=None, style='sleeve', floor=True, view='front',
+                 shapes_fn=None):
         self.name = name
         self.frames = frames
         self.pose_fn = pose_fn
@@ -325,6 +326,9 @@ class Animation:
         self.style = style
         self.floor = floor
         self.view = view
+        # ``shapes_fn(name)`` -> shapes, or None for the default ones (extra
+        # layers such as a chest patch that slides over a turning torso).
+        self.shapes_fn = shapes_fn
 
     def build(self):
         times = list(range(0, self.frames + 1, self.step))
@@ -338,7 +342,8 @@ class Animation:
             if self.props_index is not None and idx - 1 == self.props_index:
                 layers.extend(props)
                 props = []
-            shp = shapes(nm, self.style, self.view)
+            shp = ((self.shapes_fn and self.shapes_fn(nm))
+                   or shapes(nm, self.style, self.view))
             pos = [p[nm]['p'] for p in poses]
             rots = _unwrap([p[nm]['r'] for p in poses])
             scl = [p[nm]['s'] for p in poses]

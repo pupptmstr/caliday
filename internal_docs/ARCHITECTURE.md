@@ -171,13 +171,14 @@ CaliDay supports multiple **courses** (like Duolingo). Each course has its own b
 - `CourseId.calisthenics` → push, pull, core, legs, balance, flex
 - `CourseId.healthyBody` → posture, neck, flex
 - `CourseId.eveningStretch` → eveningBack, eveningHips, eveningFolds, eveningShoulders (0.8.20; a bonus workout of this course adds **no** supplementary exercises — `CourseCatalog.addsSupplementary`)
+- `CourseId.morningRoutine` → morningSpine, morningJoints, morningArms, morningEnergy (0.9.0; every pose standing, no jumps; the bonus workout keeps the supplementary block)
 
 **Progression is global per branch:** `SkillProgress` keys are `branch.name` only (e.g. `"push"`). Branches are physical skills — progress is shared across all courses containing that branch.
 **Streak and SP are global.** Enrolled courses are `UserProfile.activeCourseIds`, the one shown now is `activeCourseIndex` (read through the `enrolledCourses` / `activeCourse` getters).
 Switching courses happens in the Library tab via pill tabs.
 
 ### Progression Branches
-12 branches total across all courses (the four Evening Stretch ones are `BranchId` HiveFields 8–11, appended; `CourseId.eveningStretch` is HiveField 2). Pull requires a pull-up bar (`requiresEquipment = true`).
+16 branches total across all courses (appended `BranchId` HiveFields: Evening Stretch 8–11, Morning Routine 12–15; `CourseId.eveningStretch` is HiveField 2, `CourseId.morningRoutine` 3). Pull requires a pull-up bar (`requiresEquipment = true`).
 `UserProfile.activeBranches` deduplicates branches across all enrolled courses.
 
 ### In-Stage Progression
@@ -187,7 +188,7 @@ Reps ↑ → Sets ↑ (with reps reset) → Rest ↓ → Challenge test → Next
 - **SP (Strength Points)** — points earned for exercises
 - **Streak** — consecutive days; freezes (max 3, earned every 7 streak days)
 - **Ranks (English UI names):** Beginner → Amateur → Athlete → Champion → Master → Legend — enum values `beginner, amateur, sportsman, athlete, master, legend` (see § Rank SP Thresholds). A rank that is not trained for 21+ days is shown lower, see RankDecayService
-- **Achievements** — 29 total (one is secret), checked after each workout and stage advance
+- **Achievements** — 37 total (one is secret; the four of each new course are `<course>_<branch>_complete`), checked after each workout and stage advance
 - **Bonus workouts** — multiple workouts per day are allowed (50% SP; each branch still moves on once a day, see § Primary vs Bonus Workout)
 
 ### Workout size
@@ -403,7 +404,7 @@ Warmup: `warmup_neck_rolls` ✅. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_s
 | 4 | `neck_s4_wall_angel` | Wall Angels | reps | ✅ (side) |
 | 5 | `neck_s5_doorway_stretch` | Doorway Pec Stretch | timed | ✅ (front) |
 
-### Evening Stretch — four branches (0.8.20, no animations yet)
+### Evening Stretch — four branches (0.8.20)
 A calm stretch before sleep (content agreed with the owner, DEV_NOTES § Roadmap 2b-1). No stage repeats a Flex / Posture / Neck stage. Every stage: sets 1→2, rest 15→10 s, `spBase` 1; ↔ = `perSide`. Warm-up of every branch: `warmup_neck_rolls`; cool-down of every branch: `cooldown_lying_relaxation` (so each evening workout ends lying down, once). Every exercise has an animation: `evening_back_s1_cat_cow` reuses `cooldown_cat_cow.json`, the other 18 and the cool-down come from `tools/lottie/gen_evening.py` (seated front views, cow face from behind, side views, the twist / figure four / frog from above).
 
 | Branch (`BranchId`) | Stages (start→target, challenge to enter) |
@@ -415,6 +416,18 @@ A calm stretch before sleep (content agreed with the owner, DEV_NOTES § Roadmap
 
 Ids: `evening_<branch>_s<N>_<name>` (e.g. `evening_folds_s2_towel_hamstring`). Achievements: `evening_back_complete`, `evening_hips_complete`, `evening_folds_complete`, `evening_shoulders_complete`.
 
+### Morning Routine — four branches (0.9.0)
+Waking the body up (content agreed with the owner, DEV_NOTES § Roadmap 2b-2): every pose standing, quiet (no jumps), dynamic — mobility in reps, the cardio of Energy timed. An alternating move counts each side as one rep (`perSide` is for timed holds only). No stage repeats a stage of another branch. Every stage: sets 1→2, rest 15→10 s, `spBase` 1. Warm-up of every branch: `warmup_morning_stretch_up` (5 reps); cool-down of every branch: `cooldown_shake_out` (20 s). Every exercise has an animation from `tools/lottie/gen_morning.py` (front views for the standing moves, side views for the hinges, planks and kicks).
+
+| Branch (`BranchId`) | Stages (start→target, challenge to enter) |
+|---------------------|--------------------------------------------|
+| `morningSpine` (Spine / Позвоночник, 5) | side bend 6→16 reps · torso twist 10→24 (12) · good morning 8→20 (8) · roll-down 3→8 (4) · windmill 6→16 (8) |
+| `morningJoints` (Joints / Суставы, 5) | knee circles 8→20 · open the gate 6→16 (8) · standing knee hug 6→16 (8) · side lunge 6→16 (8) · Cossack squat 4→12 (6) |
+| `morningArms` (Arms / Руки, 5) | arm swings 10→24 · Y raises 8→20 (10) · cactus arms 8→20 (10) · inchworm 3→8 (4) · plank to downward dog 4→10 (5) |
+| `morningEnergy` (Energy / Бодрость, 5) | step jacks 20→60 s · butt kicks 20→45 (30) · standing cross crunch 20→45 (30) · speed skater 20→45 (30) · slow mountain climbers 20→45 (30) |
+
+Ids: `morning_<branch>_s<N>_<name>` (e.g. `morning_joints_s2_open_the_gate`). Achievements: `morning_spine_complete`, `morning_joints_complete`, `morning_arms_complete`, `morning_energy_complete`. The host is Aurora the lark (`assets/hosts/aurora_*`, `tools/characters/gen_hosts.py`).
+
 ### Warmup Accessories (stage 0)
 | ID | Name | Used by | Lottie |
 |----|------|---------|--------|
@@ -425,6 +438,7 @@ Ids: `evening_<branch>_s<N>_<name>` (e.g. `evening_folds_s2_towel_hamstring`). A
 | `warmup_hip_circles` | Hip Circles | Legs, Posture | ✅ |
 | `warmup_wrist_circles` | Wrist Circles | Balance | ✅ |
 | `warmup_neck_rolls` | Neck Rolls | Neck, every Evening Stretch branch | ✅ (front) |
+| `warmup_morning_stretch_up` | Morning Stretch-Up (5 reps) | every Morning Routine branch | ✅ (front) |
 
 ### Cooldown Accessories (stage 0)
 | ID | Name | Used by | Lottie |
@@ -436,6 +450,7 @@ Ids: `evening_<branch>_s<N>_<name>` (e.g. `evening_folds_s2_towel_hamstring`). A
 | `cooldown_hip_flexor` | Hip Flexor Stretch | Legs, Posture | ✅ |
 | `cooldown_downward_dog` | Downward-Facing Dog | Balance | ✅ |
 | `cooldown_lying_relaxation` | Lying Relaxation (60 s) | every Evening Stretch branch | ✅ (side) |
+| `cooldown_shake_out` | Shake-Out (20 s) | every Morning Routine branch | ✅ (front) |
 
 ### Supplementary Pool (9 exercises, stage 0)
 `SupplementaryExerciseCatalog.all` — used in custom workouts and bonus sessions. All nine have an animation; `supp_wrist_circles` reuses the existing front-view `warmup_wrist_circles.json`, the other eight are generated by `tools/lottie/gen_supp.py`.
@@ -682,8 +697,9 @@ Exercise animations are flat "paper-doll" Lottie files (one shape layer per body
 - `tools/lottie/topview.py` — a second, top-down rig for poses that fail in profile: Goro seen from above lying on his back, drawn like the front-view asset (`warmup_wrist_circles`: same head/torso/blue sleeves, scaled by 0.6), parts placed by their end points. Used by `supp_oblique_crunch`.
 - `tools/lottie/frontview.py` — a third rig, for standing poses seen from the front: same head/torso/blue sleeves as `topview.py` (scale 0.6, so the figure has the profile size: hips `(200, 288)`, floor `y = 376`), standing legs with lighter thighs and knee caps. `figure(hips, lean, head, sh_l/sh_r, arm_l/arm_r, leg_l/leg_r, torso_scale)` solves one frame from joint positions (arms by two-bone IK, legs by explicit knee/ankle points, so a knee raised towards the camera is a foreshortened thigh plus a bigger knee cap); `Animation(name, frames, pose_fn)` samples it every 2 frames. Layers are named by screen side (`l` = left of the picture). Optional round shoulder caps (`ORDER_CAPS`) make shrugs and shoulder circles readable, `head_scale` squashes the head (chin tucked), static props come from `goro_rig.bar` / `door_post` (door frame, wall). Used by `posture_s4_hip_march`, four of the Neck animations (rolls, tilts, shoulder circles, doorway stretch) and the front-view pull-ups. **Seated (0.8.20):** `SEAT_HIPS` (torso bottom at y 352) with `cross_legs()` / `butterfly_legs(knees_up)` / `straddle_legs(width)` for the leg layout and `order=ORDER_SEATED` (shins over knees over thighs, arms over everything); leg dicts take `foot_rot` / `foot_scale` / `foot_off`; `fold_toward(k)` folds the torso towards the camera (it foreshortens, the head comes down in front of it and cross-fades to the `crown` layer, the top of the head — layers now take a per-frame opacity `o`); `hand_rot` turns the fists (palms together). `view='back'` with `ORDER_BACK` draws Goro from behind (no face, the headband all the way round, spine and shoulder blades) for hands behind the back. `swing_arm(start, end, u, turn, shoulder=None, uturn=None)` moves an arm by its joints — the forearm rotates about the elbow, optionally the upper arm about the shoulder — instead of sliding the wrist past the elbow (that made `check_anim` jumps). Used by `gen_evening.py`. The standing outputs are byte-identical to before.
 - `tools/lottie/gen_evening.py` — the 19 Evening Stretch animations: seated front views (`frontview.py`), side views (`goro_rig.py`: lying on the back via `supine()`, on the stomach and kneeling via `spine_at()` — the three-part spine anchored at the pelvis or the hip joint), top views (`topview.py`: `TopViewAnimation(name, frames, pose_fn, order, shapes_fn=None)` now takes any pose function and, for Goro face down, other shapes; the oblique crunch is unchanged) — the supine twist, the figure four and the frog (face down, the back seen). Legs folded over the body are drawn lighter (`LEG_LIGHT` through `Spec(tint=)`). `with_segment()` adds a strap layer between two points per frame (the towel); `lerp_angles()` interpolates joint angles the short way round. `Animation(style='paper')` draws dark arms and fists like the original files, `arm_len` stretches the arms (85 px), `props_index` puts a prop between figure layers (the pull-up bar sits over the head but under the fists) and `floor=False` omits the floor.
+- `tools/lottie/gen_morning.py` — the Morning Routine animations (0.9.0, in progress; every pose standing). Front views on `frontview.py` with two helpers: `compose(legs, upper)` joins the legs of one `figure` to the upper body of another, so the torso can be placed apart from the hip joints (`hips_for(c, lean)` gives the `hips` that put the torso centre at `c`) — the windmill folds towards the camera with the shoulder line turning vertical; `with_back_copies(pose_fn, names, front)` adds `<name>@b` copies of layers lower in the order and cross-fades them, for a limb that passes in front of the body on one side and behind it on the other (the skater's back foot, the twist's arm behind the back). `frontview.Animation(shapes_fn=...)` takes extra or replaced shapes (`None` = the default): the twist draws the torso without its chest patch and the patch as a layer of its own that slides towards the side the torso turns to. Front-view helpers: `straight(sh, a, length)` (a straight arm by its world angle — fast sweeps driven by IK targets bent and flipped the elbow), `bent_leg` (IK knee out over the toes for lunges), `lerp_keys`, `clasped`; `HEAD_OVER_HANDS` draws the head over the fists (hands behind the head); the shake-out is sampled every frame (`step=1`: a 4-frame shake aliases at the usual 2-frame keys). Side views on `goro_rig.py`: `placed(pose, limb, at)` moves a pose so a joint lands on a point; `plank(shoulder)` / `PLANK_BR` (62.5°: the shoulders 80 px over the hands, the feet on the floor); the dog and the inchworm move the hips on an arc of leg length round the planted feet so the legs stay straight; `floor_arm` plants a hand with the elbow always on the same side of the arm (no IK flips); near legs over the body are drawn in Evening Stretch's `LEG_LIGHT`; the roll-down uses the three-part spine anchored at the hip joint.
 - `tools/lottie/check_anim.py` — jump / loop-seam checker (`python3 tools/lottie/check_anim.py NAME|FILE ...`): reports any layer that moves more than 22 px or turns more than 30° between consecutive frames, and any layer whose last frame differs from its first. Run it on every generated file.
-- `tools/lottie/build_preview.py` (+ `preview_template.html`) — builds a self-contained preview page that plays the animations (pause, speed 0.5–1.5×, per-frame scrubber, key-frame strip, thumbnail/screen/large sizes). `python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh] [--fragment] [--out FILE] [--dir DRAFTS] [name ...]` writes `build/lottie_preview.html` (git-ignored); card copy lives in the `INFO` dict, page titles in `PRESETS`.
+- `tools/lottie/build_preview.py` (+ `preview_template.html`) — builds a self-contained preview page that plays the animations (pause, speed 0.5–1.5×, per-frame scrubber, key-frame strip, thumbnail/screen/large sizes). `python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning] [--fragment] [--out FILE] [--dir DRAFTS] [name ...]` writes `build/lottie_preview.html` (git-ignored); card copy lives in the `INFO` dict, page titles in `PRESETS`.
 - Conventions: Goro faces right; segment angle `a` points along `(-sin a, cos a)` (0 = down, 180 = up, clockwise-positive); feet/hands are planted with IK targets, free limbs use FK angles; the floor line is `y = 376` and objects nearer the camera may dip into the floor strip below it and segments can be foreshortened (`sc_*`); both are supported but currently unused.
 - `tools/lottie/pushup.py` — a fourth rig: push-ups in the exact style of the original `push_s1..s3` (their shapes and colours are copied from `push_s3_full_pushup.json`: a 130 × 50 torso, 24 / 20 px arms, a richer head). A pose is ankle, shoulder, hands and head; the body is one straight line (shin, thigh, torso), arms by two-bone IK with optional foreshortening (`uarm_sc`), straight foreshortened arms (`straight`), explicit elbows (`elbows`) and a vertical flip for an inverted body (`flip`). Used by `push_s4..s7` (the hands are shown by a top-down inset built with `rbar` / `oval`; the handstand is back to the wall).
 - `tools/lottie/enliven.py` / `tools/lottie/patch_old.py` — in-place work on designer files that read well: a sway or rock of every figure layer about a contact point (hands, standing foot), and absolute-value patches (a head position, an arm colour). `Spec(tint={layer: colour})` in `goro_rig.py` recolours a body part (the stretched leg of `cooldown_quad_stretch`).
@@ -894,7 +910,7 @@ python3 tools/lottie/gen_push.py  # Regenerate the redrawn Push variations (s4-s
 python3 tools/lottie/enliven.py  # Add sway / rock to the nearly still balance files (in place)
 python3 tools/lottie/patch_old.py  # Targeted fixes of designer files (dog head, L-sit arms; in place)
 python3 tools/lottie/check_anim.py NAME ...  # Jump / loop-seam check of generated files
-python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh]  # Build build/lottie_preview.html to watch them
+python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning]  # Build build/lottie_preview.html to watch them
 ```
 
 ---
@@ -946,12 +962,12 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Telegram: the web build as a Mini App, reminders sent by a bot | 💡 idea, **parked** by the owner (2026-10-07): a thought on the side, not planned; the research is kept in DEV_NOTES § Telegram Mini App + bot |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
-| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages, the store listings and the native widget's texts are open — see DEV_NOTES § Roadmap |
+| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages and the store listings are open (the widget's texts follow the app's language since 0.8.18) — see DEV_NOTES § Roadmap |
 | v1.0 | Friends: branch progress no longer shared (QR format 3), so a new branch never changes the format | ✅ 0.8.19 |
 | v1.0 | Progression per branch and per day, in any workout (two courses on one day both progress) | ✅ 0.8.19 |
-| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | **Evening Stretch: ✅ in 0.8.20 (4 branches, 19 exercises, texts in 4 languages, all animations); the host Luna open** — § Exercise Catalog, DEV_NOTES § Roadmap 2b-1; Morning Routine and Yoga to design |
+| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | **Evening Stretch: ✅ in 0.8.20 (4 branches, 19 exercises, texts in 4 languages, all animations, the host Luna)** — § Exercise Catalog, DEV_NOTES § Roadmap 2b-1. **Morning Routine: ✅/📐 0.9.0, on branch `0.9.0`** — the course, its 4 branches (Spine, Joints, Arms, Energy), 22 exercises, texts in 4 languages and 4 achievements are in; Aurora drawn; all 22 animations, approved by the owner (§ Exercise Catalog, DEV_NOTES § Roadmap 2b-2). Yoga to design |
 | v1.0 | Per-side holds — a one-sided hold runs side 1 → "switch sides" countdown → side 2, hands-free (prerequisite of Evening Stretch; also for existing one-sided stretches) | ✅ 0.8.20 — § Timed exercises: the get-ready countdown |
-| v1.0 | Course hosts — a character per course (Goro, Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat) on the course cards, the summary and the achievements; Goro keeps Home and every animation | ✅/📐 0.8.20: Raffi and Luna drawn with the six moods, an idle and a cheer pose; the active course's host is on Home (`GoroExpression.assetFor(course)`), Profile, the course cards (onboarding, Library) and the summary (`CourseId.hostFace` / `hostPortrait` / `hostIdle` / `hostCheer`); Goro keeps the icon, onboarding welcome, notifications, widget and About; Aurora and Miso come with their courses; not yet on the achievements |
+| v1.0 | Course hosts — a character per course (Goro, Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat) on the course cards, the summary and the achievements; Goro keeps Home and every animation | ✅/📐 0.8.20: Raffi and Luna drawn with the six moods, an idle and a cheer pose; the active course's host is on Home (`GoroExpression.assetFor(course)`), Profile, the course cards (onboarding, Library) and the summary (`CourseId.hostFace` / `hostPortrait` / `hostIdle` / `hostCheer`); Goro keeps the icon, onboarding welcome, notifications, widget and About; Aurora drawn in 0.9.0 with Morning Routine; Miso comes with Yoga; not yet on the achievements |
 | v1.0 | Skala redrawn as a real bull (it was a recoloured Goro with horns) | ✅ 0.8.20 — `tools/characters/gen_skala.py` |
 | — | Branch Journey: stage previews playing Goro's animations (takes Bruno's planned role; Bruno dropped) | 💡 idea |
 | v1.x | More branches, also outside any course (to be picked in the builder) | 💡 idea — DEV_NOTES § Roadmap 2c |

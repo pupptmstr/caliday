@@ -1218,6 +1218,444 @@ class ExerciseCatalog {
     animationPath: 'assets/animations/cooldown_lying_relaxation.json',
   );
 
+  // ── MORNING ROUTINE (animations: tools/lottie/gen_morning.py) ──────────────
+
+  static const Exercise morningSpineS1SideBend = Exercise(
+    id: 'morning_spine_s1_side_bend',
+    name: 'Standing Side Bend',
+    description:
+        'Stand with your feet hip-width apart. Raise one arm over your head and lean to the other side, sliding the other hand down your thigh. Come back up and switch sides. Each side counts as one rep.',
+    branch: BranchId.morningSpine,
+    stage: 1,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 16,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    techniqueTip: 'Lean straight to the side, not forward; your hips stay still.',
+    animationPath: 'assets/animations/morning_spine_s1_side_bend.json',
+  );
+
+  static const Exercise morningSpineS2TorsoTwist = Exercise(
+    id: 'morning_spine_s2_torso_twist',
+    name: 'Torso Twist',
+    description:
+        'Stand with your feet a little wider than your hips, knees soft, arms loose. Turn your upper body from side to side and let your arms swing around you. Your hips keep facing forward. Each side counts as one rep.',
+    branch: BranchId.morningSpine,
+    stage: 2,
+    type: ExerciseType.reps,
+    startReps: 10,
+    targetReps: 24,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 12,
+    techniqueTip: "Let the arms follow the turn; don't throw them.",
+    animationPath: 'assets/animations/morning_spine_s2_torso_twist.json',
+  );
+
+  static const Exercise morningSpineS3GoodMorning = Exercise(
+    id: 'morning_spine_s3_good_morning',
+    name: 'Good Morning',
+    description:
+        'Stand with your feet hip-width apart, hands behind your head. Push your hips back and lean forward with a flat back until you feel the back of your thighs, then stand tall again.',
+    branch: BranchId.morningSpine,
+    stage: 3,
+    type: ExerciseType.reps,
+    startReps: 8,
+    targetReps: 20,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 8,
+    techniqueTip: 'Bend at the hips, not at the waist: your back stays straight the whole way.',
+    animationPath: 'assets/animations/morning_spine_s3_good_morning.json',
+  );
+
+  static const Exercise morningSpineS4RollDown = Exercise(
+    id: 'morning_spine_s4_roll_down',
+    name: 'Roll-Down',
+    description:
+        'Stand tall. Drop your chin to your chest and roll down slowly, one vertebra at a time, letting your arms hang toward the floor. Roll back up the same way, your head coming up last.',
+    branch: BranchId.morningSpine,
+    stage: 4,
+    type: ExerciseType.reps,
+    startReps: 3,
+    targetReps: 8,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 4,
+    techniqueTip: 'Bend your knees as much as you need; the point is the spine, not touching the floor.',
+    animationPath: 'assets/animations/morning_spine_s4_roll_down.json',
+  );
+
+  static const Exercise morningSpineS5Windmill = Exercise(
+    id: 'morning_spine_s5_windmill',
+    name: 'Windmill',
+    description:
+        'Stand with your feet wide, arms out to the sides. Bend forward and turn, reaching one hand to the opposite foot while the other arm points at the ceiling. Come back up to the T and switch sides. Each side counts as one rep.',
+    branch: BranchId.morningSpine,
+    stage: 5,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 16,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 8,
+    techniqueTip: 'Keep both arms in one straight line, like the sails of a windmill.',
+    animationPath: 'assets/animations/morning_spine_s5_windmill.json',
+  );
+
+  static const Exercise morningJointsS1KneeCircles = Exercise(
+    id: 'morning_joints_s1_knee_circles',
+    name: 'Knee Circles',
+    description:
+        'Stand with your feet together, bend your knees slightly and rest your hands just above them. Draw slow circles with your knees: half of them one way, half the other.',
+    branch: BranchId.morningJoints,
+    stage: 1,
+    type: ExerciseType.reps,
+    startReps: 8,
+    targetReps: 20,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    techniqueTip: 'Small, smooth circles; your heels stay on the floor.',
+    animationPath: 'assets/animations/morning_joints_s1_knee_circles.json',
+  );
+
+  static const Exercise morningJointsS2OpenTheGate = Exercise(
+    id: 'morning_joints_s2_open_the_gate',
+    name: 'Open the Gate',
+    description:
+        'Stand tall. Lift one knee in front of you to hip height, open it out to the side and lower the foot back down. Switch legs. Each side counts as one rep.',
+    branch: BranchId.morningJoints,
+    stage: 2,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 16,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 8,
+    techniqueTip: 'Hold on to a wall or a chair if you wobble; keep your chest up.',
+    animationPath: 'assets/animations/morning_joints_s2_open_the_gate.json',
+  );
+
+  static const Exercise morningJointsS3KneeHug = Exercise(
+    id: 'morning_joints_s3_knee_hug',
+    name: 'Standing Knee Hug',
+    description:
+        'Stand tall. Pull one knee to your chest with both hands and rise onto the toes of the standing foot. Lower it and switch legs. Each side counts as one rep.',
+    branch: BranchId.morningJoints,
+    stage: 3,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 16,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 8,
+    techniqueTip: 'Rise slowly and look at a point in front of you to keep your balance.',
+    animationPath: 'assets/animations/morning_joints_s3_knee_hug.json',
+  );
+
+  static const Exercise morningJointsS4SideLunge = Exercise(
+    id: 'morning_joints_s4_side_lunge',
+    name: 'Side Lunge',
+    description:
+        'Stand with your feet together. Step wide to one side and sit back into that hip, the other leg straight, both feet flat on the floor. Push back to the start and switch sides. Each side counts as one rep.',
+    branch: BranchId.morningJoints,
+    stage: 4,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 16,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 8,
+    techniqueTip: 'Your bent knee points the same way as your toes.',
+    animationPath: 'assets/animations/morning_joints_s4_side_lunge.json',
+  );
+
+  static const Exercise morningJointsS5CossackSquat = Exercise(
+    id: 'morning_joints_s5_cossack_squat',
+    name: 'Cossack Squat',
+    description:
+        'Stand with your feet very wide. Sink deep onto one leg while the other stays straight, toes pointing up. Move through the middle to the other side. Each side counts as one rep.',
+    branch: BranchId.morningJoints,
+    stage: 5,
+    type: ExerciseType.reps,
+    startReps: 4,
+    targetReps: 12,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 6,
+    techniqueTip: 'Keep the heel of the bent leg down; reach your arms forward for balance.',
+    animationPath: 'assets/animations/morning_joints_s5_cossack_squat.json',
+  );
+
+  static const Exercise morningArmsS1ArmSwings = Exercise(
+    id: 'morning_arms_s1_arm_swings',
+    name: 'Arm Swings',
+    description:
+        'Stand tall. Open your arms wide to the sides, then swing them in and hug yourself, changing which arm is on top each time. Keep it loose and easy.',
+    branch: BranchId.morningArms,
+    stage: 1,
+    type: ExerciseType.reps,
+    startReps: 10,
+    targetReps: 24,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    techniqueTip: 'Open your chest at the wide point and breathe in.',
+    animationPath: 'assets/animations/morning_arms_s1_arm_swings.json',
+  );
+
+  static const Exercise morningArmsS2YRaises = Exercise(
+    id: 'morning_arms_s2_y_raises',
+    name: 'Y Raises',
+    description:
+        'Knees soft, lean forward from the hips with a flat back. Thumbs up, raise your straight arms forward and up into a Y, squeezing your shoulder blades, then lower them.',
+    branch: BranchId.morningArms,
+    stage: 2,
+    type: ExerciseType.reps,
+    startReps: 8,
+    targetReps: 20,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 10,
+    techniqueTip: 'Lift with the shoulder blades, not by arching your lower back.',
+    animationPath: 'assets/animations/morning_arms_s2_y_raises.json',
+  );
+
+  static const Exercise morningArmsS3CactusArms = Exercise(
+    id: 'morning_arms_s3_cactus_arms',
+    name: 'Cactus Arms',
+    description:
+        'Raise your arms to the sides, elbows at shoulder height and bent at 90°, forearms pointing up like a cactus. Keeping the elbows in place, turn your forearms forward and down until they point at the floor, then back up, squeezing your shoulder blades.',
+    branch: BranchId.morningArms,
+    stage: 3,
+    type: ExerciseType.reps,
+    startReps: 8,
+    targetReps: 20,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 10,
+    techniqueTip: 'Move slowly: only the forearms travel, the elbows stay at shoulder height.',
+    animationPath: 'assets/animations/morning_arms_s3_cactus_arms.json',
+  );
+
+  static const Exercise morningArmsS4Inchworm = Exercise(
+    id: 'morning_arms_s4_inchworm',
+    name: 'Inchworm',
+    description:
+        'Stand tall, bend forward and put your hands on the floor (bend your knees if you need to). Walk your hands out to a plank, then walk them back to your feet and roll up to standing.',
+    branch: BranchId.morningArms,
+    stage: 4,
+    type: ExerciseType.reps,
+    startReps: 3,
+    targetReps: 8,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 4,
+    techniqueTip: 'In the plank, keep your body in one straight line.',
+    animationPath: 'assets/animations/morning_arms_s4_inchworm.json',
+  );
+
+  static const Exercise morningArmsS5PlankToDog = Exercise(
+    id: 'morning_arms_s5_plank_to_dog',
+    name: 'Plank to Downward Dog',
+    description:
+        'Start in a high plank, hands under your shoulders. Push your hips up and back into an upside-down V, heels toward the floor, then lower back to the plank.',
+    branch: BranchId.morningArms,
+    stage: 5,
+    type: ExerciseType.reps,
+    startReps: 4,
+    targetReps: 10,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 5,
+    techniqueTip: 'Push the floor away with your hands and let your head hang between your arms.',
+    animationPath: 'assets/animations/morning_arms_s5_plank_to_dog.json',
+  );
+
+  static const Exercise morningEnergyS1StepJacks = Exercise(
+    id: 'morning_energy_s1_step_jacks',
+    name: 'Step Jacks',
+    description:
+        'Jumping jacks without the jump: step one foot out to the side as both arms go up over your head, bring it back as the arms come down, then the other foot. Keep a steady rhythm.',
+    branch: BranchId.morningEnergy,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    techniqueTip: 'Stay light on your feet and never jump, so nobody wakes up.',
+    animationPath: 'assets/animations/morning_energy_s1_step_jacks.json',
+  );
+
+  static const Exercise morningEnergyS2ButtKicks = Exercise(
+    id: 'morning_energy_s2_butt_kicks',
+    name: 'Butt Kicks',
+    description:
+        'On the spot, kick one heel up toward your glutes, then the other, at a brisk pace. Arms bent, swinging with your legs. One foot always stays on the floor.',
+    branch: BranchId.morningEnergy,
+    stage: 2,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Quiet steps on the balls of your feet: brisk, but no jumping.',
+    animationPath: 'assets/animations/morning_energy_s2_butt_kicks.json',
+  );
+
+  static const Exercise morningEnergyS3CrossCrunch = Exercise(
+    id: 'morning_energy_s3_cross_crunch',
+    name: 'Standing Cross Crunch',
+    description:
+        'Stand with your hands behind your head. Lift one knee and bring the opposite elbow down to meet it, then switch sides, at a steady pace.',
+    branch: BranchId.morningEnergy,
+    stage: 3,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Turn from the waist and open your chest between reps.',
+    animationPath: 'assets/animations/morning_energy_s3_cross_crunch.json',
+  );
+
+  static const Exercise morningEnergyS4SpeedSkater = Exercise(
+    id: 'morning_energy_s4_speed_skater',
+    name: 'Speed Skater',
+    description:
+        'Like a skater, but without the hop: step wide to one side onto a bent leg and sweep the other foot behind it, swinging the opposite arm across your body. Then step to the other side.',
+    branch: BranchId.morningEnergy,
+    stage: 4,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: 'Sink into the standing leg and keep your chest over it.',
+    animationPath: 'assets/animations/morning_energy_s4_speed_skater.json',
+  );
+
+  static const Exercise morningEnergyS5MountainClimbers = Exercise(
+    id: 'morning_energy_s5_mountain_climbers',
+    name: 'Slow Mountain Climbers',
+    description:
+        'In a high plank, hands under your shoulders, bring one knee toward your chest and put the foot back, then the other. A steady pace, no jumping from foot to foot.',
+    branch: BranchId.morningEnergy,
+    stage: 5,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    techniqueTip: "Hips level with your shoulders; don't let them pop up.",
+    animationPath: 'assets/animations/morning_energy_s5_mountain_climbers.json',
+  );
+
+  /// Morning stretch-up: the one warm-up of every Morning Routine branch.
+  static const Exercise warmupMorningStretchUp = Exercise(
+    id: 'warmup_morning_stretch_up',
+    name: 'Morning Stretch-Up',
+    description:
+        'Stand tall. Breathing in, reach both arms up over your head and rise onto your toes; breathing out, lower your heels and arms. Stretch as if you have just woken up.',
+    branch: BranchId.morningSpine,
+    stage: 0,
+    type: ExerciseType.reps,
+    startReps: 5,
+    targetReps: 5,
+    startSets: 1,
+    targetSets: 1,
+    startRestSec: 0,
+    targetRestSec: 0,
+    spBase: 0,
+    techniqueTip: 'Reach long through your fingertips; wake up slowly.',
+    animationPath: 'assets/animations/warmup_morning_stretch_up.json',
+  );
+
+  /// Shake-out: the one cool-down of every Morning Routine branch.
+  static const Exercise cooldownShakeOut = Exercise(
+    id: 'cooldown_shake_out',
+    name: 'Shake-Out',
+    description:
+        'Stand loosely and shake out your hands, arms and legs, bouncing softly in your knees. Finish with a deep breath: the day can begin.',
+    branch: BranchId.morningSpine,
+    stage: 0,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 20,
+    startSets: 1,
+    targetSets: 1,
+    startRestSec: 0,
+    targetRestSec: 0,
+    spBase: 0,
+    techniqueTip: 'Let everything hang loose: wrists, shoulders, jaw.',
+    animationPath: 'assets/animations/cooldown_shake_out.json',
+  );
+
   // ── WARMUP / COOLDOWN (stage 0) ──────────────────────────────────────────
   //
   // These are accessories used at the start and end of any session.
@@ -1845,6 +2283,42 @@ class ExerciseCatalog {
     eveningShouldersS5CowFaceArms,
   ];
 
+  /// Morning Routine — Spine progression ordered by stage.
+  static const List<Exercise> morningSpineProgression = [
+    morningSpineS1SideBend,
+    morningSpineS2TorsoTwist,
+    morningSpineS3GoodMorning,
+    morningSpineS4RollDown,
+    morningSpineS5Windmill,
+  ];
+
+  /// Morning Routine — Joints progression ordered by stage.
+  static const List<Exercise> morningJointsProgression = [
+    morningJointsS1KneeCircles,
+    morningJointsS2OpenTheGate,
+    morningJointsS3KneeHug,
+    morningJointsS4SideLunge,
+    morningJointsS5CossackSquat,
+  ];
+
+  /// Morning Routine — Arms progression ordered by stage.
+  static const List<Exercise> morningArmsProgression = [
+    morningArmsS1ArmSwings,
+    morningArmsS2YRaises,
+    morningArmsS3CactusArms,
+    morningArmsS4Inchworm,
+    morningArmsS5PlankToDog,
+  ];
+
+  /// Morning Routine — Energy progression ordered by stage.
+  static const List<Exercise> morningEnergyProgression = [
+    morningEnergyS1StepJacks,
+    morningEnergyS2ButtKicks,
+    morningEnergyS3CrossCrunch,
+    morningEnergyS4SpeedSkater,
+    morningEnergyS5MountainClimbers,
+  ];
+
   /// Warmup exercises (stage = 0).
   static const List<Exercise> warmups = [
     warmupArmRotations,
@@ -1854,6 +2328,7 @@ class ExerciseCatalog {
     warmupHipCircles,
     warmupWristCircles,
     warmupNeckRolls,
+    warmupMorningStretchUp,
   ];
 
   /// Cooldown exercises (stage = 0).
@@ -1865,6 +2340,7 @@ class ExerciseCatalog {
     cooldownHipFlexor,
     cooldownDownwardDog,
     cooldownLyingRelaxation,
+    cooldownShakeOut,
   ];
 
   /// All exercises available for browsing and building custom routines.
@@ -1886,6 +2362,10 @@ class ExerciseCatalog {
     ...eveningHipsProgression,
     ...eveningFoldsProgression,
     ...eveningShouldersProgression,
+    ...morningSpineProgression,
+    ...morningJointsProgression,
+    ...morningArmsProgression,
+    ...morningEnergyProgression,
     ...warmups,
     ...cooldowns,
   ];
@@ -1904,6 +2384,10 @@ class ExerciseCatalog {
     ...eveningHipsProgression,
     ...eveningFoldsProgression,
     ...eveningShouldersProgression,
+    ...morningSpineProgression,
+    ...morningJointsProgression,
+    ...morningArmsProgression,
+    ...morningEnergyProgression,
     ...warmups,
     ...cooldowns,
   ];
@@ -1922,6 +2406,10 @@ class ExerciseCatalog {
         BranchId.eveningHips => eveningHipsProgression,
         BranchId.eveningFolds => eveningFoldsProgression,
         BranchId.eveningShoulders => eveningShouldersProgression,
+        BranchId.morningSpine => morningSpineProgression,
+        BranchId.morningJoints => morningJointsProgression,
+        BranchId.morningArms => morningArmsProgression,
+        BranchId.morningEnergy => morningEnergyProgression,
       };
 
   /// Returns the exercise for [branch] at [stage], or null if not found.
@@ -1961,6 +2449,11 @@ class ExerciseCatalog {
         BranchId.eveningFolds ||
         BranchId.eveningShoulders =>
           warmupNeckRolls,
+        BranchId.morningSpine ||
+        BranchId.morningJoints ||
+        BranchId.morningArms ||
+        BranchId.morningEnergy =>
+          warmupMorningStretchUp,
       };
 
   /// Returns the cooldown exercise(s) for the given [branch].
@@ -1978,5 +2471,10 @@ class ExerciseCatalog {
         BranchId.eveningFolds ||
         BranchId.eveningShoulders =>
           [cooldownLyingRelaxation],
+        BranchId.morningSpine ||
+        BranchId.morningJoints ||
+        BranchId.morningArms ||
+        BranchId.morningEnergy =>
+          [cooldownShakeOut],
       };
 }

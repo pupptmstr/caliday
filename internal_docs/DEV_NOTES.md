@@ -7,7 +7,7 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.8.20 (implemented)
+**Version:** v0.9.0 (in progress on branch `0.9.0`: Morning Routine)
 **Next priority:** v1.0 release. What still stands in the way:
 - Friends has never been tested on two real phones (checklist below).
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
@@ -19,7 +19,7 @@ The owner's plan for the **big features after that** (2026-10-07), in his order:
 | Layer | Status |
 |-------|--------|
 | Data models + Hive | ✅ |
-| ExerciseCatalog (12 branches — Calisthenics, Healthy Body, Evening Stretch) | ✅ |
+| ExerciseCatalog (16 branches — Calisthenics, Healthy Body, Evening Stretch, Morning Routine) | ✅ |
 | Repositories (User, SkillProgress, Workout, Achievement, Friend, CustomRoutine) | ✅ |
 | Domain services | ✅ |
 | Navigation (GoRouter + bottom nav) | ✅ |
@@ -30,14 +30,14 @@ The owner's plan for the **big features after that** (2026-10-07), in his order:
 | Notifications (5 types: morning, evening, streak at risk, streak lost, rank at risk) | ✅ |
 | Dark theme | ✅ |
 | Goro (6 expressions) + Skala | ✅ |
-| Lottie animations (87 of 89 exercises; 90/90 hip mobility and the pigeon pose intentionally have none) | ✅ |
+| Lottie animations (110 of 112 exercises; 90/90 hip mobility and the pigeon pose intentionally have none) | ✅ |
 | Sound + haptics | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
 | Friends (BLE + QR, v0.4; not yet tested on real devices) | ✅/⚠️ |
 | Exercise Library (search + tag filter) | ✅ |
 | Custom Workouts (Quick Routine + Saved Routines) | ✅ |
-| Multi-Course system (Calisthenics, Healthy Body, Evening Stretch) | ✅ |
+| Multi-Course system (Calisthenics, Healthy Body, Evening Stretch, Morning Routine) | ✅ |
 | L10n (RU, EN, DE, ES; German and Spanish are drafts awaiting native proofreading) | ✅/⚠️ |
 | Web build (PWA on GitHub Pages, IndexedDB) | ✅ |
 | Workout calendar, interactive stats, rank decay (v0.8) | ✅ |
@@ -192,7 +192,7 @@ The owner's order: **(1) German and Spanish translations (done as drafts, 0.8.16
 #### 1. German and Spanish
 - **Part 1, the code, is done (2026-10-07, 0.8.16):** nothing assumes two languages any more. The UI languages are one list, `appLanguages` (`core/l10n/app_languages.dart`); the settings dialog, the onboarding menu, the system-language default (`LocaleNotifier`), the notification texts and the widget's rank names all follow it, the last two through the ARB files (`l10nFor`). The tests check every ARB file against the template and run their "every language" checks over all of them (`test/helpers/all_translations.dart`). Tried with a copy of `app_en.arb` as `app_de.arb`: exactly two tests failed, the missing line in `appLanguages` and the "What's new" entries left in English. See the Change History entry.
 - **Part 2, the texts, is in as drafts (2026-10-07, also 0.8.16, at the owner's request):** `l10n/app_de.arb` and `app_es.arb`, all 562 messages each, written by Claude. **The owner will have native speakers proofread them**; until then the wording is provisional. Choices a proofreader should know: informal address (du / tú, like the Russian ты); German keeps the calisthenics anglicisms the community uses (Challenge, Skills, Plank, Pistol Squat, Dragon Flag, Crunches) and "Serie / Serienschutz" for streak / freeze; Spanish is neutral rather than Spain-only where it could be ("acuéstate", "parada de manos"), with "racha / protector de racha / reto / etapa"; the rank names follow the Russian ones (Anfänger, Amateur, Sportler, Athlet, Meister, Legende / Principiante, Aficionado, Deportista, Atleta, Maestro, Leyenda); counted messages are plurals even where the English one is not ("1 Freund", "1 vez"). Adding a message from now on means writing it in all four files.
-- **Not translated yet:** the legal pages in `docs/` and the store listings; the native widget's own texts (see below).
+- **Not translated yet:** the legal pages in `docs/` and the store listings.
 - **Still assuming Russian on purpose:** a profile without a language (`UserProfile.locale == null`, older profiles) gets Russian notifications and shows "Русский" in Settings (`SettingsState.locale`), as before; a new profile always stores its language. `l10n.yaml` `preferred-supported-locales: en, ru` only orders the locale resolution and needs no change.
 - **Checked on a 375 px screen (web):** German — the onboarding, Home, the Courses tab, Profile, Settings; Spanish — Settings, Home, Profile, the workout screen and its quit dialog. Nothing overflowed and the console showed no layout errors; the long rank names ("Principiante") shrink inside their chip. The segmented controls fit in both; only the Russian "Системная" breaks mid-word (an older problem, not about the new languages).
 - ~~The native home screen widget is not localized~~ — fixed in 0.8.18 (Change History).
@@ -251,10 +251,49 @@ The owner chose to drop branch progress from the friend exchange altogether (rat
 - **Rig work first:** a **seated front view** in `tools/lottie/frontview.py` (it draws standing poses only today) is needed by about seven animations (butterfly, straddle, the four arm stretches, maybe the frog). Build it and check that the ⚠️ poses read before drawing the rest; a pose that does not read is replaced, not shipped without an animation.
 - **Order of work:** (1) per-side holds — done, 0.8.20; (2) — **done, 0.8.20 (Change History)** — the course, its branches and exercises **without animations** (the app already shows an exercise without one, as 90/90 and the pigeon) and their texts in four languages; (3) Luna and the host slot; (4) the animations, branch by branch — **done, 0.8.20, all 19 approved by the owner**. Users should see the course only once the animations are in — the web build is public, so either it lands in one go or it stays behind a debug-only switch until then (to decide at implementation).
 
+#### 2b-2. Morning Routine — the second new course, content agreed (owner, 2026-10-08)
+- **Concept:** wake the body up — the opposite of Evening Stretch (calm holds lying down). Host: **Aurora** the lark (§ Course hosts). Course name: Morning Routine / Утренняя зарядка / Morgenroutine / Rutina matutina (to settle with the texts).
+- **Principles:** everything **standing** (next to the bed, in pyjamas, no mat, no lying down — hands go to the floor only in the top stages); **quiet, no jumps** (the household and the neighbours may still be asleep); **dynamic** — mobility moves are counted in reps, the cardio is timed (hands-free through the get-ready countdown). An alternating move counts each side as one rep (`perSide` stays for timed holds only).
+- **No stage repeats a progression stage of another branch** (Flex, Posture, Neck, Evening, Calisthenics). Accepted by the owner as different enough: the side lunge (the Legs lunge goes forward), the standing knee hug (Evening's knees to chest is lying), plank to downward dog (the Balance cool-down is a static hold), step jacks (jumping jacks is a warm-up, not a stage).
+- **Branch names differ from the Evening ones** (Спина, Бёдра, Плечи) so that the Library and later the builder do not show two "Плечи".
+
+| Branch | # | Exercise | Grows within the stage | Challenge to enter | Animation |
+|--------|---|----------|------------------------|--------------------|-----------|
+| **Spine** (Позвоночник) | 1 | Standing Side Bend | 6→16 reps | — | front |
+| | 2 | Torso Twist | 10→24 reps | 12 | ⚠️ front, faked torso turn |
+| | 3 | Good Morning (hands behind the head, hinge with a flat back) | 8→20 reps | 8 | side |
+| | 4 | Roll-Down (vertebra by vertebra) | 3→8 reps | 4 | side (three-part spine) |
+| | 5 | Windmill | 6→16 reps | 8 | ⚠️ front, fold + turn |
+| **Joints** (Суставы) | 1 | Knee Circles | 8→20 reps | — | ⚠️ front |
+| | 2 | Open the Gate (knee up and out) | 6→16 reps | 8 | front |
+| | 3 | Standing Knee Hug, up on the toes | 6→16 reps | 8 | side |
+| | 4 | Side Lunge | 6→16 reps | 8 | front |
+| | 5 | Cossack Squat | 4→12 reps | 6 | front |
+| **Arms** (Руки) | 1 | Arm Swings (hug yourself, open wide) | 10→24 reps | — | front |
+| | 2 | Y Raises (leaning forward from the hips) | 8→20 reps | 10 | side |
+| | 3 | Cactus Arms (elbows at 90°, rotate the shoulders) | 8→20 reps | 10 | front |
+| | 4 | Inchworm (walk the hands out to a plank and back) | 3→8 reps | 4 | side |
+| | 5 | Plank to Downward Dog | 4→10 reps | 5 | side |
+| **Energy** (Бодрость) | 1 | Step Jacks (jumping jacks without the jump: step out, arms up) | 20→60 s | — | front |
+| | 2 | Butt Kicks on the spot, soft | 20→45 s | 30 | side |
+| | 3 | Standing Cross Crunch (elbow to the opposite knee) | 20→45 s | 30 | front |
+| | 4 | Speed Skater without the hop | 20→45 s | 30 | ⚠️ front |
+| | 5 | Slow Mountain Climbers | 20→45 s | 30 | side |
+
+- The owner replaced shadow boxing (first proposed for Energy 1): most people do not know what it is or how to do it.
+- **Common to every stage:** sets 1→2, rest 15→10 s, `spBase` 1 (as Evening Stretch).
+- **Warm-up** of every branch: a new stage-0 **Morning Stretch-Up** (reach up on the toes, 5 reps). **Cool-down** of every branch: a new stage-0 **Shake-Out** (shake the arms and legs loose, 20 s) — an upbeat end, "ready for the day". The generator de-duplicates both.
+- **Branch order in the workout:** unchanged — the daily rotation of `generateDailyForCourse` (owner, 2026-10-08; playing the branches in course order was offered and declined).
+- **Bonus workout:** adds the two supplementary exercises like every course but Evening Stretch (owner, 2026-10-08) — `CourseCatalog.addsSupplementary` needs no change.
+- **Onboarding:** all four branches start at stage 1, no calibration question.
+- **Identifiers** (Hive enum values, cannot be renamed later): `CourseId.morningRoutine` (HiveField 3); `BranchId.morningSpine`, `morningJoints`, `morningArms`, `morningEnergy` (HiveFields 12–15, appended). Exercise ids `morning_<branch>_s<N>_<name>`, `warmup_morning_stretch_up`, `cooldown_shake_out`; achievements `morning_<branch>_complete` (and `all_complete` needs them).
+- **Costs:** 21 new exercises (20 stages + warm-up + cool-down), each a name, a description and a tip in four languages, tags and a Lottie animation; 4 branches, 1 course, 4 branch achievements, Aurora (six faces + idle + cheer, `tools/characters/gen_hosts.py`).
+- **Order of work:** (1) the four ⚠️ animations drafted first in the rig (torso twist, windmill, knee circles, speed skater) — **done, approved by the owner 2026-10-08, in `assets/`**; (2) the course, branches and exercises, texts in four languages, version 0.9.0 — **done (Change History)**; (3) Aurora — **done, approved by the owner 2026-10-08**; (4) the other 18 animations — **done, approved by the owner 2026-10-08 (the cross crunch redrawn once), in `assets/`**. The branch `0.9.0` is merged only when all of it is in.
+
 #### Per-side holds — done (0.8.20)
 Implemented as decided; see ARCHITECTURE § Timed exercises (Holds on each side) and the Change History entry.
 
-#### Course hosts — decided (owner, 2026-10-08); Raffi and Luna done in 0.8.20
+#### Course hosts — decided (owner, 2026-10-08); Raffi and Luna done in 0.8.20, Aurora in 0.9.0
 - **Every course gets its own host character.** Calisthenics — **Goro** (gorilla); Healthy Body — **Raffi** (giraffe: neck and posture); Evening Stretch — **Luna** (owl); Morning Routine — **Aurora** (lark: "жаворонок / сова", early bird / night owl, Lerche / Eule, alondra / búho); Yoga — **Miso** (cat). Names chosen by the owner; they read the same in RU / EN / DE / ES (Луна, Аврора, Мисо, Раффи).
 - **Goro stays the coach:** the Home hero, the notifications, and he performs **every** exercise animation — no animation is redrawn for a host. **Skala stays the judge** of every course's challenge.
 - **A host is static SVG art in 2–3 poses**, like Skala, in Goro's flat style (BRAND.md), drawn in-house.
@@ -315,6 +354,62 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-08 — Morning Routine: all 22 animations in the app (0.9.0)
+
+**What was done:** the owner approved the 18 drafts but the standing cross crunch: "the elbow stretches a lot". It placed the elbow at the knee, so the upper arm grew about 40 % and the forearm, still reaching the back of the head, more than three times. Redrawn so that no arm segment is ever longer than it is: the elbow comes forward and down in front of the chest along the chord between its rest and its knee position (the upper arm foreshortens towards the camera, the path bowed a little outwards so it does not spin round the shoulder), the forearm reaches back towards the head as far as it can (the fist comes off the head to the chin), and the torso crunches harder (shorter, leaning, the head dropping) while the knee comes higher and across. A check of the layer scales confirms it: the arm segments never exceed their natural size. All 22 files are in `assets/animations/` and every Morning Routine exercise has its `animationPath`; the four approved earlier regenerate byte for byte. A throwaway test parsed all 22 with the `lottie` package; 887 tests. The stand shows the final set. Checked in the web build: an Energy challenge plays the stretch-up and the step jacks (with the hands-free countdown), Skala on top; the quit dialog opens (an earlier try where the ✕ did nothing was the browser's phone-size emulation, not the app); no console errors.
+
+**Modified files:** `assets/animations/` (18 new), `lib/data/static/exercise_catalog.dart`, `tools/lottie/gen_morning.py`, `tools/lottie/build_preview.py`, ARCHITECTURE.md, DEV_NOTES.md, `tz_designer.md`.
+
+---
+
+### 2026-10-08 — Morning Routine: the other 18 animation drafts
+
+**What was done:** step (4) of § Roadmap 2b-2, drafts. `gen_morning.py` now draws every Morning Routine exercise. Front views (11): the stretch-up, side bend, open the gate, side lunge, Cossack squat, arm swings (the arm on top alternates through layer copies), Y raises (the hinge shown by a shorter torso and a lower head), cactus arms (the forearm turns towards the camera), step jacks, the standing cross crunch (the head over the fists: hands behind the head), the shake-out. Side views (7): the good morning (elbows forward at the chin), the roll-down (three-part spine, the head last on the way up), the knee hug (up on the toes), butt kicks, mountain climbers, plank to downward dog and the inchworm. All pass `check_anim.py`; each was looked at frame by frame. The stand (`build_preview.py --preset morning`, all 22) is published for the owner's review; nothing new is in `assets/` yet.
+
+**Key issues and solutions:** an arm sweeping 150–170° in 14 frames moved its hand 23–34 px a frame; the arms are driven by angle, with sweeps of 20+ frames. The cactus forearm flipped 90° where its projection passes through zero length; it now swings a little outwards on the way. The crunching elbow turned the short way and flipped mid-move; it always turns round the outside. The first plank-to-dog turned the legs the wrong way (the hips sank to the floor) and the first inchworm sagged into a crawl mid-walk; both now move the hips on an arc of leg length round the planted feet, the inchworm keeping them high early. Goro's short legs make the dog's V steep on the leg side (the legs nearly vertical); flagged to the owner. A raised leg in front of the body merged with it; the near leg is drawn lighter (`LEG_LIGHT`), as in Evening Stretch. The 19 / 21 / 17 counts of earlier entries were wrong (every branch has 5 stages: 20 stages, 22 exercises); fixed throughout.
+
+**Modified files:** `tools/lottie/gen_morning.py`, `tools/lottie/build_preview.py` (cards for all 22), ARCHITECTURE.md, DEV_NOTES.md, `tz_designer.md`.
+
+---
+
+### 2026-10-08 — Aurora, the Morning Routine host (0.9.0)
+
+**What was done:** step (3) of § Roadmap 2b-2. `tools/characters/gen_hosts.py` draws Aurora the lark like Luna and Raffi: six faces, an idle and a cheer pose (`assets/hosts/aurora_*`). A warm sandy lark with a tall crest and a streaked cream breast on a sunrise tile; she wears a sports headband in Goro's blue. The crest perks up when excited and lies flat when sad or asleep; she sings at dawn, so the excited face and the cheer pose open the beak with musical notes instead of sparkles. `CourseId.morningRoutine` now maps to her (Home, Profile, course cards, summary). A line in the 0.9.0 "What's new". The owner approved the drafts (an Artifact stand at 200 / 120 / 100 / 48 px beside Luna and Raffi). 869 tests (every host file decodes, every course has all its host files).
+
+**Key issues and solutions:** the first draft, built on Luna's template with a pale face patch round the eyes, read as an owl; a brown head with pale cheeks and throat only, a taller crest and a slimmer body read as a songbird. Sun rays on the tile read as stray marks round the bird and were dropped; the right-hand clouds moved down so the raised wing of the cheer pose does not end in them. Luna's and Raffi's files regenerate unchanged.
+
+**New / modified files:** `tools/characters/gen_hosts.py`, `assets/hosts/aurora_*.svg` (8), `lib/data/models/enums.dart`, `l10n/*.arb` (`releaseNotes090`), BRAND.md, the design concept, ARCHITECTURE.md.
+
+---
+
+### 2026-10-08 — Morning Routine: the course in the app (0.9.0+30)
+
+**What was done:** step (2) of § Roadmap 2b-2. The owner approved the four risky animations; they are in `assets/animations/`. `CourseId.morningRoutine` (HiveField 3) with `BranchId.morningSpine` / `morningJoints` / `morningArms` / `morningEnergy` (HiveFields 12–15, appended), 20 stage exercises, the `warmup_morning_stretch_up` warm-up and the `cooldown_shake_out` cool-down of every branch, names / descriptions / tips in four languages, tags, four `morning_*_complete` achievements (`all_complete` now needs them too). The onboarding and the Library offer the course; the onboarding starts its branches at stage 1 (the Evening Stretch block became a loop over both courses). The bonus workout keeps the supplementary block. Until Aurora is drawn the course shows Goro's art. Version 0.9.0+30 with a "What's new" entry in four languages. 861 tests (the frozen enum lists, the Morning Routine plan: stretch-up first, shake-out last, Standard ≠ Full, two supplementary exercises in a bonus workout; its achievements). Checked in the web build at 375 px: the course sheet, the four branches in the Library, a search for «Мельница», a workout (stretch-up → side bends → rest → knee circles playing its animation); no console errors.
+
+**Key issues and solutions:** as with Evening Stretch, the catalog, the ARB keys, the `ExerciseL10n` lookups and the tags were written by one throwaway script from a single content table (scratchpad), so ids, keys and the four languages cannot drift. Texts avoid gendered forms where Russian or Spanish would force one ("можно начинать день", "con energía").
+
+**Modified files:** `enums.dart` (+ `enums.g.dart`), `exercise_catalog.dart`, `exercise_tags_catalog.dart`, `course_catalog.dart`, `achievement_catalog.dart`, `achievement_l10n.dart`, `exercise_l10n.dart`, `achievement_service.dart`, `skill_progress_repository.dart`, `onboarding_provider.dart`, `onboarding_screen.dart`, `developer_options_screen.dart`, `release_notes_catalog.dart`, `pubspec.yaml`, `l10n/*.arb` (+ generated `app_localizations*.dart`), `assets/animations/` (4 new); tests: `enums_test`, `user_and_achievement_repository_test`, `achievement_service_test`, `workout_generator_service_test`.
+
+---
+
+### 2026-10-08 — Morning Routine: the four risky animations drafted
+
+**What was done:** step (1) of § Roadmap 2b-2. `tools/lottie/gen_morning.py` draws the four poses marked ⚠️, all front views: the torso twist (hips square, the arms swing round the torso — one across the belly, one behind the back — the torso narrows, its chest patch slides to the turning side, the head turns), the windmill (the arms turn like sails from a T to a vertical line, one hand at the opposite foot, the torso folds towards the camera behind the head, the crown shows), knee circles (feet together, hands just above the knees, the knees circle twice each way), the speed skater without the hop (a step out, the weight over a bent leg, the other foot behind it, the opposite arm across). All pass `check_anim.py`. Published as an Artifact stand (`build_preview.py --preset morning`) for the owner's review; nothing is in `assets/` yet.
+
+**Key issues and solutions:** the first twist (fists at the chest, a 42° turn) barely changed from the front; arms that wrap round the torso, one drawn behind it, read as a turn. The windmill's hand swept 23–34 px a frame (the checker's limit is 22): the arms are now driven by angle, not IK targets (a target just short of full length bent the elbow ~13° and flipped it), and a fold takes 22 frames. In the skater the back foot must pass behind the standing leg on both sides: the left leg has copies under the right one, swapped while the feet are apart. `frontview.Animation` got `shapes_fn`; regenerating every generated animation gives the committed files unchanged (the Flex files differ only in number formatting, as on `main`).
+
+**New / modified files:** `tools/lottie/gen_morning.py` (new), `tools/lottie/frontview.py` (`shapes_fn`), `tools/lottie/build_preview.py` (`morning` preset), ARCHITECTURE.md, CLAUDE.md.
+
+---
+
+### 2026-10-08 — Morning Routine: the content agreed; stale lines fixed
+
+**What was done:** branch `0.9.0` cut from `main` after the Evening Stretch merge (787 tests, analyze clean). With the owner: Morning Routine is the next course — four standing, quiet branches (Spine, Joints, Arms, Energy), 20 stages, a stretch-up warm-up and a shake-out cool-down, Aurora as host; the branch order keeps the daily rotation; the bonus workout keeps the supplementary block. Shadow boxing was replaced by step jacks (the owner: few people know how to shadow-box). Written into Active Specs § Roadmap 2b-2 and the backlog. Also fixed stale lines: the Evening Stretch catalog heading ("no animations yet"), the backlog ("the host Luna open"; "the native widget's texts" — localized since 0.8.18), the animation count (88 of 90). No code changed.
+
+**Modified files:** `DEV_NOTES.md`, `ARCHITECTURE.md`.
+
+---
 
 ### 2026-10-08 — The active course's host on Home and in the Profile (0.8.20)
 
