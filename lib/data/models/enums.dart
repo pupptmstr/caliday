@@ -166,12 +166,23 @@ extension CourseIdExtension on CourseId {
         CourseId.eveningStretch => l10n.courseNameEveningStretch,
       };
 
-  /// The course host's portrait (course cards): Goro, Raffi the giraffe,
-  /// Luna the owl. Art from tools/characters/gen_hosts.py.
-  String get hostPortrait => switch (this) {
-        CourseId.calisthenics => 'assets/goro/goro_face_happy.svg',
-        CourseId.healthyBody => 'assets/hosts/raffi_portrait.svg',
-        CourseId.eveningStretch => 'assets/hosts/luna_portrait.svg',
+  /// The course host's portrait (course cards): its happy face. Goro, Raffi
+  /// the giraffe, Luna the owl; art from tools/characters/gen_hosts.py.
+  String get hostPortrait => hostFace('happy');
+
+  /// One of the host's six faces (Home), by mood name: happy, sad, angry,
+  /// sleeping, excited, supportive.
+  String hostFace(String mood) => switch (this) {
+        CourseId.calisthenics => 'assets/goro/goro_face_$mood.svg',
+        CourseId.healthyBody => 'assets/hosts/raffi_face_$mood.svg',
+        CourseId.eveningStretch => 'assets/hosts/luna_face_$mood.svg',
+      };
+
+  /// The host standing calmly (Profile).
+  String get hostIdle => switch (this) {
+        CourseId.calisthenics => 'assets/goro/goro_idle_v2.svg',
+        CourseId.healthyBody => 'assets/hosts/raffi_idle.svg',
+        CourseId.eveningStretch => 'assets/hosts/luna_idle.svg',
       };
 
   /// The course host cheering on the summary of a workout of this course.

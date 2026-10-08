@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:caliday/core/providers/goro_expression_provider.dart';
 import 'package:caliday/data/models/enums.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -19,9 +20,14 @@ void main() {
     expect(files.length, greaterThanOrEqualTo(14));
   });
 
-  test('every course has a host portrait and a cheering pose on disk', () {
+  test('every course host has the six faces, the idle and the cheer pose on disk', () {
     for (final course in CourseId.values) {
+      for (final mood in GoroExpression.values) {
+        expect(File(mood.assetFor(course)).existsSync(), isTrue,
+            reason: '${course.name} ${mood.name}');
+      }
       expect(File(course.hostPortrait).existsSync(), isTrue, reason: course.name);
+      expect(File(course.hostIdle).existsSync(), isTrue, reason: course.name);
       expect(File(course.hostCheer).existsSync(), isTrue, reason: course.name);
     }
   });

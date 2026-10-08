@@ -1601,7 +1601,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseNotes0820 =>
-      'Holds done one side at a time now cover both sides: after the first side a short countdown gives you time to switch, then the other side is timed. Nothing to tap.\nThis applies to the hip flexor stretches, 90/90, neck tilts, the pigeon pose, the single-leg stand, the one-arm plank, the side plank and the leg and side stretches after a workout.\nSkala, the judge of the challenges, is redrawn: now he really is a bull.\nNew course: Evening Stretch, a calm stretch before sleep in four skills: back, hips, folds and shoulders.\nEvery course now has its host: Raffi the giraffe leads Healthy Body, Luna the owl leads Evening Stretch, Goro stays with Calisthenics. They greet you on the course cards and cheer at the end of a workout.';
+      'Holds done one side at a time now cover both sides: after the first side a short countdown gives you time to switch, then the other side is timed. Nothing to tap.\nThis applies to the hip flexor stretches, 90/90, neck tilts, the pigeon pose, the single-leg stand, the one-arm plank, the side plank and the leg and side stretches after a workout.\nSkala, the judge of the challenges, is redrawn: now he really is a bull.\nNew course: Evening Stretch, a calm stretch before sleep in four skills: back, hips, folds and shoulders.\nEvery course now has its host: Raffi the giraffe leads Healthy Body, Luna the owl leads Evening Stretch, Goro stays with Calisthenics. The host of your current course now greets you on the home screen and in the profile, with all its moods, and cheers at the end of a workout.';
 
   @override
   String get releaseNotes0819 =>

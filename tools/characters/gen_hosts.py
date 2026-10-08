@@ -4,11 +4,15 @@ outlines, big eyes with highlights, the light-blue accent of Goro's headband).
 
     python3 tools/characters/gen_hosts.py [OUT_DIR]
 
-Writes ``luna_portrait.svg`` / ``luna_cheer.svg`` and ``raffi_portrait.svg`` /
-``raffi_cheer.svg`` into OUT_DIR (default: assets/hosts). The portrait sits on
-the course cards (40-48 px), the cheer pose on the workout summary (120 px).
-Edit this script, not the SVG files.
+For each host, like Goro: six faces ``<host>_face_<mood>.svg`` (Home; the
+happy one also on the course cards), ``<host>_idle.svg`` (Profile) and
+``<host>_cheer.svg`` (the workout summary), into OUT_DIR (default:
+assets/hosts). Moods as Goro's: happy, sad, angry (the streak at risk; a
+calm host looks stern and worried rather than furious), sleeping, excited,
+supportive. Edit this script, not the SVG files.
 """
+
+MOODS = ('happy', 'sad', 'angry', 'sleeping', 'excited', 'supportive')
 import sys
 from pathlib import Path
 
@@ -58,6 +62,43 @@ def eye(cx, cy, r, look=(0, 0), lid=0.0, lid_color='#000', closed=False, closed_
     return out
 
 
+def sleep_eye(cx, cy, r, color):
+    """A closed sleeping eye: a downward arc."""
+    return (f'<path d="M{cx - r * 0.8:.0f} {cy - r * 0.05:.0f} Q{cx:.0f} {cy + r * 0.6:.0f} '
+            f'{cx + r * 0.8:.0f} {cy - r * 0.05:.0f}" stroke="{color}" stroke-width="{r * 0.2:.0f}" '
+            f'stroke-linecap="round" fill="none"/>')
+
+
+def brow(x0, y0, x1, y1, color, width):
+    return (f'<path d="M{x0:.0f} {y0:.0f} L{x1:.0f} {y1:.0f}" stroke="{color}" '
+            f'stroke-width="{width:.0f}" stroke-linecap="round"/>')
+
+
+def tear(cx, cy, s):
+    return (f'<path d="M{cx:.0f} {cy - 26 * s:.0f} Q{cx + 22 * s:.0f} {cy + 6 * s:.0f} {cx:.0f} {cy + 18 * s:.0f} '
+            f'Q{cx - 22 * s:.0f} {cy + 6 * s:.0f} {cx:.0f} {cy - 26 * s:.0f} Z" fill="#8FD0FF"/>')
+
+
+def zzz(x, y, s, color='#FFFFFF'):
+    out = []
+    for i, k in enumerate((1.0, 0.75, 0.55)):
+        zx, zy, w = x + i * 54 * s, y - i * 62 * s, 44 * s * k
+        out.append(f'<path d="M{zx:.0f} {zy:.0f} l{w:.0f} 0 l{-w:.0f} {w:.0f} l{w:.0f} 0" stroke="{color}" '
+                   f'stroke-width="{11 * s * k:.0f}" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9"/>')
+    return '\n  '.join(out)
+
+
+def sparkle(x, y, r, color='#FFE27A'):
+    return (f'<path d="M{x} {y - r} L{x + r * 0.25:.0f} {y - r * 0.25:.0f} L{x + r} {y} L{x + r * 0.25:.0f} {y + r * 0.25:.0f} '
+            f'L{x} {y + r} L{x - r * 0.25:.0f} {y + r * 0.25:.0f} L{x - r} {y} L{x - r * 0.25:.0f} {y - r * 0.25:.0f} Z" fill="{color}"/>')
+
+
+def heart(x, y, r, color='#FF7A9C'):
+    return (f'<path d="M{x} {y + r * 0.9:.0f} C{x - r * 1.4:.0f} {y - r * 0.1:.0f} {x - r * 0.7:.0f} {y - r * 1.1:.0f} '
+            f'{x} {y - r * 0.35:.0f} C{x + r * 0.7:.0f} {y - r * 1.1:.0f} {x + r * 1.4:.0f} {y - r * 0.1:.0f} {x} {y + r * 0.9:.0f} Z" '
+            f'fill="{color}"/>')
+
+
 # ══ Luna, the owl ════════════════════════════════════════════════════════════
 
 L_BODY = '#6E6AAE'      # feathers
@@ -79,39 +120,68 @@ def night_sky():
     return '\n  '.join(out)
 
 
-def luna_head(cx, cy, s=1.0, eyes='calm'):
-    """Head of the owl centred at (cx, cy); ``eyes`` calm | happy."""
+def luna_head(cx, cy, s=1.0, mood='happy'):
+    """Head of the owl centred at (cx, cy) in one of the ``MOODS`` (plus
+    'joy': eyes closed in a smile, for the cheer pose)."""
     def p(x, y):
         return f'{cx + x * s:.0f} {cy + y * s:.0f}'
+    droop = mood in ('sad', 'sleeping')
+    tl = (-215, -250) if droop else (-205, -290)       # tuft tips
+    tr = (215, -250) if droop else (205, -290)
     parts = [
-        # ear tufts
-        f'<path d="M{p(-150, -150)} L{p(-205, -290)} L{p(-70, -205)} Z" fill="{L_DARK}"/>',
-        f'<path d="M{p(150, -150)} L{p(205, -290)} L{p(70, -205)} Z" fill="{L_DARK}"/>',
-        # head
+        f'<path d="M{p(-150, -150)} L{p(*tl)} L{p(-70, -205)} Z" fill="{L_DARK}"/>',
+        f'<path d="M{p(150, -150)} L{p(*tr)} L{p(70, -205)} Z" fill="{L_DARK}"/>',
         f'<ellipse cx="{cx}" cy="{cy}" rx="{235 * s:.0f}" ry="{215 * s:.0f}" fill="{L_BODY}"/>',
-        # facial disc: two rounded lobes
         f'<ellipse cx="{cx - 88 * s:.0f}" cy="{cy + 6 * s:.0f}" rx="{108 * s:.0f}" ry="{118 * s:.0f}" fill="{L_DISC}"/>',
         f'<ellipse cx="{cx + 88 * s:.0f}" cy="{cy + 6 * s:.0f}" rx="{108 * s:.0f}" ry="{118 * s:.0f}" fill="{L_DISC}"/>',
         f'<path d="M{p(-60, -112)} Q{p(0, -60)} {p(60, -112)} L{p(0, -30)} Z" fill="{L_BODY}"/>',
     ]
-    if eyes == 'happy':
-        parts.append(eye(cx - 88 * s, cy + 4 * s, 62 * s, closed=True, closed_color=L_DARK))
-        parts.append(eye(cx + 88 * s, cy + 4 * s, 62 * s, closed=True, closed_color=L_DARK))
+    ex, ey, er = 88 * s, cy + 6 * s, 62 * s
+    if mood in ('joy', 'supportive'):
+        parts.append(eye(cx - ex, ey - 2 * s, er, closed=True, closed_color=L_DARK))
+        parts.append(eye(cx + ex, ey - 2 * s, er, closed=True, closed_color=L_DARK))
+    elif mood == 'sleeping':
+        parts.append(sleep_eye(cx - ex, ey, er, L_DARK))
+        parts.append(sleep_eye(cx + ex, ey, er, L_DARK))
+    elif mood == 'sad':
+        parts.append(eye(cx - ex, ey, er, look=(4 * s, 16 * s)))
+        parts.append(eye(cx + ex, ey, er, look=(-4 * s, 16 * s)))
+    elif mood == 'angry':
+        parts.append(eye(cx - ex, ey, er * 0.92, look=(8 * s, 2 * s)))
+        parts.append(eye(cx + ex, ey, er * 0.92, look=(-8 * s, 2 * s)))
+    elif mood == 'excited':
+        parts.append(eye(cx - ex, ey, er * 1.12, look=(4 * s, 0)))
+        parts.append(eye(cx + ex, ey, er * 1.12, look=(-4 * s, 0)))
     else:
-        parts.append(eye(cx - 88 * s, cy + 6 * s, 62 * s, look=(6 * s, 6 * s)))
-        parts.append(eye(cx + 88 * s, cy + 6 * s, 62 * s, look=(-6 * s, 6 * s)))
-    # beak and blush
-    parts += [
-        f'<path d="M{p(-26, 70)} L{p(26, 70)} L{p(0, 122)} Z" fill="{L_BEAK}"/>',
-        f'<ellipse cx="{cx - 150 * s:.0f}" cy="{cy + 96 * s:.0f}" rx="{30 * s:.0f}" ry="{16 * s:.0f}" fill="#F5A8C8" opacity="0.45"/>',
-        f'<ellipse cx="{cx + 150 * s:.0f}" cy="{cy + 96 * s:.0f}" rx="{30 * s:.0f}" ry="{16 * s:.0f}" fill="#F5A8C8" opacity="0.45"/>',
-    ]
+        parts.append(eye(cx - ex, ey, er, look=(6 * s, 6 * s)))
+        parts.append(eye(cx + ex, ey, er, look=(-6 * s, 6 * s)))
+    # feather brows
+    bw = 16 * s
+    if mood == 'sad':
+        parts += [brow(cx - 150 * s, cy - 66 * s, cx - 40 * s, cy - 96 * s, L_DARK, bw),
+                  brow(cx + 150 * s, cy - 66 * s, cx + 40 * s, cy - 96 * s, L_DARK, bw)]
+    elif mood == 'angry':
+        parts += [brow(cx - 150 * s, cy - 96 * s, cx - 44 * s, cy - 70 * s, L_DARK, bw),
+                  brow(cx + 150 * s, cy - 96 * s, cx + 44 * s, cy - 70 * s, L_DARK, bw)]
+    parts.append(f'<path d="M{p(-26, 70)} L{p(26, 70)} L{p(0, 122)} Z" fill="{L_BEAK}"/>')
+    if mood != 'angry':
+        parts += [f'<ellipse cx="{cx - 150 * s:.0f}" cy="{cy + 96 * s:.0f}" rx="{30 * s:.0f}" ry="{16 * s:.0f}" fill="#F5A8C8" opacity="0.45"/>',
+                  f'<ellipse cx="{cx + 150 * s:.0f}" cy="{cy + 96 * s:.0f}" rx="{30 * s:.0f}" ry="{16 * s:.0f}" fill="#F5A8C8" opacity="0.45"/>']
+    if mood == 'sad':
+        parts.append(tear(cx + ex + 30 * s, ey + 86 * s, s))
+    if mood == 'sleeping':
+        parts.append(zzz(cx + 190 * s, cy - 150 * s, s))
+    if mood == 'excited':
+        parts += [sparkle(int(cx - 270 * s), int(cy - 180 * s), int(34 * s)),
+                  sparkle(int(cx + 280 * s), int(cy - 120 * s), int(28 * s)),
+                  sparkle(int(cx + 230 * s), int(cy - 260 * s), int(20 * s))]
     return '\n  '.join(parts)
 
 
 def luna_body(cx, top, s=1.0, wing='down'):
-    """Body below the head: egg shape, belly with V-marks, folded wings
-    (``wing`` down | up: the right wing raised in a stretch), a scarf."""
+    """Body below the head: egg shape, belly with V-marks, wings (``wing``
+    down: folded | up: the right one raised in a stretch | both: both raised |
+    heart: the right one across the chest), a scarf."""
     h = 380 * s
     w = 250 * s
     parts = [
@@ -126,11 +196,24 @@ def luna_body(cx, top, s=1.0, wing='down'):
                 continue
             parts.append(f'<path d="M{x - 16 * s:.0f} {y:.0f} L{x:.0f} {y + 16 * s:.0f} L{x + 16 * s:.0f} {y:.0f}" '
                          f'stroke="{L_MARK}" stroke-width="{8 * s:.0f}" stroke-linecap="round" stroke-linejoin="round" fill="none"/>')
-    # left wing, folded
-    parts.append(f'<path d="M{cx - w * 0.82:.0f} {top + h * 0.22:.0f} Q{cx - w * 1.18:.0f} {top + h * 0.62:.0f} '
-                 f'{cx - w * 0.74:.0f} {top + h * 0.98:.0f} Q{cx - w * 0.56:.0f} {top + h * 0.6:.0f} '
-                 f'{cx - w * 0.82:.0f} {top + h * 0.22:.0f} Z" fill="{L_DARK}"/>')
-    if wing == 'up':
+    if wing == 'both':
+        for sx in (-1, 1):
+            parts.append(f'<path d="M{cx + sx * w * 0.7:.0f} {top + h * 0.3:.0f} Q{cx + sx * w * 1.45:.0f} {top + h * 0.05:.0f} '
+                         f'{cx + sx * w * 1.25:.0f} {top - h * 0.38:.0f} Q{cx + sx * w * 1.05:.0f} {top + h * 0.02:.0f} '
+                         f'{cx + sx * w * 0.62:.0f} {top + h * 0.12:.0f} Z" fill="{L_DARK}"/>')
+    else:
+        # left wing, folded
+        parts.append(f'<path d="M{cx - w * 0.82:.0f} {top + h * 0.22:.0f} Q{cx - w * 1.18:.0f} {top + h * 0.62:.0f} '
+                     f'{cx - w * 0.74:.0f} {top + h * 0.98:.0f} Q{cx - w * 0.56:.0f} {top + h * 0.6:.0f} '
+                     f'{cx - w * 0.82:.0f} {top + h * 0.22:.0f} Z" fill="{L_DARK}"/>')
+    if wing == 'both':
+        pass
+    elif wing == 'heart':
+        parts.append(f'<path d="M{cx + w * 0.8:.0f} {top + h * 0.24:.0f} Q{cx + w * 0.3:.0f} {top + h * 0.34:.0f} '
+                     f'{cx - w * 0.05:.0f} {top + h * 0.62:.0f} Q{cx + w * 0.4:.0f} {top + h * 0.7:.0f} '
+                     f'{cx + w * 0.78:.0f} {top + h * 0.5:.0f} Z" fill="{L_DARK}"/>')
+        parts.append(heart(int(cx - w * 0.02), int(top + h * 0.5), int(30 * s)))
+    elif wing == 'up':
         # right wing stretched up and out
         parts.append(f'<path d="M{cx + w * 0.7:.0f} {top + h * 0.3:.0f} Q{cx + w * 1.5:.0f} {top - h * 0.2:.0f} '
                      f'{cx + w * 1.32:.0f} {top - h * 0.58:.0f} Q{cx + w * 1.12:.0f} {top - h * 0.1:.0f} '
@@ -161,9 +244,19 @@ def luna_feet(cx, y, s=1.0):
     return '\n  '.join(out)
 
 
-def luna_portrait():
-    body = [night_sky(), luna_body(512, 690, 1.05), luna_head(512, 520, 1.0, 'calm')]
-    return svg('LUNA — portrait (Evening Stretch host, the owl)', '\n  '.join(body))
+def luna_face(mood):
+    wing = {'excited': 'both', 'supportive': 'heart'}.get(mood, 'down')
+    body = [night_sky(), luna_body(512, 690, 1.05, wing=wing), luna_head(512, 520, 1.0, mood)]
+    return svg(f'LUNA — {mood} (Evening Stretch host, the owl)', '\n  '.join(body))
+
+
+def luna_idle():
+    body = [night_sky(),
+            '<rect x="120" y="880" width="784" height="34" rx="17" fill="#2A2D66"/>',
+            luna_feet(512, 872, 0.9),
+            luna_body(512, 520, 0.9),
+            luna_head(512, 380, 0.82, 'happy')]
+    return svg('LUNA — idle (standing calmly)', '\n  '.join(body))
 
 
 def luna_cheer():
@@ -171,7 +264,7 @@ def luna_cheer():
             '<rect x="120" y="880" width="784" height="34" rx="17" fill="#2A2D66"/>',
             luna_feet(512, 872, 0.9),
             luna_body(512, 520, 0.9, wing='up'),
-            luna_head(512, 380, 0.82, 'happy')]
+            luna_head(512, 380, 0.82, 'joy')]
     return svg('LUNA — cheer (stretching a wing, eyes closed happily)', '\n  '.join(body))
 
 
@@ -191,44 +284,87 @@ def green_tile():
     return tile('raffiBg', '#5DC28C', '#2B8556', '#C8F5D8')
 
 
-def raffi_head(cx, cy, s=1.0, tilt=0.0, eyes='open'):
+def raffi_head(cx, cy, s=1.0, tilt=0.0, mood='happy'):
+    """Head of the giraffe in one of the ``MOODS`` (plus 'wink' for the cheer
+    pose); the ears droop when sad or asleep and lie back when stern."""
     def p(x, y):
         return f'{cx + x * s:.0f} {cy + y * s:.0f}'
+    ear = {'sad': 48, 'sleeping': 52, 'angry': 4, 'excited': 14}.get(mood, 24)
     parts = [f'<g transform="rotate({tilt} {cx} {cy})">',
-             # ossicones
              f'<rect x="{cx - 92 * s:.0f}" y="{cy - 270 * s:.0f}" width="{34 * s:.0f}" height="{120 * s:.0f}" rx="{16 * s:.0f}" fill="{R_HORN}"/>',
              f'<rect x="{cx + 58 * s:.0f}" y="{cy - 270 * s:.0f}" width="{34 * s:.0f}" height="{120 * s:.0f}" rx="{16 * s:.0f}" fill="{R_HORN}"/>',
              f'<circle cx="{cx - 75 * s:.0f}" cy="{cy - 272 * s:.0f}" r="{30 * s:.0f}" fill="{R_HORN_TIP}"/>',
-             f'<circle cx="{cx + 75 * s:.0f}" cy="{cy - 272 * s:.0f}" r="{30 * s:.0f}" fill="{R_HORN_TIP}"/>',
-             # ears, sideways
-             f'<ellipse cx="{cx - 200 * s:.0f}" cy="{cy - 130 * s:.0f}" rx="{84 * s:.0f}" ry="{34 * s:.0f}" fill="{R_COAT}" transform="rotate(-24 {cx - 200 * s:.0f} {cy - 130 * s:.0f})"/>',
-             f'<ellipse cx="{cx - 196 * s:.0f}" cy="{cy - 128 * s:.0f}" rx="{56 * s:.0f}" ry="{18 * s:.0f}" fill="{R_EAR_IN}" transform="rotate(-24 {cx - 196 * s:.0f} {cy - 128 * s:.0f})"/>',
-             f'<ellipse cx="{cx + 200 * s:.0f}" cy="{cy - 130 * s:.0f}" rx="{84 * s:.0f}" ry="{34 * s:.0f}" fill="{R_COAT}" transform="rotate(24 {cx + 200 * s:.0f} {cy - 130 * s:.0f})"/>',
-             f'<ellipse cx="{cx + 196 * s:.0f}" cy="{cy - 128 * s:.0f}" rx="{56 * s:.0f}" ry="{18 * s:.0f}" fill="{R_EAR_IN}" transform="rotate(24 {cx + 196 * s:.0f} {cy - 128 * s:.0f})"/>',
-             # head: long oval, wider at the top
-             f'<path d="M{p(-150, -110)} C{p(-160, -230)} {p(160, -230)} {p(150, -110)} '
-             f'C{p(160, 20)} {p(140, 150)} {p(110, 200)} L{p(-110, 200)} C{p(-140, 150)} {p(-160, 20)} {p(-150, -110)} Z" fill="{R_COAT}"/>',
-             # forehead spots
-             f'<ellipse cx="{cx - 40 * s:.0f}" cy="{cy - 150 * s:.0f}" rx="{30 * s:.0f}" ry="{20 * s:.0f}" fill="{R_SPOT}" opacity="0.8"/>',
-             f'<ellipse cx="{cx + 52 * s:.0f}" cy="{cy - 136 * s:.0f}" rx="{22 * s:.0f}" ry="{16 * s:.0f}" fill="{R_SPOT}" opacity="0.8"/>',
-             # muzzle
-             f'<ellipse cx="{cx}" cy="{cy + 150 * s:.0f}" rx="{140 * s:.0f}" ry="{96 * s:.0f}" fill="{R_MUZZLE}"/>',
-             f'<ellipse cx="{cx - 46 * s:.0f}" cy="{cy + 128 * s:.0f}" rx="{14 * s:.0f}" ry="{10 * s:.0f}" fill="{R_SPOT}"/>',
-             f'<ellipse cx="{cx + 46 * s:.0f}" cy="{cy + 128 * s:.0f}" rx="{14 * s:.0f}" ry="{10 * s:.0f}" fill="{R_SPOT}"/>',
-             f'<path d="M{p(-56, 178)} Q{p(0, 222)} {p(56, 178)}" stroke="{R_SPOT}" stroke-width="{12 * s:.0f}" stroke-linecap="round" fill="none"/>',
-             ]
-    if eyes == 'wink':
-        parts.append(eye(cx - 72 * s, cy - 40 * s, 46 * s, look=(4 * s, 2 * s)))
-        parts.append(eye(cx + 72 * s, cy - 40 * s, 46 * s, closed=True, closed_color=PUPIL))
+             f'<circle cx="{cx + 75 * s:.0f}" cy="{cy - 272 * s:.0f}" r="{30 * s:.0f}" fill="{R_HORN_TIP}"/>']
+    for sx in (-1, 1):
+        ex_, ey_ = cx + sx * 200 * s, cy - 130 * s
+        parts.append(f'<ellipse cx="{ex_:.0f}" cy="{ey_:.0f}" rx="{84 * s:.0f}" ry="{34 * s:.0f}" fill="{R_COAT}" '
+                     f'transform="rotate({sx * ear} {cx + sx * 150 * s:.0f} {ey_:.0f})"/>')
+        parts.append(f'<ellipse cx="{ex_ - sx * 4 * s:.0f}" cy="{ey_ + 2 * s:.0f}" rx="{56 * s:.0f}" ry="{18 * s:.0f}" fill="{R_EAR_IN}" '
+                     f'transform="rotate({sx * ear} {cx + sx * 150 * s:.0f} {ey_:.0f})"/>')
+    parts += [
+        f'<path d="M{p(-150, -110)} C{p(-160, -230)} {p(160, -230)} {p(150, -110)} '
+        f'C{p(160, 20)} {p(140, 150)} {p(110, 200)} L{p(-110, 200)} C{p(-140, 150)} {p(-160, 20)} {p(-150, -110)} Z" fill="{R_COAT}"/>',
+        f'<ellipse cx="{cx - 40 * s:.0f}" cy="{cy - 150 * s:.0f}" rx="{30 * s:.0f}" ry="{20 * s:.0f}" fill="{R_SPOT}" opacity="0.8"/>',
+        f'<ellipse cx="{cx + 52 * s:.0f}" cy="{cy - 136 * s:.0f}" rx="{22 * s:.0f}" ry="{16 * s:.0f}" fill="{R_SPOT}" opacity="0.8"/>',
+        f'<ellipse cx="{cx}" cy="{cy + 150 * s:.0f}" rx="{140 * s:.0f}" ry="{96 * s:.0f}" fill="{R_MUZZLE}"/>',
+        f'<ellipse cx="{cx - 46 * s:.0f}" cy="{cy + 122 * s:.0f}" rx="{14 * s:.0f}" ry="{10 * s:.0f}" fill="{R_SPOT}"/>',
+        f'<ellipse cx="{cx + 46 * s:.0f}" cy="{cy + 122 * s:.0f}" rx="{14 * s:.0f}" ry="{10 * s:.0f}" fill="{R_SPOT}"/>',
+    ]
+    # mouth
+    if mood == 'sad':
+        parts.append(f'<path d="M{p(-46, 196)} Q{p(0, 166)} {p(46, 196)}" stroke="{R_SPOT}" stroke-width="{12 * s:.0f}" stroke-linecap="round" fill="none"/>')
+    elif mood == 'angry':
+        parts.append(f'<path d="M{p(-44, 186)} L{p(44, 186)}" stroke="{R_SPOT}" stroke-width="{12 * s:.0f}" stroke-linecap="round"/>')
+    elif mood == 'sleeping':
+        parts.append(f'<ellipse cx="{cx}" cy="{cy + 188 * s:.0f}" rx="{16 * s:.0f}" ry="{12 * s:.0f}" fill="{R_SPOT}"/>')
+    elif mood == 'excited':
+        parts.append(f'<path d="M{p(-66, 168)} Q{p(0, 176)} {p(66, 168)} Q{p(56, 236)} {p(0, 236)} Q{p(-56, 236)} {p(-66, 168)} Z" fill="#8A3F1E"/>')
+        parts.append(f'<ellipse cx="{cx}" cy="{cy + 218 * s:.0f}" rx="{30 * s:.0f}" ry="{14 * s:.0f}" fill="#F08A8A"/>')
     else:
-        parts.append(eye(cx - 72 * s, cy - 40 * s, 46 * s, look=(4 * s, 2 * s)))
-        parts.append(eye(cx + 72 * s, cy - 40 * s, 46 * s, look=(-4 * s, 2 * s)))
-    # lashes
-    for ex, d in ((-72, -1), (72, 1)):
-        x0 = cx + ex * s + d * 34 * s
-        parts.append(f'<path d="M{x0:.0f} {cy - 76 * s:.0f} l{d * 18 * s:.0f} {-16 * s:.0f}" stroke="{PUPIL}" '
-                     f'stroke-width="{8 * s:.0f}" stroke-linecap="round"/>')
+        parts.append(f'<path d="M{p(-56, 172)} Q{p(0, 216)} {p(56, 172)}" stroke="{R_SPOT}" stroke-width="{12 * s:.0f}" stroke-linecap="round" fill="none"/>')
+    # eyes
+    ex, ey, er = 72 * s, cy - 40 * s, 46 * s
+    if mood == 'wink':
+        parts.append(eye(cx - ex, ey, er, look=(4 * s, 2 * s)))
+        parts.append(eye(cx + ex, ey, er, closed=True, closed_color=PUPIL))
+    elif mood == 'supportive':
+        parts.append(eye(cx - ex, ey, er, closed=True, closed_color=PUPIL))
+        parts.append(eye(cx + ex, ey, er, closed=True, closed_color=PUPIL))
+    elif mood == 'sleeping':
+        parts.append(sleep_eye(cx - ex, ey, er, PUPIL))
+        parts.append(sleep_eye(cx + ex, ey, er, PUPIL))
+    elif mood == 'sad':
+        parts.append(eye(cx - ex, ey, er, look=(2 * s, 12 * s)))
+        parts.append(eye(cx + ex, ey, er, look=(-2 * s, 12 * s)))
+    elif mood == 'excited':
+        parts.append(eye(cx - ex, ey, er * 1.12, look=(3 * s, 0)))
+        parts.append(eye(cx + ex, ey, er * 1.12, look=(-3 * s, 0)))
+    else:
+        parts.append(eye(cx - ex, ey, er, look=(4 * s, 2 * s)))
+        parts.append(eye(cx + ex, ey, er, look=(-4 * s, 2 * s)))
+    # brows (sad, stern) or lashes
+    if mood == 'sad':
+        parts += [brow(cx - 110 * s, cy - 92 * s, cx - 40 * s, cy - 112 * s, R_MANE, 12 * s),
+                  brow(cx + 110 * s, cy - 92 * s, cx + 40 * s, cy - 112 * s, R_MANE, 12 * s)]
+    elif mood == 'angry':
+        parts += [brow(cx - 112 * s, cy - 112 * s, cx - 38 * s, cy - 92 * s, R_MANE, 12 * s),
+                  brow(cx + 112 * s, cy - 112 * s, cx + 38 * s, cy - 92 * s, R_MANE, 12 * s)]
+    else:
+        for exs, d in ((-72, -1), (72, 1)):
+            x0 = cx + exs * s + d * 34 * s
+            parts.append(f'<path d="M{x0:.0f} {cy - 76 * s:.0f} l{d * 18 * s:.0f} {-16 * s:.0f}" stroke="{PUPIL}" '
+                         f'stroke-width="{8 * s:.0f}" stroke-linecap="round"/>')
+    if mood == 'sad':
+        parts.append(tear(cx + ex + 24 * s, ey + 70 * s, s * 0.9))
     parts.append('</g>')
+    if mood == 'sleeping':
+        parts.append(zzz(cx + 170 * s, cy - 210 * s, s))
+    if mood == 'excited':
+        parts += [sparkle(int(cx - 250 * s), int(cy - 250 * s), int(30 * s)),
+                  sparkle(int(cx + 260 * s), int(cy - 40 * s), int(26 * s)),
+                  sparkle(int(cx - 270 * s), int(cy + 40 * s), int(20 * s))]
+    if mood == 'supportive':
+        parts.append(heart(int(cx + 210 * s), int(cy + 110 * s), int(34 * s)))
     return '\n  '.join(parts)
 
 
@@ -254,14 +390,14 @@ def raffi_neck(x0, y0, x1, y1, w0, w1, band=True):
     return '\n  '.join(parts)
 
 
-def raffi_portrait():
+def raffi_face(mood):
     body = [green_tile(),
             raffi_neck(512, 1000, 512, 600, 260, 210),
-            raffi_head(512, 430, 0.95)]
-    return svg('RAFFI — portrait (Healthy Body host, the giraffe)', '\n  '.join(body))
+            raffi_head(512, 430, 0.95, mood=mood)]
+    return svg(f'RAFFI — {mood} (Healthy Body host, the giraffe)', '\n  '.join(body))
 
 
-def raffi_cheer():
+def raffi_standing(tilt, mood, title):
     legs = []
     for x in (360, 430, 600, 670):
         legs.append(f'<rect x="{x - 18}" y="760" width="36" height="150" rx="16" fill="{R_COAT}"/>')
@@ -276,13 +412,30 @@ def raffi_cheer():
             f'<ellipse cx="440" cy="700" rx="40" ry="28" fill="{R_SPOT}" opacity="0.85"/>',
             f'<ellipse cx="560" cy="740" rx="46" ry="30" fill="{R_SPOT}" opacity="0.85"/>',
             f'<ellipse cx="640" cy="690" rx="30" ry="22" fill="{R_SPOT}" opacity="0.85"/>',
-            raffi_head(360, 300, 0.58, tilt=-14, eyes='wink')]
-    return svg('RAFFI — cheer (standing tall, a wink, the neck tilted)', '\n  '.join(body))
+            raffi_head(360, 300, 0.58, tilt=tilt, mood=mood)]
+    return svg(title, '\n  '.join(body))
+
+
+def raffi_idle():
+    return raffi_standing(0, 'happy', 'RAFFI — idle (standing calmly)')
+
+
+def raffi_cheer():
+    return raffi_standing(-14, 'wink', 'RAFFI — cheer (standing tall, a wink, the neck tilted)')
+
+
+def all_art():
+    out = {}
+    for mood in MOODS:
+        out[f'luna_face_{mood}'] = luna_face(mood)
+        out[f'raffi_face_{mood}'] = raffi_face(mood)
+    out.update(luna_idle=luna_idle(), luna_cheer=luna_cheer(),
+               raffi_idle=raffi_idle(), raffi_cheer=raffi_cheer())
+    return out
 
 
 if __name__ == '__main__':
     out = Path(sys.argv[1] if len(sys.argv) > 1 else Path(__file__).resolve().parents[2] / 'assets' / 'hosts')
     out.mkdir(parents=True, exist_ok=True)
-    for name, fn in (('luna_portrait', luna_portrait), ('luna_cheer', luna_cheer),
-                     ('raffi_portrait', raffi_portrait), ('raffi_cheer', raffi_cheer)):
-        (out / f'{name}.svg').write_text(fn())
+    for name, text in all_art().items():
+        (out / f'{name}.svg').write_text(text)

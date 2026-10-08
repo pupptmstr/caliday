@@ -1,15 +1,17 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../data/models/enums.dart';
 import '../../data/repositories/user_repository.dart';
 import '../../data/repositories/workout_repository.dart';
 import '../../domain/services/streak_service.dart';
 
-/// Текущее эмоциональное состояние маскота Горо.
+/// Текущее эмоциональное состояние ведущего на главном экране: Горо или
+/// ведущего активного курса (Раффи, Луна) — у всех те же шесть выражений.
 enum GoroExpression { happy, sad, angry, sleeping, excited, supportive }
 
 extension GoroExpressionAsset on GoroExpression {
-  /// Путь к SVG-ассету для данного выражения.
-  String get assetPath => 'assets/goro/goro_face_$name.svg';
+  /// Путь к SVG-ассету выражения у ведущего курса [course].
+  String assetFor(CourseId course) => course.hostFace(name);
 }
 
 /// Вычисляет текущее выражение Горо на основе контекста:
