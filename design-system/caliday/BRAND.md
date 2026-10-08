@@ -86,12 +86,12 @@ The Home screen uses `AnimatedSwitcher` (400ms) to transition between expression
 
 **Role:** Strict but fair. Commands respect. Appears only on the Challenge screen.
 
-**Visual:**
-- Body: `#2E2A22` (dark), `#3D3728` / `#4A4232` (light)
-- Horns: `#8B7355` → `#A89060`
+**Visual (redrawn 2026-10-08 — the first version was Goro recoloured, with thin loop horns):**
+- What makes him a bull, not a gorilla: ivory crescent horns out of the sides of a broad flat head, a curly forelock between them, ears sticking out sideways, small stern eyes under heavy brows, a **wide light muzzle** with big nostrils and the gold nose ring, the head sunk between massive shoulders (no neck), hoof caps on the fists, split hooves.
+- Body `#2A1F17` / `#3B2C21` / `#52402F` (warm brown-black, not Goro's grey-violet); forearms and fists `#5C4836` / `#7A6250` so the pose reads; muzzle `#C9A07A` → `#A97D5A`; horns `#F2E6C8` → `#CDB78C`, tips `#3A2E24`; nose ring `#D4A73C`
 - Background: `#5C1A1A` → `#3A0C0C` (dark red — arena feel)
-
-**To be redrawn (owner, 2026-10-08):** today Skala is Goro's head and body recoloured, with thin loop horns. It must read as a bull: broad flat forehead with a forelock, thick horns from the sides of the head, ears sideways below them, wide muzzle with big nostrils (keep the nose ring), small eyes under heavy brows, massive hump, no neck. Same two poses and file names.
+- Poses: `skala_neutral.svg` (arms crossed, judging), `skala_approve.svg` (thumbs-up: thumb on the outer side, curled fingers in front — never a lone digit from the middle of the fist)
+- **Generated:** `python3 tools/characters/gen_skala.py` writes both files; edit the script, not the SVGs. `test/data/character_svgs_test.dart` decodes every character file with flutter_svg.
 
 ### Course hosts (decided 2026-10-08, not yet drawn)
 

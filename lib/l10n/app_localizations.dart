@@ -2319,7 +2319,7 @@ abstract class AppLocalizations {
   /// No description provided for @releaseNotes0820.
   ///
   /// In en, this message translates to:
-  /// **'Holds done one side at a time now cover both sides: after the first side a short countdown gives you time to switch, then the other side is timed. Nothing to tap.\nThis applies to the hip flexor stretches, 90/90, neck tilts, the pigeon pose, the single-leg stand, the one-arm plank, the side plank and the leg and side stretches after a workout.'**
+  /// **'Holds done one side at a time now cover both sides: after the first side a short countdown gives you time to switch, then the other side is timed. Nothing to tap.\nThis applies to the hip flexor stretches, 90/90, neck tilts, the pigeon pose, the single-leg stand, the one-arm plank, the side plank and the leg and side stretches after a workout.\nSkala, the judge of the challenges, is redrawn: now he really is a bull.'**
   String get releaseNotes0820;
 
   /// No description provided for @releaseNotes0819.

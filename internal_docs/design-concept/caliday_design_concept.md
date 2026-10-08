@@ -53,7 +53,7 @@ Goro is the gorilla mascot of the CaliDay app. The central brand character.
 | Character | Role | Personality | Visual | Status |
 |-----------|------|-------------|--------|--------|
 | **Goro** (main) | Coach / mentor | Friendly, encouraging | Gorilla, blue headband | ✅ Ready |
-| **Skala** | Challenge host | Strict but fair | Bull / bison | ✅ Integrated (Workout screen, Challenge phase); 📐 to be redrawn as a real bull (owner, 2026-10-08) — today a recoloured Goro with horns |
+| **Skala** | Challenge host | Strict but fair | Bull | ✅ Integrated (Workout screen, Challenge phase); redrawn as a real bull 2026-10-08 (`tools/characters/gen_skala.py`) |
 | **Raffi** | Host of Healthy Body | — | Giraffe | 📐 Decided 2026-10-08, not drawn |
 | **Luna** | Host of Evening Stretch | — | Owl | 📐 Decided 2026-10-08, not drawn |
 | **Aurora** | Host of Morning Routine | — | Lark | 📐 Decided 2026-10-08, not drawn |
@@ -71,11 +71,11 @@ Colour palette:
 
 | Element | HEX |
 |---------|-----|
-| Body (dark) | `#2E2A22` |
-| Body (light) | `#3D3728` / `#4A4232` |
-| Face | `#6B4F38` → `#8A6848` |
-| Horns | `#8B7355` → `#A89060`, highlight `#C8B080` |
-| Nose ring (gold) | `#C8A040` / `#E8C060` |
+| Body | `#2A1F17` / `#3B2C21` / `#52402F` |
+| Forearms, fists | `#5C4836` / `#7A6250` |
+| Muzzle | `#C9A07A` → `#A97D5A` |
+| Horns | `#F2E6C8` → `#CDB78C`, tips `#3A2E24` |
+| Nose ring (gold) | `#D4A73C` / `#F4D676` |
 | Background | `#5C1A1A` → `#3A0C0C` (dark red) |
 
 The dark red background distinguishes the Challenge screen from Goro's blue — it creates the feeling of an "arena of trials".

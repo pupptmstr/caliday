@@ -1324,7 +1324,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseNotes0820 =>
-      'Los ejercicios a un lado ahora se hacen a ambos: tras el primer lado, una cuenta atrás corta te da tiempo para cambiar y luego se cronometra el otro. No hay que tocar nada.\nEsto vale para los estiramientos del flexor de cadera, el 90/90, las inclinaciones de cuello, la paloma, el equilibrio a una pierna, la plancha a un brazo, la plancha lateral y los estiramientos de piernas y costados tras el entrenamiento.';
+      'Los ejercicios a un lado ahora se hacen a ambos: tras el primer lado, una cuenta atrás corta te da tiempo para cambiar y luego se cronometra el otro. No hay que tocar nada.\nEsto vale para los estiramientos del flexor de cadera, el 90/90, las inclinaciones de cuello, la paloma, el equilibrio a una pierna, la plancha a un brazo, la plancha lateral y los estiramientos de piernas y costados tras el entrenamiento.\nSkala, el juez de los retos, tiene un dibujo nuevo: ahora sí es un toro.';
 
   @override
   String get releaseNotes0819 =>

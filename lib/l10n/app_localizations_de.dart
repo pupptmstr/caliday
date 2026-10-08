@@ -1317,7 +1317,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseNotes0820 =>
-      'Übungen für eine Seite laufen jetzt auf beiden: Nach der ersten Seite gibt dir ein kurzer Countdown Zeit zum Wechseln, dann wird die andere Seite gemessen. Du musst nichts antippen.\nDas gilt für die Hüftbeuger-Dehnungen, 90/90, das Kopfneigen, die Taube, den Einbeinstand, die einarmige Plank, den Seitstütz und die Bein- und Flankendehnungen nach dem Training.';
+      'Übungen für eine Seite laufen jetzt auf beiden: Nach der ersten Seite gibt dir ein kurzer Countdown Zeit zum Wechseln, dann wird die andere Seite gemessen. Du musst nichts antippen.\nDas gilt für die Hüftbeuger-Dehnungen, 90/90, das Kopfneigen, die Taube, den Einbeinstand, die einarmige Plank, den Seitstütz und die Bein- und Flankendehnungen nach dem Training.\nSkala, der Richter der Challenges, ist neu gezeichnet: Jetzt ist er wirklich ein Stier.';
 
   @override
   String get releaseNotes0819 =>
