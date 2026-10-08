@@ -214,37 +214,51 @@ def cow_face_arms():
 
 
 # ── evening_hips_s5_frog ─────────────────────────────────────────────────────
-# Front view, the head towards the camera: on the forearms, knees wide out to
-# the sides on the floor behind, feet turned out. The torso runs away from the
-# camera (drawn upside down and foreshortened: hips far and high, shoulders and
-# head near and low). The hips ease back (the torso lengthens), hold, return.
+# From above, face down: on the forearms (hands ahead of the head), the knees
+# wide out to the sides, shins back, feet turned out. The back and the crown
+# of the head are seen. The hips ease back between the knees, hold, return.
 
-FROG_ORDER = ['hand_l', 'hand_r', 'farm_l', 'farm_r', 'head', 'uarm_l', 'uarm_r',
-              'body', 'knee_l', 'knee_r', 'thigh_l', 'thigh_r', 'shin_l',
-              'shin_r', 'foot_l', 'foot_r']
+def frog_shapes(name):
+    from frontview import _back_shapes
+    from topview import _shapes
+    return _back_shapes(name) or _shapes(name)
+
+
+FROG_TOP_ORDER = ['head', 'hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l',
+                  'uarm_r', 'body', 'knee_l', 'knee_r', 'thigh_l', 'thigh_r',
+                  'shin_l', 'shin_r', 'foot_l', 'foot_r', 'mat']
 
 
 def frog():
+    from topview import K as TK, TopViewAnimation, _segment
     T = 72
 
     def pose(t):
         k = ramp(t, [(0, 0), (6, 0), (28, 1), (T - 14, 1), (T - 2, 0), (T, 0)])
-        k *= 1 + 0.04 * breath(t, 24) * (k > 0.98)
-        hips = (200, 300 - 10 * k)
-        legs = {}
-        for key, sx in (('leg_l', -1), ('leg_r', 1)):
-            knee = (200 + sx * (78 + 10 * k), 344 - 4 * k)
-            ankle = (200 + sx * (92 + 10 * k), 326 - 4 * k)
-            legs[key] = dict(knee=knee, ankle=ankle, near=0.9, foot_rot=60,
-                             foot_scale=(0.8, 0.8), foot_off=(sx * 6, -8))
-        arms = {}
-        for key, sx in (('arm_l', -1), ('arm_r', 1)):
-            elbow = (200 + sx * 40, 368)
-            arms[key] = ((200 + sx * 30, 384), (sx, 0), elbow)
-        return figure(hips=hips, lean=180, torso_scale=(1.0, 0.42 + 0.1 * k),
-                      head=(0, -22, 180), head_scale=(1.0, 0.95), **legs, **arms)
+        k *= 1 + 0.05 * breath(t, 24) * (k > 0.98)
+        back = 14 * k                              # the hips sink back
+        c = (200, 196 + back * 0.6)
+        parts = {'body': dict(p=c, r=0, s=(TK * 100, TK * 100 * (1 + 0.05 * k))),
+                 'head': dict(p=(200, 124 + back * 0.3), r=0, s=(TK * 100, TK * 92))}
+        for side, sx in (('l', -1), ('r', 1)):
+            sh = (200 + sx * 36, c[1] - 41)
+            elbow = (200 + sx * 44, c[1] - 30)
+            wrist = (200 + sx * 34, 104)
+            parts['uarm_' + side] = _segment(sh, elbow, 'uarm')
+            parts['farm_' + side] = _segment(elbow, wrist, 'farm')
+            parts['hand_' + side] = dict(p=wrist, r=0, s=(TK * 100, TK * 100))
+            hip = (200 + sx * 22, c[1] + 50)
+            knee = (200 + sx * 92, 252)
+            ankle = (200 + sx * 96, 318)
+            parts['thigh_' + side] = _segment(hip, knee, 'thigh')
+            parts['shin_' + side] = _segment(knee, ankle, 'shin')
+            parts['knee_' + side] = dict(p=knee, r=0, s=(TK * 100, TK * 100))
+            parts['foot_' + side] = dict(p=add(ankle, (sx * 8, 6)), r=sx * 50,
+                                         s=(TK * 100, TK * 100))
+        return parts
 
-    return Animation('evening_hips_s5_frog', T, pose, order=FROG_ORDER)
+    return TopViewAnimation('evening_hips_s5_frog', T, pose, FROG_TOP_ORDER,
+                            shapes_fn=frog_shapes)
 
 
 # ══ Side views (goro_rig) ════════════════════════════════════════════════════
@@ -254,6 +268,11 @@ LIE_Y = 348.0                       # torso centre lying on the floor (56 thick)
 LYING = dict(br=-90, hip_n=-6, hip_f=-12, head=(1, -83))   # on the back, head left
 FEET_UP = (4, -10, -80)             # lying on the back, toes to the ceiling
 TOWEL = [0.86, 0.80, 0.64, 1.0]
+# Legs folded over the body (knees to chest, happy baby) in a lighter tone, so
+# they do not merge with the torso.
+LEG_LIGHT = [0.36, 0.36, 0.48, 1.0]
+LEGS_TINT = {n: LEG_LIGHT for n in ('thigh_r', 'shin_r', 'foot_r', 'thigh_l',
+                                    'shin_l', 'foot_l')}
 
 
 def supine(cx, **kw):
@@ -363,7 +382,8 @@ def knees_to_chest():
         p['ht'] = -10 * k
         return p
 
-    return Spec('evening_hips_s1_knees_to_chest', T, sampled(T, pose), modes=ALL_FK)
+    return Spec('evening_hips_s1_knees_to_chest', T, sampled(T, pose), modes=ALL_FK,
+                tint=LEGS_TINT)
 
 
 # ── evening_hips_s3_happy_baby ───────────────────────────────────────────────
@@ -396,7 +416,8 @@ def happy_baby():
         p['ht'] = -4 * up
         return p
 
-    return Spec('evening_hips_s3_happy_baby', T, sampled(T, pose), modes=ALL_FK)
+    return Spec('evening_hips_s3_happy_baby', T, sampled(T, pose), modes=ALL_FK,
+                tint=LEGS_TINT)
 
 
 # ── evening_folds_s1_legs_up_wall ────────────────────────────────────────────
@@ -663,6 +684,12 @@ TOP_ORDER = ['hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l', 'uarm_r', 'head',
              'foot_l', 'foot_r', 'body', 'mat']
 
 
+# The leg that crosses (screen right) over the straight one.
+TWIST_ORDER = ['hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l', 'uarm_r', 'head',
+               'knee_r', 'foot_r', 'shin_r', 'thigh_r', 'knee_l', 'thigh_l',
+               'shin_l', 'foot_l', 'body', 'mat']
+
+
 def top_parts(head_rot=0.0, arms=None, legs=None, torso_rot=0.0):
     """Layer transforms of Goro on his back from above. ``arms[side]`` =
     (elbow, wrist), ``legs[side]`` = (knee, ankle); sides by screen (l, r)."""
@@ -722,7 +749,7 @@ def supine_twist():
         legs = {'l': STRAIGHT['l'], 'r': (knee, ankle)}
         return top_parts(head_rot=28 * drop, arms=T_ARMS, legs=legs, torso_rot=-4 * drop)
 
-    return TopViewAnimation('evening_back_s3_supine_twist', T, pose, TOP_ORDER)
+    return TopViewAnimation('evening_back_s3_supine_twist', T, pose, TWIST_ORDER)
 
 
 # ── evening_hips_s2_figure_four ──────────────────────────────────────────────
@@ -734,8 +761,9 @@ def figure_four():
     from topview import TopViewAnimation
     T = 84
     hy = TOP_HIP_Y
-    bent = {'l': ((162, hy + 30), (174, hy + 82)),
-            'r': ((238, hy + 30), (226, hy + 82))}
+    shin_len = 66
+    bent = {'l': ((184, hy + 34), (176, hy + 84)),
+            'r': ((216, hy + 34), (224, hy + 84))}
     side_arms = {'l': ((200 - 50, TOP_SH_Y + 34), (200 - 64, TOP_SH_Y + 66)),
                  'r': ((200 + 50, TOP_SH_Y + 34), (200 + 64, TOP_SH_Y + 66))}
 
@@ -743,14 +771,21 @@ def figure_four():
         cross = ramp(t, [(0, 0), (6, 0), (24, 1), (T - 10, 1), (T - 2, 0), (T, 0)])
         open_ = ramp(t, [(0, 0), (24, 0), (40, 1), (T - 24, 1), (T - 10, 0), (T, 0)])
         b = breath(t, 24) * (open_ > 0.98)
-        lk = mixp(bent['l'][0], (166, hy + 22), open_)
-        la = mixp(bent['l'][1], (172, hy + 70), open_)
-        rk = mixp(bent['r'][0], (262 + 8 * open_ + 2 * b, hy + 46 + 6 * open_), cross)
-        ra = mixp(bent['r'][1], add(lk, (8, -4)), cross)
+        lk = mixp(bent['l'][0], (186, hy + 28), open_)
+        la = mixp(bent['l'][1], (178, hy + 76), open_)
+        # crossed: the knee opens out to the side (a short thigh: it points
+        # towards the camera too), the shin lies across the other knee
+        rk_cross = (250 + 8 * open_ + 2 * b, hy + 40 + 6 * open_)
+        to_knee = (lk[0] - rk_cross[0], lk[1] - 4 - rk_cross[1])
+        ln = math.hypot(*to_knee)
+        ra_cross = add(rk_cross, mul(to_knee, shin_len / ln))
+        # on the way the ankle lifts over the other leg (a curve, not a slide)
+        rk = bezier2(bent['r'][0], (246, hy + 20), rk_cross, cross)
+        ra = bezier2(bent['r'][1], (214, hy + 30), ra_cross, cross)
         legs = {'l': (lk, la), 'r': (rk, ra)}
         return top_parts(arms=side_arms, legs=legs, head_rot=0)
 
-    return TopViewAnimation('evening_hips_s2_figure_four', T, pose, TOP_ORDER)
+    return TopViewAnimation('evening_hips_s2_figure_four', T, pose, TWIST_ORDER)
 
 
 ANIMATIONS = {
