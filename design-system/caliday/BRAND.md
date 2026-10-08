@@ -91,10 +91,26 @@ The Home screen uses `AnimatedSwitcher` (400ms) to transition between expression
 - Horns: `#8B7355` → `#A89060`
 - Background: `#5C1A1A` → `#3A0C0C` (dark red — arena feel)
 
-### Future characters (not yet designed)
+**To be redrawn (owner, 2026-10-08):** today Skala is Goro's head and body recoloured, with thin loop horns. It must read as a bull: broad flat forehead with a forelock, thick horns from the sides of the head, ears sideways below them, wide muzzle with big nostrils (keep the nose ring), small eyes under heavy brows, massive hump, no neck. Same two poses and file names.
 
-- **Bruno** (bear): exercise technique demonstrator for the Branch Journey screen (idea only, not planned)
-- **Rex** (small monkey): streak motivator concept
+### Course hosts (decided 2026-10-08, not yet drawn)
+
+Every course has its own host — static flat art in 2–3 poses, like Skala — shown on the course cards (onboarding, Library), the summary of that course's workouts and its achievements. **Goro stays the coach** (Home hero, notifications) and **performs every exercise animation**; Skala stays the judge of every challenge.
+
+| Host | Animal | Course |
+|------|--------|--------|
+| Goro | Gorilla | Calisthenics |
+| Raffi | Giraffe | Healthy Body |
+| Luna | Owl | Evening Stretch |
+| Aurora | Lark | Morning Routine |
+| Miso | Cat | Yoga |
+
+Spec: `internal_docs/DEV_NOTES.md` § Course hosts.
+
+### Other character ideas
+
+- **Bruno** (bear, technique demonstrator): dropped in that role — stage previews on the Branch Journey screen will play Goro's animations
+- **Rex** (small monkey): streak motivator concept, deferred
 
 ---
 

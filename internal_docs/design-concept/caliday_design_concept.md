@@ -53,9 +53,15 @@ Goro is the gorilla mascot of the CaliDay app. The central brand character.
 | Character | Role | Personality | Visual | Status |
 |-----------|------|-------------|--------|--------|
 | **Goro** (main) | Coach / mentor | Friendly, encouraging | Gorilla, blue headband | ✅ Ready |
-| **Skala** | Challenge host | Strict but fair | Bull / bison | ✅ Ready, integrated (Workout screen, Challenge phase) |
-| **Bruno** | Exercise demonstrator | Calm, technical | Bear | 🔲 Future concept (not designed, not planned) |
-| **Rex** | Streak motivator | Energetic, hyperactive | Small monkey, flame | 🔲 Future concept |
+| **Skala** | Challenge host | Strict but fair | Bull / bison | ✅ Integrated (Workout screen, Challenge phase); 📐 to be redrawn as a real bull (owner, 2026-10-08) — today a recoloured Goro with horns |
+| **Raffi** | Host of Healthy Body | — | Giraffe | 📐 Decided 2026-10-08, not drawn |
+| **Luna** | Host of Evening Stretch | — | Owl | 📐 Decided 2026-10-08, not drawn |
+| **Aurora** | Host of Morning Routine | — | Lark | 📐 Decided 2026-10-08, not drawn |
+| **Miso** | Host of Yoga | — | Cat | 📐 Decided 2026-10-08, not drawn |
+| **Bruno** | Exercise demonstrator | Calm, technical | Bear | ❌ Dropped in that role (2026-10-08): stage previews will play Goro's animations |
+| **Rex** | Streak motivator | Energetic, hyperactive | Small monkey, flame | 🔲 Deferred |
+
+**Course hosts (decided 2026-10-08):** every course has its own host — static art in 2–3 poses, like Skala — on the course cards, the workout summary of that course and its achievements. Goro stays the coach (Home, notifications) and performs every exercise animation. Details and the Skala redraw brief: `internal_docs/DEV_NOTES.md` § Course hosts.
 
 **Skala — details (v1.1) ✅ Ready:**
 Appears on the Challenge screen. Visually larger and more monumental than Goro — commands respect.

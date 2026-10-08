@@ -931,7 +931,11 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages, the store listings and the native widget's texts are open — see DEV_NOTES § Roadmap |
 | v1.0 | Friends: branch progress no longer shared (QR format 3), so a new branch never changes the format | ✅ 0.8.19 |
 | v1.0 | Progression per branch and per day, in any workout (two courses on one day both progress) | ✅ 0.8.19 |
-| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | 📐 decided 2026-10-07, content per course to design — DEV_NOTES § Roadmap 2b |
+| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | 📐 decided 2026-10-07; **Evening Stretch first**, its content agreed 2026-10-08 (4 branches, 19 new exercises) — DEV_NOTES § Roadmap 2b-1; Morning Routine and Yoga to design |
+| v1.0 | Per-side holds — a one-sided hold runs side 1 → "switch sides" countdown → side 2, hands-free (prerequisite of Evening Stretch; also for existing one-sided stretches) | 📐 decided 2026-10-08 — DEV_NOTES § Per-side holds |
+| v1.0 | Course hosts — a character per course (Goro, Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat) on the course cards, the summary and the achievements; Goro keeps Home and every animation | 📐 decided 2026-10-08 — DEV_NOTES § Course hosts |
+| v1.0 | Skala redrawn as a real bull (today a recoloured Goro with horns) | 📐 decided 2026-10-08 — DEV_NOTES § Course hosts |
+| — | Branch Journey: stage previews playing Goro's animations (takes Bruno's planned role; Bruno dropped) | 💡 idea |
 | v1.x | More branches, also outside any course (to be picked in the builder) | 💡 idea — DEV_NOTES § Roadmap 2c |
 | v1.x | Custom course builder — (a) a course from existing branches, (b) a branch of one's own: own exercises in order, progression through them (owner's plan, 3rd) | 📐 decided 2026-10-07 — DEV_NOTES § Roadmap 3 |
 

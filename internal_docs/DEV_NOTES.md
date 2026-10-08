@@ -214,6 +214,59 @@ The owner chose to drop branch progress from the friend exchange altogether (rat
 - **Costs of a new branch** (unchanged): a value in the `BranchId` Hive enum, its stages, a warm-up and cool-downs, tags, achievements (`<branch>_complete`), ARB texts in all four languages, a Lottie animation per exercise (the `tools/lottie` rigs; some poses do not read in a side view, see the pigeon and 90/90 decisions), the onboarding start stage.
 - ~~Two courses on one day~~ — settled and done in 0.8.19: progression is per branch and per day, in any workout (the owner's rule), SP and the streak unchanged. See ARCHITECTURE § Primary vs Bonus Workout.
 
+#### 2b-1. Evening Stretch — the first new course, content agreed (owner, 2026-10-08)
+- **Concept:** a calm stretch before sleep. Everything on the floor, nothing needed but a towel and a wall, slow, and every workout ends lying down. Host: **Luna** the owl (see § Course hosts).
+- **No pose repeats a progression stage of Flex, Posture or Neck**, so that a user of Calisthenics or Healthy Body does not meet the same exercises twice. Only the cat-cow animation and the neck rolls are reused. (An earlier estimate, "built almost entirely from existing exercises", held only with such repeats.)
+- **Four branches** (the owner asked for four: with three, as in Healthy Body today, the Standard size — 3 skills — and the Full size — all — give the same workout). ↔ = held on each side (§ Per-side holds); times are per side.
+
+| Branch | # | Exercise | Grows within the stage | Challenge to enter | Animation |
+|--------|---|----------|------------------------|--------------------|-----------|
+| **Back** (Спина) | 1 | Cat-Cow | 5→12 reps | — | reuses `cooldown_cat_cow.json` |
+| | 2 | Child's Pose | 20→60 s | 30 s | new, side |
+| | 3 | Supine Twist ↔ | 20→60 s | 30 s | new, top view (`topview.py`) |
+| | 4 | Sphinx | 20→60 s | 45 s | new, side |
+| | 5 | Cobra | 30→90 s | 45 s | new, side |
+| **Hips** (Бёдра) | 1 | Knees to Chest | 20→60 s | — | new, side |
+| | 2 | Reclined Figure Four ↔ | 20→60 s | 30 s | new, top view |
+| | 3 | Happy Baby | 20→60 s | 30 s | new, side |
+| | 4 | Butterfly | 20→60 s | 45 s | new, ⚠️ seated front view |
+| | 5 | Frog | 30→90 s | 45 s | new, ⚠️ view unclear — fallback: Lizard |
+| **Folds** (Наклоны; "Ноги" is the Legs branch) | 1 | Legs Up the Wall | 30→90 s | — | new, side (wall prop) |
+| | 2 | Lying Hamstring Stretch, with a towel ↔ | 20→60 s | 30 s | new, side |
+| | 3 | Head-to-Knee Fold ↔ | 20→60 s | 45 s | new, side |
+| | 4 | Straddle Fold | 30→90 s | 45 s | new, ⚠️ seated front view |
+| **Shoulders** (Плечи) | 1 | Self-Hug | 20→60 s | — | new, seated front view |
+| | 2 | Overhead Triceps Stretch ↔ | 20→60 s | 30 s | new, seated front view |
+| | 3 | Eagle Arms ↔ | 20→60 s | 30 s | new, ⚠️ seated front view |
+| | 4 | Puppy Pose | 30→90 s | 45 s | new, side |
+| | 5 | Cow Face Arms ↔ | 20→60 s | 45 s | new, ⚠️ seated front view (or from behind) |
+
+- The Shoulders branch leaves out what exists already: hands clasped behind the back (the Push cool-down, `neck_s2_chest_opener`), the doorway stretch, the lat stretch at the wall.
+- **Common to every stage:** sets 1→2, rest 15→10 s (as Posture / Neck), `spBase` 1.
+- **Warm-up** of every branch: `warmup_neck_rolls` (reused). **Cool-down** of every branch: a new stage-0 exercise **Lying Relaxation** (shavasana), 60 s; the generator de-duplicates cool-downs, so each evening workout ends with it once.
+- **Onboarding:** all four branches start at stage 1, no calibration question.
+- **Bonus workout:** proposed (2026-10-08, to confirm with the owner) — no supplementary block in this course. The pool is strength work (Russian twists, side plank, calf raises), out of place before sleep. Today `generateDailyForCourse` adds it to every non-primary workout.
+- **Identifiers** (proposed): `CourseId.eveningStretch`; four `BranchId` values appended to the enum. They are Hive enum values and the keys of `SkillProgress` and of the `<branch>_complete` achievements, so their names cannot change later — choose them once (e.g. `eveningBack`, `eveningHips`, `eveningFolds`, `eveningShoulders`).
+- **Costs:** 19 new exercises (18 stages + Lying Relaxation), each a name, a description and a tip in four languages, tags, and a Lottie animation; 4 branches, 1 course, 4 branch achievements, the course card with Luna.
+- **Rig work first:** a **seated front view** in `tools/lottie/frontview.py` (it draws standing poses only today) is needed by about seven animations (butterfly, straddle, the four arm stretches, maybe the frog). Build it and check that the ⚠️ poses read before drawing the rest; a pose that does not read is replaced, not shipped without an animation.
+- **Order of work:** (1) per-side holds; (2) the course, its branches and exercises **without animations** (the app already shows an exercise without one, as 90/90 and the pigeon) and their texts in four languages; (3) Luna and the host slot; (4) the animations, branch by branch. Users should see the course only once the animations are in — the web build is public, so either it lands in one go or it stays behind a debug-only switch until then (to decide at implementation).
+
+#### Per-side holds — decided (owner, 2026-10-08)
+- Today a hold is one timer and "switch sides" exists only in an exercise's text. Half of the Evening Stretch poses are one-sided.
+- **Mechanics:** `Exercise.perSide` (timed exercises). One set = side 1 hold → a short get-ready countdown labelled "Switch sides" (the existing get-ready mechanism, so no tap: the workout stays hands-free, see the Change History entry "A get-ready countdown replaces the Start button") → side 2 hold → rest. The target, the progression and the challenge norm are per side.
+- **To design at implementation:** the challenge result of a per-side exercise (the weaker side counts, i.e. the minimum of the two); SP counts the seconds of both sides; the time estimate on Home ("≈ N min") counts both sides; the "Switch sides" text in four languages.
+- **Existing exercises to review for the flag** (their texts say "each side" / "switch sides", or the pose is one-sided): `flex_s1_hip_flexor_stretch`, `flex_s3_hip_9090`, `neck_s1_neck_tilt`, `posture_s5_kneeling_lunge`, `posture_s6_pigeon_pose`, `cooldown_quad_stretch`, `cooldown_hip_flexor`, `cooldown_lat_stretch`. Their hold targets stay as they are and become per side; the "hold each side" sentence leaves their descriptions.
+- Decision logic in a pure function with a test (the phase sequence of a per-side set).
+
+#### Course hosts — decided (owner, 2026-10-08)
+- **Every course gets its own host character.** Calisthenics — **Goro** (gorilla); Healthy Body — **Raffi** (giraffe: neck and posture); Evening Stretch — **Luna** (owl); Morning Routine — **Aurora** (lark: "жаворонок / сова", early bird / night owl, Lerche / Eule, alondra / búho); Yoga — **Miso** (cat). Names chosen by the owner; they read the same in RU / EN / DE / ES (Луна, Аврора, Мисо, Раффи).
+- **Goro stays the coach:** the Home hero, the notifications, and he performs **every** exercise animation — no animation is redrawn for a host. **Skala stays the judge** of every course's challenge.
+- **A host is static SVG art in 2–3 poses**, like Skala, in Goro's flat style (BRAND.md), drawn in-house.
+- **Where a host appears:** the course card in the onboarding (replacing the emoji of `CourseIdOnboarding`: 🦍 / 🌿), the course cards of the Library tab, the summary of a workout of that course, the course's achievements. Home stays Goro's.
+- **Order:** Luna with Evening Stretch, Raffi at the same time (the slot is built once); Aurora and Miso with their courses.
+- **Skala is redrawn** (owner, 2026-10-08): today it is Goro's head and body recoloured, with thin loop horns. To read as a bull: a broad flat forehead with a forelock, thick horns growing from the sides of the head, ears sideways below them, a wide muzzle with big nostrils (the nose ring stays), small eyes under heavy brows, a massive hump and no neck. Same two poses (arms crossed / thumb up), same file names (`assets/skala/`).
+- **Bruno** (the bear demonstrator) is dropped in that role: stage previews on the Branch Journey screen can play Goro's existing animations. **Rex** (the streak monkey) is deferred — on Home it would compete with Goro, whose angry face already warns about the streak.
+
 #### 2c. More branches, also outside any course
 - A branch can exist without a course: it is in the catalog and the exercise library, and the builder offers it. Nothing creates its `SkillProgress` until it is used (the onboarding only starts the branches of the chosen courses), so progress starts at stage 1 on first use.
 - Same costs as above, per branch. The catalog grows in four languages from now on.
@@ -266,6 +319,14 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-08 — Evening Stretch, per-side holds and the course hosts decided
+
+**What was done:** with the owner: Evening Stretch is the first new course, four branches (Back, Hips, Folds, Shoulders; 18 stages + a Lying Relaxation cool-down, none repeating a Flex / Posture / Neck stage); one-sided holds get a hands-free "switch sides" step; every course gets a host character (Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat; Goro keeps Home and every animation); Skala is to be redrawn as a real bull; Bruno is dropped as a demonstrator, Rex deferred. Written into Active Specs § Roadmap (2b-1, Per-side holds, Course hosts), the backlog, BRAND.md and the design concept. Open: no supplementary block in the evening bonus workout (proposed, to confirm). No code changed.
+
+**Modified files:** `DEV_NOTES.md`, `ARCHITECTURE.md` (backlog rows), `design-system/caliday/BRAND.md`, `internal_docs/design-concept/caliday_design_concept.md`.
+
+---
 
 ### 2026-10-07 — Each branch progresses once a day in any workout; friends without branch progress (0.8.19+28)
 
