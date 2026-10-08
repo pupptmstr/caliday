@@ -95,20 +95,26 @@ class WorkoutGeneratorService {
     }
 
     // ── 3. Cooldowns (max 2, from different branches) ─────────────────────────
+    final cooldowns = <Exercise>[];
     final addedIds = <String>{};
     for (final branch in todayBranches) {
       for (final c in ExerciseCatalog.cooldownsFor(branch)) {
-        if (addedIds.add(c.id)) {
-          exercises.add(PlannedExercise(
-            exercise: c,
-            targetAmount: c.startReps,
-            sets: 1,
-            restSec: 0,
-          ));
-        }
+        if (addedIds.add(c.id)) cooldowns.add(c);
         if (addedIds.length >= 2) break;
       }
       if (addedIds.length >= 2) break;
+    }
+    // The lying relaxation always closes the workout (Yoga mixes it with the
+    // downward dog of the shared Balance branch).
+    cooldowns.sort((a, b) => (a == ExerciseCatalog.cooldownLyingRelaxation ? 1 : 0)
+        .compareTo(b == ExerciseCatalog.cooldownLyingRelaxation ? 1 : 0));
+    for (final c in cooldowns) {
+      exercises.add(PlannedExercise(
+        exercise: c,
+        targetAmount: c.startReps,
+        sets: 1,
+        restSec: 0,
+      ));
     }
 
     // ── 4. Supplementary block (bonus workouts only, not in every course) ─────

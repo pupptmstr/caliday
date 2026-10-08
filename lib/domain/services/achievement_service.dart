@@ -116,6 +116,14 @@ class AchievementService {
         check('morning_arms_complete', newStage >= BranchId.morningArms.stageCount);
       case BranchId.morningEnergy:
         check('morning_energy_complete', newStage >= BranchId.morningEnergy.stageCount);
+      case BranchId.yogaStanding:
+        check('yoga_standing_complete', newStage >= BranchId.yogaStanding.stageCount);
+      case BranchId.yogaOneLeg:
+        check('yoga_one_leg_complete', newStage >= BranchId.yogaOneLeg.stageCount);
+      case BranchId.yogaBackbends:
+        check('yoga_backbends_complete', newStage >= BranchId.yogaBackbends.stageCount);
+      case BranchId.yogaFlow:
+        check('yoga_flow_complete', newStage >= BranchId.yogaFlow.stageCount);
     }
 
     // all_complete: every branch at max stage

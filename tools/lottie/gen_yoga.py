@@ -37,7 +37,7 @@ def into_hold(t, T, start=6, settle=24, leave=16):
                     (T - leave, 1), (T - 2, 0), (T, 0)])
 
 
-# ── yoga_balance_half_moon ───────────────────────────────────────────────────
+# ── yoga_one_leg_s5_half_moon ────────────────────────────────────────────────
 # Standing on the leg at the left of the picture, the torso tips sideways over
 # it until it is level, the lower hand reaches the floor under the shoulder,
 # the upper arm points at the ceiling and the free leg rises to the other side,
@@ -71,10 +71,10 @@ def half_moon():
         return figure(hips=hips, lean=lean, head=(0, 0, 14 * u),
                       arm_l=arm_l, arm_r=arm_r, leg_l=leg_l, leg_r=leg_r)
 
-    return Animation('yoga_balance_half_moon', T, pose)
+    return Animation('yoga_one_leg_s5_half_moon', T, pose)
 
 
-# ── yoga_balance_eagle ───────────────────────────────────────────────────────
+# ── yoga_one_leg_s2_eagle ────────────────────────────────────────────────────
 # Knees soften and the hips sink, one leg lifts and wraps over the standing
 # thigh, its foot hooking behind the standing calf; the arms wrap too (elbows
 # stacked at shoulder height, forearms up, palms together in front of the
@@ -125,7 +125,7 @@ def eagle():
     order = ['hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l', 'uarm_r', 'head',
              'knee_r', 'thigh_r', 'shin_r', 'foot_r', 'knee_l', 'thigh_l',
              'shin_l', 'foot_l', 'shin_r@b', 'foot_r@b', 'body']
-    return Animation('yoga_balance_eagle', T,
+    return Animation('yoga_one_leg_s2_eagle', T,
                      with_back_copies(pose, ['shin_r', 'foot_r'], front), order=order)
 
 
@@ -145,50 +145,46 @@ def body(hip, chest, s1=0.0, s2=0.0, ht=0.0, base=SIDE_BASE):
     return placed(p, 'leg_n', hip)
 
 
-# ── yoga_backbend_camel ──────────────────────────────────────────────────────
+# ── yoga_backbends_s5_camel ──────────────────────────────────────────────────
 # Kneeling tall on tucked toes, hands on the lower back. The hips press forward
 # over the knees, the chest lifts and the spine arches back, the head drops
 # back (the face to the ceiling). Hold, breathe, and come up chest first.
-# ``reach``: one hand, then the other, goes down to its heel. Goro's arms reach
-# the heels only with the chest level behind him (``yoga_backbend_camel_heels``,
-# a draft for comparison), so the course version keeps the hands on the back.
+# The hands stay on the back: Goro's arms reach the heels only with the chest
+# level behind him, which read as a bow (the owner chose this version).
 
 CAMEL_KNEE = (204.0, 366.0)
 
 
-def camel(chest=-62.0, bends=(26, 20), reach=False, name='yoga_backbend_camel'):
+def camel():
     T = 120
 
     def pose(t):
-        a = ramp(t, [(0, 0), (8, 0), (36, 1), (T - 18, 1), (T - 2, 0), (T, 0)])   # arch
-        rn = ramp(t, [(0, 0), (28, 0), (42, 1), (T - 30, 1), (T - 16, 0), (T, 0)])
-        rf = ramp(t, [(0, 0), (36, 0), (50, 1), (T - 30, 1), (T - 16, 0), (T, 0)])
-        b = breath(t, 24) * (rf > 0.98)
+        a = ramp(t, [(0, 0), (8, 0), (36, 1), (T - 18, 1), (T - 2, 0), (T, 0)])     # arch
+        drop = ramp(t, [(0, 0), (36, 0), (50, 1), (T - 30, 1), (T - 16, 0), (T, 0)])  # head
+        b = breath(t, 24) * (drop > 0.98)
         hip = add(CAMEL_KNEE, mul(dirv(180 + 6 * a), gr.THIGH))
-        p = body(hip, chest * a - 1.5 * b, bends[0] * a, bends[1] * a, base=gr.P(hip_n=8, hip_f=2))
+        p = body(hip, -62 * a - 1.5 * b, 26 * a, 20 * a, base=gr.P(hip_n=8, hip_f=2))
         # kneeling on tucked toes: the shins rise a little to the heels
-        heels = {}
         for side, dx in (('n', 0), ('f', -5)):
             knee = (CAMEL_KNEE[0] + dx, CAMEL_KNEE[1])
             hj = gr.joint_of(p, 'leg_' + side)
             ankle = (knee[0] - 36, 354.0)
-            heels[side] = (ankle[0] - 2, ankle[1] - 8)
             p['leg_' + side] = (gr.ang_of(knee[0] - hj[0], knee[1] - hj[1]),
                                 gr.ang_of(ankle[0] - knee[0], ankle[1] - knee[1]))
             p['sc_thigh_' + side] = math.dist(hj, knee) / gr.THIGH
             p['foot_' + side] = (2, 4, 62)
         pel = gr.solve(_SPINE_PROBE, p)['sp_pelvis']
         back = add(pel['p'], rot((-34, -4), pel['r']))           # the lower back
-        for side, r in (('n', rn), ('f', rf)):
-            r = r if reach else 0.0
-            p = gr.plant(p, 'arm_' + side, mix(back, heels[side], smooth01(r)), (1, 0.4))
-        p['ht'] = -18 * a - 22 * rf
+        for side in ('n', 'f'):
+            p = gr.plant(p, 'arm_' + side, back, (1, 0.4))
+        p['ht'] = -18 * a - 22 * drop
         return p
 
-    return gr.Spec(name, T, gr.sampled(T, pose), modes=ALL_FK, order=SPINE_ORDER)
+    return gr.Spec('yoga_backbends_s5_camel', T, gr.sampled(T, pose), modes=ALL_FK,
+                   order=SPINE_ORDER)
 
 
-# ── yoga_backbend_wheel ──────────────────────────────────────────────────────
+# ── yoga_backbends_s6_wheel ──────────────────────────────────────────────────
 # On the back, knees bent, feet near the hips, hands planted by the shoulders
 # with the elbows up. Press up: the hips rise first, then the chest; the arms
 # straighten and the head hangs between them, the body an arch on hands and
@@ -219,11 +215,11 @@ def wheel():
         p['ht'] = 30 * c
         return p
 
-    return gr.Spec('yoga_backbend_wheel', T, gr.sampled(T, pose), modes=ALL_FK,
+    return gr.Spec('yoga_backbends_s6_wheel', T, gr.sampled(T, pose), modes=ALL_FK,
                    order=SPINE_ORDER)
 
 
-# ── yoga_flow_sun_salutation_a ───────────────────────────────────────────────
+# ── yoga_flow_s4_sun_salutation_a ────────────────────────────────────────────
 # Surya Namaskar A, one round: stand, arms up, swan-dive to a fold (the arms in
 # line with the torso), half lift, fold, step back (near foot, far foot) to a
 # plank, lower (chaturanga), upward dog, downward dog (a breath), step forward,
@@ -325,17 +321,16 @@ def sun_salutation_a():
                 return _build(_blend(a, b, smooth01((t - t0) / (t1 - t0))))
         return _build(stand)
 
-    return gr.Spec('yoga_flow_sun_salutation_a', T, gr.sampled(T, pose),
+    return gr.Spec('yoga_flow_s4_sun_salutation_a', T, gr.sampled(T, pose),
                    modes=SIDE_FK, order=SPINE_FLOOR_ORDER)
 
 
 ANIMATIONS = {
-    'yoga_balance_half_moon': half_moon,
-    'yoga_balance_eagle': eagle,
-    'yoga_backbend_camel': camel,
-    'yoga_backbend_camel_heels': lambda: camel(-90.0, (36, 30), True, 'yoga_backbend_camel_heels'),
-    'yoga_backbend_wheel': wheel,
-    'yoga_flow_sun_salutation_a': sun_salutation_a,
+    'yoga_one_leg_s5_half_moon': half_moon,
+    'yoga_one_leg_s2_eagle': eagle,
+    'yoga_backbends_s5_camel': camel,
+    'yoga_backbends_s6_wheel': wheel,
+    'yoga_flow_s4_sun_salutation_a': sun_salutation_a,
 }
 
 

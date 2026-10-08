@@ -1616,6 +1616,418 @@ class ExerciseCatalog {
     animationPath: 'assets/animations/morning_energy_s5_mountain_climbers.json',
   );
 
+  // ── Yoga ───────────────────────────────────────────────────────────────
+  static const Exercise yogaStandingS1Chair = Exercise(
+    id: 'yoga_standing_s1_chair',
+    name: 'Chair Pose',
+    description:
+        'Feet together, bend your knees and sit back as if onto a chair, arms raised alongside your ears. Weight in your heels, chest lifted.',
+    branch: BranchId.yogaStanding,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 15,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    techniqueTip: 'Keep your knees behind your toes and draw your belly in.',
+  );
+
+  static const Exercise yogaStandingS2Warrior1 = Exercise(
+    id: 'yoga_standing_s2_warrior_1',
+    name: 'Warrior I',
+    description:
+        'Step one foot far back and turn it out slightly, bend the front knee over the ankle, hips facing forward. Raise both arms overhead. Then the other side.',
+    branch: BranchId.yogaStanding,
+    stage: 2,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 20,
+    perSide: true,
+    techniqueTip: 'Press the back heel into the floor and keep the back leg straight.',
+  );
+
+  static const Exercise yogaStandingS3Warrior2 = Exercise(
+    id: 'yoga_standing_s3_warrior_2',
+    name: 'Warrior II',
+    description:
+        'Feet wide apart, the front foot pointing forward, the back foot turned in. Bend the front knee over the ankle and stretch your arms out to the sides at shoulder height, gaze over the front hand. Then the other side.',
+    branch: BranchId.yogaStanding,
+    stage: 3,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    perSide: true,
+    techniqueTip: 'The front knee points over your middle toes, not inward.',
+  );
+
+  static const Exercise yogaStandingS4Triangle = Exercise(
+    id: 'yoga_standing_s4_triangle',
+    name: 'Triangle Pose',
+    description:
+        'Feet wide, the front foot pointing forward. With both legs straight, reach forward and tip your torso over the front leg: the lower hand rests on the shin, the upper arm points at the ceiling. Then the other side.',
+    branch: BranchId.yogaStanding,
+    stage: 4,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    perSide: true,
+    techniqueTip: "Lengthen both sides of your waist; don't sink onto the front leg.",
+  );
+
+  static const Exercise yogaStandingS5SideAngle = Exercise(
+    id: 'yoga_standing_s5_side_angle',
+    name: 'Extended Side Angle',
+    description:
+        'From Warrior II, rest the forearm of your front arm on the front thigh (or the hand on the floor) and reach the other arm over your ear: one long line from the back foot to the fingertips. Then the other side.',
+    branch: BranchId.yogaStanding,
+    stage: 5,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 30,
+    perSide: true,
+    techniqueTip: 'Keep the front knee over the ankle and turn your chest toward the ceiling.',
+  );
+
+  static const Exercise yogaOneLegS1Tree = Exercise(
+    id: 'yoga_one_leg_s1_tree',
+    name: 'Tree Pose',
+    description:
+        'Stand on one leg and place the other foot on the inner calf or thigh (never on the knee), the knee out to the side. Hands together at the chest or raised overhead. Then the other side.',
+    branch: BranchId.yogaOneLeg,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 15,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    perSide: true,
+    techniqueTip: 'Fix your gaze on one point and press the foot and the leg into each other.',
+  );
+
+  static const Exercise yogaOneLegS2Eagle = Exercise(
+    id: 'yoga_one_leg_s2_eagle',
+    name: 'Eagle Pose',
+    description:
+        'Bend your knees, cross one thigh over the other and hook the foot behind the standing calf if you can. Cross the arms at the elbows, palms together in front of your face. Sit a little deeper. Then the other side.',
+    branch: BranchId.yogaOneLeg,
+    stage: 2,
+    type: ExerciseType.timed,
+    startReps: 15,
+    targetReps: 40,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 20,
+    perSide: true,
+    techniqueTip: 'Keep your hips square and lift the elbows to shoulder height.',
+    animationPath: 'assets/animations/yoga_one_leg_s2_eagle.json',
+  );
+
+  static const Exercise yogaOneLegS3Warrior3 = Exercise(
+    id: 'yoga_one_leg_s3_warrior_3',
+    name: 'Warrior III',
+    description:
+        'Stand on one leg, hinge forward and lift the other leg behind you until your body and the leg form a T, arms reaching forward. Then the other side.',
+    branch: BranchId.yogaOneLeg,
+    stage: 3,
+    type: ExerciseType.timed,
+    startReps: 10,
+    targetReps: 30,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 15,
+    perSide: true,
+    techniqueTip: 'Keep both hips level and the standing knee soft.',
+  );
+
+  static const Exercise yogaOneLegS4Dancer = Exercise(
+    id: 'yoga_one_leg_s4_dancer',
+    name: 'Dancer Pose',
+    description:
+        'Stand on one leg, take the other foot behind you with the hand on the same side and press the foot into the hand: the leg rises, the torso tips forward, the free arm reaches ahead. Then the other side.',
+    branch: BranchId.yogaOneLeg,
+    stage: 4,
+    type: ExerciseType.timed,
+    startReps: 10,
+    targetReps: 30,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 15,
+    perSide: true,
+    techniqueTip: 'Press the foot back into the hand rather than pulling the leg up.',
+  );
+
+  static const Exercise yogaOneLegS5HalfMoon = Exercise(
+    id: 'yoga_one_leg_s5_half_moon',
+    name: 'Half Moon',
+    description:
+        'Tip sideways over one leg: the lower hand on the floor (or a block) under the shoulder, the other leg lifted level with your body, the upper arm pointing at the ceiling. Then the other side.',
+    branch: BranchId.yogaOneLeg,
+    stage: 5,
+    type: ExerciseType.timed,
+    startReps: 10,
+    targetReps: 30,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 15,
+    perSide: true,
+    techniqueTip: 'Stack the hips and shoulders as if your back were against a wall.',
+    animationPath: 'assets/animations/yoga_one_leg_s5_half_moon.json',
+  );
+
+  static const Exercise yogaBackbendsS1Sphinx = Exercise(
+    id: 'yoga_backbends_s1_sphinx',
+    name: 'Sphinx',
+    description:
+        'Lie on your stomach, elbows under your shoulders, forearms on the floor. Lift your chest; your hips and legs stay relaxed on the floor.',
+    branch: BranchId.yogaBackbends,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    techniqueTip: 'Draw your shoulders away from your ears; the arch is gentle, never pinching.',
+    animationPath: 'assets/animations/evening_back_s4_sphinx.json',
+  );
+
+  static const Exercise yogaBackbendsS2Locust = Exercise(
+    id: 'yoga_backbends_s2_locust',
+    name: 'Locust Pose',
+    description:
+        'Lie on your stomach, arms along your body, palms down. Lift your chest, arms and legs off the floor at the same time, gazing down and slightly forward.',
+    branch: BranchId.yogaBackbends,
+    stage: 2,
+    type: ExerciseType.timed,
+    startReps: 10,
+    targetReps: 30,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 15,
+    techniqueTip: 'Lengthen through your legs instead of squeezing your lower back.',
+  );
+
+  static const Exercise yogaBackbendsS3Bridge = Exercise(
+    id: 'yoga_backbends_s3_bridge',
+    name: 'Bridge Pose',
+    description:
+        'Lie on your back, knees bent, feet hip-width apart near your hips. Press into your feet and lift your hips as high as you can, arms on the floor. Hold, then roll down one vertebra at a time.',
+    branch: BranchId.yogaBackbends,
+    stage: 3,
+    type: ExerciseType.timed,
+    startReps: 15,
+    targetReps: 45,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 20,
+    techniqueTip: 'Knees point forward, not out; squeeze your glutes.',
+  );
+
+  static const Exercise yogaBackbendsS4Bow = Exercise(
+    id: 'yoga_backbends_s4_bow',
+    name: 'Bow Pose',
+    description:
+        'Lie on your stomach, bend your knees and hold your ankles from the outside. Press the feet into your hands to lift your chest and thighs: the body curves like a bow.',
+    branch: BranchId.yogaBackbends,
+    stage: 4,
+    type: ExerciseType.timed,
+    startReps: 10,
+    targetReps: 30,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 15,
+    techniqueTip: 'Keep your knees no wider than your hips.',
+  );
+
+  static const Exercise yogaBackbendsS5Camel = Exercise(
+    id: 'yoga_backbends_s5_camel',
+    name: 'Camel Pose',
+    description:
+        'Kneel with your knees hip-width apart, toes tucked, hands on your lower back. Press your hips forward, lift the chest and arch back, the head following gently. Come up chest first.',
+    branch: BranchId.yogaBackbends,
+    stage: 5,
+    type: ExerciseType.timed,
+    startReps: 15,
+    targetReps: 40,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 15,
+    techniqueTip: 'Keep your hips over your knees; the arch comes from the chest, not the lower back.',
+    animationPath: 'assets/animations/yoga_backbends_s5_camel.json',
+  );
+
+  static const Exercise yogaBackbendsS6Wheel = Exercise(
+    id: 'yoga_backbends_s6_wheel',
+    name: 'Wheel Pose',
+    description:
+        'Lie on your back, knees bent, feet near your hips, hands planted by your shoulders. Lift your hips, then press up through the hands until the arms straighten and the head hangs between them. Lower slowly, chin to the chest.',
+    branch: BranchId.yogaBackbends,
+    stage: 6,
+    type: ExerciseType.timed,
+    startReps: 5,
+    targetReps: 20,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 10,
+    techniqueTip: 'Keep your feet parallel and push the floor away evenly with hands and feet.',
+    animationPath: 'assets/animations/yoga_backbends_s6_wheel.json',
+  );
+
+  static const Exercise yogaFlowS1DownwardDog = Exercise(
+    id: 'yoga_flow_s1_downward_dog',
+    name: 'Downward-Facing Dog',
+    description:
+        'From all fours, straighten your arms and legs and lift your hips upward. Body forms an inverted V. Stretches wrists, shoulders, and legs.',
+    branch: BranchId.yogaFlow,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 20,
+    targetReps: 60,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    animationPath: 'assets/animations/cooldown_downward_dog.json',
+  );
+
+  static const Exercise yogaFlowS2PlankToDog = Exercise(
+    id: 'yoga_flow_s2_plank_to_dog',
+    name: 'Plank to Downward Dog',
+    description:
+        'Start in a high plank, hands under your shoulders. Push your hips up and back into an upside-down V, heels toward the floor, then lower back to the plank.',
+    branch: BranchId.yogaFlow,
+    stage: 2,
+    type: ExerciseType.reps,
+    startReps: 4,
+    targetReps: 10,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 5,
+    techniqueTip: 'Push the floor away with your hands and let your head hang between your arms.',
+    animationPath: 'assets/animations/morning_arms_s5_plank_to_dog.json',
+  );
+
+  static const Exercise yogaFlowS3HalfSunSalutation = Exercise(
+    id: 'yoga_flow_s3_half_sun_salutation',
+    name: 'Half Sun Salutation',
+    description:
+        'One round: standing, sweep the arms up, fold forward, lift halfway with a flat back, fold again, rise with the arms up and lower them. Move with your breath.',
+    branch: BranchId.yogaFlow,
+    stage: 3,
+    type: ExerciseType.reps,
+    startReps: 2,
+    targetReps: 6,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 3,
+    techniqueTip: 'Breathe in as you rise, out as you fold.',
+  );
+
+  static const Exercise yogaFlowS4SunSalutationA = Exercise(
+    id: 'yoga_flow_s4_sun_salutation_a',
+    name: 'Sun Salutation A',
+    description:
+        'One round: arms up, fold, half lift, step back to a plank, lower halfway, upward dog, downward dog for a few breaths, step forward, half lift, rise with the arms up, stand.',
+    branch: BranchId.yogaFlow,
+    stage: 4,
+    type: ExerciseType.reps,
+    startReps: 2,
+    targetReps: 5,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 2,
+    techniqueTip: 'One movement per breath; drop your knees to lower if you need to.',
+    animationPath: 'assets/animations/yoga_flow_s4_sun_salutation_a.json',
+  );
+
+  static const Exercise yogaFlowS5SunSalutationB = Exercise(
+    id: 'yoga_flow_s5_sun_salutation_b',
+    name: 'Sun Salutation B',
+    description:
+        'Like Sun Salutation A, with Chair Pose at the start and the end and Warrior I on each side: chair, fold, plank, lower, upward dog, downward dog, Warrior I on one side, back through the plank to downward dog, Warrior I on the other side, then forward to the chair.',
+    branch: BranchId.yogaFlow,
+    stage: 5,
+    type: ExerciseType.reps,
+    startReps: 2,
+    targetReps: 5,
+    startSets: 1,
+    targetSets: 2,
+    startRestSec: 15,
+    targetRestSec: 10,
+    spBase: 1,
+    challengeTargetReps: 2,
+    techniqueTip: 'Keep your breath even: it sets the pace.',
+  );
+
   /// Morning stretch-up: the one warm-up of every Morning Routine branch.
   static const Exercise warmupMorningStretchUp = Exercise(
     id: 'warmup_morning_stretch_up',
@@ -2319,6 +2731,43 @@ class ExerciseCatalog {
     morningEnergyS5MountainClimbers,
   ];
 
+  /// Yoga — Standing progression ordered by stage.
+  static const List<Exercise> yogaStandingProgression = [
+    yogaStandingS1Chair,
+    yogaStandingS2Warrior1,
+    yogaStandingS3Warrior2,
+    yogaStandingS4Triangle,
+    yogaStandingS5SideAngle,
+  ];
+
+  /// Yoga — Equilibrium (one leg) progression ordered by stage.
+  static const List<Exercise> yogaOneLegProgression = [
+    yogaOneLegS1Tree,
+    yogaOneLegS2Eagle,
+    yogaOneLegS3Warrior3,
+    yogaOneLegS4Dancer,
+    yogaOneLegS5HalfMoon,
+  ];
+
+  /// Yoga — Backbends progression ordered by stage.
+  static const List<Exercise> yogaBackbendsProgression = [
+    yogaBackbendsS1Sphinx,
+    yogaBackbendsS2Locust,
+    yogaBackbendsS3Bridge,
+    yogaBackbendsS4Bow,
+    yogaBackbendsS5Camel,
+    yogaBackbendsS6Wheel,
+  ];
+
+  /// Yoga — Flow progression ordered by stage.
+  static const List<Exercise> yogaFlowProgression = [
+    yogaFlowS1DownwardDog,
+    yogaFlowS2PlankToDog,
+    yogaFlowS3HalfSunSalutation,
+    yogaFlowS4SunSalutationA,
+    yogaFlowS5SunSalutationB,
+  ];
+
   /// Warmup exercises (stage = 0).
   static const List<Exercise> warmups = [
     warmupArmRotations,
@@ -2366,6 +2815,10 @@ class ExerciseCatalog {
     ...morningJointsProgression,
     ...morningArmsProgression,
     ...morningEnergyProgression,
+    ...yogaStandingProgression,
+    ...yogaOneLegProgression,
+    ...yogaBackbendsProgression,
+    ...yogaFlowProgression,
     ...warmups,
     ...cooldowns,
   ];
@@ -2388,6 +2841,10 @@ class ExerciseCatalog {
     ...morningJointsProgression,
     ...morningArmsProgression,
     ...morningEnergyProgression,
+    ...yogaStandingProgression,
+    ...yogaOneLegProgression,
+    ...yogaBackbendsProgression,
+    ...yogaFlowProgression,
     ...warmups,
     ...cooldowns,
   ];
@@ -2410,6 +2867,10 @@ class ExerciseCatalog {
         BranchId.morningJoints => morningJointsProgression,
         BranchId.morningArms => morningArmsProgression,
         BranchId.morningEnergy => morningEnergyProgression,
+        BranchId.yogaStanding => yogaStandingProgression,
+        BranchId.yogaOneLeg => yogaOneLegProgression,
+        BranchId.yogaBackbends => yogaBackbendsProgression,
+        BranchId.yogaFlow => yogaFlowProgression,
       };
 
   /// Returns the exercise for [branch] at [stage], or null if not found.
@@ -2454,6 +2915,11 @@ class ExerciseCatalog {
         BranchId.morningArms ||
         BranchId.morningEnergy =>
           warmupMorningStretchUp,
+        BranchId.yogaStanding ||
+        BranchId.yogaOneLeg ||
+        BranchId.yogaBackbends ||
+        BranchId.yogaFlow =>
+          cooldownCatCow,
       };
 
   /// Returns the cooldown exercise(s) for the given [branch].
@@ -2476,5 +2942,10 @@ class ExerciseCatalog {
         BranchId.morningArms ||
         BranchId.morningEnergy =>
           [cooldownShakeOut],
+        BranchId.yogaStanding ||
+        BranchId.yogaOneLeg ||
+        BranchId.yogaBackbends ||
+        BranchId.yogaFlow =>
+          [cooldownLyingRelaxation],
       };
 }

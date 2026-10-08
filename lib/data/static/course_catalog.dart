@@ -32,6 +32,14 @@ class CourseCatalog {
             BranchId.morningArms,
             BranchId.morningEnergy,
           ],
+        // Balance is the Calisthenics branch itself: one progress for both.
+        CourseId.yoga => const [
+            BranchId.yogaStanding,
+            BranchId.yogaOneLeg,
+            BranchId.yogaBackbends,
+            BranchId.yogaFlow,
+            BranchId.balance,
+          ],
       };
 
   /// Whether a bonus workout of [course] adds two exercises of the

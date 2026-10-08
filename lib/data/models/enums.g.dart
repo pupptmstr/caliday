@@ -45,6 +45,14 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
         return BranchId.morningArms;
       case 15:
         return BranchId.morningEnergy;
+      case 16:
+        return BranchId.yogaStanding;
+      case 17:
+        return BranchId.yogaOneLeg;
+      case 18:
+        return BranchId.yogaBackbends;
+      case 19:
+        return BranchId.yogaFlow;
       default:
         return BranchId.push;
     }
@@ -85,6 +93,14 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
         writer.writeByte(14);
       case BranchId.morningEnergy:
         writer.writeByte(15);
+      case BranchId.yogaStanding:
+        writer.writeByte(16);
+      case BranchId.yogaOneLeg:
+        writer.writeByte(17);
+      case BranchId.yogaBackbends:
+        writer.writeByte(18);
+      case BranchId.yogaFlow:
+        writer.writeByte(19);
     }
   }
 
@@ -114,6 +130,8 @@ class CourseIdAdapter extends TypeAdapter<CourseId> {
         return CourseId.eveningStretch;
       case 3:
         return CourseId.morningRoutine;
+      case 4:
+        return CourseId.yoga;
       default:
         return CourseId.calisthenics;
     }
@@ -130,6 +148,8 @@ class CourseIdAdapter extends TypeAdapter<CourseId> {
         writer.writeByte(2);
       case CourseId.morningRoutine:
         writer.writeByte(3);
+      case CourseId.yoga:
+        writer.writeByte(4);
     }
   }
 

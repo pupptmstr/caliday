@@ -7,7 +7,7 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.9.0 (Morning Routine, merged into `main` 2026-10-08). Yoga is in progress on `session/2026-10-08-yoga` as **0.9.1**: the owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
+**Version:** v0.9.0 (Morning Routine, merged into `main` 2026-10-08). Yoga is in progress on `session/2026-10-08-yoga` as **0.9.1** (the course is in the app; Miso and 13 animations to do): the owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
 **Next priority:** v1.0 release. What still stands in the way:
 - Friends has never been tested on two real phones (checklist below).
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
@@ -19,7 +19,7 @@ The owner's plan for the **big features after that** (2026-10-07), in his order:
 | Layer | Status |
 |-------|--------|
 | Data models + Hive | ✅ |
-| ExerciseCatalog (16 branches — Calisthenics, Healthy Body, Evening Stretch, Morning Routine) | ✅ |
+| ExerciseCatalog (20 branches — Calisthenics, Healthy Body, Evening Stretch, Morning Routine, Yoga) | ✅ |
 | Repositories (User, SkillProgress, Workout, Achievement, Friend, CustomRoutine) | ✅ |
 | Domain services | ✅ |
 | Navigation (GoRouter + bottom nav) | ✅ |
@@ -30,14 +30,14 @@ The owner's plan for the **big features after that** (2026-10-07), in his order:
 | Notifications (5 types: morning, evening, streak at risk, streak lost, rank at risk) | ✅ |
 | Dark theme | ✅ |
 | Goro (6 expressions) + Skala | ✅ |
-| Lottie animations (110 of 112 exercises; 90/90 hip mobility and the pigeon pose intentionally have none) | ✅ |
+| Lottie animations (118 of 133 exercises; 90/90 hip mobility and the pigeon pose intentionally have none, 13 Yoga stages still to draw) | ✅/⚠️ |
 | Sound + haptics | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
 | Friends (BLE + QR, v0.4; not yet tested on real devices) | ✅/⚠️ |
 | Exercise Library (search + tag filter) | ✅ |
 | Custom Workouts (Quick Routine + Saved Routines) | ✅ |
-| Multi-Course system (Calisthenics, Healthy Body, Evening Stretch, Morning Routine) | ✅ |
+| Multi-Course system (Calisthenics, Healthy Body, Evening Stretch, Morning Routine, Yoga) | ✅ |
 | L10n (RU, EN, DE, ES; German and Spanish are drafts awaiting native proofreading) | ✅/⚠️ |
 | Web build (PWA on GitHub Pages, IndexedDB) | ✅ |
 | Workout calendar, interactive stats, rank decay (v0.8) | ✅ |
@@ -291,23 +291,24 @@ The owner chose to drop branch progress from the friend exchange altogether (rat
 - **Costs:** 21 new exercises (20 stages + warm-up + cool-down), each a name, a description and a tip in four languages, tags and a Lottie animation; 4 branches, 1 course, 4 branch achievements, Aurora (six faces + idle + cheer, `tools/characters/gen_hosts.py`).
 - **Order of work:** (1) the four ⚠️ animations drafted first in the rig (torso twist, windmill, knee circles, speed skater) — **done, approved by the owner 2026-10-08, in `assets/`**; (2) the course, branches and exercises, texts in four languages, version 0.9.0 — **done (Change History)**; (3) Aurora — **done, approved by the owner 2026-10-08**; (4) the other 18 animations — **done, approved by the owner 2026-10-08 (the cross crunch redrawn once), in `assets/`**. The branch `0.9.0` is merged only when all of it is in.
 
-#### 2b-3. Yoga — the third new course (owner, 2026-10-08; content in progress)
+#### 2b-3. Yoga — the third new course (owner, 2026-10-08; in the app since 0.9.1, animations and Miso to do)
 - **Concept:** a ladder of harder and harder poses (the owner's 2026-10-07 decision), holds mostly, one-sided ones held on each side (§ Per-side holds). Host: **Miso** the cat. Version **0.9.1** on `session/2026-10-08-yoga` (the owner keeps 0.9.x until 1.0).
 - **Reuse is allowed (owner, 2026-10-08):** exercises and whole branches may be shared with other courses (§ Decisions on courses). Yoga takes the existing **Balance** branch of Calisthenics as it is (crow, handstands; progress shared) and reuses the sphinx (Evening Stretch), the downward dog hold (`cooldown_downward_dog`), plank to dog (Morning Routine), the cat-cow (warm-up) and the lying relaxation (cool-down).
-- **Draft of the branches** (proposed 2026-10-08; ↔ = on each side):
+- **The branches** (agreed 2026-10-08; ↔ = on each side; the numbers are in ARCHITECTURE § Exercise Catalog):
 
 | Branch | Stages |
 |--------|--------|
 | **Standing** (Стойки), new | chair → warrior I ↔ → warrior II ↔ → triangle ↔ → extended side angle ↔ |
-| **One-leg balance**, new (name open, see below) | tree ↔ → eagle ↔ → warrior III ↔ → dancer ↔ → half moon ↔ |
+| **Equilibrium** (Равновесие), new | tree ↔ → eagle ↔ → warrior III ↔ → dancer ↔ → half moon ↔ |
 | **Backbends** (Прогибы), new | sphinx (reused) → locust → bridge hold → bow → camel → wheel |
 | **Flow** (Поток), new | downward dog hold (reused) → plank to dog (reused) → half sun salutation → sun salutation A → B, counted in rounds |
 | **Balance** (Баланс), shared with Calisthenics | single-leg stand → one-arm plank → crow prep → crow → wall handstand → free handstand |
 
 - **Decided (owner, 2026-10-08):** the Balance branch is in; every stage as Morning Routine (sets 1→2, rest 15→10 s, `spBase` 1); the bonus workout adds the supplementary block; every new branch starts at stage 1 in the onboarding. Warm-up cat-cow, cool-down lying relaxation (both reused; Balance keeps its own wrist circles / downward dog).
-- **Open:** the owner answered "the name stays Баланс" to the question of what to call the one-leg balance branch. With the shared Balance branch in the same course that gives two branches named «Баланс», and the first Balance stage (single-leg stand) is already a tree-like pose. To settle: (a) a separate branch under another name, or (b) no separate branch: the one-leg poses (eagle, warrior III, dancer, half moon) join the end of Standing and the tree is dropped.
-- **Order of work** (as the other courses): (1) the risky animations drafted first — eagle, half moon, camel, wheel, sun salutation A — **drafted 2026-10-08, the stand published for the owner's review (Artifact), nothing in `assets/` yet**; (2) the course, branches and exercises with texts in four languages (0.9.1); (3) Miso; (4) the other animations. The branch is merged when all of it is in.
-- **Draft findings:** Goro's arms reach the heels in the camel only with the chest level behind him, which reads as a bow; the stand shows that version beside one with the hands on the lower back (proposed for the course). The wheel is low (the torso is long next to the limbs) and starts with the hands by the shoulders rather than by the ears, or the feet could not stay planted.
+- **The one-leg branch is called «Равновесие»** (owner, 2026-10-08), so the course has one «Баланс» (the shared branch); a separate branch rather than the one-leg poses at the end of Standing. Names elsewhere (drafts for the proofreaders): Equilibrium / Gleichgewicht / Estabilidad (the Spanish Balance is already «Equilibrio»). Hive name `yogaOneLeg`.
+- **The camel keeps the hands on the lower back** (owner, 2026-10-08, after the stand showed both versions).
+- **Order of work** (as the other courses): (1) the risky animations drafted first — eagle, half moon, camel, wheel, sun salutation A — **done 2026-10-08, in `assets/`** (the owner chose the camel version and raised nothing on the other four); (2) the course, branches and exercises with texts in four languages (0.9.1) — **done (Change History)**; (3) Miso; (4) the other 13 animations: chair, warrior I and II, triangle, side angle, tree, warrior III, dancer, locust, bridge, bow, half sun salutation, Sun Salutation B. The branch is merged when all of it is in.
+- **Draft findings:** Goro's arms reach the heels in the camel only with the chest level behind him, which reads as a bow. The wheel is low (the torso is long next to the limbs) and starts with the hands by the shoulders rather than by the ears, or the feet could not stay planted.
 
 #### Per-side holds — done (0.8.20)
 Implemented as decided; see ARCHITECTURE § Timed exercises (Holds on each side) and the Change History entry.
@@ -363,7 +364,7 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 ### Lottie Animations — status per branch (2026-10-08)
 
-106 files in `assets/animations/`. Morning Routine (0.9.0): all 22 (`gen_morning.py`). Evening Stretch (0.8.20): all 19 (`gen_evening.py`; the cat-cow reuses `cooldown_cat_cow`). Complete: Push (7), Core (7 + alt), Pull (6), Legs (5), Balance (6), Flex (5 of 6), Supplementary pool (9, one reuses `warmup_wrist_circles`), Posture (5 of 6: three generated, dead bug and kneeling lunge reuse `supp_dead_bug` / `flex_s1_hip_flexor_stretch`), Neck (6, all generated), warmups (7/7), cooldowns (6/6). `flex_s3_hip_9090` and `posture_s6_pigeon_pose` deliberately have no animation (not readable in the formats we draw).
+111 files in `assets/animations/`. Yoga (0.9.1): 5 of 18 new ones (`gen_yoga.py`: half moon, eagle, camel, wheel, Sun Salutation A; three stages reuse the sphinx, the downward dog and plank to dog). Morning Routine (0.9.0): all 22 (`gen_morning.py`). Evening Stretch (0.8.20): all 19 (`gen_evening.py`; the cat-cow reuses `cooldown_cat_cow`). Complete: Push (7), Core (7 + alt), Pull (6), Legs (5), Balance (6), Flex (5 of 6), Supplementary pool (9, one reuses `warmup_wrist_circles`), Posture (5 of 6: three generated, dead bug and kneeling lunge reuse `supp_dead_bug` / `flex_s1_hip_flexor_stretch`), Neck (6, all generated), warmups (7/7), cooldowns (6/6). `flex_s3_hip_9090` and `posture_s6_pigeon_pose` deliberately have no animation (not readable in the formats we draw).
 
 Nothing planned is missing. `cooldown_cat_cow` was replaced by a generated one (2026-10-06).
 
@@ -373,6 +374,16 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-08 — Yoga: the course in the app (0.9.1+31)
+
+**What was done:** step (2) of § Roadmap 2b-3, with the owner's answers: the one-leg branch is a separate «Равновесие», the camel keeps the hands on the lower back. `CourseId.yoga` (HiveField 4) with `BranchId.yogaStanding` / `yogaOneLeg` / `yogaBackbends` / `yogaFlow` (HiveFields 16–19, appended) and the Calisthenics `BranchId.balance` in its list; 21 stage exercises, three of them reused under their own ids (the sphinx, the downward dog, plank to dog: same animation, `ExerciseL10n` points at the original texts); warm-up cat-cow, cool-down lying relaxation; names / descriptions / tips in four languages, tags, four `yoga_*_complete` achievements (`all_complete` now needs them too). The five approved animations are in `assets/animations/` under the exercise ids. The onboarding offers the course and starts its four new branches at stage 1 (Balance is saved for everyone already). The generator now always puts the lying relaxation last: a Yoga day that starts with Balance had the downward dog after it. Version 0.9.1+31 with a "What's new" entry in four languages. 968 tests (frozen enum lists, the Yoga plan: the shared Balance, the cat-cow first and the relaxation last, three sizes differ, the bonus block; its achievements); analyze clean. Checked in the web build at 375 px: the Yoga card in the onboarding (Goro until Miso), the five branches in the Courses tab (Balance last, «Стойка на одной ноге»), today's workout opening with the cat-cow, a search for «Приветствие» (Sun Salutation A playing, the other two with the placeholder), its detail sheet; no console errors.
+
+**Key issues and solutions:** as with the other courses, the catalog entries, ARB keys, `ExerciseL10n` lookups and tags came from one throwaway content table, so the ids and the four languages cannot drift; the reused stages copy their English source texts from the originals. The Spanish Balance branch is already «Equilibrio», so the new one is «Estabilidad». The animation files were renamed from the draft names to the exercise ids; the camel generator lost its heel-reaching variant (the approved file regenerates identically).
+
+**Modified files:** `enums.dart` (+ `enums.g.dart` by hand), `exercise_catalog.dart`, `exercise_tags_catalog.dart`, `course_catalog.dart`, `achievement_catalog.dart`, `achievement_l10n.dart`, `exercise_l10n.dart`, `achievement_service.dart`, `workout_generator_service.dart`, `skill_progress_repository.dart`, `onboarding_provider.dart`, `onboarding_screen.dart`, `developer_options_screen.dart`, `release_notes_catalog.dart`, `pubspec.yaml`, `l10n/*.arb` (+ generated `app_localizations*.dart`), `assets/animations/` (5 new), `tools/lottie/gen_yoga.py`, `tools/lottie/build_preview.py`; tests: `enums_test`, `user_and_achievement_repository_test`, `achievement_service_test`, `workout_generator_service_test`; ARCHITECTURE.md, DEV_NOTES.md, `tz_designer.md`.
+
+---
 
 ### 2026-10-08 — Yoga: the plan, and drafts of the five risky poses
 

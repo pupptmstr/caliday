@@ -258,6 +258,30 @@ abstract class AppLocalizations {
   /// **'Energy'**
   String get homeBranchMorningEnergy;
 
+  /// No description provided for @homeBranchYogaStanding.
+  ///
+  /// In en, this message translates to:
+  /// **'Standing'**
+  String get homeBranchYogaStanding;
+
+  /// No description provided for @homeBranchYogaOneLeg.
+  ///
+  /// In en, this message translates to:
+  /// **'Equilibrium'**
+  String get homeBranchYogaOneLeg;
+
+  /// No description provided for @homeBranchYogaBackbends.
+  ///
+  /// In en, this message translates to:
+  /// **'Backbends'**
+  String get homeBranchYogaBackbends;
+
+  /// No description provided for @homeBranchYogaFlow.
+  ///
+  /// In en, this message translates to:
+  /// **'Flow'**
+  String get homeBranchYogaFlow;
+
   /// No description provided for @courseNameCalisthenics.
   ///
   /// In en, this message translates to:
@@ -282,6 +306,12 @@ abstract class AppLocalizations {
   /// **'Morning Routine'**
   String get courseNameMorningRoutine;
 
+  /// No description provided for @courseNameYoga.
+  ///
+  /// In en, this message translates to:
+  /// **'Yoga'**
+  String get courseNameYoga;
+
   /// No description provided for @courseDescCalisthenics.
   ///
   /// In en, this message translates to:
@@ -305,6 +335,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Wake your body up. Spine, joints, arms and a little energy: standing, quietly, no jumps.'**
   String get courseDescMorningRoutine;
+
+  /// No description provided for @courseDescYoga.
+  ///
+  /// In en, this message translates to:
+  /// **'Poses from easy to hard: standing poses, balancing on one leg, backbends, sun salutations and arm balances.'**
+  String get courseDescYoga;
 
   /// No description provided for @onboardingQ4Courses.
   ///
@@ -1127,6 +1163,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All 5 stages of the morning Energy skill cleared. Wide awake before the first coffee.'**
   String get achievementMorningEnergyCompleteDesc;
+
+  /// No description provided for @achievementYogaStandingCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Warrior'**
+  String get achievementYogaStandingCompleteName;
+
+  /// No description provided for @achievementYogaStandingCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 5 stages of the yoga Standing skill cleared. From chair to side angle.'**
+  String get achievementYogaStandingCompleteDesc;
+
+  /// No description provided for @achievementYogaOneLegCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Flamingo'**
+  String get achievementYogaOneLegCompleteName;
+
+  /// No description provided for @achievementYogaOneLegCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 5 stages of the Equilibrium skill cleared. From tree to half moon.'**
+  String get achievementYogaOneLegCompleteDesc;
+
+  /// No description provided for @achievementYogaBackbendsCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Rainbow'**
+  String get achievementYogaBackbendsCompleteName;
+
+  /// No description provided for @achievementYogaBackbendsCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 6 stages of the Backbends skill cleared. From sphinx to wheel.'**
+  String get achievementYogaBackbendsCompleteDesc;
+
+  /// No description provided for @achievementYogaFlowCompleteName.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunrise'**
+  String get achievementYogaFlowCompleteName;
+
+  /// No description provided for @achievementYogaFlowCompleteDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'All 5 stages of the Flow skill cleared. From downward dog to Sun Salutation B.'**
+  String get achievementYogaFlowCompleteDesc;
 
   /// No description provided for @achievementAllCompleteName.
   ///
@@ -3174,6 +3258,330 @@ abstract class AppLocalizations {
   /// **'Let everything hang loose: wrists, shoulders, jaw.'**
   String get exerciseCooldownShakeOutTip;
 
+  /// No description provided for @exerciseYogaStandingS1ChairName.
+  ///
+  /// In en, this message translates to:
+  /// **'Chair Pose'**
+  String get exerciseYogaStandingS1ChairName;
+
+  /// No description provided for @exerciseYogaStandingS1ChairDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Feet together, bend your knees and sit back as if onto a chair, arms raised alongside your ears. Weight in your heels, chest lifted.'**
+  String get exerciseYogaStandingS1ChairDesc;
+
+  /// No description provided for @exerciseYogaStandingS1ChairTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your knees behind your toes and draw your belly in.'**
+  String get exerciseYogaStandingS1ChairTip;
+
+  /// No description provided for @exerciseYogaStandingS2Warrior1Name.
+  ///
+  /// In en, this message translates to:
+  /// **'Warrior I'**
+  String get exerciseYogaStandingS2Warrior1Name;
+
+  /// No description provided for @exerciseYogaStandingS2Warrior1Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Step one foot far back and turn it out slightly, bend the front knee over the ankle, hips facing forward. Raise both arms overhead. Then the other side.'**
+  String get exerciseYogaStandingS2Warrior1Desc;
+
+  /// No description provided for @exerciseYogaStandingS2Warrior1Tip.
+  ///
+  /// In en, this message translates to:
+  /// **'Press the back heel into the floor and keep the back leg straight.'**
+  String get exerciseYogaStandingS2Warrior1Tip;
+
+  /// No description provided for @exerciseYogaStandingS3Warrior2Name.
+  ///
+  /// In en, this message translates to:
+  /// **'Warrior II'**
+  String get exerciseYogaStandingS3Warrior2Name;
+
+  /// No description provided for @exerciseYogaStandingS3Warrior2Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Feet wide apart, the front foot pointing forward, the back foot turned in. Bend the front knee over the ankle and stretch your arms out to the sides at shoulder height, gaze over the front hand. Then the other side.'**
+  String get exerciseYogaStandingS3Warrior2Desc;
+
+  /// No description provided for @exerciseYogaStandingS3Warrior2Tip.
+  ///
+  /// In en, this message translates to:
+  /// **'The front knee points over your middle toes, not inward.'**
+  String get exerciseYogaStandingS3Warrior2Tip;
+
+  /// No description provided for @exerciseYogaStandingS4TriangleName.
+  ///
+  /// In en, this message translates to:
+  /// **'Triangle Pose'**
+  String get exerciseYogaStandingS4TriangleName;
+
+  /// No description provided for @exerciseYogaStandingS4TriangleDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Feet wide, the front foot pointing forward. With both legs straight, reach forward and tip your torso over the front leg: the lower hand rests on the shin, the upper arm points at the ceiling. Then the other side.'**
+  String get exerciseYogaStandingS4TriangleDesc;
+
+  /// No description provided for @exerciseYogaStandingS4TriangleTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Lengthen both sides of your waist; don\'t sink onto the front leg.'**
+  String get exerciseYogaStandingS4TriangleTip;
+
+  /// No description provided for @exerciseYogaStandingS5SideAngleName.
+  ///
+  /// In en, this message translates to:
+  /// **'Extended Side Angle'**
+  String get exerciseYogaStandingS5SideAngleName;
+
+  /// No description provided for @exerciseYogaStandingS5SideAngleDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'From Warrior II, rest the forearm of your front arm on the front thigh (or the hand on the floor) and reach the other arm over your ear: one long line from the back foot to the fingertips. Then the other side.'**
+  String get exerciseYogaStandingS5SideAngleDesc;
+
+  /// No description provided for @exerciseYogaStandingS5SideAngleTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep the front knee over the ankle and turn your chest toward the ceiling.'**
+  String get exerciseYogaStandingS5SideAngleTip;
+
+  /// No description provided for @exerciseYogaOneLegS1TreeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Tree Pose'**
+  String get exerciseYogaOneLegS1TreeName;
+
+  /// No description provided for @exerciseYogaOneLegS1TreeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand on one leg and place the other foot on the inner calf or thigh (never on the knee), the knee out to the side. Hands together at the chest or raised overhead. Then the other side.'**
+  String get exerciseYogaOneLegS1TreeDesc;
+
+  /// No description provided for @exerciseYogaOneLegS1TreeTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Fix your gaze on one point and press the foot and the leg into each other.'**
+  String get exerciseYogaOneLegS1TreeTip;
+
+  /// No description provided for @exerciseYogaOneLegS2EagleName.
+  ///
+  /// In en, this message translates to:
+  /// **'Eagle Pose'**
+  String get exerciseYogaOneLegS2EagleName;
+
+  /// No description provided for @exerciseYogaOneLegS2EagleDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Bend your knees, cross one thigh over the other and hook the foot behind the standing calf if you can. Cross the arms at the elbows, palms together in front of your face. Sit a little deeper. Then the other side.'**
+  String get exerciseYogaOneLegS2EagleDesc;
+
+  /// No description provided for @exerciseYogaOneLegS2EagleTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your hips square and lift the elbows to shoulder height.'**
+  String get exerciseYogaOneLegS2EagleTip;
+
+  /// No description provided for @exerciseYogaOneLegS3Warrior3Name.
+  ///
+  /// In en, this message translates to:
+  /// **'Warrior III'**
+  String get exerciseYogaOneLegS3Warrior3Name;
+
+  /// No description provided for @exerciseYogaOneLegS3Warrior3Desc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand on one leg, hinge forward and lift the other leg behind you until your body and the leg form a T, arms reaching forward. Then the other side.'**
+  String get exerciseYogaOneLegS3Warrior3Desc;
+
+  /// No description provided for @exerciseYogaOneLegS3Warrior3Tip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep both hips level and the standing knee soft.'**
+  String get exerciseYogaOneLegS3Warrior3Tip;
+
+  /// No description provided for @exerciseYogaOneLegS4DancerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Dancer Pose'**
+  String get exerciseYogaOneLegS4DancerName;
+
+  /// No description provided for @exerciseYogaOneLegS4DancerDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand on one leg, take the other foot behind you with the hand on the same side and press the foot into the hand: the leg rises, the torso tips forward, the free arm reaches ahead. Then the other side.'**
+  String get exerciseYogaOneLegS4DancerDesc;
+
+  /// No description provided for @exerciseYogaOneLegS4DancerTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Press the foot back into the hand rather than pulling the leg up.'**
+  String get exerciseYogaOneLegS4DancerTip;
+
+  /// No description provided for @exerciseYogaOneLegS5HalfMoonName.
+  ///
+  /// In en, this message translates to:
+  /// **'Half Moon'**
+  String get exerciseYogaOneLegS5HalfMoonName;
+
+  /// No description provided for @exerciseYogaOneLegS5HalfMoonDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Tip sideways over one leg: the lower hand on the floor (or a block) under the shoulder, the other leg lifted level with your body, the upper arm pointing at the ceiling. Then the other side.'**
+  String get exerciseYogaOneLegS5HalfMoonDesc;
+
+  /// No description provided for @exerciseYogaOneLegS5HalfMoonTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Stack the hips and shoulders as if your back were against a wall.'**
+  String get exerciseYogaOneLegS5HalfMoonTip;
+
+  /// No description provided for @exerciseYogaBackbendsS2LocustName.
+  ///
+  /// In en, this message translates to:
+  /// **'Locust Pose'**
+  String get exerciseYogaBackbendsS2LocustName;
+
+  /// No description provided for @exerciseYogaBackbendsS2LocustDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your stomach, arms along your body, palms down. Lift your chest, arms and legs off the floor at the same time, gazing down and slightly forward.'**
+  String get exerciseYogaBackbendsS2LocustDesc;
+
+  /// No description provided for @exerciseYogaBackbendsS2LocustTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Lengthen through your legs instead of squeezing your lower back.'**
+  String get exerciseYogaBackbendsS2LocustTip;
+
+  /// No description provided for @exerciseYogaBackbendsS3BridgeName.
+  ///
+  /// In en, this message translates to:
+  /// **'Bridge Pose'**
+  String get exerciseYogaBackbendsS3BridgeName;
+
+  /// No description provided for @exerciseYogaBackbendsS3BridgeDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, knees bent, feet hip-width apart near your hips. Press into your feet and lift your hips as high as you can, arms on the floor. Hold, then roll down one vertebra at a time.'**
+  String get exerciseYogaBackbendsS3BridgeDesc;
+
+  /// No description provided for @exerciseYogaBackbendsS3BridgeTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Knees point forward, not out; squeeze your glutes.'**
+  String get exerciseYogaBackbendsS3BridgeTip;
+
+  /// No description provided for @exerciseYogaBackbendsS4BowName.
+  ///
+  /// In en, this message translates to:
+  /// **'Bow Pose'**
+  String get exerciseYogaBackbendsS4BowName;
+
+  /// No description provided for @exerciseYogaBackbendsS4BowDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your stomach, bend your knees and hold your ankles from the outside. Press the feet into your hands to lift your chest and thighs: the body curves like a bow.'**
+  String get exerciseYogaBackbendsS4BowDesc;
+
+  /// No description provided for @exerciseYogaBackbendsS4BowTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your knees no wider than your hips.'**
+  String get exerciseYogaBackbendsS4BowTip;
+
+  /// No description provided for @exerciseYogaBackbendsS5CamelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Camel Pose'**
+  String get exerciseYogaBackbendsS5CamelName;
+
+  /// No description provided for @exerciseYogaBackbendsS5CamelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Kneel with your knees hip-width apart, toes tucked, hands on your lower back. Press your hips forward, lift the chest and arch back, the head following gently. Come up chest first.'**
+  String get exerciseYogaBackbendsS5CamelDesc;
+
+  /// No description provided for @exerciseYogaBackbendsS5CamelTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your hips over your knees; the arch comes from the chest, not the lower back.'**
+  String get exerciseYogaBackbendsS5CamelTip;
+
+  /// No description provided for @exerciseYogaBackbendsS6WheelName.
+  ///
+  /// In en, this message translates to:
+  /// **'Wheel Pose'**
+  String get exerciseYogaBackbendsS6WheelName;
+
+  /// No description provided for @exerciseYogaBackbendsS6WheelDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Lie on your back, knees bent, feet near your hips, hands planted by your shoulders. Lift your hips, then press up through the hands until the arms straighten and the head hangs between them. Lower slowly, chin to the chest.'**
+  String get exerciseYogaBackbendsS6WheelDesc;
+
+  /// No description provided for @exerciseYogaBackbendsS6WheelTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your feet parallel and push the floor away evenly with hands and feet.'**
+  String get exerciseYogaBackbendsS6WheelTip;
+
+  /// No description provided for @exerciseYogaFlowS3HalfSunSalutationName.
+  ///
+  /// In en, this message translates to:
+  /// **'Half Sun Salutation'**
+  String get exerciseYogaFlowS3HalfSunSalutationName;
+
+  /// No description provided for @exerciseYogaFlowS3HalfSunSalutationDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'One round: standing, sweep the arms up, fold forward, lift halfway with a flat back, fold again, rise with the arms up and lower them. Move with your breath.'**
+  String get exerciseYogaFlowS3HalfSunSalutationDesc;
+
+  /// No description provided for @exerciseYogaFlowS3HalfSunSalutationTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Breathe in as you rise, out as you fold.'**
+  String get exerciseYogaFlowS3HalfSunSalutationTip;
+
+  /// No description provided for @exerciseYogaFlowS4SunSalutationAName.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun Salutation A'**
+  String get exerciseYogaFlowS4SunSalutationAName;
+
+  /// No description provided for @exerciseYogaFlowS4SunSalutationADesc.
+  ///
+  /// In en, this message translates to:
+  /// **'One round: arms up, fold, half lift, step back to a plank, lower halfway, upward dog, downward dog for a few breaths, step forward, half lift, rise with the arms up, stand.'**
+  String get exerciseYogaFlowS4SunSalutationADesc;
+
+  /// No description provided for @exerciseYogaFlowS4SunSalutationATip.
+  ///
+  /// In en, this message translates to:
+  /// **'One movement per breath; drop your knees to lower if you need to.'**
+  String get exerciseYogaFlowS4SunSalutationATip;
+
+  /// No description provided for @exerciseYogaFlowS5SunSalutationBName.
+  ///
+  /// In en, this message translates to:
+  /// **'Sun Salutation B'**
+  String get exerciseYogaFlowS5SunSalutationBName;
+
+  /// No description provided for @exerciseYogaFlowS5SunSalutationBDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Like Sun Salutation A, with Chair Pose at the start and the end and Warrior I on each side: chair, fold, plank, lower, upward dog, downward dog, Warrior I on one side, back through the plank to downward dog, Warrior I on the other side, then forward to the chair.'**
+  String get exerciseYogaFlowS5SunSalutationBDesc;
+
+  /// No description provided for @exerciseYogaFlowS5SunSalutationBTip.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your breath even: it sets the pace.'**
+  String get exerciseYogaFlowS5SunSalutationBTip;
+
   /// No description provided for @aboutTitle.
   ///
   /// In en, this message translates to:
@@ -3239,6 +3647,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version {version}'**
   String whatsNewVersion(String version);
+
+  /// No description provided for @releaseNotes091.
+  ///
+  /// In en, this message translates to:
+  /// **'New course: Yoga. Poses from easy to hard in four new skills: standing poses, balancing on one leg, backbends and sun salutations. It shares the Balance skill with Calisthenics: one progress for both.'**
+  String get releaseNotes091;
 
   /// No description provided for @releaseNotes090.
   ///

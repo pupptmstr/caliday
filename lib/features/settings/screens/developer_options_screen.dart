@@ -220,6 +220,10 @@ class _DeveloperOptionsScreenState
         BranchId.morningJoints => 'Morning joints',
         BranchId.morningArms => 'Morning arms',
         BranchId.morningEnergy => 'Morning energy',
+        BranchId.yogaStanding => 'Yoga standing',
+        BranchId.yogaOneLeg => 'Yoga one leg',
+        BranchId.yogaBackbends => 'Yoga backbends',
+        BranchId.yogaFlow => 'Yoga flow',
       };
 
   Widget _buildBranchCard(BranchId branch) {
