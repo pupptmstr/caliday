@@ -1,5 +1,5 @@
-"""The course hosts: Luna the owl (Evening Stretch) and Raffi the giraffe
-(Healthy Body), drawn in Goro's flat style (rounded tile, soft glow, no
+"""The course hosts: Luna the owl (Evening Stretch), Raffi the giraffe
+(Healthy Body) and Aurora the lark (Morning Routine), drawn in Goro's flat style (rounded tile, soft glow, no
 outlines, big eyes with highlights, the light-blue accent of Goro's headband).
 
     python3 tools/characters/gen_hosts.py [OUT_DIR]
@@ -424,13 +424,205 @@ def raffi_cheer():
     return raffi_standing(-14, 'wink', 'RAFFI — cheer (standing tall, a wink, the neck tilted)')
 
 
+# ══ Aurora, the lark ═════════════════════════════════════════════════════════
+
+A_BODY = '#C8935E'      # warm sandy brown
+A_DARK = '#9A6A40'      # wings, crest, streaks
+A_BELLY = '#F7E6C8'
+A_FACE = '#F3DDB8'      # pale face patch round the eyes
+A_STREAK = '#B98452'
+A_BEAK = '#F0A53A'
+A_BEAK_D = '#C97E22'
+A_FEET = '#E8957A'
+A_CHEEK = '#FF9C8A'
+
+
+def sunrise():
+    out = [tile('auroraBg', '#FFD49A', '#F58E6E', '#FFF3C4')]
+    out.append('<circle cx="512" cy="1010" r="300" fill="#FFE9A0" opacity="0.55"/>')
+    out.append('<circle cx="512" cy="1010" r="220" fill="#FFF2C2" opacity="0.7"/>')
+    for x, y, r in ((170, 250, 34), (238, 232, 26), (846, 560, 30), (892, 544, 22)):
+        out.append(f'<circle cx="{x}" cy="{y}" r="{r}" fill="#FFFFFF" opacity="0.55"/>')
+    return '\n  '.join(out)
+
+
+def note(x, y, s, color='#FFFFFF'):
+    """A musical note (the lark sings at dawn)."""
+    return (f'<g opacity="0.92"><ellipse cx="{x:.0f}" cy="{y:.0f}" rx="{20 * s:.0f}" ry="{15 * s:.0f}" fill="{color}" '
+            f'transform="rotate(-20 {x:.0f} {y:.0f})"/>'
+            f'<rect x="{x + 13 * s:.0f}" y="{y - 70 * s:.0f}" width="{8 * s:.0f}" height="{72 * s:.0f}" rx="{4 * s:.0f}" fill="{color}"/>'
+            f'<path d="M{x + 17 * s:.0f} {y - 70 * s:.0f} q{30 * s:.0f} {10 * s:.0f} {30 * s:.0f} {40 * s:.0f}" stroke="{color}" '
+            f'stroke-width="{8 * s:.0f}" stroke-linecap="round" fill="none"/></g>')
+
+
+def aurora_head(cx, cy, s=1.0, mood='happy'):
+    """Head of the lark in one of the ``MOODS`` (plus 'joy': eyes closed,
+    singing, for the cheer pose). The crest perks up when excited and lies
+    flat when sad or asleep; the beak opens to sing."""
+    def p(x, y):
+        return f'{cx + x * s:.0f} {cy + y * s:.0f}'
+    lift = {'sad': -0.55, 'sleeping': -0.7, 'angry': -0.2, 'excited': 0.35, 'joy': 0.3}.get(mood, 0.0)
+    parts = []
+    # crest: three feathers fanning back from the crown
+    for ang, ln in ((-30, 190), (-8, 230), (14, 170)):
+        a = ang - 40 * lift
+        parts.append(f'<ellipse cx="{cx:.0f}" cy="{cy - (180 + ln * 0.45) * s:.0f}" rx="{26 * s:.0f}" ry="{ln * 0.5 * s:.0f}" '
+                     f'fill="{A_DARK}" transform="rotate({a:.0f} {cx:.0f} {cy - 170 * s:.0f})"/>')
+    parts += [
+        f'<ellipse cx="{cx}" cy="{cy}" rx="{215 * s:.0f}" ry="{200 * s:.0f}" fill="{A_BODY}"/>',
+        f'<ellipse cx="{cx}" cy="{cy + 128 * s:.0f}" rx="{150 * s:.0f}" ry="{70 * s:.0f}" fill="{A_FACE}"/>',
+        f'<circle cx="{cx - 82 * s:.0f}" cy="{cy + 20 * s:.0f}" r="{68 * s:.0f}" fill="{A_FACE}" opacity="0.55"/>',
+        f'<circle cx="{cx + 82 * s:.0f}" cy="{cy + 20 * s:.0f}" r="{68 * s:.0f}" fill="{A_FACE}" opacity="0.55"/>',
+    ]
+    # Goro's headband, under the crest
+    parts += [f'<path d="M{p(-205, -96)} Q{p(0, -168)} {p(205, -96)} L{p(200, -46)} Q{p(0, -118)} {p(-200, -46)} Z" fill="{ACCENT}"/>',
+              f'<path d="M{p(-150, -100)} Q{p(0, -150)} {p(150, -100)}" stroke="{WHITE}" stroke-width="{9 * s:.0f}" '
+              f'stroke-linecap="round" fill="none" opacity="0.6"/>']
+    ex, ey, er = 82 * s, cy + 20 * s, 58 * s
+    if mood in ('joy', 'supportive'):
+        parts.append(eye(cx - ex, ey, er, closed=True, closed_color=A_DARK))
+        parts.append(eye(cx + ex, ey, er, closed=True, closed_color=A_DARK))
+    elif mood == 'sleeping':
+        parts.append(sleep_eye(cx - ex, ey, er, A_DARK))
+        parts.append(sleep_eye(cx + ex, ey, er, A_DARK))
+    elif mood == 'sad':
+        parts.append(eye(cx - ex, ey, er, look=(4 * s, 15 * s)))
+        parts.append(eye(cx + ex, ey, er, look=(-4 * s, 15 * s)))
+    elif mood == 'angry':
+        parts.append(eye(cx - ex, ey, er * 0.92, look=(8 * s, 2 * s)))
+        parts.append(eye(cx + ex, ey, er * 0.92, look=(-8 * s, 2 * s)))
+    elif mood == 'excited':
+        parts.append(eye(cx - ex, ey, er * 1.12, look=(4 * s, 0)))
+        parts.append(eye(cx + ex, ey, er * 1.12, look=(-4 * s, 0)))
+    else:
+        parts.append(eye(cx - ex, ey, er, look=(6 * s, 6 * s)))
+        parts.append(eye(cx + ex, ey, er, look=(-6 * s, 6 * s)))
+    bw = 15 * s
+    if mood == 'sad':
+        parts += [brow(cx - 140 * s, cy - 20 * s, cx - 44 * s, cy - 46 * s, A_DARK, bw),
+                  brow(cx + 140 * s, cy - 20 * s, cx + 44 * s, cy - 46 * s, A_DARK, bw)]
+    elif mood == 'angry':
+        parts += [brow(cx - 140 * s, cy - 50 * s, cx - 48 * s, cy - 24 * s, A_DARK, bw),
+                  brow(cx + 140 * s, cy - 50 * s, cx + 48 * s, cy - 24 * s, A_DARK, bw)]
+    # beak: closed, or open to sing
+    if mood in ('excited', 'joy'):
+        parts += [f'<path d="M{p(-34, 92)} L{p(34, 92)} L{p(0, 128)} Z" fill="{A_BEAK}"/>',
+                  f'<path d="M{p(-26, 140)} L{p(26, 140)} L{p(0, 170)} Z" fill="{A_BEAK_D}"/>',
+                  f'<ellipse cx="{cx}" cy="{cy + 132 * s:.0f}" rx="{18 * s:.0f}" ry="{9 * s:.0f}" fill="#8A3F1E"/>']
+    else:
+        parts += [f'<path d="M{p(-28, 90)} L{p(28, 90)} L{p(0, 166)} Z" fill="{A_BEAK}"/>',
+                  f'<path d="M{p(0, 90)} L{p(28, 90)} L{p(0, 166)} Z" fill="{A_BEAK_D}" opacity="0.35"/>']
+    if mood != 'angry':
+        parts += [f'<ellipse cx="{cx - 150 * s:.0f}" cy="{cy + 112 * s:.0f}" rx="{30 * s:.0f}" ry="{16 * s:.0f}" fill="{A_CHEEK}" opacity="0.5"/>',
+                  f'<ellipse cx="{cx + 150 * s:.0f}" cy="{cy + 112 * s:.0f}" rx="{30 * s:.0f}" ry="{16 * s:.0f}" fill="{A_CHEEK}" opacity="0.5"/>']
+    if mood == 'sad':
+        parts.append(tear(cx + ex + 30 * s, ey + 84 * s, s))
+    if mood == 'sleeping':
+        parts.append(zzz(cx + 190 * s, cy - 140 * s, s))
+    if mood == 'excited':
+        parts += [note(cx - 300 * s, cy - 110 * s, s), note(cx + 270 * s, cy - 170 * s, 0.85 * s),
+                  sparkle(int(cx + 300 * s), int(cy + 20 * s), int(24 * s), '#FFFFFF')]
+    return '\n  '.join(parts)
+
+
+def aurora_body(cx, top, s=1.0, wing='down'):
+    """Body below the head: a round body with a streaked cream breast, wings
+    (``wing`` down: folded | up: the right one waving | both: both raised |
+    heart: the right one across the chest) and a short tail."""
+    h = 360 * s
+    w = 240 * s
+    parts = [
+        f'<path d="M{cx - w * 0.3:.0f} {top + h * 0.9:.0f} L{cx - w * 0.62:.0f} {top + h * 1.12:.0f} '
+        f'L{cx - w * 0.12:.0f} {top + h * 0.98:.0f} Z" fill="{A_DARK}"/>',
+        f'<path d="M{cx + w * 0.3:.0f} {top + h * 0.9:.0f} L{cx + w * 0.62:.0f} {top + h * 1.12:.0f} '
+        f'L{cx + w * 0.12:.0f} {top + h * 0.98:.0f} Z" fill="{A_DARK}"/>',
+        f'<ellipse cx="{cx}" cy="{top + h * 0.5:.0f}" rx="{w * 0.9:.0f}" ry="{h * 0.56:.0f}" fill="{A_BODY}"/>',
+        f'<ellipse cx="{cx}" cy="{top + h * 0.6:.0f}" rx="{w * 0.56:.0f}" ry="{h * 0.42:.0f}" fill="{A_BELLY}"/>',
+    ]
+    for row in range(3):
+        y = top + h * (0.34 + row * 0.15)
+        for col in range(-2 + row % 2, 3, 2):
+            x = cx + col * 38 * s
+            if abs(col) * 38 * s > w * 0.4:
+                continue
+            parts.append(f'<path d="M{x:.0f} {y - 14 * s:.0f} Q{x + 10 * s:.0f} {y + 6 * s:.0f} {x:.0f} {y + 14 * s:.0f} '
+                         f'Q{x - 10 * s:.0f} {y + 6 * s:.0f} {x:.0f} {y - 14 * s:.0f} Z" fill="{A_STREAK}" opacity="0.85"/>')
+
+    def folded(sx):
+        return (f'<path d="M{cx + sx * w * 0.72:.0f} {top + h * 0.2:.0f} Q{cx + sx * w * 1.08:.0f} {top + h * 0.6:.0f} '
+                f'{cx + sx * w * 0.66:.0f} {top + h * 0.98:.0f} Q{cx + sx * w * 0.48:.0f} {top + h * 0.58:.0f} '
+                f'{cx + sx * w * 0.72:.0f} {top + h * 0.2:.0f} Z" fill="{A_DARK}"/>')
+
+    def raised(sx):
+        out = [f'<path d="M{cx + sx * w * 0.7:.0f} {top + h * 0.3:.0f} Q{cx + sx * w * 1.5:.0f} {top - h * 0.1:.0f} '
+               f'{cx + sx * w * 1.3:.0f} {top - h * 0.5:.0f} Q{cx + sx * w * 1.08:.0f} {top - h * 0.04:.0f} '
+               f'{cx + sx * w * 0.62:.0f} {top + h * 0.12:.0f} Z" fill="{A_DARK}"/>']
+        for i in range(3):
+            fx = cx + sx * w * (1.28 - i * 0.1)
+            fy = top - h * (0.46 - i * 0.1)
+            out.append(f'<ellipse cx="{fx:.0f}" cy="{fy:.0f}" rx="{20 * s:.0f}" ry="{38 * s:.0f}" '
+                       f'fill="{A_DARK}" transform="rotate({sx * (30 - i * 12)} {fx:.0f} {fy:.0f})"/>')
+        return '\n  '.join(out)
+
+    if wing == 'both':
+        parts += [raised(-1), raised(1)]
+    else:
+        parts.append(folded(-1))
+        if wing == 'up':
+            parts.append(raised(1))
+        elif wing == 'heart':
+            parts.append(f'<path d="M{cx + w * 0.8:.0f} {top + h * 0.22:.0f} Q{cx + w * 0.3:.0f} {top + h * 0.32:.0f} '
+                         f'{cx - w * 0.05:.0f} {top + h * 0.6:.0f} Q{cx + w * 0.4:.0f} {top + h * 0.68:.0f} '
+                         f'{cx + w * 0.78:.0f} {top + h * 0.48:.0f} Z" fill="{A_DARK}"/>')
+            parts.append(heart(int(cx - w * 0.02), int(top + h * 0.48), int(30 * s)))
+        else:
+            parts.append(folded(1))
+    return '\n  '.join(parts)
+
+
+def aurora_feet(cx, y, s=1.0):
+    out = []
+    for dx in (-60, 60):
+        out.append(f'<rect x="{cx + (dx - 7) * s:.0f}" y="{y - 70 * s:.0f}" width="{14 * s:.0f}" height="{66 * s:.0f}" rx="{7 * s:.0f}" fill="{A_FEET}"/>')
+        for t in (-26, 0, 26):
+            out.append(f'<ellipse cx="{cx + (dx + t) * s:.0f}" cy="{y:.0f}" rx="{20 * s:.0f}" ry="{9 * s:.0f}" fill="{A_FEET}"/>')
+    return '\n  '.join(out)
+
+
+def aurora_face(mood):
+    wing = {'excited': 'both', 'supportive': 'heart'}.get(mood, 'down')
+    body = [sunrise(), aurora_body(512, 700, 1.05, wing=wing), aurora_head(512, 500, 1.0, mood)]
+    return svg(f'AURORA — {mood} (Morning Routine host, the lark)', '\n  '.join(body))
+
+
+def aurora_standing(wing, mood, title):
+    body = [sunrise(),
+            '<rect x="120" y="880" width="784" height="34" rx="17" fill="#D9705A" opacity="0.7"/>',
+            aurora_feet(512, 872, 0.9),
+            aurora_body(512, 500, 0.9, wing=wing),
+            aurora_head(512, 360, 0.8, mood)]
+    return svg(title, '\n  '.join(body))
+
+
+def aurora_idle():
+    return aurora_standing('down', 'happy', 'AURORA — idle (standing calmly)')
+
+
+def aurora_cheer():
+    svg_text = aurora_standing('up', 'joy', 'AURORA — cheer (waving a wing, singing)')
+    notes = '\n  '.join([note(250, 300, 1.0), note(790, 220, 0.8)])
+    return svg_text.replace('\n</svg>', f'\n  {notes}\n</svg>')
+
+
 def all_art():
     out = {}
     for mood in MOODS:
         out[f'luna_face_{mood}'] = luna_face(mood)
         out[f'raffi_face_{mood}'] = raffi_face(mood)
+        out[f'aurora_face_{mood}'] = aurora_face(mood)
     out.update(luna_idle=luna_idle(), luna_cheer=luna_cheer(),
-               raffi_idle=raffi_idle(), raffi_cheer=raffi_cheer())
+               raffi_idle=raffi_idle(), raffi_cheer=raffi_cheer(),
+               aurora_idle=aurora_idle(), aurora_cheer=aurora_cheer())
     return out
 
 

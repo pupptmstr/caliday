@@ -183,7 +183,8 @@ extension CourseIdExtension on CourseId {
       };
 
   /// The course host's portrait (course cards): its happy face. Goro, Raffi
-  /// the giraffe, Luna the owl; art from tools/characters/gen_hosts.py.
+  /// the giraffe, Luna the owl, Aurora the lark; art from
+  /// tools/characters/gen_hosts.py.
   String get hostPortrait => hostFace('happy');
 
   /// One of the host's six faces (Home), by mood name: happy, sad, angry,
@@ -192,7 +193,7 @@ extension CourseIdExtension on CourseId {
         CourseId.calisthenics => 'assets/goro/goro_face_$mood.svg',
         CourseId.healthyBody => 'assets/hosts/raffi_face_$mood.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_face_$mood.svg',
-        CourseId.morningRoutine => 'assets/goro/goro_face_$mood.svg',
+        CourseId.morningRoutine => 'assets/hosts/aurora_face_$mood.svg',
       };
 
   /// The host standing calmly (Profile).
@@ -200,7 +201,7 @@ extension CourseIdExtension on CourseId {
         CourseId.calisthenics => 'assets/goro/goro_idle_v2.svg',
         CourseId.healthyBody => 'assets/hosts/raffi_idle.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_idle.svg',
-        CourseId.morningRoutine => 'assets/goro/goro_idle_v2.svg',
+        CourseId.morningRoutine => 'assets/hosts/aurora_idle.svg',
       };
 
   /// The course host cheering on the summary of a workout of this course.
@@ -208,7 +209,7 @@ extension CourseIdExtension on CourseId {
         CourseId.calisthenics => 'assets/goro/goro_flex_v2.svg',
         CourseId.healthyBody => 'assets/hosts/raffi_cheer.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_cheer.svg',
-        CourseId.morningRoutine => 'assets/goro/goro_flex_v2.svg',
+        CourseId.morningRoutine => 'assets/hosts/aurora_cheer.svg',
       };
 }
 

@@ -1891,7 +1891,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseNotes090 =>
-      'New course: Morning Routine. Wake your body up in four skills: spine, joints, arms and energy. Everything standing and quiet, no jumps.';
+      'New course: Morning Routine. Wake your body up in four skills: spine, joints, arms and energy. Everything standing and quiet, no jumps.\nAurora the lark leads Morning Routine: she greets you on the home screen and in the profile while the course is active, and sings at the end of a workout.';
 
   @override
   String get releaseNotes0820 =>

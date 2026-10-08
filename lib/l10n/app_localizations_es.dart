@@ -1886,7 +1886,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseNotes090 =>
-      'Curso nuevo, Rutina matutina: despierta el cuerpo en cuatro habilidades: columna, articulaciones, brazos y energía. Todo de pie y en silencio, sin saltos.';
+      'Curso nuevo, Rutina matutina: despierta el cuerpo en cuatro habilidades: columna, articulaciones, brazos y energía. Todo de pie y en silencio, sin saltos.\nLa Rutina matutina la guía Aurora, la alondra: mientras el curso está activo, te recibe en la pantalla principal y en el perfil, y canta al final de cada entrenamiento.';
 
   @override
   String get releaseNotes0820 =>

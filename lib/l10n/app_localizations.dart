@@ -3243,7 +3243,7 @@ abstract class AppLocalizations {
   /// No description provided for @releaseNotes090.
   ///
   /// In en, this message translates to:
-  /// **'New course: Morning Routine. Wake your body up in four skills: spine, joints, arms and energy. Everything standing and quiet, no jumps.'**
+  /// **'New course: Morning Routine. Wake your body up in four skills: spine, joints, arms and energy. Everything standing and quiet, no jumps.\nAurora the lark leads Morning Routine: she greets you on the home screen and in the profile while the course is active, and sings at the end of a workout.'**
   String get releaseNotes090;
 
   /// No description provided for @releaseNotes0820.

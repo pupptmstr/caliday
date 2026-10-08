@@ -1877,7 +1877,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseNotes090 =>
-      'Neuer Kurs „Morgenroutine“: Weck deinen Körper in vier Skills — Wirbelsäule, Gelenke, Arme und Energie. Alles im Stehen und leise, ohne Sprünge.';
+      'Neuer Kurs „Morgenroutine“: Weck deinen Körper in vier Skills — Wirbelsäule, Gelenke, Arme und Energie. Alles im Stehen und leise, ohne Sprünge.\nDie Morgenroutine leitet Aurora, die Lerche: Solange der Kurs aktiv ist, begrüßt sie dich auf dem Startbildschirm und im Profil und singt am Ende eines Trainings.';
 
   @override
   String get releaseNotes0820 =>
