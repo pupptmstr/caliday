@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Builds a self-contained preview page that plays Lottie animations.
 
-Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh]
+Usage: python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening]
                                               [--out FILE] [--fragment]
                                               [--dir DIR] [name ...]
 
@@ -178,6 +178,28 @@ INFO.update(PULL_INFO)
 INFO.update(PUSH_INFO)
 INFO.update(REFRESH_INFO)
 
+EVENING_INFO = {
+    'evening_hips_s4_butterfly': (
+        'Бабочка', 'Бёдра · этап 4', 'удержание 20–60 с',
+        'Спереди, сидя: стопы вместе, руки на стопах, колени опускаются к полу, спина чуть наклоняется.'),
+    'evening_folds_s4_straddle_fold': (
+        'Наклон в широком седе', 'Наклоны · этап 4', 'удержание 30–90 с',
+        'Спереди: ноги широко, руки уходят вперёд по полу, корпус складывается к камере, видна макушка.'),
+    'evening_shoulders_s1_self_hug': (
+        'Объятия', 'Плечи · этап 1', 'удержание 20–60 с',
+        'Сидя по-турецки: руки обхватывают корпус, плечи сходятся, подбородок опускается, дыхание.'),
+    'evening_shoulders_s2_triceps_stretch': (
+        'Трицепс за головой', 'Плечи · этап 2', 'на каждую сторону',
+        'Рука поднимается через сторону, локоть сгибается, кисть уходит за голову, голова чуть в сторону.'),
+    'evening_shoulders_s3_eagle_arms': (
+        'Руки «орёл»', 'Плечи · этап 3', 'на каждую сторону',
+        'Локти сходятся перед грудью, предплечья перекрещиваются, ладони вместе у лица, локти поднимаются.'),
+    'evening_shoulders_s5_cow_face_arms': (
+        'Руки «корова»', 'Плечи · этап 5', 'на каждую сторону',
+        'Со спины: одна рука сверху за шею, другая снизу за спину, пальцы сцепляются между лопатками.'),
+}
+INFO.update(EVENING_INFO)
+
 # name -> (page title, heading, lead, file names). A card's file may differ from
 # its id (supp_wrist_circles reuses warmup_wrist_circles.json).
 PRESETS = {
@@ -232,6 +254,13 @@ PRESETS = {
         [('cooldown_quad_stretch', None), ('cooldown_downward_dog', None), ('core_s5_l_sit', None),
          ('bal_s1_one_leg_stand', None), ('bal_s3_crow_prep', None), ('bal_s4_crow_pose', None),
          ('bal_s6_free_hs', None)]),
+    'evening': (
+        'Стенд вечерней растяжки', 'Анимации курса «Вечерняя растяжка»',
+        'Новые анимации курса, как они играют в приложении: по кругу, 12 кадров в секунду. '
+        'Сидячие позы показаны спереди (новый режим фронтального рига), «корова» со спины, '
+        'чтобы было видно сцепленные за спиной руки. Упражнения на одну сторону показаны на одной '
+        'стороне: вторую приложение отсчитывает само.',
+        [(n, None) for n in EVENING_INFO]),
     'cooldown': (
         'Стенд заминки Cat-Cow', 'Заминка «Кошка-корова»',
         'Новая анимация заминки Core, Flex и Neck, как она играет в приложении: по кругу, '
