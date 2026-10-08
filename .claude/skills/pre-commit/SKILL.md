@@ -11,9 +11,9 @@ Perform the following steps in order before every commit.
 
 `flutter analyze` (zero issues) and `flutter test` must pass. If the change touches the UI, run the app and look at it.
 
-## Step 0.5 — Release note (only if the version was bumped)
+## Step 0.5 — Release note (once per branch)
 
-The version in `pubspec.yaml` and the newest entry of `lib/data/static/release_notes_catalog.dart` (the "What's new" under the bell in the profile) must be the same: a test checks it. New entry on top, texts `releaseNotes<version without dots>` in both ARB files, then `flutter gen-l10n`. Write what the user sees, one change per line.
+The version is bumped once per session branch (CLAUDE.md § Branches and Versions). The version in `pubspec.yaml` and the newest entry of `lib/data/static/release_notes_catalog.dart` (the "What's new" under the bell in the profile) must be the same: a test checks it. First user-visible change on the branch: new entry on top, texts `releaseNotes<version without dots>` in every ARB file, then `flutter gen-l10n`. Later changes on the same branch: add a line to that same text instead of a new version. Write what the user sees, one change per line.
 
 ## Step 1 — Update history in DEV_NOTES.md
 
@@ -72,6 +72,6 @@ Do not duplicate what is already in ARCHITECTURE.md — memory is for quick acce
 
 ## Step 5 — Create the commit
 
-Only after updating documentation, create the commit:
+Only after updating documentation, create the commit **on the session branch** (never on `main`; it is merged when the owner says the branch is done):
 - Message in English
 - Format: `feat:` / `fix:` / `refactor:` / `docs:` / `chore:` + short description
