@@ -21,12 +21,14 @@ import sys
 sys.path.insert(0, os.path.dirname(__file__))
 from frontview import (HIP_DX, SHIN_LEN, STAND_ANKLE_Y, THIGH_LEN, Animation,  # noqa: E402
                        figure, rest_arm, swing_arm)
-from goro_rig import add, dirv, hold_ramp as ramp, mul, rot, write  # noqa: E402
+from goro_rig import add, ang_of, dirv, hold_ramp as ramp, mul, rot, write  # noqa: E402
 import goro_rig as gr  # noqa: E402
-from gen_evening import ALL_FK, SPINE_ORDER, breath, lerp_angles  # noqa: E402
-from gen_morning import (SIDE_BASE, SIDE_FK, PLANK_BR, compose,  # noqa: E402
-                         floor_arm, hips_for, lerp_keys, mix, placed,
-                         shoulder_points, smooth01, straight, with_back_copies)
+from gen_evening import (ALL_FK, PRONE, SPINE_ORDER, breath, lerp_angles,  # noqa: E402
+                         spine_at)
+from gen_morning import (NEAR_LEG_LIGHT, SIDE_BASE, SIDE_FK, PLANK_BR,  # noqa: E402
+                         bent_leg, clasped, compose, floor_arm, hips_for, leg,
+                         lerp_keys, mix, placed, shoulder_points, smooth01,
+                         straight, with_back_copies)
 
 LEG = THIGH_LEN + SHIN_LEN          # 84, a straight leg
 
@@ -205,8 +207,8 @@ def wheel():
         b = breath(t, 24) * (c > 0.98)
         sh = mix(WHEEL_SH0, WHEEL_SH1, c)
         sh = (sh[0], sh[1] - 10 * math.sin(math.pi * c) - 2 * b)
-        s1 = 26 * h + (74 - 26) * c
-        s2 = 10 * h + (56 - 10) * c
+        s1 = -26 * h + (74 + 26) * c         # negative: the hips rise (a bridge)
+        s2 = -10 * h + (56 + 10) * c
         p = gr.P(gr.P(**WHEEL_LIE), cx=0.0, cy=0.0, br=-90 - 70 * c, spine=(s1, s2))
         p = placed(p, 'arm_n', sh)
         for side in ('n', 'f'):
@@ -280,8 +282,9 @@ def _blend(a, b, u):
     return out
 
 
-def sun_salutation_a():
-    T = 216
+def _sun_states():
+    """The key poses of the sun salutations (one layout: the feet at FEET, the
+    hands at HANDS when planted)."""
     plank_sh = (HANDS['n'][0] - 4, 290.0)
     plank_toes = add(plank_sh, mul(dirv(PLANK_BR), 89 + LEG))
     back_feet = {'n': (plank_toes[0], 370.0), 'f': (plank_toes[0] - 5, 370.0)}
@@ -309,28 +312,406 @@ def sun_salutation_a():
     dog_b = _key(add(dog_hip, (1, -2)), dog_br + 1, ht=26, w=1, feet=dog_feet, foot=DOG_FOOT)
     lunge_f = _key((202.0, 314.0), 92.0, (-4, -4), ht=-14, w=1,
                    feet={'n': FEET['n'], 'f': dog_feet['f']}, foot={'n': STAND_FOOT, 'f': DOG_FOOT})
+    return dict(stand=stand, arms_up=arms_up, swan=swan, fold=fold, half=half, lunge_b=lunge_b,
+                plank=plank, low=low, updog=updog, dog=dog, dog_b=dog_b, lunge_f=lunge_f,
+                back_feet=back_feet, dog_feet=dog_feet)
 
-    keys = [(0, stand), (6, stand), (22, arms_up), (36, swan), (52, fold), (60, half),
-            (66, fold), (78, lunge_b), (88, plank), (94, plank), (104, low), (116, updog),
-            (130, dog), (142, dog_b), (154, lunge_f), (164, fold), (172, half),
-            (188, swan), (200, arms_up), (216, stand)]
+
+def _flow(name, keys):
+    """A side-view animation through ``keys`` [(frame, key pose)], the last
+    frame equal to the first."""
+    T = keys[-1][0]
 
     def pose(t):
         for (t0, a), (t1, b) in zip(keys, keys[1:]):
             if t0 <= t <= t1:
                 return _build(_blend(a, b, smooth01((t - t0) / (t1 - t0))))
-        return _build(stand)
+        return _build(keys[0][1])
 
-    return gr.Spec('yoga_flow_s4_sun_salutation_a', T, gr.sampled(T, pose),
-                   modes=SIDE_FK, order=SPINE_FLOOR_ORDER)
+    return gr.Spec(name, T, gr.sampled(T, pose), modes=SIDE_FK, order=SPINE_FLOOR_ORDER)
+
+
+def sun_salutation_a():
+    S = _sun_states()
+    return _flow('yoga_flow_s4_sun_salutation_a', [
+        (0, S['stand']), (6, S['stand']), (22, S['arms_up']), (36, S['swan']), (52, S['fold']),
+        (60, S['half']), (66, S['fold']), (78, S['lunge_b']), (88, S['plank']), (94, S['plank']),
+        (104, S['low']), (116, S['updog']), (130, S['dog']), (142, S['dog_b']), (154, S['lunge_f']),
+        (164, S['fold']), (172, S['half']), (188, S['swan']), (200, S['arms_up']), (216, S['stand'])])
+
+
+# ── yoga_flow_s3_half_sun_salutation ─────────────────────────────────────────
+# Stand, arms up, swan-dive to a fold, half lift, fold, rise with the arms up,
+# stand: the first half of the sun salutation, without the floor part.
+
+def half_sun_salutation():
+    S = _sun_states()
+    return _flow('yoga_flow_s3_half_sun_salutation', [
+        (0, S['stand']), (6, S['stand']), (22, S['arms_up']), (36, S['swan']), (52, S['fold']),
+        (62, S['half']), (70, S['fold']), (86, S['swan']), (98, S['arms_up']), (114, S['stand'])])
+
+
+# ── yoga_flow_s5_sun_salutation_b ────────────────────────────────────────────
+# Surya Namaskar B: chair, fold, half lift, step back, plank, lower, upward dog,
+# downward dog; the near foot steps forward between the hands, Warrior I (the
+# arms up), hands down, back through the plank to the dog; the same with the
+# far foot in front; step forward, half lift, rise into the chair, stand.
+
+def _warrior_1_keys(front, dog_feet):
+    """Warrior I in the flow, ``front`` = the side whose foot steps forward:
+    (hands-down lunge, upright with the arms up)."""
+    back = 'f' if front == 'n' else 'n'
+    fx = 243.0 if front == 'n' else 237.0
+    feet = {front: (fx, 372.0), back: dog_feet[back]}
+    foot = {front: STAND_FOOT, back: (5, 4, -12)}
+    lunge = _key((208.0, 324.0), 75.0, (-2, -2), ht=-12, w=1, feet=feet, foot=foot)
+    up = _key((200.0, 322.0), -4.0, ht=-14, arm=-176, feet=feet, foot=foot)
+    return lunge, up
+
+
+def sun_salutation_b():
+    S = _sun_states()
+    chair = _key((168.0, 318.0), 30.0, ht=-10, arm=-180)
+    swan_b = _key((176.0, 304.0), 70.0, ht=-4, arm=-180)
+    ln, wn = _warrior_1_keys('n', S['dog_feet'])
+    lf, wf = _warrior_1_keys('f', S['dog_feet'])
+    vinyasa = [S['plank'], S['low'], S['updog'], S['dog']]
+    keys, t = [(0, S['stand']), (6, S['stand'])], 6
+    for pose, dt in ((chair, 16), (swan_b, 12), (S['fold'], 12), (S['half'], 8), (S['fold'], 6),
+                     (S['lunge_b'], 12), (S['plank'], 10), (S['low'], 10), (S['updog'], 12),
+                     (S['dog'], 14), (ln, 14), (wn, 24), (wn, 8), (ln, 24), *zip(vinyasa, (12, 10, 12, 14)),
+                     (lf, 14), (wf, 24), (wf, 8), (lf, 24), *zip(vinyasa, (12, 10, 12, 14)),
+                     (S['dog_b'], 10), (S['lunge_f'], 14), (S['fold'], 10), (S['half'], 8),
+                     (swan_b, 12), (chair, 12), (S['stand'], 16)):
+        t += dt
+        keys.append((t, pose))
+    return _flow('yoga_flow_s5_sun_salutation_b', keys)
+
+
+# ── yoga_standing_s1_chair ───────────────────────────────────────────────────
+# Feet together, the knees bend and the hips sit back as if onto a chair, the
+# torso leans forward and the arms rise in line with it; hold, breathe, stand.
+
+def chair():
+    stand = _key((190.0, 288.0), 0.0)
+    sit = _key((168.0, 318.0), 30.0, ht=-10, arm=-180)
+    sit_b = _key((167.0, 320.0), 31.0, ht=-11, arm=-182)
+    return _flow('yoga_standing_s1_chair', [
+        (0, stand), (6, stand), (30, sit), (44, sit_b), (58, sit), (72, sit_b), (82, sit),
+        (100, stand), (104, stand)])
+
+
+# ── yoga_standing_s2_warrior_1 ───────────────────────────────────────────────
+# The far foot steps far back (turned out a little), the front knee bends over
+# the ankle, the hips sink, the torso stays upright and the arms rise
+# overhead; hold, breathe, step back to standing.
+
+def warrior_1():
+    stand = _key((190.0, 288.0), 0.0)
+    feet = {'n': FEET['n'], 'f': (94.0, 372.0)}
+    foot = {'n': STAND_FOOT, 'f': (5, 4, -12)}
+    w = _key((160.0, 314.0), -4.0, ht=-14, arm=-176, feet=feet, foot=foot)
+    w_b = _key((160.0, 316.0), -5.0, ht=-15, arm=-178, feet=feet, foot=foot)
+    return _flow('yoga_standing_s2_warrior_1', [
+        (0, stand), (6, stand), (34, w), (48, w_b), (62, w), (76, w_b), (84, w),
+        (104, stand), (108, stand)])
+
+
+# ── Front views: Warrior II, triangle, side angle, tree ──────────────────────
+
+def turn(a, b, u):
+    """Angle from ``a`` to ``b`` the short way round."""
+    return a + (((b - a + 180) % 360) - 180) * u
+
+
+def wide_legs(u, bend_front, sink=0.0, shift=0.0):
+    """Feet stepping wide apart (the front foot on the right of the picture);
+    ``bend_front`` bends the front knee out over the ankle."""
+    hips = (200 + shift * u, 288 + sink * u)
+    ank_l = (186 - 46 * u, float(STAND_ANKLE_Y))
+    ank_r = (214 + 50 * u, float(STAND_ANKLE_Y))
+    if bend_front and u > 1e-6:
+        leg_r = bent_leg(1, hips, ank_r, (1, -0.5), near=1 + 0.1 * u)
+    else:
+        leg_r = leg(1, ank_r, hips=hips)
+    return hips, leg(-1, ank_l, hips=hips), leg_r
+
+
+# ── yoga_standing_s3_warrior_2 ───────────────────────────────────────────────
+# Feet wide, the front knee bends out over the ankle and the hips sink; the arms
+# open to a T at shoulder height and the head turns to the front hand.
+
+def warrior_2():
+    T = 96
+
+    def pose(t):
+        u = into_hold(t, T, start=6, settle=30, leave=24)
+        b = breath(t, 24) * (u > 0.98)
+        hips, leg_l, leg_r = wide_legs(u, True, sink=24 + b, shift=12)
+        sh = shoulder_points(add(hips, (0, -51)))
+        arms = {'arm_l': straight(sh[0], 6 + 84 * u), 'arm_r': straight(sh[1], -6 - 84 * u)}
+        return figure(hips=hips, head=(8 * u, 0, 0), head_scale=(1 - 0.06 * u, 1),
+                      leg_l=leg_l, leg_r=leg_r, **arms)
+
+    return Animation('yoga_standing_s3_warrior_2', T, pose)
+
+
+def _tilted(u, lean, hips, legs, low_target, up_angle, head_tilt, arm_k=None):
+    """The torso tipped sideways by ``lean`` over the front leg: the lower hand
+    goes to ``low_target``, the upper arm to the world angle ``up_angle``."""
+    c = add(hips, rot((0, -51), lean))
+    sh = shoulder_points(c, lean)
+    k = smooth01(u * 1.15)
+    wrist = mix(add(sh[1], (6, 72)), low_target, k)
+    d = (wrist[0] - sh[1][0], wrist[1] - sh[1][1])
+    arm_r = (wrist, (d[1], -d[0]))      # the elbow always out, away from the body
+    arm_l = straight(sh[0], 6 + ((up_angle - 6) % 360) * (k if arm_k is None else arm_k))   # up through the side
+    upper = figure(hips=hips_for(c, lean), lean=lean, head=(0, 0, head_tilt),
+                   arm_l=arm_l, arm_r=arm_r)
+    return compose(legs, upper)
+
+
+# ── yoga_standing_s4_triangle ────────────────────────────────────────────────
+# Feet wide, both legs straight; the torso tips sideways over the front leg,
+# the lower hand slides down to the shin, the upper arm points at the ceiling
+# in line with the shoulders and the gaze goes up to it.
+
+def triangle():
+    T = 104
+
+    def pose(t):
+        u = into_hold(t, T, start=6, settle=32, leave=26)
+        b = breath(t, 24) * (u > 0.98)
+        hips, leg_l, leg_r = wide_legs(u, False, sink=14)
+        legs = figure(hips=hips, leg_l=leg_l, leg_r=leg_r)
+        lean = 64 * u + 1.2 * b
+        shin = mix(leg_r['knee'], leg_r['ankle'], 0.45)
+        line = ang_of(*rot((-1, 0), lean))          # along the shoulders, upwards
+        return _tilted(u, lean, hips, legs, (shin[0] - 8, shin[1]), line, -16 * u)
+
+    return Animation('yoga_standing_s4_triangle', T, pose)
+
+
+# ── yoga_standing_s5_side_angle ──────────────────────────────────────────────
+# From Warrior II legs the torso tips deep over the front thigh: the lower
+# forearm rests on it, the upper arm reaches over the ear in one line with the
+# body, from the back foot to the fingertips.
+
+def side_angle():
+    T = 120
+
+    def pose(t):
+        u = into_hold(t, T, start=6, settle=40, leave=34)
+        b = breath(t, 24) * (u > 0.98)
+        hips, leg_l, leg_r = wide_legs(u, True, sink=26, shift=16)
+        legs = figure(hips=hips, leg_l=leg_l, leg_r=leg_r)
+        lean = 70 * u + 1.2 * b
+        knee = leg_r['knee']
+        top = ang_of(*rot((0, -1), lean))           # the long axis of the torso
+        # the arm sweeps through the side over the head: it gets the whole settle
+        return _tilted(u, lean, hips, legs, (knee[0] - 16, knee[1] - 12), top, 0.0, arm_k=u)
+
+    return Animation('yoga_standing_s5_side_angle', T, pose)
+
+
+# ── yoga_one_leg_s1_tree ─────────────────────────────────────────────────────
+# Standing on the leg on the left of the picture, the other knee lifts and
+# opens out to the side, the sole pressing on the inner thigh of the standing
+# leg; the palms come together at the chest. Hold with a slight sway.
+
+def tree():
+    T = 96
+
+    def pose(t):
+        u = into_hold(t, T, start=6, settle=30, leave=24)
+        b = breath(t, 30) * (u > 0.98)
+        hips = (200 - 6 * u + 1.5 * b, 288.0)
+        hr = hips[0] + HIP_DX
+        keys = [((hr + 0.5, 334.0), (hr + 1, 372.0), 1.0),          # standing
+                ((hr + 2, 300.0), (hr + 4, 336.0), 1.3),            # knee up in front
+                ((hips[0] + 36, 320.0), (hips[0] - 2, 330.0), 1.2)]  # knee out, sole on the thigh
+        knee, ankle, near = lerp_keys(keys, 2 * u)
+        w = max(0.0, 2 * u - 1)
+        leg_r = dict(knee=knee, ankle=ankle, near=near, foot_rot=80 * w,
+                     foot_scale=(1 - 0.3 * w, 1), foot_off=(-4 * w, 4 - 2 * w))
+        leg_l = dict(knee=(193.5, 334.0), ankle=(193.0, float(STAND_ANKLE_Y)))
+        c = add(hips, (0, -51))
+        sh = shoulder_points(c)
+        hands = clasped(sh, c)
+        arms = {}
+        for i, (key, sx) in enumerate((('arm_l', -1), ('arm_r', 1))):
+            wrist, _, elbow = hands[key]
+            arms[key] = (mix(add(sh[i], (sx * 6, 72)), wrist, u), (0, 1),
+                         mix(add(sh[i], (sx * 4, 40)), elbow, u))
+        return figure(hips=hips, hand_rot=(90 * u, -90 * u), leg_l=leg_l, leg_r=leg_r, **arms)
+
+    order = ['hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l', 'uarm_r', 'head', 'foot_r',
+             'shin_r', 'knee_r', 'thigh_r', 'knee_l', 'thigh_l', 'shin_l', 'foot_l', 'body']
+    return Animation('yoga_one_leg_s1_tree', T, pose, order=order)
+
+
+# ── Side views: Warrior III, dancer ──────────────────────────────────────────
+
+def _on_far_leg(chest, foot, ht=0.0):
+    """A pose standing on the far leg at ``foot``, torso at ``chest``."""
+    p = gr.P(SIDE_BASE, cx=0.0, cy=0.0, br=chest, ht=ht)
+    p = placed(p, 'leg_f', (foot[0] + 2, foot[1] - LEG + 1))
+    return gr.plant(p, 'leg_f', foot, (1, -1))
+
+
+# ── yoga_one_leg_s3_warrior_3 ────────────────────────────────────────────────
+# Standing on one leg, the body hinges forward to level while the other leg
+# lifts straight back in line with it and the arms reach forward: a T. Hold,
+# and come back up.
+
+def warrior_3():
+    T = 104
+    foot = (180.0, 372.0)
+
+    def pose(t):
+        u = into_hold(t, T, start=6, settle=34, leave=26)
+        b = breath(t, 24) * (u > 0.98)
+        chest = 88 * u + b
+        p = _on_far_leg(chest, foot, ht=12 * u)
+        p['leg_n'] = (90 * u + b, 90 * u + b)
+        p['foot_n'] = (5 - 9 * u, 4 + 2 * u, 90 * u)
+        arm = turn(0, chest - 180, u)
+        p['arm_n'] = p['arm_f'] = (arm, arm)
+        return p
+
+    return gr.Spec('yoga_one_leg_s3_warrior_3', T, gr.sampled(T, pose), modes=SIDE_FK)
+
+
+# ── yoga_one_leg_s4_dancer ───────────────────────────────────────────────────
+# Standing on one leg, the other knee bends and the near hand takes the foot
+# behind; pressing the foot into the hand the leg rises behind while the torso
+# tips forward and the free arm reaches ahead. (Goro's arm reaches the foot
+# only with the heel high, close above the hips.)
+
+def dancer():
+    T = 104
+    foot = (170.0, 372.0)
+
+    def pose(t):
+        u = into_hold(t, T, start=6, settle=36, leave=26)
+        bend = smooth01(u * 1.6)                     # the knee bends first
+        b = breath(t, 24) * (u > 0.98)
+        chest = 84 * u + b
+        p = _on_far_leg(chest, foot, ht=-30 * u)
+        a1 = 165 * u
+        p['leg_n'] = (a1, a1 + 100 * bend)
+        p['foot_n'] = (2, 0, 160 * bend)
+        hip = gr.joint_of(p, 'leg_n')
+        knee = add(hip, mul(dirv(a1), gr.THIGH))
+        ankle = add(knee, mul(dirv(a1 + 100 * bend), gr.SHIN))
+        held = gr.ik_to_fk(p, 'arm_n', ankle, (0, -1))
+        p['arm_n'] = lerp_angles((0, 0), held, smooth01(u * 1.3))
+        reach = turn(0, -120, u)
+        p['arm_f'] = (reach, reach)
+        return p
+
+    return gr.Spec('yoga_one_leg_s4_dancer', T, gr.sampled(T, pose), modes=SIDE_FK,
+                   tint=NEAR_LEG_LIGHT)
+
+
+# ── Backbends on the floor: locust, bridge, bow ──────────────────────────────
+
+LOCUST_PELVIS = (176.0, 348.0)
+
+
+# ── yoga_backbends_s2_locust ─────────────────────────────────────────────────
+# On the stomach, arms along the body. The chest, the arms and the legs lift
+# off the floor together, the gaze down and a little forward; hold, lower.
+
+def locust():
+    T = 72
+
+    def pose(t):
+        k = into_hold(t, T, start=8, settle=20, leave=14)
+        k *= 1 + 0.05 * breath(t, 24) * (k > 0.98)
+        lift = 24 * k
+        p = spine_at(gr.P(**PRONE), 90 - lift, lift / 2, lift / 2, 'pelvis', LOCUST_PELVIS)
+        p['leg_n'] = (90 + 14 * k, 90 + 14 * k)
+        p['leg_f'] = (91 + 12 * k, 91 + 12 * k)
+        p['arm_n'] = p['arm_f'] = (88 + 12 * k, 88 + 12 * k)
+        p['ht'] = (55 - 30 * k) - p['br']
+        return p
+
+    return gr.Spec('yoga_backbends_s2_locust', T, gr.sampled(T, pose), modes=ALL_FK,
+                   order=SPINE_ORDER)
+
+
+# ── yoga_backbends_s3_bridge ─────────────────────────────────────────────────
+# On the back, knees bent, feet near the hips, arms long on the floor. The hips
+# lift until knees, hips and shoulders are one line; hold, roll down.
+
+def bridge():
+    T = 84
+
+    def pose(t):
+        h = into_hold(t, T, start=6, settle=24, leave=18)
+        h *= 1 + 0.04 * breath(t, 24) * (h > 0.98)
+        p = gr.P(gr.P(**WHEEL_LIE), cx=0.0, cy=0.0, br=-90, spine=(-34 * h, -12 * h))
+        p = placed(p, 'arm_n', WHEEL_SH0)
+        for side in ('n', 'f'):
+            p = gr.plant(p, 'leg_' + side, WHEEL_FEET[side], (1, -1))
+        p['arm_n'] = p['arm_f'] = (-88, -88)
+        return p
+
+    return gr.Spec('yoga_backbends_s3_bridge', T, gr.sampled(T, pose), modes=ALL_FK,
+                   order=SPINE_ORDER)
+
+
+# ── yoga_backbends_s4_bow ────────────────────────────────────────────────────
+# On the stomach. The knees bend (shins up), then the chest and the thighs
+# lift while the hands reach back and take the ankles at the top (Goro's arms
+# reach them only with the chest and the knees high); a gentle rock, release.
+
+def bow():
+    T = 96
+
+    def pose(t):
+        knees = ramp(t, [(0, 0), (6, 0), (20, 1), (T - 10, 1), (T - 2, 0), (T, 0)])
+        k = ramp(t, [(0, 0), (16, 0), (40, 1), (T - 20, 1), (T - 8, 0), (T, 0)])
+        rock = math.sin(2 * math.pi * (t - 40) / 24) * (k > 0.98)
+        lift = 55 * k + 3 * rock
+        p = spine_at(gr.P(**PRONE), 90 - lift, lift / 2, lift / 2, 'pelvis', (180.0, 348.0))
+        a1 = 90 + 45 * k + 2 * rock
+        for side, d in (('n', 0), ('f', -3)):
+            p['leg_' + side] = (a1 + d, a1 + d + 100 * knees)
+            p['foot_' + side] = (-6, 4, 75 + 100 * knees)
+        for side in ('n', 'f'):
+            hip = gr.joint_of(p, 'leg_' + side)
+            a, b_ = p['leg_' + side]
+            ankle = add(add(hip, mul(dirv(a), gr.THIGH)), mul(dirv(b_), gr.SHIN))
+            held = gr.ik_to_fk(p, 'arm_' + side, ankle, (0, 1))
+            p['arm_' + side] = lerp_angles((88, 88), held, k)
+        p['ht'] = (55 - 45 * k) - p['br']
+        return p
+
+    return gr.Spec('yoga_backbends_s4_bow', T, gr.sampled(T, pose), modes=ALL_FK,
+                   order=SPINE_ORDER)
 
 
 ANIMATIONS = {
-    'yoga_one_leg_s5_half_moon': half_moon,
+    'yoga_standing_s1_chair': chair,
+    'yoga_standing_s2_warrior_1': warrior_1,
+    'yoga_standing_s3_warrior_2': warrior_2,
+    'yoga_standing_s4_triangle': triangle,
+    'yoga_standing_s5_side_angle': side_angle,
+    'yoga_one_leg_s1_tree': tree,
     'yoga_one_leg_s2_eagle': eagle,
+    'yoga_one_leg_s3_warrior_3': warrior_3,
+    'yoga_one_leg_s4_dancer': dancer,
+    'yoga_one_leg_s5_half_moon': half_moon,
+    'yoga_backbends_s2_locust': locust,
+    'yoga_backbends_s3_bridge': bridge,
+    'yoga_backbends_s4_bow': bow,
     'yoga_backbends_s5_camel': camel,
     'yoga_backbends_s6_wheel': wheel,
+    'yoga_flow_s3_half_sun_salutation': half_sun_salutation,
     'yoga_flow_s4_sun_salutation_a': sun_salutation_a,
+    'yoga_flow_s5_sun_salutation_b': sun_salutation_b,
 }
 
 
