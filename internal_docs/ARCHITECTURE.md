@@ -377,12 +377,12 @@ Warmup: `warmup_leg_swings` ✅. Cooldown: `cooldown_cat_cow` ✅.
 |-------|----|------|--------|
 | 1 | `flex_s1_hip_flexor_stretch` | Hip Flexor Stretch | ✅ |
 | 2 | `flex_s2_worlds_greatest_stretch` | World's Greatest Stretch | ✅ |
-| 3 | `flex_s3_hip_9090` | 90/90 Hip Mobility | ❌ (by design) |
+| 3 | `flex_s3_hip_9090` | 90/90 Hip Mobility | ❌ (a top-view draft awaits the owner, 2026-10-09) |
 | 4 | `flex_s4_thoracic_bridge` | Thoracic Bridge | ✅ |
 | 5 | `flex_s5_deep_squat_hold` | Deep Squat Hold | ✅ |
 | 6 | `flex_s6_pike_stretch` | Pike Stretch | ✅ |
 
-`flex_s3_hip_9090` intentionally has no animation: the pose is not readable in a side-view silhouette (the front shin points at the camera, the back thigh away from it, and the legs merge into the torso). The app shows the placeholder icon for it. Decision by the owner, 2026-10-06.
+`flex_s3_hip_9090` has no animation in the app: the pose is not readable in a side-view silhouette (the front shin points at the camera, the back thigh away from it, and the legs merge into the torso; owner, 2026-10-06, the app shows the placeholder icon). After the pigeon worked from above, the owner asked for a try (2026-10-09): `gen_flex.py` draws it with the pigeon's `topview.upright_fold` — sitting, the right thigh forward-out with its shin across in front (lit), the left thigh to the side at a right angle with its shin back, the legs turned 30° so the front thigh shows beside the head; hands on the knees, then the fold forward onto the forearms. On the Flex stand, next to the pigeon; into `assets/` once approved.
 
 ### Posture Branch — Healthy Body course (6 stages)
 Warmup: `warmup_hip_circles` ✅. Cooldowns: `[cooldown_hip_flexor` ✅`, cooldown_quad_stretch` ✅`]`.
@@ -393,9 +393,9 @@ Warmup: `warmup_hip_circles` ✅. Cooldowns: `[cooldown_hip_flexor` ✅`, cooldo
 | 3 | `posture_s3_glute_bridge` | Glute Bridge | reps | ✅ |
 | 4 | `posture_s4_hip_march` | Standing Hip March | reps | ✅ (front view) |
 | 5 | `posture_s5_kneeling_lunge` | Kneeling Hip Flexor Stretch | timed | ✅ (file: `flex_s1_hip_flexor_stretch.json`) |
-| 6 | `posture_s6_pigeon_pose` | Pigeon Pose | timed | ❌ (a top-view draft awaits the owner, 2026-10-09) |
+| 6 | `posture_s6_pigeon_pose` | Pigeon Pose | timed | ✅ (from above, 0.9.2) |
 
-`posture_s6_pigeon_pose` has no animation in the app: the shin across the body points at the camera in profile (three profile variants looked like a crawling animal) and a front view hides it (owner, 2026-10-06; the app shows the placeholder icon). A top view like the frog of Evening Stretch is drafted in `gen_posture.py` (2026-10-09, on the Posture stand): the right leg folded in front, its knee out to the side and the shin across, lit like the thigh so it stands out from the dark head; the left leg straight back; Goro folds from his hands onto his forearms and back. It goes into `assets/` only once the owner approves it.
+`posture_s6_pigeon_pose` is drawn from above (0.9.2, approved by the owner 2026-10-09): in profile the shin across the body pointed at the camera (three profile variants looked like a crawling animal) and a front view hid it, so it had no animation from 2026-10-06. `gen_posture.py` builds it with `topview.upright_fold` (shared with 90/90): the right leg folded in front, its knee out to the side and the shin across, lit like the thigh so it stands out from the dark head; the left leg straight back; Goro folds from his hands onto his forearms and back.
 
 ### Neck Branch — Healthy Body course (5 stages)
 Warmup: `warmup_neck_rolls` ✅. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_shoulder_stretch` ✅`]`.
@@ -964,11 +964,11 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v0.6 | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |
 | v0.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | ✅ |
 | v0.7 | Lottie animations — Balance branch (6/6 + accessories) | ✅ |
-| v0.7 | Lottie animations — Flex branch (5/6, generated with `tools/lottie`; 90/90 intentionally without) | ✅ |
+| v0.7 | Lottie animations — Flex branch (5/6, generated with `tools/lottie`; 90/90 without, a top-view draft awaits the owner since 2026-10-09) | ✅ |
 | v0.7 | Lottie animations — Supplementary pool (9/9; 8 generated + reused `warmup_wrist_circles`) | ✅ |
 | v0.7 | Privacy Policy + Terms of Use (GitHub Pages + links in app) | ✅ |
 | v0.7 | Web build — PWA on GitHub Pages, IndexedDB storage, CI deploy | ✅ |
-| v0.7 | Lottie animations — Posture branch (5/6; 3 generated, dead bug + kneeling lunge reuse existing files; pigeon without, a top-view draft awaits the owner since 2026-10-09) | ✅ |
+| v0.7 | Lottie animations — Posture branch (6/6; 3 generated, dead bug + kneeling lunge reuse existing files; the pigeon from above since 0.9.2) | ✅ |
 | v0.7 | Lottie animations — Neck branch (5/5 + warmup_neck_rolls, all generated with `tools/lottie`) | ✅ |
 | v0.7 | Lottie animation replacement — cat-cow (`cooldown_cat_cow.json`, generated with `tools/lottie`) | ✅ |
 | v0.8 | Interactive home screen stats — tappable streak/SP/rank chips → calendar / history / rank info | ✅ |

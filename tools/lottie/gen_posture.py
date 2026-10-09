@@ -165,67 +165,16 @@ def hip_march():
 # straight back. He starts upright on his hands beside the hips (the torso seen
 # short from above), folds forward onto the forearms, holds, and comes back up.
 
-def pigeon_shapes(name):
-    from frontview import _back_shapes
-    from goro_rig import _rc, _single
-    from topview import THIGH as LIGHT, _shapes
-    if name == 'shin_r':  # lit like the thigh, so it stands out from the head
-        return [_single('seg', _rc(30, 70, (0, 0), 9), LIGHT)]
-    return _back_shapes(name) or _shapes(name)
-
-
-PIGEON_ORDER = ['head', 'hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l',
-                'uarm_r', 'body', 'knee_r', 'thigh_r', 'shin_r', 'foot_r',
-                'thigh_l', 'shin_l', 'foot_l', 'knee_l', 'mat']
-
-
 def pigeon():
-    from topview import K as TK, TopViewAnimation, _segment
-    T = 96
-    HIP_Y = 230
-
-    def mix(a, b, u):
-        return (a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u)
-
-    def pose(t):
-        fold = hold_ramp(t, [(0, 0), (10, 0), (34, 1), (T - 34, 1),
-                             (T - 10, 0), (T, 0)])
-        fold += 0.04 * math.sin(2 * math.pi * t / 24) * (fold > 0.98)
-        # How long the torso looks from above: short upright, full when folded.
-        p = 0.35 + 0.65 * fold
-        c = (200, HIP_Y - 50 * p)
-        parts = {'body': dict(p=c, r=0, s=(TK * 100, TK * 100 * p)),
-                 'head': dict(p=(200, c[1] - 18 - 54 * fold), r=0,
-                              s=(TK * 100, TK * 92))}
-        for side, sx in (('l', -1), ('r', 1)):
-            sh = (200 + sx * 36, c[1] - 41 * p)
-            # Hands beside the hips -> forearms on the floor ahead of the head.
-            wrist = mix((200 + sx * 56, HIP_Y + 6), (200 + sx * 34, 96), fold)
-            out = mix((sx * 16, 0), (sx * 10, 12), fold)  # elbow bulges out
-            elbow = add(mix(sh, wrist, 0.5 + 0.15 * fold), out)
-            parts['uarm_' + side] = _segment(sh, elbow, 'uarm')
-            parts['farm_' + side] = _segment(elbow, wrist, 'farm')
-            parts['hand_' + side] = dict(p=wrist, r=0, s=(TK * 100, TK * 100))
-        # The front (right) leg: knee forward and out, the shin back across in
-        # front of the head while he is upright.
-        hip_r, hip_l = (222, HIP_Y), (178, HIP_Y)
-        knee_r, ankle_r = (266, HIP_Y - 55), (202, HIP_Y - 70)
-        parts['thigh_r'] = _segment(hip_r, knee_r, 'thigh')
-        parts['shin_r'] = _segment(knee_r, ankle_r, 'shin')
-        parts['knee_r'] = dict(p=knee_r, r=0, s=(TK * 100, TK * 100))
-        parts['foot_r'] = dict(p=add(ankle_r, (-10, -2)), r=10,
-                               s=(TK * 100, TK * 100))
-        # The back (left) leg straight back; its kneecap faces the floor.
-        knee_l, ankle_l = (174, HIP_Y + 70), (171, HIP_Y + 136)
-        parts['thigh_l'] = _segment(hip_l, knee_l, 'thigh')
-        parts['shin_l'] = _segment(knee_l, ankle_l, 'shin')
-        parts['knee_l'] = dict(p=knee_l, r=0, s=(0, 0))
-        parts['foot_l'] = dict(p=add(ankle_l, (0, 6)), r=90,
-                               s=(TK * 100, TK * 100))
-        return parts
-
-    return TopViewAnimation('posture_s6_pigeon_pose', T, pose, PIGEON_ORDER,
-                            shapes_fn=pigeon_shapes)
+    from topview import upright_fold
+    y = 230
+    # The front (right) leg: knee forward and out, the shin back across in
+    # front of the head while he is upright. The back (left) leg straight
+    # back; its kneecap faces the floor.
+    legs = {'r': ((222, y), (266, y - 55), (202, y - 70), ((-10, -2), 10), True),
+            'l': ((178, y), (174, y + 70), (171, y + 136), ((0, 6), 90), False)}
+    return upright_fold('posture_s6_pigeon_pose', legs, hands_up=(56, 6),
+                        hip_y=y)
 
 
 ANIMATIONS = {

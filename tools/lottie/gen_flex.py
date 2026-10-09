@@ -3,14 +3,18 @@
 
 Usage: python3 tools/lottie/gen_flex.py [--out DIR] [name ...]
 Defaults to writing every animation into assets/animations/.
+
+``flex_s3_hip_9090`` is seen from above (``topview.upright_fold``, like the
+pigeon pose): in profile the legs merge into the torso (2026-10-06).
 """
 
 import argparse
+import math
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from goro_rig import P, Spec, mk, plant, write  # noqa: E402
+from goro_rig import P, Spec, add, mk, plant, write  # noqa: E402
 
 
 # ── flex_s1_hip_flexor_stretch ───────────────────────────────────────────────
@@ -114,9 +118,44 @@ def pike():
                'leg_f': (0, -1)})
 
 
+# ── flex_s3_hip_9090 ─────────────────────────────────────────────────────────
+# From above, sitting: both knees bent at 90 degrees. The front (right) thigh
+# points forward and out, its shin lies across in front; the back (left) thigh
+# points out to the side, at a right angle to the front one, its shin back.
+# The legs are turned 30 degrees to the right so that the front thigh shows
+# beside the head. Sitting up with the hands on the knees, then the fold
+# forward over the front shin onto the forearms, as in the pigeon pose.
+
+def hip_9090():
+    from topview import upright_fold
+    y = 230
+
+    def step(p, bearing, length):
+        """``length`` px from ``p`` in a direction measured clockwise from
+        straight up the frame (the way Goro faces)."""
+        a = math.radians(bearing)
+        return (p[0] + length * math.sin(a), p[1] - length * math.cos(a))
+
+    hip_r, hip_l = (222, y), (178, y)
+    knee_r = step(hip_r, 30, 68)
+    ankle_r = step(knee_r, -60, 66)
+    knee_l = step(hip_l, -60, 68)
+    ankle_l = step(knee_l, -150, 66)
+    legs = {'r': (hip_r, knee_r, ankle_r, ((-7, -4), 30), True),
+            'l': (hip_l, knee_l, ankle_l, ((-4, 7), 120), True)}
+    # The back knee rests on its inner side: its cap shows above the thigh.
+    order = ['head', 'hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l',
+             'uarm_r', 'body', 'knee_r', 'thigh_r', 'shin_r', 'foot_r',
+             'knee_l', 'thigh_l', 'shin_l', 'foot_l', 'mat']
+    hands = {'r': add(knee_r, (-4, 6)), 'l': add(knee_l, (6, 2))}
+    return upright_fold('flex_s3_hip_9090', legs, hands_up=hands, hip_y=y,
+                        order=order)
+
+
 ANIMATIONS = {
     'flex_s1_hip_flexor_stretch': hip_flexor,
     'flex_s2_worlds_greatest_stretch': worlds_greatest,
+    'flex_s3_hip_9090': hip_9090,
     'flex_s4_thoracic_bridge': thoracic_bridge,
     'flex_s5_deep_squat_hold': deep_squat,
     'flex_s6_pike_stretch': pike,

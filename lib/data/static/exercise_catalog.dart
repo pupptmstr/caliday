@@ -2452,6 +2452,7 @@ class ExerciseCatalog {
     challengeTargetReps: 45,
     techniqueTip: 'Keep your hips square to the floor as much as possible '
         'and breathe into the stretch.',
+    animationPath: 'assets/animations/posture_s6_pigeon_pose.json',
   );
 
   // ── Neck Branch ────────────────────────────────────────────────────────────
