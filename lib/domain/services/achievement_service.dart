@@ -53,6 +53,12 @@ class AchievementService {
     return earned;
   }
 
+  /// Returns IDs of achievements newly earned after a stage advance in a
+  /// branch the user made: it has no milestones of its own, only the first
+  /// challenge counts.
+  List<String> checkAfterOwnStageAdvance({required Set<String> alreadyEarned}) =>
+      alreadyEarned.add('first_challenge') ? const ['first_challenge'] : const [];
+
   /// Returns IDs of achievements newly earned after a stage advance.
   ///
   /// [newStage] is [SkillProgress.currentStage] after [advanceStage].

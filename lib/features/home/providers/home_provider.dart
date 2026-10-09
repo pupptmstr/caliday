@@ -3,23 +3,63 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
 import '../../../data/models/user_profile.dart';
+import '../../../data/repositories/custom_course_repository.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../data/repositories/workout_repository.dart';
+import '../../../domain/models/branch.dart';
+import '../../../domain/models/course.dart';
 import '../../../domain/services/rank_decay_service.dart';
 import '../../../domain/services/streak_service.dart';
 
-/// Currently active course on the Home screen (last selected by the user).
-/// Initialized from [UserProfile.activeCourse] and persisted on change.
-class ActiveCourseNotifier extends Notifier<CourseId> {
-  @override
-  CourseId build() => ref.read(userRepositoryProvider).getProfile().activeCourse;
+/// The courses of the Courses tab, in the order of the pills: the built-in
+/// ones the user enrolled in, then their own. Invalidate it after the
+/// enrollment changes; own courses follow [customCoursesProvider] by
+/// themselves.
+final enrolledCoursesProvider = Provider<List<Course>>((ref) {
+  final profile = ref.watch(userRepositoryProvider).getProfile();
+  final own = ref.watch(customBranchesProvider);
+  return [
+    for (final c in profile.enrolledCourses) BuiltInCourse(c),
+    for (final c in ref.watch(customCoursesProvider)) OwnCourse(c, own),
+  ];
+});
 
-  void set(CourseId course) => state = course;
+/// Currently active course on the Home screen (last selected by the user):
+/// the own course of [UserProfile.activeCustomCourseId] while it exists,
+/// otherwise the built-in [UserProfile.activeCourse]. Rebuilt when the own
+/// courses or branches change, so an edited course shows its new branches.
+class ActiveCourseNotifier extends Notifier<Course> {
+  @override
+  Course build() {
+    final courses = ref.watch(customCoursesProvider);
+    final own = ref.watch(customBranchesProvider);
+    final profile = ref.read(userRepositoryProvider).getProfile();
+    final ownId = profile.activeCustomCourseId;
+    final data = courses.where((c) => c.id == ownId).firstOrNull;
+    if (data != null) return OwnCourse(data, own);
+    return BuiltInCourse(profile.activeCourse);
+  }
+
+  /// Shows [course] and remembers it in the profile.
+  void select(Course course) {
+    final repo = ref.read(userRepositoryProvider);
+    final profile = repo.getProfile();
+    switch (course) {
+      case BuiltInCourse(:final id):
+        profile.activeCustomCourseId = null;
+        final idx = profile.enrolledCourses.indexOf(id);
+        if (idx >= 0) profile.activeCourseIndex = idx;
+      case OwnCourse(:final data):
+        profile.activeCustomCourseId = data.id;
+    }
+    repo.saveProfile(profile);
+    state = course;
+  }
 }
 
 final activeCourseProvider =
-    NotifierProvider<ActiveCourseNotifier, CourseId>(ActiveCourseNotifier.new);
+    NotifierProvider<ActiveCourseNotifier, Course>(ActiveCourseNotifier.new);
 
 /// Snapshot of the data the Home / Library screen needs.
 class HomeData {
@@ -34,9 +74,9 @@ class HomeData {
   });
 
   final UserProfile profile;
-  final Map<BranchId, SkillProgress> progressMap;
+  final Map<Branch, SkillProgress> progressMap;
   final bool hasWorkoutToday;
-  final CourseId activeCourse;
+  final Course activeCourse;
 
   /// Streak value to show in the UI.
   ///
@@ -58,8 +98,8 @@ class HomeData {
   bool get isRankDecayed => effectiveRank.index < profile.rank.index;
 
   /// Branches for the currently active course.
-  List<BranchId> get activeBranches =>
-      profile.branchesForCourse(activeCourse);
+  List<Branch> get activeBranches =>
+      activeCourse.branchesFor(hasPullUpBar: profile.hasPullUpBar == true);
 }
 
 /// Reads all home-screen data from repositories in one shot.
@@ -74,10 +114,11 @@ final homeDataProvider = Provider.autoDispose<HomeData>((ref) {
   final course = ref.watch(activeCourseProvider);
 
   final profile = userRepo.getProfile();
-  final courseBranches = profile.branchesForCourse(course);
-  final progressMap = <BranchId, SkillProgress>{
+  final courseBranches =
+      course.branchesFor(hasPullUpBar: profile.hasPullUpBar == true);
+  final progressMap = <Branch, SkillProgress>{
     for (final branch in courseBranches)
-      branch: progressRepo.getProgress(branch),
+      branch: progressRepo.progressFor(branch),
   };
 
   final rankDecayService = ref.read(rankDecayServiceProvider);

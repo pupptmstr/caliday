@@ -4889,6 +4889,323 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Done'**
   String get widgetDoneLabel;
+
+  /// No description provided for @courseBuilderCreateEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Create your own course'**
+  String get courseBuilderCreateEntry;
+
+  /// No description provided for @courseBuilderCreateEntryDesc.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick branches from any course or make your own from exercises'**
+  String get courseBuilderCreateEntryDesc;
+
+  /// No description provided for @courseBuilderNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New course'**
+  String get courseBuilderNewTitle;
+
+  /// No description provided for @courseBuilderEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit course'**
+  String get courseBuilderEditTitle;
+
+  /// No description provided for @courseBuilderEditButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get courseBuilderEditButton;
+
+  /// No description provided for @courseBuilderNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Course name'**
+  String get courseBuilderNameHint;
+
+  /// No description provided for @courseBuilderNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Give the course a name'**
+  String get courseBuilderNameRequired;
+
+  /// No description provided for @courseBuilderHostTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Host'**
+  String get courseBuilderHostTitle;
+
+  /// No description provided for @courseBuilderBranchesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Branches'**
+  String get courseBuilderBranchesTitle;
+
+  /// No description provided for @courseBuilderBranchesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A built-in branch keeps one progress with its course.'**
+  String get courseBuilderBranchesHint;
+
+  /// No description provided for @courseBuilderMyBranches.
+  ///
+  /// In en, this message translates to:
+  /// **'My branches'**
+  String get courseBuilderMyBranches;
+
+  /// No description provided for @courseBuilderCreateBranch.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a branch'**
+  String get courseBuilderCreateBranch;
+
+  /// No description provided for @courseBuilderStages.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} stage} other{{count} stages}}'**
+  String courseBuilderStages(int count);
+
+  /// No description provided for @courseBuilderPickBranch.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick at least one branch'**
+  String get courseBuilderPickBranch;
+
+  /// No description provided for @courseBuilderSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save course'**
+  String get courseBuilderSave;
+
+  /// No description provided for @courseBuilderDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete course'**
+  String get courseBuilderDelete;
+
+  /// No description provided for @courseBuilderDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{name}”? The progress of its branches stays.'**
+  String courseBuilderDeleteConfirm(String name);
+
+  /// No description provided for @courseBuilderNoBranchesLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'This course has no branches to train. Tap Edit to add some.'**
+  String get courseBuilderNoBranchesLeft;
+
+  /// No description provided for @branchBuilderNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New branch'**
+  String get branchBuilderNewTitle;
+
+  /// No description provided for @branchBuilderEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit branch'**
+  String get branchBuilderEditTitle;
+
+  /// No description provided for @branchBuilderNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Branch name'**
+  String get branchBuilderNameHint;
+
+  /// No description provided for @branchBuilderNameRequired.
+  ///
+  /// In en, this message translates to:
+  /// **'Give the branch a name'**
+  String get branchBuilderNameRequired;
+
+  /// No description provided for @branchBuilderHowItWorks.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick exercises and put them in order, from easy to hard: each one becomes a stage. Reps, sets, rests and the challenges to the next stage are set by the app.'**
+  String get branchBuilderHowItWorks;
+
+  /// No description provided for @branchBuilderStagesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stages'**
+  String get branchBuilderStagesTitle;
+
+  /// No description provided for @branchBuilderEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'No exercises yet.'**
+  String get branchBuilderEmpty;
+
+  /// No description provided for @branchBuilderAddExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Add exercises'**
+  String get branchBuilderAddExercises;
+
+  /// No description provided for @branchBuilderPickExercise.
+  ///
+  /// In en, this message translates to:
+  /// **'Add at least one exercise'**
+  String get branchBuilderPickExercise;
+
+  /// No description provided for @branchBuilderSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save branch'**
+  String get branchBuilderSave;
+
+  /// No description provided for @branchBuilderDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete branch'**
+  String get branchBuilderDelete;
+
+  /// No description provided for @branchBuilderDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete “{name}”? Its progress is lost and it leaves your courses.'**
+  String branchBuilderDeleteConfirm(String name);
+
+  /// No description provided for @branchBuilderParamsReps.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to, plural, one{{to} rep} other{{to} reps}}  ·  {setsFrom} → {setsTo, plural, one{{setsTo} set} other{{setsTo} sets}}'**
+  String branchBuilderParamsReps(int from, int to, int setsFrom, int setsTo);
+
+  /// No description provided for @branchBuilderParamsTimed.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to} s  ·  {setsFrom} → {setsTo, plural, one{{setsTo} set} other{{setsTo} sets}}'**
+  String branchBuilderParamsTimed(int from, int to, int setsFrom, int setsTo);
+
+  /// No description provided for @branchBuilderParamsTimedPerSide.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to} s each side  ·  {setsFrom} → {setsTo, plural, one{{setsTo} set} other{{setsTo} sets}}'**
+  String branchBuilderParamsTimedPerSide(
+    int from,
+    int to,
+    int setsFrom,
+    int setsTo,
+  );
+
+  /// No description provided for @exercisePickerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick exercises'**
+  String get exercisePickerTitle;
+
+  /// No description provided for @exercisePickerDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done ({count})'**
+  String exercisePickerDone(int count);
+
+  /// No description provided for @hostGoro.
+  ///
+  /// In en, this message translates to:
+  /// **'Goro'**
+  String get hostGoro;
+
+  /// No description provided for @hostRaffi.
+  ///
+  /// In en, this message translates to:
+  /// **'Raffi'**
+  String get hostRaffi;
+
+  /// No description provided for @hostLuna.
+  ///
+  /// In en, this message translates to:
+  /// **'Luna'**
+  String get hostLuna;
+
+  /// No description provided for @hostAurora.
+  ///
+  /// In en, this message translates to:
+  /// **'Aurora'**
+  String get hostAurora;
+
+  /// No description provided for @hostMiso.
+  ///
+  /// In en, this message translates to:
+  /// **'Miso'**
+  String get hostMiso;
+
+  /// No description provided for @whatsNewRecent.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent updates'**
+  String get whatsNewRecent;
+
+  /// No description provided for @whatsNewHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Version history'**
+  String get whatsNewHistory;
+
+  /// No description provided for @releaseNotes093.
+  ///
+  /// In en, this message translates to:
+  /// **'Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of CaliDay, version by version, is folded below them.'**
+  String get releaseNotes093;
+
+  /// No description provided for @releaseHistory01.
+  ///
+  /// In en, this message translates to:
+  /// **'The first version: short daily workouts, SP points, streaks, reminders and a first-run setup.\nFive skills: push-ups, core, pull-ups, legs and balance; the workout takes turns between them day by day.\nThe path of a skill: every stage on one screen, and a challenge to move on early.\nAchievements, extra workouts on the same day and a dark theme.\nRussian and English.\nGoro shows every push-up stage in an animation.'**
+  String get releaseHistory01;
+
+  /// No description provided for @releaseHistory02.
+  ///
+  /// In en, this message translates to:
+  /// **'Sound and vibration during a workout.\nThe workout history.\nA new home screen with three tabs at the bottom.\nStreak freezes: one missed day no longer breaks the streak.\nThe About screen.'**
+  String get releaseHistory02;
+
+  /// No description provided for @releaseHistory03.
+  ///
+  /// In en, this message translates to:
+  /// **'A home screen widget with your streak and SP.\nApple Health and Health Connect: workouts are saved there if you want.'**
+  String get releaseHistory03;
+
+  /// No description provided for @releaseHistory04.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends: add each other with a QR code or find each other nearby over Bluetooth, and compare ranks, SP and streaks.\nThe first-run setup asks your name.'**
+  String get releaseHistory04;
+
+  /// No description provided for @releaseHistory05.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses: Calisthenics and the new Healthy Body, with posture and neck skills.\nA flexibility and mobility skill.\nExtra workouts bring two exercises from a new supplementary set.\nGoro\'s animations for the core, pull-up and leg stages.'**
+  String get releaseHistory05;
+
+  /// No description provided for @releaseHistory06.
+  ///
+  /// In en, this message translates to:
+  /// **'The exercise library: every exercise, with search and filters.\nTap the streak, the rank or the freezes in the profile to see what they mean.'**
+  String get releaseHistory06;
+
+  /// No description provided for @releaseHistory07.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own workouts: pick exercises and save them as a routine, or start a quick one by focus.\nAnimations for the balance stages.\nThe privacy policy and the terms of use.'**
+  String get releaseHistory07;
+
+  /// No description provided for @releaseHistory08.
+  ///
+  /// In en, this message translates to:
+  /// **'The stats on the home screen open the calendar, the history and the ranks; a workout calendar.\nA rank slips after long breaks and comes back with training.\nCaliDay in the browser: the web version.\nAnimations for every exercise of the first courses.\nTimed holds start by themselves after a short countdown; a hold on one side runs on both.\nWorkouts are Short, Standard or Full, with an estimate of the time that learns your pace.\n“What\'s new” under the bell in the profile; German and Spanish.\nEvery skill moves on once a day, in any workout.\nA new course, Evening Stretch, and a host for every course.'**
+  String get releaseHistory08;
+
+  /// No description provided for @releaseHistory09.
+  ///
+  /// In en, this message translates to:
+  /// **'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.'**
+  String get releaseHistory09;
 }
 
 class _AppLocalizationsDelegate

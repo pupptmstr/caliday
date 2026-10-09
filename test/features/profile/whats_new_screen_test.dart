@@ -45,11 +45,38 @@ Future<_FakeSeen> _open(WidgetTester tester, {required String? seen, String loca
 }
 
 void main() {
-  testWidgets('every version is listed with its changes', (tester) async {
+  testWidgets('the newest versions are listed with their changes', (tester) async {
     await _open(tester, seen: ReleaseNotesCatalog.latest.version);
     expect(find.text("What's new"), findsOneWidget);
-    expect(find.text('Version ${ReleaseNotesCatalog.latest.version}'), findsOneWidget);
-    expect(find.textContaining('A bell in the profile'), findsOneWidget);
+    expect(find.text('RECENT UPDATES'), findsOneWidget);
+    for (final n in ReleaseNotesCatalog.recent) {
+      expect(find.text('Version ${n.version}'), findsOneWidget, reason: n.version);
+    }
+    final older = ReleaseNotesCatalog.all.skip(ReleaseNotesCatalog.recentCount);
+    expect(older, isNotEmpty);
+    for (final n in older) {
+      expect(find.text('Version ${n.version}'), findsNothing,
+          reason: '${n.version} is kept, not shown');
+    }
+  });
+
+  testWidgets('the history is folded until tapped, then shows every line', (tester) async {
+    await _open(tester, seen: ReleaseNotesCatalog.latest.version);
+    expect(find.text('VERSION HISTORY'), findsOneWidget);
+    expect(find.text('Version 0.1'), findsNothing);
+
+    await tester.tap(find.text('VERSION HISTORY'));
+    await tester.pumpAndSettle();
+    for (final line in ReleaseNotesCatalog.lines) {
+      expect(find.text('Version ${line.version}'), findsOneWidget, reason: line.version);
+    }
+    expect(find.textContaining('The first version'), findsOneWidget);
+    expect(find.text('February – March 2026'), findsOneWidget, reason: 'the span of 0.1');
+    expect(find.text('NEW'), findsNothing, reason: 'lines are never tagged');
+
+    await tester.tap(find.text('VERSION HISTORY'));
+    await tester.pumpAndSettle();
+    expect(find.text('Version 0.1'), findsNothing);
   });
 
   // Seen up to the third newest entry: the two above it are new.
@@ -78,6 +105,12 @@ void main() {
     await _open(tester, seen: null, locale: 'ru');
     expect(find.text('Что нового'), findsOneWidget);
     expect(find.text('Версия ${ReleaseNotesCatalog.latest.version}'), findsOneWidget);
-    expect(find.text('НОВОЕ'), findsNWidgets(ReleaseNotesCatalog.all.length));
+    expect(find.text('НОВОЕ'), findsNWidgets(ReleaseNotesCatalog.recent.length),
+        reason: 'every shown entry is new to someone who saw none');
+    expect(find.text('ИСТОРИЯ ВЕРСИЙ'), findsOneWidget);
+    await tester.tap(find.text('ИСТОРИЯ ВЕРСИЙ'));
+    await tester.pumpAndSettle();
+    expect(find.text('Версия 0.1'), findsOneWidget);
+    expect(find.text('февраль – март 2026 г.'), findsOneWidget);
   });
 }

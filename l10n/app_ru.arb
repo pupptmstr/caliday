@@ -1096,5 +1096,133 @@
   },
   "notificationRankAtRiskTitle": "Ранг под угрозой! ⚠️",
   "notificationRankAtRiskBody": "14 дней без тренировок — ранг начнёт снижаться через неделю. Вернись!",
-  "widgetDoneLabel": "Готово"
+  "widgetDoneLabel": "Готово",
+  "courseBuilderCreateEntry": "Создать свой курс",
+  "courseBuilderCreateEntryDesc": "Собери ветки из любых курсов или сделай свои из упражнений",
+  "courseBuilderNewTitle": "Новый курс",
+  "courseBuilderEditTitle": "Изменить курс",
+  "courseBuilderEditButton": "Изменить",
+  "courseBuilderNameHint": "Название курса",
+  "courseBuilderNameRequired": "Дай курсу название",
+  "courseBuilderHostTitle": "Ведущий",
+  "courseBuilderBranchesTitle": "Ветки",
+  "courseBuilderBranchesHint": "У готовой ветки прогресс общий с её курсом.",
+  "courseBuilderMyBranches": "Мои ветки",
+  "courseBuilderCreateBranch": "Создать ветку",
+  "courseBuilderStages": "{count, plural, one{{count} этап} few{{count} этапа} many{{count} этапов} other{{count} этапа}}",
+  "@courseBuilderStages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "courseBuilderPickBranch": "Выбери хотя бы одну ветку",
+  "courseBuilderSave": "Сохранить курс",
+  "courseBuilderDelete": "Удалить курс",
+  "courseBuilderDeleteConfirm": "Удалить «{name}»? Прогресс его веток сохранится.",
+  "@courseBuilderDeleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "courseBuilderNoBranchesLeft": "В этом курсе нет веток для тренировки. Нажми «Изменить», чтобы добавить.",
+  "branchBuilderNewTitle": "Новая ветка",
+  "branchBuilderEditTitle": "Изменить ветку",
+  "branchBuilderNameHint": "Название ветки",
+  "branchBuilderNameRequired": "Дай ветке название",
+  "branchBuilderHowItWorks": "Выбери упражнения и расставь их от простого к сложному: каждое станет этапом. Повторы, подходы, отдых и испытания для перехода на следующий этап приложение подберёт само.",
+  "branchBuilderStagesTitle": "Этапы",
+  "branchBuilderEmpty": "Пока нет упражнений.",
+  "branchBuilderAddExercises": "Добавить упражнения",
+  "branchBuilderPickExercise": "Добавь хотя бы одно упражнение",
+  "branchBuilderSave": "Сохранить ветку",
+  "branchBuilderDelete": "Удалить ветку",
+  "branchBuilderDeleteConfirm": "Удалить «{name}»? Её прогресс пропадёт, и она уйдёт из твоих курсов.",
+  "@branchBuilderDeleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "branchBuilderParamsReps": "{from} → {to} повт.  ·  {setsFrom} → {setsTo} подх.",
+  "@branchBuilderParamsReps": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "branchBuilderParamsTimed": "{from} → {to} с  ·  {setsFrom} → {setsTo} подх.",
+  "@branchBuilderParamsTimed": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "branchBuilderParamsTimedPerSide": "{from} → {to} с на сторону  ·  {setsFrom} → {setsTo} подх.",
+  "@branchBuilderParamsTimedPerSide": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "exercisePickerTitle": "Выбери упражнения",
+  "exercisePickerDone": "Готово ({count})",
+  "@exercisePickerDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hostGoro": "Горо",
+  "hostRaffi": "Раффи",
+  "hostLuna": "Луна",
+  "hostAurora": "Аврора",
+  "hostMiso": "Мисо",
+  "whatsNewRecent": "Последние обновления",
+  "whatsNewHistory": "История версий",
+  "releaseNotes093": "Свой курс: на вкладке «Курсы» нажми + и собери ветки из любых курсов, выбери ведущего и дай курсу название.\nСвоя ветка: выбери упражнения и расставь их по порядку, каждое станет этапом. Повторы, подходы, отдых и испытания приложение подберёт само, как в любой ветке.\nВ колокольчике сверху последние обновления, а под ними свёрнута вся история CaliDay по версиям.",
+  "releaseHistory01": "Первая версия: короткие ежедневные тренировки, очки SP, серии, напоминания и первая настройка.\nПять навыков: отжимания, кор, подтягивания, ноги и баланс; тренировка чередует их по дням.\nПуть навыка: все этапы на одном экране и испытание, чтобы перейти дальше раньше.\nДостижения, дополнительные тренировки в тот же день и тёмная тема.\nРусский и английский языки.\nГоро показывает каждый этап отжиманий в анимации.",
+  "releaseHistory02": "Звук и вибрация во время тренировки.\nИстория тренировок.\nНовый главный экран с тремя вкладками внизу.\nЗаморозки серии: один пропущенный день больше не обрывает серию.\nЭкран «О приложении».",
+  "releaseHistory03": "Виджет на домашнем экране с серией и SP.\nApple Health и Health Connect: тренировки сохраняются туда, если хочешь.",
+  "releaseHistory04": "Друзья: добавляйте друг друга по QR-коду или находите рядом по Bluetooth и сравнивайте ранги, SP и серии.\nПервая настройка спрашивает твоё имя.",
+  "releaseHistory05": "Курсы: «Калистеника» и новое «Здоровое тело» с навыками осанки и шеи.\nНавык гибкости и подвижности.\nДополнительные тренировки добавляют два упражнения из нового набора.\nАнимации Горо для этапов кора, подтягиваний и ног.",
+  "releaseHistory06": "Библиотека упражнений: все упражнения с поиском и фильтрами.\nНажми на серию, ранг или заморозки в профиле, чтобы узнать, что они значат.",
+  "releaseHistory07": "Свои тренировки: выбери упражнения и сохрани подборку или начни быструю тренировку по фокусу.\nАнимации для этапов баланса.\nПолитика конфиденциальности и условия использования.",
+  "releaseHistory08": "Показатели на главном экране открывают календарь, историю и ранги; календарь тренировок.\nРанг снижается после долгих перерывов и возвращается с тренировками.\nCaliDay в браузере: веб-версия.\nАнимации для каждого упражнения первых курсов.\nУпражнения на время начинаются сами после короткого отсчёта; упражнения на одну сторону идут на обе.\nТренировка бывает короткой, стандартной или полной, с оценкой времени, которая учится твоему темпу.\n«Что нового» в колокольчике в профиле; немецкий и испанский языки.\nКаждый навык растёт раз в день, в любой тренировке.\nНовый курс «Вечерняя растяжка» и свой ведущий у каждого курса.",
+  "releaseHistory09": "Новые курсы: «Утренняя зарядка» с жаворонком Авророй и «Йога» с котом Мисо.\nВедущие вручают достижения своего курса; упражнения на каждую сторону стали короче.\nУ каждого упражнения есть анимация.\nСвои курсы: из готовых веток и своих, собранных из упражнений в твоём порядке."
 }

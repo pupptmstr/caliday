@@ -14,9 +14,15 @@ class PlannedExercise {
     required this.targetAmount,
     required this.sets,
     required this.restSec,
+    this.branchKey,
   });
 
   final Exercise exercise;
+
+  /// `Branch.key` of the branch this exercise moves on; null: its own
+  /// branch's ([Exercise.branch]). A stage of an own branch is a copy of a
+  /// catalog exercise and keeps that exercise's branch, so it needs the key.
+  final String? branchKey;
 
   /// Reps or seconds to perform per set.
   final int targetAmount;

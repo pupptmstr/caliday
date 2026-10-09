@@ -104,7 +104,7 @@ class HomeScreen extends ConsumerWidget {
           // ── Hero zone ─────────────────────────────────────────────────────
           _HeroZone(
             expression: expression,
-            course: data.activeCourse,
+            course: data.activeCourse.host,
             streak: data.displayStreak,
             totalSP: data.profile.totalSP,
             rank: data.effectiveRank,

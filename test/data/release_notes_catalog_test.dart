@@ -52,6 +52,66 @@ void main() {
     }
   });
 
+  group('the version history: one line per minor version', () {
+    final lines = ReleaseNotesCatalog.lines;
+
+    test('from the newest to 0.1, one each, the dates not running backwards', () {
+      expect(lines.first.version, ReleaseNotesCatalog.lineOf(ReleaseNotesCatalog.latest.version),
+          reason: 'a new minor version needs its line in ReleaseNotesCatalog.lines');
+      expect(lines.last.version, '0.1');
+      for (var i = 1; i < lines.length; i++) {
+        expect(ReleaseNotesCatalog.compareVersions(lines[i - 1].version, lines[i].version),
+            greaterThan(0));
+        expect(lines[i - 1].from.isBefore(lines[i].from), isFalse);
+      }
+      for (final l in lines) {
+        expect(l.to.isBefore(l.from), isFalse, reason: l.version);
+      }
+    });
+
+    test('no minor version is missing, and every release belongs to one', () {
+      final versions = lines.map((l) => l.version).toList();
+      expect(versions, [for (var m = 9; m >= 1; m--) '0.$m']);
+      for (final n in all) {
+        expect(versions, contains(ReleaseNotesCatalog.lineOf(n.version)), reason: n.version);
+      }
+    });
+
+    test('the current line reaches the newest release', () {
+      final line = lines.first;
+      expect(line.to.isBefore(ReleaseNotesCatalog.latest.date), isFalse);
+    });
+
+    test('every line has its points in every language, none left in English', () {
+      for (final l10n in allTranslations) {
+        for (final line in lines) {
+          for (final point in line.text(l10n).split('\n')) {
+            expect(point.trim(), isNotEmpty,
+                reason: '${line.version} (${l10n.localeName}) has an empty line');
+          }
+        }
+      }
+      for (final l10n in allTranslations.where((l) => l.localeName != 'en')) {
+        for (final line in lines) {
+          expect(line.text(l10n), isNot(line.text(AppLocalizationsEn())),
+              reason: '${line.version}: the ${l10n.localeName} text is the English one');
+        }
+      }
+    });
+
+    test('lineOf', () {
+      expect(ReleaseNotesCatalog.lineOf('0.8.15'), '0.8');
+      expect(ReleaseNotesCatalog.lineOf('0.9.3+33'), '0.9');
+      expect(ReleaseNotesCatalog.lineOf('1.0.0'), '1.0');
+    });
+  });
+
+  test('the recent entries are the newest, at most recentCount', () {
+    expect(ReleaseNotesCatalog.recent, all.take(ReleaseNotesCatalog.recentCount));
+    expect(ReleaseNotesCatalog.recent.length,
+        lessThanOrEqualTo(ReleaseNotesCatalog.recentCount));
+  });
+
   group('compareVersions', () {
     test('numbers, not text: 0.8.10 is newer than 0.8.9', () {
       expect(ReleaseNotesCatalog.compareVersions('0.8.10', '0.8.9'), greaterThan(0));

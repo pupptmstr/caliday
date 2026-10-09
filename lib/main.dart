@@ -15,6 +15,8 @@ import 'core/router/app_router.dart';
 import 'core/services/health_service.dart';
 import 'core/services/notification_service.dart';
 import 'core/services/widget_service.dart';
+import 'data/models/custom_branch.dart';
+import 'data/models/custom_course.dart';
 import 'data/models/custom_routine.dart';
 import 'data/models/enums.dart';
 import 'data/models/exercise_result.dart';
@@ -53,7 +55,9 @@ Future<void> main() async {
     ..registerAdapter(ExerciseResultAdapter())
     ..registerAdapter(WorkoutLogAdapter())
     ..registerAdapter(FriendProfileAdapter())
-    ..registerAdapter(CustomRoutineAdapter());
+    ..registerAdapter(CustomRoutineAdapter())
+    ..registerAdapter(CustomBranchAdapter())
+    ..registerAdapter(CustomCourseAdapter());
 
   // Open persistent boxes.
   await Future.wait([
@@ -63,6 +67,8 @@ Future<void> main() async {
     Hive.openBox<DateTime>('achievements'),
     Hive.openBox<FriendProfile>('friends'),
     Hive.openBox<CustomRoutine>('custom_routines'),
+    Hive.openBox<CustomBranch>('custom_branches'),
+    Hive.openBox<CustomCourse>('custom_courses'),
   ]);
 
   // Migrate SkillProgress keys to bare branch keys (branches are global skills).

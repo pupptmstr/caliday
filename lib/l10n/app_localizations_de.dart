@@ -2884,4 +2884,217 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get widgetDoneLabel => 'Erledigt';
+
+  @override
+  String get courseBuilderCreateEntry => 'Eigenen Kurs erstellen';
+
+  @override
+  String get courseBuilderCreateEntryDesc =>
+      'Wähle Zweige aus allen Kursen oder baue eigene aus Übungen';
+
+  @override
+  String get courseBuilderNewTitle => 'Neuer Kurs';
+
+  @override
+  String get courseBuilderEditTitle => 'Kurs bearbeiten';
+
+  @override
+  String get courseBuilderEditButton => 'Bearbeiten';
+
+  @override
+  String get courseBuilderNameHint => 'Name des Kurses';
+
+  @override
+  String get courseBuilderNameRequired => 'Gib dem Kurs einen Namen';
+
+  @override
+  String get courseBuilderHostTitle => 'Host';
+
+  @override
+  String get courseBuilderBranchesTitle => 'Zweige';
+
+  @override
+  String get courseBuilderBranchesHint =>
+      'Ein fertiger Zweig teilt seinen Fortschritt mit seinem Kurs.';
+
+  @override
+  String get courseBuilderMyBranches => 'Meine Zweige';
+
+  @override
+  String get courseBuilderCreateBranch => 'Zweig erstellen';
+
+  @override
+  String courseBuilderStages(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Stufen',
+      one: '$count Stufe',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get courseBuilderPickBranch => 'Wähle mindestens einen Zweig';
+
+  @override
+  String get courseBuilderSave => 'Kurs speichern';
+
+  @override
+  String get courseBuilderDelete => 'Kurs löschen';
+
+  @override
+  String courseBuilderDeleteConfirm(String name) {
+    return '„$name“ löschen? Der Fortschritt seiner Zweige bleibt.';
+  }
+
+  @override
+  String get courseBuilderNoBranchesLeft =>
+      'Dieser Kurs hat keine Zweige zum Trainieren. Tippe auf „Bearbeiten“, um welche hinzuzufügen.';
+
+  @override
+  String get branchBuilderNewTitle => 'Neuer Zweig';
+
+  @override
+  String get branchBuilderEditTitle => 'Zweig bearbeiten';
+
+  @override
+  String get branchBuilderNameHint => 'Name des Zweigs';
+
+  @override
+  String get branchBuilderNameRequired => 'Gib dem Zweig einen Namen';
+
+  @override
+  String get branchBuilderHowItWorks =>
+      'Wähle Übungen und ordne sie von leicht nach schwer: Jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges zur nächsten Stufe legt die App fest.';
+
+  @override
+  String get branchBuilderStagesTitle => 'Stufen';
+
+  @override
+  String get branchBuilderEmpty => 'Noch keine Übungen.';
+
+  @override
+  String get branchBuilderAddExercises => 'Übungen hinzufügen';
+
+  @override
+  String get branchBuilderPickExercise => 'Füge mindestens eine Übung hinzu';
+
+  @override
+  String get branchBuilderSave => 'Zweig speichern';
+
+  @override
+  String get branchBuilderDelete => 'Zweig löschen';
+
+  @override
+  String branchBuilderDeleteConfirm(String name) {
+    return '„$name“ löschen? Sein Fortschritt geht verloren, und er verschwindet aus deinen Kursen.';
+  }
+
+  @override
+  String branchBuilderParamsReps(int from, int to, int setsFrom, int setsTo) {
+    String _temp0 = intl.Intl.pluralLogic(
+      setsTo,
+      locale: localeName,
+      other: '$setsTo Sätze',
+      one: '$setsTo Satz',
+    );
+    return '$from → $to Wdh.  ·  $setsFrom → $_temp0';
+  }
+
+  @override
+  String branchBuilderParamsTimed(int from, int to, int setsFrom, int setsTo) {
+    String _temp0 = intl.Intl.pluralLogic(
+      setsTo,
+      locale: localeName,
+      other: '$setsTo Sätze',
+      one: '$setsTo Satz',
+    );
+    return '$from → $to s  ·  $setsFrom → $_temp0';
+  }
+
+  @override
+  String branchBuilderParamsTimedPerSide(
+    int from,
+    int to,
+    int setsFrom,
+    int setsTo,
+  ) {
+    String _temp0 = intl.Intl.pluralLogic(
+      setsTo,
+      locale: localeName,
+      other: '$setsTo Sätze',
+      one: '$setsTo Satz',
+    );
+    return '$from → $to s pro Seite  ·  $setsFrom → $_temp0';
+  }
+
+  @override
+  String get exercisePickerTitle => 'Übungen auswählen';
+
+  @override
+  String exercisePickerDone(int count) {
+    return 'Fertig ($count)';
+  }
+
+  @override
+  String get hostGoro => 'Goro';
+
+  @override
+  String get hostRaffi => 'Raffi';
+
+  @override
+  String get hostLuna => 'Luna';
+
+  @override
+  String get hostAurora => 'Aurora';
+
+  @override
+  String get hostMiso => 'Miso';
+
+  @override
+  String get whatsNewRecent => 'Neueste Updates';
+
+  @override
+  String get whatsNewHistory => 'Versionsverlauf';
+
+  @override
+  String get releaseNotes093 =>
+      'Dein eigener Kurs: Tippe im Tab „Kurse“ auf + und stell Zweige aus allen Kursen zusammen, wähle den Host und gib dem Kurs einen Namen.\nEin eigener Zweig: Wähle Übungen und bring sie in eine Reihenfolge, jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges legt die App fest, wie in jedem Zweig.\nUnter der Glocke stehen die neuesten Updates oben, darunter ist die ganze Geschichte von CaliDay Version für Version eingeklappt.';
+
+  @override
+  String get releaseHistory01 =>
+      'Die erste Version: kurze tägliche Trainings, SP-Punkte, Serien, Erinnerungen und eine Ersteinrichtung.\nFünf Skills: Liegestütze, Rumpf, Klimmzüge, Beine und Balance; das Training wechselt sie Tag für Tag ab.\nDer Weg eines Skills: alle Stufen auf einem Bildschirm und eine Challenge, um früher weiterzukommen.\nErfolge, zusätzliche Trainings am selben Tag und ein dunkles Design.\nRussisch und Englisch.\nGoro zeigt jede Liegestütz-Stufe in einer Animation.';
+
+  @override
+  String get releaseHistory02 =>
+      'Ton und Vibration während des Trainings.\nDer Trainingsverlauf.\nEin neuer Startbildschirm mit drei Tabs unten.\nSerienschutz: Ein verpasster Tag beendet die Serie nicht mehr.\nDer Bildschirm „Über die App“.';
+
+  @override
+  String get releaseHistory03 =>
+      'Ein Widget für den Startbildschirm mit Serie und SP.\nApple Health und Health Connect: Trainings werden dort gespeichert, wenn du willst.';
+
+  @override
+  String get releaseHistory04 =>
+      'Freunde: Fügt euch per QR-Code hinzu oder findet euch in der Nähe über Bluetooth und vergleicht Ränge, SP und Serien.\nDie Ersteinrichtung fragt nach deinem Namen.';
+
+  @override
+  String get releaseHistory05 =>
+      'Kurse: Calisthenics und der neue Kurs „Gesunder Körper“ mit Skills für Haltung und Nacken.\nEin Skill für Beweglichkeit und Mobilität.\nZusätzliche Trainings bringen zwei Übungen aus einem neuen Ergänzungsset mit.\nGoros Animationen für die Stufen von Rumpf, Klimmzügen und Beinen.';
+
+  @override
+  String get releaseHistory06 =>
+      'Die Übungsbibliothek: alle Übungen, mit Suche und Filtern.\nTippe im Profil auf Serie, Rang oder Serienschutz, um zu sehen, was sie bedeuten.';
+
+  @override
+  String get releaseHistory07 =>
+      'Eigene Trainings: Wähle Übungen und speichere sie als Routine oder starte eine schnelle nach Schwerpunkt.\nAnimationen für die Balance-Stufen.\nDie Datenschutzerklärung und die Nutzungsbedingungen.';
+
+  @override
+  String get releaseHistory08 =>
+      'Die Werte auf dem Startbildschirm öffnen Kalender, Verlauf und Ränge; ein Trainingskalender.\nEin Rang sinkt nach langen Pausen und kommt mit dem Training zurück.\nCaliDay im Browser: die Web-Version.\nAnimationen für jede Übung der ersten Kurse.\nÜbungen auf Zeit starten nach einem kurzen Countdown von selbst; Übungen für eine Seite laufen auf beiden.\nTrainings sind Kurz, Standard oder Voll, mit einer Zeitschätzung, die dein Tempo lernt.\n„Was ist neu“ unter der Glocke im Profil; Deutsch und Spanisch.\nJeder Skill wächst einmal am Tag, in jedem Training.\nEin neuer Kurs, „Dehnen am Abend“, und ein Host für jeden Kurs.';
+
+  @override
+  String get releaseHistory09 =>
+      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.';
 }

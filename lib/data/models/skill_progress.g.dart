@@ -17,7 +17,8 @@ class SkillProgressAdapter extends TypeAdapter<SkillProgress> {
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
     return SkillProgress(
-      branchId: fields[0] as BranchId,
+      branchId: fields[0] as BranchId?,
+      customBranchId: fields[7] as String?,
       currentStage: fields[1] == null ? 1 : (fields[1] as num).toInt(),
       currentReps: fields[2] == null ? 5 : (fields[2] as num).toInt(),
       currentSets: fields[3] == null ? 1 : (fields[3] as num).toInt(),
@@ -30,7 +31,7 @@ class SkillProgressAdapter extends TypeAdapter<SkillProgress> {
   @override
   void write(BinaryWriter writer, SkillProgress obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.branchId)
       ..writeByte(1)
@@ -44,7 +45,9 @@ class SkillProgressAdapter extends TypeAdapter<SkillProgress> {
       ..writeByte(5)
       ..write(obj.isChallengeUnlocked)
       ..writeByte(6)
-      ..write(obj.lastProgressedOn);
+      ..write(obj.lastProgressedOn)
+      ..writeByte(7)
+      ..write(obj.customBranchId);
   }
 
   @override

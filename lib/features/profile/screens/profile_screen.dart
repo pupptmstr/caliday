@@ -119,7 +119,7 @@ class ProfileScreen extends ConsumerWidget {
               // ── The active course's host ──────────────────────────────
               Center(
                 child: SvgPicture.asset(
-                  ref.watch(activeCourseProvider).hostIdle,
+                  ref.watch(activeCourseProvider).host.hostIdle,
                   height: 100,
                 ),
               ),
@@ -240,7 +240,7 @@ class ProfileScreen extends ConsumerWidget {
                 _AchievementBadgeRow(
                   ids: data.recentAchievementIds,
                   achievementRepo: achievementRepo,
-                  activeCourse: ref.watch(activeCourseProvider),
+                  activeCourse: ref.watch(activeCourseProvider).builtIn,
                 ),
 
               const SizedBox(height: 24),
@@ -585,7 +585,7 @@ class _AchievementBadgeRow extends StatelessWidget {
 
   final List<String> ids;
   final AchievementRepository achievementRepo;
-  final CourseId activeCourse;
+  final CourseId? activeCourse;
 
   @override
   Widget build(BuildContext context) {

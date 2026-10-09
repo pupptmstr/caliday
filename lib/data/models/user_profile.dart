@@ -37,6 +37,7 @@ class UserProfile extends HiveObject {
     this.activeCourseIds,
     this.activeCourseIndex,
     this.lastSeenReleaseVersion,
+    this.activeCustomCourseId,
   });
 
   @HiveField(0)
@@ -150,6 +151,12 @@ class UserProfile extends HiveObject {
   /// bell in the profile.
   @HiveField(26)
   String? lastSeenReleaseVersion;
+
+  /// `CustomCourse.id` of the user's own course shown now; null → the
+  /// built-in [activeCourse]. Set when an own course is picked, cleared when a
+  /// built-in one is.
+  @HiveField(27)
+  String? activeCustomCourseId;
 
   // ── Computed helpers ────────────────────────────────────────────────────────
 

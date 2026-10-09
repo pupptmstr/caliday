@@ -1,18 +1,21 @@
 import 'package:hive_ce/hive_ce.dart';
 
+import 'custom_branch.dart';
 import 'enums.dart';
 
 part 'skill_progress.g.dart';
 
-/// Tracks a user's current progression within one [BranchId].
+/// Tracks a user's current progression within one branch: a built-in
+/// [BranchId] or the user's own branch ([customBranchId]).
 ///
-/// One box entry per branch. Stores the current stage and the
+/// One box entry per branch, under [branchKey]. Stores the current stage and the
 /// current training load (reps/sets/rest), which increases over time
 /// until the stage's target is reached and a Challenge test is unlocked.
 @HiveType(typeId: 1)
 class SkillProgress extends HiveObject {
   SkillProgress({
-    required this.branchId,
+    this.branchId,
+    this.customBranchId,
     this.currentStage = 1,
     this.currentReps = 5,
     this.currentSets = 1,
@@ -21,8 +24,9 @@ class SkillProgress extends HiveObject {
     this.lastProgressedOn,
   });
 
+  /// The built-in branch; null for the user's own one ([customBranchId]).
   @HiveField(0)
-  BranchId branchId;
+  BranchId? branchId;
 
   /// Current stage index (1-based).
   @HiveField(1)
@@ -50,4 +54,15 @@ class SkillProgress extends HiveObject {
   /// Null: never (and for every progress saved before 0.8.19).
   @HiveField(6)
   DateTime? lastProgressedOn;
+
+  /// `CustomBranch.id` when this is the progress of the user's own branch.
+  @HiveField(7)
+  String? customBranchId;
+
+  /// The box key, and `Branch.key` of the branch: "push" or "custom_" and
+  /// the own branch's id. (Not `key`: that is [HiveObject]'s own.)
+  String get branchKey =>
+      customBranchId != null
+          ? CustomBranch.keyFor(customBranchId!)
+          : branchId!.name;
 }

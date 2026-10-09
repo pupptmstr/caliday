@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce/hive_ce.dart';
 
+import '../../domain/models/branch.dart';
 import '../models/enums.dart';
 import '../models/skill_progress.dart';
 import '../static/exercise_catalog.dart';
@@ -19,16 +20,40 @@ class SkillProgressRepository {
     return _box.get(branch.name) ?? _defaultFor(branch);
   }
 
+  /// The progress of any [branch]: [getProgress] for a built-in one; for an
+  /// own branch the stored record, or stage 1 at its start values.
+  SkillProgress progressFor(Branch branch) => switch (branch) {
+        BuiltInBranch(:final id) => getProgress(id),
+        OwnBranch(:final data) => _box.get(branch.key) ??
+            _startOf(branch, SkillProgress(customBranchId: data.id)),
+      };
+
+  static SkillProgress _startOf(Branch branch, SkillProgress p) {
+    final first = branch.stage(1);
+    if (first == null) return p;
+    return p
+      ..currentStage = 1
+      ..currentReps = first.startReps
+      ..currentSets = first.startSets
+      ..currentRestSec = first.startRestSec;
+  }
+
   /// Persists [progress] for its branch.
   Future<void> saveProgress(SkillProgress progress) {
-    return _box.put(progress.branchId.name, progress);
+    return _box.put(progress.branchKey, progress);
   }
+
+  /// Forgets the progress stored under [key] (an own branch that was deleted).
+  Future<void> deleteProgress(String key) => _box.delete(key);
 
   /// Returns progress for every branch that has been persisted so far.
   List<SkillProgress> getAll() => _box.values.toList();
 
   /// Returns true if a record exists for [branch].
   bool hasProgress(BranchId branch) => _box.containsKey(branch.name);
+
+  /// Returns true if a record is stored under [key] (`Branch.key`).
+  bool hasStored(String key) => _box.containsKey(key);
 
   /// Migrates data from legacy bare-branch keys ("push") or course-scoped keys
   /// ("calisthenics_push") to bare-branch keys. Safe to call multiple times.
@@ -56,7 +81,9 @@ class SkillProgressRepository {
   Future<void> _capRepsAtStageTarget() async {
     for (final key in _box.keys.toList()) {
       final p = _box.get(key)!;
-      final exercise = ExerciseCatalog.forStage(p.branchId, p.currentStage);
+      final branch = p.branchId;
+      if (branch == null) continue; // an own branch: its stages are derived
+      final exercise = ExerciseCatalog.forStage(branch, p.currentStage);
       if (exercise == null || p.currentReps <= exercise.targetReps) continue;
       p.currentReps = exercise.targetReps;
       await _box.put(key, p);
