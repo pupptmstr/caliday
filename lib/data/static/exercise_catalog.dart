@@ -1633,6 +1633,7 @@ class ExerciseCatalog {
     targetRestSec: 10,
     spBase: 1,
     techniqueTip: 'Keep your knees behind your toes and draw your belly in.',
+    animationPath: 'assets/animations/yoga_standing_s1_chair.json',
   );
 
   static const Exercise yogaStandingS2Warrior1 = Exercise(
@@ -1653,6 +1654,7 @@ class ExerciseCatalog {
     challengeTargetReps: 20,
     perSide: true,
     techniqueTip: 'Press the back heel into the floor and keep the back leg straight.',
+    animationPath: 'assets/animations/yoga_standing_s2_warrior_1.json',
   );
 
   static const Exercise yogaStandingS3Warrior2 = Exercise(
@@ -1673,6 +1675,7 @@ class ExerciseCatalog {
     challengeTargetReps: 30,
     perSide: true,
     techniqueTip: 'The front knee points over your middle toes, not inward.',
+    animationPath: 'assets/animations/yoga_standing_s3_warrior_2.json',
   );
 
   static const Exercise yogaStandingS4Triangle = Exercise(
@@ -1693,6 +1696,7 @@ class ExerciseCatalog {
     challengeTargetReps: 30,
     perSide: true,
     techniqueTip: "Lengthen both sides of your waist; don't sink onto the front leg.",
+    animationPath: 'assets/animations/yoga_standing_s4_triangle.json',
   );
 
   static const Exercise yogaStandingS5SideAngle = Exercise(
@@ -1713,6 +1717,7 @@ class ExerciseCatalog {
     challengeTargetReps: 30,
     perSide: true,
     techniqueTip: 'Keep the front knee over the ankle and turn your chest toward the ceiling.',
+    animationPath: 'assets/animations/yoga_standing_s5_side_angle.json',
   );
 
   static const Exercise yogaOneLegS1Tree = Exercise(
@@ -1732,6 +1737,7 @@ class ExerciseCatalog {
     spBase: 1,
     perSide: true,
     techniqueTip: 'Fix your gaze on one point and press the foot and the leg into each other.',
+    animationPath: 'assets/animations/yoga_one_leg_s1_tree.json',
   );
 
   static const Exercise yogaOneLegS2Eagle = Exercise(
@@ -1773,6 +1779,7 @@ class ExerciseCatalog {
     challengeTargetReps: 15,
     perSide: true,
     techniqueTip: 'Keep both hips level and the standing knee soft.',
+    animationPath: 'assets/animations/yoga_one_leg_s3_warrior_3.json',
   );
 
   static const Exercise yogaOneLegS4Dancer = Exercise(
@@ -1793,6 +1800,7 @@ class ExerciseCatalog {
     challengeTargetReps: 15,
     perSide: true,
     techniqueTip: 'Press the foot back into the hand rather than pulling the leg up.',
+    animationPath: 'assets/animations/yoga_one_leg_s4_dancer.json',
   );
 
   static const Exercise yogaOneLegS5HalfMoon = Exercise(
@@ -1852,6 +1860,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 15,
     techniqueTip: 'Lengthen through your legs instead of squeezing your lower back.',
+    animationPath: 'assets/animations/yoga_backbends_s2_locust.json',
   );
 
   static const Exercise yogaBackbendsS3Bridge = Exercise(
@@ -1871,6 +1880,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 20,
     techniqueTip: 'Knees point forward, not out; squeeze your glutes.',
+    animationPath: 'assets/animations/yoga_backbends_s3_bridge.json',
   );
 
   static const Exercise yogaBackbendsS4Bow = Exercise(
@@ -1890,6 +1900,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 15,
     techniqueTip: 'Keep your knees no wider than your hips.',
+    animationPath: 'assets/animations/yoga_backbends_s4_bow.json',
   );
 
   static const Exercise yogaBackbendsS5Camel = Exercise(
@@ -1987,6 +1998,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 3,
     techniqueTip: 'Breathe in as you rise, out as you fold.',
+    animationPath: 'assets/animations/yoga_flow_s3_half_sun_salutation.json',
   );
 
   static const Exercise yogaFlowS4SunSalutationA = Exercise(
@@ -2026,6 +2038,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 2,
     techniqueTip: 'Keep your breath even: it sets the pace.',
+    animationPath: 'assets/animations/yoga_flow_s5_sun_salutation_b.json',
   );
 
   /// Morning stretch-up: the one warm-up of every Morning Routine branch.
