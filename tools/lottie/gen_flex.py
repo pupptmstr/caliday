@@ -14,7 +14,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from goro_rig import P, Spec, hold_ramp, mk, plant, write  # noqa: E402
+from goro_rig import P, Spec, add, hold_ramp, mk, plant, rot, write  # noqa: E402
 
 
 # ── flex_s1_hip_flexor_stretch ───────────────────────────────────────────────
@@ -130,11 +130,12 @@ def pike():
 # knees stayed under his belly and the pose did not read.
 
 def hip_9090():
-    from frontview import Animation, HIP_DX, figure
+    from frontview import TORSO_H, Animation, HIP_DX, figure
     T = 96
     HY = 349.0                       # hip joints on screen
     E = math.radians(12)             # camera elevation
     THIGH_LEN, SHIN_LEN = 62.0, 50.0
+    TORSO = 0.68                     # leaning back: the torso looks shorter
     TURN = math.radians(78)          # knees lowered nearly to the floor
 
     def proj(p):
@@ -174,8 +175,19 @@ def hip_9090():
                              foot_scale=(0.8, 1.3), foot_off=(0, 3))
         arms = {key: ((200 + sx * 74, HY - 2), (sx, 0))
                 for key, sx in (('arm_l', -1), ('arm_r', 1))}
-        return figure(hips=(200, HY), lean=-3 * side, head=(0, 2, 3 * side),
-                      torso_scale=(1, 0.68), **legs, **arms)
+        lean = -3 * side
+        out = figure(hips=(200, HY), lean=lean, head=(0, 2, 3 * side),
+                     torso_scale=(1, TORSO), **legs, **arms)
+        # Leaning back shortens the torso from its bottom up, which left the
+        # hip joints below it and the thighs hanging in the air (owner): the
+        # body reaches down past the hips; shoulders and head stay put.
+        h = TORSO_H * TORSO
+        top = -TORSO_H / 2 - h / 2      # from the hips, along the torso
+        bottom = 6.0                    # a little below the hip joints
+        body = out['body']
+        body['p'] = add((200, HY), rot((0, (top + bottom) / 2), lean))
+        body['s'] = (body['s'][0], body['s'][1] * (bottom - top) / h)
+        return out
 
     # The hands are behind the body and the legs in front of it.
     order = ['head', 'crown', 'foot_l', 'foot_r', 'shin_l', 'shin_r',
