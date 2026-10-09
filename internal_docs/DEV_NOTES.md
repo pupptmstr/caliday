@@ -14,7 +14,7 @@ A living document. Contains current status, active feature specs in progress, an
 - Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
 - Store accounts (Apple Developer Program, Google Play Console): the release CI is drafted but disabled until they exist ("Release builds (CI)" below).
 
-The owner's plan for the **big features after that** (2026-10-07), in his order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap. The configurator is in (0.9.3); the many more exercises come on a branch of their own next (owner, 2026-10-09).
+The owner's plan for the **big features after that** (2026-10-07), in their order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap. The configurator is in (0.9.3); the many more exercises come on a branch of their own next (owner, 2026-10-09). Further ideas of 2026-10-10 (sounds, the Home middle, native widgets, animations everywhere): Active Specs § Next ideas.
 
 | Layer | Status |
 |-------|--------|
@@ -48,6 +48,85 @@ The owner's plan for the **big features after that** (2026-10-07), in his order:
 ---
 
 ## Active Specs (ideas in progress)
+
+### Next ideas (owner, 2026-10-10) — not ordered yet, the owner picks
+
+Recorded on the owner's request after the course builder (0.9.3). None is started; the open items from before stay where they are (backlog in ARCHITECTURE; below in this section: release CI, held-back dependencies, Friends on real phones, "Support the author", the parked Telegram idea, the Lottie status) — see "Still open from before" at the end.
+
+#### 1. New exercises and branches
+The "many more exercises" of the owner's third big feature, on a branch of their own: 3–4 branches outside any course, about 20 exercises with animations. Proposed gaps and the steps are in § Roadmap 3 ("Next"); a session card with the brief was proposed on 2026-10-09. Content first, agreed with the owner.
+
+#### 2. Sounds, redone from scratch
+**Concept.** Today there are four sounds from March 2026 (`assets/sounds/`: `tick`, `ding`, `pop`, `complete`, played by `SoundService`) and one `if` chain in `workout_screen.dart` (`ref.listen` on the phase) decides which plays; several different moments share one sound (`pop` = set done, side done, next exercise; `ding` = rest over and hold started). The owner wants all of them remade, more of them, one for every action inside a workout, and the sounds themselves regenerated. The workout is hands-free (ARCHITECTURE § Timed exercises: the get-ready countdown): the user is on the floor and not looking, so each moment must be recognisable by ear.
+
+**UX / mechanics — the cues (a proposal to agree):**
+| Moment | Today | Proposed |
+|--------|-------|----------|
+| Workout starts (first exercise) | — | short "start" chime |
+| Get-ready countdown, last 3 s | `tick` | soft ticks, rising on the last one |
+| Hold starts (after the countdown) | `ding` | clear "go" |
+| Hold, halfway | — | one quiet blip (optional) |
+| Hold, last 3 s | `tick` | ticks (another pitch than the get-ready ones) |
+| Side 1 done → switch sides | `pop` | a two-note "swap" |
+| Reps set confirmed / hold done | `pop` | "done" pop |
+| Rep counter − / + | — | very soft click (haptic only?) |
+| Rest starts / last 3 s / over | `pop` / `tick` / `ding` | "breathe" whoosh / ticks / "next" |
+| Rest skipped | — | short skip |
+| Pause / continue | — | two short notes, down / up |
+| Next exercise (not the next set) | `pop` | its own "next exercise" cue |
+| Challenge starts (Skala) | — | low drum |
+| Challenge passed / failed | — | fanfare / soft falling notes |
+| Workout complete | `complete` | kept as the biggest cue |
+| Summary: stage up, achievement, freeze earned or used, rank up | — | small stingers on the summary screen |
+
+**Technical tasks:**
+| # | Task |
+|---|------|
+| 1 | Agree the cue list with the owner (which moments, which are optional) |
+| 2 | `tools/sounds/gen_sounds.py` — synthesise every cue in code (like `tools/lottie`): one family of timbres (warm, marimba / wood-like, in the app's playful style), envelopes, equal loudness, short (< 0.4 s except the fanfare and `complete`); writes WAV and the shipped format; a preview page to listen and approve, as the animation stands |
+| 3 | A pure `WorkoutCue cueFor(WorkoutState prev, WorkoutState next)` (+ the tick seconds) replacing the `if` chain, with a test over the real state machine (like `workout_timer_test`) |
+| 4 | `SoundService`: one method per cue (or `play(WorkoutCue)`), a player per cue or `AudioPool` for the ticks (latency), haptics per cue |
+| 5 | Audio session: cues mix with the user's music (ducking, not stopping it) on iOS and Android; check what `audioplayers` does today (Context7 at the time) |
+| 6 | Settings: maybe "Sounds: all / key cues / off" instead of on/off — owner's call |
+
+**Technical details.** Formats: `audioplayers` plays MP3 on iOS, Android and web; keep MP3 (or AAC/M4A + OGG for the web) — decide with the generator. Assets small (the four today are 13–29 KB). No downloaded sound packs: generated in-house, no licences.
+
+**When to tackle:** any time; independent of the exercises. A session of its own.
+
+#### 3. Home screen: fill the empty middle
+**Concept.** Between the host's portrait and the two buttons at the bottom there is an empty field (only "Workout done" after a workout). The owner asked for proposals; they choose later.
+
+**Options (can be combined; the field is ~300 px on a 375 × 812 phone, less on an SE):**
+- **A. Today's plan** — the exercises of the day (`todayPlanProvider`, the very plan that runs) as a compact list or a horizontal strip: an animation thumbnail, the name, the amount ("3 × 12", "30 s each side"), the branch icon; a tap opens the exercise sheet. Answers "what am I doing today" before tapping Start.
+- **B. Today so far** — after a workout: today's workouts (`WorkoutLogTile`), SP earned today, and which branches moved on today ("Push: 10 → 12 reps", from `SkillProgress.lastProgressedOn`).
+- **C. Course progress** — the active course's branches as small bars (stage x/y), the unlocked challenge highlighted, a tap → Branch Journey.
+- **D. This week** — seven days with the trained ones, a used freeze, "the streak is at risk tonight".
+- **E. A line from the host** — a short tip or encouragement per host and mood (texts in four languages; risk of repeating).
+- **F. The next goal** — SP to the next rank, the nearest achievement, an unlocked challenge.
+
+**Recommendation:** A before today's workout (with the challenge card when one is unlocked) and B after it; D as a thin row above them. C overlaps the Courses tab, E needs a lot of text.
+
+**Technical details.** All data is already there (`homeDataProvider`, `todayPlanProvider`, the workout repository). Make the middle scrollable for small phones; the hero zone and the two buttons stay. Design rules: BRAND.md, `design-system/caliday/pages/home.md`.
+
+#### 4. Native home-screen widgets, redone
+**Concept.** The widgets (Android `caliday_widget_layout.xml` / `caliday_widget_medium_layout.xml` with RemoteViews, iOS `CaliDayWidget.swift` with `systemSmall` / `systemMedium`) show Goro, the streak, SP and (medium) the rank and "Done". The owner finds them plain: more information, more variety.
+
+**Ideas (to agree):** small — the streak big with a ring for "trained today", the host's mood; medium — the week strip (seven days), today's plan in one line ("4 exercises · ≈ 8 min") or "done, +45 SP", rank progress; a **large** widget (4 × 4 / `systemLarge`) with the week and the plan; iOS lock-screen widgets (`accessoryCircular` streak, `accessoryRectangular` plan) and StandBy; Android 12+ rounded corners and Material You colours; deep links per area (`caliday://workout`, the calendar). **Open question for the owner:** the widget is Goro's (decided 2026-10-08: Goro stays the face of the app — icon, notifications, widget); show the active course's host instead?
+
+**Technical tasks:** new keys written by `WidgetService` (texts still from the ARB files only — `widget_service_test` checks both platforms read every key), e.g. a week bitmask, a plan summary string, rank progress; native layouts per size; maybe `HomeWidget.renderFlutterWidget` (one Flutter-drawn image for both platforms — static, but the same design; check the `home_widget` API with Context7). Prerequisite on iOS: the App Group step in Xcode (a v1.0 blocker the owner clears). Checked on real devices (no web).
+
+#### 5. Exercise animations wherever an exercise is named
+**Concept.** Goro's animations play in the workout, the exercise library grid and the exercise sheet only. The owner wants one wherever an exercise name is shown: the exercise pickers (the routine builder, the branch builder), the stages of a course (Branch Journey — this takes in the older idea "Branch Journey: stage previews playing Goro's animations"), the branch cards and challenge cards of the Courses tab, the stages of the branch builder, the saved-routine sheet, the workout history tiles, the summary.
+
+**Technical details.** One shared `ExerciseThumb(exercise, size)` widget: a still frame in lists (many Lottie players in a scrolling list cost frames), playing for the item in focus or on a tap; the placeholder icon where an exercise has no animation (none today); a tap anywhere opens the existing exercise sheet. Lottie compositions are cached by the package (check `Lottie.asset` caching and `animate: false` / a fixed frame with Context7). A test that every place uses it is not needed; check the UI in the web build.
+
+**When to tackle:** after the new exercises (their animations then show everywhere at once) or together with idea 3 (the plan on Home needs the thumbnails anyway).
+
+#### Still open from before (not lost)
+- v1.0 blockers only the owner can clear: Friends on two real phones (checklist below), the HealthKit capability and the widget App Group in Xcode, store accounts (release CI drafted and disabled), native proofreading of German and Spanish and the store listings.
+- Decisions waiting: `flutter_blue_plus` 2.3 and its licence ping (§ Dependencies held back); the major dependency upgrades (go_router 18, flutter_local_notifications 22, home_widget 0.10, package_info_plus 10) on a branch of their own.
+- Ideas: "Support the author" (tax / legal first), rounded / oval frames for the animations, Rex the streak monkey (deferred), the Telegram Mini App (parked — not proposed).
+
 
 ### Release builds (CI) — drafted, disabled
 
@@ -383,6 +462,13 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-10 — The next ideas recorded; README brought up to date
+
+**What was done:** The owner's ideas of 2026-10-10 are written down as specs (Active Specs § Next ideas): new exercises and branches, sounds redone for every action of a workout, the empty middle of Home (options A–F for the owner to choose), native widgets redone, exercise animations wherever an exercise is named (it takes in the older Branch Journey preview idea); the earlier open items are listed under "Still open from before". The backlog in ARCHITECTURE got the four new rows; its achievement count is corrected (41: Yoga added four). README rewritten for 0.9.3: five courses and own ones, 20 branches, 133 exercises all animated, the hosts, four languages, the course builder, "What's new", a roadmap by version line and the next ideas; the stale stage-goal tables (they still had 60 s single-leg stands) gave way to a course table and a link to the catalog in ARCHITECTURE.
+
+**Modified files:** `internal_docs/DEV_NOTES.md`, `internal_docs/ARCHITECTURE.md`, `README.md`
+
 
 ### 2026-10-09 — The course builder; "What's new" with the whole history (0.9.3+33)
 
