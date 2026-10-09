@@ -4,10 +4,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../core/extensions/build_context_l10n.dart';
-import '../../data/models/enums.dart';
+import '../../data/models/custom_branch.dart';
+import '../../data/models/custom_course.dart';
 import '../../data/repositories/user_repository.dart';
 import '../../features/home/screens/branch_journey_screen.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../features/library/screens/branch_builder_screen.dart';
+import '../../features/library/screens/course_builder_screen.dart';
 import '../../features/library/screens/custom_routine_builder_screen.dart';
 import '../../features/library/screens/exercise_library_screen.dart';
 import '../../features/library/screens/library_screen.dart';
@@ -94,14 +97,8 @@ final routerProvider = Provider<GoRouter>((ref) {
       ),
       GoRoute(
         path: '/branch/:branchId',
-        builder: (_, state) {
-          final name = state.pathParameters['branchId']!;
-          final branch = BranchId.values.firstWhere(
-            (b) => b.name == name,
-            orElse: () => BranchId.push,
-          );
-          return BranchJourneyScreen(branchId: branch);
-        },
+        builder: (_, state) =>
+            BranchJourneyScreen(branchKey: state.pathParameters['branchId']!),
       ),
       GoRoute(
         path: '/achievements',
@@ -161,6 +158,16 @@ final routerProvider = Provider<GoRouter>((ref) {
                       final routine = state.extra as dynamic;
                       return CustomRoutineBuilderScreen(routine: routine);
                     },
+                  ),
+                  GoRoute(
+                    path: 'course-builder',
+                    builder: (_, state) => CourseBuilderScreen(
+                        course: state.extra as CustomCourse?),
+                  ),
+                  GoRoute(
+                    path: 'branch-builder',
+                    builder: (_, state) => BranchBuilderScreen(
+                        branch: state.extra as CustomBranch?),
                   ),
                 ],
               ),

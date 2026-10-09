@@ -19,7 +19,7 @@ class AchievementsScreen extends ConsumerWidget {
     final repo = ref.watch(achievementRepositoryProvider);
     final l10n = context.l10n;
     final locale = Localizations.localeOf(context).languageCode;
-    final activeCourse = ref.watch(activeCourseProvider);
+    final activeCourse = ref.watch(activeCourseProvider).builtIn;
 
     final earnedMap = repo.getAllEarned();
     // Newest-first. Ids live in Hive forever, so skip any that the catalog no

@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:caliday/data/models/custom_branch.dart';
+import 'package:caliday/data/models/custom_course.dart';
 import 'package:caliday/data/models/custom_routine.dart';
 import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/models/exercise_result.dart';
@@ -34,6 +36,8 @@ class HiveTestEnv {
       Hive.openBox<DateTime>('achievements'),
       Hive.openBox<FriendProfile>('friends'),
       Hive.openBox<CustomRoutine>('custom_routines'),
+      Hive.openBox<CustomBranch>('custom_branches'),
+      Hive.openBox<CustomCourse>('custom_courses'),
     ]);
     return HiveTestEnv._(dir);
   }
@@ -56,6 +60,8 @@ class HiveTestEnv {
       Hive.openBox<DateTime>('achievements'),
       Hive.openBox<FriendProfile>('friends'),
       Hive.openBox<CustomRoutine>('custom_routines'),
+      Hive.openBox<CustomBranch>('custom_branches'),
+      Hive.openBox<CustomCourse>('custom_courses'),
     ]);
   }
 
@@ -78,5 +84,7 @@ class HiveTestEnv {
     register(WorkoutLogAdapter());
     register(FriendProfileAdapter());
     register(CustomRoutineAdapter());
+    register(CustomBranchAdapter());
+    register(CustomCourseAdapter());
   }
 }

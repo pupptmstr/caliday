@@ -9,6 +9,7 @@ import '../../data/static/course_catalog.dart';
 import '../../data/static/exercise_catalog.dart';
 import '../../data/static/exercise_tags_catalog.dart';
 import '../../data/static/supplementary_exercise_catalog.dart';
+import '../models/branch.dart';
 import '../models/workout_plan.dart';
 
 /// Assembles a [WorkoutPlan] for the current user state.
@@ -23,6 +24,28 @@ class WorkoutGeneratorService {
   final SkillProgressRepository _progressRepo;
 
   /// Generates a [SetType.daily] plan for the given [course] and its branches.
+  /// The built-in form of [generateDailyFor].
+  WorkoutPlan generateDailyForCourse({
+    required CourseId course,
+    required List<BranchId> courseBranches,
+    int preferredMinutes = 10,
+    int? dayIndexOverride,
+    bool isPrimary = true,
+    bool hasPullUpBar = false,
+    Random? random,
+  }) =>
+      generateDailyFor(
+        branches: [for (final b in courseBranches) BuiltInBranch(b)],
+        addsSupplementary: CourseCatalog.addsSupplementary(course),
+        preferredMinutes: preferredMinutes,
+        dayIndexOverride: dayIndexOverride,
+        isPrimary: isPrimary,
+        hasPullUpBar: hasPullUpBar,
+        random: random,
+      );
+
+  /// Generates a [SetType.daily] plan from [branches] (a course's, built-in
+  /// or the user's own).
   ///
   /// Branch rotation is deterministic: based on the number of days since
   /// 2020-01-01. [preferredMinutes] is the workout size code (`WorkoutSize`:
@@ -34,24 +57,25 @@ class WorkoutGeneratorService {
   /// - ≥ 15 → all branches
   ///
   /// A bonus workout ([isPrimary] false) adds two supplementary exercises
-  /// picked with [random] (a fresh `Random()` when null; pass a seeded one,
-  /// see [supplementarySeed], to build the same plan twice).
-  WorkoutPlan generateDailyForCourse({
-    required CourseId course,
-    required List<BranchId> courseBranches,
+  /// when [addsSupplementary], picked with [random] (a fresh `Random()` when
+  /// null; pass a seeded one, see [supplementarySeed], to build the same plan
+  /// twice).
+  WorkoutPlan generateDailyFor({
+    required List<Branch> branches,
+    bool addsSupplementary = true,
     int preferredMinutes = 10,
     int? dayIndexOverride,
     bool isPrimary = true,
     bool hasPullUpBar = false,
     Random? random,
   }) {
-    if (courseBranches.isEmpty) {
+    if (branches.isEmpty) {
       return WorkoutPlan(setType: SetType.daily, exercises: const []);
     }
 
     final dayIdx = dayIndexOverride ??
         DateTime.now().toUtc().difference(DateTime.utc(2020, 1, 1)).inDays;
-    final total = courseBranches.length;
+    final total = branches.length;
     final n = preferredMinutes <= 5
         ? min(2, total)
         : preferredMinutes >= 15
@@ -59,13 +83,39 @@ class WorkoutGeneratorService {
             : min(3, total);
     final startIdx = dayIdx % total;
     final todayBranches =
-        List.generate(n, (i) => courseBranches[(startIdx + i) % total]);
+        List.generate(n, (i) => branches[(startIdx + i) % total]);
+
+    // ── Main block (one exercise per branch) ──────────────────────────────────
+    final main = <PlannedExercise>[];
+    final stageOf = <Branch, int>{};
+    for (final branch in todayBranches) {
+      final progress = _progressRepo.progressFor(branch);
+      stageOf[branch] = progress.currentStage;
+      var exercise = branch.stage(progress.currentStage);
+      if (exercise == null) continue;
+
+      if (exercise.requiresEquipment && !hasPullUpBar) {
+        exercise = branch.equipmentFreeStage(progress.currentStage) ?? exercise;
+      }
+
+      main.add(PlannedExercise(
+        exercise: exercise,
+        targetAmount: progress.currentReps,
+        sets: progress.currentSets,
+        restSec: progress.currentRestSec,
+        branchKey: branch.key,
+      ));
+    }
+    // An own branch may hold a warm-up or a cool-down as a stage: it is not
+    // added a second time around it.
+    final mainIds = {for (final p in main) p.exercise.id};
 
     final exercises = <PlannedExercise>[];
 
     // ── 1. Warmup (from the first branch) ────────────────────────────────────
-    final warmup = ExerciseCatalog.warmupFor(todayBranches.first);
-    if (warmup != null) {
+    final first = todayBranches.first;
+    final warmup = first.warmupAt(stageOf[first] ?? 1);
+    if (warmup != null && !mainIds.contains(warmup.id)) {
       exercises.add(PlannedExercise(
         exercise: warmup,
         targetAmount: warmup.startReps,
@@ -74,31 +124,15 @@ class WorkoutGeneratorService {
       ));
     }
 
-    // ── 2. Main block (one exercise per branch) ───────────────────────────────
-    for (final branch in todayBranches) {
-      final progress = _progressRepo.getProgress(branch);
-      var exercise = ExerciseCatalog.forStage(branch, progress.currentStage);
-      if (exercise == null) continue;
-
-      if (exercise.requiresEquipment && !hasPullUpBar) {
-        exercise =
-            ExerciseCatalog.equipmentFreeForStage(branch, progress.currentStage) ??
-                exercise;
-      }
-
-      exercises.add(PlannedExercise(
-        exercise: exercise,
-        targetAmount: progress.currentReps,
-        sets: progress.currentSets,
-        restSec: progress.currentRestSec,
-      ));
-    }
+    // ── 2. Main block ─────────────────────────────────────────────────────────
+    exercises.addAll(main);
 
     // ── 3. Cooldowns (max 2, from different branches) ─────────────────────────
     final cooldowns = <Exercise>[];
     final addedIds = <String>{};
     for (final branch in todayBranches) {
-      for (final c in ExerciseCatalog.cooldownsFor(branch)) {
+      for (final c in branch.cooldownsAt(stageOf[branch] ?? 1)) {
+        if (mainIds.contains(c.id)) continue;
         if (addedIds.add(c.id)) cooldowns.add(c);
         if (addedIds.length >= 2) break;
       }
@@ -119,7 +153,7 @@ class WorkoutGeneratorService {
 
     // ── 4. Supplementary block (bonus workouts only, not in every course) ─────
     if (!isPrimary &&
-        CourseCatalog.addsSupplementary(course) &&
+        addsSupplementary &&
         SupplementaryExerciseCatalog.all.isNotEmpty) {
       final pool = [...SupplementaryExerciseCatalog.all]..shuffle(random ?? Random());
       for (final supp in pool.take(2)) {
@@ -204,32 +238,37 @@ class WorkoutGeneratorService {
     ];
   }
 
+  /// Generates a [SetType.challenge] plan for [branch]; the built-in form of
+  /// [generateChallengeFor].
+  WorkoutPlan generateChallenge(BranchId branch, {bool hasPullUpBar = false}) =>
+      generateChallengeFor(BuiltInBranch(branch), hasPullUpBar: hasPullUpBar);
+
   /// Generates a [SetType.challenge] plan for [branch].
   ///
   /// Structure: warmup → current stage (1 light set) → next stage
   /// (challengeTargetReps) → cooldown.
   /// Returns a daily plan as fallback if challenge is not available.
-  WorkoutPlan generateChallenge(BranchId branch, {bool hasPullUpBar = false}) {
-    final progress = _progressRepo.getProgress(branch);
+  WorkoutPlan generateChallengeFor(Branch branch, {bool hasPullUpBar = false}) {
+    final progress = _progressRepo.progressFor(branch);
     Exercise? resolve(Exercise? e) {
       if (e == null) return null;
       if (e.requiresEquipment && !hasPullUpBar) {
-        return ExerciseCatalog.equipmentFreeForStage(branch, e.stage) ?? e;
+        return branch.equipmentFreeStage(e.stage) ?? e;
       }
       return e;
     }
 
-    final current = resolve(ExerciseCatalog.forStage(branch, progress.currentStage));
-    final next = resolve(ExerciseCatalog.forStage(branch, progress.currentStage + 1));
+    final current = resolve(branch.stage(progress.currentStage));
+    final next = resolve(branch.stage(progress.currentStage + 1));
     if (current == null || next == null) {
-      return generateDaily(activeBranches: [branch], hasPullUpBar: hasPullUpBar);
+      return generateDailyFor(branches: [branch], hasPullUpBar: hasPullUpBar);
     }
 
     final exercises = <PlannedExercise>[];
 
     // 1. Warmup
-    final warmup = ExerciseCatalog.warmupFor(branch);
-    if (warmup != null) {
+    final warmup = branch.warmupAt(progress.currentStage);
+    if (warmup != null && warmup.id != current.id && warmup.id != next.id) {
       exercises.add(PlannedExercise(
         exercise: warmup,
         targetAmount: warmup.startReps,
@@ -244,6 +283,7 @@ class WorkoutGeneratorService {
       targetAmount: current.startReps,
       sets: 1,
       restSec: progress.currentRestSec,
+      branchKey: branch.key,
     ));
 
     // 3. Challenge exercise — next stage, challengeTargetReps as target
@@ -252,10 +292,14 @@ class WorkoutGeneratorService {
       targetAmount: next.challengeTargetReps,
       sets: 1,
       restSec: next.startRestSec,
+      branchKey: branch.key,
     ));
 
     // 4. Cooldown (first cooldown for this branch)
-    final cooldowns = ExerciseCatalog.cooldownsFor(branch);
+    final cooldowns = [
+      for (final c in branch.cooldownsAt(progress.currentStage))
+        if (c.id != current.id && c.id != next.id) c,
+    ];
     if (cooldowns.isNotEmpty) {
       final cooldown = cooldowns.first;
       exercises.add(PlannedExercise(

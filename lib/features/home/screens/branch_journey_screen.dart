@@ -7,8 +7,9 @@ import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/exercise.dart';
 import '../../../data/models/skill_progress.dart';
+import '../../../data/repositories/custom_course_repository.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
-import '../../../data/static/exercise_catalog.dart';
+import '../../../domain/models/branch.dart';
 import '../../workout/providers/workout_provider.dart';
 
 // ── Stage state ───────────────────────────────────────────────────────────────
@@ -18,36 +19,41 @@ enum _StageState { completed, current, locked }
 // ── Provider ─────────────────────────────────────────────────────────────────
 
 final _branchProgressProvider =
-    Provider.family.autoDispose<SkillProgress, BranchId>(
-  (ref, branchId) =>
-      ref.watch(skillProgressRepositoryProvider).getProgress(branchId),
+    Provider.family.autoDispose<SkillProgress, Branch>(
+  (ref, branch) =>
+      ref.watch(skillProgressRepositoryProvider).progressFor(branch),
 );
 
 // ── Screen ───────────────────────────────────────────────────────────────────
 
+/// The stages of a branch, built-in or the user's own, by its `Branch.key`.
 class BranchJourneyScreen extends ConsumerWidget {
-  const BranchJourneyScreen({required this.branchId, super.key});
+  const BranchJourneyScreen({required this.branchKey, super.key});
 
-  final BranchId branchId;
+  final String branchKey;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final progress = ref.watch(_branchProgressProvider(branchId));
+    final branch = Branch.resolve(branchKey, ref.watch(customBranchesProvider));
+    if (branch == null) return Scaffold(appBar: AppBar());
+    final progress = ref.watch(_branchProgressProvider(branch));
     final l10n = context.l10n;
     final scheme = Theme.of(context).colorScheme;
 
-    final stages = ExerciseCatalog.progressionFor(branchId);
-    final completedCount = (progress.currentStage - 1).clamp(0, branchId.stageCount);
-    final canChallenge = progress.currentStage < branchId.stageCount;
+    final stages = branch.stages;
+    final completedCount = (progress.currentStage - 1).clamp(0, branch.stageCount);
+    final canChallenge = progress.currentStage < branch.stageCount;
 
     return Scaffold(
       appBar: AppBar(
         title: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(branchId.icon, size: 20),
+            Icon(branch.icon, size: 20),
             const SizedBox(width: 8),
-            Text(branchId.localizedName(l10n)),
+            Flexible(
+              child: Text(branch.name(l10n), overflow: TextOverflow.ellipsis),
+            ),
           ],
         ),
       ),
@@ -57,7 +63,7 @@ class BranchJourneyScreen extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.fromLTRB(20, 12, 20, 4),
             child: Text(
-              l10n.branchJourneyProgress(completedCount, branchId.stageCount),
+              l10n.branchJourneyProgress(completedCount, branch.stageCount),
               style: TextStyle(
                 fontSize: 13,
                 color: scheme.onSurfaceVariant,
@@ -83,7 +89,7 @@ class BranchJourneyScreen extends ConsumerWidget {
                   isLast: i == stages.length - 1,
                   onChallengeTap: stageState == _StageState.current && canChallenge
                       ? () {
-                          ref.read(challengeBranchProvider.notifier).set(branchId);
+                          ref.read(challengeBranchProvider.notifier).set(branch);
                           context.push('/workout');
                         }
                       : null,

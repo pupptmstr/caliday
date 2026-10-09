@@ -1096,5 +1096,133 @@
   },
   "notificationRankAtRiskTitle": "Rang in Gefahr! ⚠️",
   "notificationRankAtRiskBody": "14 Tage ohne Training — dein Rang beginnt bald zu sinken. Komm zurück!",
-  "widgetDoneLabel": "Erledigt"
+  "widgetDoneLabel": "Erledigt",
+  "courseBuilderCreateEntry": "Eigenen Kurs erstellen",
+  "courseBuilderCreateEntryDesc": "Wähle Zweige aus allen Kursen oder baue eigene aus Übungen",
+  "courseBuilderNewTitle": "Neuer Kurs",
+  "courseBuilderEditTitle": "Kurs bearbeiten",
+  "courseBuilderEditButton": "Bearbeiten",
+  "courseBuilderNameHint": "Name des Kurses",
+  "courseBuilderNameRequired": "Gib dem Kurs einen Namen",
+  "courseBuilderHostTitle": "Host",
+  "courseBuilderBranchesTitle": "Zweige",
+  "courseBuilderBranchesHint": "Ein fertiger Zweig teilt seinen Fortschritt mit seinem Kurs.",
+  "courseBuilderMyBranches": "Meine Zweige",
+  "courseBuilderCreateBranch": "Zweig erstellen",
+  "courseBuilderStages": "{count, plural, one{{count} Stufe} other{{count} Stufen}}",
+  "@courseBuilderStages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "courseBuilderPickBranch": "Wähle mindestens einen Zweig",
+  "courseBuilderSave": "Kurs speichern",
+  "courseBuilderDelete": "Kurs löschen",
+  "courseBuilderDeleteConfirm": "„{name}“ löschen? Der Fortschritt seiner Zweige bleibt.",
+  "@courseBuilderDeleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "courseBuilderNoBranchesLeft": "Dieser Kurs hat keine Zweige zum Trainieren. Tippe auf „Bearbeiten“, um welche hinzuzufügen.",
+  "branchBuilderNewTitle": "Neuer Zweig",
+  "branchBuilderEditTitle": "Zweig bearbeiten",
+  "branchBuilderNameHint": "Name des Zweigs",
+  "branchBuilderNameRequired": "Gib dem Zweig einen Namen",
+  "branchBuilderHowItWorks": "Wähle Übungen und ordne sie von leicht nach schwer: Jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges zur nächsten Stufe legt die App fest.",
+  "branchBuilderStagesTitle": "Stufen",
+  "branchBuilderEmpty": "Noch keine Übungen.",
+  "branchBuilderAddExercises": "Übungen hinzufügen",
+  "branchBuilderPickExercise": "Füge mindestens eine Übung hinzu",
+  "branchBuilderSave": "Zweig speichern",
+  "branchBuilderDelete": "Zweig löschen",
+  "branchBuilderDeleteConfirm": "„{name}“ löschen? Sein Fortschritt geht verloren, und er verschwindet aus deinen Kursen.",
+  "@branchBuilderDeleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "branchBuilderParamsReps": "{from} → {to} Wdh.  ·  {setsFrom} → {setsTo, plural, one{{setsTo} Satz} other{{setsTo} Sätze}}",
+  "@branchBuilderParamsReps": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "branchBuilderParamsTimed": "{from} → {to} s  ·  {setsFrom} → {setsTo, plural, one{{setsTo} Satz} other{{setsTo} Sätze}}",
+  "@branchBuilderParamsTimed": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "branchBuilderParamsTimedPerSide": "{from} → {to} s pro Seite  ·  {setsFrom} → {setsTo, plural, one{{setsTo} Satz} other{{setsTo} Sätze}}",
+  "@branchBuilderParamsTimedPerSide": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "exercisePickerTitle": "Übungen auswählen",
+  "exercisePickerDone": "Fertig ({count})",
+  "@exercisePickerDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hostGoro": "Goro",
+  "hostRaffi": "Raffi",
+  "hostLuna": "Luna",
+  "hostAurora": "Aurora",
+  "hostMiso": "Miso",
+  "whatsNewRecent": "Neueste Updates",
+  "whatsNewHistory": "Versionsverlauf",
+  "releaseNotes093": "Dein eigener Kurs: Tippe im Tab „Kurse“ auf + und stell Zweige aus allen Kursen zusammen, wähle den Host und gib dem Kurs einen Namen.\nEin eigener Zweig: Wähle Übungen und bring sie in eine Reihenfolge, jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges legt die App fest, wie in jedem Zweig.\nUnter der Glocke stehen die neuesten Updates oben, darunter ist die ganze Geschichte von CaliDay Version für Version eingeklappt.",
+  "releaseHistory01": "Die erste Version: kurze tägliche Trainings, SP-Punkte, Serien, Erinnerungen und eine Ersteinrichtung.\nFünf Skills: Liegestütze, Rumpf, Klimmzüge, Beine und Balance; das Training wechselt sie Tag für Tag ab.\nDer Weg eines Skills: alle Stufen auf einem Bildschirm und eine Challenge, um früher weiterzukommen.\nErfolge, zusätzliche Trainings am selben Tag und ein dunkles Design.\nRussisch und Englisch.\nGoro zeigt jede Liegestütz-Stufe in einer Animation.",
+  "releaseHistory02": "Ton und Vibration während des Trainings.\nDer Trainingsverlauf.\nEin neuer Startbildschirm mit drei Tabs unten.\nSerienschutz: Ein verpasster Tag beendet die Serie nicht mehr.\nDer Bildschirm „Über die App“.",
+  "releaseHistory03": "Ein Widget für den Startbildschirm mit Serie und SP.\nApple Health und Health Connect: Trainings werden dort gespeichert, wenn du willst.",
+  "releaseHistory04": "Freunde: Fügt euch per QR-Code hinzu oder findet euch in der Nähe über Bluetooth und vergleicht Ränge, SP und Serien.\nDie Ersteinrichtung fragt nach deinem Namen.",
+  "releaseHistory05": "Kurse: Calisthenics und der neue Kurs „Gesunder Körper“ mit Skills für Haltung und Nacken.\nEin Skill für Beweglichkeit und Mobilität.\nZusätzliche Trainings bringen zwei Übungen aus einem neuen Ergänzungsset mit.\nGoros Animationen für die Stufen von Rumpf, Klimmzügen und Beinen.",
+  "releaseHistory06": "Die Übungsbibliothek: alle Übungen, mit Suche und Filtern.\nTippe im Profil auf Serie, Rang oder Serienschutz, um zu sehen, was sie bedeuten.",
+  "releaseHistory07": "Eigene Trainings: Wähle Übungen und speichere sie als Routine oder starte eine schnelle nach Schwerpunkt.\nAnimationen für die Balance-Stufen.\nDie Datenschutzerklärung und die Nutzungsbedingungen.",
+  "releaseHistory08": "Die Werte auf dem Startbildschirm öffnen Kalender, Verlauf und Ränge; ein Trainingskalender.\nEin Rang sinkt nach langen Pausen und kommt mit dem Training zurück.\nCaliDay im Browser: die Web-Version.\nAnimationen für jede Übung der ersten Kurse.\nÜbungen auf Zeit starten nach einem kurzen Countdown von selbst; Übungen für eine Seite laufen auf beiden.\nTrainings sind Kurz, Standard oder Voll, mit einer Zeitschätzung, die dein Tempo lernt.\n„Was ist neu“ unter der Glocke im Profil; Deutsch und Spanisch.\nJeder Skill wächst einmal am Tag, in jedem Training.\nEin neuer Kurs, „Dehnen am Abend“, und ein Host für jeden Kurs.",
+  "releaseHistory09": "Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge."
 }

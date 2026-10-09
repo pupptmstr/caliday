@@ -213,6 +213,15 @@ extension CourseIdExtension on CourseId {
         CourseId.yoga => 'assets/hosts/miso_face_$mood.svg',
       };
 
+  /// The host's name (the host picker of the course builder).
+  String hostName(AppLocalizations l10n) => switch (this) {
+        CourseId.calisthenics => l10n.hostGoro,
+        CourseId.healthyBody => l10n.hostRaffi,
+        CourseId.eveningStretch => l10n.hostLuna,
+        CourseId.morningRoutine => l10n.hostAurora,
+        CourseId.yoga => l10n.hostMiso,
+      };
+
   /// The host standing calmly (Profile).
   String get hostIdle => switch (this) {
         CourseId.calisthenics => 'assets/goro/goro_idle_v2.svg',

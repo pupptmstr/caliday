@@ -1096,5 +1096,133 @@
   },
   "notificationRankAtRiskTitle": "¡Rango en peligro! ⚠️",
   "notificationRankAtRiskBody": "14 días sin entrenar: tu rango empezará a bajar pronto. ¡Vuelve!",
-  "widgetDoneLabel": "Hecho"
+  "widgetDoneLabel": "Hecho",
+  "courseBuilderCreateEntry": "Crear tu propio curso",
+  "courseBuilderCreateEntryDesc": "Elige ramas de cualquier curso o crea las tuyas con ejercicios",
+  "courseBuilderNewTitle": "Nuevo curso",
+  "courseBuilderEditTitle": "Editar curso",
+  "courseBuilderEditButton": "Editar",
+  "courseBuilderNameHint": "Nombre del curso",
+  "courseBuilderNameRequired": "Ponle un nombre al curso",
+  "courseBuilderHostTitle": "Anfitrión",
+  "courseBuilderBranchesTitle": "Ramas",
+  "courseBuilderBranchesHint": "Una rama ya hecha comparte el progreso con su curso.",
+  "courseBuilderMyBranches": "Mis ramas",
+  "courseBuilderCreateBranch": "Crear una rama",
+  "courseBuilderStages": "{count, plural, one{{count} etapa} other{{count} etapas}}",
+  "@courseBuilderStages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "courseBuilderPickBranch": "Elige al menos una rama",
+  "courseBuilderSave": "Guardar curso",
+  "courseBuilderDelete": "Eliminar curso",
+  "courseBuilderDeleteConfirm": "¿Eliminar «{name}»? El progreso de sus ramas se conserva.",
+  "@courseBuilderDeleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "courseBuilderNoBranchesLeft": "Este curso no tiene ramas para entrenar. Toca «Editar» para añadir alguna.",
+  "branchBuilderNewTitle": "Nueva rama",
+  "branchBuilderEditTitle": "Editar rama",
+  "branchBuilderNameHint": "Nombre de la rama",
+  "branchBuilderNameRequired": "Ponle un nombre a la rama",
+  "branchBuilderHowItWorks": "Elige ejercicios y ordénalos de fácil a difícil: cada uno será una etapa. Las repeticiones, las series, los descansos y los retos para pasar de etapa los pone la app.",
+  "branchBuilderStagesTitle": "Etapas",
+  "branchBuilderEmpty": "Aún no hay ejercicios.",
+  "branchBuilderAddExercises": "Añadir ejercicios",
+  "branchBuilderPickExercise": "Añade al menos un ejercicio",
+  "branchBuilderSave": "Guardar rama",
+  "branchBuilderDelete": "Eliminar rama",
+  "branchBuilderDeleteConfirm": "¿Eliminar «{name}»? Se pierde su progreso y sale de tus cursos.",
+  "@branchBuilderDeleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "branchBuilderParamsReps": "{from} → {to} rep.  ·  {setsFrom} → {setsTo, plural, one{{setsTo} serie} other{{setsTo} series}}",
+  "@branchBuilderParamsReps": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "branchBuilderParamsTimed": "{from} → {to} s  ·  {setsFrom} → {setsTo, plural, one{{setsTo} serie} other{{setsTo} series}}",
+  "@branchBuilderParamsTimed": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "branchBuilderParamsTimedPerSide": "{from} → {to} s por lado  ·  {setsFrom} → {setsTo, plural, one{{setsTo} serie} other{{setsTo} series}}",
+  "@branchBuilderParamsTimedPerSide": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "exercisePickerTitle": "Elige ejercicios",
+  "exercisePickerDone": "Listo ({count})",
+  "@exercisePickerDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hostGoro": "Goro",
+  "hostRaffi": "Raffi",
+  "hostLuna": "Luna",
+  "hostAurora": "Aurora",
+  "hostMiso": "Miso",
+  "whatsNewRecent": "Últimas actualizaciones",
+  "whatsNewHistory": "Historial de versiones",
+  "releaseNotes093": "Tu propio curso: en la pestaña Cursos toca + y reúne ramas de cualquier curso, elige el anfitrión y ponle un nombre.\nUna rama propia: elige ejercicios y ordénalos, cada uno será una etapa. Las repeticiones, las series, los descansos y los retos los pone la app, como en cualquier rama.\nEn la campana, arriba están las últimas actualizaciones y debajo, plegada, toda la historia de CaliDay versión a versión.",
+  "releaseHistory01": "La primera versión: entrenamientos diarios cortos, puntos SP, rachas, recordatorios y una configuración inicial.\nCinco habilidades: flexiones, core, dominadas, piernas y equilibrio; el entrenamiento las alterna día a día.\nEl camino de una habilidad: todas las etapas en una pantalla y un reto para avanzar antes.\nLogros, entrenamientos extra el mismo día y un tema oscuro.\nRuso e inglés.\nGoro muestra cada etapa de las flexiones en una animación.",
+  "releaseHistory02": "Sonido y vibración durante el entrenamiento.\nEl historial de entrenamientos.\nUna pantalla de inicio nueva con tres pestañas abajo.\nProtectores de racha: un día perdido ya no rompe la racha.\nLa pantalla «Acerca de».",
+  "releaseHistory03": "Un widget para la pantalla de inicio con tu racha y tus SP.\nApple Health y Health Connect: los entrenamientos se guardan allí si quieres.",
+  "releaseHistory04": "Amigos: agregaos con un código QR o encontraos cerca por Bluetooth y comparad rangos, SP y rachas.\nLa configuración inicial pregunta tu nombre.",
+  "releaseHistory05": "Cursos: Calistenia y el nuevo Cuerpo sano, con habilidades de postura y cuello.\nUna habilidad de flexibilidad y movilidad.\nLos entrenamientos extra traen dos ejercicios de un nuevo conjunto complementario.\nAnimaciones de Goro para las etapas de core, dominadas y piernas.",
+  "releaseHistory06": "La biblioteca de ejercicios: todos los ejercicios, con búsqueda y filtros.\nToca la racha, el rango o los protectores en el perfil para ver qué significan.",
+  "releaseHistory07": "Tus propios entrenamientos: elige ejercicios y guárdalos como rutina, o empieza una rápida por enfoque.\nAnimaciones para las etapas de equilibrio.\nLa política de privacidad y las condiciones de uso.",
+  "releaseHistory08": "Las estadísticas de la pantalla de inicio abren el calendario, el historial y los rangos; un calendario de entrenamientos.\nEl rango baja tras pausas largas y vuelve con el entrenamiento.\nCaliDay en el navegador: la versión web.\nAnimaciones para cada ejercicio de los primeros cursos.\nLos ejercicios por tiempo empiezan solos tras una cuenta atrás corta; los de un lado se hacen a ambos.\nLos entrenamientos son Corto, Estándar o Completo, con una estimación del tiempo que aprende tu ritmo.\n«Novedades» en la campana del perfil; alemán y español.\nCada habilidad avanza una vez al día, en cualquier entrenamiento.\nUn curso nuevo, Estiramiento nocturno, y un anfitrión para cada curso.",
+  "releaseHistory09": "Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden."
 }

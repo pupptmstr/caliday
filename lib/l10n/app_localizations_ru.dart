@@ -2873,4 +2873,201 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get widgetDoneLabel => 'Готово';
+
+  @override
+  String get courseBuilderCreateEntry => 'Создать свой курс';
+
+  @override
+  String get courseBuilderCreateEntryDesc =>
+      'Собери ветки из любых курсов или сделай свои из упражнений';
+
+  @override
+  String get courseBuilderNewTitle => 'Новый курс';
+
+  @override
+  String get courseBuilderEditTitle => 'Изменить курс';
+
+  @override
+  String get courseBuilderEditButton => 'Изменить';
+
+  @override
+  String get courseBuilderNameHint => 'Название курса';
+
+  @override
+  String get courseBuilderNameRequired => 'Дай курсу название';
+
+  @override
+  String get courseBuilderHostTitle => 'Ведущий';
+
+  @override
+  String get courseBuilderBranchesTitle => 'Ветки';
+
+  @override
+  String get courseBuilderBranchesHint =>
+      'У готовой ветки прогресс общий с её курсом.';
+
+  @override
+  String get courseBuilderMyBranches => 'Мои ветки';
+
+  @override
+  String get courseBuilderCreateBranch => 'Создать ветку';
+
+  @override
+  String courseBuilderStages(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count этапа',
+      many: '$count этапов',
+      few: '$count этапа',
+      one: '$count этап',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get courseBuilderPickBranch => 'Выбери хотя бы одну ветку';
+
+  @override
+  String get courseBuilderSave => 'Сохранить курс';
+
+  @override
+  String get courseBuilderDelete => 'Удалить курс';
+
+  @override
+  String courseBuilderDeleteConfirm(String name) {
+    return 'Удалить «$name»? Прогресс его веток сохранится.';
+  }
+
+  @override
+  String get courseBuilderNoBranchesLeft =>
+      'В этом курсе нет веток для тренировки. Нажми «Изменить», чтобы добавить.';
+
+  @override
+  String get branchBuilderNewTitle => 'Новая ветка';
+
+  @override
+  String get branchBuilderEditTitle => 'Изменить ветку';
+
+  @override
+  String get branchBuilderNameHint => 'Название ветки';
+
+  @override
+  String get branchBuilderNameRequired => 'Дай ветке название';
+
+  @override
+  String get branchBuilderHowItWorks =>
+      'Выбери упражнения и расставь их от простого к сложному: каждое станет этапом. Повторы, подходы, отдых и испытания для перехода на следующий этап приложение подберёт само.';
+
+  @override
+  String get branchBuilderStagesTitle => 'Этапы';
+
+  @override
+  String get branchBuilderEmpty => 'Пока нет упражнений.';
+
+  @override
+  String get branchBuilderAddExercises => 'Добавить упражнения';
+
+  @override
+  String get branchBuilderPickExercise => 'Добавь хотя бы одно упражнение';
+
+  @override
+  String get branchBuilderSave => 'Сохранить ветку';
+
+  @override
+  String get branchBuilderDelete => 'Удалить ветку';
+
+  @override
+  String branchBuilderDeleteConfirm(String name) {
+    return 'Удалить «$name»? Её прогресс пропадёт, и она уйдёт из твоих курсов.';
+  }
+
+  @override
+  String branchBuilderParamsReps(int from, int to, int setsFrom, int setsTo) {
+    return '$from → $to повт.  ·  $setsFrom → $setsTo подх.';
+  }
+
+  @override
+  String branchBuilderParamsTimed(int from, int to, int setsFrom, int setsTo) {
+    return '$from → $to с  ·  $setsFrom → $setsTo подх.';
+  }
+
+  @override
+  String branchBuilderParamsTimedPerSide(
+    int from,
+    int to,
+    int setsFrom,
+    int setsTo,
+  ) {
+    return '$from → $to с на сторону  ·  $setsFrom → $setsTo подх.';
+  }
+
+  @override
+  String get exercisePickerTitle => 'Выбери упражнения';
+
+  @override
+  String exercisePickerDone(int count) {
+    return 'Готово ($count)';
+  }
+
+  @override
+  String get hostGoro => 'Горо';
+
+  @override
+  String get hostRaffi => 'Раффи';
+
+  @override
+  String get hostLuna => 'Луна';
+
+  @override
+  String get hostAurora => 'Аврора';
+
+  @override
+  String get hostMiso => 'Мисо';
+
+  @override
+  String get whatsNewRecent => 'Последние обновления';
+
+  @override
+  String get whatsNewHistory => 'История версий';
+
+  @override
+  String get releaseNotes093 =>
+      'Свой курс: на вкладке «Курсы» нажми + и собери ветки из любых курсов, выбери ведущего и дай курсу название.\nСвоя ветка: выбери упражнения и расставь их по порядку, каждое станет этапом. Повторы, подходы, отдых и испытания приложение подберёт само, как в любой ветке.\nВ колокольчике сверху последние обновления, а под ними свёрнута вся история CaliDay по версиям.';
+
+  @override
+  String get releaseHistory01 =>
+      'Первая версия: короткие ежедневные тренировки, очки SP, серии, напоминания и первая настройка.\nПять навыков: отжимания, кор, подтягивания, ноги и баланс; тренировка чередует их по дням.\nПуть навыка: все этапы на одном экране и испытание, чтобы перейти дальше раньше.\nДостижения, дополнительные тренировки в тот же день и тёмная тема.\nРусский и английский языки.\nГоро показывает каждый этап отжиманий в анимации.';
+
+  @override
+  String get releaseHistory02 =>
+      'Звук и вибрация во время тренировки.\nИстория тренировок.\nНовый главный экран с тремя вкладками внизу.\nЗаморозки серии: один пропущенный день больше не обрывает серию.\nЭкран «О приложении».';
+
+  @override
+  String get releaseHistory03 =>
+      'Виджет на домашнем экране с серией и SP.\nApple Health и Health Connect: тренировки сохраняются туда, если хочешь.';
+
+  @override
+  String get releaseHistory04 =>
+      'Друзья: добавляйте друг друга по QR-коду или находите рядом по Bluetooth и сравнивайте ранги, SP и серии.\nПервая настройка спрашивает твоё имя.';
+
+  @override
+  String get releaseHistory05 =>
+      'Курсы: «Калистеника» и новое «Здоровое тело» с навыками осанки и шеи.\nНавык гибкости и подвижности.\nДополнительные тренировки добавляют два упражнения из нового набора.\nАнимации Горо для этапов кора, подтягиваний и ног.';
+
+  @override
+  String get releaseHistory06 =>
+      'Библиотека упражнений: все упражнения с поиском и фильтрами.\nНажми на серию, ранг или заморозки в профиле, чтобы узнать, что они значат.';
+
+  @override
+  String get releaseHistory07 =>
+      'Свои тренировки: выбери упражнения и сохрани подборку или начни быструю тренировку по фокусу.\nАнимации для этапов баланса.\nПолитика конфиденциальности и условия использования.';
+
+  @override
+  String get releaseHistory08 =>
+      'Показатели на главном экране открывают календарь, историю и ранги; календарь тренировок.\nРанг снижается после долгих перерывов и возвращается с тренировками.\nCaliDay в браузере: веб-версия.\nАнимации для каждого упражнения первых курсов.\nУпражнения на время начинаются сами после короткого отсчёта; упражнения на одну сторону идут на обе.\nТренировка бывает короткой, стандартной или полной, с оценкой времени, которая учится твоему темпу.\n«Что нового» в колокольчике в профиле; немецкий и испанский языки.\nКаждый навык растёт раз в день, в любой тренировке.\nНовый курс «Вечерняя растяжка» и свой ведущий у каждого курса.';
+
+  @override
+  String get releaseHistory09 =>
+      'Новые курсы: «Утренняя зарядка» с жаворонком Авророй и «Йога» с котом Мисо.\nВедущие вручают достижения своего курса; упражнения на каждую сторону стали короче.\nУ каждого упражнения есть анимация.\nСвои курсы: из готовых веток и своих, собранных из упражнений в твоём порядке.';
 }

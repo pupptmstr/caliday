@@ -3,6 +3,8 @@
 // Check in to version control
 
 import 'package:hive_ce/hive_ce.dart';
+import 'package:caliday/data/models/custom_branch.dart';
+import 'package:caliday/data/models/custom_course.dart';
 import 'package:caliday/data/models/custom_routine.dart';
 import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/models/exercise_result.dart';
@@ -15,6 +17,8 @@ extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(BranchIdAdapter());
     registerAdapter(CourseIdAdapter());
+    registerAdapter(CustomBranchAdapter());
+    registerAdapter(CustomCourseAdapter());
     registerAdapter(CustomRoutineAdapter());
     registerAdapter(ExerciseResultAdapter());
     registerAdapter(ExerciseTypeAdapter());
@@ -32,6 +36,8 @@ extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
     registerAdapter(BranchIdAdapter());
     registerAdapter(CourseIdAdapter());
+    registerAdapter(CustomBranchAdapter());
+    registerAdapter(CustomCourseAdapter());
     registerAdapter(CustomRoutineAdapter());
     registerAdapter(ExerciseResultAdapter());
     registerAdapter(ExerciseTypeAdapter());

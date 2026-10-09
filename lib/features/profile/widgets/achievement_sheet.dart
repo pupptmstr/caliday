@@ -10,7 +10,7 @@ import '../../../data/static/course_catalog.dart';
 /// The course whose host presents [a]: a branch achievement belongs to its
 /// branch's course ([active] when it holds the branch); the others belong to
 /// the app itself and get null.
-CourseId? achievementCourse(Achievement a, CourseId active) =>
+CourseId? achievementCourse(Achievement a, CourseId? active) =>
     a.branch == null ? null : CourseCatalog.courseOf(a.branch!, active: active);
 
 /// An achievement's emoji on one line: the rank ones are two or three stars
@@ -36,7 +36,7 @@ class AchievementEmoji extends StatelessWidget {
 void showAchievementSheet(
   BuildContext context,
   Achievement a, {
-  required CourseId active,
+  required CourseId? active,
   String? earnedOn,
 }) {
   final scheme = Theme.of(context).colorScheme;

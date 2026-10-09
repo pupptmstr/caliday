@@ -7,9 +7,12 @@ import '../../../data/models/enums.dart';
 import '../../../data/models/exercise_result.dart';
 import '../../../data/models/workout_log.dart';
 import '../../../data/repositories/achievement_repository.dart';
+import '../../../data/repositories/custom_course_repository.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../data/repositories/workout_repository.dart';
+import '../../../domain/models/branch.dart';
+import '../../../domain/models/course.dart';
 import '../../../domain/models/workout_plan.dart';
 import '../../../domain/services/achievement_service.dart';
 import '../../../domain/services/progression_service.dart';
@@ -19,6 +22,7 @@ import '../../../domain/services/streak_service.dart';
 import '../../../domain/services/workout_energy.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../../domain/services/workout_pace.dart';
+import '../../../domain/services/workout_progression.dart';
 import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/services/notification_service.dart';
@@ -29,16 +33,16 @@ import '../../settings/providers/settings_provider.dart';
 
 // ── Challenge branch selector ──────────────────────────────────────────────────
 
-/// Set to a [BranchId] before navigating to /workout to launch a challenge.
+/// Set to a [Branch] before navigating to /workout to launch a challenge.
 /// null means normal daily workout. Reset automatically after workout ends.
-class ChallengeBranchNotifier extends Notifier<BranchId?> {
+class ChallengeBranchNotifier extends Notifier<Branch?> {
   @override
-  BranchId? build() => null;
-  void set(BranchId? value) => state = value;
+  Branch? build() => null;
+  void set(Branch? value) => state = value;
 }
 
 final challengeBranchProvider =
-    NotifierProvider<ChallengeBranchNotifier, BranchId?>(ChallengeBranchNotifier.new);
+    NotifierProvider<ChallengeBranchNotifier, Branch?>(ChallengeBranchNotifier.new);
 
 // ── Custom workout plan selector ───────────────────────────────────────────────
 
@@ -70,9 +74,9 @@ WorkoutPlan buildDailyPlan(Ref ref) {
   final course = ref.read(activeCourseProvider);
   final workoutRepo = ref.read(workoutRepositoryProvider);
   final now = DateTime.now();
-  return generator.generateDailyForCourse(
-    course: course,
-    courseBranches: profile.branchesForCourse(course),
+  return generator.generateDailyFor(
+    branches: course.branchesFor(hasPullUpBar: profile.hasPullUpBar == true),
+    addsSupplementary: course.addsSupplementary,
     preferredMinutes: profile.preferredWorkoutMinutes ?? 10,
     isPrimary: !workoutRepo.hasPrimaryWorkoutToday(),
     hasPullUpBar: profile.hasPullUpBar == true,
@@ -337,7 +341,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
     final challengeBranch = ref.read(challengeBranchProvider);
     if (challengeBranch != null) {
       final profile = ref.read(userRepositoryProvider).getProfile();
-      return ref.read(workoutGeneratorServiceProvider).generateChallenge(
+      return ref.read(workoutGeneratorServiceProvider).generateChallengeFor(
             challengeBranch,
             hasPullUpBar: profile.hasPullUpBar == true,
           );
@@ -608,47 +612,19 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
     userRepo.saveProfile(profile);
 
     // ── Progression — each branch once a day, in any workout ──────────────
-    final progressionService = ref.read(progressionServiceProvider);
     final progressRepo = ref.read(skillProgressRepositoryProvider);
-    bool challengeUnlocked = false;
-    bool challengePassed = false;
-    String? newStageExerciseId;
-
-    BranchId? advancedBranch;
-    int advancedToStage = 0;
-
-    for (var i = 0; i < state.plan.exercises.length; i++) {
-      final planned = state.plan.exercises[i];
-      final result = results[i];
-      if (result == null || planned.exercise.stage == 0) continue;
-
-      final progress = progressRepo.getProgress(planned.exercise.branch);
-
-      if (planned.exercise.stage > progress.currentStage) {
-        // Challenge exercise: always advance stage even in bonus workouts.
-        final exercise = planned.exercise;
-        final passed = exercise.type == ExerciseType.timed
-            ? (result.actualDurationSec ?? 0) >= exercise.challengeTargetReps
-            : result.completedReps >= exercise.challengeTargetReps;
-        if (passed) {
-          progressionService.advanceStage(progress, exercise);
-          challengePassed = true;
-          newStageExerciseId = exercise.id;
-          advancedBranch = planned.exercise.branch;
-          advancedToStage = progress.currentStage;
-        }
-        // If failed: isChallengeUnlocked stays true, progress unchanged.
-        progressRepo.saveProgress(progress);
-      } else {
-        // Regular progression: the branch's first successful set of the day
-        // at its current stage, whether this workout is primary or a bonus.
-        final unlocked = progressionService.applyDailyResult(
-            progress, planned.exercise, result,
-            now: now);
-        if (unlocked) challengeUnlocked = true;
-        progressRepo.saveProgress(progress);
-      }
+    final progression = WorkoutProgression.apply(
+      plan: state.plan,
+      results: results,
+      ownBranches: ref.read(customBranchesProvider),
+      progressFor: progressRepo.progressFor,
+      now: now,
+      progression: ref.read(progressionServiceProvider),
+    );
+    for (final p in progression.touched) {
+      progressRepo.saveProgress(p);
     }
+    final advancedBranch = progression.advancedBranch;
 
     // Reset challenge branch and custom plan after workout.
     ref.read(challengeBranchProvider.notifier).set(null);
@@ -658,7 +634,8 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
     // workoutsToday captured before addLog to avoid relying on Hive sync timing.
     final workoutsToday = workoutRepo.getCountForDate(now) + 1;
     // Fire-and-forget: Hive write is async but nearly instantaneous locally.
-    // Custom workouts use courseIdIndex = null (not part of any course).
+    // Custom routines and own courses use courseIdIndex = null (not a
+    // built-in course).
     unawaited(workoutRepo.addLog(WorkoutLog(
       date: now,
       setType: state.plan.setType,
@@ -666,7 +643,12 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
       spEarned: spEarned,
       durationSec: durationSec,
       isPrimary: isPrimary,
-      courseIdIndex: isCustomWorkout ? null : course.index,
+      courseIdIndex: isCustomWorkout
+          ? null
+          : switch (course) {
+              BuiltInCourse(:final id) => id.index,
+              OwnCourse() => null,
+            },
       freezeUsed: freezeUsed,
       freezeEarned: freezeEarned,
       // The raw estimate, so the pace can be learned from how long it took.
@@ -701,17 +683,20 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
     final alreadyEarned = Set<String>.from(achievementRepo.getAllEarnedIds());
     final newAchievements = <String>[];
 
-    if (challengePassed && advancedBranch != null) {
+    if (progression.challengePassed && advancedBranch is BuiltInBranch) {
       final allProgress = {
         for (final b in BranchId.values) b: progressRepo.getProgress(b),
       };
       final stageAchievements = achievementService.checkAfterStageAdvance(
-        branch: advancedBranch,
-        newStage: advancedToStage,
+        branch: advancedBranch.id,
+        newStage: progression.advancedToStage,
         allProgress: allProgress,
         alreadyEarned: alreadyEarned,
       );
       newAchievements.addAll(stageAchievements);
+    } else if (progression.challengePassed && advancedBranch != null) {
+      newAchievements.addAll(
+          achievementService.checkAfterOwnStageAdvance(alreadyEarned: alreadyEarned));
     }
 
     newAchievements.addAll(achievementService.checkAfterWorkout(
@@ -755,15 +740,16 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
       durationSec: durationSec,
       freezeEarned: freezeEarned,
       freezeUsed: freezeUsed,
-      challengeUnlocked: challengeUnlocked,
-      challengePassed: challengePassed,
-      newStageExerciseId: newStageExerciseId,
+      challengeUnlocked: progression.challengeUnlocked,
+      challengePassed: progression.challengePassed,
+      newStageExerciseId: progression.newStageExerciseId,
       isPrimary: isPrimary,
       workoutsToday: workoutsToday,
       newAchievementIds: newAchievements,
       rankRestored: rankWasDecayed,
       healthSaved: healthSaved,
-      courseIdIndex: isCustomWorkout ? null : course.index,
+      // The summary shows the host of this course (an own one's chosen host).
+      courseIdIndex: isCustomWorkout ? null : course.host.index,
     );
   }
 }

@@ -81,23 +81,28 @@ lib/
 │   │   ├── friend_profile.dart + .g.dart
 │   │   ├── friend_qr_codec.dart       ← FriendQrCodec: the compact binary QR format (v2) + the old JSON one (v1)
 │   │   ├── ble_profile_codec.dart     ← BleProfileCodec: profile JSON <-> the GATT characteristic bytes
-│   │   └── custom_routine.dart + .g.dart
+│   │   ├── custom_routine.dart + .g.dart
+│   │   ├── custom_branch.dart + .g.dart ← CustomBranch: the user's own branch (exercise ids in order)
+│   │   └── custom_course.dart + .g.dart ← CustomCourse: the user's own course (branch keys, host)
 │   ├── repositories/
 │   │   ├── user_repository.dart
 │   │   ├── skill_progress_repository.dart
 │   │   ├── workout_repository.dart
 │   │   ├── achievement_repository.dart
 │   │   ├── friend_repository.dart     ← Box<FriendProfile> 'friends', keyed by friend.id
-│   │   └── custom_routine_repository.dart ← CustomRoutineRepository + CustomRoutinesNotifier + customRoutinesProvider
+│   │   ├── custom_routine_repository.dart ← CustomRoutineRepository + CustomRoutinesNotifier + customRoutinesProvider
+│   │   └── custom_course_repository.dart ← own branches and courses: repositories + customBranchesProvider / customCoursesProvider
 │   └── static/
 │       ├── exercise_catalog.dart      ← Push(7)+Pull(6)+Core(6)+Legs(5)+Balance(6)+Flex(6)+Posture(6)+Neck(5) + warmup/cooldown; `libraryAll` getter
 │       ├── supplementary_exercise_catalog.dart ← 9 supplementary exercises (bonus workouts, custom routines)
 │       ├── exercise_tags_catalog.dart ← static map exerciseId → List<ExerciseTag> (separate from catalog)
 │       ├── course_catalog.dart        ← CourseCatalog.branchesFor(CourseId)
 │       ├── achievement_catalog.dart   ← 29 achievements
-│       └── release_notes_catalog.dart ← ReleaseNotesCatalog: the "What's new" history (one entry per version, newest first; texts in the ARB files)
+│       └── release_notes_catalog.dart ← ReleaseNotesCatalog: the "What's new" history (one entry per version, newest first; one line of main points per minor version; texts in the ARB files)
 ├── domain/
 │   ├── models/workout_plan.dart       ← WorkoutPlan (+ the time estimate), PlannedExercise, the get-ready constants (`prepSecFor`)
+│   ├── models/branch.dart             ← Branch: BuiltInBranch (a BranchId) | OwnBranch (a CustomBranch); what every trainer of a branch uses
+│   ├── models/course.dart             ← Course: BuiltInCourse (a CourseId) | OwnCourse (a CustomCourse)
 │   └── services/
 │       ├── sp_service.dart
 │       ├── streak_service.dart
@@ -106,6 +111,8 @@ lib/
 │       ├── workout_energy.dart        ← WorkoutEnergy: kcal for Health + which body weight to use
 │       ├── workout_pace.dart          ← WorkoutPace: how fast the user is against the time estimate (pure; median of real / estimated over the last workouts)
 │       ├── progression_service.dart
+│       ├── custom_stages.dart         ← CustomStages: the stages of an own branch (derived amounts and norms), remap after an edit
+│       ├── workout_progression.dart   ← WorkoutProgression: what a finished workout does to the branches (pure)
 │       ├── workout_generator_service.dart
 │       └── achievement_service.dart
 └── features/
@@ -113,15 +120,18 @@ lib/
     │   ├── providers/home_provider.dart ← HomeData, homeDataProvider, activeCourseProvider
     │   └── screens/
     │       ├── home_screen.dart           ← Workout tab
-    │       └── branch_journey_screen.dart ← /branch/:branchId
+    │       └── branch_journey_screen.dart ← /branch/:branchId (a `Branch.key`: built-in or own)
     ├── library/screens/
     │   ├── library_screen.dart        ← Library tab (course pills + branch progress + My Routines)
     │   ├── exercise_library_screen.dart ← /library/exercises (search + 2-col grid)
-    │   └── custom_routine_builder_screen.dart ← /library/routine-builder (exercise picker + save)
+    │   ├── custom_routine_builder_screen.dart ← /library/routine-builder (exercise picker + save)
+    │   ├── course_builder_screen.dart ← /library/course-builder (name, host, branches; `extra` = the CustomCourse to edit)
+    │   └── branch_builder_screen.dart ← /library/branch-builder (name, exercises in order + the picker sheet; pops with the CustomBranch)
     ├── library/providers/
     │   └── exercise_library_provider.dart ← ExerciseLibraryNotifier (search by the name in every supported language, "ё" = "е", + tag filter)
     ├── library/widgets/
-    │   └── exercise_detail_sheet.dart ← Exercise detail bottom sheet
+    │   ├── exercise_detail_sheet.dart ← Exercise detail bottom sheet
+    │   └── builder_widgets.dart       ← name field, section title, save bar, delete confirmation of the two builders
     ├── workout/
     │   ├── providers/workout_provider.dart
     │   └── screens/
@@ -174,9 +184,11 @@ CaliDay supports multiple **courses** (like Duolingo). Each course has its own b
 - `CourseId.morningRoutine` → morningSpine, morningJoints, morningArms, morningEnergy (0.9.0; every pose standing, no jumps; the bonus workout keeps the supplementary block)
 - `CourseId.yoga` → yogaStanding, yogaOneLeg, yogaBackbends, yogaFlow, **balance** (0.9.1; Balance is the Calisthenics branch itself, one progress for both — courses may share exercises and branches, owner 2026-10-08)
 
-**Progression is global per branch:** `SkillProgress` keys are `branch.name` only (e.g. `"push"`). Branches are physical skills — progress is shared across all courses containing that branch.
-**Streak and SP are global.** Enrolled courses are `UserProfile.activeCourseIds`, the one shown now is `activeCourseIndex` (read through the `enrolledCourses` / `activeCourse` getters).
-Switching courses happens in the Library tab via pill tabs.
+**Own courses (0.9.3, the course builder; owner's plan, 3rd big feature).** The user puts a course together in the Courses tab ("+" → "Create your own course"): a name, a host (one of the five; the art is that course's, `CustomCourse.hostIndex`) and branches — built-in ones, whose progress stays shared with their courses, and **own branches**: catalog exercises (`OwnBranch.pickable`: the library, warm-ups, cool-downs, the supplementary pool) in the user's order, each a stage, the amounts and the challenge norms derived by `CustomStages` (§ CustomStages). `CourseId` and `BranchId` are Hive enums and cannot hold them, so the app runs on runtime types beside them: `Branch` (`BuiltInBranch(BranchId)` | `OwnBranch(CustomBranch)`, `domain/models/branch.dart`) and `Course` (`BuiltInCourse(CourseId)` | `OwnCourse(CustomCourse, own branches)`), both equal by `key` — a built-in one's enum name, an own one's `custom_<id>` (`CustomBranch.keyFor`; no `BranchId` name starts with `custom_`). The generator, the progression, the Courses tab, the Branch Journey and the challenge take a `Branch`; Home, Profile and the summary show `Course.host`; `Course.builtIn` is null for an own course (achievement hosts follow the built-in courses). An own course: `addsSupplementary` true, branches needing the bar are left out without one (`branchesFor(hasPullUpBar:)`, like built-in ones), a deleted own branch drops out of it. Own branches have no achievements of their own (`AchievementService.checkAfterOwnStageAdvance`: only `first_challenge`), are not in the onboarding and not shared with friends. Its warm-up and cool-downs are those of the built-in branch of the current stage's exercise (`OwnBranch.warmupAt` / `cooldownsAt`); a warm-up or cool-down that is itself a stage of the plan is not added twice. Editing an own branch keeps the user on their exercise (`CustomStages.remap`); deleting it removes it from every own course with its progress; deleting a course keeps its branches.
+
+**Progression is global per branch:** `SkillProgress` keys are `branch.name` only (e.g. `"push"`), and `custom_<id>` for an own branch (`SkillProgress.branchKey`; `branchId` is null there, `customBranchId` set). Branches are physical skills — progress is shared across all courses containing that branch.
+**Streak and SP are global.** Enrolled courses are `UserProfile.activeCourseIds`, the one shown now is `activeCourseIndex` (read through the `enrolledCourses` / `activeCourse` getters); while an own course is shown, `activeCustomCourseId` names it (cleared when a built-in one is picked; a stale id falls back to the built-in course).
+Switching courses happens in the Library tab via pill tabs: the enrolled built-in courses, then every own course (`enrolledCoursesProvider`), each own one with its host's face.
 
 ### Progression Branches
 20 branches total across all courses (appended `BranchId` HiveFields: Evening Stretch 8–11, Morning Routine 12–15, Yoga 16–19; `CourseId.eveningStretch` is HiveField 2, `CourseId.morningRoutine` 3, `CourseId.yoga` 4). Pull requires a pull-up bar (`requiresEquipment = true`).
@@ -206,7 +218,8 @@ The stored value is unchanged: `UserProfile.preferredWorkoutMinutes` (HiveField 
 ### What's new (release notes)
 The bell in the Profile app bar opens `/whats-new`: the history of what changed in each version, newest first, in the user's words. **The app has no backend, so this is the history of the versions the installed build contains, not a notice that a newer one exists** (that would need a network check, e.g. the GitHub Releases API, and is not done).
 
-- **Content:** `ReleaseNotesCatalog.all` (`data/static/release_notes_catalog.dart`): `ReleaseNote(version, date, text: (l10n) => …)`. The text is one ARB string, `releaseNotes<version without dots>`, one change per line; an entry without both languages does not compile.
+- **Content:** `ReleaseNotesCatalog.all` (`data/static/release_notes_catalog.dart`): `ReleaseNote(version, date, text: (l10n) => …)`. The text is one ARB string, `releaseNotes<version without dots>`, one change per line; an entry without both languages does not compile. The detailed entries start at 0.8.10, when "What's new" came.
+- **What the screen shows (owner, 2026-10-09):** "Recent updates" — the newest `recentCount` (6) entries in full, every entry stays in the catalog; under them "Version history", folded until tapped: one card per minor line (`ReleaseNotesCatalog.lines`, `ReleaseLine(version: '0.8', from, to, text)`, ARB `releaseHistory<major><minor>`), 0.9 … 0.1, its main points as dots and its span of months ("May – October 2026"). The lines before 0.8.10 were written from git history and DEV_NOTES; versions before 2026-04-22 were numbered 1.x (1.1 – 1.7 are 0.1 – 0.7; the owner did not want a footnote about it). A new minor version needs its `ReleaseLine` (a test fails without it) and a change worth remembering a point in its line.
 - **A rule with a test:** every version bump needs an entry; `test/data/release_notes_catalog_test.dart` fails while the newest entry is not the `pubspec.yaml` version. The step is written into the `implement-feature` and `pre-commit` skills.
 - **The dot:** `UserProfile.lastSeenReleaseVersion` (HiveField 26) is the newest version the user opened; `hasUnseenReleaseNotesProvider` is true while an entry is newer (versions compare as numbers: 0.8.10 > 0.8.9). Opening the screen saves the newest version (after the first frame; the NEW tags of that visit stay until it closes). An existing user with null sees every entry as new; a new user is set to the current version by onboarding, so the bell lights up for the next update only.
 
@@ -236,6 +249,8 @@ Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday
 | 9 | `FriendProfile` |
 | 10 | `CourseId` (enum) |
 | 11 | `CustomRoutine` |
+| 12 | `CustomBranch` |
+| 13 | `CustomCourse` |
 
 ### UserProfile HiveFields
 
@@ -255,6 +270,37 @@ Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday
 | @24 | List<int>? | activeCourseIds — CourseId indices; null → [0] (calisthenics) |
 | @25 | int? | activeCourseIndex — index into activeCourseIds; null → 0 |
 | @26 | String? | lastSeenReleaseVersion — the newest "What's new" version the user has opened; null → none yet (every entry is new). A new user starts at the current version (set by `completeOnboarding`) |
+| @27 | String? | activeCustomCourseId — `CustomCourse.id` of the own course shown now; null → the built-in `activeCourse` |
+
+### SkillProgress HiveFields
+
+| Field | Type | Description |
+|-------|------|-------------|
+| @0 | BranchId? | branchId — the built-in branch; null for an own branch (nullable since 0.9.3; every older record has it) |
+| @1..5 | base | currentStage, currentReps, currentSets, currentRestSec, isChallengeUnlocked |
+| @6 | DateTime? | lastProgressedOn — the day of the last daily step |
+| @7 | String? | customBranchId — `CustomBranch.id` of an own branch's progress (box key `custom_<id>` = `branchKey`) |
+
+Not `key`: that getter is `HiveObject`'s own (the box key), hence `SkillProgress.branchKey`.
+
+### CustomBranch HiveFields (typeId 12, box `custom_branches`, key = id)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| @0 | String | id — microsecondsSinceEpoch in base 36 |
+| @1 | String | name |
+| @2 | List\<String\> | exerciseIds — the stages, stage 1 first (an id once) |
+| @3 | DateTime | createdAt — the order of "My branches" |
+
+### CustomCourse HiveFields (typeId 13, box `custom_courses`, key = id)
+
+| Field | Type | Description |
+|-------|------|-------------|
+| @0 | String | id — microsecondsSinceEpoch in base 36 |
+| @1 | String | name |
+| @2 | List\<String\> | branchKeys — `Branch.key`s in rotation order (`push`, `custom_<id>`) |
+| @3 | int | hostIndex — `CourseId.index` of the host |
+| @4 | DateTime | createdAt — the order of the pills |
 
 ### CustomRoutine HiveFields
 
@@ -297,6 +343,8 @@ Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday
 - `'achievements'` — `Box<DateTime>` (key = achievementId, value = when it was earned)
 - `'friends'` — `Box<FriendProfile>` (key = friend.id)
 - `'custom_routines'` — `Box<CustomRoutine>` (key = routine.id)
+- `'custom_branches'` — `Box<CustomBranch>` (key = branch.id)
+- `'custom_courses'` — `Box<CustomCourse>` (key = course.id)
 
 ### Exercise Model
 `Exercise` is a static `const` model, **not stored in Hive**.
@@ -519,12 +567,20 @@ otherwise                          → 0
 
 ### ProgressionService
 - `applyDailyResult(progress, exercise, result, now:)` → bool — what a finished workout calls: the once-a-day gate (current stage only, not yet today, a successful set), then `applyResult`; see § Primary vs Bonus Workout
-- `applyResult(progress, exercise, result)` → bool (true = challenge unlocked) — one step, no daily limit
+- `applyResult(progress, exercise, result, {stageCount})` → bool (true = challenge unlocked) — one step, no daily limit; `stageCount` (`Branch.stageCount`) says whether a next stage exists, without it the catalog is asked (built-in branches only); `applyDailyResult` passes it on
 - `advanceStage(progress, nextExercise)` — stage transition after challenge
 - `applyRegression(progress, exercise, daysSkipped)` — rollback on 3+ days skipped
 - `nextExercise(progress)` — next stage from catalog
 
+### CustomStages (own branches)
+- `build(exercises)` / `stageOf(e, stage)` — a copy of each catalog exercise (same id, texts, tags, animation, `branch`) with its place as `stage`. An exercise with an in-stage progression of its own (every built-in stage) keeps its start / target reps, sets and rests; one without (warm-ups, cool-downs, the supplementary pool: one fixed amount) starts at it and grows to twice it (`growth`; timed in whole 5 s), 1 → 2 sets, rest 30 → 15 s. The challenge to enter a stage: the exercise's own norm when it is a built-in stage from 2 up (even below its start, the catalog's choice), else 1.5 × its start; stage 1 has none.
+- `remap(progress, oldIds, stages)` — after an edit the user stays on their exercise where it moved (amounts kept; no challenge on the last stage); if it was removed, on the stage that took its place (the last one when the list got shorter) from its start.
+
+### WorkoutProgression
+- `apply(plan, results, ownBranches, progressFor, now)` — what `_finishWorkout` does to the branches, pure: each stage exercise moves the branch of `PlannedExercise.branchKey` (an own stage is a copy that keeps its catalog `branch`), else its own; a challenge exercise (above the current stage) advances on its norm in any workout, any other goes through `applyDailyResult` with the branch's `stageCount`; each branch's progress is read once; `touched` lists the records to save; a deleted own branch is skipped.
+
 ### WorkoutGeneratorService
+- `generateDailyFor({branches, addsSupplementary, …})` — the daily plan from any `Branch`es (an own course's too); each main exercise carries `branchKey`. `generateDailyForCourse` (below) wraps it for a `CourseId`. `generateChallengeFor(Branch)` likewise wraps `generateChallenge(BranchId)`.
 - `generateDailyForCourse({course, courseBranches, preferredMinutes, dayIndexOverride, isPrimary, hasPullUpBar})` — primary method; progress comes from the injected `SkillProgressRepository`; rotates branches by dayIndex (days since 2020-01-01, overridable for tests). N branches by the workout size code (`WorkoutSize`: 5 short / 10 standard / 15 full): min(2,total) at ≤5, min(3,total) at 10, total at ≥15. Warm-up of the first branch, one main exercise per branch, at most two distinct cool-downs, the lying relaxation always last (Yoga mixes it with the Balance downward dog); a bonus workout (`isPrimary: false`) gets two supplementary exercises on top (not in a course where `CourseCatalog.addsSupplementary` is false: Evening Stretch), shuffled with an injectable `random` (a fresh `Random()` by default; the app passes the seeded one, see § Workout size). Without a pull-up bar an equipment exercise is swapped for its alternative when one exists (core stage 4 → flutter kicks).
 - `generateDaily(...)` — legacy wrapper, calls `generateDailyForCourse` with `course: CourseId.calisthenics`.
 - `generateChallenge(branch)` — warmup → current stage (1 easy set) → next stage (challengeTargetReps) → cooldown
@@ -585,7 +641,7 @@ Persistence is the responsibility of the calling code via repositories.
 - `/onboarding` — onboarding (redirect if profile exists)
 - `/workout` — workout session
 - `/summary` — results
-- `/branch/:branchId` — branch progression journey
+- `/branch/:branchId` — branch progression journey, by `Branch.key` (a built-in name or `custom_<id>`)
 - `/achievements` — all achievements
 - `/calendar` — workout calendar heatmap (month grid + day-detail sheet)
 - `/settings` — settings
@@ -597,6 +653,8 @@ Persistence is the responsibility of the calling code via repositories.
 ### Library sub-routes (nested under `/library`)
 - `/library/exercises` — Exercise Library (search + tag filter)
 - `/library/routine-builder` — Custom Routine Builder; pass `CustomRoutine` via `extra` for edit mode
+- `/library/course-builder` — the course builder; `extra` = `CustomCourse` to edit (from "Edit" above an own course's branches). Saving selects the course
+- `/library/branch-builder` — the branch builder; `extra` = `CustomBranch` to edit; pops with the saved branch (the course builder ticks a new one)
 
 ### Workout Flow
 ```
@@ -863,7 +921,9 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 
 ### Key Patterns
 
-- `activeCourseProvider = NotifierProvider<ActiveCourseNotifier, CourseId>` initialized from `UserProfile.activeCourse`; switching courses in LibraryScreen updates both the provider and `UserProfile.activeCourseIndex` in Hive
+- `activeCourseProvider = NotifierProvider<ActiveCourseNotifier, Course>`: the own course of `activeCustomCourseId` while it exists, else `BuiltInCourse(profile.activeCourse)`; it watches `customCoursesProvider` / `customBranchesProvider`, so an edited or deleted own course shows at once. `select(course)` persists the choice (`activeCourseIndex` or `activeCustomCourseId`) — use it, not a bare state change
+- `challengeBranchProvider` holds a `Branch` (built-in or own)
+- Bottom sheets with a long list or a button at the bottom open with `useRootNavigator: true` (the enrollment sheet, the exercise picker): in the shell's navigator the bottom navigation covers their end. A `FilledButton` in a `Row` needs its own `minimumSize`: the theme's is `Size(double.infinity, 56)`
 - `homeDataProvider = Provider.autoDispose` + `ref.invalidate(homeDataProvider)` after workout
 - **Always invalidate `displayStreakProvider` before `homeDataProvider`** — `goroExpressionProvider` keeps it alive via `ref.watch`, so `homeDataProvider`'s `ref.read(displayStreakProvider)` would return a stale cached value otherwise
 - **`setHasPullUpBar` must invalidate `homeDataProvider`** — `activeBranches` is computed from `hasPullUpBar`; without invalidation Pull branch appears only after restart
@@ -884,6 +944,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 | Area | Where | What it protects |
 |------|-------|------------------|
 | Domain services | `test/domain/services/` | SP, progression, streak, rank decay, workout generator (with a Hive-free progress source), achievements |
+| Own courses and branches | `test/domain/services/custom_stages_test.dart`, `own_branch_workout_test.dart`, `test/domain/models/branch_course_test.dart`, `test/data/repositories/custom_course_repository_test.dart` | derived amounts and norms for every pickable exercise, remap after an edit, `Branch` / `Course` mirror the catalog, an own stage moves the own branch (not the built-in one), its challenge, adapters, cascading deletes, the active course persisted and falling back |
 | Day arithmetic | `test/core/utils/calendar_days_test.dart`, `streak_service_test.dart`, `test/features/profile/compact_heatmap_test.dart` | DST: Berlin dates around 2026-03-29 and 2026-10-25 |
 | Catalog integrity | `test/data/exercise_catalog_integrity_test.dart` | unique ids, consecutive stages, start ≤ target, every animation exists, is valid Lottie and belongs to an exercise (no orphans), a name / description / tip for every exercise in every language, tags |
 | Enums | `test/data/enums_test.dart` | rank thresholds, `stageCount` = catalog length, frozen Hive indices, course → branch mapping |
@@ -988,7 +1049,8 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v1.0 | Course hosts — a character per course (Goro, Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat) on the course cards, the summary and the achievements; Goro keeps Home and every animation | ✅ 0.8.20: Raffi and Luna drawn with the six moods, an idle and a cheer pose; the active course's host is on Home (`GoroExpression.assetFor(course)`), Profile, the course cards (onboarding, Library) and the summary (`CourseId.hostFace` / `hostPortrait` / `hostIdle` / `hostCheer`); Goro keeps the icon, onboarding welcome, notifications, widget and About; Aurora drawn in 0.9.0 with Morning Routine, Miso in 0.9.1 with Yoga; on the achievements of their branches since 0.9.2 (§ Gamification) |
 | v1.0 | Skala redrawn as a real bull (it was a recoloured Goro with horns) | ✅ 0.8.20 — `tools/characters/gen_skala.py` |
 | — | Branch Journey: stage previews playing Goro's animations (takes Bruno's planned role; Bruno dropped) | 💡 idea |
-| v1.x | More branches, also outside any course (to be picked in the builder) | 💡 idea — DEV_NOTES § Roadmap 2c |
-| v1.x | Custom course builder — (a) a course from existing branches, (b) a branch of one's own: own exercises in order, progression through them (owner's plan, 3rd) | 📐 decided 2026-10-07 — DEV_NOTES § Roadmap 3 |
+| v1.x | More branches, also outside any course (to be picked in the builder), many more exercises | 📐 next, on a branch of its own (owner, 2026-10-09): 3–4 branches, ~20 exercises with animations — DEV_NOTES § Roadmap 3 |
+| v1.0 | Custom course builder — (a) a course from existing branches, (b) a branch of one's own: own exercises in order, progression through them (owner's plan, 3rd) | ✅ 0.9.3 — § Courses (own courses), § CustomStages |
+| v1.0 | "What's new" with the whole history: the 6 newest versions in full, every minor line from 0.1 in its main points, folded | ✅ 0.9.3 — § What's new |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea

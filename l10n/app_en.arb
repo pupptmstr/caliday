@@ -1096,5 +1096,133 @@
   },
   "notificationRankAtRiskTitle": "Rank at risk! ⚠️",
   "notificationRankAtRiskBody": "14 days without training — your rank will start dropping soon. Come back!",
-  "widgetDoneLabel": "Done"
+  "widgetDoneLabel": "Done",
+  "courseBuilderCreateEntry": "Create your own course",
+  "courseBuilderCreateEntryDesc": "Pick branches from any course or make your own from exercises",
+  "courseBuilderNewTitle": "New course",
+  "courseBuilderEditTitle": "Edit course",
+  "courseBuilderEditButton": "Edit",
+  "courseBuilderNameHint": "Course name",
+  "courseBuilderNameRequired": "Give the course a name",
+  "courseBuilderHostTitle": "Host",
+  "courseBuilderBranchesTitle": "Branches",
+  "courseBuilderBranchesHint": "A built-in branch keeps one progress with its course.",
+  "courseBuilderMyBranches": "My branches",
+  "courseBuilderCreateBranch": "Create a branch",
+  "courseBuilderStages": "{count, plural, one{{count} stage} other{{count} stages}}",
+  "@courseBuilderStages": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "courseBuilderPickBranch": "Pick at least one branch",
+  "courseBuilderSave": "Save course",
+  "courseBuilderDelete": "Delete course",
+  "courseBuilderDeleteConfirm": "Delete “{name}”? The progress of its branches stays.",
+  "@courseBuilderDeleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "courseBuilderNoBranchesLeft": "This course has no branches to train. Tap Edit to add some.",
+  "branchBuilderNewTitle": "New branch",
+  "branchBuilderEditTitle": "Edit branch",
+  "branchBuilderNameHint": "Branch name",
+  "branchBuilderNameRequired": "Give the branch a name",
+  "branchBuilderHowItWorks": "Pick exercises and put them in order, from easy to hard: each one becomes a stage. Reps, sets, rests and the challenges to the next stage are set by the app.",
+  "branchBuilderStagesTitle": "Stages",
+  "branchBuilderEmpty": "No exercises yet.",
+  "branchBuilderAddExercises": "Add exercises",
+  "branchBuilderPickExercise": "Add at least one exercise",
+  "branchBuilderSave": "Save branch",
+  "branchBuilderDelete": "Delete branch",
+  "branchBuilderDeleteConfirm": "Delete “{name}”? Its progress is lost and it leaves your courses.",
+  "@branchBuilderDeleteConfirm": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "branchBuilderParamsReps": "{from} → {to, plural, one{{to} rep} other{{to} reps}}  ·  {setsFrom} → {setsTo, plural, one{{setsTo} set} other{{setsTo} sets}}",
+  "@branchBuilderParamsReps": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "branchBuilderParamsTimed": "{from} → {to} s  ·  {setsFrom} → {setsTo, plural, one{{setsTo} set} other{{setsTo} sets}}",
+  "@branchBuilderParamsTimed": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "branchBuilderParamsTimedPerSide": "{from} → {to} s each side  ·  {setsFrom} → {setsTo, plural, one{{setsTo} set} other{{setsTo} sets}}",
+  "@branchBuilderParamsTimedPerSide": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      },
+      "setsFrom": {
+        "type": "int"
+      },
+      "setsTo": {
+        "type": "int"
+      }
+    }
+  },
+  "exercisePickerTitle": "Pick exercises",
+  "exercisePickerDone": "Done ({count})",
+  "@exercisePickerDone": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "hostGoro": "Goro",
+  "hostRaffi": "Raffi",
+  "hostLuna": "Luna",
+  "hostAurora": "Aurora",
+  "hostMiso": "Miso",
+  "whatsNewRecent": "Recent updates",
+  "whatsNewHistory": "Version history",
+  "releaseNotes093": "Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of CaliDay, version by version, is folded below them.",
+  "releaseHistory01": "The first version: short daily workouts, SP points, streaks, reminders and a first-run setup.\nFive skills: push-ups, core, pull-ups, legs and balance; the workout takes turns between them day by day.\nThe path of a skill: every stage on one screen, and a challenge to move on early.\nAchievements, extra workouts on the same day and a dark theme.\nRussian and English.\nGoro shows every push-up stage in an animation.",
+  "releaseHistory02": "Sound and vibration during a workout.\nThe workout history.\nA new home screen with three tabs at the bottom.\nStreak freezes: one missed day no longer breaks the streak.\nThe About screen.",
+  "releaseHistory03": "A home screen widget with your streak and SP.\nApple Health and Health Connect: workouts are saved there if you want.",
+  "releaseHistory04": "Friends: add each other with a QR code or find each other nearby over Bluetooth, and compare ranks, SP and streaks.\nThe first-run setup asks your name.",
+  "releaseHistory05": "Courses: Calisthenics and the new Healthy Body, with posture and neck skills.\nA flexibility and mobility skill.\nExtra workouts bring two exercises from a new supplementary set.\nGoro's animations for the core, pull-up and leg stages.",
+  "releaseHistory06": "The exercise library: every exercise, with search and filters.\nTap the streak, the rank or the freezes in the profile to see what they mean.",
+  "releaseHistory07": "Your own workouts: pick exercises and save them as a routine, or start a quick one by focus.\nAnimations for the balance stages.\nThe privacy policy and the terms of use.",
+  "releaseHistory08": "The stats on the home screen open the calendar, the history and the ranks; a workout calendar.\nA rank slips after long breaks and comes back with training.\nCaliDay in the browser: the web version.\nAnimations for every exercise of the first courses.\nTimed holds start by themselves after a short countdown; a hold on one side runs on both.\nWorkouts are Short, Standard or Full, with an estimate of the time that learns your pace.\n“What's new” under the bell in the profile; German and Spanish.\nEvery skill moves on once a day, in any workout.\nA new course, Evening Stretch, and a host for every course.",
+  "releaseHistory09": "New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order."
 }

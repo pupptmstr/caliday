@@ -33,18 +33,20 @@ class ProgressionService {
   /// custom routine may hold one) never counts.
   ///
   /// Returns what [applyResult] returns: true when the Challenge unlocked.
+  /// [stageCount] as in [applyResult].
   bool applyDailyResult(
     SkillProgress progress,
     Exercise exercise,
     ExerciseResult result, {
     required DateTime now,
+    int? stageCount,
   }) {
     if (exercise.stage != progress.currentStage) return false;
     if (hasProgressedOn(progress, now)) return false;
     if (progress.isChallengeUnlocked) return false; // nothing more to progress
     if (!_wasSuccessful(result, exercise)) return false;
     progress.lastProgressedOn = now;
-    return applyResult(progress, exercise, result);
+    return applyResult(progress, exercise, result, stageCount: stageCount);
   }
 
   /// Whether [progress] has made its daily step on the calendar day of [day].
@@ -57,12 +59,15 @@ class ProgressionService {
   /// daily limit (a workout goes through [applyDailyResult]).
   ///
   /// Returns true if the stage goal was reached and the Challenge is now
-  /// unlocked for the first time.
+  /// unlocked for the first time. [stageCount] is the number of stages of the
+  /// branch (`Branch.stageCount`); without it the catalog is asked, which
+  /// knows only the built-in branches.
   bool applyResult(
     SkillProgress progress,
     Exercise exercise,
-    ExerciseResult result,
-  ) {
+    ExerciseResult result, {
+    int? stageCount,
+  }) {
     if (progress.isChallengeUnlocked) return false; // nothing more to progress
 
     final succeeded = _wasSuccessful(result, exercise);
@@ -83,9 +88,11 @@ class ProgressionService {
     } else {
       // All targets met — unlock the Challenge only if a next stage exists.
       // At the final stage there is nowhere to go, so just stay at peak values.
-      final hasNext = ExerciseCatalog.forStage(
-            progress.branchId, progress.currentStage + 1) !=
-          null;
+      final hasNext = stageCount != null
+          ? progress.currentStage < stageCount
+          : ExerciseCatalog.forStage(
+                  progress.branchId!, progress.currentStage + 1) !=
+              null;
       if (hasNext) {
         progress.isChallengeUnlocked = true;
         return true;
@@ -125,7 +132,7 @@ class ProgressionService {
   /// Returns the next [Exercise] for [progress], or null if already at max stage.
   Exercise? nextExercise(SkillProgress progress) {
     return ExerciseCatalog.forStage(
-      progress.branchId,
+      progress.branchId!,
       progress.currentStage + 1,
     );
   }

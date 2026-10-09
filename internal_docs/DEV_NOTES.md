@@ -7,14 +7,14 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.9.1 (Yoga, merged into `main` 2026-10-09, PR #3). **0.9.2** is in progress on `session/2026-10-09-polish`: the small things left over (shorter per-side holds, hosts on the achievements, layout fixes, minor dependency updates, a pigeon pose draft); see the Change History. The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
+**Version:** v0.9.2 on `main` (the polish, merged 2026-10-09, PR #4). **0.9.3** is in progress on `session/2026-10-09-course-builder`: the course builder (own courses from built-in and own branches) and "What's new" with the whole version history; see the Change History. The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
 **Next priority:** v1.0 release. What still stands in the way:
 - Friends has never been tested on two real phones (checklist below).
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
 - Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
 - Store accounts (Apple Developer Program, Google Play Console): the release CI is drafted but disabled until they exist ("Release builds (CI)" below).
 
-The owner's plan for the **big features after that** (2026-10-07), in his order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap.
+The owner's plan for the **big features after that** (2026-10-07), in his order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap. The configurator is in (0.9.3); the many more exercises come on a branch of their own next (owner, 2026-10-09).
 
 | Layer | Status |
 |-------|--------|
@@ -37,6 +37,7 @@ The owner's plan for the **big features after that** (2026-10-07), in his order:
 | Friends (BLE + QR, v0.4; not yet tested on real devices) | ✅/⚠️ |
 | Exercise Library (search + tag filter) | ✅ |
 | Custom Workouts (Quick Routine + Saved Routines) | ✅ |
+| Course builder (own courses from built-in and own branches; own branches from exercises, amounts derived) | ✅ 0.9.3 |
 | Multi-Course system (Calisthenics, Healthy Body, Evening Stretch, Morning Routine, Yoga) | ✅ |
 | L10n (RU, EN, DE, ES; German and Spanish are drafts awaiting native proofreading) | ✅/⚠️ |
 | Web build (PWA on GitHub Pages, IndexedDB) | ✅ |
@@ -334,10 +335,10 @@ Implemented as decided; see ARCHITECTURE § Timed exercises (Holds on each side)
 - A branch can exist without a course: it is in the catalog and the exercise library, and the builder offers it. Nothing creates its `SkillProgress` until it is used (the onboarding only starts the branches of the chosen courses), so progress starts at stage 1 on first use.
 - Same costs as above, per branch. The catalog grows in four languages from now on.
 
-#### 3. The course builder (after 2c)
-- **(a) A course from existing branches:** the user picks branches (from courses and outside them) and names the course. Progress stays per branch, shared with the built-in courses, as Flex is today.
-- **(b) A branch of one's own:** the user picks exercises, orders them; each becomes a stage, and the usual progression runs through them (reps → sets → rest → challenge to the next one). The parameters come from each exercise (its start / target reps, sets, rest); stage-0 exercises (warm-ups, the supplementary pool) have no challenge norm, so one has to be derived (for example the next exercise's start reps) — to be designed.
-- **What it touches:** `CourseId` and `BranchId` are Hive enums with fixed values and cannot hold user-made courses or branches, so both need a string identity and stored models beside `CustomRoutine` (typeId 11; the next free typeIds are 12 and 13), a migration of `UserProfile.activeCourseIds` (enum indices today), and `SkillProgress` keyed by that string (it is keyed by `branch.name` already, so a `custom_<id>` key fits the box). Readers of a course / branch: the onboarding, the Library tab, `homeDataProvider`, the generator (`generateDailyForCourse` takes a list of branches), the achievements, the friend exchange (custom branches are not shared, see 2a).
+#### 3. The course builder — done (0.9.3)
+Built before 2c, at the owner's word (2026-10-09: "the builder now, the new exercises on the next branch"). As decided: (a) a course from existing branches, its progress shared with the built-in courses; (b) a branch of one's own, exercises in order, each a stage, the app sets the amounts and the progression ("количество повторений и прогрессия строится самим приложением", owner). The owner's choices of 2026-10-09: the host of an own course is picked from the five (Goro by default). The design that was open is settled in ARCHITECTURE § Courses (own courses and branches) and § CustomStages; no migration was needed (`activeCourseIds` stays, an own course is `activeCustomCourseId`). Not done on purpose: own courses in the onboarding, achievements of own branches (only `first_challenge` counts), sharing them with friends.
+
+**Next (owner, 2026-10-09): many more exercises, on a branch of their own** — 3–4 branches outside any course (2c), about 20 exercises with animations; proposed gaps: a back without a pull-up bar (superman, prone Y-T-W, reverse snow angels…), glutes (donkey kicks, fire hydrants, single-leg bridge, hip thrust), arms and shoulders without equipment (chair dips, pike push-ups, shoulder taps), cardio. Content to be agreed with the owner first; the builder lists new branches by itself (a group "other branches" will be needed for branches outside the courses).
 
 ### "Support the Author" Button — idea
 
@@ -382,6 +383,39 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-09 — The course builder; "What's new" with the whole history (0.9.3+33)
+
+**What was done:** The owner's third big feature. In the Courses tab "+" → "Create your own course": a name, a host (one of the five) and branches — built-in ones (their progress is shared with their courses) and own ones, made in a branch builder from any catalog exercise in the user's order (drag to reorder), each a stage; the amounts and the challenge norms are derived (`CustomStages`). An own course is a pill like the built-in ones, with its host's face; its host leads Home, Profile and the summary; "Edit" above its branches opens the builder again (rename, host, branches, delete). An own branch has its own Branch Journey, challenge and progress. "What's new" (owner): the 6 newest versions in full under "Recent updates", below them a folded "Version history" — one card per line 0.9 … 0.1 with its main points, written from git history and these notes (the versions before 2026-04-22 were 1.x; no footnote about it, owner: hardly any users then). Also: the enrollment sheet scrolls and opens over the bottom navigation (with the builder entry it overflowed by 50 px on a 375 × 812 phone and the bar hid Continue).
+
+**New files:**
+- `lib/data/models/custom_branch.dart`, `custom_course.dart` (+ `.g.dart`) — Hive typeIds 12 and 13; boxes `custom_branches`, `custom_courses`
+- `lib/data/repositories/custom_course_repository.dart` — both repositories, `customBranchesProvider` (delete removes the branch from every own course and its progress), `customCoursesProvider`, `newCustomId()`
+- `lib/domain/models/branch.dart`, `course.dart` — sealed `Branch` (`BuiltInBranch` / `OwnBranch`) and `Course` (`BuiltInCourse` / `OwnCourse`), equal by key
+- `lib/domain/services/custom_stages.dart` — the stages of an own branch, and `remap` of its progress after an edit
+- `lib/domain/services/workout_progression.dart` — what a finished workout does to the branches, out of `_finishWorkout` (pure, tested)
+- `lib/features/library/screens/course_builder_screen.dart`, `branch_builder_screen.dart` (+ the exercise picker sheet), `lib/features/library/widgets/builder_widgets.dart`
+- Tests: `test/domain/services/custom_stages_test.dart`, `own_branch_workout_test.dart`, `test/domain/models/branch_course_test.dart`, `test/data/repositories/custom_course_repository_test.dart`
+
+**Modified files:**
+- `SkillProgress` — `branchId` nullable, `@HiveField(7) customBranchId`, `branchKey`; `SkillProgressRepository.progressFor(Branch)`, `hasStored`, `deleteProgress`, saves by `branchKey`, the start-up cap skips own branches
+- `UserProfile` — `@HiveField(27) activeCustomCourseId`
+- `WorkoutGeneratorService` — `generateDailyFor(branches:)` / `generateChallengeFor(Branch)` (the old methods wrap them); a warm-up or cool-down that is a stage of the plan is not added twice; `PlannedExercise.branchKey`
+- `ProgressionService.applyResult / applyDailyResult` — optional `stageCount`; `AchievementService.checkAfterOwnStageAdvance`
+- `home_provider.dart` — `enrolledCoursesProvider` (moved from the Library), `activeCourseProvider` is a `Course`, `select()` persists it; `challengeBranchProvider` is a `Branch`
+- Library, Branch Journey (`/branch/:key`), router (`/library/course-builder`, `/library/branch-builder`), Home / Profile / achievements (host via `Course.host`, `Course.builtIn`)
+- `release_notes_catalog.dart` — `ReleaseLine`, `lines`, `recent`, `recentCount`, `lineOf`; `whats_new_screen.dart` — two sections, the history folded
+- `exercise_library_provider.dart` — `matchesQuery` / `allLanguages` shared with the picker
+- `CourseId.hostName`; every ARB: the builder texts, `host*`, `whatsNewRecent/History`, `releaseHistory01..09`, `releaseNotes093`
+
+**Key issues and solutions:**
+- **`CourseId` / `BranchId` are Hive enums**, so an own course or branch cannot be a value of them. Instead of a migration, runtime types sit beside them: `Branch` / `Course` resolve stored string keys (`push`, `custom_<id>`), and the built-in path keeps its data exactly (keys = enum names). The generator, the progression, the Library, the Branch Journey and the challenge take a `Branch`; the old enum signatures remain as wrappers, so the existing tests ran unchanged.
+- **A stage of an own branch is a copy of a catalog exercise** (same id, so the texts, tags and animation work), but the copy keeps the exercise's own `branch` for its warm-up and cool-downs. So `_finishWorkout` could not use `exercise.branch` any more: `PlannedExercise.branchKey` says which progress the exercise moves. Without it a custom stage of `push_s3_full_pushup` would have moved built-in Push.
+- **`SkillProgress extends HiveObject`, which has its own `key`**: the first draft of the getter was called `key` and would have shadowed the box key; it is `branchKey`.
+- **Stage-0 exercises have no progression** (one fixed amount, no norm): they get start → twice it, 1 → 2 sets, rest 30 → 15 s, and the challenge norm one and a half times the start; a built-in stage from 2 up keeps its own norm even where it is below its start (archer push-ups 3 < 5, the catalog's choice).
+- **An edited own branch keeps the user on their exercise** (`CustomStages.remap`): the stage follows the exercise when it moved; when it was removed, the stage that took its place starts from its start values.
+- **The theme's `FilledButton` has `minimumSize: Size(double.infinity, 56)`**: a filled button inside a `Row` (the picker's Done) threw "BoxConstraints forces an infinite width" and the sheet rendered empty; such buttons need their own `minimumSize`.
+- Checked on the web build (375 × 812, the dark theme, data left from earlier sessions): building a branch (search in Russian, picking, drag to reorder, the name notice), a course with Aurora, the full workout of it (warm-up from Push, the own stage, the cool-downs of Push and Posture, Aurora on the summary), its progress kept in IndexedDB, the edit with the current stage removed (remapped), deleting the course (back to Morning Routine), "What's new" with the history unfolded. `flutter analyze` clean, 1049 tests pass.
 
 ### 2026-10-09 — The pigeon pose in the app; a 90/90 draft (0.9.2)
 

@@ -17,15 +17,11 @@ import '../../../data/repositories/user_repository.dart';
 import '../../../data/static/course_catalog.dart';
 import '../../../data/static/exercise_catalog.dart';
 import '../../../data/static/exercise_tags_catalog.dart';
+import '../../../domain/models/branch.dart';
+import '../../../domain/models/course.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../home/providers/home_provider.dart';
 import '../../workout/providers/workout_provider.dart';
-
-/// Reactive list of enrolled courses — invalidated after enrollment changes
-/// so that LibraryScreen rebuilds immediately.
-final enrolledCoursesProvider = Provider<List<CourseId>>((ref) {
-  return ref.watch(userRepositoryProvider).getProfile().enrolledCourses;
-});
 
 class LibraryScreen extends ConsumerWidget {
   const LibraryScreen({super.key});
@@ -39,10 +35,10 @@ class LibraryScreen extends ConsumerWidget {
     final profile = ref.read(userRepositoryProvider).getProfile();
     final progressRepo = ref.watch(skillProgressRepositoryProvider);
 
-    final courseBranches = profile.branchesForCourse(activeCourse);
-    final progressMap = <BranchId, SkillProgress>{
-      for (final b in courseBranches)
-        b: progressRepo.getProgress(b),
+    final courseBranches =
+        activeCourse.branchesFor(hasPullUpBar: profile.hasPullUpBar == true);
+    final progressMap = <Branch, SkillProgress>{
+      for (final b in courseBranches) b: progressRepo.progressFor(b),
     };
 
     return Scaffold(
@@ -57,12 +53,8 @@ class LibraryScreen extends ConsumerWidget {
             _CoursePillsRow(
               courses: enrolledCourses,
               active: activeCourse,
-              onSelect: (course) {
-                ref.read(activeCourseProvider.notifier).set(course);
-                final idx = enrolledCourses.indexOf(course);
-                profile.activeCourseIndex = idx;
-                ref.read(userRepositoryProvider).saveProfile(profile);
-              },
+              onSelect: (course) =>
+                  ref.read(activeCourseProvider.notifier).select(course),
               onAdd: () => _showCourseSheet(context, ref, profile),
             ),
             const SizedBox(height: 4),
@@ -112,14 +104,36 @@ class LibraryScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 20),
 
-                    Text(
-                      l10n.homeBranchesTitle,
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontWeight: FontWeight.w700),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            l10n.homeBranchesTitle,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                        ),
+                        if (activeCourse case OwnCourse(:final data))
+                          TextButton.icon(
+                            onPressed: () => context.push(
+                                '/library/course-builder',
+                                extra: data),
+                            icon: const Icon(Icons.edit_outlined, size: 18),
+                            label: Text(l10n.courseBuilderEditButton),
+                          ),
+                      ],
                     ),
                     const SizedBox(height: 12),
+                    if (courseBranches.isEmpty)
+                      Text(
+                        l10n.courseBuilderNoBranchesLeft,
+                        style: TextStyle(
+                          fontSize: 13,
+                          color: Theme.of(context).colorScheme.onSurfaceVariant,
+                        ),
+                      ),
 
                     for (final branch in courseBranches) ...[
                       if (branch != courseBranches.first)
@@ -129,14 +143,10 @@ class LibraryScreen extends ConsumerWidget {
                         progress: progressMap[branch]!,
                         exerciseName: ExerciseL10n.name(
                           l10n,
-                          ExerciseCatalog.forStage(
-                                    branch,
-                                    progressMap[branch]!.currentStage,
-                                  )?.id ??
+                          branch.stage(progressMap[branch]!.currentStage)?.id ??
                               '',
                         ),
-                        onTap: () =>
-                            context.push('/branch/${branch.name}'),
+                        onTap: () => context.push('/branch/${branch.key}'),
                       ),
                       if (progressMap[branch]!.isChallengeUnlocked) ...[
                         const SizedBox(height: 10),
@@ -202,6 +212,9 @@ class LibraryScreen extends ConsumerWidget {
     showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
+      // Over the bottom navigation, which would hide the Continue button.
+      useRootNavigator: true,
+      useSafeArea: true,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
@@ -242,17 +255,24 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
 
   Future<void> _save() async {
     final profile = widget.profile;
-    final newIds = _selected.map((c) => c.index).toList();
+    // In the order of the catalog, whatever the order of the taps.
+    final newIds = [
+      for (final c in CourseId.values)
+        if (_selected.contains(c)) c.index,
+    ];
     profile.activeCourseIds = newIds;
+    await ref.read(userRepositoryProvider).saveProfile(profile);
 
-    // If the currently active course was removed, reset to first.
-    final activeCourse = ref.read(activeCourseProvider);
-    if (!_selected.contains(activeCourse)) {
-      profile.activeCourseIndex = 0;
-      ref.read(activeCourseProvider.notifier).set(_selected.first);
+    // If the currently active course was removed, reset to first; otherwise
+    // select it again, which keeps its index right in the new list.
+    final active = ref.read(activeCourseProvider);
+    final notifier = ref.read(activeCourseProvider.notifier);
+    if (active case BuiltInCourse(:final id) when !_selected.contains(id)) {
+      notifier.select(BuiltInCourse(CourseId.values[newIds.first]));
+    } else {
+      notifier.select(active);
     }
 
-    await ref.read(userRepositoryProvider).saveProfile(profile);
     // Invalidate so LibraryScreen rebuilds with updated enrollment.
     ref.invalidate(enrolledCoursesProvider);
     ref.invalidate(homeDataProvider);
@@ -265,7 +285,8 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
     final l10n = context.l10n;
     final scheme = Theme.of(context).colorScheme;
 
-    return Padding(
+    // Six courses and the builder entry are taller than a small phone.
+    return SingleChildScrollView(
       padding: const EdgeInsets.fromLTRB(20, 16, 20, 32),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -304,6 +325,18 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
             ),
             if (course != CourseId.values.last) const SizedBox(height: 8),
           ],
+          const SizedBox(height: 12),
+          _OptionTile(
+            icon: Icons.add_circle_outline,
+            title: l10n.courseBuilderCreateEntry,
+            subtitle: l10n.courseBuilderCreateEntryDesc,
+            color: scheme.secondaryContainer,
+            iconColor: scheme.onSecondaryContainer,
+            onTap: () {
+              Navigator.of(context).pop();
+              context.push('/library/course-builder');
+            },
+          ),
           const SizedBox(height: 20),
           SizedBox(
             width: double.infinity,
@@ -416,9 +449,9 @@ class _CoursePillsRow extends StatelessWidget {
     required this.onAdd,
   });
 
-  final List<CourseId> courses;
-  final CourseId active;
-  final void Function(CourseId) onSelect;
+  final List<Course> courses;
+  final Course active;
+  final void Function(Course) onSelect;
   final VoidCallback onAdd;
 
   @override
@@ -446,15 +479,26 @@ class _CoursePillsRow extends StatelessWidget {
                         : scheme.surfaceContainerHighest,
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  child: Text(
-                    course.localizedName(l10n),
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w600,
-                      color: selected
-                          ? scheme.onPrimary
-                          : scheme.onSurfaceVariant,
-                    ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      // An own course carries the face of its host.
+                      if (course is OwnCourse) ...[
+                        SvgPicture.asset(course.host.hostPortrait,
+                            width: 18, height: 18),
+                        const SizedBox(width: 6),
+                      ],
+                      Text(
+                        course.name(l10n),
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: selected
+                              ? scheme.onPrimary
+                              : scheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -488,7 +532,7 @@ class _BranchProgressCard extends StatelessWidget {
     this.onTap,
   });
 
-  final BranchId branch;
+  final Branch branch;
   final SkillProgress progress;
   final String exerciseName;
   final VoidCallback? onTap;
@@ -498,10 +542,7 @@ class _BranchProgressCard extends StatelessWidget {
     final scheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
 
-    final exercise = ExerciseCatalog.forStage(
-      progress.branchId,
-      progress.currentStage,
-    );
+    final exercise = branch.stage(progress.currentStage);
 
     final double stageProgress;
     if (exercise == null) {
@@ -537,11 +578,14 @@ class _BranchProgressCard extends StatelessWidget {
                           mainAxisAlignment:
                               MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              branch.localizedName(l10n),
-                              style: const TextStyle(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
+                            Flexible(
+                              child: Text(
+                                branch.name(l10n),
+                                style: const TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                overflow: TextOverflow.ellipsis,
                               ),
                             ),
                             Text(
@@ -1236,7 +1280,7 @@ class _RoutineDetailSheet extends StatelessWidget {
 class _ChallengeCard extends ConsumerWidget {
   const _ChallengeCard({required this.branch, required this.progress});
 
-  final BranchId branch;
+  final Branch branch;
   final SkillProgress progress;
 
   @override
@@ -1244,8 +1288,7 @@ class _ChallengeCard extends ConsumerWidget {
     final scheme = Theme.of(context).colorScheme;
     final l10n = context.l10n;
 
-    final next =
-        ExerciseCatalog.forStage(branch, progress.currentStage + 1);
+    final next = branch.stage(progress.currentStage + 1);
     if (next == null) return const SizedBox.shrink();
 
     final isTimed = next.type == ExerciseType.timed;

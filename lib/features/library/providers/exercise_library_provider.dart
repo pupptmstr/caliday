@@ -72,16 +72,24 @@ class ExerciseLibraryNotifier extends Notifier<ExerciseLibraryState> {
     ].map(_fold).toList();
   }
 
+  /// Whether [e] matches the search [query] in any of [languages] (every
+  /// supported one, see [allLanguages]); an empty query matches everything.
+  /// Also used by the exercise picker of the branch builder.
+  static bool matchesQuery(
+      Exercise e, String query, List<AppLocalizations> languages) {
+    final q = _fold(query.trim());
+    return q.isEmpty || _searchNames(e, languages).any((n) => n.contains(q));
+  }
+
+  /// Every supported language, for [matchesQuery].
+  static List<AppLocalizations> allLanguages() =>
+      AppLocalizations.supportedLocales.map(lookupAppLocalizations).toList();
+
   static List<Exercise> _filter(ExerciseLibraryState s) {
     var list = ExerciseCatalog.libraryAll;
-    final q = _fold(s.query.trim());
-    if (q.isNotEmpty) {
-      final languages = AppLocalizations.supportedLocales
-          .map(lookupAppLocalizations)
-          .toList();
-      list = list
-          .where((e) => _searchNames(e, languages).any((n) => n.contains(q)))
-          .toList();
+    if (s.query.trim().isNotEmpty) {
+      final languages = allLanguages();
+      list = list.where((e) => matchesQuery(e, s.query, languages)).toList();
     }
     if (s.selectedTags.isNotEmpty) {
       list = list.where((e) {
