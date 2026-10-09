@@ -118,6 +118,21 @@ void main() {
       expect(repo.getProgress(BranchId.posture).currentStage, 3);
     });
 
+    test('caps stored reps at the target of a stage that was lowered', () async {
+      // 0.9.2 halved the hip flexor stretch to 10 → 30 s per side.
+      await box().put('flex', SkillProgress(
+          branchId: BranchId.flex, currentStage: 1, currentReps: 50,
+          currentSets: 2, currentRestSec: 30));
+      await box().put('push', SkillProgress(
+          branchId: BranchId.push, currentStage: 3, currentReps: 9));
+      await repo.runMigrations();
+      final flex = repo.getProgress(BranchId.flex);
+      expect(flex.currentReps,
+          ExerciseCatalog.forStage(BranchId.flex, 1)!.targetReps);
+      expect(flex.currentSets, 2);
+      expect(repo.getProgress(BranchId.push).currentReps, 9);
+    });
+
     test('is idempotent', () async {
       await box().put('calisthenics_core',
           SkillProgress(branchId: BranchId.core, currentStage: 4));

@@ -7,7 +7,7 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.9.0 (Morning Routine, merged into `main` 2026-10-08). Yoga is in progress on `session/2026-10-08-yoga` as **0.9.1** (the course, Miso and all its animations are in the app; ready for the owner to merge): the owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
+**Version:** v0.9.1 (Yoga, merged into `main` 2026-10-09, PR #3). **0.9.2** is in progress on `session/2026-10-09-polish`: the small things left over (shorter per-side holds, hosts on the achievements, layout fixes, minor dependency updates, a pigeon pose draft); see the Change History. The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
 **Next priority:** v1.0 release. What still stands in the way:
 - Friends has never been tested on two real phones (checklist below).
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
@@ -77,7 +77,15 @@ Secrets: `ANDROID_KEYSTORE_BASE64` (PowerShell: `[Convert]::ToBase64String([IO.F
 
 **To release:** bump `version:` in `pubspec.yaml`, commit, `git tag v0.9.0 && git push --tags`, review the draft release, publish. macOS runners are free for a public repository (a private one would bill them at 10×).
 
-**An Android build break found on the way:** the `home_widget` plugin declares `androidx.glance:glance-appwidget:1.+`, a dynamic range that began to resolve to `1.3.0-alpha02` (needs compileSdk 37 and AGP 9.1), so every Android build failed in `checkReleaseAarMetadata`. `android/build.gradle.kts` now pins Glance to 1.1.1. Watch for a `home_widget` release that stops using the range.
+**An Android build break found on the way:** the `home_widget` plugin declares `androidx.glance:glance-appwidget:1.+`, a dynamic range that began to resolve to `1.3.0-alpha02` (needs compileSdk 37 and AGP 9.1), so every Android build failed in `checkReleaseAarMetadata`. `android/build.gradle.kts` pinned Glance to 1.1.1 until `home_widget` 0.9.2 pinned it itself; the force was removed in 0.9.2 (2026-10-09, a local `flutter build apk --debug` passes without it).
+
+---
+
+### Dependencies held back (2026-10-09)
+
+`flutter pub upgrade` within the constraints (the owner asked for minor updates only; the major ones — `go_router` 18, `flutter_local_notifications` 22, `home_widget` 0.10, `package_info_plus` 10 — wait for a branch of their own). One minor update is **held back for the owner to decide**:
+
+- **`flutter_blue_plus` stays below 2.3** (`">=2.2.1 <2.3.0"` in `pubspec.yaml`, resolves 2.2.3). From 2.3.5 its Android build runs `license_ping.gradle`, which sends the package name, app name, app version, the plugin version and the date to the author's server on every build (FlutterBluePlus License 1.6, § 1.4: "may attempt to send limited license telemetry at build time"; a failed ping does not stop the build). It is no end-user data, but the app's principle is that nothing leaves the device and the builds run on the owner's machine and in CI. The license itself is unchanged in substance from the 2.2.x one we already use: free for personal and nonprofit use, a paid licence for any for-profit use, "including commercial use by individuals" — worth a look before the "Support the author" tips (§ "Support the Author"). 2.3.x brings Darwin and Android connection fixes we have not needed (Friends over BLE is still untested on phones). Options: keep 2.2.x; take 2.3.x and accept the ping; replace the package.
 
 ---
 
@@ -192,9 +200,9 @@ The owner's order: **(1) German and Spanish translations (done as drafts, 0.8.16
 #### 1. German and Spanish
 - **Part 1, the code, is done (2026-10-07, 0.8.16):** nothing assumes two languages any more. The UI languages are one list, `appLanguages` (`core/l10n/app_languages.dart`); the settings dialog, the onboarding menu, the system-language default (`LocaleNotifier`), the notification texts and the widget's rank names all follow it, the last two through the ARB files (`l10nFor`). The tests check every ARB file against the template and run their "every language" checks over all of them (`test/helpers/all_translations.dart`). Tried with a copy of `app_en.arb` as `app_de.arb`: exactly two tests failed, the missing line in `appLanguages` and the "What's new" entries left in English. See the Change History entry.
 - **Part 2, the texts, is in as drafts (2026-10-07, also 0.8.16, at the owner's request):** `l10n/app_de.arb` and `app_es.arb`, all 562 messages each, written by Claude. **The owner will have native speakers proofread them**; until then the wording is provisional. Choices a proofreader should know: informal address (du / tú, like the Russian ты); German keeps the calisthenics anglicisms the community uses (Challenge, Skills, Plank, Pistol Squat, Dragon Flag, Crunches) and "Serie / Serienschutz" for streak / freeze; Spanish is neutral rather than Spain-only where it could be ("acuéstate", "parada de manos"), with "racha / protector de racha / reto / etapa"; the rank names follow the Russian ones (Anfänger, Amateur, Sportler, Athlet, Meister, Legende / Principiante, Aficionado, Deportista, Atleta, Maestro, Leyenda); counted messages are plurals even where the English one is not ("1 Freund", "1 vez"). Adding a message from now on means writing it in all four files.
-- **Not translated yet:** the legal pages in `docs/` and the store listings.
+- **The legal pages in `docs/` stay in English only** (owner, 2026-10-09). **Not written yet in any language:** the store listings.
 - **Still assuming Russian on purpose:** a profile without a language (`UserProfile.locale == null`, older profiles) gets Russian notifications and shows "Русский" in Settings (`SettingsState.locale`), as before; a new profile always stores its language. `l10n.yaml` `preferred-supported-locales: en, ru` only orders the locale resolution and needs no change.
-- **Checked on a 375 px screen (web):** German — the onboarding, Home, the Courses tab, Profile, Settings; Spanish — Settings, Home, Profile, the workout screen and its quit dialog. Nothing overflowed and the console showed no layout errors; the long rank names ("Principiante") shrink inside their chip. The segmented controls fit in both; only the Russian "Системная" breaks mid-word (an older problem, not about the new languages).
+- **Checked on a 375 px screen (web):** German — the onboarding, Home, the Courses tab, Profile, Settings; Spanish — Settings, Home, Profile, the workout screen and its quit dialog. Nothing overflowed and the console showed no layout errors; the long rank names ("Principiante") shrink inside their chip. The segmented controls fit in both; only the Russian "Системная" broke mid-word (an older problem, not about the new languages; fixed in 0.9.2).
 - ~~The native home screen widget is not localized~~ — fixed in 0.8.18 (Change History).
 
 #### Decisions on courses (owner, 2026-10-07)
@@ -292,7 +300,7 @@ The owner chose to drop branch progress from the friend exchange altogether (rat
 - **Order of work:** (1) the four ⚠️ animations drafted first in the rig (torso twist, windmill, knee circles, speed skater) — **done, approved by the owner 2026-10-08, in `assets/`**; (2) the course, branches and exercises, texts in four languages, version 0.9.0 — **done (Change History)**; (3) Aurora — **done, approved by the owner 2026-10-08**; (4) the other 18 animations — **done, approved by the owner 2026-10-08 (the cross crunch redrawn once), in `assets/`**. The branch `0.9.0` is merged only when all of it is in.
 
 #### 2b-3. Yoga — the third new course (owner, 2026-10-08; done in 0.9.1)
-- **Concept:** a ladder of harder and harder poses (the owner's 2026-10-07 decision), holds mostly, one-sided ones held on each side (§ Per-side holds). Host: **Miso** the cat. Version **0.9.1** on `session/2026-10-08-yoga` (the owner keeps 0.9.x until 1.0).
+- **Concept:** a ladder of harder and harder poses (the owner's 2026-10-07 decision), holds mostly, one-sided ones held on each side (§ Per-side holds). Host: **Miso** the cat. Version **0.9.1**, merged 2026-10-09 (the owner keeps 0.9.x until 1.0).
 - **Reuse is allowed (owner, 2026-10-08):** exercises and whole branches may be shared with other courses (§ Decisions on courses). Yoga takes the existing **Balance** branch of Calisthenics as it is (crow, handstands; progress shared) and reuses the sphinx (Evening Stretch), the downward dog hold (`cooldown_downward_dog`), plank to dog (Morning Routine), the cat-cow (warm-up) and the lying relaxation (cool-down).
 - **The branches** (agreed 2026-10-08; ↔ = on each side; the numbers are in ARCHITECTURE § Exercise Catalog):
 
@@ -313,11 +321,11 @@ The owner chose to drop branch progress from the friend exchange altogether (rat
 #### Per-side holds — done (0.8.20)
 Implemented as decided; see ARCHITECTURE § Timed exercises (Holds on each side) and the Change History entry.
 
-#### Course hosts — decided (owner, 2026-10-08); Raffi and Luna done in 0.8.20, Aurora in 0.9.0, Miso in 0.9.1
+#### Course hosts — decided (owner, 2026-10-08); Raffi and Luna done in 0.8.20, Aurora in 0.9.0, Miso in 0.9.1, on the achievements in 0.9.2
 - **Every course gets its own host character.** Calisthenics — **Goro** (gorilla); Healthy Body — **Raffi** (giraffe: neck and posture); Evening Stretch — **Luna** (owl); Morning Routine — **Aurora** (lark: "жаворонок / сова", early bird / night owl, Lerche / Eule, alondra / búho); Yoga — **Miso** (cat). Names chosen by the owner; they read the same in RU / EN / DE / ES (Луна, Аврора, Мисо, Раффи).
 - **Goro stays the coach:** the Home hero, the notifications, and he performs **every** exercise animation — no animation is redrawn for a host. **Skala stays the judge** of every course's challenge.
 - **A host is static SVG art in 2–3 poses**, like Skala, in Goro's flat style (BRAND.md), drawn in-house.
-- **Where a host appears:** the Home hero (with Goro's six moods) and the Profile header while its course is active (owner, 2026-10-08 — first planned as Goro's), the course cards (onboarding, Library), the summary of a workout of that course; not yet the achievements. Goro keeps the icon, the onboarding welcome, notifications, the home-screen widget and About.
+- **Where a host appears:** the Home hero (with Goro's six moods) and the Profile header while its course is active (owner, 2026-10-08 — first planned as Goro's), the course cards (onboarding, Library), the summary of a workout of that course, and since 0.9.2 the achievements of its branches (ARCHITECTURE § Gamification). Goro keeps the icon, the onboarding welcome, notifications, the home-screen widget and About.
 - **Order:** Luna with Evening Stretch, Raffi at the same time (the slot is built once); Aurora and Miso with their courses.
 - **Skala is redrawn** — done in 0.8.20 (`tools/characters/gen_skala.py`, BRAND.md § Skala).
 - **Bruno** (the bear demonstrator) is dropped in that role: stage previews on the Branch Journey screen can play Goro's existing animations. **Rex** (the streak monkey) is deferred — on Home it would compete with Goro, whose angry face already warns about the streak.
@@ -364,7 +372,7 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 ### Lottie Animations — status per branch (2026-10-08)
 
-124 files in `assets/animations/`. Yoga (0.9.1): all 18 new ones (`gen_yoga.py`: Warrior II, triangle, side angle, tree, eagle and half moon from the front, the rest from the side); three stages reuse the sphinx, the downward dog and plank to dog. Morning Routine (0.9.0): all 22 (`gen_morning.py`). Evening Stretch (0.8.20): all 19 (`gen_evening.py`; the cat-cow reuses `cooldown_cat_cow`). Complete: Push (7), Core (7 + alt), Pull (6), Legs (5), Balance (6), Flex (5 of 6), Supplementary pool (9, one reuses `warmup_wrist_circles`), Posture (5 of 6: three generated, dead bug and kneeling lunge reuse `supp_dead_bug` / `flex_s1_hip_flexor_stretch`), Neck (6, all generated), warmups (7/7), cooldowns (6/6). `flex_s3_hip_9090` and `posture_s6_pigeon_pose` deliberately have no animation (not readable in the formats we draw).
+124 files in `assets/animations/`. Yoga (0.9.1): all 18 new ones (`gen_yoga.py`: Warrior II, triangle, side angle, tree, eagle and half moon from the front, the rest from the side); three stages reuse the sphinx, the downward dog and plank to dog. Morning Routine (0.9.0): all 22 (`gen_morning.py`). Evening Stretch (0.8.20): all 19 (`gen_evening.py`; the cat-cow reuses `cooldown_cat_cow`). Complete: Push (7), Core (7 + alt), Pull (6), Legs (5), Balance (6), Flex (5 of 6), Supplementary pool (9, one reuses `warmup_wrist_circles`), Posture (5 of 6: three generated, dead bug and kneeling lunge reuse `supp_dead_bug` / `flex_s1_hip_flexor_stretch`), Neck (6, all generated), warmups (7/7), cooldowns (6/6). `flex_s3_hip_9090` and `posture_s6_pigeon_pose` have no animation (not readable in the formats we drew); the pigeon is drafted from above since 2026-10-09 (`gen_posture.py`, on the Posture stand) and waits for the owner.
 
 Nothing planned is missing. `cooldown_cat_cow` was replaced by a generated one (2026-10-06).
 
@@ -374,6 +382,35 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-09 — The small things: shorter holds, hosts on the achievements, layout fixes, dependencies, a pigeon draft (0.9.2+32)
+
+**What was done:** branch `session/2026-10-09-polish` from `main` after the Yoga merge (PR #3). The list of small things from the 2026-10-08 session, with the owner's answers: (1) the three longest per-side holds — single-leg stand, hip flexor stretch, 90/90, each 3 sets of 60 s on each side (~7 min) — are halved to 10 → 30 s per side (the other eight per-side holds unchanged); stored progress above the new target comes down to it at start-up, and the Balance onboarding start and the Balance / Flex defaults follow (10 s). (2) The course hosts present the achievements of their branches: a portrait on the tile, the host cheering (earned) or supportive (still ahead) in the sheet, Goro for the app's own achievements; the Profile badges open the same sheet. (3) «Системная» in the theme switch no longer breaks mid-word, and the rank achievements' ⭐⭐ / ⭐⭐⭐ no longer wrap inside their square (found on the way). (4) Minor dependency updates (68 packages in the lock file; `flutter_blue_plus` held at 2.2.x, see § Dependencies held back); the Glance force in `android/build.gradle.kts` removed. (5) The workout summary with Luna checked live for the first time: an Evening Stretch workout in the web build ends with her cheer pose, laid out right. (6) The pigeon pose drafted from above (`gen_posture.py`), on the Posture stand (Artifact) next to the frog, not in `assets/` until the owner approves it. The legal pages stay English only (owner). "What's new" 0.9.2 in four languages. 992 tests, analyze clean, `flutter build apk --debug` passes. Checked in the web build at 375 px: the theme switch, the achievements list (badges of Goro, Luna, Aurora, Miso), a locked sheet (Luna supportive), an earned one (Goro flexing), the stars.
+
+**New files:**
+- `lib/features/profile/widgets/achievement_sheet.dart` — `showAchievementSheet`, `achievementCourse`, `AchievementEmoji`
+
+**Modified files:**
+- `lib/data/static/exercise_catalog.dart` — the three holds 10 → 30 s
+- `lib/data/repositories/skill_progress_repository.dart` — `runMigrations` caps reps at the stage target; Balance / Flex defaults 10 s
+- `lib/features/onboarding/providers/onboarding_provider.dart` — Balance starts at 10 s
+- `lib/data/static/achievement_catalog.dart` — `Achievement.branch` on the 26 branch achievements
+- `lib/data/static/course_catalog.dart` — `CourseCatalog.courseOf(branch, active:)`
+- `lib/features/profile/screens/achievements_screen.dart`, `profile_screen.dart` — host badge, the shared sheet, one-line emoji
+- `lib/features/settings/screens/settings_screen.dart` — theme labels with their icons inside, no check on the selected segment
+- `pubspec.yaml` (0.9.2+32, `flutter_blue_plus` below 2.3), `pubspec.lock`, `android/build.gradle.kts`
+- `lib/data/static/release_notes_catalog.dart`, `l10n/*.arb` (`releaseNotes092`, + generated)
+- `tools/lottie/gen_posture.py` (the pigeon), `tools/lottie/build_preview.py` (the Posture stand)
+- tests: `skill_progress_repository_test` (the cap), `achievement_service_test` (a branch achievement names the branch that earns it), `enums_test` (`courseOf`)
+
+**Key issues and solutions:**
+- **`SegmentedButton` ignores the style's padding on a segment with an icon** (flutter/flutter#173944: it forces 12 / 16 px to match `TextButton.icon`), so narrower padding did nothing and a `FittedBox` alone shrank «Системная» to ~75 %. The icon now sits inside the label (`_ThemeLabel`) with `showSelectedIcon: false`, so the style's 6 px padding applies and the word fits at full size; the selected segment shows by its fill.
+- **The Android build failed after the upgrade** with `Unresolved reference 'HomeWidgetGlanceStateDefinition'`, a class of `home_widget` itself: a stale incremental Kotlin build of the 0.9.1 sources in `build/home_widget/`. Deleting that folder fixed it (not `flutter clean`: `build/` holds the animation stands). Then the build passed without the Glance force too.
+- **A shared branch's achievement needs one host:** `courseOf` takes the active course when it holds the branch (Balance shows Miso for a Yoga user), else the first course listing it (Goro for Balance and Flex). `first_challenge` is awarded on any branch's advance, so it has no branch.
+- **Lowering a target strands stored progress above it:** a user at 50 s would keep holding 50 s until the next set resets reps. `runMigrations` caps stored reps at the current stage's target on every start, which also covers any later lowering.
+- **The pigeon from above:** Goro's shin (66 px) is shorter than his torso is wide (78 px) and his head is large, so the shin across cannot show at both ends. Upright on his hands (the torso seen short), the front leg forms a light «Γ» in front of the head (the shin is drawn in the thigh's lighter colour); folded onto the forearms, the torso covers the shin and the knee shows to the side.
+
+---
 
 ### 2026-10-09 — Yoga: all animations in the app (0.9.1)
 

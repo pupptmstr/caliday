@@ -37,21 +37,6 @@ subprojects {
     project.evaluationDependsOn(":app")
 }
 
-// The home_widget plugin declares androidx.glance:glance-appwidget:1.+, a
-// dynamic range. It started to resolve to 1.3.0-alpha02, which needs
-// compileSdk 37 and AGP 9.1 and broke every Android build. Pin the last stable
-// release that builds with the current toolchain (compileSdk 36, AGP 8.11).
-subprojects {
-    configurations.all {
-        resolutionStrategy {
-            force(
-                "androidx.glance:glance:1.1.1",
-                "androidx.glance:glance-appwidget:1.1.1",
-            )
-        }
-    }
-}
-
 tasks.register<Delete>("clean") {
     delete(rootProject.layout.buildDirectory)
 }

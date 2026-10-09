@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
+import '../../../data/models/enums.dart';
 import '../../../data/repositories/achievement_repository.dart';
 import '../../../data/static/achievement_catalog.dart';
+import '../../home/providers/home_provider.dart' show activeCourseProvider;
+import '../widgets/achievement_sheet.dart';
 
 class AchievementsScreen extends ConsumerWidget {
   const AchievementsScreen({super.key});
@@ -15,6 +19,7 @@ class AchievementsScreen extends ConsumerWidget {
     final repo = ref.watch(achievementRepositoryProvider);
     final l10n = context.l10n;
     final locale = Localizations.localeOf(context).languageCode;
+    final activeCourse = ref.watch(activeCourseProvider);
 
     final earnedMap = repo.getAllEarned();
     // Newest-first. Ids live in Hive forever, so skip any that the catalog no
@@ -46,7 +51,9 @@ class AchievementsScreen extends ConsumerWidget {
                 achievement: a,
                 subtitle: l10n.achievementsEarnedOn(dateStr),
                 earned: true,
-                onTap: () => _showSheet(context, a, dateStr, l10n),
+                hostBadge: achievementCourse(a, activeCourse)?.hostPortrait,
+                onTap: () => showAchievementSheet(context, a,
+                    active: activeCourse, earnedOn: dateStr),
               );
             }),
             const SizedBox(height: 20),
@@ -62,64 +69,15 @@ class AchievementsScreen extends ConsumerWidget {
                 achievement: a,
                 subtitle: isSecret ? '' : AchievementL10n.desc(l10n, a.id),
                 earned: false,
+                hostBadge: achievementCourse(a, activeCourse)?.hostPortrait,
                 onTap: isSecret
                     ? () => _showSecretSheet(context, l10n)
-                    : () => _showSheet(context, a, null, l10n),
+                    : () => showAchievementSheet(context, a,
+                        active: activeCourse),
               );
             }),
           ],
         ],
-      ),
-    );
-  }
-
-  void _showSheet(
-    BuildContext context,
-    Achievement a,
-    String? dateStr,
-    dynamic l10n,
-  ) {
-    final scheme = Theme.of(context).colorScheme;
-    final l = context.l10n;
-    showModalBottomSheet<void>(
-      context: context,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      builder: (_) => Padding(
-        padding: const EdgeInsets.fromLTRB(24, 20, 24, 36),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Text(a.emoji, style: const TextStyle(fontSize: 48)),
-            const SizedBox(height: 12),
-            Text(
-              AchievementL10n.name(l, a.id),
-              style:
-                  const TextStyle(fontSize: 20, fontWeight: FontWeight.w800),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              AchievementL10n.desc(l, a.id),
-              style: TextStyle(
-                fontSize: 15,
-                color: scheme.onSurfaceVariant,
-              ),
-              textAlign: TextAlign.center,
-            ),
-            if (dateStr != null) ...[
-              const SizedBox(height: 8),
-              Text(
-                l.achievementsEarnedOn(dateStr),
-                style: TextStyle(
-                  fontSize: 13,
-                  color: scheme.onSurfaceVariant,
-                ),
-              ),
-            ],
-          ],
-        ),
       ),
     );
   }
@@ -188,12 +146,16 @@ class _AchievementTile extends StatelessWidget {
     required this.subtitle,
     required this.earned,
     required this.onTap,
+    this.hostBadge,
   });
 
   final Achievement achievement;
   final String subtitle;
   final bool earned;
   final VoidCallback onTap;
+
+  /// The portrait of the branch's course host, in the corner of the icon.
+  final String? hostBadge;
 
   @override
   Widget build(BuildContext context) {
@@ -212,20 +174,41 @@ class _AchievementTile extends StatelessWidget {
 
     return ListTile(
       contentPadding: const EdgeInsets.symmetric(horizontal: 4, vertical: 2),
-      leading: Container(
-        width: 48,
-        height: 48,
-        decoration: BoxDecoration(
-          color: earned
-              ? scheme.primaryContainer
-              : scheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        alignment: Alignment.center,
-        child: emoji != null
-            ? Text(emoji, style: const TextStyle(fontSize: 24))
-            : Icon(Icons.lock_outline, size: 24,
-                color: scheme.onSurfaceVariant),
+      leading: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          Container(
+            width: 48,
+            height: 48,
+            decoration: BoxDecoration(
+              color: earned
+                  ? scheme.primaryContainer
+                  : scheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            alignment: Alignment.center,
+            child: emoji != null
+                ? Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: AchievementEmoji(emoji, size: 24),
+                  )
+                : Icon(Icons.lock_outline, size: 24,
+                    color: scheme.onSurfaceVariant),
+          ),
+          if (hostBadge != null && !isHiddenSecret)
+            Positioned(
+              right: -6,
+              bottom: -6,
+              child: Container(
+                padding: const EdgeInsets.all(2),
+                decoration: BoxDecoration(
+                  color: scheme.surface,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: SvgPicture.asset(hostBadge!, width: 22, height: 22),
+              ),
+            ),
+        ],
       ),
       title: Text(
         title,

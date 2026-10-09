@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:intl/intl.dart';
 
-import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../friends/providers/friends_provider.dart';
 import '../../home/providers/home_provider.dart' show activeCourseProvider;
@@ -14,6 +13,7 @@ import '../../../data/repositories/workout_repository.dart';
 import '../../../data/static/achievement_catalog.dart';
 import '../../../core/theme/app_theme.dart';
 import '../providers/profile_provider.dart';
+import '../widgets/achievement_sheet.dart';
 import '../widgets/compact_heatmap.dart';
 import '../widgets/rank_info_sheet.dart';
 import '../widgets/whats_new_bell.dart';
@@ -240,6 +240,7 @@ class ProfileScreen extends ConsumerWidget {
                 _AchievementBadgeRow(
                   ids: data.recentAchievementIds,
                   achievementRepo: achievementRepo,
+                  activeCourse: ref.watch(activeCourseProvider),
                 ),
 
               const SizedBox(height: 24),
@@ -579,15 +580,16 @@ class _AchievementBadgeRow extends StatelessWidget {
   const _AchievementBadgeRow({
     required this.ids,
     required this.achievementRepo,
+    required this.activeCourse,
   });
 
   final List<String> ids;
   final AchievementRepository achievementRepo;
+  final CourseId activeCourse;
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
-    final l10n = context.l10n;
     final locale = Localizations.localeOf(context).languageCode;
 
     return Wrap(
@@ -598,51 +600,14 @@ class _AchievementBadgeRow extends StatelessWidget {
         return GestureDetector(
           onTap: () {
             final earnedAt = achievementRepo.earnedAt(id);
-            final dateStr = earnedAt != null
-                ? DateFormat('d MMMM yyyy', locale).format(earnedAt)
-                : null;
-            showModalBottomSheet<void>(
-              context: context,
-              shape: const RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.vertical(top: Radius.circular(24)),
-              ),
-              builder: (_) => Padding(
-                padding: const EdgeInsets.fromLTRB(24, 20, 24, 36),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(a?.emoji ?? '🏅',
-                        style: const TextStyle(fontSize: 48)),
-                    const SizedBox(height: 12),
-                    Text(
-                      AchievementL10n.name(l10n, id),
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.w800),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      AchievementL10n.desc(l10n, id),
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: scheme.onSurfaceVariant,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    if (dateStr != null) ...[
-                      const SizedBox(height: 8),
-                      Text(
-                        l10n.achievementsEarnedOn(dateStr),
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: scheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
-                  ],
-                ),
-              ),
+            if (a == null) return;
+            showAchievementSheet(
+              context,
+              a,
+              active: activeCourse,
+              earnedOn: earnedAt != null
+                  ? DateFormat('d MMMM yyyy', locale).format(earnedAt)
+                  : null,
             );
           },
           child: Container(
@@ -653,8 +618,10 @@ class _AchievementBadgeRow extends StatelessWidget {
               borderRadius: BorderRadius.circular(14),
             ),
             alignment: Alignment.center,
-            child: Text(a?.emoji ?? '🏅',
-                style: const TextStyle(fontSize: 26)),
+            child: Padding(
+              padding: const EdgeInsets.all(4),
+              child: AchievementEmoji(a?.emoji ?? '🏅', size: 26),
+            ),
           ),
         );
       }).toList(),

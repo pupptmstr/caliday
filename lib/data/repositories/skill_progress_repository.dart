@@ -47,6 +47,20 @@ class SkillProgressRepository {
         }
       }
     }
+    await _capRepsAtStageTarget();
+  }
+
+  /// A stage whose target was lowered in the catalog (0.9.2: three per-side
+  /// holds, 60 → 30 s) would keep asking the old amount until the next set
+  /// resets it, so stored reps above the stage's target come down to it.
+  Future<void> _capRepsAtStageTarget() async {
+    for (final key in _box.keys.toList()) {
+      final p = _box.get(key)!;
+      final exercise = ExerciseCatalog.forStage(p.branchId, p.currentStage);
+      if (exercise == null || p.currentReps <= exercise.targetReps) continue;
+      p.currentReps = exercise.targetReps;
+      await _box.put(key, p);
+    }
   }
 
   static SkillProgress _copyOf(SkillProgress p) => SkillProgress(
@@ -90,7 +104,7 @@ class SkillProgressRepository {
         return SkillProgress(
           branchId: branch,
           currentStage: 1,
-          currentReps: 20, // seconds for timed hold
+          currentReps: 10, // seconds for timed hold
           currentSets: 1,
           currentRestSec: 60,
         );
@@ -98,7 +112,7 @@ class SkillProgressRepository {
         return SkillProgress(
           branchId: branch,
           currentStage: 1,
-          currentReps: 20,
+          currentReps: 10,
           currentSets: 1,
           currentRestSec: 30,
         );

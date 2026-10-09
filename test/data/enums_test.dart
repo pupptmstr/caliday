@@ -141,6 +141,22 @@ void main() {
       expect(cali.toSet().intersection(healthy.toSet()), {BranchId.flex});
     });
 
+    test('courseOf: the active course when it holds the branch, else the first',
+        () {
+      expect(CourseCatalog.courseOf(BranchId.push), CourseId.calisthenics);
+      expect(CourseCatalog.courseOf(BranchId.yogaFlow), CourseId.yoga);
+      expect(CourseCatalog.courseOf(BranchId.balance), CourseId.calisthenics);
+      expect(CourseCatalog.courseOf(BranchId.balance, active: CourseId.yoga),
+          CourseId.yoga);
+      expect(CourseCatalog.courseOf(BranchId.flex, active: CourseId.healthyBody),
+          CourseId.healthyBody);
+      expect(CourseCatalog.courseOf(BranchId.push, active: CourseId.yoga),
+          CourseId.calisthenics);
+      for (final b in BranchId.values) {
+        expect(CourseCatalog.branchesFor(CourseCatalog.courseOf(b)), contains(b));
+      }
+    });
+
     test('every branch belongs to at least one course', () {
       final covered = {
         for (final c in CourseId.values) ...CourseCatalog.branchesFor(c),

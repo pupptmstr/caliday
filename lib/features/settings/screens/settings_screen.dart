@@ -46,22 +46,28 @@ class SettingsScreen extends ConsumerWidget {
                 segments: [
                   ButtonSegment(
                     value: ThemeMode.system,
-                    icon: const Icon(Icons.brightness_auto_rounded),
-                    label: Text(l10n.settingsThemeSystem),
+                    label: _ThemeLabel(Icons.brightness_auto_rounded, l10n.settingsThemeSystem),
                   ),
                   ButtonSegment(
                     value: ThemeMode.light,
-                    icon: const Icon(Icons.light_mode_rounded),
-                    label: Text(l10n.settingsThemeLight),
+                    label: _ThemeLabel(Icons.light_mode_rounded, l10n.settingsThemeLight),
                   ),
                   ButtonSegment(
                     value: ThemeMode.dark,
-                    icon: const Icon(Icons.dark_mode_rounded),
-                    label: Text(l10n.settingsThemeDark),
+                    label: _ThemeLabel(Icons.dark_mode_rounded, l10n.settingsThemeDark),
                   ),
                 ],
                 selected: {state.themeMode},
                 onSelectionChanged: (s) => notifier.setThemeMode(s.first),
+                // The icons are part of the labels and the selected segment
+                // shows no check: a segment with an icon gets fixed 12 / 16 px
+                // padding (flutter/flutter#173944), which left «Системная»
+                // too little room on a 375 px screen.
+                showSelectedIcon: false,
+                style: const ButtonStyle(
+                  padding: WidgetStatePropertyAll(
+                      EdgeInsets.symmetric(horizontal: 6)),
+                ),
               ),
             ),
 
@@ -535,4 +541,28 @@ Future<void> _showTimePicker(
   );
 
   onPicked(picked.hour, picked.minute);
+}
+
+/// A theme segment's icon and name on one line; the name shrinks a little
+/// rather than break mid-word.
+class _ThemeLabel extends StatelessWidget {
+  const _ThemeLabel(this.icon, this.text);
+
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) => Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 18),
+          const SizedBox(width: 6),
+          Flexible(
+            child: FittedBox(
+              fit: BoxFit.scaleDown,
+              child: Text(text, maxLines: 1),
+            ),
+          ),
+        ],
+      );
 }

@@ -246,7 +246,7 @@ class OnboardingNotifier extends Notifier<OnboardingState> {
       SkillProgress(
         branchId: BranchId.balance,
         currentStage: 1,
-        currentReps: 20,
+        currentReps: 10,
         currentSets: 1,
         currentRestSec: 30,
       ),

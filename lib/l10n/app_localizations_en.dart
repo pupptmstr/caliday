@@ -2135,6 +2135,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes092 =>
+      'The one-leg stand, the hip flexor stretch and 90/90 are shorter: 10 to 30 seconds on each side instead of 20 to 60. If you already held longer than 30 seconds, it becomes 30.\nA course\'s achievements are now presented by its host: the host\'s portrait sits on the achievement\'s badge, and in its card the host celebrates with you, or cheers you on while it is still ahead.\nThe rank stars in the achievements and the theme switch in the settings no longer wrap onto a second line.';
+
+  @override
   String get releaseNotes091 =>
       'New course: Yoga. Poses from easy to hard in four new skills: standing poses, balancing on one leg, backbends and sun salutations. It shares the Balance skill with Calisthenics: one progress for both.\nMiso the cat leads Yoga: on the home screen and in the profile while the course is active, and with paws raised overhead at the end of a workout.';
 

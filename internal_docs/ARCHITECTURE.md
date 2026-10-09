@@ -34,7 +34,7 @@ calisthenics (handstand push-ups) through short daily sets of 5–15 minutes.
 | Health | `health: ^13.3.1` |
 | QR generation | `qr_flutter: ^4.1.0` |
 | QR scanning | `mobile_scanner: ^7.2.0` |
-| BLE Central | `flutter_blue_plus: ^2.2.1` (scan + GATT client; `License.free` required on `connect()`) |
+| BLE Central | `flutter_blue_plus: ">=2.2.1 <2.3.0"` (scan + GATT client; `License.free` required on `connect()`). Held below 2.3 on purpose: from 2.3.5 its Android build sends the package name, app name and version to the author's server (a "license ping", FlutterBluePlus License § 1.4) — the owner decides (DEV_NOTES § Dependencies held back) |
 | BLE Peripheral | `ble_peripheral: ^2.4.0` (advertising + GATT server) |
 | Target platforms | iOS (primary), Android (secondary), Web (PWA on GitHub Pages — see § Web Build). No desktop: the `linux/`, `windows/` and `macos/` folders were an untouched `flutter create` template and were removed (2026-10-07); `flutter create --platforms=… .` brings them back |
 
@@ -185,11 +185,13 @@ Switching courses happens in the Library tab via pill tabs.
 ### In-Stage Progression
 Reps ↑ → Sets ↑ (with reps reset) → Rest ↓ → Challenge test → Next stage.
 
+A stage's target can be lowered in the catalog without migration code of its own: `SkillProgressRepository.runMigrations()` (at start-up) brings stored reps above the current stage's target down to it. Used in 0.9.2, when the three longest per-side holds (single-leg stand, hip flexor stretch, 90/90: 3 sets of 60 s on each side, ~7 min) were halved to 10 → 30 s per side (owner); the onboarding and default start values of Balance and Flex follow (10 s).
+
 ### Gamification
 - **SP (Strength Points)** — points earned for exercises
 - **Streak** — consecutive days; freezes (max 3, earned every 7 streak days)
 - **Ranks (English UI names):** Beginner → Amateur → Athlete → Champion → Master → Legend — enum values `beginner, amateur, sportsman, athlete, master, legend` (see § Rank SP Thresholds). A rank that is not trained for 21+ days is shown lower, see RankDecayService
-- **Achievements** — 37 total (one is secret; the four of each new course are `<course>_<branch>_complete`), checked after each workout and stage advance
+- **Achievements** — 37 total (one is secret; the four of each new course are `<course>_<branch>_complete`), checked after each workout and stage advance. A branch achievement names its branch (`Achievement.branch`, a test checks it against what `AchievementService` awards for that branch); the host of the branch's course presents it (0.9.2): a 22 px portrait on the tile of the Achievements screen and, in the sheet (`showAchievementSheet`, `features/profile/widgets/achievement_sheet.dart`, shared with the Profile badges), the host cheering when earned or its supportive face while still ahead. The app's own achievements (streaks, ranks, volume, `first_challenge`, `all_complete`) get no badge and Goro in the sheet. A shared branch belongs to the active course when that course holds it, otherwise to the first course listing it (`CourseCatalog.courseOf(branch, active:)`: Balance is Miso's while Yoga is active, else Goro's)
 - **Bonus workouts** — multiple workouts per day are allowed (50% SP; each branch still moves on once a day, see § Primary vs Bonus Workout)
 
 ### Workout size
@@ -391,9 +393,9 @@ Warmup: `warmup_hip_circles` ✅. Cooldowns: `[cooldown_hip_flexor` ✅`, cooldo
 | 3 | `posture_s3_glute_bridge` | Glute Bridge | reps | ✅ |
 | 4 | `posture_s4_hip_march` | Standing Hip March | reps | ✅ (front view) |
 | 5 | `posture_s5_kneeling_lunge` | Kneeling Hip Flexor Stretch | timed | ✅ (file: `flex_s1_hip_flexor_stretch.json`) |
-| 6 | `posture_s6_pigeon_pose` | Pigeon Pose | timed | ❌ (by design) |
+| 6 | `posture_s6_pigeon_pose` | Pigeon Pose | timed | ❌ (a top-view draft awaits the owner, 2026-10-09) |
 
-`posture_s6_pigeon_pose` intentionally has no animation: the shin across the body points at the camera in profile (three profile variants looked like a crawling animal) and a front view hides it. The app shows the placeholder icon. Decision by the owner, 2026-10-06.
+`posture_s6_pigeon_pose` has no animation in the app: the shin across the body points at the camera in profile (three profile variants looked like a crawling animal) and a front view hides it (owner, 2026-10-06; the app shows the placeholder icon). A top view like the frog of Evening Stretch is drafted in `gen_posture.py` (2026-10-09, on the Posture stand): the right leg folded in front, its knee out to the side and the shin across, lit like the thigh so it stands out from the dark head; the left leg straight back; Goro folds from his hands onto his forearms and back. It goes into `assets/` only once the owner approves it.
 
 ### Neck Branch — Healthy Body course (5 stages)
 Warmup: `warmup_neck_rolls` ✅. Cooldowns: `[cooldown_cat_cow` ✅`, cooldown_shoulder_stretch` ✅`]`.
@@ -790,7 +792,7 @@ The key is the Android channel id; the ids never change (`NotificationKind`).
 ## Android Specifics
 
 - Release signing: `android/key.properties` (git-ignored) → upload keystore; without the file the release build uses the debug key. CI writes it from secrets
-- The `home_widget` plugin asks for `androidx.glance:glance-appwidget:1.+`; `android/build.gradle.kts` pins Glance to 1.1.1 (the newest alpha needs compileSdk 37 / AGP 9.1)
+- Glance: `home_widget` 0.9.1 asked for `androidx.glance:glance-appwidget:1.+`, which began to resolve to an alpha needing compileSdk 37 / AGP 9.1, so `android/build.gradle.kts` forced 1.1.1. Since `home_widget` 0.9.2 the plugin pins 1.1.1 itself and the force is gone (0.9.2). After a plugin upgrade, a stale incremental Kotlin build in `build/<plugin>/` can report the plugin's own classes as unresolved: delete that folder (not the whole `build/`, which holds the animation stands)
 - `minSdk = 26` (health package requires API 26+)
 - `build.gradle.kts`: `isCoreLibraryDesugaringEnabled = true` + `desugar_jdk_libs:2.1.4`
 - Root `build.gradle.kts`: `compilerOptions { jvmTarget.set(JvmTarget.JVM_17) }`, **not** `kotlinOptions` (compile error)
@@ -966,7 +968,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v0.7 | Lottie animations — Supplementary pool (9/9; 8 generated + reused `warmup_wrist_circles`) | ✅ |
 | v0.7 | Privacy Policy + Terms of Use (GitHub Pages + links in app) | ✅ |
 | v0.7 | Web build — PWA on GitHub Pages, IndexedDB storage, CI deploy | ✅ |
-| v0.7 | Lottie animations — Posture branch (5/6; 3 generated, dead bug + kneeling lunge reuse existing files; pigeon intentionally without) | ✅ |
+| v0.7 | Lottie animations — Posture branch (5/6; 3 generated, dead bug + kneeling lunge reuse existing files; pigeon without, a top-view draft awaits the owner since 2026-10-09) | ✅ |
 | v0.7 | Lottie animations — Neck branch (5/5 + warmup_neck_rolls, all generated with `tools/lottie`) | ✅ |
 | v0.7 | Lottie animation replacement — cat-cow (`cooldown_cat_cow.json`, generated with `tools/lottie`) | ✅ |
 | v0.8 | Interactive home screen stats — tappable streak/SP/rank chips → calendar / history / rank info | ✅ |
@@ -978,12 +980,12 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | — | "Support the author" button (IAP) | 💡 idea — ⚠️ resolve tax/legal setup first (see DEV_NOTES § Tax / IAP income) |
 | — | Telegram: the web build as a Mini App, reminders sent by a bot | 💡 idea, **parked** by the owner (2026-10-07): a thought on the side, not planned; the research is kept in DEV_NOTES § Telegram Mini App + bot |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
-| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading, the legal pages and the store listings are open (the widget's texts follow the app's language since 0.8.18) — see DEV_NOTES § Roadmap |
+| v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading and the store listings are open; the legal pages stay in English only (owner, 2026-10-09; the widget's texts follow the app's language since 0.8.18) — see DEV_NOTES § Roadmap |
 | v1.0 | Friends: branch progress no longer shared (QR format 3), so a new branch never changes the format | ✅ 0.8.19 |
 | v1.0 | Progression per branch and per day, in any workout (two courses on one day both progress) | ✅ 0.8.19 |
-| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | **Evening Stretch: ✅ in 0.8.20 (4 branches, 19 exercises, texts in 4 languages, all animations, the host Luna)** — § Exercise Catalog, DEV_NOTES § Roadmap 2b-1. **Morning Routine: ✅ 0.9.0, merged 2026-10-08** — the course, its 4 branches (Spine, Joints, Arms, Energy), 22 exercises, texts in 4 languages and 4 achievements are in; Aurora drawn; all 22 animations, approved by the owner (§ Exercise Catalog, DEV_NOTES § Roadmap 2b-2). **Yoga: ✅ 0.9.1, on `session/2026-10-08-yoga` (PR #3)** — the course with Standing, Equilibrium, Backbends, Flow and the shared Balance, 21 stage exercises (3 reused), texts in 4 languages, 4 achievements; Miso drawn; all 18 new animations approved (§ Exercise Catalog, DEV_NOTES § Roadmap 2b-3); courses may share exercises and branches (owner, 2026-10-08) |
+| v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | **Evening Stretch: ✅ in 0.8.20 (4 branches, 19 exercises, texts in 4 languages, all animations, the host Luna)** — § Exercise Catalog, DEV_NOTES § Roadmap 2b-1. **Morning Routine: ✅ 0.9.0, merged 2026-10-08** — the course, its 4 branches (Spine, Joints, Arms, Energy), 22 exercises, texts in 4 languages and 4 achievements are in; Aurora drawn; all 22 animations, approved by the owner (§ Exercise Catalog, DEV_NOTES § Roadmap 2b-2). **Yoga: ✅ 0.9.1, merged 2026-10-09 (PR #3)** — the course with Standing, Equilibrium, Backbends, Flow and the shared Balance, 21 stage exercises (3 reused), texts in 4 languages, 4 achievements; Miso drawn; all 18 new animations approved (§ Exercise Catalog, DEV_NOTES § Roadmap 2b-3); courses may share exercises and branches (owner, 2026-10-08) |
 | v1.0 | Per-side holds — a one-sided hold runs side 1 → "switch sides" countdown → side 2, hands-free (prerequisite of Evening Stretch; also for existing one-sided stretches) | ✅ 0.8.20 — § Timed exercises: the get-ready countdown |
-| v1.0 | Course hosts — a character per course (Goro, Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat) on the course cards, the summary and the achievements; Goro keeps Home and every animation | ✅/📐 0.8.20: Raffi and Luna drawn with the six moods, an idle and a cheer pose; the active course's host is on Home (`GoroExpression.assetFor(course)`), Profile, the course cards (onboarding, Library) and the summary (`CourseId.hostFace` / `hostPortrait` / `hostIdle` / `hostCheer`); Goro keeps the icon, onboarding welcome, notifications, widget and About; Aurora drawn in 0.9.0 with Morning Routine, Miso in 0.9.1 with Yoga; not yet on the achievements |
+| v1.0 | Course hosts — a character per course (Goro, Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat) on the course cards, the summary and the achievements; Goro keeps Home and every animation | ✅ 0.8.20: Raffi and Luna drawn with the six moods, an idle and a cheer pose; the active course's host is on Home (`GoroExpression.assetFor(course)`), Profile, the course cards (onboarding, Library) and the summary (`CourseId.hostFace` / `hostPortrait` / `hostIdle` / `hostCheer`); Goro keeps the icon, onboarding welcome, notifications, widget and About; Aurora drawn in 0.9.0 with Morning Routine, Miso in 0.9.1 with Yoga; on the achievements of their branches since 0.9.2 (§ Gamification) |
 | v1.0 | Skala redrawn as a real bull (it was a recoloured Goro with horns) | ✅ 0.8.20 — `tools/characters/gen_skala.py` |
 | — | Branch Journey: stage previews playing Goro's animations (takes Bruno's planned role; Bruno dropped) | 💡 idea |
 | v1.x | More branches, also outside any course (to be picked in the builder) | 💡 idea — DEV_NOTES § Roadmap 2c |

@@ -3648,6 +3648,12 @@ abstract class AppLocalizations {
   /// **'Version {version}'**
   String whatsNewVersion(String version);
 
+  /// No description provided for @releaseNotes092.
+  ///
+  /// In en, this message translates to:
+  /// **'The one-leg stand, the hip flexor stretch and 90/90 are shorter: 10 to 30 seconds on each side instead of 20 to 60. If you already held longer than 30 seconds, it becomes 30.\nA course\'s achievements are now presented by its host: the host\'s portrait sits on the achievement\'s badge, and in its card the host celebrates with you, or cheers you on while it is still ahead.\nThe rank stars in the achievements and the theme switch in the settings no longer wrap onto a second line.'**
+  String get releaseNotes092;
+
   /// No description provided for @releaseNotes091.
   ///
   /// In en, this message translates to:

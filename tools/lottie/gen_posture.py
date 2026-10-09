@@ -6,10 +6,10 @@ Defaults to writing every animation into assets/animations/.
 
 Not generated here: ``posture_s2_dead_bug`` reuses ``supp_dead_bug.json`` and
 ``posture_s5_kneeling_lunge`` reuses ``flex_s1_hip_flexor_stretch.json`` (the
-catalog points at those files). ``posture_s6_pigeon_pose`` deliberately has no
-animation: the shin across the body points at the camera in profile and a front
-view hides it (owner decision 2026-10-06). ``posture_s4_hip_march`` is a front
-view built on ``frontview.py``.
+catalog points at those files). ``posture_s4_hip_march`` is a front view built
+on ``frontview.py``; ``posture_s6_pigeon_pose`` is seen from above
+(``topview.py``, like the frog of Evening Stretch): in profile the shin across
+the body points at the camera and a front view hides it (2026-10-06).
 """
 
 import argparse
@@ -158,10 +158,81 @@ def hip_march():
     return Animation('posture_s4_hip_march', 48, pose)
 
 
+# ── posture_s6_pigeon_pose ───────────────────────────────────────────────────
+# From above, like the frog of Evening Stretch: a side view hid the shin across
+# the body (2026-10-06). Goro's right leg is folded in front, the knee out to
+# the right, the shin across under the chest; the left leg is stretched
+# straight back. He starts upright on his hands beside the hips (the torso seen
+# short from above), folds forward onto the forearms, holds, and comes back up.
+
+def pigeon_shapes(name):
+    from frontview import _back_shapes
+    from goro_rig import _rc, _single
+    from topview import THIGH as LIGHT, _shapes
+    if name == 'shin_r':  # lit like the thigh, so it stands out from the head
+        return [_single('seg', _rc(30, 70, (0, 0), 9), LIGHT)]
+    return _back_shapes(name) or _shapes(name)
+
+
+PIGEON_ORDER = ['head', 'hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l',
+                'uarm_r', 'body', 'knee_r', 'thigh_r', 'shin_r', 'foot_r',
+                'thigh_l', 'shin_l', 'foot_l', 'knee_l', 'mat']
+
+
+def pigeon():
+    from topview import K as TK, TopViewAnimation, _segment
+    T = 96
+    HIP_Y = 230
+
+    def mix(a, b, u):
+        return (a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u)
+
+    def pose(t):
+        fold = hold_ramp(t, [(0, 0), (10, 0), (34, 1), (T - 34, 1),
+                             (T - 10, 0), (T, 0)])
+        fold += 0.04 * math.sin(2 * math.pi * t / 24) * (fold > 0.98)
+        # How long the torso looks from above: short upright, full when folded.
+        p = 0.35 + 0.65 * fold
+        c = (200, HIP_Y - 50 * p)
+        parts = {'body': dict(p=c, r=0, s=(TK * 100, TK * 100 * p)),
+                 'head': dict(p=(200, c[1] - 18 - 54 * fold), r=0,
+                              s=(TK * 100, TK * 92))}
+        for side, sx in (('l', -1), ('r', 1)):
+            sh = (200 + sx * 36, c[1] - 41 * p)
+            # Hands beside the hips -> forearms on the floor ahead of the head.
+            wrist = mix((200 + sx * 56, HIP_Y + 6), (200 + sx * 34, 96), fold)
+            out = mix((sx * 16, 0), (sx * 10, 12), fold)  # elbow bulges out
+            elbow = add(mix(sh, wrist, 0.5 + 0.15 * fold), out)
+            parts['uarm_' + side] = _segment(sh, elbow, 'uarm')
+            parts['farm_' + side] = _segment(elbow, wrist, 'farm')
+            parts['hand_' + side] = dict(p=wrist, r=0, s=(TK * 100, TK * 100))
+        # The front (right) leg: knee forward and out, the shin back across in
+        # front of the head while he is upright.
+        hip_r, hip_l = (222, HIP_Y), (178, HIP_Y)
+        knee_r, ankle_r = (266, HIP_Y - 55), (202, HIP_Y - 70)
+        parts['thigh_r'] = _segment(hip_r, knee_r, 'thigh')
+        parts['shin_r'] = _segment(knee_r, ankle_r, 'shin')
+        parts['knee_r'] = dict(p=knee_r, r=0, s=(TK * 100, TK * 100))
+        parts['foot_r'] = dict(p=add(ankle_r, (-10, -2)), r=10,
+                               s=(TK * 100, TK * 100))
+        # The back (left) leg straight back; its kneecap faces the floor.
+        knee_l, ankle_l = (174, HIP_Y + 70), (171, HIP_Y + 136)
+        parts['thigh_l'] = _segment(hip_l, knee_l, 'thigh')
+        parts['shin_l'] = _segment(knee_l, ankle_l, 'shin')
+        parts['knee_l'] = dict(p=knee_l, r=0, s=(0, 0))
+        parts['foot_l'] = dict(p=add(ankle_l, (0, 6)), r=90,
+                               s=(TK * 100, TK * 100))
+        return parts
+
+    return TopViewAnimation('posture_s6_pigeon_pose', T, pose, PIGEON_ORDER,
+                            shapes_fn=pigeon_shapes)
+
+
 ANIMATIONS = {
     'posture_s1_pelvic_tilt': pelvic_tilt,
     'posture_s3_glute_bridge': glute_bridge,
     'posture_s4_hip_march': hip_march,
+    'posture_s6_pigeon_pose': pigeon,
 }
 
 
