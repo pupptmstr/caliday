@@ -135,6 +135,20 @@ void main() {
       });
     });
 
+    test('completing a Yoga branch earns its achievement', () {
+      const ids = {
+        BranchId.yogaStanding: 'yoga_standing_complete',
+        BranchId.yogaOneLeg: 'yoga_one_leg_complete',
+        BranchId.yogaBackbends: 'yoga_backbends_complete',
+        BranchId.yogaFlow: 'yoga_flow_complete',
+      };
+      ids.forEach((branch, id) {
+        expect(advance(branch, branch.stageCount - 1), isNot(contains(id)),
+            reason: branch.name);
+        expect(advance(branch, branch.stageCount), contains(id), reason: branch.name);
+      });
+    });
+
     test('Healthy Body branches have no achievements of their own yet', () {
       expect(advance(BranchId.posture, 6), ['first_challenge']);
       expect(advance(BranchId.neck, 5), ['first_challenge']);

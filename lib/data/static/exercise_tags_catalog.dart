@@ -311,6 +311,71 @@ class ExerciseTagsCatalog {
       ExerciseTag.cooldown, ExerciseTag.mobility, ExerciseTag.beginner,
     ],
 
+    // ── Yoga ──────────────────────────────────────────────────────────────────
+    'yoga_standing_s1_chair': [
+      ExerciseTag.legs, ExerciseTag.glutes, ExerciseTag.strength, ExerciseTag.beginner,
+    ],
+    'yoga_standing_s2_warrior_1': [
+      ExerciseTag.legs, ExerciseTag.hipFlexor, ExerciseTag.strength, ExerciseTag.stretch,
+    ],
+    'yoga_standing_s3_warrior_2': [
+      ExerciseTag.legs, ExerciseTag.shoulders, ExerciseTag.strength,
+    ],
+    'yoga_standing_s4_triangle': [
+      ExerciseTag.legs, ExerciseTag.stretch, ExerciseTag.mobility,
+    ],
+    'yoga_standing_s5_side_angle': [
+      ExerciseTag.legs, ExerciseTag.glutes, ExerciseTag.stretch, ExerciseTag.strength,
+    ],
+    'yoga_one_leg_s1_tree': [
+      ExerciseTag.legs, ExerciseTag.core, ExerciseTag.beginner,
+    ],
+    'yoga_one_leg_s2_eagle': [
+      ExerciseTag.legs, ExerciseTag.shoulders, ExerciseTag.strength,
+    ],
+    'yoga_one_leg_s3_warrior_3': [
+      ExerciseTag.legs, ExerciseTag.glutes, ExerciseTag.core, ExerciseTag.strength,
+    ],
+    'yoga_one_leg_s4_dancer': [
+      ExerciseTag.legs, ExerciseTag.hipFlexor, ExerciseTag.stretch, ExerciseTag.strength,
+    ],
+    'yoga_one_leg_s5_half_moon': [
+      ExerciseTag.legs, ExerciseTag.core, ExerciseTag.strength,
+    ],
+    'yoga_backbends_s1_sphinx': [
+      ExerciseTag.back, ExerciseTag.stretch, ExerciseTag.floorOnly, ExerciseTag.postureFocus,
+    ],
+    'yoga_backbends_s2_locust': [
+      ExerciseTag.back, ExerciseTag.glutes, ExerciseTag.strength, ExerciseTag.floorOnly, ExerciseTag.postureFocus,
+    ],
+    'yoga_backbends_s3_bridge': [
+      ExerciseTag.glutes, ExerciseTag.back, ExerciseTag.hipFlexor, ExerciseTag.strength, ExerciseTag.floorOnly,
+    ],
+    'yoga_backbends_s4_bow': [
+      ExerciseTag.back, ExerciseTag.chest, ExerciseTag.stretch, ExerciseTag.floorOnly,
+    ],
+    'yoga_backbends_s5_camel': [
+      ExerciseTag.back, ExerciseTag.hipFlexor, ExerciseTag.chest, ExerciseTag.stretch,
+    ],
+    'yoga_backbends_s6_wheel': [
+      ExerciseTag.back, ExerciseTag.shoulders, ExerciseTag.chest, ExerciseTag.strength, ExerciseTag.floorOnly,
+    ],
+    'yoga_flow_s1_downward_dog': [
+      ExerciseTag.back, ExerciseTag.shoulders, ExerciseTag.stretch, ExerciseTag.mobility, ExerciseTag.floorOnly,
+    ],
+    'yoga_flow_s2_plank_to_dog': [
+      ExerciseTag.shoulders, ExerciseTag.core, ExerciseTag.stretch, ExerciseTag.strength,
+    ],
+    'yoga_flow_s3_half_sun_salutation': [
+      ExerciseTag.mobility, ExerciseTag.stretch, ExerciseTag.endurance, ExerciseTag.beginner,
+    ],
+    'yoga_flow_s4_sun_salutation_a': [
+      ExerciseTag.mobility, ExerciseTag.strength, ExerciseTag.endurance, ExerciseTag.shoulders,
+    ],
+    'yoga_flow_s5_sun_salutation_b': [
+      ExerciseTag.mobility, ExerciseTag.strength, ExerciseTag.endurance, ExerciseTag.legs,
+    ],
+
     // ── Warmups ───────────────────────────────────────────────────────────────
     'warmup_arm_rotations': [
       ExerciseTag.warmup, ExerciseTag.shoulders, ExerciseTag.mobility,

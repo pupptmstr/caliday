@@ -104,6 +104,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get homeBranchMorningEnergy => 'Бодрость';
 
   @override
+  String get homeBranchYogaStanding => 'Стойки';
+
+  @override
+  String get homeBranchYogaOneLeg => 'Равновесие';
+
+  @override
+  String get homeBranchYogaBackbends => 'Прогибы';
+
+  @override
+  String get homeBranchYogaFlow => 'Поток';
+
+  @override
   String get courseNameCalisthenics => 'Калистеника';
 
   @override
@@ -114,6 +126,9 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get courseNameMorningRoutine => 'Утренняя зарядка';
+
+  @override
+  String get courseNameYoga => 'Йога';
 
   @override
   String get courseDescCalisthenics =>
@@ -130,6 +145,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get courseDescMorningRoutine =>
       'Разбуди тело. Позвоночник, суставы, руки и немного бодрости — стоя, тихо, без прыжков.';
+
+  @override
+  String get courseDescYoga =>
+      'Позы от простых к сложным: стойки, равновесие на одной ноге, прогибы, приветствие солнцу и баланс на руках.';
 
   @override
   String get onboardingQ4Courses => 'Выбери курс';
@@ -606,6 +625,34 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get achievementMorningEnergyCompleteDesc =>
       'Все 5 этапов утренней «Бодрости» пройдены. Бодрость до первой чашки кофе.';
+
+  @override
+  String get achievementYogaStandingCompleteName => 'Воин';
+
+  @override
+  String get achievementYogaStandingCompleteDesc =>
+      'Все 5 этапов йоговских «Стоек» пройдены. От стула до бокового угла.';
+
+  @override
+  String get achievementYogaOneLegCompleteName => 'Фламинго';
+
+  @override
+  String get achievementYogaOneLegCompleteDesc =>
+      'Все 5 этапов «Равновесия» пройдены. От дерева до полумесяца.';
+
+  @override
+  String get achievementYogaBackbendsCompleteName => 'Радуга';
+
+  @override
+  String get achievementYogaBackbendsCompleteDesc =>
+      'Все 6 этапов «Прогибов» пройдены. От сфинкса до колеса.';
+
+  @override
+  String get achievementYogaFlowCompleteName => 'Восход';
+
+  @override
+  String get achievementYogaFlowCompleteDesc =>
+      'Все 5 этапов «Потока» пройдены. От собаки мордой вниз до приветствия солнцу B.';
 
   @override
   String get achievementAllCompleteName => 'Полный комплект';
@@ -1821,6 +1868,204 @@ class AppLocalizationsRu extends AppLocalizations {
       'Всё расслаблено: запястья, плечи, челюсть.';
 
   @override
+  String get exerciseYogaStandingS1ChairName => 'Стул';
+
+  @override
+  String get exerciseYogaStandingS1ChairDesc =>
+      'Стопы вместе, согни колени и отведи таз назад, как будто садишься на стул, руки подняты вверх вдоль ушей. Вес на пятках, грудь раскрыта.';
+
+  @override
+  String get exerciseYogaStandingS1ChairTip =>
+      'Колени не выходят за носки, живот подтянут.';
+
+  @override
+  String get exerciseYogaStandingS2Warrior1Name => 'Воин I';
+
+  @override
+  String get exerciseYogaStandingS2Warrior1Desc =>
+      'Отступи одной ногой далеко назад и чуть разверни стопу наружу, переднее колено согни над щиколоткой, таз смотрит вперёд. Руки подняты вверх. Затем другая сторона.';
+
+  @override
+  String get exerciseYogaStandingS2Warrior1Tip =>
+      'Пятка задней ноги прижата к полу, задняя нога прямая.';
+
+  @override
+  String get exerciseYogaStandingS3Warrior2Name => 'Воин II';
+
+  @override
+  String get exerciseYogaStandingS3Warrior2Desc =>
+      'Ноги широко, передняя стопа смотрит вперёд, задняя развёрнута внутрь. Согни переднее колено над щиколоткой, руки разведи в стороны на уровне плеч, взгляд над передней рукой. Затем другая сторона.';
+
+  @override
+  String get exerciseYogaStandingS3Warrior2Tip =>
+      'Колено смотрит на средние пальцы стопы, не заваливается внутрь.';
+
+  @override
+  String get exerciseYogaStandingS4TriangleName => 'Треугольник';
+
+  @override
+  String get exerciseYogaStandingS4TriangleDesc =>
+      'Ноги широко, передняя стопа смотрит вперёд. Ноги прямые: потянись вперёд и наклони корпус над передней ногой — нижняя рука на голени, верхняя тянется к потолку. Затем другая сторона.';
+
+  @override
+  String get exerciseYogaStandingS4TriangleTip =>
+      'Обе стороны талии длинные, не проваливайся на переднюю ногу.';
+
+  @override
+  String get exerciseYogaStandingS5SideAngleName => 'Боковой угол';
+
+  @override
+  String get exerciseYogaStandingS5SideAngleDesc =>
+      'Из «Воина II» положи предплечье передней руки на бедро (или ладонь на пол), другую руку вытяни над ухом — одна длинная линия от задней стопы до кончиков пальцев. Затем другая сторона.';
+
+  @override
+  String get exerciseYogaStandingS5SideAngleTip =>
+      'Колено над щиколоткой, грудь разворачивается к потолку.';
+
+  @override
+  String get exerciseYogaOneLegS1TreeName => 'Дерево';
+
+  @override
+  String get exerciseYogaOneLegS1TreeDesc =>
+      'Встань на одну ногу, стопу другой поставь на внутреннюю сторону голени или бедра (не на колено), колено смотрит в сторону. Ладони вместе у груди или над головой. Затем другая сторона.';
+
+  @override
+  String get exerciseYogaOneLegS1TreeTip =>
+      'Смотри в одну точку, стопа и нога упираются друг в друга.';
+
+  @override
+  String get exerciseYogaOneLegS2EagleName => 'Орёл';
+
+  @override
+  String get exerciseYogaOneLegS2EagleDesc =>
+      'Согни колени, перекрести одно бедро над другим и, если получается, зацепи стопу за икру опорной ноги. Руки скрещены в локтях, ладони вместе перед лицом. Опустись чуть ниже. Затем другая сторона.';
+
+  @override
+  String get exerciseYogaOneLegS2EagleTip =>
+      'Таз ровно, локти подняты до уровня плеч.';
+
+  @override
+  String get exerciseYogaOneLegS3Warrior3Name => 'Воин III';
+
+  @override
+  String get exerciseYogaOneLegS3Warrior3Desc =>
+      'Стоя на одной ноге, наклонись вперёд и подними другую ногу назад, пока корпус и нога не образуют букву Т, руки тянутся вперёд. Затем другая сторона.';
+
+  @override
+  String get exerciseYogaOneLegS3Warrior3Tip =>
+      'Таз ровный, колено опорной ноги чуть мягкое.';
+
+  @override
+  String get exerciseYogaOneLegS4DancerName => 'Танцор';
+
+  @override
+  String get exerciseYogaOneLegS4DancerDesc =>
+      'Стоя на одной ноге, возьми другую стопу рукой сзади и упирайся стопой в ладонь — нога поднимается, корпус наклоняется вперёд, свободная рука тянется вперёд. Затем другая сторона.';
+
+  @override
+  String get exerciseYogaOneLegS4DancerTip =>
+      'Отталкивай стопу в ладонь, а не тяни ногу рукой.';
+
+  @override
+  String get exerciseYogaOneLegS5HalfMoonName => 'Полумесяц';
+
+  @override
+  String get exerciseYogaOneLegS5HalfMoonDesc =>
+      'Наклонись набок над одной ногой: нижняя рука на полу (или на блоке) под плечом, другая нога поднята на уровень корпуса, верхняя рука тянется к потолку. Затем другая сторона.';
+
+  @override
+  String get exerciseYogaOneLegS5HalfMoonTip =>
+      'Таз и плечи раскрыты, словно спина прижата к стене.';
+
+  @override
+  String get exerciseYogaBackbendsS2LocustName => 'Саранча';
+
+  @override
+  String get exerciseYogaBackbendsS2LocustDesc =>
+      'Лёжа на животе, руки вдоль тела ладонями вниз. Одновременно оторви от пола грудь, руки и ноги, взгляд вниз и чуть вперёд.';
+
+  @override
+  String get exerciseYogaBackbendsS2LocustTip =>
+      'Тянись ногами в длину, не сжимай поясницу.';
+
+  @override
+  String get exerciseYogaBackbendsS3BridgeName => 'Мост на лопатках';
+
+  @override
+  String get exerciseYogaBackbendsS3BridgeDesc =>
+      'Лёжа на спине, колени согнуты, стопы на ширине таза рядом с ягодицами. Упрись стопами и подними таз как можно выше, руки на полу. Удерживай, затем опускайся позвонок за позвонком.';
+
+  @override
+  String get exerciseYogaBackbendsS3BridgeTip =>
+      'Колени смотрят вперёд и не разъезжаются, ягодицы напряжены.';
+
+  @override
+  String get exerciseYogaBackbendsS4BowName => 'Лук';
+
+  @override
+  String get exerciseYogaBackbendsS4BowDesc =>
+      'Лёжа на животе, согни колени и возьмись руками за щиколотки снаружи. Упирайся стопами в ладони — грудь и бёдра поднимаются, тело выгибается, как лук.';
+
+  @override
+  String get exerciseYogaBackbendsS4BowTip => 'Колени не шире таза.';
+
+  @override
+  String get exerciseYogaBackbendsS5CamelName => 'Верблюд';
+
+  @override
+  String get exerciseYogaBackbendsS5CamelDesc =>
+      'Встань на колени на ширине таза, пальцы ног подогнуты, ладони на пояснице. Подай таз вперёд, раскрой грудь и прогнись назад, голова мягко следует за ней. Выходи, поднимая сначала грудь.';
+
+  @override
+  String get exerciseYogaBackbendsS5CamelTip =>
+      'Таз над коленями; прогиб идёт от груди, а не от поясницы.';
+
+  @override
+  String get exerciseYogaBackbendsS6WheelName => 'Колесо';
+
+  @override
+  String get exerciseYogaBackbendsS6WheelDesc =>
+      'Лёжа на спине, колени согнуты, стопы у таза, ладони упираются в пол у плеч. Подними таз, затем выжмись на руках, пока они не выпрямятся, а голова не повиснет между ними. Опускайся медленно, подбородок к груди.';
+
+  @override
+  String get exerciseYogaBackbendsS6WheelTip =>
+      'Стопы параллельны, отталкивай пол руками и ногами равномерно.';
+
+  @override
+  String get exerciseYogaFlowS3HalfSunSalutationName =>
+      'Полуприветствие солнцу';
+
+  @override
+  String get exerciseYogaFlowS3HalfSunSalutationDesc =>
+      'Один круг: стоя, руки через стороны вверх, наклон вперёд, полуподъём с ровной спиной, снова наклон, подъём с руками вверх и руки вниз. Двигайся вместе с дыханием.';
+
+  @override
+  String get exerciseYogaFlowS3HalfSunSalutationTip =>
+      'Вдох — подъём, выдох — наклон.';
+
+  @override
+  String get exerciseYogaFlowS4SunSalutationAName => 'Приветствие солнцу A';
+
+  @override
+  String get exerciseYogaFlowS4SunSalutationADesc =>
+      'Один круг: руки вверх, наклон, полуподъём, шаг назад в планку, опускание до середины, собака мордой вверх, собака мордой вниз на несколько вдохов, шаг вперёд, полуподъём, подъём с руками вверх и стойка.';
+
+  @override
+  String get exerciseYogaFlowS4SunSalutationATip =>
+      'Одно движение — один вдох или выдох; опускаться можно с колен.';
+
+  @override
+  String get exerciseYogaFlowS5SunSalutationBName => 'Приветствие солнцу B';
+
+  @override
+  String get exerciseYogaFlowS5SunSalutationBDesc =>
+      'Как «Приветствие солнцу A», но в начале и в конце «Стул», а «Воин I» — на каждую сторону: стул, наклон, планка, опускание, собака мордой вверх, собака мордой вниз, воин I на одну сторону, через планку обратно в собаку, воин I на другую сторону и вперёд к стулу.';
+
+  @override
+  String get exerciseYogaFlowS5SunSalutationBTip =>
+      'Дыхание ровное — оно задаёт темп.';
+
+  @override
   String get aboutTitle => 'О приложении';
 
   @override
@@ -1855,6 +2100,10 @@ class AppLocalizationsRu extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Версия $version';
   }
+
+  @override
+  String get releaseNotes091 =>
+      'Новый курс «Йога»: позы от простых к сложным в четырёх новых навыках — стойки, равновесие, прогибы и приветствие солнцу. Навык «Баланс» курс делит с калистеникой: прогресс в нём общий.\nЙогу ведёт кот Мисо: пока курс выбран, он встречает на главном экране и в профиле, а в конце тренировки поднимает лапы над головой.';
 
   @override
   String get releaseNotes090 =>

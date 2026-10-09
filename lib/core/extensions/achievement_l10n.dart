@@ -39,6 +39,10 @@ abstract final class AchievementL10n {
         'morning_joints_complete' => l.achievementMorningJointsCompleteName,
         'morning_arms_complete' => l.achievementMorningArmsCompleteName,
         'morning_energy_complete' => l.achievementMorningEnergyCompleteName,
+        'yoga_standing_complete' => l.achievementYogaStandingCompleteName,
+        'yoga_one_leg_complete' => l.achievementYogaOneLegCompleteName,
+        'yoga_backbends_complete' => l.achievementYogaBackbendsCompleteName,
+        'yoga_flow_complete' => l.achievementYogaFlowCompleteName,
         'all_complete' => l.achievementAllCompleteName,
         _ => id,
       };
@@ -80,6 +84,10 @@ abstract final class AchievementL10n {
         'morning_joints_complete' => l.achievementMorningJointsCompleteDesc,
         'morning_arms_complete' => l.achievementMorningArmsCompleteDesc,
         'morning_energy_complete' => l.achievementMorningEnergyCompleteDesc,
+        'yoga_standing_complete' => l.achievementYogaStandingCompleteDesc,
+        'yoga_one_leg_complete' => l.achievementYogaOneLegCompleteDesc,
+        'yoga_backbends_complete' => l.achievementYogaBackbendsCompleteDesc,
+        'yoga_flow_complete' => l.achievementYogaFlowCompleteDesc,
         'all_complete' => l.achievementAllCompleteDesc,
         _ => '',
       };

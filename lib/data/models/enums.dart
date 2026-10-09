@@ -53,6 +53,18 @@ enum BranchId {
 
   @HiveField(15)
   morningEnergy,
+
+  @HiveField(16)
+  yogaStanding,
+
+  @HiveField(17)
+  yogaOneLeg,
+
+  @HiveField(18)
+  yogaBackbends,
+
+  @HiveField(19)
+  yogaFlow,
 }
 
 @HiveType(typeId: 10)
@@ -68,6 +80,9 @@ enum CourseId {
 
   @HiveField(3)
   morningRoutine,
+
+  @HiveField(4)
+  yoga,
 }
 
 @HiveType(typeId: 5)
@@ -180,10 +195,11 @@ extension CourseIdExtension on CourseId {
         CourseId.healthyBody => l10n.courseNameHealthyBody,
         CourseId.eveningStretch => l10n.courseNameEveningStretch,
         CourseId.morningRoutine => l10n.courseNameMorningRoutine,
+        CourseId.yoga => l10n.courseNameYoga,
       };
 
   /// The course host's portrait (course cards): its happy face. Goro, Raffi
-  /// the giraffe, Luna the owl, Aurora the lark; art from
+  /// the giraffe, Luna the owl, Aurora the lark, Miso the cat; art from
   /// tools/characters/gen_hosts.py.
   String get hostPortrait => hostFace('happy');
 
@@ -194,6 +210,7 @@ extension CourseIdExtension on CourseId {
         CourseId.healthyBody => 'assets/hosts/raffi_face_$mood.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_face_$mood.svg',
         CourseId.morningRoutine => 'assets/hosts/aurora_face_$mood.svg',
+        CourseId.yoga => 'assets/hosts/miso_face_$mood.svg',
       };
 
   /// The host standing calmly (Profile).
@@ -202,6 +219,7 @@ extension CourseIdExtension on CourseId {
         CourseId.healthyBody => 'assets/hosts/raffi_idle.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_idle.svg',
         CourseId.morningRoutine => 'assets/hosts/aurora_idle.svg',
+        CourseId.yoga => 'assets/hosts/miso_idle.svg',
       };
 
   /// The course host cheering on the summary of a workout of this course.
@@ -210,6 +228,7 @@ extension CourseIdExtension on CourseId {
         CourseId.healthyBody => 'assets/hosts/raffi_cheer.svg',
         CourseId.eveningStretch => 'assets/hosts/luna_cheer.svg',
         CourseId.morningRoutine => 'assets/hosts/aurora_cheer.svg',
+        CourseId.yoga => 'assets/hosts/miso_cheer.svg',
       };
 }
 
@@ -304,6 +323,10 @@ extension BranchIdExtension on BranchId {
         BranchId.morningJoints => '⚙️',
         BranchId.morningArms => '🙌',
         BranchId.morningEnergy => '⚡',
+        BranchId.yogaStanding => '⛰️',
+        BranchId.yogaOneLeg => '🦩',
+        BranchId.yogaBackbends => '🌈',
+        BranchId.yogaFlow => '☀️',
       };
 
   IconData get icon => switch (this) {
@@ -323,6 +346,10 @@ extension BranchIdExtension on BranchId {
         BranchId.morningJoints => Icons.threesixty,
         BranchId.morningArms => Icons.front_hand,
         BranchId.morningEnergy => Icons.bolt,
+        BranchId.yogaStanding => Icons.terrain,
+        BranchId.yogaOneLeg => Icons.sports_gymnastics,
+        BranchId.yogaBackbends => Icons.looks,
+        BranchId.yogaFlow => Icons.wb_sunny,
       };
 
   String localizedName(AppLocalizations l10n) => switch (this) {
@@ -342,6 +369,10 @@ extension BranchIdExtension on BranchId {
         BranchId.morningJoints => l10n.homeBranchMorningJoints,
         BranchId.morningArms => l10n.homeBranchMorningArms,
         BranchId.morningEnergy => l10n.homeBranchMorningEnergy,
+        BranchId.yogaStanding => l10n.homeBranchYogaStanding,
+        BranchId.yogaOneLeg => l10n.homeBranchYogaOneLeg,
+        BranchId.yogaBackbends => l10n.homeBranchYogaBackbends,
+        BranchId.yogaFlow => l10n.homeBranchYogaFlow,
       };
 
   int get stageCount => switch (this) {
@@ -361,6 +392,10 @@ extension BranchIdExtension on BranchId {
         BranchId.morningJoints => 5,
         BranchId.morningArms => 5,
         BranchId.morningEnergy => 5,
+        BranchId.yogaStanding => 5,
+        BranchId.yogaOneLeg => 5,
+        BranchId.yogaBackbends => 6,
+        BranchId.yogaFlow => 5,
       };
 
   bool get requiresEquipment => this == BranchId.pull;

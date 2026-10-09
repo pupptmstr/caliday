@@ -102,6 +102,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homeBranchMorningEnergy => 'Energy';
 
   @override
+  String get homeBranchYogaStanding => 'Standing';
+
+  @override
+  String get homeBranchYogaOneLeg => 'Equilibrium';
+
+  @override
+  String get homeBranchYogaBackbends => 'Backbends';
+
+  @override
+  String get homeBranchYogaFlow => 'Flow';
+
+  @override
   String get courseNameCalisthenics => 'Calisthenics';
 
   @override
@@ -112,6 +124,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get courseNameMorningRoutine => 'Morning Routine';
+
+  @override
+  String get courseNameYoga => 'Yoga';
 
   @override
   String get courseDescCalisthenics =>
@@ -128,6 +143,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get courseDescMorningRoutine =>
       'Wake your body up. Spine, joints, arms and a little energy: standing, quietly, no jumps.';
+
+  @override
+  String get courseDescYoga =>
+      'Poses from easy to hard: standing poses, balancing on one leg, backbends, sun salutations and arm balances.';
 
   @override
   String get onboardingQ4Courses => 'Choose a Course';
@@ -640,6 +659,34 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get achievementMorningEnergyCompleteDesc =>
       'All 5 stages of the morning Energy skill cleared. Wide awake before the first coffee.';
+
+  @override
+  String get achievementYogaStandingCompleteName => 'Warrior';
+
+  @override
+  String get achievementYogaStandingCompleteDesc =>
+      'All 5 stages of the yoga Standing skill cleared. From chair to side angle.';
+
+  @override
+  String get achievementYogaOneLegCompleteName => 'Flamingo';
+
+  @override
+  String get achievementYogaOneLegCompleteDesc =>
+      'All 5 stages of the Equilibrium skill cleared. From tree to half moon.';
+
+  @override
+  String get achievementYogaBackbendsCompleteName => 'Rainbow';
+
+  @override
+  String get achievementYogaBackbendsCompleteDesc =>
+      'All 6 stages of the Backbends skill cleared. From sphinx to wheel.';
+
+  @override
+  String get achievementYogaFlowCompleteName => 'Sunrise';
+
+  @override
+  String get achievementYogaFlowCompleteDesc =>
+      'All 5 stages of the Flow skill cleared. From downward dog to Sun Salutation B.';
 
   @override
   String get achievementAllCompleteName => 'Full Collection';
@@ -1854,6 +1901,204 @@ class AppLocalizationsEn extends AppLocalizations {
       'Let everything hang loose: wrists, shoulders, jaw.';
 
   @override
+  String get exerciseYogaStandingS1ChairName => 'Chair Pose';
+
+  @override
+  String get exerciseYogaStandingS1ChairDesc =>
+      'Feet together, bend your knees and sit back as if onto a chair, arms raised alongside your ears. Weight in your heels, chest lifted.';
+
+  @override
+  String get exerciseYogaStandingS1ChairTip =>
+      'Keep your knees behind your toes and draw your belly in.';
+
+  @override
+  String get exerciseYogaStandingS2Warrior1Name => 'Warrior I';
+
+  @override
+  String get exerciseYogaStandingS2Warrior1Desc =>
+      'Step one foot far back and turn it out slightly, bend the front knee over the ankle, hips facing forward. Raise both arms overhead. Then the other side.';
+
+  @override
+  String get exerciseYogaStandingS2Warrior1Tip =>
+      'Press the back heel into the floor and keep the back leg straight.';
+
+  @override
+  String get exerciseYogaStandingS3Warrior2Name => 'Warrior II';
+
+  @override
+  String get exerciseYogaStandingS3Warrior2Desc =>
+      'Feet wide apart, the front foot pointing forward, the back foot turned in. Bend the front knee over the ankle and stretch your arms out to the sides at shoulder height, gaze over the front hand. Then the other side.';
+
+  @override
+  String get exerciseYogaStandingS3Warrior2Tip =>
+      'The front knee points over your middle toes, not inward.';
+
+  @override
+  String get exerciseYogaStandingS4TriangleName => 'Triangle Pose';
+
+  @override
+  String get exerciseYogaStandingS4TriangleDesc =>
+      'Feet wide, the front foot pointing forward. With both legs straight, reach forward and tip your torso over the front leg: the lower hand rests on the shin, the upper arm points at the ceiling. Then the other side.';
+
+  @override
+  String get exerciseYogaStandingS4TriangleTip =>
+      'Lengthen both sides of your waist; don\'t sink onto the front leg.';
+
+  @override
+  String get exerciseYogaStandingS5SideAngleName => 'Extended Side Angle';
+
+  @override
+  String get exerciseYogaStandingS5SideAngleDesc =>
+      'From Warrior II, rest the forearm of your front arm on the front thigh (or the hand on the floor) and reach the other arm over your ear: one long line from the back foot to the fingertips. Then the other side.';
+
+  @override
+  String get exerciseYogaStandingS5SideAngleTip =>
+      'Keep the front knee over the ankle and turn your chest toward the ceiling.';
+
+  @override
+  String get exerciseYogaOneLegS1TreeName => 'Tree Pose';
+
+  @override
+  String get exerciseYogaOneLegS1TreeDesc =>
+      'Stand on one leg and place the other foot on the inner calf or thigh (never on the knee), the knee out to the side. Hands together at the chest or raised overhead. Then the other side.';
+
+  @override
+  String get exerciseYogaOneLegS1TreeTip =>
+      'Fix your gaze on one point and press the foot and the leg into each other.';
+
+  @override
+  String get exerciseYogaOneLegS2EagleName => 'Eagle Pose';
+
+  @override
+  String get exerciseYogaOneLegS2EagleDesc =>
+      'Bend your knees, cross one thigh over the other and hook the foot behind the standing calf if you can. Cross the arms at the elbows, palms together in front of your face. Sit a little deeper. Then the other side.';
+
+  @override
+  String get exerciseYogaOneLegS2EagleTip =>
+      'Keep your hips square and lift the elbows to shoulder height.';
+
+  @override
+  String get exerciseYogaOneLegS3Warrior3Name => 'Warrior III';
+
+  @override
+  String get exerciseYogaOneLegS3Warrior3Desc =>
+      'Stand on one leg, hinge forward and lift the other leg behind you until your body and the leg form a T, arms reaching forward. Then the other side.';
+
+  @override
+  String get exerciseYogaOneLegS3Warrior3Tip =>
+      'Keep both hips level and the standing knee soft.';
+
+  @override
+  String get exerciseYogaOneLegS4DancerName => 'Dancer Pose';
+
+  @override
+  String get exerciseYogaOneLegS4DancerDesc =>
+      'Stand on one leg, take the other foot behind you with the hand on the same side and press the foot into the hand: the leg rises, the torso tips forward, the free arm reaches ahead. Then the other side.';
+
+  @override
+  String get exerciseYogaOneLegS4DancerTip =>
+      'Press the foot back into the hand rather than pulling the leg up.';
+
+  @override
+  String get exerciseYogaOneLegS5HalfMoonName => 'Half Moon';
+
+  @override
+  String get exerciseYogaOneLegS5HalfMoonDesc =>
+      'Tip sideways over one leg: the lower hand on the floor (or a block) under the shoulder, the other leg lifted level with your body, the upper arm pointing at the ceiling. Then the other side.';
+
+  @override
+  String get exerciseYogaOneLegS5HalfMoonTip =>
+      'Stack the hips and shoulders as if your back were against a wall.';
+
+  @override
+  String get exerciseYogaBackbendsS2LocustName => 'Locust Pose';
+
+  @override
+  String get exerciseYogaBackbendsS2LocustDesc =>
+      'Lie on your stomach, arms along your body, palms down. Lift your chest, arms and legs off the floor at the same time, gazing down and slightly forward.';
+
+  @override
+  String get exerciseYogaBackbendsS2LocustTip =>
+      'Lengthen through your legs instead of squeezing your lower back.';
+
+  @override
+  String get exerciseYogaBackbendsS3BridgeName => 'Bridge Pose';
+
+  @override
+  String get exerciseYogaBackbendsS3BridgeDesc =>
+      'Lie on your back, knees bent, feet hip-width apart near your hips. Press into your feet and lift your hips as high as you can, arms on the floor. Hold, then roll down one vertebra at a time.';
+
+  @override
+  String get exerciseYogaBackbendsS3BridgeTip =>
+      'Knees point forward, not out; squeeze your glutes.';
+
+  @override
+  String get exerciseYogaBackbendsS4BowName => 'Bow Pose';
+
+  @override
+  String get exerciseYogaBackbendsS4BowDesc =>
+      'Lie on your stomach, bend your knees and hold your ankles from the outside. Press the feet into your hands to lift your chest and thighs: the body curves like a bow.';
+
+  @override
+  String get exerciseYogaBackbendsS4BowTip =>
+      'Keep your knees no wider than your hips.';
+
+  @override
+  String get exerciseYogaBackbendsS5CamelName => 'Camel Pose';
+
+  @override
+  String get exerciseYogaBackbendsS5CamelDesc =>
+      'Kneel with your knees hip-width apart, toes tucked, hands on your lower back. Press your hips forward, lift the chest and arch back, the head following gently. Come up chest first.';
+
+  @override
+  String get exerciseYogaBackbendsS5CamelTip =>
+      'Keep your hips over your knees; the arch comes from the chest, not the lower back.';
+
+  @override
+  String get exerciseYogaBackbendsS6WheelName => 'Wheel Pose';
+
+  @override
+  String get exerciseYogaBackbendsS6WheelDesc =>
+      'Lie on your back, knees bent, feet near your hips, hands planted by your shoulders. Lift your hips, then press up through the hands until the arms straighten and the head hangs between them. Lower slowly, chin to the chest.';
+
+  @override
+  String get exerciseYogaBackbendsS6WheelTip =>
+      'Keep your feet parallel and push the floor away evenly with hands and feet.';
+
+  @override
+  String get exerciseYogaFlowS3HalfSunSalutationName => 'Half Sun Salutation';
+
+  @override
+  String get exerciseYogaFlowS3HalfSunSalutationDesc =>
+      'One round: standing, sweep the arms up, fold forward, lift halfway with a flat back, fold again, rise with the arms up and lower them. Move with your breath.';
+
+  @override
+  String get exerciseYogaFlowS3HalfSunSalutationTip =>
+      'Breathe in as you rise, out as you fold.';
+
+  @override
+  String get exerciseYogaFlowS4SunSalutationAName => 'Sun Salutation A';
+
+  @override
+  String get exerciseYogaFlowS4SunSalutationADesc =>
+      'One round: arms up, fold, half lift, step back to a plank, lower halfway, upward dog, downward dog for a few breaths, step forward, half lift, rise with the arms up, stand.';
+
+  @override
+  String get exerciseYogaFlowS4SunSalutationATip =>
+      'One movement per breath; drop your knees to lower if you need to.';
+
+  @override
+  String get exerciseYogaFlowS5SunSalutationBName => 'Sun Salutation B';
+
+  @override
+  String get exerciseYogaFlowS5SunSalutationBDesc =>
+      'Like Sun Salutation A, with Chair Pose at the start and the end and Warrior I on each side: chair, fold, plank, lower, upward dog, downward dog, Warrior I on one side, back through the plank to downward dog, Warrior I on the other side, then forward to the chair.';
+
+  @override
+  String get exerciseYogaFlowS5SunSalutationBTip =>
+      'Keep your breath even: it sets the pace.';
+
+  @override
   String get aboutTitle => 'About';
 
   @override
@@ -1888,6 +2133,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String whatsNewVersion(String version) {
     return 'Version $version';
   }
+
+  @override
+  String get releaseNotes091 =>
+      'New course: Yoga. Poses from easy to hard in four new skills: standing poses, balancing on one leg, backbends and sun salutations. It shares the Balance skill with Calisthenics: one progress for both.\nMiso the cat leads Yoga: on the home screen and in the profile while the course is active, and with paws raised overhead at the end of a workout.';
 
   @override
   String get releaseNotes090 =>

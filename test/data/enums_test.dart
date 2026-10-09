@@ -117,12 +117,13 @@ void main() {
         'push', 'core', 'pull', 'legs', 'balance', 'flex', 'posture', 'neck',
         'eveningBack', 'eveningHips', 'eveningFolds', 'eveningShoulders',
         'morningSpine', 'morningJoints', 'morningArms', 'morningEnergy',
+        'yogaStanding', 'yogaOneLeg', 'yogaBackbends', 'yogaFlow',
       ]);
       expect(Rank.values.map((r) => r.name), [
         'beginner', 'amateur', 'sportsman', 'athlete', 'master', 'legend',
       ]);
       expect(CourseId.values.map((c) => c.name),
-          ['calisthenics', 'healthyBody', 'eveningStretch', 'morningRoutine']);
+          ['calisthenics', 'healthyBody', 'eveningStretch', 'morningRoutine', 'yoga']);
       expect(ExerciseType.values.map((t) => t.name), ['reps', 'timed']);
       expect(SetType.values.map((t) => t.name), ['daily', 'skill', 'challenge']);
     });

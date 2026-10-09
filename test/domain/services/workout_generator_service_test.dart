@@ -111,6 +111,50 @@ void main() {
     });
   });
 
+  group('Yoga', () {
+    final yoga = CourseCatalog.branchesFor(CourseId.yoga);
+
+    WorkoutPlan plan(int minutes, int day, {bool isPrimary = true}) =>
+        _generator().generateDailyForCourse(
+          course: CourseId.yoga,
+          courseBranches: yoga,
+          preferredMinutes: minutes,
+          dayIndexOverride: day,
+          isPrimary: isPrimary,
+        );
+
+    test('shares the Balance branch with Calisthenics', () {
+      expect(yoga, contains(BranchId.balance));
+      expect(_calisthenics, contains(BranchId.balance));
+    });
+
+    test('Full: one pose per branch, the cat-cow first, the lying relaxation last', () {
+      final full = plan(15, 0);
+      expect(_main(full).map((e) => e.exercise.branch), yoga);
+      expect(_ids(full).first, 'cooldown_cat_cow');
+      expect(_ids(full).last, 'cooldown_lying_relaxation');
+    });
+
+    test('the lying relaxation closes the workout after the Balance cool-down too', () {
+      // From day 4 the rotation starts with Balance: its downward dog comes
+      // first among the cool-downs, the relaxation still ends the workout.
+      final ids = _ids(plan(10, 4));
+      expect(ids.first, 'warmup_wrist_circles');
+      expect(ids.sublist(ids.length - 2), ['cooldown_downward_dog', 'cooldown_lying_relaxation']);
+    });
+
+    test('five branches, so the three sizes differ', () {
+      expect(yoga, hasLength(5));
+      expect([5, 10, 15].map((m) => _main(plan(m, 0)).length), [2, 3, 5]);
+    });
+
+    test('a bonus workout adds two supplementary exercises', () {
+      final supplementary =
+          SupplementaryExerciseCatalog.all.map((e) => e.id).toSet();
+      expect(_ids(plan(10, 0, isPrimary: false)).where(supplementary.contains), hasLength(2));
+    });
+  });
+
   group('generateDailyForCourse', () {
     test('an empty branch list gives an empty plan', () {
       final plan = _generator().generateDailyForCourse(

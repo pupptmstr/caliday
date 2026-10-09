@@ -64,6 +64,11 @@ abstract final class AchievementCatalog {
     Achievement(id: 'morning_joints_complete', emoji: '⚙️'),
     Achievement(id: 'morning_arms_complete', emoji: '🙌'),
     Achievement(id: 'morning_energy_complete', emoji: '⚡'),
+    // ── Yoga ──────────────────────────────────────────────────────────────────
+    Achievement(id: 'yoga_standing_complete', emoji: '⛰️'),
+    Achievement(id: 'yoga_one_leg_complete', emoji: '🦩'),
+    Achievement(id: 'yoga_backbends_complete', emoji: '🌈'),
+    Achievement(id: 'yoga_flow_complete', emoji: '☀️'),
     // ── Secret ────────────────────────────────────────────────────────────────
     Achievement(id: 'all_complete', emoji: '🌟', isSecret: true),
   ];

@@ -647,5 +647,6 @@ extension CourseIdOnboarding on CourseId {
         CourseId.healthyBody => l10n.courseDescHealthyBody,
         CourseId.eveningStretch => l10n.courseDescEveningStretch,
         CourseId.morningRoutine => l10n.courseDescMorningRoutine,
+        CourseId.yoga => l10n.courseDescYoga,
       };
 }
