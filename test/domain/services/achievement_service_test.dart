@@ -207,6 +207,32 @@ void main() {
       expect(AchievementCatalog.byId('nope'), isNull);
     });
 
+    test('a branch achievement names the branch that earns it', () {
+      // The achievements screen shows the host of that branch's course.
+      final fromWorkout = service.checkAfterWorkout(
+        profile: UserProfile(currentStreak: 100, rank: Rank.legend),
+        totalWorkouts: 100,
+        alreadyEarned: <String>{},
+      );
+      for (final id in fromWorkout) {
+        expect(AchievementCatalog.byId(id)!.branch, isNull, reason: id);
+      }
+      for (final branch in BranchId.values) {
+        final ids = service.checkAfterStageAdvance(
+          branch: branch,
+          newStage: branch.stageCount,
+          allProgress: _progressAt((_) => 1),
+          alreadyEarned: <String>{},
+        );
+        for (final id in ids) {
+          if (id == 'first_challenge') continue; // any branch's first advance
+          expect(AchievementCatalog.byId(id)!.branch, branch, reason: id);
+        }
+      }
+      expect(AchievementCatalog.byId('first_challenge')!.branch, isNull);
+      expect(AchievementCatalog.byId('all_complete')!.branch, isNull);
+    });
+
     test('only all_complete is secret', () {
       final secret = AchievementCatalog.all.where((a) => a.isSecret);
       expect(secret.map((a) => a.id), ['all_complete']);

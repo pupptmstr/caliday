@@ -95,7 +95,7 @@ The Home screen uses `AnimatedSwitcher` (400ms) to transition between expression
 
 ### Course hosts (decided 2026-10-08; Raffi and Luna drawn in 0.8.20, Aurora in 0.9.0, Miso in 0.9.1)
 
-Every course has its own host, **the face of the app while that course is active** (owner, 2026-10-08): the Home hero with Goro's six moods, the Profile header, the course cards (onboarding, Library) and the summary of that course's workouts. **Goro stays the face of the app itself** — the icon, the onboarding welcome, notifications, the home-screen widget, About — the host of Calisthenics, and **performs every exercise animation**; Skala stays the judge of every challenge.
+Every course has its own host, **the face of the app while that course is active** (owner, 2026-10-08): the Home hero with Goro's six moods, the Profile header, the course cards (onboarding, Library), the summary of that course's workouts and, since 0.9.2, the achievements of its branches (a 22 px portrait on the tile; in the sheet the cheer pose once earned, the supportive face while ahead; the app's own achievements show Goro). **Goro stays the face of the app itself** — the icon, the onboarding welcome, notifications, the home-screen widget, About — the host of Calisthenics, and **performs every exercise animation**; Skala stays the judge of every challenge.
 
 | Host | Animal | Course |
 |------|--------|--------|
@@ -134,7 +134,7 @@ Spec: `internal_docs/DEV_NOTES.md` § Course hosts.
 
 ## Animation System
 
-**Goro exercise animations:** 124 Lottie JSON files, format `assets/animations/[exercise_id].json` (the 19 of Evening Stretch since 0.8.20: seated poses from the front, cow face from behind, lying / kneeling poses from the side, the twist, figure four and frog from above; legs folded over the body are drawn a lighter slate so they stand out from the torso. The 22 of Morning Routine since 0.9.0: standing moves from the front, hinges, planks and kicks from the side. The 18 of Yoga since 0.9.1: Warrior II, triangle, side angle, tree, eagle and half moon from the front, the rest from the side; three Yoga stages reuse the sphinx, the downward dog and plank to dog).
+**Goro exercise animations:** 126 Lottie JSON files, format `assets/animations/[exercise_id].json` (the 19 of Evening Stretch since 0.8.20: seated poses from the front, cow face from behind, lying / kneeling poses from the side, the twist, figure four and frog from above; legs folded over the body are drawn a lighter slate so they stand out from the torso. The 22 of Morning Routine since 0.9.0: standing moves from the front, hinges, planks and kicks from the side. The 18 of Yoga since 0.9.1: Warrior II, triangle, side angle, tree, eagle and half moon from the front, the rest from the side; three Yoga stages reuse the sphinx, the downward dog and plank to dog).
 Canvas: 400×400px, 2–4s seamless loop. Flat style matching Goro's colors.
 
 **UI transitions:**
@@ -142,7 +142,7 @@ Canvas: 400×400px, 2–4s seamless loop. Flat style matching Goro's colors.
 - Standard micro-interactions: 150–300ms
 - Spring physics preferred over linear easing
 
-**Lottie status:** Push, Core, Pull, Legs, Balance ✅; Flex ✅ except 90/90 (intentionally no animation). Supplementary pool ✅ (9/9). Posture ✅ except pigeon (intentionally no animation; dead bug and kneeling lunge reuse existing files). Neck ✅ (6/6). The cat-cow cooldown was replaced by a generated one and the Pull animations (except `pull_s1_australian`) were redrawn with `tools/lottie` ; the review of the oldest designer files (2026-10) also redrew Push s4–s7 (side view like s1–s3, hand placement in a top-down inset, handstand back to the wall), the quad stretch, and fixed / animated the dog, L-sit and the balance holds. Flex, the supplementary pool, Posture, Neck and the cat-cow were generated with `tools/lottie` (see ARCHITECTURE.md § Lottie Animation Tooling); `supp_oblique_crunch` is drawn from above, the only top-down animation; `tools/lottie/frontview.py` draws the standing front views (hip march and four of the Neck animations). Evening Stretch ✅ (19/19), Morning Routine ✅ (22/22), Yoga ✅ (21/21: 18 new, 3 reused).
+**Lottie status:** Push, Core, Pull, Legs, Balance ✅; Flex ✅ (90/90 from the front since 0.9.2). Supplementary pool ✅ (9/9). Posture ✅ (the pigeon from above since 0.9.2, like the frog; dead bug and kneeling lunge reuse existing files). Neck ✅ (6/6). The cat-cow cooldown was replaced by a generated one and the Pull animations (except `pull_s1_australian`) were redrawn with `tools/lottie` ; the review of the oldest designer files (2026-10) also redrew Push s4–s7 (side view like s1–s3, hand placement in a top-down inset, handstand back to the wall), the quad stretch, and fixed / animated the dog, L-sit and the balance holds. Flex, the supplementary pool, Posture, Neck and the cat-cow were generated with `tools/lottie` (see ARCHITECTURE.md § Lottie Animation Tooling); `supp_oblique_crunch` is drawn from above, the only top-down animation; `tools/lottie/frontview.py` draws the standing front views (hip march and four of the Neck animations). Evening Stretch ✅ (19/19), Morning Routine ✅ (22/22), Yoga ✅ (21/21: 18 new, 3 reused).
 
 ---
 

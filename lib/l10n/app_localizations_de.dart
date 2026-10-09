@@ -2121,6 +2121,10 @@ class AppLocalizationsDe extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes092 =>
+      'Einbeinstand, Hüftbeuger-Dehnung und 90/90 sind kürzer: 10 bis 30 Sekunden pro Seite statt 20 bis 60. Hast du schon länger als 30 Sekunden gehalten, werden es 30.\nDie Erfolge eines Kurses überreicht jetzt sein Host: Sein Porträt sitzt am Abzeichen des Erfolgs, und in der Karte freut er sich mit dir oder feuert dich an, solange der Erfolg noch vor dir liegt.\nDie Rang-Sterne bei den Erfolgen und der Design-Schalter in den Einstellungen rutschen nicht mehr in eine zweite Zeile.\nDie Taube hat jetzt eine Animation: Goro zeigt sie von oben.\nAuch 90/90 hat jetzt eine Animation: Goro legt die Knie erst zur einen, dann zur anderen Seite ab. Jetzt hat jede Übung eine Animation.';
+
+  @override
   String get releaseNotes091 =>
       'Neuer Kurs „Yoga“: Haltungen von leicht bis schwer in vier neuen Skills — Standhaltungen, Gleichgewicht, Rückbeugen und Sonnengrüße. Den Skill Balance teilt er sich mit Calisthenics: ein Fortschritt für beide.\nYoga leitet Miso, der Kater: Solange der Kurs aktiv ist, begrüßt er dich auf dem Startbildschirm und im Profil und hebt am Ende eines Trainings die Pfoten über den Kopf.';
 

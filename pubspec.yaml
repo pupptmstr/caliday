@@ -2,7 +2,7 @@ name: caliday
 description: "CaliDay — home calisthenics workouts with streak tracking and gamification."
 publish_to: 'none'
 
-version: 0.9.1+31
+version: 0.9.2+32
 
 environment:
   sdk: ^3.11.0
@@ -40,7 +40,9 @@ dependencies:
   # Friends (QR + BLE)
   qr_flutter: ^4.1.0
   mobile_scanner: ^7.2.0
-  flutter_blue_plus: ^2.2.1
+  # Below 2.3: from 2.3.5 its Android build sends the package name, app name
+  # and version to the author's server (a "license ping"). Owner to decide.
+  flutter_blue_plus: ">=2.2.1 <2.3.0"
   ble_peripheral: ^2.4.0
 
 dev_dependencies:

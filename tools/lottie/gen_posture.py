@@ -6,10 +6,10 @@ Defaults to writing every animation into assets/animations/.
 
 Not generated here: ``posture_s2_dead_bug`` reuses ``supp_dead_bug.json`` and
 ``posture_s5_kneeling_lunge`` reuses ``flex_s1_hip_flexor_stretch.json`` (the
-catalog points at those files). ``posture_s6_pigeon_pose`` deliberately has no
-animation: the shin across the body points at the camera in profile and a front
-view hides it (owner decision 2026-10-06). ``posture_s4_hip_march`` is a front
-view built on ``frontview.py``.
+catalog points at those files). ``posture_s4_hip_march`` is a front view built
+on ``frontview.py``; ``posture_s6_pigeon_pose`` is seen from above
+(``topview.py``, like the frog of Evening Stretch): in profile the shin across
+the body points at the camera and a front view hides it (2026-10-06).
 """
 
 import argparse
@@ -158,10 +158,30 @@ def hip_march():
     return Animation('posture_s4_hip_march', 48, pose)
 
 
+# ── posture_s6_pigeon_pose ───────────────────────────────────────────────────
+# From above, like the frog of Evening Stretch: a side view hid the shin across
+# the body (2026-10-06). Goro's right leg is folded in front, the knee out to
+# the right, the shin across under the chest; the left leg is stretched
+# straight back. He starts upright on his hands beside the hips (the torso seen
+# short from above), folds forward onto the forearms, holds, and comes back up.
+
+def pigeon():
+    from topview import upright_fold
+    y = 230
+    # The front (right) leg: knee forward and out, the shin back across in
+    # front of the head while he is upright. The back (left) leg straight
+    # back; its kneecap faces the floor.
+    legs = {'r': ((222, y), (266, y - 55), (202, y - 70), ((-10, -2), 10), True),
+            'l': ((178, y), (174, y + 70), (171, y + 136), ((0, 6), 90), False)}
+    return upright_fold('posture_s6_pigeon_pose', legs, hands_up=(56, 6),
+                        hip_y=y)
+
+
 ANIMATIONS = {
     'posture_s1_pelvic_tilt': pelvic_tilt,
     'posture_s3_glute_bridge': glute_bridge,
     'posture_s4_hip_march': hip_march,
+    'posture_s6_pigeon_pose': pigeon,
 }
 
 

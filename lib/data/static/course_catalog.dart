@@ -48,5 +48,13 @@ class CourseCatalog {
   static bool addsSupplementary(CourseId course) =>
       course != CourseId.eveningStretch;
 
+  /// The course whose host stands for [branch]: [active] when it holds the
+  /// branch (Balance is Miso's while Yoga is the active course), otherwise
+  /// the first course that lists it (Balance and Flex are Goro's).
+  static CourseId courseOf(BranchId branch, {CourseId? active}) {
+    if (active != null && branchesFor(active).contains(branch)) return active;
+    return all.firstWhere((c) => branchesFor(c).contains(branch));
+  }
+
   static const List<CourseId> all = CourseId.values;
 }

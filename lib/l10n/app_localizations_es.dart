@@ -2130,6 +2130,10 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
+  String get releaseNotes092 =>
+      'El equilibrio a una pierna, el estiramiento del flexor de cadera y el 90/90 son más cortos: de 10 a 30 segundos por lado en lugar de 20 a 60. Si ya aguantabas más de 30 segundos, pasa a 30.\nLos logros de cada curso los entrega ahora su anfitrión: su retrato va en la insignia del logro y, en su ficha, celebra contigo o te anima mientras el logro aún está por llegar.\nLas estrellas de rango en los logros y el selector de tema en los ajustes ya no se parten en dos líneas.\nLa postura de la paloma ya tiene animación: Goro la muestra desde arriba.\nEl 90/90 también tiene animación: Goro baja las rodillas a un lado y luego al otro. Ahora todos los ejercicios tienen animación.';
+
+  @override
   String get releaseNotes091 =>
       'Curso nuevo, Yoga: posturas de fáciles a difíciles en cuatro habilidades nuevas: de pie, estabilidad, extensiones y saludos al sol. Comparte la habilidad Equilibrio con Calistenia: un solo progreso para las dos.\nEl Yoga lo guía Miso, el gato: mientras el curso está activo, te recibe en la pantalla principal y en el perfil, y al final de cada entrenamiento levanta las patas por encima de la cabeza.';
 

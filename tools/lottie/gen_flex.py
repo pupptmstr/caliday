@@ -3,14 +3,18 @@
 
 Usage: python3 tools/lottie/gen_flex.py [--out DIR] [name ...]
 Defaults to writing every animation into assets/animations/.
+
+``flex_s3_hip_9090`` is a front view a little from above (``frontview.py``,
+legs solved in 3D): in profile the legs merge into the torso (2026-10-06).
 """
 
 import argparse
+import math
 import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from goro_rig import P, Spec, mk, plant, write  # noqa: E402
+from goro_rig import P, Spec, add, hold_ramp, mk, plant, rot, write  # noqa: E402
 
 
 # ── flex_s1_hip_flexor_stretch ───────────────────────────────────────────────
@@ -114,9 +118,88 @@ def pike():
                'leg_f': (0, -1)})
 
 
+# ── flex_s3_hip_9090 ─────────────────────────────────────────────────────────
+# The 90/90 switch from the front and a little above (the owner's reference,
+# 2026-10-09): sitting, leaning back on the hands behind the hips, the feet
+# planted wide. The knees start up, both lower to Goro's left side into the
+# 90/90 (the near thigh across in front, the far one out to the side), hold,
+# come up and lower to the other side. The legs are solved in 3D: each knee
+# turns about the line from its hip to its planted foot, then everything is
+# projected for a camera 12 degrees above the floor. Goro's legs are a third
+# longer here than standing (the segments stretch): with his own short legs the
+# knees stayed under his belly and the pose did not read.
+
+def hip_9090():
+    from frontview import TORSO_H, Animation, HIP_DX, figure
+    T = 96
+    HY = 349.0                       # hip joints on screen
+    E = math.radians(12)             # camera elevation
+    THIGH_LEN, SHIN_LEN = 62.0, 50.0
+    TORSO = 0.68                     # leaning back: the torso looks shorter
+    TURN = math.radians(78)          # knees lowered nearly to the floor
+
+    def proj(p):
+        x, y, z = p
+        return (200 + x, HY - y * math.cos(E) + z * math.sin(E))
+
+    def knee_of(hip, ankle, phi):
+        d = [a - h for a, h in zip(ankle, hip)]
+        dist = math.sqrt(sum(c * c for c in d))
+        u = [c / dist for c in d]
+        a = (THIGH_LEN ** 2 - SHIN_LEN ** 2 + dist ** 2) / (2 * dist)
+        r = math.sqrt(max(0.0, THIGH_LEN ** 2 - a * a))
+        v = [-u[1] * u[0], 1 - u[1] * u[1], -u[1] * u[2]]   # up, square to u
+        n = math.sqrt(sum(c * c for c in v))
+        v = [c / n for c in v]
+        w = [v[1] * u[2] - v[2] * u[1], v[2] * u[0] - v[0] * u[2],
+             v[0] * u[1] - v[1] * u[0]]                     # towards screen right
+        return tuple(h + u[k] * a + r * (v[k] * math.cos(phi) + w[k] * math.sin(phi))
+                     for k, h in enumerate(hip))
+
+    def pose(t):
+        side = hold_ramp(t, [(0, 0), (4, 0), (18, 1), (38, 1), (48, 0),
+                             (52, 0), (66, -1), (86, -1), (T, 0)])
+        held = abs(side) > 0.98
+        phi = TURN * side * (1 + 0.04 * math.sin(2 * math.pi * t / 20) * held)
+        legs = {}
+        for key, sx in (('leg_l', -1), ('leg_r', 1)):
+            hip = (sx * HIP_DX, 0.0, 0.0)
+            ankle = (sx * 46, -8.0, 34.0)
+            knee = knee_of(hip, ankle, phi)
+            # A thigh pointing at the camera looks short and its knee is the
+            # nearest point: the cap grows and hides the stub of the thigh,
+            # which turns fast as the knee passes in front of the hip.
+            short = 1 - math.dist(proj(hip), proj(knee)) / THIGH_LEN
+            legs[key] = dict(knee=proj(knee), ankle=proj(ankle),
+                             near=1.05 + 0.55 * short, foot_rot=-sx * 20 * side,
+                             foot_scale=(0.8, 1.3), foot_off=(0, 3))
+        arms = {key: ((200 + sx * 74, HY - 2), (sx, 0))
+                for key, sx in (('arm_l', -1), ('arm_r', 1))}
+        lean = -3 * side
+        out = figure(hips=(200, HY), lean=lean, head=(0, 2, 3 * side),
+                     torso_scale=(1, TORSO), **legs, **arms)
+        # Leaning back shortens the torso from its bottom up, which left the
+        # hip joints below it and the thighs hanging in the air (owner): the
+        # body reaches down past the hips; shoulders and head stay put.
+        h = TORSO_H * TORSO
+        top = -TORSO_H / 2 - h / 2      # from the hips, along the torso
+        bottom = 6.0                    # a little below the hip joints
+        body = out['body']
+        body['p'] = add((200, HY), rot((0, (top + bottom) / 2), lean))
+        body['s'] = (body['s'][0], body['s'][1] * (bottom - top) / h)
+        return out
+
+    # The hands are behind the body and the legs in front of it.
+    order = ['head', 'crown', 'foot_l', 'foot_r', 'shin_l', 'shin_r',
+             'knee_l', 'knee_r', 'thigh_l', 'thigh_r', 'body', 'hand_l',
+             'hand_r', 'farm_l', 'farm_r', 'uarm_l', 'uarm_r']
+    return Animation('flex_s3_hip_9090', T, pose, order=order)
+
+
 ANIMATIONS = {
     'flex_s1_hip_flexor_stretch': hip_flexor,
     'flex_s2_worlds_greatest_stretch': worlds_greatest,
+    'flex_s3_hip_9090': hip_9090,
     'flex_s4_thoracic_bridge': thoracic_bridge,
     'flex_s5_deep_squat_hold': deep_squat,
     'flex_s6_pike_stretch': pike,

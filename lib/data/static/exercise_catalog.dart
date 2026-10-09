@@ -566,8 +566,8 @@ class ExerciseCatalog {
     stage: 1,
     type: ExerciseType.timed,
     perSide: true,
-    startReps: 20, // seconds
-    targetReps: 60,
+    startReps: 10, // seconds
+    targetReps: 30,
     startSets: 1,
     targetSets: 3,
     startRestSec: 60,
@@ -696,8 +696,8 @@ class ExerciseCatalog {
     stage: 1,
     type: ExerciseType.timed,
     perSide: true,
-    startReps: 20,
-    targetReps: 60,
+    startReps: 10,
+    targetReps: 30,
     startSets: 1,
     targetSets: 3,
     startRestSec: 30,
@@ -739,8 +739,8 @@ class ExerciseCatalog {
     stage: 3,
     type: ExerciseType.timed,
     perSide: true,
-    startReps: 20,
-    targetReps: 60,
+    startReps: 10,
+    targetReps: 30,
     startSets: 1,
     targetSets: 3,
     startRestSec: 30,
@@ -748,6 +748,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 20,
     techniqueTip: 'Keep both sit bones on the floor. Rotate from the hip, not the lower back.',
+    animationPath: 'assets/animations/flex_s3_hip_9090.json',
   );
 
   static const Exercise flexS4ThoracicBridge = Exercise(
@@ -2452,6 +2453,7 @@ class ExerciseCatalog {
     challengeTargetReps: 45,
     techniqueTip: 'Keep your hips square to the floor as much as possible '
         'and breathe into the stretch.',
+    animationPath: 'assets/animations/posture_s6_pigeon_pose.json',
   );
 
   // ── Neck Branch ────────────────────────────────────────────────────────────

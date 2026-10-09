@@ -15,7 +15,8 @@ the reclined figure four of Evening Stretch (``gen_evening.py``).
 import math
 
 from goro_rig import (FLOOR, FLOOR_LINE, FPS, SIZE, _el, _layer, _prop, _rc,  # noqa: E501
-                      _single, _unwrap, add, ang_of, dirv, ik2, mul, rot, smooth)
+                      _single, _unwrap, add, ang_of, dirv, hold_ramp, ik2, mul,
+                      rot, smooth)
 
 K = 0.6  # scale of the front-view asset (head 110 px wide -> 66 px)
 
@@ -264,3 +265,65 @@ class TopViewAnimation:
 
 def oblique_crunch():
     return TopViewAnimation('supp_oblique_crunch', 48)
+
+
+# ── Up on the hands, folding forward over the legs ───────────────────────────
+# The pigeon pose seen from above: upright on the hands
+# (the torso looks short from above, the crown of the head on top), fold
+# forward onto the forearms, hold with a slow breath, come back up, the legs
+# given by the caller. The front shin is lit like the thigh, so it stands out from the
+# dark head it passes in front of.
+
+FOLD_ORDER = ['head', 'hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l',
+              'uarm_r', 'body', 'knee_r', 'thigh_r', 'shin_r', 'foot_r',
+              'thigh_l', 'shin_l', 'foot_l', 'knee_l', 'mat']
+
+
+def fold_shapes(name):
+    from frontview import _back_shapes
+    if name == 'shin_r':
+        return [_single('seg', _rc(30, 70, (0, 0), 9), THIGH)]
+    return _back_shapes(name) or _shapes(name)
+
+
+def upright_fold(name, legs, hands_up, frames=96, hip_y=230, order=None):
+    """``legs[side]`` = (hip, knee, ankle, (foot offset, foot rotation),
+    kneecap shown); ``hands_up`` = the right hand's offset from the hips'
+    centre while upright (the left one mirrors it)."""
+    T = frames
+
+    def mix(a, b, u):
+        return (a[0] + (b[0] - a[0]) * u, a[1] + (b[1] - a[1]) * u)
+
+    def pose(t):
+        fold = hold_ramp(t, [(0, 0), (10, 0), (34, 1), (T - 34, 1),
+                             (T - 10, 0), (T, 0)])
+        fold += 0.04 * math.sin(2 * math.pi * t / 24) * (fold > 0.98)
+        # How long the torso looks from above: short upright, full when folded.
+        p = 0.35 + 0.65 * fold
+        c = (200, hip_y - 50 * p)
+        parts = {'body': dict(p=c, r=0, s=(K * 100, K * 100 * p)),
+                 'head': dict(p=(200, c[1] - 18 - 54 * fold), r=0,
+                              s=(K * 100, K * 92))}
+        for side, sx in (('l', -1), ('r', 1)):
+            sh = (200 + sx * 36, c[1] - 41 * p)
+            # Hands on the floor by the hips -> forearms ahead of the head.
+            wrist = mix((200 + sx * hands_up[0], hip_y + hands_up[1]),
+                        (200 + sx * 34, 96), fold)
+            out = mix((sx * 16, 0), (sx * 10, 12), fold)  # elbow bulges out
+            elbow = add(mix(sh, wrist, 0.5 + 0.15 * fold), out)
+            parts['uarm_' + side] = _segment(sh, elbow, 'uarm')
+            parts['farm_' + side] = _segment(elbow, wrist, 'farm')
+            parts['hand_' + side] = dict(p=wrist, r=0, s=(K * 100, K * 100))
+        for side in ('r', 'l'):
+            hip, knee, ankle, (foot_dp, foot_r), cap = legs[side]
+            parts['thigh_' + side] = _segment(hip, knee, 'thigh')
+            parts['shin_' + side] = _segment(knee, ankle, 'shin')
+            parts['knee_' + side] = dict(
+                p=knee, r=0, s=(K * 100, K * 100) if cap else (0, 0))
+            parts['foot_' + side] = dict(p=add(ankle, foot_dp), r=foot_r,
+                                         s=(K * 100, K * 100))
+        return parts
+
+    return TopViewAnimation(name, T, pose, order or FOLD_ORDER,
+                            shapes_fn=fold_shapes)
