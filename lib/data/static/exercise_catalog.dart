@@ -748,6 +748,7 @@ class ExerciseCatalog {
     spBase: 1,
     challengeTargetReps: 20,
     techniqueTip: 'Keep both sit bones on the floor. Rotate from the hip, not the lower back.',
+    animationPath: 'assets/animations/flex_s3_hip_9090.json',
   );
 
   static const Exercise flexS4ThoracicBridge = Exercise(

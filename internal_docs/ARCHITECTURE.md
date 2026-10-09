@@ -377,12 +377,12 @@ Warmup: `warmup_leg_swings` ✅. Cooldown: `cooldown_cat_cow` ✅.
 |-------|----|------|--------|
 | 1 | `flex_s1_hip_flexor_stretch` | Hip Flexor Stretch | ✅ |
 | 2 | `flex_s2_worlds_greatest_stretch` | World's Greatest Stretch | ✅ |
-| 3 | `flex_s3_hip_9090` | 90/90 Hip Mobility | ❌ (a front-view draft awaits the owner, 2026-10-09) |
+| 3 | `flex_s3_hip_9090` | 90/90 Hip Mobility | ✅ (front view, 0.9.2) |
 | 4 | `flex_s4_thoracic_bridge` | Thoracic Bridge | ✅ |
 | 5 | `flex_s5_deep_squat_hold` | Deep Squat Hold | ✅ |
 | 6 | `flex_s6_pike_stretch` | Pike Stretch | ✅ |
 
-`flex_s3_hip_9090` has no animation in the app: the pose is not readable in a side-view silhouette (the front shin points at the camera, the back thigh away from it, and the legs merge into the torso; owner, 2026-10-06, the app shows the placeholder icon). After the pigeon worked from above, the owner asked for a try (2026-10-09) and then gave a reference: the 90/90 switch seen from the front and a little above. `gen_flex.py` draws it on `frontview.py`: sitting, leaning back on the hands behind the hips, the feet planted wide; the knees lower together to one side into the 90/90, hold, come up and lower to the other side. The legs are solved in 3D — each knee turns about the line from its hip to its planted foot — and projected for a camera 12° above the floor; they are a third longer than Goro's standing legs (with his own, the knees stayed under his belly). The torso, shortened by the lean back, is stretched down past the hip joints so the thighs do not hang in the air (owner); a thigh pointing at the camera grows its knee cap, which hides the short stub of the thigh turning fast as the knee passes the hip (`check_anim.py` still reports that turn). On the Flex stand; into `assets/` once approved. (A first top-view draft with the pigeon's `upright_fold` is in commit 4c5e378.)
+`flex_s3_hip_9090` is animated since 0.9.2 (approved by the owner 2026-10-09). Before that it had no animation: the pose is not readable in a side-view silhouette (the front shin points at the camera, the back thigh away from it, and the legs merge into the torso; owner, 2026-10-06, the app shows the placeholder icon). After the pigeon worked from above, the owner asked for a try (2026-10-09) and then gave a reference: the 90/90 switch seen from the front and a little above. `gen_flex.py` draws it on `frontview.py`: sitting, leaning back on the hands behind the hips, the feet planted wide; the knees lower together to one side into the 90/90, hold, come up and lower to the other side. The legs are solved in 3D — each knee turns about the line from its hip to its planted foot — and projected for a camera 12° above the floor; they are a third longer than Goro's standing legs (with his own, the knees stayed under his belly). The torso, shortened by the lean back, is stretched down past the hip joints so the thighs do not hang in the air (owner); a thigh pointing at the camera grows its knee cap, which hides the short stub of the thigh turning fast as the knee passes the hip (`check_anim.py` still reports that turn). On the Flex stand and in `assets/`. (A first top-view draft with the pigeon's `upright_fold` is in commit 4c5e378.)
 
 ### Posture Branch — Healthy Body course (6 stages)
 Warmup: `warmup_hip_circles` ✅. Cooldowns: `[cooldown_hip_flexor` ✅`, cooldown_quad_stretch` ✅`]`.
@@ -964,7 +964,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v0.6 | Profile stat tooltips (tap streak / rank / freeze for explanation) | ✅ |
 | v0.7 | Custom Workouts — user-built routines by tag, saved routines, Quick Routine flow | ✅ |
 | v0.7 | Lottie animations — Balance branch (6/6 + accessories) | ✅ |
-| v0.7 | Lottie animations — Flex branch (5/6, generated with `tools/lottie`; 90/90 without, a front-view draft awaits the owner since 2026-10-09) | ✅ |
+| v0.7 | Lottie animations — Flex branch (5/6, generated with `tools/lottie`; 90/90 from the front since 0.9.2) | ✅ |
 | v0.7 | Lottie animations — Supplementary pool (9/9; 8 generated + reused `warmup_wrist_circles`) | ✅ |
 | v0.7 | Privacy Policy + Terms of Use (GitHub Pages + links in app) | ✅ |
 | v0.7 | Web build — PWA on GitHub Pages, IndexedDB storage, CI deploy | ✅ |

@@ -2136,7 +2136,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseNotes092 =>
-      'The one-leg stand, the hip flexor stretch and 90/90 are shorter: 10 to 30 seconds on each side instead of 20 to 60. If you already held longer than 30 seconds, it becomes 30.\nA course\'s achievements are now presented by its host: the host\'s portrait sits on the achievement\'s badge, and in its card the host celebrates with you, or cheers you on while it is still ahead.\nThe rank stars in the achievements and the theme switch in the settings no longer wrap onto a second line.\nThe pigeon pose now has an animation: Goro shows it from above.';
+      'The one-leg stand, the hip flexor stretch and 90/90 are shorter: 10 to 30 seconds on each side instead of 20 to 60. If you already held longer than 30 seconds, it becomes 30.\nA course\'s achievements are now presented by its host: the host\'s portrait sits on the achievement\'s badge, and in its card the host celebrates with you, or cheers you on while it is still ahead.\nThe rank stars in the achievements and the theme switch in the settings no longer wrap onto a second line.\nThe pigeon pose now has an animation: Goro shows it from above.\n90/90 has an animation too: Goro lowers his knees to one side, then the other. Every exercise now has an animation.';
 
   @override
   String get releaseNotes091 =>
