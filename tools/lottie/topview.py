@@ -268,10 +268,10 @@ def oblique_crunch():
 
 
 # ── Up on the hands, folding forward over the legs ───────────────────────────
-# The pigeon pose and the 90/90 hold, seen from above: upright on the hands
+# The pigeon pose seen from above: upright on the hands
 # (the torso looks short from above, the crown of the head on top), fold
-# forward onto the forearms, hold with a slow breath, come back up. Only the
-# legs differ. The front shin is lit like the thigh, so it stands out from the
+# forward onto the forearms, hold with a slow breath, come back up, the legs
+# given by the caller. The front shin is lit like the thigh, so it stands out from the
 # dark head it passes in front of.
 
 FOLD_ORDER = ['head', 'hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l',
@@ -288,9 +288,8 @@ def fold_shapes(name):
 
 def upright_fold(name, legs, hands_up, frames=96, hip_y=230, order=None):
     """``legs[side]`` = (hip, knee, ankle, (foot offset, foot rotation),
-    kneecap shown); ``hands_up`` = where the hands rest while upright: the
-    right hand's offset from the hips' centre (the left one mirrors it), or
-    ``{'l': point, 'r': point}``."""
+    kneecap shown); ``hands_up`` = the right hand's offset from the hips'
+    centre while upright (the left one mirrors it)."""
     T = frames
 
     def mix(a, b, u):
@@ -309,9 +308,8 @@ def upright_fold(name, legs, hands_up, frames=96, hip_y=230, order=None):
         for side, sx in (('l', -1), ('r', 1)):
             sh = (200 + sx * 36, c[1] - 41 * p)
             # Hands on the floor by the hips -> forearms ahead of the head.
-            up = (hands_up[side] if isinstance(hands_up, dict) else
-                  (200 + sx * hands_up[0], hip_y + hands_up[1]))
-            wrist = mix(up, (200 + sx * 34, 96), fold)
+            wrist = mix((200 + sx * hands_up[0], hip_y + hands_up[1]),
+                        (200 + sx * 34, 96), fold)
             out = mix((sx * 16, 0), (sx * 10, 12), fold)  # elbow bulges out
             elbow = add(mix(sh, wrist, 0.5 + 0.15 * fold), out)
             parts['uarm_' + side] = _segment(sh, elbow, 'uarm')

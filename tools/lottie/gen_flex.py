@@ -4,8 +4,8 @@
 Usage: python3 tools/lottie/gen_flex.py [--out DIR] [name ...]
 Defaults to writing every animation into assets/animations/.
 
-``flex_s3_hip_9090`` is seen from above (``topview.upright_fold``, like the
-pigeon pose): in profile the legs merge into the torso (2026-10-06).
+``flex_s3_hip_9090`` is a front view a little from above (``frontview.py``,
+legs solved in 3D): in profile the legs merge into the torso (2026-10-06).
 """
 
 import argparse
@@ -14,7 +14,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(__file__))
-from goro_rig import P, Spec, add, mk, plant, write  # noqa: E402
+from goro_rig import P, Spec, hold_ramp, mk, plant, write  # noqa: E402
 
 
 # ── flex_s1_hip_flexor_stretch ───────────────────────────────────────────────
@@ -119,37 +119,69 @@ def pike():
 
 
 # ── flex_s3_hip_9090 ─────────────────────────────────────────────────────────
-# From above, sitting: both knees bent at 90 degrees. The front (right) thigh
-# points forward and out, its shin lies across in front; the back (left) thigh
-# points out to the side, at a right angle to the front one, its shin back.
-# The legs are turned 30 degrees to the right so that the front thigh shows
-# beside the head. Sitting up with the hands on the knees, then the fold
-# forward over the front shin onto the forearms, as in the pigeon pose.
+# The 90/90 switch from the front and a little above (the owner's reference,
+# 2026-10-09): sitting, leaning back on the hands behind the hips, the feet
+# planted wide. The knees start up, both lower to Goro's left side into the
+# 90/90 (the near thigh across in front, the far one out to the side), hold,
+# come up and lower to the other side. The legs are solved in 3D: each knee
+# turns about the line from its hip to its planted foot, then everything is
+# projected for a camera 12 degrees above the floor. Goro's legs are a third
+# longer here than standing (the segments stretch): with his own short legs the
+# knees stayed under his belly and the pose did not read.
 
 def hip_9090():
-    from topview import upright_fold
-    y = 230
+    from frontview import Animation, HIP_DX, figure
+    T = 96
+    HY = 349.0                       # hip joints on screen
+    E = math.radians(12)             # camera elevation
+    THIGH_LEN, SHIN_LEN = 62.0, 50.0
+    TURN = math.radians(78)          # knees lowered nearly to the floor
 
-    def step(p, bearing, length):
-        """``length`` px from ``p`` in a direction measured clockwise from
-        straight up the frame (the way Goro faces)."""
-        a = math.radians(bearing)
-        return (p[0] + length * math.sin(a), p[1] - length * math.cos(a))
+    def proj(p):
+        x, y, z = p
+        return (200 + x, HY - y * math.cos(E) + z * math.sin(E))
 
-    hip_r, hip_l = (222, y), (178, y)
-    knee_r = step(hip_r, 30, 68)
-    ankle_r = step(knee_r, -60, 66)
-    knee_l = step(hip_l, -60, 68)
-    ankle_l = step(knee_l, -150, 66)
-    legs = {'r': (hip_r, knee_r, ankle_r, ((-7, -4), 30), True),
-            'l': (hip_l, knee_l, ankle_l, ((-4, 7), 120), True)}
-    # The back knee rests on its inner side: its cap shows above the thigh.
-    order = ['head', 'hand_l', 'hand_r', 'farm_l', 'farm_r', 'uarm_l',
-             'uarm_r', 'body', 'knee_r', 'thigh_r', 'shin_r', 'foot_r',
-             'knee_l', 'thigh_l', 'shin_l', 'foot_l', 'mat']
-    hands = {'r': add(knee_r, (-4, 6)), 'l': add(knee_l, (6, 2))}
-    return upright_fold('flex_s3_hip_9090', legs, hands_up=hands, hip_y=y,
-                        order=order)
+    def knee_of(hip, ankle, phi):
+        d = [a - h for a, h in zip(ankle, hip)]
+        dist = math.sqrt(sum(c * c for c in d))
+        u = [c / dist for c in d]
+        a = (THIGH_LEN ** 2 - SHIN_LEN ** 2 + dist ** 2) / (2 * dist)
+        r = math.sqrt(max(0.0, THIGH_LEN ** 2 - a * a))
+        v = [-u[1] * u[0], 1 - u[1] * u[1], -u[1] * u[2]]   # up, square to u
+        n = math.sqrt(sum(c * c for c in v))
+        v = [c / n for c in v]
+        w = [v[1] * u[2] - v[2] * u[1], v[2] * u[0] - v[0] * u[2],
+             v[0] * u[1] - v[1] * u[0]]                     # towards screen right
+        return tuple(h + u[k] * a + r * (v[k] * math.cos(phi) + w[k] * math.sin(phi))
+                     for k, h in enumerate(hip))
+
+    def pose(t):
+        side = hold_ramp(t, [(0, 0), (4, 0), (18, 1), (38, 1), (48, 0),
+                             (52, 0), (66, -1), (86, -1), (T, 0)])
+        held = abs(side) > 0.98
+        phi = TURN * side * (1 + 0.04 * math.sin(2 * math.pi * t / 20) * held)
+        legs = {}
+        for key, sx in (('leg_l', -1), ('leg_r', 1)):
+            hip = (sx * HIP_DX, 0.0, 0.0)
+            ankle = (sx * 46, -8.0, 34.0)
+            knee = knee_of(hip, ankle, phi)
+            # A thigh pointing at the camera looks short and its knee is the
+            # nearest point: the cap grows and hides the stub of the thigh,
+            # which turns fast as the knee passes in front of the hip.
+            short = 1 - math.dist(proj(hip), proj(knee)) / THIGH_LEN
+            legs[key] = dict(knee=proj(knee), ankle=proj(ankle),
+                             near=1.05 + 0.55 * short, foot_rot=-sx * 20 * side,
+                             foot_scale=(0.8, 1.3), foot_off=(0, 3))
+        arms = {key: ((200 + sx * 74, HY - 2), (sx, 0))
+                for key, sx in (('arm_l', -1), ('arm_r', 1))}
+        return figure(hips=(200, HY), lean=-3 * side, head=(0, 2, 3 * side),
+                      torso_scale=(1, 0.68), **legs, **arms)
+
+    # The hands are behind the body and the legs in front of it.
+    order = ['head', 'crown', 'foot_l', 'foot_r', 'shin_l', 'shin_r',
+             'knee_l', 'knee_r', 'thigh_l', 'thigh_r', 'body', 'hand_l',
+             'hand_r', 'farm_l', 'farm_r', 'uarm_l', 'uarm_r']
+    return Animation('flex_s3_hip_9090', T, pose, order=order)
 
 
 ANIMATIONS = {
