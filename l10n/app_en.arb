@@ -1102,6 +1102,176 @@
   "courseBuilderNewTitle": "New course",
   "courseBuilderEditTitle": "Edit course",
   "courseBuilderEditButton": "Edit",
+  "courseListOwnSection": "Your courses",
+  "courseListOwnHint": "Untick a course to hide it from the list at the top; it is kept with its progress.",
+  "homePlanShow": "Show the plan",
+  "homePlanHide": "Hide the plan",
+  "homePlanReps": "{sets} × {reps}",
+  "@homePlanReps": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "reps": {
+        "type": "int"
+      }
+    }
+  },
+  "homePlanSeconds": "{sets} × {secs} s",
+  "@homePlanSeconds": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "homePlanSecondsPerSide": "{sets} × {secs} s each side",
+  "@homePlanSecondsPerSide": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalsTitle": "Next goals",
+  "homeGoalRank": "{sp} SP to {rank}",
+  "@homeGoalRank": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "sp": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalDays": "{count, plural, one{{count} more day} other{{count} more days}}",
+  "@homeGoalDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalWorkouts": "{count, plural, one{{count} more workout} other{{count} more workouts}}",
+  "@homeGoalWorkouts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalChallenge": "Challenge unlocked: {branch}",
+  "@homeGoalChallenge": {
+    "placeholders": {
+      "branch": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHistoryAll": "See all",
+  "homeGrowthTitle": "Progress today",
+  "homeGrowthNone": "No branch moved on today: each grows once a day, after a successful set.",
+  "homeGrowthReps": "{from} → {to, plural, one{{to} rep} other{{to} reps}}",
+  "@homeGrowthReps": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthSeconds": "{from} → {to} s",
+  "@homeGrowthSeconds": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthSets": "{from} → {to, plural, one{{to} set} other{{to} sets}}",
+  "@homeGrowthSets": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthRest": "rest {from} → {to} s",
+  "@homeGrowthRest": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthChallenge": "the challenge is open",
+  "homeGrowthStage": "new stage: {exercise}",
+  "@homeGrowthStage": {
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogToday": "Today, {time}",
+  "@homeLogToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogYesterday": "Yesterday, {time}",
+  "@homeLogYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hostLinesGoroHappy": "Today is a good day to get a little stronger.\nOne workout and today counts.\nA little every day is how the branches grow.\nI've warmed up already. Your turn!",
+  "hostLinesGoroSad": "It's evening and no workout yet. Shall we?\nIt's not too late: today counts if you start now.\nI've been waiting all day. A few sets before bed?\nEven one set is better than none.",
+  "hostLinesGoroAngry": "Your streak is at risk! You can still save it today.\nMidnight is close. Shall we save the streak?\nWe didn't build this streak to lose it now!\nLast chance today. I'm right here — shall we?",
+  "hostLinesGoroSupportive": "Welcome back! Shall we start small?\nA break is fine. What matters is coming back.\nYour progress is right where you left it.\nI kept your branches safe. Ready?",
+  "hostLinesGoroSleeping": "Night is for resting. We'll go on in the morning.\nSleep is part of training too.\nMuscles grow while you sleep. Good night!\nZzz… Goro is asleep. Time for you too.",
+  "hostLinesRaffiHappy": "Stand tall! A straight back makes a smoother day.\nYour neck will thank you today.\nI look down on everyone, but only to check their posture.\nA couple of exercises and your shoulders open up.",
+  "hostLinesRaffiSad": "At a desk all day? Time to stretch.\nEvening is a great time to loosen your neck.\nI've been craning my neck looking for you. Shall we?\nYour back is tired from the day; let it rest in motion.",
+  "hostLinesRaffiAngry": "Your streak is at risk! Straighten up and go.\nAlmost midnight, and the streak hangs by a thread. Save it?\nI keep my head up high; keeping the streak is up to you!\nThere's still time to save the streak. Shall we?",
+  "hostLinesRaffiSupportive": "Welcome back! Your posture missed you.\nA break is no trouble. Shall we start with the neck?\nYour progress is safe, I kept an eye on it.\nComing back is what counts. We'll straighten out the rest.",
+  "hostLinesRaffiSleeping": "Giraffes sleep standing up. You'd better lie down.\nNight. A lower pillow is kinder to your neck.\nSleep straightens you out as well as exercise. More in the morning.\nShh… Good night.",
+  "hostLinesLunaHappy": "Stretching is the best way to end a day.\nI usually sleep in the daytime, but I woke up for you.\nSlow and calm: stretching doesn't like a rush.\nTonight your body will thank you for the stretch.",
+  "hostLinesLunaSad": "Evening is my favourite time. Shall we stretch?\nJust the time to let go of the day.\nThe lights are low, the mat is waiting.\nA little stretching and you'll sleep better.",
+  "hostLinesLunaAngry": "Hoo! Your streak is at risk, and night is coming.\nOwls never hurry, but now it's worth it.\nMidnight is close. Shall we save the streak together?\nThe last stretch of the day is still waiting for you.",
+  "hostLinesLunaSupportive": "Welcome back. Let's start gently.\nA break is rest too. Now let's stretch.\nI waited for you. Your progress is safe.\nTake your time: your body remembers.",
+  "hostLinesLunaSleeping": "Owls don't sleep at night. But you should.\nI'll keep watch over your streak; you sleep.\nThe night is for owls; for you, sleep.\nGood night. Your body will thank you in the morning.",
+  "hostLinesAuroraHappy": "Morning or not, a little routine is always welcome.\nLet's loosen up and the day will go brighter.\nI've already sung three songs. Your turn to move!\nA morning routine is the best alarm clock.",
+  "hostLinesAuroraSad": "The morning's gone, but a routine works in the evening too.\nI've been singing since dawn. Shall we move at least now?\nIt's not too late: today still counts.\nA little movement chases the evening tiredness away.",
+  "hostLinesAuroraAngry": "Your streak is in danger! Quick, time to move!\nMidnight is close. Shall we save the streak?\nTweet-tweet, alarm: your streak is at risk!\nLast chance today. I believe in you!",
+  "hostLinesAuroraSupportive": "Welcome back! A new morning, a new start.\nA break is fine. Shall we start with the joints?\nI kept your progress safe. Shall we go on?\nEvery morning is a reason to come back.",
+  "hostLinesAuroraSleeping": "Larks go to bed early. Time for you too.\nSleep, and we'll greet the sunrise together.\nI don't sing at night. Rest.\nI'll wake you with a song. Good night!",
+  "hostLinesMisoHappy": "Stretch like a cat and the day gets softer.\nPurr. The mat is already rolled out.\nBreathe deeper, move slower.\nYoga is just a long cat stretch.",
+  "hostLinesMisoSad": "Evening is time for a calm practice.\nI've curled up on the mat and I'm waiting for you.\nA little yoga and the evening gets quieter.\nThere's still time for a few poses before bed.",
+  "hostLinesMisoAngry": "Fur on end: your streak is at risk!\nEven cats get up for what matters. Save the streak?\nMidnight is close. One practice and the streak is safe.\nMeow! Last chance for today.",
+  "hostLinesMisoSupportive": "Welcome back. No rush, cat-style.\nA break is a practice of calm too.\nYour progress is right here, I kept it warm.\nLet's start simple: breathe in, breathe out, stretch.",
+  "hostLinesMisoSleeping": "Cats sleep sixteen hours a day. Eight will do for you.\nPurrr… good night.\nSleep is the best pose. More in the morning.\nCurl up and rest.",
   "courseBuilderNameHint": "Course name",
   "courseBuilderNameRequired": "Give the course a name",
   "courseBuilderHostTitle": "Host",
@@ -1215,6 +1385,7 @@
   "hostMiso": "Miso",
   "whatsNewRecent": "Recent updates",
   "whatsNewHistory": "Version history",
+  "releaseNotes094": "Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host's face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you (each host its own, a new one every time you open the app or tap it), and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today's plan, with Goro showing every exercise.\nGoro's animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.",
   "releaseNotes093": "Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of CaliDay, version by version, is folded below them.",
   "releaseHistory01": "The first version: short daily workouts, SP points, streaks, reminders and a first-run setup.\nFive skills: push-ups, core, pull-ups, legs and balance; the workout takes turns between them day by day.\nThe path of a skill: every stage on one screen, and a challenge to move on early.\nAchievements, extra workouts on the same day and a dark theme.\nRussian and English.\nGoro shows every push-up stage in an animation.",
   "releaseHistory02": "Sound and vibration during a workout.\nThe workout history.\nA new home screen with three tabs at the bottom.\nStreak freezes: one missed day no longer breaks the streak.\nThe About screen.",

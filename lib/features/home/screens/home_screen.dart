@@ -16,6 +16,8 @@ import '../../profile/widgets/rank_info_sheet.dart';
 import '../../profile/widgets/workout_log_tile.dart';
 import '../../workout/providers/workout_provider.dart';
 import '../providers/home_provider.dart';
+import '../widgets/home_middle.dart';
+import '../widgets/workout_plan_button.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -93,8 +95,9 @@ class HomeScreen extends ConsumerWidget {
     final data = ref.watch(homeDataProvider);
     final expression = ref.watch(goroExpressionProvider);
     final scheme = Theme.of(context).colorScheme;
-    final l10n = context.l10n;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final plan = ref.watch(todayPlanProvider);
+    final now = DateTime.now();
 
     return Scaffold(
       backgroundColor: scheme.surface,
@@ -122,32 +125,54 @@ class HomeScreen extends ConsumerWidget {
             ),
           ),
 
-          // ── Bottom section ────────────────────────────────────────────────
+          // ── Middle and the buttons ────────────────────────────────────────
+          // Before the first workout of the day: the host's line, the next
+          // goals and the branches; after it: the recent workouts and how
+          // the branches grew. The plan is folded into the workout button.
           Expanded(
             child: SafeArea(
               top: false,
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(24, 20, 24, 16),
-                child: Column(
+              child: LayoutBuilder(
+                builder: (context, box) => Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    if (data.hasWorkoutToday) ...[
-                      _DoneMessage(scheme: scheme, l10n: l10n),
-                      const SizedBox(height: 16),
-                    ],
-                    const Spacer(),
-                    _WorkoutButton(
-                      done: data.hasWorkoutToday,
-                      // The plan that will run (the day's own, or the bonus one
-                      // with its seeded supplementary exercises), at the
-                      // user's pace.
-                      estimatedMinutes: ref
-                          .watch(todayPlanProvider)
-                          .estimatedMinutesAt(ref.watch(workoutPaceProvider)),
-                      onTap: () => context.push('/workout'),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.fromLTRB(20, 18, 20, 12),
+                        child: data.hasWorkoutToday
+                            ? HomeAfterWorkout(
+                                now: now,
+                                onSeeAllHistory: () =>
+                                    _showWorkoutHistorySheet(context, ref),
+                              )
+                            : HomeBeforeWorkout(data: data, now: now),
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    _CustomWorkoutButton(scheme: scheme),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(24, 4, 24, 16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          WorkoutPlanButton(
+                            done: data.hasWorkoutToday,
+                            plan: plan,
+                            // The plan that will run (the day's own, or the
+                            // bonus one with its seeded supplementary
+                            // exercises), at the user's pace.
+                            estimatedMinutes: plan.estimatedMinutesAt(
+                                ref.watch(workoutPaceProvider)),
+                            onStart: () => context.push('/workout'),
+                            // The whole area minus the label row, the custom
+                            // workout button, the gaps and a strip of the
+                            // middle that stays visible above.
+                            maxPlanHeight: (box.maxHeight - 190)
+                                .clamp(120.0, double.infinity),
+                          ),
+                          const SizedBox(height: 10),
+                          _CustomWorkoutButton(scheme: scheme),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -333,173 +358,6 @@ class _HeroStat extends StatelessWidget {
               ),
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-// ── Done message ───────────────────────────────────────────────────────────────
-
-class _DoneMessage extends StatelessWidget {
-  const _DoneMessage({required this.scheme, required this.l10n});
-
-  final ColorScheme scheme;
-  final dynamic l10n;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: AppTheme.success.withAlpha(20),
-        borderRadius: BorderRadius.circular(14),
-        border: Border.all(color: AppTheme.success.withAlpha(60), width: 1),
-      ),
-      child: Row(
-        children: [
-          Icon(Icons.check_circle_rounded, color: AppTheme.success, size: 20),
-          const SizedBox(width: 10),
-          Text(
-            l10n.homeWorkoutDone,
-            style: TextStyle(
-              fontSize: 14,
-              fontWeight: FontWeight.w600,
-              color: AppTheme.success,
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// ── Workout button ─────────────────────────────────────────────────────────────
-
-class _WorkoutButton extends StatelessWidget {
-  const _WorkoutButton({
-    required this.done,
-    required this.onTap,
-    this.estimatedMinutes,
-  });
-
-  final bool done;
-  final VoidCallback onTap;
-
-  /// About how long the workout behind this button takes; null when there is
-  /// nothing to say.
-  final int? estimatedMinutes;
-
-  @override
-  Widget build(BuildContext context) {
-    final l10n = context.l10n;
-    final scheme = Theme.of(context).colorScheme;
-
-    if (done) {
-      return SizedBox(
-        width: double.infinity,
-        height: 64,
-        child: FilledButton(
-          style: FilledButton.styleFrom(
-            backgroundColor: scheme.secondaryContainer,
-            foregroundColor: scheme.onSecondaryContainer,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-          onPressed: onTap,
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  const Icon(Icons.fitness_center, size: 22),
-                  Positioned(
-                    right: -6,
-                    top: -6,
-                    child: Container(
-                      width: 14,
-                      height: 14,
-                      decoration: BoxDecoration(
-                        color: scheme.primary,
-                        shape: BoxShape.circle,
-                      ),
-                      child: Icon(Icons.add, size: 9, color: scheme.onPrimary),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(width: 10),
-              Flexible(
-                child: Text(
-                  estimatedMinutes != null && estimatedMinutes! > 0
-                      ? l10n.homeWorkoutAgainEstimate(estimatedMinutes!)
-                      : l10n.homeWorkoutAgain,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 17,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    // Primary CTA — gradient button
-    return SizedBox(
-      width: double.infinity,
-      height: 64,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          gradient: const LinearGradient(
-            colors: [AppTheme.brandBlue, AppTheme.brandBlueDark],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: AppTheme.brandBlue.withAlpha(80),
-              blurRadius: 16,
-              offset: const Offset(0, 6),
-            ),
-          ],
-        ),
-        child: Material(
-          color: Colors.transparent,
-          borderRadius: BorderRadius.circular(20),
-          child: InkWell(
-            borderRadius: BorderRadius.circular(20),
-            onTap: onTap,
-            child: Center(
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Icon(Icons.fitness_center, size: 22, color: Colors.white),
-                  const SizedBox(width: 10),
-                  Flexible(
-                    child: Text(
-                      estimatedMinutes != null && estimatedMinutes! > 0
-                          ? l10n.homeWorkoutStartEstimate(estimatedMinutes!)
-                          : l10n.homeWorkoutStart,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                        fontSize: 17,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
         ),
       ),
     );

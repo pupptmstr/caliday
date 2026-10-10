@@ -11,6 +11,7 @@ import '../../../data/repositories/custom_course_repository.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
 import '../../../domain/models/branch.dart';
 import '../../workout/providers/workout_provider.dart';
+import '../../library/widgets/exercise_thumb.dart';
 
 // ── Stage state ───────────────────────────────────────────────────────────────
 
@@ -194,7 +195,7 @@ class _StageRow extends StatelessWidget {
                     ? Border.all(color: scheme.primary, width: 1.5)
                     : null,
               ),
-              child: Column(
+              child: ThumbRow(exercise: exercise, size: 56, dimmed: isLocked, child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   // Exercise name
@@ -275,7 +276,7 @@ class _StageRow extends StatelessWidget {
                       ),
                     ),
                 ],
-              ),
+              )),
             ),
           ),
         ],

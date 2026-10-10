@@ -4,14 +4,28 @@ import 'package:intl/intl.dart';
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
+import '../../../core/utils/calendar_days.dart';
 import '../../../data/models/workout_log.dart';
 import '../../../data/static/exercise_tags_catalog.dart';
+import '../../../domain/models/branch.dart';
+import '../../library/widgets/exercise_thumb.dart';
 import '../../../l10n/app_localizations.dart';
 
 class WorkoutLogTile extends StatelessWidget {
-  const WorkoutLogTile({super.key, required this.log});
+  const WorkoutLogTile({
+    super.key,
+    required this.log,
+    this.compact = false,
+    this.now,
+  });
 
   final WorkoutLog log;
+
+  /// Home: no tags, "Today, 08:40" / "Yesterday, 19:10" instead of the date.
+  final bool compact;
+
+  /// What "today" is for [compact]; DateTime.now() when null.
+  final DateTime? now;
 
   static const _skipSummaryTags = {
     ExerciseTag.floorOnly,
@@ -166,9 +180,14 @@ class WorkoutLogTile extends StatelessWidget {
                       .where((t) => !_skipDetailTags.contains(t))
                       .take(2)
                       .toList();
+                  final exercise = OwnBranch.exerciseById(ex.exerciseId);
                   return Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      if (exercise != null) ...[
+                        ExerciseThumb(exercise, size: 44),
+                        const SizedBox(width: 12),
+                      ],
                       Expanded(
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,7 +236,15 @@ class WorkoutLogTile extends StatelessWidget {
     final l10n = context.l10n;
     final locale = Localizations.localeOf(context).languageCode;
 
-    final dateStr = DateFormat('d MMMM', locale).format(log.date);
+    final days = calendarDaysBetween(log.date, now ?? DateTime.now());
+    final time = DateFormat.Hm(locale).format(log.date);
+    final dateStr = !compact
+        ? DateFormat('d MMMM', locale).format(log.date)
+        : days == 0
+            ? l10n.homeLogToday(time)
+            : days == 1
+                ? l10n.homeLogYesterday(time)
+                : DateFormat('d MMMM', locale).format(log.date);
     final m = log.durationSec ~/ 60;
     final s = log.durationSec % 60;
     final durationStr = m > 0 ? l10n.durationMin(m, s) : l10n.durationSec(s);
@@ -232,7 +259,8 @@ class WorkoutLogTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(14),
           onTap: () => showDetail(context),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+            padding: EdgeInsets.symmetric(
+                horizontal: 16, vertical: compact ? 10 : 14),
             child: Row(
               children: [
                 SizedBox(
@@ -276,13 +304,15 @@ class WorkoutLogTile extends StatelessWidget {
                       const SizedBox(height: 2),
                       Text(
                         '$typeLabel · $durationStr',
+                        maxLines: compact ? 1 : null,
+                        overflow: compact ? TextOverflow.ellipsis : null,
                         style: TextStyle(
                           fontSize: 13,
                           color: scheme.onSurfaceVariant,
                         ),
                       ),
                       () {
-                        final tags = _summaryTags();
+                        final tags = compact ? const <ExerciseTag>[] : _summaryTags();
                         if (tags.isEmpty) return const SizedBox.shrink();
                         return Padding(
                           padding: const EdgeInsets.only(top: 6),

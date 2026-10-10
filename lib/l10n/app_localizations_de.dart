@@ -2902,6 +2902,229 @@ class AppLocalizationsDe extends AppLocalizations {
   String get courseBuilderEditButton => 'Bearbeiten';
 
   @override
+  String get courseListOwnSection => 'Eigene Kurse';
+
+  @override
+  String get courseListOwnHint =>
+      'Entferne den Haken, um einen Kurs oben auszublenden; er bleibt samt Fortschritt erhalten.';
+
+  @override
+  String get homePlanShow => 'Plan zeigen';
+
+  @override
+  String get homePlanHide => 'Plan ausblenden';
+
+  @override
+  String homePlanReps(int sets, int reps) {
+    return '$sets × $reps';
+  }
+
+  @override
+  String homePlanSeconds(int sets, int secs) {
+    return '$sets × $secs s';
+  }
+
+  @override
+  String homePlanSecondsPerSide(int sets, int secs) {
+    return '$sets × $secs s pro Seite';
+  }
+
+  @override
+  String get homeGoalsTitle => 'Nächste Ziele';
+
+  @override
+  String homeGoalRank(String rank, int sp) {
+    return 'Noch $sp SP bis $rank';
+  }
+
+  @override
+  String homeGoalDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'noch $count Tage',
+      one: 'noch $count Tag',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalWorkouts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'noch $count Trainings',
+      one: 'noch $count Training',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalChallenge(String branch) {
+    return 'Challenge freigeschaltet: $branch';
+  }
+
+  @override
+  String get homeHistoryAll => 'Alle';
+
+  @override
+  String get homeGrowthTitle => 'Fortschritt heute';
+
+  @override
+  String get homeGrowthNone =>
+      'Heute ist kein Zweig gewachsen: Jeder wächst einmal am Tag, nach einem gelungenen Satz.';
+
+  @override
+  String homeGrowthReps(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to Wiederholungen',
+      one: '$to Wiederholung',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthSeconds(int from, int to) {
+    return '$from → $to s';
+  }
+
+  @override
+  String homeGrowthSets(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to Sätze',
+      one: '$to Satz',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthRest(int from, int to) {
+    return 'Pause $from → $to s';
+  }
+
+  @override
+  String get homeGrowthChallenge => 'die Challenge ist frei';
+
+  @override
+  String homeGrowthStage(String exercise) {
+    return 'neue Stufe: $exercise';
+  }
+
+  @override
+  String homeLogToday(String time) {
+    return 'Heute, $time';
+  }
+
+  @override
+  String homeLogYesterday(String time) {
+    return 'Gestern, $time';
+  }
+
+  @override
+  String get hostLinesGoroHappy =>
+      'Heute ist ein guter Tag, um ein bisschen stärker zu werden.\nEin Training, und der Tag zählt.\nJeden Tag ein bisschen – so wachsen die Zweige.\nIch bin schon aufgewärmt. Du bist dran!';
+
+  @override
+  String get hostLinesGoroSad =>
+      'Es ist Abend und noch kein Training. Schaffen wir das?\nEs ist nicht zu spät: Der Tag zählt, wenn du jetzt anfängst.\nIch habe den ganzen Tag gewartet. Ein paar Sätze vor dem Schlafen?\nSchon ein Satz ist besser als keiner.';
+
+  @override
+  String get hostLinesGoroAngry =>
+      'Deine Serie ist in Gefahr! Heute kannst du sie noch retten.\nBald ist Mitternacht. Retten wir die Serie?\nWir haben die Serie nicht aufgebaut, um sie jetzt zu verlieren!\nLetzte Chance für heute. Ich bin da – los?';
+
+  @override
+  String get hostLinesGoroSupportive =>
+      'Schön, dass du wieder da bist! Fangen wir klein an?\nEine Pause ist okay. Hauptsache, du kommst zurück.\nDein Fortschritt ist noch da – weiter auf derselben Stufe.\nIch habe auf deine Zweige aufgepasst. Bereit?';
+
+  @override
+  String get hostLinesGoroSleeping =>
+      'Die Nacht ist zum Ausruhen da. Morgen früh geht es weiter.\nSchlaf gehört auch zum Training.\nMuskeln wachsen im Schlaf. Gute Nacht!\nZzz… Goro schläft. Für dich ist es auch Zeit.';
+
+  @override
+  String get hostLinesRaffiHappy =>
+      'Richte dich auf! Mit geradem Rücken läuft der Tag gerader.\nDein Nacken wird es dir heute noch danken.\nIch schaue auf alle herab – aber nur, um die Haltung zu prüfen.\nEin paar Übungen, und die Schultern öffnen sich von selbst.';
+
+  @override
+  String get hostLinesRaffiSad =>
+      'Den ganzen Tag am Schreibtisch? Zeit, dich zu strecken.\nDer Abend ist ideal, um den Nacken zu lockern.\nIch habe mir nach dir den Hals verrenkt. Legen wir los?\nDein Rücken ist müde vom Tag – lass ihn in Bewegung ausruhen.';
+
+  @override
+  String get hostLinesRaffiAngry =>
+      'Deine Serie ist in Gefahr! Richte dich auf und los.\nFast Mitternacht, und die Serie hängt am seidenen Faden. Retten?\nIch halte den Kopf hoch – die Serie zu halten, liegt an dir!\nEs ist noch Zeit, die Serie zu retten. Legen wir los?';
+
+  @override
+  String get hostLinesRaffiSupportive =>
+      'Schön, dass du wieder da bist! Deine Haltung hat dich vermisst.\nEine Pause ist kein Problem. Fangen wir mit dem Nacken an?\nDein Fortschritt ist sicher, ich habe ein Auge darauf gehabt.\nHauptsache, du kommst zurück. Den Rest richten wir.';
+
+  @override
+  String get hostLinesRaffiSleeping =>
+      'Giraffen schlafen im Stehen. Du legst dich besser hin.\nNacht. Ein flacheres Kissen schont den Nacken.\nSchlaf richtet dich so gut auf wie Training. Morgen geht es weiter.\nPssst… Gute Nacht.';
+
+  @override
+  String get hostLinesLunaHappy =>
+      'Dehnen ist der beste Abschluss für einen Tag.\nTagsüber schlafe ich meistens, aber für dich bin ich aufgewacht.\nLangsam und ruhig: Dehnen mag keine Eile.\nHeute Abend dankt dir dein Körper für die Dehnung.';
+
+  @override
+  String get hostLinesLunaSad =>
+      'Der Abend ist meine liebste Zeit. Wollen wir uns dehnen?\nGenau die Zeit, um die Anspannung des Tages loszulassen.\nDas Licht ist gedimmt, die Matte wartet.\nEin bisschen Dehnen, und du schläfst besser.';
+
+  @override
+  String get hostLinesLunaAngry =>
+      'Huhu! Deine Serie ist in Gefahr, und die Nacht kommt näher.\nEulen eilen nie, aber jetzt lohnt es sich.\nBald ist Mitternacht. Retten wir die Serie zusammen?\nDie letzte Dehnung des Tages wartet noch auf dich.';
+
+  @override
+  String get hostLinesLunaSupportive =>
+      'Schön, dass du wieder da bist. Fangen wir sanft an.\nEine Pause ist auch Erholung. Jetzt dehnen wir uns.\nIch habe auf dich gewartet. Dein Fortschritt ist sicher.\nLass dir Zeit: Dein Körper erinnert sich.';
+
+  @override
+  String get hostLinesLunaSleeping =>
+      'Eulen schlafen nachts nicht. Du aber schon.\nIch bewache deine Serie, du schläfst.\nDie Nacht gehört den Eulen, dir gehört der Schlaf.\nGute Nacht. Morgen früh dankt dir dein Körper.';
+
+  @override
+  String get hostLinesAuroraHappy =>
+      'Morgen oder nicht – ein bisschen Bewegung passt immer.\nLockern wir uns, dann läuft der Tag frischer.\nIch habe schon drei Lieder gesungen. Jetzt bewegst du dich!\nMorgengymnastik ist der beste Wecker.';
+
+  @override
+  String get hostLinesAuroraSad =>
+      'Der Morgen ist vorbei, aber Gymnastik geht auch abends.\nIch singe seit dem Morgengrauen. Bewegen wir uns wenigstens jetzt?\nEs ist nicht zu spät: Der Tag zählt noch.\nEin bisschen Bewegung vertreibt die Abendmüdigkeit.';
+
+  @override
+  String get hostLinesAuroraAngry =>
+      'Deine Serie ist in Gefahr! Schnell, bewegen!\nBald ist Mitternacht. Retten wir die Serie?\nPiep-piep, Alarm: Deine Serie ist in Gefahr!\nLetzte Chance heute. Ich glaube an dich!';
+
+  @override
+  String get hostLinesAuroraSupportive =>
+      'Schön, dass du wieder da bist! Neuer Morgen, neuer Start.\nEine Pause ist okay. Fangen wir mit den Gelenken an?\nIch habe deinen Fortschritt gehütet. Machen wir weiter?\nJeder Morgen ist ein Grund zurückzukommen.';
+
+  @override
+  String get hostLinesAuroraSleeping =>
+      'Lerchen gehen früh schlafen. Für dich ist es auch Zeit.\nSchlaf, morgen begrüßen wir zusammen den Sonnenaufgang.\nNachts singe ich nicht. Ruh dich aus.\nMorgen wecke ich dich mit einem Lied. Gute Nacht!';
+
+  @override
+  String get hostLinesMisoHappy =>
+      'Streck dich wie eine Katze, dann wird der Tag weicher.\nSchnurr. Die Matte liegt schon bereit.\nAtme tiefer, beweg dich langsamer.\nYoga ist nur ein langes Katzenstrecken.';
+
+  @override
+  String get hostLinesMisoSad =>
+      'Der Abend ist Zeit für eine ruhige Praxis.\nIch habe mich auf der Matte eingerollt und warte auf dich.\nEin bisschen Yoga, und der Abend wird stiller.\nFür ein paar Haltungen vor dem Schlafen reicht es noch.';
+
+  @override
+  String get hostLinesMisoAngry =>
+      'Das Fell sträubt sich: Deine Serie ist in Gefahr!\nSelbst Katzen stehen für Wichtiges auf. Retten wir die Serie?\nBald ist Mitternacht. Eine Praxis, und die Serie hält.\nMiau! Letzte Chance für heute.';
+
+  @override
+  String get hostLinesMisoSupportive =>
+      'Schön, dass du wieder da bist. Ohne Eile, wie eine Katze.\nEine Pause ist auch eine Übung in Ruhe.\nDein Fortschritt ist noch da, ich habe ihn warm gehalten.\nFangen wir einfach an: einatmen, ausatmen, strecken.';
+
+  @override
+  String get hostLinesMisoSleeping =>
+      'Katzen schlafen sechzehn Stunden am Tag. Dir reichen acht.\nSchnurrr… gute Nacht.\nSchlaf ist die beste Haltung. Morgen geht es weiter.\nRoll dich ein und ruh dich aus.';
+
+  @override
   String get courseBuilderNameHint => 'Name des Kurses';
 
   @override
@@ -3057,6 +3280,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get whatsNewHistory => 'Versionsverlauf';
+
+  @override
+  String get releaseNotes094 =>
+      'Deine eigenen Kurse stehen jetzt in der Kursliste unter +: Entferne den Haken, um einen Kurs oben auszublenden (er bleibt erhalten), der Stift öffnet ihn zum Bearbeiten.\nEin eigener Kurs trägt oben ein Werkzeug-Zeichen statt des Gesichts seines Hosts.\nEin Erfolg, der noch vor dir liegt: Sein Host hält ihn jetzt in den Händen, eine graue Medaille mit Schloss.\n„Über die App“: Tippe auf Goro, er hat ein paar neue Posen.\nStartbildschirm: Vor dem ersten Training des Tages sagt dein Host ein paar Worte (jeder seine eigenen, neue bei jedem Öffnen und auf Tippen), darunter stehen deine nächsten Ziele (der nächste Rang, der nächste Erfolg, eine freie Challenge, die du direkt hier startest) und die Zweige des Kurses.\nDanach zeigt der Startbildschirm deine letzten Trainings und was heute gewachsen ist: mehr Wiederholungen, ein Satz, weniger Pause, eine neue Stufe.\nDer Pfeil am Trainingsknopf klappt den Plan des Tages auf, Goro zeigt jede Übung.\nGoros Animationen überall, wo eine Übung genannt wird: der Weg eines Zweigs, der Tab „Kurse“, die Baukästen, gespeicherte Trainings, der Verlauf, die Pause vor der nächsten Übung.';
 
   @override
   String get releaseNotes093 =>

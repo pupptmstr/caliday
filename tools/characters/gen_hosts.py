@@ -5,9 +5,10 @@ outlines, big eyes with highlights, the light-blue accent of Goro's headband).
     python3 tools/characters/gen_hosts.py [OUT_DIR]
 
 For each host, like Goro: six faces ``<host>_face_<mood>.svg`` (Home; the
-happy one also on the course cards), ``<host>_idle.svg`` (Profile) and
-``<host>_cheer.svg`` (the workout summary), into OUT_DIR (default:
-assets/hosts). Moods as Goro's: happy, sad, angry (the streak at risk; a
+happy one also on the course cards), ``<host>_idle.svg`` (Profile),
+``<host>_cheer.svg`` (the workout summary, an earned achievement) and
+``<host>_locked.svg`` (an achievement still ahead: the host holds a grey
+medal with a padlock), into OUT_DIR (default: assets/hosts). Moods as Goro's: happy, sad, angry (the streak at risk; a
 calm host looks stern and worried rather than furious), sleeping, excited,
 supportive. Edit this script, not the SVG files.
 """
@@ -99,6 +100,52 @@ def heart(x, y, r, color='#FF7A9C'):
             f'fill="{color}"/>')
 
 
+def locked_badge(x, y, r=118, ribbon=True):
+    """An achievement not earned yet: a grey medal with a padlock, hanging
+    from a ribbon (``ribbon``). Shared with Goro (tools/characters/gen_goro.py)."""
+    k = r / 118
+
+    def q(v):
+        return f'{v:.0f}'
+    out = []
+    if ribbon:
+        out += [f'<path d="M{q(x - 70 * k)} {q(y - r - 70 * k)} L{q(x - 20 * k)} {q(y - r + 20 * k)} '
+                f'L{q(x + 20 * k)} {q(y - r + 20 * k)} L{q(x + 70 * k)} {q(y - r - 70 * k)}Z" fill="#8C95A8"/>',
+                f'<path d="M{q(x - 70 * k)} {q(y - r - 70 * k)} L{q(x - 38 * k)} {q(y - r - 70 * k)} '
+                f'L{q(x)} {q(y - r + 10 * k)} L{q(x - 20 * k)} {q(y - r + 20 * k)}Z" fill="#B3BBCB"/>']
+    out += [
+        f'<circle cx="{q(x)}" cy="{q(y)}" r="{q(r)}" fill="#7D869A"/>',
+        f'<circle cx="{q(x)}" cy="{q(y)}" r="{q(r - 14 * k)}" fill="#C3CAD7"/>',
+        f'<path d="M{q(x - (r - 14 * k))} {q(y)} A{q(r - 14 * k)} {q(r - 14 * k)} 0 0 1 {q(x + (r - 14 * k))} {q(y)} '
+        f'A{q(r - 14 * k)} {q(r * 0.62)} 0 0 0 {q(x - (r - 14 * k))} {q(y)}Z" fill="#D9DEE8"/>',
+        f'<circle cx="{q(x)}" cy="{q(y)}" r="{q(r - 30 * k)}" fill="none" stroke="#FFFFFF" '
+        f'stroke-width="{q(5 * k)}" opacity="0.4" stroke-dasharray="{q(10 * k)} {q(12 * k)}"/>',
+        f'<path d="M{q(x - 30 * k)} {q(y - 8 * k)} V{q(y - 30 * k)} A{q(30 * k)} {q(30 * k)} 0 0 1 {q(x + 30 * k)} '
+        f'{q(y - 30 * k)} V{q(y - 8 * k)}" stroke="#5B6477" stroke-width="{q(14 * k)}" fill="none" stroke-linecap="round"/>',
+        f'<rect x="{q(x - 48 * k)}" y="{q(y - 12 * k)}" width="{q(96 * k)}" height="{q(74 * k)}" rx="{q(16 * k)}" fill="#5B6477"/>',
+        f'<circle cx="{q(x)}" cy="{q(y + 18 * k)}" r="{q(11 * k)}" fill="#2F3545"/>',
+        f'<rect x="{q(x - 5 * k)}" y="{q(y + 22 * k)}" width="{q(10 * k)}" height="{q(22 * k)}" rx="{q(5 * k)}" fill="#2F3545"/>',
+    ]
+    return '\n  '.join(out)
+
+
+def holding_wings(cx, top, h, w, by, br, color):
+    """Both wings brought forward round a medal at (cx, by) of radius br, the
+    tips over its edges (the owl's and the lark's locked pose)."""
+    out = []
+    for sx in (-1, 1):
+        tip = (cx + sx * (br - 4), by + br * 0.1)
+        out.append(f'<path d="M{cx + sx * w * 0.8:.0f} {top + h * 0.2:.0f} Q{cx + sx * w * 1.2:.0f} {top + h * 0.62:.0f} '
+                   f'{tip[0]:.0f} {tip[1] + br * 0.5:.0f} Q{tip[0] - sx * 6:.0f} {tip[1] - br * 0.3:.0f} '
+                   f'{cx + sx * w * 0.6:.0f} {top + h * 0.3:.0f} Z" fill="{color}"/>')
+        for i in range(3):
+            fx = tip[0] + sx * (8 - i * 10)
+            fy = tip[1] - br * 0.3 + i * br * 0.28
+            out.append(f'<ellipse cx="{fx:.0f}" cy="{fy:.0f}" rx="{br * 0.16:.0f}" ry="{br * 0.26:.0f}" '
+                       f'fill="{color}" transform="rotate({sx * (-20 + i * 16)} {fx:.0f} {fy:.0f})"/>')
+    return '\n  '.join(out)
+
+
 # ══ Luna, the owl ════════════════════════════════════════════════════════════
 
 L_BODY = '#6E6AAE'      # feathers
@@ -181,7 +228,8 @@ def luna_head(cx, cy, s=1.0, mood='happy'):
 def luna_body(cx, top, s=1.0, wing='down'):
     """Body below the head: egg shape, belly with V-marks, wings (``wing``
     down: folded | up: the right one raised in a stretch | both: both raised |
-    heart: the right one across the chest), a scarf."""
+    heart: the right one across the chest | hold: none, ``holding_wings``
+    draws them over a medal), a scarf."""
     h = 380 * s
     w = 250 * s
     parts = [
@@ -201,12 +249,12 @@ def luna_body(cx, top, s=1.0, wing='down'):
             parts.append(f'<path d="M{cx + sx * w * 0.7:.0f} {top + h * 0.3:.0f} Q{cx + sx * w * 1.45:.0f} {top + h * 0.05:.0f} '
                          f'{cx + sx * w * 1.25:.0f} {top - h * 0.38:.0f} Q{cx + sx * w * 1.05:.0f} {top + h * 0.02:.0f} '
                          f'{cx + sx * w * 0.62:.0f} {top + h * 0.12:.0f} Z" fill="{L_DARK}"/>')
-    else:
+    elif wing != 'hold':
         # left wing, folded
         parts.append(f'<path d="M{cx - w * 0.82:.0f} {top + h * 0.22:.0f} Q{cx - w * 1.18:.0f} {top + h * 0.62:.0f} '
                      f'{cx - w * 0.74:.0f} {top + h * 0.98:.0f} Q{cx - w * 0.56:.0f} {top + h * 0.6:.0f} '
                      f'{cx - w * 0.82:.0f} {top + h * 0.22:.0f} Z" fill="{L_DARK}"/>')
-    if wing == 'both':
+    if wing in ('both', 'hold'):
         pass
     elif wing == 'heart':
         parts.append(f'<path d="M{cx + w * 0.8:.0f} {top + h * 0.24:.0f} Q{cx + w * 0.3:.0f} {top + h * 0.34:.0f} '
@@ -257,6 +305,19 @@ def luna_idle():
             luna_body(512, 520, 0.9),
             luna_head(512, 380, 0.82, 'happy')]
     return svg('LUNA — idle (standing calmly)', '\n  '.join(body))
+
+
+def luna_locked():
+    s, top = 0.9, 520
+    by, br = 740, 96
+    body = [night_sky(),
+            '<rect x="120" y="880" width="784" height="34" rx="17" fill="#2A2D66"/>',
+            luna_feet(512, 872, 0.9),
+            luna_body(512, top, s, wing='hold'),
+            luna_head(512, 380, 0.82, 'happy'),
+            locked_badge(512, by, br),
+            holding_wings(512, top, 380 * s, 250 * s, by, br, L_DARK)]
+    return svg('LUNA — locked (holding an achievement still ahead)', '\n  '.join(body))
 
 
 def luna_cheer():
@@ -416,6 +477,18 @@ def raffi_standing(tilt, mood, title):
     return svg(title, '\n  '.join(body))
 
 
+def raffi_locked():
+    svg_text = raffi_standing(0, 'happy', 'RAFFI — locked (an achievement still ahead, its ribbon in his mouth)')
+    hx, hy, s = 360, 300, 0.58
+    mouth_y = hy + 186 * s
+    by, br = 610, 84
+    strap = (f'<path d="M{hx - 30} {mouth_y:.0f} L{hx - 16} {by - br + 6} L{hx + 16} {by - br + 6} L{hx + 30} {mouth_y:.0f} '
+             f'L{hx + 14} {mouth_y:.0f} L{hx} {by - br - 30} L{hx - 14} {mouth_y:.0f} Z" fill="#8C95A8"/>')
+    lips = f'<ellipse cx="{hx}" cy="{mouth_y + 2:.0f}" rx="{40 * s:.0f}" ry="{16 * s:.0f}" fill="{R_MUZZLE}"/>'
+    extra = '\n  '.join([strap, locked_badge(hx, by, br, ribbon=False), lips])
+    return svg_text.replace('\n</svg>', f'\n  {extra}\n</svg>')
+
+
 def raffi_idle():
     return raffi_standing(0, 'happy', 'RAFFI — idle (standing calmly)')
 
@@ -528,7 +601,8 @@ def aurora_head(cx, cy, s=1.0, mood='happy'):
 def aurora_body(cx, top, s=1.0, wing='down'):
     """Body below the head: a round body with a streaked cream breast, wings
     (``wing`` down: folded | up: the right one waving | both: both raised |
-    heart: the right one across the chest) and a short tail."""
+    heart: the right one across the chest | hold: none, ``holding_wings``
+    draws them over a medal) and a short tail."""
     h = 360 * s
     w = 240 * s
     parts = [
@@ -566,6 +640,8 @@ def aurora_body(cx, top, s=1.0, wing='down'):
 
     if wing == 'both':
         parts += [raised(-1), raised(1)]
+    elif wing == 'hold':
+        pass
     else:
         parts.append(folded(-1))
         if wing == 'up':
@@ -606,6 +682,19 @@ def aurora_standing(wing, mood, title):
 
 def aurora_idle():
     return aurora_standing('down', 'happy', 'AURORA — idle (standing calmly)')
+
+
+def aurora_locked():
+    s, top = 0.9, 500
+    by, br = 720, 94
+    body = [sunrise(),
+            '<rect x="120" y="880" width="784" height="34" rx="17" fill="#D9705A" opacity="0.7"/>',
+            aurora_feet(512, 872, 0.9),
+            aurora_body(512, top, s, wing='hold'),
+            aurora_head(512, 360, 0.8, 'happy'),
+            locked_badge(512, by, br),
+            holding_wings(512, top, 360 * s, 240 * s, by, br, A_DARK)]
+    return svg('AURORA — locked (holding an achievement still ahead)', '\n  '.join(body))
 
 
 def aurora_cheer():
@@ -750,7 +839,8 @@ def miso_body(cx, top, s=1.0, paws='down', lotus=False):
     collar (Goro's headband blue) with a bell, a tail curled round, and front
     paws (``paws`` down: resting in front | knees: on the knees of the lotus |
     up: both raised over the head, palms together | both: both raised in a V |
-    heart: one over the chest holding a heart). ``lotus`` adds crossed legs."""
+    heart: one over the chest holding a heart | hold: none, drawn over a
+    medal by ``miso_locked``). ``lotus`` adds crossed legs."""
     h = 360 * s
     w = 250 * s
     parts = [
@@ -788,6 +878,8 @@ def miso_body(cx, top, s=1.0, paws='down', lotus=False):
         parts.append(miso_arm(1, cx + w * 0.6, sh_y, cx + w * 0.08, top + h * 0.5, s))
         parts.append(heart(int(cx - w * 0.06), int(top + h * 0.5), int(36 * s)))
         parts.append(miso_paw(cx + w * 0.14, top + h * 0.52, s * 0.9, -30))
+    elif paws == 'hold':
+        pass
     elif paws == 'knees':
         for sx in (-1, 1):
             parts.append(miso_arm(sx, cx + sx * w * 0.6, sh_y, cx + sx * w * 0.86, top + h * 0.9, s))
@@ -820,6 +912,23 @@ def miso_idle():
     body = [calm_teal(), miso_mat(), miso_body(512, 470, 0.9, paws='knees', lotus=True),
             miso_head(512, 330, 0.8, 'happy')]
     return svg('MISO — idle (sitting in lotus, paws on the knees)', '\n  '.join(body))
+
+
+def miso_locked():
+    s, top = 0.9, 470
+    w, h = 250 * s, 360 * s
+    by, br = 690, 92
+    sh_y = top + h * 0.22
+    arms = []
+    for sx in (-1, 1):
+        paw = (512 + sx * (br - 2), by + 10)
+        arms.append(miso_arm(sx, 512 + sx * w * 0.6, sh_y, paw[0] + sx * 10, paw[1], s))
+        arms.append(miso_paw(paw[0], paw[1], s * 0.85, sx * 70))
+    body = [calm_teal(), miso_mat(), miso_body(512, top, s, paws='hold', lotus=True),
+            miso_head(512, 330, 0.8, 'happy'),
+            locked_badge(512, by, br, ribbon=False),
+            '\n  '.join(arms)]
+    return svg('MISO — locked (lotus, holding an achievement still ahead)', '\n  '.join(body))
 
 
 def miso_arms_overhead(cx, sh_y, head_cy, hs, bs):
@@ -858,7 +967,9 @@ def all_art():
     out.update(luna_idle=luna_idle(), luna_cheer=luna_cheer(),
                raffi_idle=raffi_idle(), raffi_cheer=raffi_cheer(),
                aurora_idle=aurora_idle(), aurora_cheer=aurora_cheer(),
-               miso_idle=miso_idle(), miso_cheer=miso_cheer())
+               miso_idle=miso_idle(), miso_cheer=miso_cheer(),
+               luna_locked=luna_locked(), raffi_locked=raffi_locked(),
+               aurora_locked=aurora_locked(), miso_locked=miso_locked())
     return out
 
 

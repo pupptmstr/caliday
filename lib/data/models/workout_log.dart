@@ -1,5 +1,6 @@
 import 'package:hive_ce/hive_ce.dart';
 
+import 'branch_growth.dart';
 import 'enums.dart';
 import 'exercise_result.dart';
 
@@ -19,6 +20,7 @@ class WorkoutLog extends HiveObject {
     this.freezeUsed = false,
     this.freezeEarned = false,
     this.estimatedDurationSec,
+    this.growth,
   });
 
   /// The calendar date the workout was performed (time component zeroed).
@@ -64,4 +66,8 @@ class WorkoutLog extends HiveObject {
   /// recorded and for the fake ones of the debug screen.
   @HiveField(9)
   final int? estimatedDurationSec;
+
+  /// How each branch moved on in this workout (0.9.4; null in older logs).
+  @HiveField(10)
+  final List<BranchGrowth>? growth;
 }

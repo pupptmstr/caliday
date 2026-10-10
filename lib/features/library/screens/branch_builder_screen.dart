@@ -15,6 +15,7 @@ import '../../../domain/services/custom_stages.dart';
 import '../../home/providers/home_provider.dart';
 import '../providers/exercise_library_provider.dart';
 import '../widgets/builder_widgets.dart';
+import '../widgets/exercise_thumb.dart';
 
 /// Builds a branch of the user's own (owner, 2026-10-09): a name and
 /// exercises in order, each one a stage; the amounts come from
@@ -296,6 +297,8 @@ class _StageTile extends StatelessWidget {
                   ),
                 ),
               ),
+              const SizedBox(width: 10),
+              ExerciseThumb(stage, size: 44),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -548,9 +551,11 @@ class _PickTile extends StatelessWidget {
           onTap: onTap,
           borderRadius: BorderRadius.circular(14),
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
             child: Row(
               children: [
+                ExerciseThumb(exercise, size: 44),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

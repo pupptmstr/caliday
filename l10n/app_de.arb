@@ -1102,6 +1102,176 @@
   "courseBuilderNewTitle": "Neuer Kurs",
   "courseBuilderEditTitle": "Kurs bearbeiten",
   "courseBuilderEditButton": "Bearbeiten",
+  "courseListOwnSection": "Eigene Kurse",
+  "courseListOwnHint": "Entferne den Haken, um einen Kurs oben auszublenden; er bleibt samt Fortschritt erhalten.",
+  "homePlanShow": "Plan zeigen",
+  "homePlanHide": "Plan ausblenden",
+  "homePlanReps": "{sets} × {reps}",
+  "@homePlanReps": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "reps": {
+        "type": "int"
+      }
+    }
+  },
+  "homePlanSeconds": "{sets} × {secs} s",
+  "@homePlanSeconds": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "homePlanSecondsPerSide": "{sets} × {secs} s pro Seite",
+  "@homePlanSecondsPerSide": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalsTitle": "Nächste Ziele",
+  "homeGoalRank": "Noch {sp} SP bis {rank}",
+  "@homeGoalRank": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "sp": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalDays": "{count, plural, one{noch {count} Tag} other{noch {count} Tage}}",
+  "@homeGoalDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalWorkouts": "{count, plural, one{noch {count} Training} other{noch {count} Trainings}}",
+  "@homeGoalWorkouts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalChallenge": "Challenge freigeschaltet: {branch}",
+  "@homeGoalChallenge": {
+    "placeholders": {
+      "branch": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHistoryAll": "Alle",
+  "homeGrowthTitle": "Fortschritt heute",
+  "homeGrowthNone": "Heute ist kein Zweig gewachsen: Jeder wächst einmal am Tag, nach einem gelungenen Satz.",
+  "homeGrowthReps": "{from} → {to, plural, one{{to} Wiederholung} other{{to} Wiederholungen}}",
+  "@homeGrowthReps": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthSeconds": "{from} → {to} s",
+  "@homeGrowthSeconds": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthSets": "{from} → {to, plural, one{{to} Satz} other{{to} Sätze}}",
+  "@homeGrowthSets": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthRest": "Pause {from} → {to} s",
+  "@homeGrowthRest": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthChallenge": "die Challenge ist frei",
+  "homeGrowthStage": "neue Stufe: {exercise}",
+  "@homeGrowthStage": {
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogToday": "Heute, {time}",
+  "@homeLogToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogYesterday": "Gestern, {time}",
+  "@homeLogYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "hostLinesGoroHappy": "Heute ist ein guter Tag, um ein bisschen stärker zu werden.\nEin Training, und der Tag zählt.\nJeden Tag ein bisschen – so wachsen die Zweige.\nIch bin schon aufgewärmt. Du bist dran!",
+  "hostLinesGoroSad": "Es ist Abend und noch kein Training. Schaffen wir das?\nEs ist nicht zu spät: Der Tag zählt, wenn du jetzt anfängst.\nIch habe den ganzen Tag gewartet. Ein paar Sätze vor dem Schlafen?\nSchon ein Satz ist besser als keiner.",
+  "hostLinesGoroAngry": "Deine Serie ist in Gefahr! Heute kannst du sie noch retten.\nBald ist Mitternacht. Retten wir die Serie?\nWir haben die Serie nicht aufgebaut, um sie jetzt zu verlieren!\nLetzte Chance für heute. Ich bin da – los?",
+  "hostLinesGoroSupportive": "Schön, dass du wieder da bist! Fangen wir klein an?\nEine Pause ist okay. Hauptsache, du kommst zurück.\nDein Fortschritt ist noch da – weiter auf derselben Stufe.\nIch habe auf deine Zweige aufgepasst. Bereit?",
+  "hostLinesGoroSleeping": "Die Nacht ist zum Ausruhen da. Morgen früh geht es weiter.\nSchlaf gehört auch zum Training.\nMuskeln wachsen im Schlaf. Gute Nacht!\nZzz… Goro schläft. Für dich ist es auch Zeit.",
+  "hostLinesRaffiHappy": "Richte dich auf! Mit geradem Rücken läuft der Tag gerader.\nDein Nacken wird es dir heute noch danken.\nIch schaue auf alle herab – aber nur, um die Haltung zu prüfen.\nEin paar Übungen, und die Schultern öffnen sich von selbst.",
+  "hostLinesRaffiSad": "Den ganzen Tag am Schreibtisch? Zeit, dich zu strecken.\nDer Abend ist ideal, um den Nacken zu lockern.\nIch habe mir nach dir den Hals verrenkt. Legen wir los?\nDein Rücken ist müde vom Tag – lass ihn in Bewegung ausruhen.",
+  "hostLinesRaffiAngry": "Deine Serie ist in Gefahr! Richte dich auf und los.\nFast Mitternacht, und die Serie hängt am seidenen Faden. Retten?\nIch halte den Kopf hoch – die Serie zu halten, liegt an dir!\nEs ist noch Zeit, die Serie zu retten. Legen wir los?",
+  "hostLinesRaffiSupportive": "Schön, dass du wieder da bist! Deine Haltung hat dich vermisst.\nEine Pause ist kein Problem. Fangen wir mit dem Nacken an?\nDein Fortschritt ist sicher, ich habe ein Auge darauf gehabt.\nHauptsache, du kommst zurück. Den Rest richten wir.",
+  "hostLinesRaffiSleeping": "Giraffen schlafen im Stehen. Du legst dich besser hin.\nNacht. Ein flacheres Kissen schont den Nacken.\nSchlaf richtet dich so gut auf wie Training. Morgen geht es weiter.\nPssst… Gute Nacht.",
+  "hostLinesLunaHappy": "Dehnen ist der beste Abschluss für einen Tag.\nTagsüber schlafe ich meistens, aber für dich bin ich aufgewacht.\nLangsam und ruhig: Dehnen mag keine Eile.\nHeute Abend dankt dir dein Körper für die Dehnung.",
+  "hostLinesLunaSad": "Der Abend ist meine liebste Zeit. Wollen wir uns dehnen?\nGenau die Zeit, um die Anspannung des Tages loszulassen.\nDas Licht ist gedimmt, die Matte wartet.\nEin bisschen Dehnen, und du schläfst besser.",
+  "hostLinesLunaAngry": "Huhu! Deine Serie ist in Gefahr, und die Nacht kommt näher.\nEulen eilen nie, aber jetzt lohnt es sich.\nBald ist Mitternacht. Retten wir die Serie zusammen?\nDie letzte Dehnung des Tages wartet noch auf dich.",
+  "hostLinesLunaSupportive": "Schön, dass du wieder da bist. Fangen wir sanft an.\nEine Pause ist auch Erholung. Jetzt dehnen wir uns.\nIch habe auf dich gewartet. Dein Fortschritt ist sicher.\nLass dir Zeit: Dein Körper erinnert sich.",
+  "hostLinesLunaSleeping": "Eulen schlafen nachts nicht. Du aber schon.\nIch bewache deine Serie, du schläfst.\nDie Nacht gehört den Eulen, dir gehört der Schlaf.\nGute Nacht. Morgen früh dankt dir dein Körper.",
+  "hostLinesAuroraHappy": "Morgen oder nicht – ein bisschen Bewegung passt immer.\nLockern wir uns, dann läuft der Tag frischer.\nIch habe schon drei Lieder gesungen. Jetzt bewegst du dich!\nMorgengymnastik ist der beste Wecker.",
+  "hostLinesAuroraSad": "Der Morgen ist vorbei, aber Gymnastik geht auch abends.\nIch singe seit dem Morgengrauen. Bewegen wir uns wenigstens jetzt?\nEs ist nicht zu spät: Der Tag zählt noch.\nEin bisschen Bewegung vertreibt die Abendmüdigkeit.",
+  "hostLinesAuroraAngry": "Deine Serie ist in Gefahr! Schnell, bewegen!\nBald ist Mitternacht. Retten wir die Serie?\nPiep-piep, Alarm: Deine Serie ist in Gefahr!\nLetzte Chance heute. Ich glaube an dich!",
+  "hostLinesAuroraSupportive": "Schön, dass du wieder da bist! Neuer Morgen, neuer Start.\nEine Pause ist okay. Fangen wir mit den Gelenken an?\nIch habe deinen Fortschritt gehütet. Machen wir weiter?\nJeder Morgen ist ein Grund zurückzukommen.",
+  "hostLinesAuroraSleeping": "Lerchen gehen früh schlafen. Für dich ist es auch Zeit.\nSchlaf, morgen begrüßen wir zusammen den Sonnenaufgang.\nNachts singe ich nicht. Ruh dich aus.\nMorgen wecke ich dich mit einem Lied. Gute Nacht!",
+  "hostLinesMisoHappy": "Streck dich wie eine Katze, dann wird der Tag weicher.\nSchnurr. Die Matte liegt schon bereit.\nAtme tiefer, beweg dich langsamer.\nYoga ist nur ein langes Katzenstrecken.",
+  "hostLinesMisoSad": "Der Abend ist Zeit für eine ruhige Praxis.\nIch habe mich auf der Matte eingerollt und warte auf dich.\nEin bisschen Yoga, und der Abend wird stiller.\nFür ein paar Haltungen vor dem Schlafen reicht es noch.",
+  "hostLinesMisoAngry": "Das Fell sträubt sich: Deine Serie ist in Gefahr!\nSelbst Katzen stehen für Wichtiges auf. Retten wir die Serie?\nBald ist Mitternacht. Eine Praxis, und die Serie hält.\nMiau! Letzte Chance für heute.",
+  "hostLinesMisoSupportive": "Schön, dass du wieder da bist. Ohne Eile, wie eine Katze.\nEine Pause ist auch eine Übung in Ruhe.\nDein Fortschritt ist noch da, ich habe ihn warm gehalten.\nFangen wir einfach an: einatmen, ausatmen, strecken.",
+  "hostLinesMisoSleeping": "Katzen schlafen sechzehn Stunden am Tag. Dir reichen acht.\nSchnurrr… gute Nacht.\nSchlaf ist die beste Haltung. Morgen geht es weiter.\nRoll dich ein und ruh dich aus.",
   "courseBuilderNameHint": "Name des Kurses",
   "courseBuilderNameRequired": "Gib dem Kurs einen Namen",
   "courseBuilderHostTitle": "Host",
@@ -1215,6 +1385,7 @@
   "hostMiso": "Miso",
   "whatsNewRecent": "Neueste Updates",
   "whatsNewHistory": "Versionsverlauf",
+  "releaseNotes094": "Deine eigenen Kurse stehen jetzt in der Kursliste unter +: Entferne den Haken, um einen Kurs oben auszublenden (er bleibt erhalten), der Stift öffnet ihn zum Bearbeiten.\nEin eigener Kurs trägt oben ein Werkzeug-Zeichen statt des Gesichts seines Hosts.\nEin Erfolg, der noch vor dir liegt: Sein Host hält ihn jetzt in den Händen, eine graue Medaille mit Schloss.\n„Über die App“: Tippe auf Goro, er hat ein paar neue Posen.\nStartbildschirm: Vor dem ersten Training des Tages sagt dein Host ein paar Worte (jeder seine eigenen, neue bei jedem Öffnen und auf Tippen), darunter stehen deine nächsten Ziele (der nächste Rang, der nächste Erfolg, eine freie Challenge, die du direkt hier startest) und die Zweige des Kurses.\nDanach zeigt der Startbildschirm deine letzten Trainings und was heute gewachsen ist: mehr Wiederholungen, ein Satz, weniger Pause, eine neue Stufe.\nDer Pfeil am Trainingsknopf klappt den Plan des Tages auf, Goro zeigt jede Übung.\nGoros Animationen überall, wo eine Übung genannt wird: der Weg eines Zweigs, der Tab „Kurse“, die Baukästen, gespeicherte Trainings, der Verlauf, die Pause vor der nächsten Übung.",
   "releaseNotes093": "Dein eigener Kurs: Tippe im Tab „Kurse“ auf + und stell Zweige aus allen Kursen zusammen, wähle den Host und gib dem Kurs einen Namen.\nEin eigener Zweig: Wähle Übungen und bring sie in eine Reihenfolge, jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges legt die App fest, wie in jedem Zweig.\nUnter der Glocke stehen die neuesten Updates oben, darunter ist die ganze Geschichte von CaliDay Version für Version eingeklappt.",
   "releaseHistory01": "Die erste Version: kurze tägliche Trainings, SP-Punkte, Serien, Erinnerungen und eine Ersteinrichtung.\nFünf Skills: Liegestütze, Rumpf, Klimmzüge, Beine und Balance; das Training wechselt sie Tag für Tag ab.\nDer Weg eines Skills: alle Stufen auf einem Bildschirm und eine Challenge, um früher weiterzukommen.\nErfolge, zusätzliche Trainings am selben Tag und ein dunkles Design.\nRussisch und Englisch.\nGoro zeigt jede Liegestütz-Stufe in einer Animation.",
   "releaseHistory02": "Ton und Vibration während des Trainings.\nDer Trainingsverlauf.\nEin neuer Startbildschirm mit drei Tabs unten.\nSerienschutz: Ein verpasster Tag beendet die Serie nicht mehr.\nDer Bildschirm „Über die App“.",

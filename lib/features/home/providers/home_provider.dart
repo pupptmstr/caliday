@@ -13,21 +13,22 @@ import '../../../domain/services/rank_decay_service.dart';
 import '../../../domain/services/streak_service.dart';
 
 /// The courses of the Courses tab, in the order of the pills: the built-in
-/// ones the user enrolled in, then their own. Invalidate it after the
-/// enrollment changes; own courses follow [customCoursesProvider] by
-/// themselves.
+/// ones the user enrolled in, then their own ones that are shown
+/// ([CustomCourse.shown]). Invalidate it after the enrollment changes; own
+/// courses follow [customCoursesProvider] by themselves.
 final enrolledCoursesProvider = Provider<List<Course>>((ref) {
   final profile = ref.watch(userRepositoryProvider).getProfile();
   final own = ref.watch(customBranchesProvider);
   return [
     for (final c in profile.enrolledCourses) BuiltInCourse(c),
-    for (final c in ref.watch(customCoursesProvider)) OwnCourse(c, own),
+    for (final c in ref.watch(customCoursesProvider))
+      if (c.shown) OwnCourse(c, own),
   ];
 });
 
 /// Currently active course on the Home screen (last selected by the user):
-/// the own course of [UserProfile.activeCustomCourseId] while it exists,
-/// otherwise the built-in [UserProfile.activeCourse]. Rebuilt when the own
+/// the own course of [UserProfile.activeCustomCourseId] while it exists and
+/// is shown, otherwise the built-in [UserProfile.activeCourse]. Rebuilt when the own
 /// courses or branches change, so an edited course shows its new branches.
 class ActiveCourseNotifier extends Notifier<Course> {
   @override
@@ -36,7 +37,7 @@ class ActiveCourseNotifier extends Notifier<Course> {
     final own = ref.watch(customBranchesProvider);
     final profile = ref.read(userRepositoryProvider).getProfile();
     final ownId = profile.activeCustomCourseId;
-    final data = courses.where((c) => c.id == ownId).firstOrNull;
+    final data = courses.where((c) => c.id == ownId && c.shown).firstOrNull;
     if (data != null) return OwnCourse(data, own);
     return BuiltInCourse(profile.activeCourse);
   }

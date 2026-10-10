@@ -1,3 +1,4 @@
+import 'package:caliday/data/models/branch_growth.dart';
 import 'package:caliday/data/models/custom_branch.dart';
 import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/models/exercise_result.dart';
@@ -208,6 +209,62 @@ void main() {
           [2, ExerciseCatalog.pushS3FullPushup.startReps, false]);
       expect(repo.stored.containsKey('push'), isFalse);
       expect(out.touched, hasLength(1), reason: 'one record for both exercises');
+    });
+
+    test('the growth: the step each branch took, none for a second workout',
+        () {
+      final repo = _Progress();
+      final plan = WorkoutGeneratorService(repo).generateDailyFor(
+          branches: [const BuiltInBranch(BranchId.push), _own],
+          preferredMinutes: 15,
+          dayIndexOverride: 0);
+      WorkoutProgression apply() => WorkoutProgression.apply(
+            plan: plan,
+            results: plan.exercises.map(_done).toList(),
+            ownBranches: [_data],
+            progressFor: repo.progressFor,
+            now: day,
+          );
+      final first = apply().growth;
+      expect(first.map((g) => g.branchKey), ['push', 'custom_b1']);
+      expect(first.map((g) => g.kind).toSet(), {GrowthKind.amount});
+      final squat = ExerciseCatalog.legsS1Squat.startReps;
+      expect([first.last.fromAmount, first.last.toAmount], [squat, squat + 2]);
+      expect(apply().growth, isEmpty, reason: 'each branch moves once a day');
+    });
+
+    test('the growth of a passed challenge is a stage, of an unlocked one the challenge',
+        () {
+      final repo = _Progress();
+      repo.stored[_own.key] = SkillProgress(
+          customBranchId: 'b1', currentReps: 20, currentSets: 3, currentRestSec: 20,
+          isChallengeUnlocked: true);
+      final challenge = WorkoutGeneratorService(repo).generateChallengeFor(_own);
+      final passed = WorkoutProgression.apply(
+        plan: challenge,
+        results: challenge.exercises.map(_done).toList(),
+        ownBranches: [_data],
+        progressFor: repo.progressFor,
+        now: day,
+      ).growth.single;
+      expect(passed.kind, GrowthKind.stage);
+      expect([passed.fromStage, passed.toStage], [1, 2]);
+
+      final atTargets = _Progress();
+      final s1 = ExerciseCatalog.legsS1Squat;
+      atTargets.stored[_own.key] = SkillProgress(customBranchId: 'b1',
+          currentReps: s1.targetReps, currentSets: s1.targetSets, currentRestSec: s1.targetRestSec);
+      final daily = WorkoutGeneratorService(atTargets)
+          .generateDailyFor(branches: [_own], dayIndexOverride: 0);
+      final unlocked = WorkoutProgression.apply(
+        plan: daily,
+        results: daily.exercises.map(_done).toList(),
+        ownBranches: [_data],
+        progressFor: atTargets.progressFor,
+        now: day,
+      ).growth.single;
+      expect(unlocked.kind, GrowthKind.challenge);
+      expect(unlocked.challengeUnlocked, isTrue);
     });
 
     test('an own branch deleted during the workout is skipped', () {

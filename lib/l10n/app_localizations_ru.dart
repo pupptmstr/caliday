@@ -2891,6 +2891,237 @@ class AppLocalizationsRu extends AppLocalizations {
   String get courseBuilderEditButton => 'Изменить';
 
   @override
+  String get courseListOwnSection => 'Свои курсы';
+
+  @override
+  String get courseListOwnHint =>
+      'Сними галочку, чтобы спрятать курс из списка сверху; он сохранится вместе с прогрессом.';
+
+  @override
+  String get homePlanShow => 'Показать план';
+
+  @override
+  String get homePlanHide => 'Скрыть план';
+
+  @override
+  String homePlanReps(int sets, int reps) {
+    return '$sets × $reps';
+  }
+
+  @override
+  String homePlanSeconds(int sets, int secs) {
+    return '$sets × $secs с';
+  }
+
+  @override
+  String homePlanSecondsPerSide(int sets, int secs) {
+    return '$sets × $secs с на сторону';
+  }
+
+  @override
+  String get homeGoalsTitle => 'Ближайшие цели';
+
+  @override
+  String homeGoalRank(String rank, int sp) {
+    return 'До ранга «$rank» — $sp SP';
+  }
+
+  @override
+  String homeGoalDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ещё $count дня',
+      many: 'ещё $count дней',
+      few: 'ещё $count дня',
+      one: 'ещё $count день',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalWorkouts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ещё $count тренировки',
+      many: 'ещё $count тренировок',
+      few: 'ещё $count тренировки',
+      one: 'ещё $count тренировка',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalChallenge(String branch) {
+    return 'Испытание открыто: $branch';
+  }
+
+  @override
+  String get homeHistoryAll => 'Все';
+
+  @override
+  String get homeGrowthTitle => 'Сегодня выросло';
+
+  @override
+  String get homeGrowthNone =>
+      'Сегодня ветки не сдвинулись: каждая растёт раз в день, после удачного подхода.';
+
+  @override
+  String homeGrowthReps(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to повтора',
+      many: '$to повторов',
+      few: '$to повтора',
+      one: '$to повтор',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthSeconds(int from, int to) {
+    return '$from → $to с';
+  }
+
+  @override
+  String homeGrowthSets(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to подхода',
+      many: '$to подходов',
+      few: '$to подхода',
+      one: '$to подход',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthRest(int from, int to) {
+    return 'отдых $from → $to с';
+  }
+
+  @override
+  String get homeGrowthChallenge => 'открыто испытание';
+
+  @override
+  String homeGrowthStage(String exercise) {
+    return 'новый этап: $exercise';
+  }
+
+  @override
+  String homeLogToday(String time) {
+    return 'Сегодня, $time';
+  }
+
+  @override
+  String homeLogYesterday(String time) {
+    return 'Вчера, $time';
+  }
+
+  @override
+  String get hostLinesGoroHappy =>
+      'Сегодня отличный день, чтобы стать чуть сильнее.\nОдна тренировка — и день засчитан.\nПонемногу каждый день — так и растут ветки.\nЯ уже размялся. Твоя очередь!';
+
+  @override
+  String get hostLinesGoroSad =>
+      'Вечер, а тренировки ещё не было. Успеем?\nЕщё не поздно: день засчитается, если начать сейчас.\nЯ весь день ждал. Пара подходов перед сном?\nДаже один подход лучше, чем ничего.';
+
+  @override
+  String get hostLinesGoroAngry =>
+      'Серия под угрозой! Сегодня её ещё можно спасти.\nДо полуночи совсем немного. Спасём серию?\nМы не для того копили серию, чтобы потерять её сейчас!\nПоследний шанс на сегодня. Я рядом — начинаем?';
+
+  @override
+  String get hostLinesGoroSupportive =>
+      'С возвращением! Начнём с малого?\nПерерыв — это нормально. Главное — вернуться.\nПрогресс никуда не делся — продолжим с того же этапа.\nЯ сберёг твои ветки. Поехали?';
+
+  @override
+  String get hostLinesGoroSleeping =>
+      'Ночь — время отдыхать. Утром продолжим.\nСон — тоже часть тренировки.\nМышцы растут во сне. Спокойной ночи!\nХр-р… Горо спит. И тебе пора.';
+
+  @override
+  String get hostLinesRaffiHappy =>
+      'Выпрямись! С ровной спиной и день ровнее.\nШея скажет спасибо уже сегодня.\nЯ смотрю на всех свысока, но только чтобы проверить осанку.\nПара упражнений — и плечи сами расправятся.';
+
+  @override
+  String get hostLinesRaffiSad =>
+      'Весь день за столом? Самое время потянуться.\nВечер — отличное время размять шею.\nЯ вытянул шею, высматривая тебя. Начнём?\nСпина устала за день — дай ей отдохнуть в движении.';
+
+  @override
+  String get hostLinesRaffiAngry =>
+      'Серия под угрозой! Выпрями спину — и вперёд.\nПочти полночь, а серия висит на волоске. Спасём?\nГолову я держу высоко, а серию держать тебе!\nВремя ещё есть, чтобы сохранить серию. Начнём?';
+
+  @override
+  String get hostLinesRaffiSupportive =>
+      'С возвращением! Осанка тебя ждала.\nПерерыв — не беда. Начнём с шеи?\nТвой прогресс на месте, я за ним присмотрел.\nГлавное — вернуться. Остальное подтянем.';
+
+  @override
+  String get hostLinesRaffiSleeping =>
+      'Жирафы спят стоя. Тебе лучше лечь.\nНочь. Подушку пониже — шее будет легче.\nСон выпрямляет не хуже упражнений. Утром продолжим.\nТсс… Спокойной ночи.';
+
+  @override
+  String get hostLinesLunaHappy =>
+      'Растяжка — лучший способ закончить день.\nДнём я обычно сплю, но ради тебя проснулась.\nМедленно и спокойно: растяжка не любит спешки.\nВечером тело скажет спасибо за растяжку.';
+
+  @override
+  String get hostLinesLunaSad =>
+      'Вечер — моё любимое время. Потянемся?\nСамое время снять напряжение дня.\nСвет приглушён, коврик ждёт.\nНемного растяжки — и сон будет крепче.';
+
+  @override
+  String get hostLinesLunaAngry =>
+      'Ух! Серия под угрозой, а ночь всё ближе.\nСовы не спешат, но сейчас стоит поторопиться.\nДо полуночи немного — спасём серию вместе?\nПоследняя растяжка дня ещё ждёт тебя.';
+
+  @override
+  String get hostLinesLunaSupportive =>
+      'С возвращением. Начнём мягко.\nПерерыв — тоже отдых. А теперь потянемся.\nЯ ждала тебя. Прогресс на месте.\nНе торопись: тело всё помнит.';
+
+  @override
+  String get hostLinesLunaSleeping =>
+      'Совы ночью не спят. А тебе пора.\nЯ покараулю серию, а ты спи.\nНочь — для сов, а для тебя — сон.\nСпокойной ночи. Утром тело скажет спасибо.';
+
+  @override
+  String get hostLinesAuroraHappy =>
+      'Утро или нет — зарядка всегда кстати.\nРазомнёмся — и день пойдёт бодрее.\nЯ уже спела три песни. Твоя очередь двигаться!\nЗарядка — лучший будильник.';
+
+  @override
+  String get hostLinesAuroraSad =>
+      'Утро прошло, но зарядка годится и вечером.\nЯ пела с рассвета. Подвигаемся хоть сейчас?\nЕщё не поздно: день засчитается.\nНемного движения разгонит вечернюю усталость.';
+
+  @override
+  String get hostLinesAuroraAngry =>
+      'Серия в опасности! Скорее на зарядку!\nДо полуночи немного — спасём серию?\nЧик-чирик, тревога: серия под угрозой!\nПоследний шанс сегодня. Я в тебя верю!';
+
+  @override
+  String get hostLinesAuroraSupportive =>
+      'С возвращением! Новое утро — новый старт.\nПерерыв — это нормально. Начнём с суставов?\nЯ берегла твой прогресс. Продолжим?\nКаждое утро — повод вернуться.';
+
+  @override
+  String get hostLinesAuroraSleeping =>
+      'Жаворонки ложатся рано. Тебе тоже пора.\nСпи — завтра встретим рассвет вместе.\nНочью я не пою. Отдыхай.\nУтром разбужу песней. Спокойной ночи!';
+
+  @override
+  String get hostLinesMisoHappy =>
+      'Потянись, как кот, — и день станет мягче.\nМур. Коврик уже расстелен.\nДыши глубже, двигайся медленнее.\nЙога — это просто долгое кошачье потягивание.';
+
+  @override
+  String get hostLinesMisoSad =>
+      'Вечер — время для спокойной практики.\nЯ свернулся на коврике и жду тебя.\nНемного йоги — и вечер станет тише.\nЕщё успеем пару поз до сна.';
+
+  @override
+  String get hostLinesMisoAngry =>
+      'Шерсть дыбом: серия под угрозой!\nДаже коты встают ради важного. Спасём серию?\nДо полуночи немного. Одна практика — и серия цела.\nМяу! Последний шанс на сегодня.';
+
+  @override
+  String get hostLinesMisoSupportive =>
+      'С возвращением. Без спешки, по-кошачьи.\nПерерыв — это тоже практика покоя.\nТвой прогресс на месте, я его согревал.\nНачнём с простого: вдох, выдох, потягивание.';
+
+  @override
+  String get hostLinesMisoSleeping =>
+      'Коты спят по шестнадцать часов. Тебе хватит восьми.\nМурр… спокойной ночи.\nСон — лучшая поза. Утром продолжим.\nСвернись клубком и отдыхай.';
+
+  @override
   String get courseBuilderNameHint => 'Название курса';
 
   @override
@@ -3030,6 +3261,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get whatsNewHistory => 'История версий';
+
+  @override
+  String get releaseNotes094 =>
+      'Свои курсы появились в списке курсов под +: сними галочку, чтобы спрятать курс из ряда сверху (он сохранится), карандаш открывает его для правки.\nСвой курс в ряду сверху отмечен значком с инструментами вместо лица ведущего.\nЕщё не полученное достижение ведущий теперь держит в руках: серая медаль с замочком.\n«О приложении»: нажми на Горо, у него есть несколько новых поз.\nГлавный экран: до первой тренировки дня ведущий говорит пару слов (у каждого свои, новые при каждом открытии и по нажатию), а ниже — ближайшие цели (следующий ранг, ближайшее достижение, открытое испытание, которое можно начать прямо отсюда) и ветки курса.\nПосле тренировки на главном экране — последние тренировки и что сегодня выросло: повторы, подход, меньше отдыха, новый этап.\nСтрелка на кнопке тренировки раскрывает план дня, и Горо показывает каждое упражнение.\nАнимации Горо везде, где названо упражнение: путь ветки, вкладка «Курсы», конструкторы, сохранённые тренировки, история, отдых перед следующим упражнением.';
 
   @override
   String get releaseNotes093 =>

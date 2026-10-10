@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:caliday/core/providers/goro_expression_provider.dart';
 import 'package:caliday/data/models/enums.dart';
+import 'package:caliday/features/settings/widgets/goro_poses.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -20,7 +21,7 @@ void main() {
     expect(files.length, greaterThanOrEqualTo(14));
   });
 
-  test('every course host has the six faces, the idle and the cheer pose on disk', () {
+  test('every course host has the six faces, the idle, the cheer and the locked pose on disk', () {
     for (final course in CourseId.values) {
       for (final mood in GoroExpression.values) {
         expect(File(mood.assetFor(course)).existsSync(), isTrue,
@@ -29,7 +30,15 @@ void main() {
       expect(File(course.hostPortrait).existsSync(), isTrue, reason: course.name);
       expect(File(course.hostIdle).existsSync(), isTrue, reason: course.name);
       expect(File(course.hostCheer).existsSync(), isTrue, reason: course.name);
+      expect(File(course.hostLocked).existsSync(), isTrue, reason: course.name);
     }
+  });
+
+  test("Goro's poses of the About screen are on disk, none twice", () {
+    for (final pose in kGoroPoses) {
+      expect(File(pose).existsSync(), isTrue, reason: pose);
+    }
+    expect(kGoroPoses.toSet(), hasLength(kGoroPoses.length));
   });
 
   for (final file in files) {

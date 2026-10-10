@@ -7,14 +7,14 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.9.2 on `main` (the polish, merged 2026-10-09, PR #4). **0.9.3** is in progress on `session/2026-10-09-course-builder`: the course builder (own courses from built-in and own branches) and "What's new" with the whole version history; see the Change History. The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
+**Version:** v0.9.3 on `main` (the course builder, merged 2026-10-09, PR #5). **0.9.4** is in progress on `session/2026-10-10-feedback`: the owner's feedback on 0.9.3 (own courses in the course list, the own-course mark, hosts holding achievements still ahead, Goro's fun poses), then the middle of Home with the plan folded into the workout button and exercise animations wherever an exercise is named (Next ideas 3 and 5); see the Change History. `main` is protected since 2026-10-10 (PRs only, squash merges, CI required; ARCHITECTURE § Web Build). The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
 **Next priority:** v1.0 release. What still stands in the way:
 - Friends has never been tested on two real phones (checklist below).
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
 - Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
 - Store accounts (Apple Developer Program, Google Play Console): the release CI is drafted but disabled until they exist ("Release builds (CI)" below).
 
-The owner's plan for the **big features after that** (2026-10-07), in their order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap. The configurator is in (0.9.3); the many more exercises come on a branch of their own next (owner, 2026-10-09). Further ideas of 2026-10-10 (sounds, the Home middle, native widgets, animations everywhere): Active Specs § Next ideas.
+The owner's plan for the **big features after that** (2026-10-07), in their order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap. The configurator is in (0.9.3); the many more exercises come on a branch of their own next (owner, 2026-10-09). Further ideas of 2026-10-10 (sounds, native widgets, the project's notes reworked; the Home middle and animations everywhere are done in 0.9.4): Active Specs § Next ideas.
 
 | Layer | Status |
 |-------|--------|
@@ -49,7 +49,7 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 
 ## Active Specs (ideas in progress)
 
-### Next ideas (owner, 2026-10-10) — not ordered yet, the owner picks
+### Next ideas (owner, 2026-10-10) — not ordered yet, the owner picks (3 and 5 done in 0.9.4; 6 added the same day)
 
 Recorded on the owner's request after the course builder (0.9.3). None is started; the open items from before stay where they are (backlog in ARCHITECTURE; below in this section: release CI, held-back dependencies, Friends on real phones, "Support the author", the parked Telegram idea, the Lottie status) — see "Still open from before" at the end.
 
@@ -93,7 +93,9 @@ The "many more exercises" of the owner's third big feature, on a branch of their
 
 **When to tackle:** any time; independent of the exercises. A session of its own.
 
-#### 3. Home screen: fill the empty middle
+#### 3. Home screen: fill the empty middle — done (0.9.4)
+**Owner's pick (2026-10-10):** before the first workout of the day the host's line + C + F (an open challenge, the next goals, the branches); after it the history and today's growth (B); no week row (the calendar is behind the streak chip); the plan folded into the workout button (an arrow at its side, always folded at first). Built as decided: ARCHITECTURE § Home: the middle and the plan. The text below is the proposal it came from.
+
 **Concept.** Between the host's portrait and the two buttons at the bottom there is an empty field (only "Workout done" after a workout). The owner asked for proposals; they choose later.
 
 **Options (can be combined; the field is ~300 px on a 375 × 812 phone, less on an SE):**
@@ -115,12 +117,27 @@ The "many more exercises" of the owner's third big feature, on a branch of their
 
 **Technical tasks:** new keys written by `WidgetService` (texts still from the ARB files only — `widget_service_test` checks both platforms read every key), e.g. a week bitmask, a plan summary string, rank progress; native layouts per size; maybe `HomeWidget.renderFlutterWidget` (one Flutter-drawn image for both platforms — static, but the same design; check the `home_widget` API with Context7). Prerequisite on iOS: the App Group step in Xcode (a v1.0 blocker the owner clears). Checked on real devices (no web).
 
-#### 5. Exercise animations wherever an exercise is named
+#### 5. Exercise animations wherever an exercise is named — done (0.9.4)
+Built together with idea 3: `ExerciseThumb`, cropped to the figure (`tools/lottie/thumb_crops.py`), playing everywhere (the lists are lazy, like the library grid) — ARCHITECTURE § Exercise animations wherever an exercise is named.
+
 **Concept.** Goro's animations play in the workout, the exercise library grid and the exercise sheet only. The owner wants one wherever an exercise name is shown: the exercise pickers (the routine builder, the branch builder), the stages of a course (Branch Journey — this takes in the older idea "Branch Journey: stage previews playing Goro's animations"), the branch cards and challenge cards of the Courses tab, the stages of the branch builder, the saved-routine sheet, the workout history tiles, the summary.
 
 **Technical details.** One shared `ExerciseThumb(exercise, size)` widget: a still frame in lists (many Lottie players in a scrolling list cost frames), playing for the item in focus or on a tap; the placeholder icon where an exercise has no animation (none today); a tap anywhere opens the existing exercise sheet. Lottie compositions are cached by the package (check `Lottie.asset` caching and `animate: false` / a fixed frame with Context7). A test that every place uses it is not needed; check the UI in the web build.
 
 **When to tackle:** after the new exercises (their animations then show everywhere at once) or together with idea 3 (the plan on Home needs the thumbnails anyway).
+
+#### 6. The project's notes reworked — idea (owner, 2026-10-10)
+**Concept.** The project's knowledge lives in two very large files and the README: `internal_docs/ARCHITECTURE.md` (~1100 lines: stack, structure, models and Hive fields, the whole exercise catalog, services, navigation, design, Lottie tooling, testing, the backlog) and `internal_docs/DEV_NOTES.md` (~2300 lines: status, active specs, parked research, and ~1800 lines of change history in 100+ session entries), plus `README.md`. The owner finds them hard to read and wants to **sit down together** and redesign the system into something more logical, correct and comfortable to read. Not started; this records the wish, the design is done with the owner.
+
+**What a redesign has to keep (found 2026-10-10):**
+- The readers: the owner (what the app does, what changed, what is next), Claude at the start of every session (CLAUDE.md says "read ARCHITECTURE at session start" — today that is ~1100 lines of context), and the skills `implement-feature`, `pre-commit`, `document-idea`, which write into named sections.
+- Links into the files: `CLAUDE.md`, the three skills, `BRAND.md`, `pages/home.md`, `.github/workflows/release.yml`, `test/data/enums_test.dart`, many "ARCHITECTURE § …" mentions in the notes themselves and the README; anchors that GitHub builds from headings.
+- `docs/` is the GitHub Pages site (privacy policy, terms) — not for internal notes.
+- Rules that live only in these files (the Hive typeIds and fields that must never change, the no-duration rule, the session-branch workflow…) must stay easy to find.
+
+**Directions to discuss (nothing decided):** a `internal_docs/` folder by topic with a short index (overview, data model and Hive, catalog, services, UI and design, tooling, testing, decisions); a changelog by version (one entry per merged branch, like "What's new") instead of one per session; one file per active idea or spec, moved to an archive when done; decisions as short records (why it is so); a much shorter "read first" file for session start; the README for people outside the project only.
+
+**When to tackle:** a session of its own with the owner, when they pick it; any time.
 
 #### Still open from before (not lost)
 - v1.0 blockers only the owner can clear: Friends on two real phones (checklist below), the HealthKit capability and the widget App Group in Xcode, store accounts (release CI drafted and disabled), native proofreading of German and Spanish and the store listings.
@@ -462,6 +479,79 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-10 — The notes rework recorded as an idea; README brought up to 0.9.4
+
+**What was done:** The owner finds the project's notes (ARCHITECTURE ~1100 lines, DEV_NOTES ~2300 lines, README) hard to read and wants to redesign them together later: recorded as Next ideas 6 with what a redesign must keep (readers, links into the files from CLAUDE.md, the skills, BRAND, the release workflow and a test) and directions to discuss, and as a backlog row. README: the Home screen, the plan in the workout button, animations wherever an exercise is named, the hosts' voices and locked-achievement pose, Goro's poses, hiding own courses; the roadmap and next ideas updated.
+
+**Modified files:** `internal_docs/DEV_NOTES.md`, `internal_docs/ARCHITECTURE.md`, `README.md`
+
+### 2026-10-10 — Each host speaks in its own voice, four lines per mood (0.9.4)
+
+**What was done:** The owner asked for more than one line per mood, so that one line does not hang on the screen and get annoying, and different lines for different hosts. Each of the five hosts now has four lines for each of the five moods Home shows before the first workout (100 per language, in four languages), in character (BRAND.md § The hosts' voices); Home says another one each time it is built anew, when the app comes back and on a tap of the bubble, never the same twice in a row. The 13 shared `homeHost*` keys are gone.
+
+**Modified files:** ARB (four languages): `hostLines<Host><Mood>` (25 keys, one line per text line), the 0.9.4 note; `home_middle.dart` — `HostLineCard` stateful (`linesFor(l10n, host, mood)`, a new pick on resume and on tap); `home_digest.dart` — `nextLine` replaces `lineIndex`; tests: `test/features/home/host_lines_test.dart` (four lines per host and mood in every language, none repeated within a host, ≤ 80 characters, no happy line shared by two hosts), `home_digest_test` (`nextLine` never repeats the last and reaches every line)
+
+**Key issues and solutions:**
+- **Gender in Russian**: with a line per host a host may now speak of itself in its own gender ("я ждала" for Luna, "я ждал" for Goro); the user is still never gendered.
+- Checked in the web build: Goro's line changes on a tap; Luna's lines with Evening Stretch active (today's test workout removed in the debug options to see the before state; the own test course made active again). 1081 tests pass, analyze clean.
+
+### 2026-10-10 — Home: the middle and the folded plan; exercise animations everywhere (0.9.4)
+
+**What was done:** The owner picked the middle of Home from the options (Next ideas 3) in a short discussion with mock-ups: before the first workout of the day the host's line, an open challenge, the next goals and the course's branches; after it the last workouts and how the branches grew today; the plan folded into the workout button behind an arrow at its side (the owner: the arrow strip narrow, "not half the button"; always folded; no week row — the calendar is behind the streak chip; the host's bubble points up at the host instead of repeating its portrait; an open challenge can be started right from Home). To show the growth, each workout now stores how every branch moved on (`WorkoutLog.growth`, a new `BranchGrowth`, typeId 14). Exercise animations (Next ideas 5) are in every place an exercise is named, cropped to the figure.
+
+**New files:**
+- `lib/data/models/branch_growth.dart` (+ `.g.dart`) — `BranchGrowth`, `GrowthKind`
+- `lib/domain/services/home_digest.dart` — `HomeDigest`: `nearestAchievement`, `nextRank`, `growthOn`, `lineIndex` (pure)
+- `lib/features/home/widgets/home_middle.dart` — `HomeBeforeWorkout`, `HomeAfterWorkout`, `HostLineCard`, the challenge card, goals, branches, growth
+- `lib/features/home/widgets/workout_plan_button.dart` — `WorkoutPlanButton`, `PlanExerciseRow`
+- `lib/features/library/widgets/exercise_thumb.dart` — `ExerciseThumb`, `ThumbRow`
+- `lib/data/static/animation_crops.dart` (generated), `tools/lottie/thumb_crops.py`
+- Tests: `test/domain/services/home_digest_test.dart`, `test/data/animation_crops_test.dart`, `test/features/home/workout_plan_button_test.dart`
+
+**Modified files:**
+- `WorkoutLog` (+ `.g.dart`) — `@HiveField(10) growth`; `WorkoutProgression.growth` (each touched branch before / after); `workout_provider` stores it; `main.dart`, `hive_registrar.g.dart`, the test env register the adapter
+- `home_screen.dart` — the scrollable middle, `WorkoutPlanButton` (the old button and the done banner are gone), the plan height bounded by a `LayoutBuilder`
+- `ProgressionService.stageFraction` (shared by the Courses tab and Home)
+- `WorkoutLogTile` — `compact` ("Today, 08:40", no tags, one line) and the animations in its detail sheet
+- Animations added: Branch Journey (`ThumbRow`, locked stages faded), Courses tab (branch, challenge and saved-routine rows), routine and branch builders, the rest before the next exercise, the summary of a passed challenge
+- ARB (four languages): `homePlan*`, `homeGoal*`, `homeGrowth*`, `homeLog*`, `homeHistoryAll`, 13 host lines (`homeHost<Mood><n>`); `releaseNotes094` extended
+- `design-system/caliday/pages/home.md`, `CLAUDE.md` (the two new commands)
+- Tests: growth through the adapter and from `WorkoutProgression` (a step per branch, none for a second workout the same day, a stage, an unlocked challenge)
+
+**Key issues and solutions:**
+- **"What grew" was not stored anywhere** — only the current values of each branch. The before values are snapshotted when `WorkoutProgression` first touches a branch, and the difference is saved with the workout; logs from before 0.9.4 show no growth.
+- **The thumbnails showed a tiny Goro**: the canvases are 400 × 400 with the figure low and small. Each animation's figure box was measured with lottie-web in headless Chrome (rows painted across most of the width — floors — left out) and turned into a centred square; the first version clamped the square to the canvas, which put lying figures (push-ups, crunches) at the bottom of their tile, so the square may now reach past the edge.
+- **The unfolded plan overflowed by 33 px** on a 375 × 812 phone with a fixed 42 % height; it is now the free height minus the label row, the custom button and a strip of the middle.
+- **Russian lines without a gendered past tense**: the hosts are of both genders ("Я уже размялся" became "Разминка ждёт").
+- **The thumbnails loop forever**, so the widget test pumps a fixed time instead of `pumpAndSettle`.
+- `dart format` on `home_screen.dart` reformatted untouched code; the file was rebuilt from git with only the edits.
+- Checked in the web build (375 × 812, dark theme): the line, the goals, the branches, an open challenge (switched on in the debug options and off again), the unfolded plan; a real workout through to the end, then the history and "Progress today" ("Flexibility 10 → 12 s", "Push 7 → 9 reps"); the Courses tab, the Branch Journey, the routine builder, the rest screen with the next exercise; no console errors. `flutter analyze` clean, 1079 tests pass.
+
+### 2026-10-10 — Owner's feedback on 0.9.3: own courses in the list, hosts holding achievements, Goro's poses; `main` protected (0.9.4+34)
+
+**What was done:** The owner's feedback on 0.9.3, all four points. (1) "An own course does not show under + after it is made": the course list under "+" lists the own courses below the built-in ones, with a tick like theirs (unticked: no pill, the course and its progress stay, `CustomCourse.shown`, HiveField 5, default true) and a pencil that opens the builder; a hint says unticking hides, not deletes. (2) "Don't draw the host on an own course's pill, draw another mark": the pill shows `kOwnCourseIcon` (a hand tool), the course list a round badge of it. (3) "In Settings Goro just stands; draw him fun poses, a one-arm handstand and so on": About shows a random pose, a tap the next — the idle plus six new ones (one-arm handstand, human flag on a pole, one-arm hang waving, a bending barbell overhead, floating in lotus, a banana break). (4) "An achievement not yet earned: Goro does not hold it, only his head": the sheet shows the host full length holding a grey medal with a padlock, for all five hosts (the owner chose a new pose over the existing idle). Also, at the owner's word: `main` got a ruleset (PRs only, squash merges only, the CI jobs `check` and `android` required, linear history, no force push or deletion, admins only past red checks inside a PR), merged branches are deleted, and the squash rule is in CLAUDE.md § Branches and Versions and the memory.
+
+**New files:**
+- `tools/characters/gen_goro.py` — Goro's poses: the idle's head (face variants) and torso by transform, IK capsule limbs, props; writes `assets/goro/goro_pose_*.svg`, `goro_locked.svg`
+- `lib/features/settings/widgets/goro_poses.dart` — `GoroPoses`, `kGoroPoses`
+- `assets/goro/goro_pose_{one_arm_handstand,flag,one_arm_pullup,barbell,lotus,banana}.svg`, `goro_locked.svg`, `assets/hosts/{luna,raffi,aurora,miso}_locked.svg`
+- `test/features/settings/goro_poses_test.dart`
+
+**Modified files:**
+- `CustomCourse` (+ `.g.dart`) — `@HiveField(5, defaultValue: true) shown`; `enrolledCoursesProvider` and `ActiveCourseNotifier` skip hidden ones; the course builder shows a course it saves
+- `library_screen.dart` — the course list: `_OwnCourseOptionTile`, saving the ticks (a hidden active course falls back to the first built-in one); the pill mark; `builder_widgets.dart` — `kOwnCourseIcon`, `OwnCourseMark`
+- `tools/characters/gen_hosts.py` — `locked_badge` (shared with Goro's), `holding_wings`, `<host>_locked` for Luna, Raffi, Aurora, Miso (the existing files are byte-identical); `CourseId.hostLocked`; `achievement_sheet.dart` uses it
+- `about_screen.dart` — `GoroPoses`
+- ARB (four languages): `courseListOwnSection`, `courseListOwnHint`, `releaseNotes094`; `release_notes_catalog.dart` — 0.9.4, the 0.9 line to 2026-10-10; `pubspec.yaml` 0.9.4+34
+- Tests: `custom_course_repository_test` (`shown` through the adapter; a hidden course loses its pill and its active place), `character_svgs_test` (every host has its locked pose; the About poses exist, none twice)
+- `CLAUDE.md` — squash merges
+
+**Key issues and solutions:**
+- **Goro's art has no source** (designer SVGs). The idle's head and torso are copied into the generator as they are and placed by a transform; only limbs are new (capsules between IK joints, the idle's `#38384C` with the `#424258` overlay), so the poses match the idle without a hand-drawn rig. First drafts bent elbows and knees inwards (arms crossing in an X): the IK side is now per limb side (`bend=1` = outwards for a limb hanging down).
+- **The free arm of the handstand and the waving hand of the hang** left the tile at first; fixed by the planted hand's place and the arm targets (checked as rendered tiles, headless Chrome).
+- **Raffi has no hands**: he carries the medal's ribbon in his mouth.
+- Checked in the web build (375 × 812, dark theme, data of earlier sessions): unticking an own course hides its pill and the active course falls back to a built-in one, ticking it brings the pill back with the mark; the sheet of a locked achievement shows Goro with the medal; About shows a pose and the next on a tap; no console errors. `flutter analyze` clean, 1063 tests pass.
 
 ### 2026-10-10 — The next ideas recorded; README brought up to date
 

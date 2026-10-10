@@ -50,6 +50,8 @@ python3 tools/lottie/gen_flex.py  # Regenerate Flex Lottie animations (also gen_
 python3 tools/lottie/check_anim.py NAME ...   # Jump / loop-seam check of generated animations
 python3 tools/lottie/build_preview.py --preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning|yoga   # Page to watch generated animations
 python3 tools/lottie/frame_sheet.py build/sheet.html --count 8 FILE.json   # Still frames side by side (open via the lottie-sheets preview server)
+python3 tools/lottie/thumb_crops.py   # Re-crop the exercise thumbnails after adding or redrawing an animation (a test fails otherwise)
+python3 tools/characters/gen_goro.py  # Goro's fun poses (About) and his locked-achievement pose; gen_hosts.py / gen_skala.py for the hosts and Skala
 ```
 
 ## Code Style
@@ -78,6 +80,7 @@ Agent Skills in `.claude/skills/`. Auto-triggered by context.
 - **Every session works on its own branch** (`session/<date>-<topic>`), never directly on `main`. Create it at the start of the session from an up-to-date `main`.
 - **The version is bumped once per branch**, with the first change that the user sees. Everything else on the branch (more fixes, animations, a feature) goes under that same version: extend its `releaseNotes<version>` text instead of adding a new entry, so one merge gives one "What's new" entry.
 - **The branch is merged into `main` when the owner says it is done.** A push to `main` deploys the web build (`web.yml`); CI also runs on pull requests.
+- **Always a squash merge** (owner, 2026-10-10): `gh pr merge <n> --squash`, never a merge commit or a rebase, so `main` gets one commit per branch. The PR title becomes that commit's subject — make it read as the release summary.
 
 ## Required Pre-Commit Process
 

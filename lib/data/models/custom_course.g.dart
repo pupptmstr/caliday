@@ -22,13 +22,14 @@ class CustomCourseAdapter extends TypeAdapter<CustomCourse> {
       branchKeys: (fields[2] as List).cast<String>(),
       hostIndex: (fields[3] as num).toInt(),
       createdAt: fields[4] as DateTime,
+      shown: fields[5] == null ? true : fields[5] as bool,
     );
   }
 
   @override
   void write(BinaryWriter writer, CustomCourse obj) {
     writer
-      ..writeByte(5)
+      ..writeByte(6)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -38,7 +39,9 @@ class CustomCourseAdapter extends TypeAdapter<CustomCourse> {
       ..writeByte(3)
       ..write(obj.hostIndex)
       ..writeByte(4)
-      ..write(obj.createdAt);
+      ..write(obj.createdAt)
+      ..writeByte(5)
+      ..write(obj.shown);
   }
 
   @override

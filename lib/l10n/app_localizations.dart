@@ -4920,6 +4920,294 @@ abstract class AppLocalizations {
   /// **'Edit'**
   String get courseBuilderEditButton;
 
+  /// No description provided for @courseListOwnSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Your courses'**
+  String get courseListOwnSection;
+
+  /// No description provided for @courseListOwnHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Untick a course to hide it from the list at the top; it is kept with its progress.'**
+  String get courseListOwnHint;
+
+  /// No description provided for @homePlanShow.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the plan'**
+  String get homePlanShow;
+
+  /// No description provided for @homePlanHide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide the plan'**
+  String get homePlanHide;
+
+  /// No description provided for @homePlanReps.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets} × {reps}'**
+  String homePlanReps(int sets, int reps);
+
+  /// No description provided for @homePlanSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets} × {secs} s'**
+  String homePlanSeconds(int sets, int secs);
+
+  /// No description provided for @homePlanSecondsPerSide.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets} × {secs} s each side'**
+  String homePlanSecondsPerSide(int sets, int secs);
+
+  /// No description provided for @homeGoalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Next goals'**
+  String get homeGoalsTitle;
+
+  /// No description provided for @homeGoalRank.
+  ///
+  /// In en, this message translates to:
+  /// **'{sp} SP to {rank}'**
+  String homeGoalRank(String rank, int sp);
+
+  /// No description provided for @homeGoalDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} more day} other{{count} more days}}'**
+  String homeGoalDays(int count);
+
+  /// No description provided for @homeGoalWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} more workout} other{{count} more workouts}}'**
+  String homeGoalWorkouts(int count);
+
+  /// No description provided for @homeGoalChallenge.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenge unlocked: {branch}'**
+  String homeGoalChallenge(String branch);
+
+  /// No description provided for @homeHistoryAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get homeHistoryAll;
+
+  /// No description provided for @homeGrowthTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress today'**
+  String get homeGrowthTitle;
+
+  /// No description provided for @homeGrowthNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No branch moved on today: each grows once a day, after a successful set.'**
+  String get homeGrowthNone;
+
+  /// No description provided for @homeGrowthReps.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to, plural, one{{to} rep} other{{to} reps}}'**
+  String homeGrowthReps(int from, int to);
+
+  /// No description provided for @homeGrowthSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to} s'**
+  String homeGrowthSeconds(int from, int to);
+
+  /// No description provided for @homeGrowthSets.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to, plural, one{{to} set} other{{to} sets}}'**
+  String homeGrowthSets(int from, int to);
+
+  /// No description provided for @homeGrowthRest.
+  ///
+  /// In en, this message translates to:
+  /// **'rest {from} → {to} s'**
+  String homeGrowthRest(int from, int to);
+
+  /// No description provided for @homeGrowthChallenge.
+  ///
+  /// In en, this message translates to:
+  /// **'the challenge is open'**
+  String get homeGrowthChallenge;
+
+  /// No description provided for @homeGrowthStage.
+  ///
+  /// In en, this message translates to:
+  /// **'new stage: {exercise}'**
+  String homeGrowthStage(String exercise);
+
+  /// No description provided for @homeLogToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today, {time}'**
+  String homeLogToday(String time);
+
+  /// No description provided for @homeLogYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday, {time}'**
+  String homeLogYesterday(String time);
+
+  /// No description provided for @hostLinesGoroHappy.
+  ///
+  /// In en, this message translates to:
+  /// **'Today is a good day to get a little stronger.\nOne workout and today counts.\nA little every day is how the branches grow.\nI\'ve warmed up already. Your turn!'**
+  String get hostLinesGoroHappy;
+
+  /// No description provided for @hostLinesGoroSad.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s evening and no workout yet. Shall we?\nIt\'s not too late: today counts if you start now.\nI\'ve been waiting all day. A few sets before bed?\nEven one set is better than none.'**
+  String get hostLinesGoroSad;
+
+  /// No description provided for @hostLinesGoroAngry.
+  ///
+  /// In en, this message translates to:
+  /// **'Your streak is at risk! You can still save it today.\nMidnight is close. Shall we save the streak?\nWe didn\'t build this streak to lose it now!\nLast chance today. I\'m right here — shall we?'**
+  String get hostLinesGoroAngry;
+
+  /// No description provided for @hostLinesGoroSupportive.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back! Shall we start small?\nA break is fine. What matters is coming back.\nYour progress is right where you left it.\nI kept your branches safe. Ready?'**
+  String get hostLinesGoroSupportive;
+
+  /// No description provided for @hostLinesGoroSleeping.
+  ///
+  /// In en, this message translates to:
+  /// **'Night is for resting. We\'ll go on in the morning.\nSleep is part of training too.\nMuscles grow while you sleep. Good night!\nZzz… Goro is asleep. Time for you too.'**
+  String get hostLinesGoroSleeping;
+
+  /// No description provided for @hostLinesRaffiHappy.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand tall! A straight back makes a smoother day.\nYour neck will thank you today.\nI look down on everyone, but only to check their posture.\nA couple of exercises and your shoulders open up.'**
+  String get hostLinesRaffiHappy;
+
+  /// No description provided for @hostLinesRaffiSad.
+  ///
+  /// In en, this message translates to:
+  /// **'At a desk all day? Time to stretch.\nEvening is a great time to loosen your neck.\nI\'ve been craning my neck looking for you. Shall we?\nYour back is tired from the day; let it rest in motion.'**
+  String get hostLinesRaffiSad;
+
+  /// No description provided for @hostLinesRaffiAngry.
+  ///
+  /// In en, this message translates to:
+  /// **'Your streak is at risk! Straighten up and go.\nAlmost midnight, and the streak hangs by a thread. Save it?\nI keep my head up high; keeping the streak is up to you!\nThere\'s still time to save the streak. Shall we?'**
+  String get hostLinesRaffiAngry;
+
+  /// No description provided for @hostLinesRaffiSupportive.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back! Your posture missed you.\nA break is no trouble. Shall we start with the neck?\nYour progress is safe, I kept an eye on it.\nComing back is what counts. We\'ll straighten out the rest.'**
+  String get hostLinesRaffiSupportive;
+
+  /// No description provided for @hostLinesRaffiSleeping.
+  ///
+  /// In en, this message translates to:
+  /// **'Giraffes sleep standing up. You\'d better lie down.\nNight. A lower pillow is kinder to your neck.\nSleep straightens you out as well as exercise. More in the morning.\nShh… Good night.'**
+  String get hostLinesRaffiSleeping;
+
+  /// No description provided for @hostLinesLunaHappy.
+  ///
+  /// In en, this message translates to:
+  /// **'Stretching is the best way to end a day.\nI usually sleep in the daytime, but I woke up for you.\nSlow and calm: stretching doesn\'t like a rush.\nTonight your body will thank you for the stretch.'**
+  String get hostLinesLunaHappy;
+
+  /// No description provided for @hostLinesLunaSad.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening is my favourite time. Shall we stretch?\nJust the time to let go of the day.\nThe lights are low, the mat is waiting.\nA little stretching and you\'ll sleep better.'**
+  String get hostLinesLunaSad;
+
+  /// No description provided for @hostLinesLunaAngry.
+  ///
+  /// In en, this message translates to:
+  /// **'Hoo! Your streak is at risk, and night is coming.\nOwls never hurry, but now it\'s worth it.\nMidnight is close. Shall we save the streak together?\nThe last stretch of the day is still waiting for you.'**
+  String get hostLinesLunaAngry;
+
+  /// No description provided for @hostLinesLunaSupportive.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back. Let\'s start gently.\nA break is rest too. Now let\'s stretch.\nI waited for you. Your progress is safe.\nTake your time: your body remembers.'**
+  String get hostLinesLunaSupportive;
+
+  /// No description provided for @hostLinesLunaSleeping.
+  ///
+  /// In en, this message translates to:
+  /// **'Owls don\'t sleep at night. But you should.\nI\'ll keep watch over your streak; you sleep.\nThe night is for owls; for you, sleep.\nGood night. Your body will thank you in the morning.'**
+  String get hostLinesLunaSleeping;
+
+  /// No description provided for @hostLinesAuroraHappy.
+  ///
+  /// In en, this message translates to:
+  /// **'Morning or not, a little routine is always welcome.\nLet\'s loosen up and the day will go brighter.\nI\'ve already sung three songs. Your turn to move!\nA morning routine is the best alarm clock.'**
+  String get hostLinesAuroraHappy;
+
+  /// No description provided for @hostLinesAuroraSad.
+  ///
+  /// In en, this message translates to:
+  /// **'The morning\'s gone, but a routine works in the evening too.\nI\'ve been singing since dawn. Shall we move at least now?\nIt\'s not too late: today still counts.\nA little movement chases the evening tiredness away.'**
+  String get hostLinesAuroraSad;
+
+  /// No description provided for @hostLinesAuroraAngry.
+  ///
+  /// In en, this message translates to:
+  /// **'Your streak is in danger! Quick, time to move!\nMidnight is close. Shall we save the streak?\nTweet-tweet, alarm: your streak is at risk!\nLast chance today. I believe in you!'**
+  String get hostLinesAuroraAngry;
+
+  /// No description provided for @hostLinesAuroraSupportive.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back! A new morning, a new start.\nA break is fine. Shall we start with the joints?\nI kept your progress safe. Shall we go on?\nEvery morning is a reason to come back.'**
+  String get hostLinesAuroraSupportive;
+
+  /// No description provided for @hostLinesAuroraSleeping.
+  ///
+  /// In en, this message translates to:
+  /// **'Larks go to bed early. Time for you too.\nSleep, and we\'ll greet the sunrise together.\nI don\'t sing at night. Rest.\nI\'ll wake you with a song. Good night!'**
+  String get hostLinesAuroraSleeping;
+
+  /// No description provided for @hostLinesMisoHappy.
+  ///
+  /// In en, this message translates to:
+  /// **'Stretch like a cat and the day gets softer.\nPurr. The mat is already rolled out.\nBreathe deeper, move slower.\nYoga is just a long cat stretch.'**
+  String get hostLinesMisoHappy;
+
+  /// No description provided for @hostLinesMisoSad.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening is time for a calm practice.\nI\'ve curled up on the mat and I\'m waiting for you.\nA little yoga and the evening gets quieter.\nThere\'s still time for a few poses before bed.'**
+  String get hostLinesMisoSad;
+
+  /// No description provided for @hostLinesMisoAngry.
+  ///
+  /// In en, this message translates to:
+  /// **'Fur on end: your streak is at risk!\nEven cats get up for what matters. Save the streak?\nMidnight is close. One practice and the streak is safe.\nMeow! Last chance for today.'**
+  String get hostLinesMisoAngry;
+
+  /// No description provided for @hostLinesMisoSupportive.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back. No rush, cat-style.\nA break is a practice of calm too.\nYour progress is right here, I kept it warm.\nLet\'s start simple: breathe in, breathe out, stretch.'**
+  String get hostLinesMisoSupportive;
+
+  /// No description provided for @hostLinesMisoSleeping.
+  ///
+  /// In en, this message translates to:
+  /// **'Cats sleep sixteen hours a day. Eight will do for you.\nPurrr… good night.\nSleep is the best pose. More in the morning.\nCurl up and rest.'**
+  String get hostLinesMisoSleeping;
+
   /// No description provided for @courseBuilderNameHint.
   ///
   /// In en, this message translates to:
@@ -5146,6 +5434,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version history'**
   String get whatsNewHistory;
+
+  /// No description provided for @releaseNotes094.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you (each host its own, a new one every time you open the app or tap it), and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today\'s plan, with Goro showing every exercise.\nGoro\'s animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.'**
+  String get releaseNotes094;
 
   /// No description provided for @releaseNotes093.
   ///
