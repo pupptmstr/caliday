@@ -239,6 +239,16 @@ extension CourseIdExtension on CourseId {
         CourseId.morningRoutine => 'assets/hosts/aurora_cheer.svg',
         CourseId.yoga => 'assets/hosts/miso_cheer.svg',
       };
+
+  /// The host holding an achievement still ahead: a grey medal with a
+  /// padlock (the achievement sheet).
+  String get hostLocked => switch (this) {
+        CourseId.calisthenics => 'assets/goro/goro_locked.svg',
+        CourseId.healthyBody => 'assets/hosts/raffi_locked.svg',
+        CourseId.eveningStretch => 'assets/hosts/luna_locked.svg',
+        CourseId.morningRoutine => 'assets/hosts/aurora_locked.svg',
+        CourseId.yoga => 'assets/hosts/miso_locked.svg',
+      };
 }
 
 enum ExerciseTag {

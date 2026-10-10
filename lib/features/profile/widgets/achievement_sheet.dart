@@ -31,8 +31,8 @@ class AchievementEmoji extends StatelessWidget {
 /// The achievement sheet of the Achievements screen and the Profile badges.
 ///
 /// The host of [a]'s course presents it (Goro for the app's own
-/// achievements): cheering once earned ([earnedOn] set), with its supportive
-/// face while still ahead.
+/// achievements): cheering once earned ([earnedOn] set), holding a grey
+/// medal with a padlock while still ahead.
 void showAchievementSheet(
   BuildContext context,
   Achievement a, {
@@ -52,10 +52,10 @@ void showAchievementSheet(
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          if (earnedOn != null)
-            SvgPicture.asset(host.hostCheer, height: 120)
-          else
-            SvgPicture.asset(host.hostFace('supportive'), height: 96),
+          SvgPicture.asset(
+            earnedOn != null ? host.hostCheer : host.hostLocked,
+            height: 120,
+          ),
           const SizedBox(height: 12),
           AchievementEmoji(a.emoji, size: 36),
           const SizedBox(height: 8),

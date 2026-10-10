@@ -4920,6 +4920,18 @@ abstract class AppLocalizations {
   /// **'Edit'**
   String get courseBuilderEditButton;
 
+  /// No description provided for @courseListOwnSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Your courses'**
+  String get courseListOwnSection;
+
+  /// No description provided for @courseListOwnHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Untick a course to hide it from the list at the top; it is kept with its progress.'**
+  String get courseListOwnHint;
+
   /// No description provided for @courseBuilderNameHint.
   ///
   /// In en, this message translates to:
@@ -5146,6 +5158,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Version history'**
   String get whatsNewHistory;
+
+  /// No description provided for @releaseNotes094.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.'**
+  String get releaseNotes094;
 
   /// No description provided for @releaseNotes093.
   ///

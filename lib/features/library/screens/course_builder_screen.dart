@@ -76,10 +76,12 @@ class _CourseBuilderScreenState extends ConsumerState<CourseBuilderScreen> {
           hostIndex: _host,
           createdAt: DateTime.now(),
         );
+    // Saved, it is shown: a hidden course edited here comes back as a pill.
     course
       ..name = _name.text.trim()
       ..branchKeys = List.of(_keys)
-      ..hostIndex = _host;
+      ..hostIndex = _host
+      ..shown = true;
     await ref.read(customCoursesProvider.notifier).save(course);
     ref
         .read(activeCourseProvider.notifier)

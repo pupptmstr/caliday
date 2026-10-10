@@ -78,6 +78,7 @@ Agent Skills in `.claude/skills/`. Auto-triggered by context.
 - **Every session works on its own branch** (`session/<date>-<topic>`), never directly on `main`. Create it at the start of the session from an up-to-date `main`.
 - **The version is bumped once per branch**, with the first change that the user sees. Everything else on the branch (more fixes, animations, a feature) goes under that same version: extend its `releaseNotes<version>` text instead of adding a new entry, so one merge gives one "What's new" entry.
 - **The branch is merged into `main` when the owner says it is done.** A push to `main` deploys the web build (`web.yml`); CI also runs on pull requests.
+- **Always a squash merge** (owner, 2026-10-10): `gh pr merge <n> --squash`, never a merge commit or a rebase, so `main` gets one commit per branch. The PR title becomes that commit's subject — make it read as the release summary.
 
 ## Required Pre-Commit Process
 

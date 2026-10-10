@@ -72,6 +72,6 @@ Do not duplicate what is already in ARCHITECTURE.md — memory is for quick acce
 
 ## Step 5 — Create the commit
 
-Only after updating documentation, create the commit **on the session branch** (never on `main`; it is merged when the owner says the branch is done):
+Only after updating documentation, create the commit **on the session branch** (never on `main`, which is protected and takes pull requests only; the branch's PR is squash-merged when the owner says it is done):
 - Message in English
 - Format: `feat:` / `fix:` / `refactor:` / `docs:` / `chore:` + short description

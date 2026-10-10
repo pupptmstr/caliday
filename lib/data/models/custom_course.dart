@@ -12,6 +12,7 @@ class CustomCourse extends HiveObject {
     required this.branchKeys,
     required this.hostIndex,
     required this.createdAt,
+    this.shown = true,
   });
 
   /// microsecondsSinceEpoch in base 36, like [CustomRoutine.id].
@@ -33,4 +34,9 @@ class CustomCourse extends HiveObject {
 
   @HiveField(4)
   DateTime createdAt;
+
+  /// Whether the course has a pill in the Courses tab. Unticked in the
+  /// course list ("+"), it is hidden there but kept with its branches.
+  @HiveField(5, defaultValue: true)
+  bool shown;
 }

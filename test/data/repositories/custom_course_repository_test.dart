@@ -49,6 +49,11 @@ void main() {
     final course = CustomCourseRepository().getAll().single;
     expect(course.branchKeys, ['custom_b1', 'flex']);
     expect(course.hostIndex, CourseId.morningRoutine.index);
+    expect(course.shown, isTrue);
+
+    await CustomCourseRepository().save(course..shown = false);
+    await env.reopen();
+    expect(CustomCourseRepository().getAll().single.shown, isFalse);
   });
 
   group('progress of an own branch', () {
@@ -179,6 +184,24 @@ void main() {
           .save(data..branchKeys = ['push']);
       expect(container.read(activeCourseProvider).allBranches.map((b) => b.key),
           ['push']);
+    });
+
+    test('a hidden own course loses its pill and stops being the active one',
+        () async {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      container.listen(activeCourseProvider, (_, _) {});
+      container.listen(enrolledCoursesProvider, (_, _) {});
+      container
+          .read(activeCourseProvider.notifier)
+          .select(container.read(enrolledCoursesProvider).last);
+      final data = container.read(customCoursesProvider).single;
+      await container
+          .read(customCoursesProvider.notifier)
+          .save(data..shown = false);
+      expect(container.read(enrolledCoursesProvider).map((c) => c.key),
+          ['calisthenics', 'yoga']);
+      expect(container.read(activeCourseProvider), const BuiltInCourse(CourseId.yoga));
     });
 
     test('a deleted own course falls back to the built-in one', () async {

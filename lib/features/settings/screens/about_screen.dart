@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
+import '../widgets/goro_poses.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});
@@ -36,12 +36,8 @@ class _AboutScreenState extends State<AboutScreen> {
           children: [
             // ── Hero block ────────────────────────────────────────────────
             const SizedBox(height: 16),
-            Center(
-              child: SvgPicture.asset(
-                'assets/goro/goro_idle_v2.svg',
-                height: 120,
-              ),
-            ),
+            // A random pose; a tap shows the next.
+            const Center(child: GoroPoses(height: 120)),
             const SizedBox(height: 12),
             Center(
               child: Text(

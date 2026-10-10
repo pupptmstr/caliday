@@ -7,11 +7,13 @@ import '../../../core/theme/app_theme.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
+import '../../../data/models/custom_course.dart';
 import '../../../data/models/custom_routine.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/skill_progress.dart';
 import '../../../data/models/user_profile.dart';
 import '../../../data/repositories/skill_progress_repository.dart';
+import '../../../data/repositories/custom_course_repository.dart';
 import '../../../data/repositories/custom_routine_repository.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../../data/static/course_catalog.dart';
@@ -22,6 +24,7 @@ import '../../../domain/models/course.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../home/providers/home_provider.dart';
 import '../../workout/providers/workout_provider.dart';
+import '../widgets/builder_widgets.dart';
 
 class LibraryScreen extends ConsumerWidget {
   const LibraryScreen({super.key});
@@ -237,11 +240,22 @@ class _CourseEnrollSheet extends ConsumerStatefulWidget {
 class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
   late Set<CourseId> _selected;
 
+  /// Ids of the own courses that keep their pill.
+  late Set<String> _shownOwn;
+
   @override
   void initState() {
     super.initState();
     _selected = widget.profile.enrolledCourses.toSet();
+    _shownOwn = {
+      for (final c in ref.read(customCoursesProvider))
+        if (c.shown) c.id,
+    };
   }
+
+  void _toggleOwn(CustomCourse course) => setState(() {
+        if (!_shownOwn.remove(course.id)) _shownOwn.add(course.id);
+      });
 
   void _toggle(CourseId course) {
     setState(() {
@@ -255,6 +269,17 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
 
   Future<void> _save() async {
     final profile = widget.profile;
+    final active = ref.read(activeCourseProvider);
+
+    // Own courses: an unticked one loses its pill, nothing else.
+    final own = ref.read(customCoursesProvider.notifier);
+    for (final c in ref.read(customCoursesProvider)) {
+      final shown = _shownOwn.contains(c.id);
+      if (c.shown == shown) continue;
+      c.shown = shown;
+      await own.save(c);
+    }
+
     // In the order of the catalog, whatever the order of the taps.
     final newIds = [
       for (final c in CourseId.values)
@@ -263,15 +288,16 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
     profile.activeCourseIds = newIds;
     await ref.read(userRepositoryProvider).saveProfile(profile);
 
-    // If the currently active course was removed, reset to first; otherwise
-    // select it again, which keeps its index right in the new list.
-    final active = ref.read(activeCourseProvider);
-    final notifier = ref.read(activeCourseProvider.notifier);
-    if (active case BuiltInCourse(:final id) when !_selected.contains(id)) {
-      notifier.select(BuiltInCourse(CourseId.values[newIds.first]));
-    } else {
-      notifier.select(active);
-    }
+    // If the currently active course was removed or hidden, reset to the
+    // first; otherwise select it again, which keeps its index right in the
+    // new list.
+    final stays = switch (active) {
+      BuiltInCourse(:final id) => _selected.contains(id),
+      OwnCourse(:final data) => _shownOwn.contains(data.id),
+    };
+    ref
+        .read(activeCourseProvider.notifier)
+        .select(stays ? active : BuiltInCourse(CourseId.values[newIds.first]));
 
     // Invalidate so LibraryScreen rebuilds with updated enrollment.
     ref.invalidate(enrolledCoursesProvider);
@@ -284,6 +310,8 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
   Widget build(BuildContext context) {
     final l10n = context.l10n;
     final scheme = Theme.of(context).colorScheme;
+    final ownCourses = ref.watch(customCoursesProvider);
+    final ownBranches = ref.watch(customBranchesProvider);
 
     // Six courses and the builder entry are taller than a small phone.
     return SingleChildScrollView(
@@ -324,6 +352,34 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
               onTap: () => _toggle(course),
             ),
             if (course != CourseId.values.last) const SizedBox(height: 8),
+          ],
+          if (ownCourses.isNotEmpty) ...[
+            const SizedBox(height: 20),
+            Text(
+              l10n.courseListOwnSection,
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(fontWeight: FontWeight.w700),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              l10n.courseListOwnHint,
+              style: TextStyle(fontSize: 12, color: scheme.onSurfaceVariant),
+            ),
+            const SizedBox(height: 10),
+            for (final course in ownCourses) ...[
+              _OwnCourseOptionTile(
+                course: OwnCourse(course, ownBranches),
+                selected: _shownOwn.contains(course.id),
+                onTap: () => _toggleOwn(course),
+                onEdit: () {
+                  Navigator.of(context).pop();
+                  context.push('/library/course-builder', extra: course);
+                },
+              ),
+              if (course != ownCourses.last) const SizedBox(height: 8),
+            ],
           ],
           const SizedBox(height: 12),
           _OptionTile(
@@ -439,6 +495,89 @@ class _CourseOptionTile extends StatelessWidget {
   }
 }
 
+/// An own course in the course list: ticked while it has a pill, with the
+/// own-course mark instead of a host and a pencil that opens the builder.
+class _OwnCourseOptionTile extends StatelessWidget {
+  const _OwnCourseOptionTile({
+    required this.course,
+    required this.selected,
+    required this.onTap,
+    required this.onEdit,
+  });
+
+  final OwnCourse course;
+  final bool selected;
+  final VoidCallback onTap;
+  final VoidCallback onEdit;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    final l10n = context.l10n;
+    final branches = course.allBranches.map((b) => b.name(l10n)).join(' · ');
+    final textColor = selected ? scheme.onPrimaryContainer : scheme.onSurface;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        padding: const EdgeInsets.fromLTRB(16, 8, 8, 8),
+        decoration: BoxDecoration(
+          color: selected
+              ? scheme.primaryContainer
+              : scheme.surfaceContainerHighest,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: selected ? scheme.primary : Colors.transparent,
+            width: 2,
+          ),
+        ),
+        child: Row(
+          children: [
+            const OwnCourseMark(size: 40),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    course.data.name,
+                    style: TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: textColor,
+                    ),
+                  ),
+                  if (branches.isNotEmpty) ...[
+                    const SizedBox(height: 2),
+                    Text(
+                      branches,
+                      style: TextStyle(
+                        fontSize: 12,
+                        color: selected
+                            ? scheme.onPrimaryContainer.withAlpha(180)
+                            : scheme.onSurfaceVariant,
+                      ),
+                    ),
+                  ],
+                ],
+              ),
+            ),
+            if (selected)
+              Icon(Icons.check_circle, color: scheme.primary, size: 22),
+            IconButton(
+              onPressed: onEdit,
+              tooltip: l10n.courseBuilderEditButton,
+              icon: Icon(Icons.edit_outlined,
+                  size: 20, color: scheme.onSurfaceVariant),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 // ── Course pills row (always visible) ────────────────────────────────────────
 
 class _CoursePillsRow extends StatelessWidget {
@@ -482,10 +621,16 @@ class _CoursePillsRow extends StatelessWidget {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      // An own course carries the face of its host.
+                      // An own course carries the own-course mark (its host
+                      // leads Home and the Profile, not the pill).
                       if (course is OwnCourse) ...[
-                        SvgPicture.asset(course.host.hostPortrait,
-                            width: 18, height: 18),
+                        Icon(
+                          kOwnCourseIcon,
+                          size: 16,
+                          color: selected
+                              ? scheme.onPrimary
+                              : scheme.onSurfaceVariant,
+                        ),
                         const SizedBox(width: 6),
                       ],
                       Text(

@@ -151,6 +151,7 @@ lib/
     │       └── workout_log_tile.dart      ← WorkoutLogTile + ExerciseTagChip (shared across Profile, Calendar, Home)
     ├── settings/
     │   ├── providers/settings_provider.dart
+    │   ├── widgets/goro_poses.dart    ← GoroPoses (About: a random pose of kGoroPoses, a tap shows the next)
     │   └── screens/
     │       ├── settings_screen.dart
     │       ├── about_screen.dart          ← /about
@@ -188,7 +189,7 @@ CaliDay supports multiple **courses** (like Duolingo). Each course has its own b
 
 **Progression is global per branch:** `SkillProgress` keys are `branch.name` only (e.g. `"push"`), and `custom_<id>` for an own branch (`SkillProgress.branchKey`; `branchId` is null there, `customBranchId` set). Branches are physical skills — progress is shared across all courses containing that branch.
 **Streak and SP are global.** Enrolled courses are `UserProfile.activeCourseIds`, the one shown now is `activeCourseIndex` (read through the `enrolledCourses` / `activeCourse` getters); while an own course is shown, `activeCustomCourseId` names it (cleared when a built-in one is picked; a stale id falls back to the built-in course).
-Switching courses happens in the Library tab via pill tabs: the enrolled built-in courses, then every own course (`enrolledCoursesProvider`), each own one with its host's face.
+Switching courses happens in the Library tab via pill tabs: the enrolled built-in courses, then every own course that is shown (`enrolledCoursesProvider`). An own course's pill carries the own-course mark (`kOwnCourseIcon`, a hand tool, `library/widgets/builder_widgets.dart`) instead of its host's face (owner, 2026-10-10: the host leads Home and the Profile, the pill only says "made by you"). The course list under "+" lists the own courses too, below the built-in ones: a tick like theirs (unticked = `CustomCourse.shown` false: no pill, nothing deleted; a hidden active course falls back to a built-in one) and a pencil that opens the builder (saving there shows the course again). At least one built-in course stays enrolled, as before.
 
 ### Progression Branches
 20 branches total across all courses (appended `BranchId` HiveFields: Evening Stretch 8–11, Morning Routine 12–15, Yoga 16–19; `CourseId.eveningStretch` is HiveField 2, `CourseId.morningRoutine` 3, `CourseId.yoga` 4). Pull requires a pull-up bar (`requiresEquipment = true`).
@@ -203,7 +204,7 @@ A stage's target can be lowered in the catalog without migration code of its own
 - **SP (Strength Points)** — points earned for exercises
 - **Streak** — consecutive days; freezes (max 3, earned every 7 streak days)
 - **Ranks (English UI names):** Beginner → Amateur → Athlete → Champion → Master → Legend — enum values `beginner, amateur, sportsman, athlete, master, legend` (see § Rank SP Thresholds). A rank that is not trained for 21+ days is shown lower, see RankDecayService
-- **Achievements** — 41 total (one is secret; the four of each new course are `<course>_<branch>_complete`), checked after each workout and stage advance. A branch achievement names its branch (`Achievement.branch`, a test checks it against what `AchievementService` awards for that branch); the host of the branch's course presents it (0.9.2): a 22 px portrait on the tile of the Achievements screen and, in the sheet (`showAchievementSheet`, `features/profile/widgets/achievement_sheet.dart`, shared with the Profile badges), the host cheering when earned or its supportive face while still ahead. The app's own achievements (streaks, ranks, volume, `first_challenge`, `all_complete`) get no badge and Goro in the sheet. A shared branch belongs to the active course when that course holds it, otherwise to the first course listing it (`CourseCatalog.courseOf(branch, active:)`: Balance is Miso's while Yoga is active, else Goro's)
+- **Achievements** — 41 total (one is secret; the four of each new course are `<course>_<branch>_complete`), checked after each workout and stage advance. A branch achievement names its branch (`Achievement.branch`, a test checks it against what `AchievementService` awards for that branch); the host of the branch's course presents it (0.9.2): a 22 px portrait on the tile of the Achievements screen and, in the sheet (`showAchievementSheet`, `features/profile/widgets/achievement_sheet.dart`, shared with the Profile badges), the host cheering when earned or, while still ahead, holding a grey medal with a padlock (`CourseId.hostLocked`, 0.9.4; before, only its supportive face — "Goro doesn't hold it, just his head", owner). The app's own achievements (streaks, ranks, volume, `first_challenge`, `all_complete`) get no badge and Goro in the sheet. A shared branch belongs to the active course when that course holds it, otherwise to the first course listing it (`CourseCatalog.courseOf(branch, active:)`: Balance is Miso's while Yoga is active, else Goro's)
 - **Bonus workouts** — multiple workouts per day are allowed (50% SP; each branch still moves on once a day, see § Primary vs Bonus Workout)
 
 ### Workout size
@@ -301,6 +302,7 @@ Not `key`: that getter is `HiveObject`'s own (the box key), hence `SkillProgress
 | @2 | List\<String\> | branchKeys — `Branch.key`s in rotation order (`push`, `custom_<id>`) |
 | @3 | int | hostIndex — `CourseId.index` of the host |
 | @4 | DateTime | createdAt — the order of the pills |
+| @5 | bool | shown — has a pill (default true; 0.9.4, unticked in the course list "+") |
 
 ### CustomRoutine HiveFields
 
@@ -725,13 +727,18 @@ A flat-style gorilla with a blue headband. Assets in `assets/goro/`:
 - `goro_face_[happy/sad/angry/sleeping/excited/supportive].svg` — 6 expressions
 - `goro_flex_v2.svg` — promo
 - `goro_idle_v2.svg` — idle
+- `goro_pose_{one_arm_handstand,flag,one_arm_pullup,barbell,lotus,banana}.svg` — fun poses for About (0.9.4)
+- `goro_locked.svg` — holding an achievement still ahead (a grey medal with a padlock), like `<host>_locked.svg`
+
+The designer's files (faces, idle, flex) have no source. The poses and `goro_locked` are generated by `tools/characters/gen_goro.py` (edit the script, not the SVGs): a paper doll in the idle's own 1024 frame — the idle's head (with face variants: eyes open / up / closed / happy / wink / squeeze, brows, mouth smile / grin / o / teeth / small) and torso placed by a transform, arms and legs as tapered capsules with the idle's lighter overlay between joints solved by two-bone IK (`Arm.bend` / `Leg.bend` 1 = the elbow or knee out to its own side for a limb hanging down), fists, feet and props (pole, bar, barbell, banana) at the joints; `Pose(scale, anchor)` fits a pose into the tile. The medal is `gen_hosts.locked_badge`, shared with the hosts.
 
 Placement:
 - **Home** — AnimatedSwitcher by expression inside gradient hero zone (h=200)
 - **Summary** — `goro_flex_v2` (h=120)
 - **Profile** — `goro_idle_v2` (h=100)
 - **Onboarding welcome** — `goro_face_happy` (h=120)
-- **About** — `goro_idle_v2` (h=100)
+- **About** — `GoroPoses` (`features/settings/widgets/goro_poses.dart`, h=120): a random one of `kGoroPoses` (the idle and the six fun poses) each time the screen opens, a tap shows the next; the order is shuffled once, so every pose comes up before a repeat (owner, 2026-10-10: "just for fun", e.g. a one-arm handstand)
+- **Achievement sheet** — `goro_flex_v2` once earned, `goro_locked` while ahead (the app's own achievements and the Calisthenics branches)
 
 **GoroExpressionProvider logic:**
 `sleeping(23–6h)` > `happy(workoutToday)` > `angry(22h+,streak>0)` > `sad(20h+)` > `supportive(daysSince≥2)` > `happy`
@@ -881,6 +888,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 - **Build:** `flutter build web --release --base-href /caliday/app/`
 - **Deploy:** `.github/workflows/web.yml` on every push to `main` — builds the app + Jekyll-renders `docs/` (legal docs keep their URLs `/caliday/PRIVACY_POLICY`, `/caliday/TERMS_OF_USE`) → one Pages artifact. Requires Settings → Pages → Source = **GitHub Actions**. The `deploy` job needs both `build` and a parallel `test` job (`flutter test`), so a push that breaks the tests does not reach the live site (guarded in `test/repo/workflows_test.dart`).
 - **Flutter version** is pinned in all three workflows (`web.yml`, `ci.yml`, `release.yml`, `3.41.9`) to match `pubspec.lock` (SDK-pinned packages like `matcher`, `test_api`). Bump all of them together with the local SDK; `test/repo/workflows_test.dart` fails when they differ.
+- **`main` is protected** (owner, 2026-10-10; repository ruleset "Protect main"): changes only through a pull request, merged as a **squash** (merge commits and rebase merges are off for the whole repository; the commit takes the PR title and body), the CI jobs `check` and `android` must pass, linear history, no force pushes, no deletion. Nobody pushes to `main` directly, an admin included; an admin may merge a PR past red checks (bypass "pull request only"). Merged branches are deleted automatically (a closed PR keeps its commits and can restore the branch).
 - **Checks:** `.github/workflows/ci.yml` on every push to `main` and every pull request — `flutter gen-l10n` must leave `lib/l10n` unchanged (the generated files are committed), `flutter analyze`, `flutter test`, and a debug Android build (`flutter build apk --debug`, which is what catches a broken Gradle / plugin setup such as the Glance range). Older runs of the same ref are cancelled.
 - **Release builds:** `.github/workflows/release.yml` (APK / AAB / iOS build / draft GitHub Release) is drafted and **disabled** until the repository variable `RELEASE_BUILDS_ENABLED` is `true`; see DEV_NOTES § Release builds (CI).
 
@@ -962,7 +970,7 @@ Conventions:
 - Prefer a pure function with an injectable `now` over faking the clock (`RankDecayService.daysSinceLastWorkout`, `StreakService.daysSinceLastWorkout`, `CompactHeatmap.weekGrid`).
 - DST tests are written for Europe/Berlin; on a machine in a zone without DST they pass without proving anything.
 - If a known data gap ever has to be tolerated, allow-list it **explicitly** in the test with a comment, never skip silently (there is none at the moment).
-- Widget tests exist only for the friends QR widgets (`test/features/friends/`); there are no golden tests. UI is otherwise checked by running the app — `flutter run -d web-server` plus the in-app browser works well (dev options are `kDebugMode` only).
+- Widget tests exist only for the friends QR widgets (`test/features/friends/`) and Goro's poses on About (`test/features/settings/goro_poses_test.dart`); there are no golden tests. UI is otherwise checked by running the app — `flutter run -d web-server` plus the in-app browser works well (dev options are `kDebugMode` only).
 - Plugin-bound code is split: the decision (what, when, which bytes, which number) is a pure function that is tested; the thin wrapper that calls the plugin is not (`NotificationService`, `HealthService`, `BleService`, `WidgetService.update`). Keep new plugin code in that shape.
 
 ---
@@ -1055,5 +1063,6 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v1.x | More branches, also outside any course (to be picked in the builder), many more exercises | 📐 next, on a branch of its own (owner, 2026-10-09): 3–4 branches, ~20 exercises with animations — DEV_NOTES § Roadmap 3 |
 | v1.0 | Custom course builder — (a) a course from existing branches, (b) a branch of one's own: own exercises in order, progression through them (owner's plan, 3rd) | ✅ 0.9.3 — § Courses (own courses), § CustomStages |
 | v1.0 | "What's new" with the whole history: the 6 newest versions in full, every minor line from 0.1 in its main points, folded | ✅ 0.9.3 — § What's new |
+| v1.0 | Owner's feedback on 0.9.3: own courses in the course list "+" (hide / show, edit), an own-course mark on the pill instead of the host, hosts holding an achievement still ahead, Goro's fun poses on About | ✅ 0.9.4 — § Courses, § Mascot Goro, BRAND.md |
 
 Legend: ✅ implemented · 📐 designed (in DEV_NOTES) · 🔒 waiting for resource · 💡 idea

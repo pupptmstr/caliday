@@ -2900,6 +2900,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get courseBuilderEditButton => 'Edit';
 
   @override
+  String get courseListOwnSection => 'Your courses';
+
+  @override
+  String get courseListOwnHint =>
+      'Untick a course to hide it from the list at the top; it is kept with its progress.';
+
+  @override
   String get courseBuilderNameHint => 'Course name';
 
   @override
@@ -3061,6 +3068,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get whatsNewHistory => 'Version history';
+
+  @override
+  String get releaseNotes094 =>
+      'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.';
 
   @override
   String get releaseNotes093 =>

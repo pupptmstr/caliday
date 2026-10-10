@@ -2,6 +2,32 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/app_theme.dart';
 
+/// The mark of a course the user made (the course pills, the course list):
+/// a hand tool — made by hand, not one of the built-in courses.
+const kOwnCourseIcon = Icons.handyman_rounded;
+
+/// [kOwnCourseIcon] in a round badge, the size of a host portrait.
+class OwnCourseMark extends StatelessWidget {
+  const OwnCourseMark({required this.size, super.key});
+
+  final double size;
+
+  @override
+  Widget build(BuildContext context) {
+    final scheme = Theme.of(context).colorScheme;
+    return Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(
+        color: scheme.secondaryContainer,
+        shape: BoxShape.circle,
+      ),
+      child: Icon(kOwnCourseIcon,
+          size: size / 2, color: scheme.onSecondaryContainer),
+    );
+  }
+}
+
 /// The name field at the top of the course and branch builders (the style of
 /// the routine builder's).
 class BuilderNameField extends StatelessWidget {

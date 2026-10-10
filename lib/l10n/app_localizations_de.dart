@@ -2902,6 +2902,13 @@ class AppLocalizationsDe extends AppLocalizations {
   String get courseBuilderEditButton => 'Bearbeiten';
 
   @override
+  String get courseListOwnSection => 'Eigene Kurse';
+
+  @override
+  String get courseListOwnHint =>
+      'Entferne den Haken, um einen Kurs oben auszublenden; er bleibt samt Fortschritt erhalten.';
+
+  @override
   String get courseBuilderNameHint => 'Name des Kurses';
 
   @override
@@ -3057,6 +3064,10 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get whatsNewHistory => 'Versionsverlauf';
+
+  @override
+  String get releaseNotes094 =>
+      'Deine eigenen Kurse stehen jetzt in der Kursliste unter +: Entferne den Haken, um einen Kurs oben auszublenden (er bleibt erhalten), der Stift öffnet ihn zum Bearbeiten.\nEin eigener Kurs trägt oben ein Werkzeug-Zeichen statt des Gesichts seines Hosts.\nEin Erfolg, der noch vor dir liegt: Sein Host hält ihn jetzt in den Händen, eine graue Medaille mit Schloss.\n„Über die App“: Tippe auf Goro, er hat ein paar neue Posen.';
 
   @override
   String get releaseNotes093 =>

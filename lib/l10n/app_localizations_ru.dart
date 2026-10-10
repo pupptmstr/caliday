@@ -2891,6 +2891,13 @@ class AppLocalizationsRu extends AppLocalizations {
   String get courseBuilderEditButton => 'Изменить';
 
   @override
+  String get courseListOwnSection => 'Свои курсы';
+
+  @override
+  String get courseListOwnHint =>
+      'Сними галочку, чтобы спрятать курс из списка сверху; он сохранится вместе с прогрессом.';
+
+  @override
   String get courseBuilderNameHint => 'Название курса';
 
   @override
@@ -3030,6 +3037,10 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get whatsNewHistory => 'История версий';
+
+  @override
+  String get releaseNotes094 =>
+      'Свои курсы появились в списке курсов под +: сними галочку, чтобы спрятать курс из ряда сверху (он сохранится), карандаш открывает его для правки.\nСвой курс в ряду сверху отмечен значком с инструментами вместо лица ведущего.\nЕщё не полученное достижение ведущий теперь держит в руках: серая медаль с замочком.\n«О приложении»: нажми на Горо, у него есть несколько новых поз.';
 
   @override
   String get releaseNotes093 =>

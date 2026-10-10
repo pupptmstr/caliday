@@ -2911,6 +2911,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get courseBuilderEditButton => 'Editar';
 
   @override
+  String get courseListOwnSection => 'Tus cursos';
+
+  @override
+  String get courseListOwnHint =>
+      'Desmarca un curso para ocultarlo de la lista de arriba; se guarda con su progreso.';
+
+  @override
   String get courseBuilderNameHint => 'Nombre del curso';
 
   @override
@@ -3066,6 +3073,10 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get whatsNewHistory => 'Historial de versiones';
+
+  @override
+  String get releaseNotes094 =>
+      'Tus cursos ya están en la lista de cursos bajo +: desmarca uno para ocultarlo de la fila de arriba (se guarda), el lápiz lo abre para editarlo.\nUn curso propio lleva arriba una marca de herramientas en vez de la cara de su anfitrión.\nUn logro aún pendiente: su anfitrión ahora lo sostiene, una medalla gris con candado.\n«Acerca de»: toca a Goro, tiene algunas poses nuevas.';
 
   @override
   String get releaseNotes093 =>
