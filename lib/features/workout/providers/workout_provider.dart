@@ -653,6 +653,7 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
       freezeEarned: freezeEarned,
       // The raw estimate, so the pace can be learned from how long it took.
       estimatedDurationSec: state.plan.estimatedDurationSec,
+      growth: progression.growth,
     )));
 
     // ── Health (Apple Health / Health Connect) ────────────────────────────

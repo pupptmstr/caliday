@@ -1104,6 +1104,162 @@
   "courseBuilderEditButton": "Editar",
   "courseListOwnSection": "Tus cursos",
   "courseListOwnHint": "Desmarca un curso para ocultarlo de la lista de arriba; se guarda con su progreso.",
+  "homePlanShow": "Ver el plan",
+  "homePlanHide": "Ocultar el plan",
+  "homePlanReps": "{sets} × {reps}",
+  "@homePlanReps": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "reps": {
+        "type": "int"
+      }
+    }
+  },
+  "homePlanSeconds": "{sets} × {secs} s",
+  "@homePlanSeconds": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "homePlanSecondsPerSide": "{sets} × {secs} s por lado",
+  "@homePlanSecondsPerSide": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalsTitle": "Próximas metas",
+  "homeGoalRank": "{sp} SP para {rank}",
+  "@homeGoalRank": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "sp": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalDays": "{count, plural, one{falta {count} día} other{faltan {count} días}}",
+  "@homeGoalDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalWorkouts": "{count, plural, one{falta {count} entrenamiento} other{faltan {count} entrenamientos}}",
+  "@homeGoalWorkouts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalChallenge": "Reto desbloqueado: {branch}",
+  "@homeGoalChallenge": {
+    "placeholders": {
+      "branch": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHistoryAll": "Ver todo",
+  "homeGrowthTitle": "Progreso de hoy",
+  "homeGrowthNone": "Hoy ninguna rama avanzó: cada una crece una vez al día, tras una serie lograda.",
+  "homeGrowthReps": "{from} → {to, plural, one{{to} repetición} other{{to} repeticiones}}",
+  "@homeGrowthReps": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthSeconds": "{from} → {to} s",
+  "@homeGrowthSeconds": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthSets": "{from} → {to, plural, one{{to} serie} other{{to} series}}",
+  "@homeGrowthSets": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthRest": "descanso {from} → {to} s",
+  "@homeGrowthRest": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthChallenge": "el reto está abierto",
+  "homeGrowthStage": "nueva etapa: {exercise}",
+  "@homeGrowthStage": {
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogToday": "Hoy, {time}",
+  "@homeLogToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogYesterday": "Ayer, {time}",
+  "@homeLogYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHostHappy1": "Hoy es un buen día para ser un poco más fuerte.",
+  "homeHostHappy2": "Un entrenamiento y el día cuenta.",
+  "homeHostHappy3": "Un poco cada día: así crecen las ramas.",
+  "homeHostHappy4": "El calentamiento te espera. ¡Tu turno!",
+  "homeHostSad1": "Ya cae la tarde y aún no has entrenado. ¿Vamos?",
+  "homeHostSad2": "Aún no es tarde: el día cuenta si empiezas ahora.",
+  "homeHostAngry1": "¡Tu racha está en peligro! Hoy aún puedes salvarla.",
+  "homeHostAngry2": "Falta poco para medianoche. ¿Salvamos la racha?",
+  "homeHostSupportive1": "¡Qué bien verte de nuevo! ¿Empezamos poco a poco?",
+  "homeHostSupportive2": "Una pausa está bien. Lo importante es volver.",
+  "homeHostSupportive3": "Tu progreso sigue ahí: seguimos desde la misma etapa.",
+  "homeHostSleeping1": "La noche es para descansar. Seguimos por la mañana.",
+  "homeHostSleeping2": "Dormir también es parte del entrenamiento.",
   "courseBuilderNameHint": "Nombre del curso",
   "courseBuilderNameRequired": "Ponle un nombre al curso",
   "courseBuilderHostTitle": "Anfitrión",
@@ -1217,7 +1373,7 @@
   "hostMiso": "Miso",
   "whatsNewRecent": "Últimas actualizaciones",
   "whatsNewHistory": "Historial de versiones",
-  "releaseNotes094": "Tus cursos ya están en la lista de cursos bajo +: desmarca uno para ocultarlo de la fila de arriba (se guarda), el lápiz lo abre para editarlo.\nUn curso propio lleva arriba una marca de herramientas en vez de la cara de su anfitrión.\nUn logro aún pendiente: su anfitrión ahora lo sostiene, una medalla gris con candado.\n«Acerca de»: toca a Goro, tiene algunas poses nuevas.",
+  "releaseNotes094": "Tus cursos ya están en la lista de cursos bajo +: desmarca uno para ocultarlo de la fila de arriba (se guarda), el lápiz lo abre para editarlo.\nUn curso propio lleva arriba una marca de herramientas en vez de la cara de su anfitrión.\nUn logro aún pendiente: su anfitrión ahora lo sostiene, una medalla gris con candado.\n«Acerca de»: toca a Goro, tiene algunas poses nuevas.\nPantalla principal: antes del primer entrenamiento del día tu anfitrión te dice unas palabras, y debajo están tus próximas metas (el siguiente rango, el logro más cercano, un reto abierto que puedes empezar ahí mismo) y las ramas del curso.\nDespués, la pantalla principal muestra tus últimos entrenamientos y lo que ha crecido hoy: más repeticiones, una serie, menos descanso, una etapa nueva.\nLa flecha del botón de entrenamiento despliega el plan del día, con Goro mostrando cada ejercicio.\nLas animaciones de Goro dondequiera que se nombra un ejercicio: el camino de una rama, la pestaña Cursos, los constructores, los entrenamientos guardados, el historial, el descanso antes del siguiente ejercicio.",
   "releaseNotes093": "Tu propio curso: en la pestaña Cursos toca + y reúne ramas de cualquier curso, elige el anfitrión y ponle un nombre.\nUna rama propia: elige ejercicios y ordénalos, cada uno será una etapa. Las repeticiones, las series, los descansos y los retos los pone la app, como en cualquier rama.\nEn la campana, arriba están las últimas actualizaciones y debajo, plegada, toda la historia de CaliDay versión a versión.",
   "releaseHistory01": "La primera versión: entrenamientos diarios cortos, puntos SP, rachas, recordatorios y una configuración inicial.\nCinco habilidades: flexiones, core, dominadas, piernas y equilibrio; el entrenamiento las alterna día a día.\nEl camino de una habilidad: todas las etapas en una pantalla y un reto para avanzar antes.\nLogros, entrenamientos extra el mismo día y un tema oscuro.\nRuso e inglés.\nGoro muestra cada etapa de las flexiones en una animación.",
   "releaseHistory02": "Sonido y vibración durante el entrenamiento.\nEl historial de entrenamientos.\nUna pantalla de inicio nueva con tres pestañas abajo.\nProtectores de racha: un día perdido ya no rompe la racha.\nLa pantalla «Acerca de».",

@@ -1,3 +1,4 @@
+import '../../data/models/branch_growth.dart';
 import '../../data/models/custom_branch.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/exercise_result.dart';
@@ -28,6 +29,34 @@ class WorkoutProgression {
   /// caller saves them.
   final List<SkillProgress> touched = [];
 
+  /// Each touched branch as it was before this workout, by branch key.
+  final Map<String, ({int stage, int amount, int sets, int rest, bool unlocked})>
+      _before = {};
+
+  /// How the touched branches moved on, in the order of the plan; a branch
+  /// that did not move is left out.
+  List<BranchGrowth> get growth => [
+        for (final p in touched)
+          if (_before[p.branchKey] case final b?)
+            if (b.stage != p.currentStage ||
+                b.amount != p.currentReps ||
+                b.sets != p.currentSets ||
+                b.rest != p.currentRestSec ||
+                (!b.unlocked && p.isChallengeUnlocked))
+              BranchGrowth(
+                branchKey: p.branchKey,
+                fromStage: b.stage,
+                toStage: p.currentStage,
+                fromAmount: b.amount,
+                toAmount: p.currentReps,
+                fromSets: b.sets,
+                toSets: p.currentSets,
+                fromRestSec: b.rest,
+                toRestSec: p.currentRestSec,
+                challengeUnlocked: !b.unlocked && p.isChallengeUnlocked,
+              ),
+      ];
+
   /// Applies [results] (parallel to `plan.exercises`, null = not done) of
   /// [plan]. [progressFor] reads a branch's progress; it is asked once per
   /// branch. A branch deleted meanwhile (an own one) is skipped.
@@ -55,6 +84,13 @@ class WorkoutProgression {
       final progress = byKey.putIfAbsent(branch.key, () {
         final p = progressFor(branch);
         out.touched.add(p);
+        out._before[p.branchKey] = (
+          stage: p.currentStage,
+          amount: p.currentReps,
+          sets: p.currentSets,
+          rest: p.currentRestSec,
+          unlocked: p.isChallengeUnlocked,
+        );
         return p;
       });
 

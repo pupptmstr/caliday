@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:caliday/data/models/branch_growth.dart';
 import 'package:caliday/data/models/custom_branch.dart';
 import 'package:caliday/data/models/custom_course.dart';
 import 'package:caliday/data/models/custom_routine.dart';
@@ -82,6 +83,7 @@ class HiveTestEnv {
     register(SkillProgressAdapter());
     register(ExerciseResultAdapter());
     register(WorkoutLogAdapter());
+    register(BranchGrowthAdapter());
     register(FriendProfileAdapter());
     register(CustomRoutineAdapter());
     register(CustomBranchAdapter());

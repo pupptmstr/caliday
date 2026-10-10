@@ -1,3 +1,4 @@
+import 'package:caliday/data/models/branch_growth.dart';
 import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/models/exercise_result.dart';
 import 'package:caliday/data/models/workout_log.dart';
@@ -42,6 +43,33 @@ void main() {
     expect(repo.getAll(), isEmpty);
     expect(repo.hasWorkoutToday(), isFalse);
     expect(repo.hasPrimaryWorkoutToday(), isFalse);
+  });
+
+  test('the growth of a workout goes through its adapter; an old log has none',
+      () async {
+    await repo.addLog(_log(DateTime(2026, 6, 1)));
+    await repo.addLog(WorkoutLog(
+      date: DateTime(2026, 6, 2),
+      setType: SetType.daily,
+      exercises: const [],
+      spEarned: 10,
+      durationSec: 300,
+      growth: [
+        BranchGrowth(branchKey: 'push', fromStage: 2, toStage: 2, fromAmount: 10,
+            toAmount: 12, fromSets: 2, toSets: 2, fromRestSec: 60, toRestSec: 60),
+        BranchGrowth(branchKey: 'custom_b1', fromStage: 1, toStage: 1, fromAmount: 20,
+            toAmount: 20, fromSets: 3, toSets: 3, fromRestSec: 20, toRestSec: 20,
+            challengeUnlocked: true),
+      ],
+    ));
+    await env.reopen();
+
+    final logs = WorkoutRepository().getAll();
+    expect(logs.last.growth, isNull);
+    final growth = logs.first.growth!;
+    expect(growth.map((g) => g.branchKey), ['push', 'custom_b1']);
+    expect(growth.map((g) => g.kind), [GrowthKind.amount, GrowthKind.challenge]);
+    expect([growth.first.fromAmount, growth.first.toAmount], [10, 12]);
   });
 
   test('getAll and getRecent are newest-first', () async {

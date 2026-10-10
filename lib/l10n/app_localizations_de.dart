@@ -2909,6 +2909,170 @@ class AppLocalizationsDe extends AppLocalizations {
       'Entferne den Haken, um einen Kurs oben auszublenden; er bleibt samt Fortschritt erhalten.';
 
   @override
+  String get homePlanShow => 'Plan zeigen';
+
+  @override
+  String get homePlanHide => 'Plan ausblenden';
+
+  @override
+  String homePlanReps(int sets, int reps) {
+    return '$sets × $reps';
+  }
+
+  @override
+  String homePlanSeconds(int sets, int secs) {
+    return '$sets × $secs s';
+  }
+
+  @override
+  String homePlanSecondsPerSide(int sets, int secs) {
+    return '$sets × $secs s pro Seite';
+  }
+
+  @override
+  String get homeGoalsTitle => 'Nächste Ziele';
+
+  @override
+  String homeGoalRank(String rank, int sp) {
+    return 'Noch $sp SP bis $rank';
+  }
+
+  @override
+  String homeGoalDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'noch $count Tage',
+      one: 'noch $count Tag',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalWorkouts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'noch $count Trainings',
+      one: 'noch $count Training',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalChallenge(String branch) {
+    return 'Challenge freigeschaltet: $branch';
+  }
+
+  @override
+  String get homeHistoryAll => 'Alle';
+
+  @override
+  String get homeGrowthTitle => 'Fortschritt heute';
+
+  @override
+  String get homeGrowthNone =>
+      'Heute ist kein Zweig gewachsen: Jeder wächst einmal am Tag, nach einem gelungenen Satz.';
+
+  @override
+  String homeGrowthReps(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to Wiederholungen',
+      one: '$to Wiederholung',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthSeconds(int from, int to) {
+    return '$from → $to s';
+  }
+
+  @override
+  String homeGrowthSets(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to Sätze',
+      one: '$to Satz',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthRest(int from, int to) {
+    return 'Pause $from → $to s';
+  }
+
+  @override
+  String get homeGrowthChallenge => 'die Challenge ist frei';
+
+  @override
+  String homeGrowthStage(String exercise) {
+    return 'neue Stufe: $exercise';
+  }
+
+  @override
+  String homeLogToday(String time) {
+    return 'Heute, $time';
+  }
+
+  @override
+  String homeLogYesterday(String time) {
+    return 'Gestern, $time';
+  }
+
+  @override
+  String get homeHostHappy1 =>
+      'Heute ist ein guter Tag, um ein bisschen stärker zu werden.';
+
+  @override
+  String get homeHostHappy2 => 'Ein Training, und der Tag zählt.';
+
+  @override
+  String get homeHostHappy3 =>
+      'Jeden Tag ein bisschen – so wachsen die Zweige.';
+
+  @override
+  String get homeHostHappy4 => 'Das Aufwärmen wartet. Du bist dran!';
+
+  @override
+  String get homeHostSad1 =>
+      'Es ist Abend und noch kein Training. Schaffen wir das?';
+
+  @override
+  String get homeHostSad2 =>
+      'Es ist nicht zu spät: Der Tag zählt, wenn du jetzt anfängst.';
+
+  @override
+  String get homeHostAngry1 =>
+      'Deine Serie ist in Gefahr! Heute kannst du sie noch retten.';
+
+  @override
+  String get homeHostAngry2 => 'Bald ist Mitternacht. Retten wir die Serie?';
+
+  @override
+  String get homeHostSupportive1 =>
+      'Schön, dass du wieder da bist! Fangen wir klein an?';
+
+  @override
+  String get homeHostSupportive2 =>
+      'Eine Pause ist okay. Hauptsache, du kommst zurück.';
+
+  @override
+  String get homeHostSupportive3 =>
+      'Dein Fortschritt ist noch da – weiter auf derselben Stufe.';
+
+  @override
+  String get homeHostSleeping1 =>
+      'Die Nacht ist zum Ausruhen da. Morgen früh geht es weiter.';
+
+  @override
+  String get homeHostSleeping2 => 'Schlaf gehört auch zum Training.';
+
+  @override
   String get courseBuilderNameHint => 'Name des Kurses';
 
   @override
@@ -3067,7 +3231,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseNotes094 =>
-      'Deine eigenen Kurse stehen jetzt in der Kursliste unter +: Entferne den Haken, um einen Kurs oben auszublenden (er bleibt erhalten), der Stift öffnet ihn zum Bearbeiten.\nEin eigener Kurs trägt oben ein Werkzeug-Zeichen statt des Gesichts seines Hosts.\nEin Erfolg, der noch vor dir liegt: Sein Host hält ihn jetzt in den Händen, eine graue Medaille mit Schloss.\n„Über die App“: Tippe auf Goro, er hat ein paar neue Posen.';
+      'Deine eigenen Kurse stehen jetzt in der Kursliste unter +: Entferne den Haken, um einen Kurs oben auszublenden (er bleibt erhalten), der Stift öffnet ihn zum Bearbeiten.\nEin eigener Kurs trägt oben ein Werkzeug-Zeichen statt des Gesichts seines Hosts.\nEin Erfolg, der noch vor dir liegt: Sein Host hält ihn jetzt in den Händen, eine graue Medaille mit Schloss.\n„Über die App“: Tippe auf Goro, er hat ein paar neue Posen.\nStartbildschirm: Vor dem ersten Training des Tages sagt dein Host ein paar Worte, darunter stehen deine nächsten Ziele (der nächste Rang, der nächste Erfolg, eine freie Challenge, die du direkt hier startest) und die Zweige des Kurses.\nDanach zeigt der Startbildschirm deine letzten Trainings und was heute gewachsen ist: mehr Wiederholungen, ein Satz, weniger Pause, eine neue Stufe.\nDer Pfeil am Trainingsknopf klappt den Plan des Tages auf, Goro zeigt jede Übung.\nGoros Animationen überall, wo eine Übung genannt wird: der Weg eines Zweigs, der Tab „Kurse“, die Baukästen, gespeicherte Trainings, der Verlauf, die Pause vor der nächsten Übung.';
 
   @override
   String get releaseNotes093 =>

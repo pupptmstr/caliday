@@ -14,6 +14,7 @@ import '../../../data/models/exercise.dart';
 import '../../../domain/models/workout_plan.dart' show prepSecFor;
 import '../../../l10n/app_localizations.dart';
 import '../providers/workout_provider.dart';
+import '../../library/widgets/exercise_thumb.dart';
 
 class WorkoutScreen extends ConsumerStatefulWidget {
   const WorkoutScreen({super.key});
@@ -675,6 +676,17 @@ class _RestView extends StatelessWidget {
                 ),
 
                 const SizedBox(height: 24),
+
+                // The next exercise, so the user can get ready for it.
+                if (state.isInterExerciseRest) ...[
+                  Center(
+                    child: ExerciseThumb(
+                      state.plan.exercises[state.exerciseIndex + 1].exercise,
+                      size: 120,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                ],
 
                 Text(
                   upcomingLabel,

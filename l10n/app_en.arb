@@ -1104,6 +1104,162 @@
   "courseBuilderEditButton": "Edit",
   "courseListOwnSection": "Your courses",
   "courseListOwnHint": "Untick a course to hide it from the list at the top; it is kept with its progress.",
+  "homePlanShow": "Show the plan",
+  "homePlanHide": "Hide the plan",
+  "homePlanReps": "{sets} × {reps}",
+  "@homePlanReps": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "reps": {
+        "type": "int"
+      }
+    }
+  },
+  "homePlanSeconds": "{sets} × {secs} s",
+  "@homePlanSeconds": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "homePlanSecondsPerSide": "{sets} × {secs} s each side",
+  "@homePlanSecondsPerSide": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalsTitle": "Next goals",
+  "homeGoalRank": "{sp} SP to {rank}",
+  "@homeGoalRank": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "sp": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalDays": "{count, plural, one{{count} more day} other{{count} more days}}",
+  "@homeGoalDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalWorkouts": "{count, plural, one{{count} more workout} other{{count} more workouts}}",
+  "@homeGoalWorkouts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalChallenge": "Challenge unlocked: {branch}",
+  "@homeGoalChallenge": {
+    "placeholders": {
+      "branch": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHistoryAll": "See all",
+  "homeGrowthTitle": "Progress today",
+  "homeGrowthNone": "No branch moved on today: each grows once a day, after a successful set.",
+  "homeGrowthReps": "{from} → {to, plural, one{{to} rep} other{{to} reps}}",
+  "@homeGrowthReps": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthSeconds": "{from} → {to} s",
+  "@homeGrowthSeconds": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthSets": "{from} → {to, plural, one{{to} set} other{{to} sets}}",
+  "@homeGrowthSets": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthRest": "rest {from} → {to} s",
+  "@homeGrowthRest": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthChallenge": "the challenge is open",
+  "homeGrowthStage": "new stage: {exercise}",
+  "@homeGrowthStage": {
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogToday": "Today, {time}",
+  "@homeLogToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogYesterday": "Yesterday, {time}",
+  "@homeLogYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHostHappy1": "Today is a good day to get a little stronger.",
+  "homeHostHappy2": "One workout and today counts.",
+  "homeHostHappy3": "A little every day is how the branches grow.",
+  "homeHostHappy4": "The warm-up is waiting. Your turn!",
+  "homeHostSad1": "It's evening and no workout yet. Shall we?",
+  "homeHostSad2": "It's not too late: today counts if you start now.",
+  "homeHostAngry1": "Your streak is at risk! You can still save it today.",
+  "homeHostAngry2": "Midnight is close. Shall we save the streak?",
+  "homeHostSupportive1": "Welcome back! Shall we start small?",
+  "homeHostSupportive2": "A break is fine. What matters is coming back.",
+  "homeHostSupportive3": "Your progress is right where you left it.",
+  "homeHostSleeping1": "Night is for resting. We'll go on in the morning.",
+  "homeHostSleeping2": "Sleep is part of training too.",
   "courseBuilderNameHint": "Course name",
   "courseBuilderNameRequired": "Give the course a name",
   "courseBuilderHostTitle": "Host",
@@ -1217,7 +1373,7 @@
   "hostMiso": "Miso",
   "whatsNewRecent": "Recent updates",
   "whatsNewHistory": "Version history",
-  "releaseNotes094": "Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host's face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.",
+  "releaseNotes094": "Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host's face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you, and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today's plan, with Goro showing every exercise.\nGoro's animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.",
   "releaseNotes093": "Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of CaliDay, version by version, is folded below them.",
   "releaseHistory01": "The first version: short daily workouts, SP points, streaks, reminders and a first-run setup.\nFive skills: push-ups, core, pull-ups, legs and balance; the workout takes turns between them day by day.\nThe path of a skill: every stage on one screen, and a challenge to move on early.\nAchievements, extra workouts on the same day and a dark theme.\nRussian and English.\nGoro shows every push-up stage in an animation.",
   "releaseHistory02": "Sound and vibration during a workout.\nThe workout history.\nA new home screen with three tabs at the bottom.\nStreak freezes: one missed day no longer breaks the streak.\nThe About screen.",

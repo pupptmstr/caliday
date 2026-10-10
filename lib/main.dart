@@ -15,6 +15,7 @@ import 'core/router/app_router.dart';
 import 'core/services/health_service.dart';
 import 'core/services/notification_service.dart';
 import 'core/services/widget_service.dart';
+import 'data/models/branch_growth.dart';
 import 'data/models/custom_branch.dart';
 import 'data/models/custom_course.dart';
 import 'data/models/custom_routine.dart';
@@ -54,6 +55,7 @@ Future<void> main() async {
     ..registerAdapter(SkillProgressAdapter())
     ..registerAdapter(ExerciseResultAdapter())
     ..registerAdapter(WorkoutLogAdapter())
+    ..registerAdapter(BranchGrowthAdapter())
     ..registerAdapter(FriendProfileAdapter())
     ..registerAdapter(CustomRoutineAdapter())
     ..registerAdapter(CustomBranchAdapter())

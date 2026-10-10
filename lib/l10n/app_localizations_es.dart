@@ -2918,6 +2918,169 @@ class AppLocalizationsEs extends AppLocalizations {
       'Desmarca un curso para ocultarlo de la lista de arriba; se guarda con su progreso.';
 
   @override
+  String get homePlanShow => 'Ver el plan';
+
+  @override
+  String get homePlanHide => 'Ocultar el plan';
+
+  @override
+  String homePlanReps(int sets, int reps) {
+    return '$sets × $reps';
+  }
+
+  @override
+  String homePlanSeconds(int sets, int secs) {
+    return '$sets × $secs s';
+  }
+
+  @override
+  String homePlanSecondsPerSide(int sets, int secs) {
+    return '$sets × $secs s por lado';
+  }
+
+  @override
+  String get homeGoalsTitle => 'Próximas metas';
+
+  @override
+  String homeGoalRank(String rank, int sp) {
+    return '$sp SP para $rank';
+  }
+
+  @override
+  String homeGoalDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'faltan $count días',
+      one: 'falta $count día',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalWorkouts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'faltan $count entrenamientos',
+      one: 'falta $count entrenamiento',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalChallenge(String branch) {
+    return 'Reto desbloqueado: $branch';
+  }
+
+  @override
+  String get homeHistoryAll => 'Ver todo';
+
+  @override
+  String get homeGrowthTitle => 'Progreso de hoy';
+
+  @override
+  String get homeGrowthNone =>
+      'Hoy ninguna rama avanzó: cada una crece una vez al día, tras una serie lograda.';
+
+  @override
+  String homeGrowthReps(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to repeticiones',
+      one: '$to repetición',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthSeconds(int from, int to) {
+    return '$from → $to s';
+  }
+
+  @override
+  String homeGrowthSets(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to series',
+      one: '$to serie',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthRest(int from, int to) {
+    return 'descanso $from → $to s';
+  }
+
+  @override
+  String get homeGrowthChallenge => 'el reto está abierto';
+
+  @override
+  String homeGrowthStage(String exercise) {
+    return 'nueva etapa: $exercise';
+  }
+
+  @override
+  String homeLogToday(String time) {
+    return 'Hoy, $time';
+  }
+
+  @override
+  String homeLogYesterday(String time) {
+    return 'Ayer, $time';
+  }
+
+  @override
+  String get homeHostHappy1 =>
+      'Hoy es un buen día para ser un poco más fuerte.';
+
+  @override
+  String get homeHostHappy2 => 'Un entrenamiento y el día cuenta.';
+
+  @override
+  String get homeHostHappy3 => 'Un poco cada día: así crecen las ramas.';
+
+  @override
+  String get homeHostHappy4 => 'El calentamiento te espera. ¡Tu turno!';
+
+  @override
+  String get homeHostSad1 => 'Ya cae la tarde y aún no has entrenado. ¿Vamos?';
+
+  @override
+  String get homeHostSad2 =>
+      'Aún no es tarde: el día cuenta si empiezas ahora.';
+
+  @override
+  String get homeHostAngry1 =>
+      '¡Tu racha está en peligro! Hoy aún puedes salvarla.';
+
+  @override
+  String get homeHostAngry2 =>
+      'Falta poco para medianoche. ¿Salvamos la racha?';
+
+  @override
+  String get homeHostSupportive1 =>
+      '¡Qué bien verte de nuevo! ¿Empezamos poco a poco?';
+
+  @override
+  String get homeHostSupportive2 =>
+      'Una pausa está bien. Lo importante es volver.';
+
+  @override
+  String get homeHostSupportive3 =>
+      'Tu progreso sigue ahí: seguimos desde la misma etapa.';
+
+  @override
+  String get homeHostSleeping1 =>
+      'La noche es para descansar. Seguimos por la mañana.';
+
+  @override
+  String get homeHostSleeping2 => 'Dormir también es parte del entrenamiento.';
+
+  @override
   String get courseBuilderNameHint => 'Nombre del curso';
 
   @override
@@ -3076,7 +3239,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseNotes094 =>
-      'Tus cursos ya están en la lista de cursos bajo +: desmarca uno para ocultarlo de la fila de arriba (se guarda), el lápiz lo abre para editarlo.\nUn curso propio lleva arriba una marca de herramientas en vez de la cara de su anfitrión.\nUn logro aún pendiente: su anfitrión ahora lo sostiene, una medalla gris con candado.\n«Acerca de»: toca a Goro, tiene algunas poses nuevas.';
+      'Tus cursos ya están en la lista de cursos bajo +: desmarca uno para ocultarlo de la fila de arriba (se guarda), el lápiz lo abre para editarlo.\nUn curso propio lleva arriba una marca de herramientas en vez de la cara de su anfitrión.\nUn logro aún pendiente: su anfitrión ahora lo sostiene, una medalla gris con candado.\n«Acerca de»: toca a Goro, tiene algunas poses nuevas.\nPantalla principal: antes del primer entrenamiento del día tu anfitrión te dice unas palabras, y debajo están tus próximas metas (el siguiente rango, el logro más cercano, un reto abierto que puedes empezar ahí mismo) y las ramas del curso.\nDespués, la pantalla principal muestra tus últimos entrenamientos y lo que ha crecido hoy: más repeticiones, una serie, menos descanso, una etapa nueva.\nLa flecha del botón de entrenamiento despliega el plan del día, con Goro mostrando cada ejercicio.\nLas animaciones de Goro dondequiera que se nombra un ejercicio: el camino de una rama, la pestaña Cursos, los constructores, los entrenamientos guardados, el historial, el descanso antes del siguiente ejercicio.';
 
   @override
   String get releaseNotes093 =>

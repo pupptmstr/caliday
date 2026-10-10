@@ -7,6 +7,8 @@ import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/static/achievement_catalog.dart';
+import '../../../domain/models/branch.dart';
+import '../../library/widgets/exercise_thumb.dart';
 
 /// Post-workout summary screen.
 ///
@@ -438,7 +440,12 @@ class _ChallengePassedBanner extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(Icons.celebration, size: 28, color: scheme.onTertiaryContainer),
+          // The new stage's exercise, as Goro does it.
+          if (OwnBranch.exerciseById(exerciseId) case final exercise?)
+            ExerciseThumb(exercise, size: 56)
+          else
+            Icon(Icons.celebration,
+                size: 28, color: scheme.onTertiaryContainer),
           const SizedBox(width: 12),
           Expanded(
             child: Column(

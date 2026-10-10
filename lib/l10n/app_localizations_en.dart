@@ -2907,6 +2907,165 @@ class AppLocalizationsEn extends AppLocalizations {
       'Untick a course to hide it from the list at the top; it is kept with its progress.';
 
   @override
+  String get homePlanShow => 'Show the plan';
+
+  @override
+  String get homePlanHide => 'Hide the plan';
+
+  @override
+  String homePlanReps(int sets, int reps) {
+    return '$sets × $reps';
+  }
+
+  @override
+  String homePlanSeconds(int sets, int secs) {
+    return '$sets × $secs s';
+  }
+
+  @override
+  String homePlanSecondsPerSide(int sets, int secs) {
+    return '$sets × $secs s each side';
+  }
+
+  @override
+  String get homeGoalsTitle => 'Next goals';
+
+  @override
+  String homeGoalRank(String rank, int sp) {
+    return '$sp SP to $rank';
+  }
+
+  @override
+  String homeGoalDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count more days',
+      one: '$count more day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalWorkouts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count more workouts',
+      one: '$count more workout',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalChallenge(String branch) {
+    return 'Challenge unlocked: $branch';
+  }
+
+  @override
+  String get homeHistoryAll => 'See all';
+
+  @override
+  String get homeGrowthTitle => 'Progress today';
+
+  @override
+  String get homeGrowthNone =>
+      'No branch moved on today: each grows once a day, after a successful set.';
+
+  @override
+  String homeGrowthReps(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to reps',
+      one: '$to rep',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthSeconds(int from, int to) {
+    return '$from → $to s';
+  }
+
+  @override
+  String homeGrowthSets(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to sets',
+      one: '$to set',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthRest(int from, int to) {
+    return 'rest $from → $to s';
+  }
+
+  @override
+  String get homeGrowthChallenge => 'the challenge is open';
+
+  @override
+  String homeGrowthStage(String exercise) {
+    return 'new stage: $exercise';
+  }
+
+  @override
+  String homeLogToday(String time) {
+    return 'Today, $time';
+  }
+
+  @override
+  String homeLogYesterday(String time) {
+    return 'Yesterday, $time';
+  }
+
+  @override
+  String get homeHostHappy1 => 'Today is a good day to get a little stronger.';
+
+  @override
+  String get homeHostHappy2 => 'One workout and today counts.';
+
+  @override
+  String get homeHostHappy3 => 'A little every day is how the branches grow.';
+
+  @override
+  String get homeHostHappy4 => 'The warm-up is waiting. Your turn!';
+
+  @override
+  String get homeHostSad1 => 'It\'s evening and no workout yet. Shall we?';
+
+  @override
+  String get homeHostSad2 =>
+      'It\'s not too late: today counts if you start now.';
+
+  @override
+  String get homeHostAngry1 =>
+      'Your streak is at risk! You can still save it today.';
+
+  @override
+  String get homeHostAngry2 => 'Midnight is close. Shall we save the streak?';
+
+  @override
+  String get homeHostSupportive1 => 'Welcome back! Shall we start small?';
+
+  @override
+  String get homeHostSupportive2 =>
+      'A break is fine. What matters is coming back.';
+
+  @override
+  String get homeHostSupportive3 => 'Your progress is right where you left it.';
+
+  @override
+  String get homeHostSleeping1 =>
+      'Night is for resting. We\'ll go on in the morning.';
+
+  @override
+  String get homeHostSleeping2 => 'Sleep is part of training too.';
+
+  @override
   String get courseBuilderNameHint => 'Course name';
 
   @override
@@ -3071,7 +3230,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseNotes094 =>
-      'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.';
+      'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you, and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today\'s plan, with Goro showing every exercise.\nGoro\'s animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.';
 
   @override
   String get releaseNotes093 =>

@@ -3,6 +3,7 @@
 // Check in to version control
 
 import 'package:hive_ce/hive_ce.dart';
+import 'package:caliday/data/models/branch_growth.dart';
 import 'package:caliday/data/models/custom_branch.dart';
 import 'package:caliday/data/models/custom_course.dart';
 import 'package:caliday/data/models/custom_routine.dart';
@@ -15,6 +16,7 @@ import 'package:caliday/data/models/workout_log.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
+    registerAdapter(BranchGrowthAdapter());
     registerAdapter(BranchIdAdapter());
     registerAdapter(CourseIdAdapter());
     registerAdapter(CustomBranchAdapter());
@@ -34,6 +36,7 @@ extension HiveRegistrar on HiveInterface {
 
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
   void registerAdapters() {
+    registerAdapter(BranchGrowthAdapter());
     registerAdapter(BranchIdAdapter());
     registerAdapter(CourseIdAdapter());
     registerAdapter(CustomBranchAdapter());

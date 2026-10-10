@@ -21,10 +21,12 @@ import '../../../data/static/exercise_catalog.dart';
 import '../../../data/static/exercise_tags_catalog.dart';
 import '../../../domain/models/branch.dart';
 import '../../../domain/models/course.dart';
+import '../../../domain/services/progression_service.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../home/providers/home_provider.dart';
 import '../../workout/providers/workout_provider.dart';
 import '../widgets/builder_widgets.dart';
+import '../widgets/exercise_thumb.dart';
 
 class LibraryScreen extends ConsumerWidget {
   const LibraryScreen({super.key});
@@ -688,17 +690,7 @@ class _BranchProgressCard extends StatelessWidget {
     final l10n = context.l10n;
 
     final exercise = branch.stage(progress.currentStage);
-
-    final double stageProgress;
-    if (exercise == null) {
-      stageProgress = 1.0;
-    } else {
-      final range = exercise.targetReps - exercise.startReps;
-      stageProgress = range <= 0
-          ? 1.0
-          : ((progress.currentReps - exercise.startReps) / range)
-              .clamp(0.0, 1.0);
-    }
+    final stageProgress = ProgressionService.stageFraction(exercise, progress);
 
     return Material(
       color: scheme.surfaceContainerHighest,
@@ -713,8 +705,11 @@ class _BranchProgressCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Icon(branch.icon, size: 24, color: scheme.primary),
-                  const SizedBox(width: 10),
+                  if (exercise != null)
+                    ExerciseThumb(exercise, size: 48)
+                  else
+                    Icon(branch.icon, size: 24, color: scheme.primary),
+                  const SizedBox(width: 12),
                   Expanded(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -1316,24 +1311,27 @@ class _RoutineDetailSheet extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Container(
-                        width: 28,
-                        height: 28,
-                        decoration: BoxDecoration(
-                          color: scheme.surfaceContainerHighest,
-                          shape: BoxShape.circle,
-                        ),
-                        child: Center(
-                          child: Text(
-                            '${i + 1}',
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w700,
-                              color: scheme.onSurfaceVariant,
+                      if (OwnBranch.exerciseById(id) case final ex?)
+                        ExerciseThumb(ex, size: 44)
+                      else
+                        Container(
+                          width: 28,
+                          height: 28,
+                          decoration: BoxDecoration(
+                            color: scheme.surfaceContainerHighest,
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: Text(
+                              '${i + 1}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                color: scheme.onSurfaceVariant,
+                              ),
                             ),
                           ),
                         ),
-                      ),
                       const SizedBox(width: 12),
                       Expanded(
                         child: Column(
@@ -1449,7 +1447,7 @@ class _ChallengeCard extends ConsumerWidget {
         color: scheme.tertiaryContainer,
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Column(
+      child: ThumbRow(exercise: next, size: 56, child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
@@ -1498,7 +1496,7 @@ class _ChallengeCard extends ConsumerWidget {
             ),
           ),
         ],
-      ),
+      )),
     );
   }
 }

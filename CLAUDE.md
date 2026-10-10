@@ -50,6 +50,8 @@ python3 tools/lottie/gen_flex.py  # Regenerate Flex Lottie animations (also gen_
 python3 tools/lottie/check_anim.py NAME ...   # Jump / loop-seam check of generated animations
 python3 tools/lottie/build_preview.py --preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning|yoga   # Page to watch generated animations
 python3 tools/lottie/frame_sheet.py build/sheet.html --count 8 FILE.json   # Still frames side by side (open via the lottie-sheets preview server)
+python3 tools/lottie/thumb_crops.py   # Re-crop the exercise thumbnails after adding or redrawing an animation (a test fails otherwise)
+python3 tools/characters/gen_goro.py  # Goro's fun poses (About) and his locked-achievement pose; gen_hosts.py / gen_skala.py for the hosts and Skala
 ```
 
 ## Code Style

@@ -2898,6 +2898,174 @@ class AppLocalizationsRu extends AppLocalizations {
       'Сними галочку, чтобы спрятать курс из списка сверху; он сохранится вместе с прогрессом.';
 
   @override
+  String get homePlanShow => 'Показать план';
+
+  @override
+  String get homePlanHide => 'Скрыть план';
+
+  @override
+  String homePlanReps(int sets, int reps) {
+    return '$sets × $reps';
+  }
+
+  @override
+  String homePlanSeconds(int sets, int secs) {
+    return '$sets × $secs с';
+  }
+
+  @override
+  String homePlanSecondsPerSide(int sets, int secs) {
+    return '$sets × $secs с на сторону';
+  }
+
+  @override
+  String get homeGoalsTitle => 'Ближайшие цели';
+
+  @override
+  String homeGoalRank(String rank, int sp) {
+    return 'До ранга «$rank» — $sp SP';
+  }
+
+  @override
+  String homeGoalDays(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ещё $count дня',
+      many: 'ещё $count дней',
+      few: 'ещё $count дня',
+      one: 'ещё $count день',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalWorkouts(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ещё $count тренировки',
+      many: 'ещё $count тренировок',
+      few: 'ещё $count тренировки',
+      one: 'ещё $count тренировка',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGoalChallenge(String branch) {
+    return 'Испытание открыто: $branch';
+  }
+
+  @override
+  String get homeHistoryAll => 'Все';
+
+  @override
+  String get homeGrowthTitle => 'Сегодня выросло';
+
+  @override
+  String get homeGrowthNone =>
+      'Сегодня ветки не сдвинулись: каждая растёт раз в день, после удачного подхода.';
+
+  @override
+  String homeGrowthReps(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to повтора',
+      many: '$to повторов',
+      few: '$to повтора',
+      one: '$to повтор',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthSeconds(int from, int to) {
+    return '$from → $to с';
+  }
+
+  @override
+  String homeGrowthSets(int from, int to) {
+    String _temp0 = intl.Intl.pluralLogic(
+      to,
+      locale: localeName,
+      other: '$to подхода',
+      many: '$to подходов',
+      few: '$to подхода',
+      one: '$to подход',
+    );
+    return '$from → $_temp0';
+  }
+
+  @override
+  String homeGrowthRest(int from, int to) {
+    return 'отдых $from → $to с';
+  }
+
+  @override
+  String get homeGrowthChallenge => 'открыто испытание';
+
+  @override
+  String homeGrowthStage(String exercise) {
+    return 'новый этап: $exercise';
+  }
+
+  @override
+  String homeLogToday(String time) {
+    return 'Сегодня, $time';
+  }
+
+  @override
+  String homeLogYesterday(String time) {
+    return 'Вчера, $time';
+  }
+
+  @override
+  String get homeHostHappy1 =>
+      'Сегодня отличный день, чтобы стать чуть сильнее.';
+
+  @override
+  String get homeHostHappy2 => 'Одна тренировка — и день засчитан.';
+
+  @override
+  String get homeHostHappy3 => 'Понемногу каждый день — так и растут ветки.';
+
+  @override
+  String get homeHostHappy4 => 'Разминка ждёт. Твоя очередь!';
+
+  @override
+  String get homeHostSad1 => 'Вечер, а тренировки ещё не было. Успеем?';
+
+  @override
+  String get homeHostSad2 =>
+      'Ещё не поздно: день засчитается, если начать сейчас.';
+
+  @override
+  String get homeHostAngry1 =>
+      'Серия под угрозой! Сегодня её ещё можно спасти.';
+
+  @override
+  String get homeHostAngry2 => 'До полуночи совсем немного. Спасём серию?';
+
+  @override
+  String get homeHostSupportive1 => 'С возвращением! Начнём с малого?';
+
+  @override
+  String get homeHostSupportive2 =>
+      'Перерыв — это нормально. Главное — вернуться.';
+
+  @override
+  String get homeHostSupportive3 =>
+      'Прогресс никуда не делся — продолжим с того же этапа.';
+
+  @override
+  String get homeHostSleeping1 => 'Ночь — время отдыхать. Утром продолжим.';
+
+  @override
+  String get homeHostSleeping2 => 'Сон — тоже часть тренировки.';
+
+  @override
   String get courseBuilderNameHint => 'Название курса';
 
   @override
@@ -3040,7 +3208,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get releaseNotes094 =>
-      'Свои курсы появились в списке курсов под +: сними галочку, чтобы спрятать курс из ряда сверху (он сохранится), карандаш открывает его для правки.\nСвой курс в ряду сверху отмечен значком с инструментами вместо лица ведущего.\nЕщё не полученное достижение ведущий теперь держит в руках: серая медаль с замочком.\n«О приложении»: нажми на Горо, у него есть несколько новых поз.';
+      'Свои курсы появились в списке курсов под +: сними галочку, чтобы спрятать курс из ряда сверху (он сохранится), карандаш открывает его для правки.\nСвой курс в ряду сверху отмечен значком с инструментами вместо лица ведущего.\nЕщё не полученное достижение ведущий теперь держит в руках: серая медаль с замочком.\n«О приложении»: нажми на Горо, у него есть несколько новых поз.\nГлавный экран: до первой тренировки дня ведущий говорит пару слов, а ниже — ближайшие цели (следующий ранг, ближайшее достижение, открытое испытание, которое можно начать прямо отсюда) и ветки курса.\nПосле тренировки на главном экране — последние тренировки и что сегодня выросло: повторы, подход, меньше отдыха, новый этап.\nСтрелка на кнопке тренировки раскрывает план дня, и Горо показывает каждое упражнение.\nАнимации Горо везде, где названо упражнение: путь ветки, вкладка «Курсы», конструкторы, сохранённые тренировки, история, отдых перед следующим упражнением.';
 
   @override
   String get releaseNotes093 =>

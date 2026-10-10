@@ -7,12 +7,14 @@ import '../../../core/extensions/exercise_l10n.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../data/models/custom_routine.dart';
 import '../../../data/models/enums.dart';
+import '../../../data/models/exercise.dart';
 import '../../../data/repositories/custom_routine_repository.dart';
 import '../../../data/static/exercise_catalog.dart';
 import '../../../data/static/exercise_tags_catalog.dart';
 import '../../../data/static/supplementary_exercise_catalog.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../workout/providers/workout_provider.dart';
+import '../widgets/exercise_thumb.dart';
 
 /// Screen for building a named custom routine.
 ///
@@ -390,9 +392,11 @@ class _ExerciseTile extends StatelessWidget {
           borderRadius: BorderRadius.circular(14),
           child: Padding(
             padding: const EdgeInsets.symmetric(
-                horizontal: 16, vertical: 12),
+                horizontal: 12, vertical: 10),
             child: Row(
               children: [
+                ExerciseThumb(item.exercise as Exercise, size: 44),
+                const SizedBox(width: 12),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,

@@ -50,6 +50,16 @@ class ProgressionService {
   }
 
   /// Whether [progress] has made its daily step on the calendar day of [day].
+  /// How far into its stage [progress] is, by reps (0..1; 1 without an
+  /// [exercise]): the bars of the Courses tab and Home.
+  static double stageFraction(Exercise? exercise, SkillProgress progress) {
+    if (exercise == null) return 1.0;
+    final range = exercise.targetReps - exercise.startReps;
+    return range <= 0
+        ? 1.0
+        : ((progress.currentReps - exercise.startReps) / range).clamp(0.0, 1.0);
+  }
+
   static bool hasProgressedOn(SkillProgress progress, DateTime day) {
     final last = progress.lastProgressedOn;
     return last != null && calendarDaysBetween(last, day) == 0;

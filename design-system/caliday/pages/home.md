@@ -2,7 +2,7 @@
 
 > **PROJECT:** CaliDay
 > **Screen:** Home (main tab, daily entry point)
-> **Last updated:** 2026-10-06
+> **Last updated:** 2026-10-10 (the middle and the folded plan, 0.9.4)
 >
 > Rules here **override** `design-system/caliday/MASTER.md`.
 > For anything not covered here, refer to MASTER.md.
@@ -32,12 +32,23 @@ The user opens it every day. It must:
          shadow: brandBlue.withAlpha(50–60)
 
 ┌────────────────────────────────┐
-│  [Done banner — if workout ✓]  │
-│  (spacer)                      │
-│  CTA Button (bottom)           │
-│  bottom padding: 32px          │
+│  MIDDLE (scrolls)              │
+│  before the 1st workout today: │
+│    host's line (bubble ↑ host) │
+│    [challenge card if open]    │
+│    Next goals (rank, nearest   │
+│      achievement)              │
+│    Branches (animation, stage) │
+│  after it:                     │
+│    Workout history (3, "All")  │
+│    Progress today (growth)     │
+├────────────────────────────────┤
+│  CTA Button  ─────────────│ ^ │  ← narrow arrow strip unfolds the plan upwards
+│  Custom workout button         │
 └────────────────────────────────┘
 ```
+
+**The middle** is the owner's pick (2026-10-10) among the options of DEV_NOTES § Next ideas 3: before the first workout of the day the host's line (a speech bubble with its tail pointing up at the host in the hero — never a second portrait of the host), an unlocked challenge (tertiary card, next stage's animation, norm, Skala, "Accept challenge"), the next goals and the course's branches; after it the last three workouts and how the branches grew today. No week row: the calendar is one tap on the streak chip. Cards have the shadow of BRAND.md. Details: ARCHITECTURE § Home: the middle and the plan.
 
 ---
 
@@ -91,18 +102,9 @@ padding: 14h × 10v
 
 ---
 
-## Done Banner (conditional)
+## Done Banner — removed in 0.9.4
 
-Shown only when `data.hasWorkoutToday == true`.
-
-```
-background: AppTheme.success.withAlpha(20)
-border: AppTheme.success.withAlpha(60), 1px
-borderRadius: 14
-icon: Icons.check_circle_rounded, color: AppTheme.success
-```
-
-Text: `l10n.homeWorkoutDone`
+The history and "Progress today" show that the workout is done; the host's happy face says it too.
 
 ---
 
@@ -131,6 +133,8 @@ height: 64
 
 Icon: fitness_center with a `+` badge (primary color circle, 14×14)
 Text: `l10n.homeWorkoutAgain`, 17sp, w700
+
+**The folded plan (both states):** a 52 px strip at the right end of the button, behind a 1 px divider (`fg` at alpha 70), with an up arrow that turns over when open. It unfolds the plan above the label inside the same button: a `surface` card with a row per exercise (44 px animation, name, amount). Always folded when Home opens and after a start; its height is bounded by the free space, the list scrolls.
 
 ---
 

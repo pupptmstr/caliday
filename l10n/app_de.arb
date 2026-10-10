@@ -1104,6 +1104,162 @@
   "courseBuilderEditButton": "Bearbeiten",
   "courseListOwnSection": "Eigene Kurse",
   "courseListOwnHint": "Entferne den Haken, um einen Kurs oben auszublenden; er bleibt samt Fortschritt erhalten.",
+  "homePlanShow": "Plan zeigen",
+  "homePlanHide": "Plan ausblenden",
+  "homePlanReps": "{sets} × {reps}",
+  "@homePlanReps": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "reps": {
+        "type": "int"
+      }
+    }
+  },
+  "homePlanSeconds": "{sets} × {secs} s",
+  "@homePlanSeconds": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "homePlanSecondsPerSide": "{sets} × {secs} s pro Seite",
+  "@homePlanSecondsPerSide": {
+    "placeholders": {
+      "sets": {
+        "type": "int"
+      },
+      "secs": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalsTitle": "Nächste Ziele",
+  "homeGoalRank": "Noch {sp} SP bis {rank}",
+  "@homeGoalRank": {
+    "placeholders": {
+      "rank": {
+        "type": "String"
+      },
+      "sp": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalDays": "{count, plural, one{noch {count} Tag} other{noch {count} Tage}}",
+  "@homeGoalDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalWorkouts": "{count, plural, one{noch {count} Training} other{noch {count} Trainings}}",
+  "@homeGoalWorkouts": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGoalChallenge": "Challenge freigeschaltet: {branch}",
+  "@homeGoalChallenge": {
+    "placeholders": {
+      "branch": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHistoryAll": "Alle",
+  "homeGrowthTitle": "Fortschritt heute",
+  "homeGrowthNone": "Heute ist kein Zweig gewachsen: Jeder wächst einmal am Tag, nach einem gelungenen Satz.",
+  "homeGrowthReps": "{from} → {to, plural, one{{to} Wiederholung} other{{to} Wiederholungen}}",
+  "@homeGrowthReps": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthSeconds": "{from} → {to} s",
+  "@homeGrowthSeconds": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthSets": "{from} → {to, plural, one{{to} Satz} other{{to} Sätze}}",
+  "@homeGrowthSets": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthRest": "Pause {from} → {to} s",
+  "@homeGrowthRest": {
+    "placeholders": {
+      "from": {
+        "type": "int"
+      },
+      "to": {
+        "type": "int"
+      }
+    }
+  },
+  "homeGrowthChallenge": "die Challenge ist frei",
+  "homeGrowthStage": "neue Stufe: {exercise}",
+  "@homeGrowthStage": {
+    "placeholders": {
+      "exercise": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogToday": "Heute, {time}",
+  "@homeLogToday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeLogYesterday": "Gestern, {time}",
+  "@homeLogYesterday": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "homeHostHappy1": "Heute ist ein guter Tag, um ein bisschen stärker zu werden.",
+  "homeHostHappy2": "Ein Training, und der Tag zählt.",
+  "homeHostHappy3": "Jeden Tag ein bisschen – so wachsen die Zweige.",
+  "homeHostHappy4": "Das Aufwärmen wartet. Du bist dran!",
+  "homeHostSad1": "Es ist Abend und noch kein Training. Schaffen wir das?",
+  "homeHostSad2": "Es ist nicht zu spät: Der Tag zählt, wenn du jetzt anfängst.",
+  "homeHostAngry1": "Deine Serie ist in Gefahr! Heute kannst du sie noch retten.",
+  "homeHostAngry2": "Bald ist Mitternacht. Retten wir die Serie?",
+  "homeHostSupportive1": "Schön, dass du wieder da bist! Fangen wir klein an?",
+  "homeHostSupportive2": "Eine Pause ist okay. Hauptsache, du kommst zurück.",
+  "homeHostSupportive3": "Dein Fortschritt ist noch da – weiter auf derselben Stufe.",
+  "homeHostSleeping1": "Die Nacht ist zum Ausruhen da. Morgen früh geht es weiter.",
+  "homeHostSleeping2": "Schlaf gehört auch zum Training.",
   "courseBuilderNameHint": "Name des Kurses",
   "courseBuilderNameRequired": "Gib dem Kurs einen Namen",
   "courseBuilderHostTitle": "Host",
@@ -1217,7 +1373,7 @@
   "hostMiso": "Miso",
   "whatsNewRecent": "Neueste Updates",
   "whatsNewHistory": "Versionsverlauf",
-  "releaseNotes094": "Deine eigenen Kurse stehen jetzt in der Kursliste unter +: Entferne den Haken, um einen Kurs oben auszublenden (er bleibt erhalten), der Stift öffnet ihn zum Bearbeiten.\nEin eigener Kurs trägt oben ein Werkzeug-Zeichen statt des Gesichts seines Hosts.\nEin Erfolg, der noch vor dir liegt: Sein Host hält ihn jetzt in den Händen, eine graue Medaille mit Schloss.\n„Über die App“: Tippe auf Goro, er hat ein paar neue Posen.",
+  "releaseNotes094": "Deine eigenen Kurse stehen jetzt in der Kursliste unter +: Entferne den Haken, um einen Kurs oben auszublenden (er bleibt erhalten), der Stift öffnet ihn zum Bearbeiten.\nEin eigener Kurs trägt oben ein Werkzeug-Zeichen statt des Gesichts seines Hosts.\nEin Erfolg, der noch vor dir liegt: Sein Host hält ihn jetzt in den Händen, eine graue Medaille mit Schloss.\n„Über die App“: Tippe auf Goro, er hat ein paar neue Posen.\nStartbildschirm: Vor dem ersten Training des Tages sagt dein Host ein paar Worte, darunter stehen deine nächsten Ziele (der nächste Rang, der nächste Erfolg, eine freie Challenge, die du direkt hier startest) und die Zweige des Kurses.\nDanach zeigt der Startbildschirm deine letzten Trainings und was heute gewachsen ist: mehr Wiederholungen, ein Satz, weniger Pause, eine neue Stufe.\nDer Pfeil am Trainingsknopf klappt den Plan des Tages auf, Goro zeigt jede Übung.\nGoros Animationen überall, wo eine Übung genannt wird: der Weg eines Zweigs, der Tab „Kurse“, die Baukästen, gespeicherte Trainings, der Verlauf, die Pause vor der nächsten Übung.",
   "releaseNotes093": "Dein eigener Kurs: Tippe im Tab „Kurse“ auf + und stell Zweige aus allen Kursen zusammen, wähle den Host und gib dem Kurs einen Namen.\nEin eigener Zweig: Wähle Übungen und bring sie in eine Reihenfolge, jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges legt die App fest, wie in jedem Zweig.\nUnter der Glocke stehen die neuesten Updates oben, darunter ist die ganze Geschichte von CaliDay Version für Version eingeklappt.",
   "releaseHistory01": "Die erste Version: kurze tägliche Trainings, SP-Punkte, Serien, Erinnerungen und eine Ersteinrichtung.\nFünf Skills: Liegestütze, Rumpf, Klimmzüge, Beine und Balance; das Training wechselt sie Tag für Tag ab.\nDer Weg eines Skills: alle Stufen auf einem Bildschirm und eine Challenge, um früher weiterzukommen.\nErfolge, zusätzliche Trainings am selben Tag und ein dunkles Design.\nRussisch und Englisch.\nGoro zeigt jede Liegestütz-Stufe in einer Animation.",
   "releaseHistory02": "Ton und Vibration während des Trainings.\nDer Trainingsverlauf.\nEin neuer Startbildschirm mit drei Tabs unten.\nSerienschutz: Ein verpasster Tag beendet die Serie nicht mehr.\nDer Bildschirm „Über die App“.",

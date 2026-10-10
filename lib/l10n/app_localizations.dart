@@ -4932,6 +4932,210 @@ abstract class AppLocalizations {
   /// **'Untick a course to hide it from the list at the top; it is kept with its progress.'**
   String get courseListOwnHint;
 
+  /// No description provided for @homePlanShow.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the plan'**
+  String get homePlanShow;
+
+  /// No description provided for @homePlanHide.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide the plan'**
+  String get homePlanHide;
+
+  /// No description provided for @homePlanReps.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets} × {reps}'**
+  String homePlanReps(int sets, int reps);
+
+  /// No description provided for @homePlanSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets} × {secs} s'**
+  String homePlanSeconds(int sets, int secs);
+
+  /// No description provided for @homePlanSecondsPerSide.
+  ///
+  /// In en, this message translates to:
+  /// **'{sets} × {secs} s each side'**
+  String homePlanSecondsPerSide(int sets, int secs);
+
+  /// No description provided for @homeGoalsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Next goals'**
+  String get homeGoalsTitle;
+
+  /// No description provided for @homeGoalRank.
+  ///
+  /// In en, this message translates to:
+  /// **'{sp} SP to {rank}'**
+  String homeGoalRank(String rank, int sp);
+
+  /// No description provided for @homeGoalDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} more day} other{{count} more days}}'**
+  String homeGoalDays(int count);
+
+  /// No description provided for @homeGoalWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} more workout} other{{count} more workouts}}'**
+  String homeGoalWorkouts(int count);
+
+  /// No description provided for @homeGoalChallenge.
+  ///
+  /// In en, this message translates to:
+  /// **'Challenge unlocked: {branch}'**
+  String homeGoalChallenge(String branch);
+
+  /// No description provided for @homeHistoryAll.
+  ///
+  /// In en, this message translates to:
+  /// **'See all'**
+  String get homeHistoryAll;
+
+  /// No description provided for @homeGrowthTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress today'**
+  String get homeGrowthTitle;
+
+  /// No description provided for @homeGrowthNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No branch moved on today: each grows once a day, after a successful set.'**
+  String get homeGrowthNone;
+
+  /// No description provided for @homeGrowthReps.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to, plural, one{{to} rep} other{{to} reps}}'**
+  String homeGrowthReps(int from, int to);
+
+  /// No description provided for @homeGrowthSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to} s'**
+  String homeGrowthSeconds(int from, int to);
+
+  /// No description provided for @homeGrowthSets.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to, plural, one{{to} set} other{{to} sets}}'**
+  String homeGrowthSets(int from, int to);
+
+  /// No description provided for @homeGrowthRest.
+  ///
+  /// In en, this message translates to:
+  /// **'rest {from} → {to} s'**
+  String homeGrowthRest(int from, int to);
+
+  /// No description provided for @homeGrowthChallenge.
+  ///
+  /// In en, this message translates to:
+  /// **'the challenge is open'**
+  String get homeGrowthChallenge;
+
+  /// No description provided for @homeGrowthStage.
+  ///
+  /// In en, this message translates to:
+  /// **'new stage: {exercise}'**
+  String homeGrowthStage(String exercise);
+
+  /// No description provided for @homeLogToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today, {time}'**
+  String homeLogToday(String time);
+
+  /// No description provided for @homeLogYesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday, {time}'**
+  String homeLogYesterday(String time);
+
+  /// No description provided for @homeHostHappy1.
+  ///
+  /// In en, this message translates to:
+  /// **'Today is a good day to get a little stronger.'**
+  String get homeHostHappy1;
+
+  /// No description provided for @homeHostHappy2.
+  ///
+  /// In en, this message translates to:
+  /// **'One workout and today counts.'**
+  String get homeHostHappy2;
+
+  /// No description provided for @homeHostHappy3.
+  ///
+  /// In en, this message translates to:
+  /// **'A little every day is how the branches grow.'**
+  String get homeHostHappy3;
+
+  /// No description provided for @homeHostHappy4.
+  ///
+  /// In en, this message translates to:
+  /// **'The warm-up is waiting. Your turn!'**
+  String get homeHostHappy4;
+
+  /// No description provided for @homeHostSad1.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s evening and no workout yet. Shall we?'**
+  String get homeHostSad1;
+
+  /// No description provided for @homeHostSad2.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s not too late: today counts if you start now.'**
+  String get homeHostSad2;
+
+  /// No description provided for @homeHostAngry1.
+  ///
+  /// In en, this message translates to:
+  /// **'Your streak is at risk! You can still save it today.'**
+  String get homeHostAngry1;
+
+  /// No description provided for @homeHostAngry2.
+  ///
+  /// In en, this message translates to:
+  /// **'Midnight is close. Shall we save the streak?'**
+  String get homeHostAngry2;
+
+  /// No description provided for @homeHostSupportive1.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back! Shall we start small?'**
+  String get homeHostSupportive1;
+
+  /// No description provided for @homeHostSupportive2.
+  ///
+  /// In en, this message translates to:
+  /// **'A break is fine. What matters is coming back.'**
+  String get homeHostSupportive2;
+
+  /// No description provided for @homeHostSupportive3.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress is right where you left it.'**
+  String get homeHostSupportive3;
+
+  /// No description provided for @homeHostSleeping1.
+  ///
+  /// In en, this message translates to:
+  /// **'Night is for resting. We\'ll go on in the morning.'**
+  String get homeHostSleeping1;
+
+  /// No description provided for @homeHostSleeping2.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep is part of training too.'**
+  String get homeHostSleeping2;
+
   /// No description provided for @courseBuilderNameHint.
   ///
   /// In en, this message translates to:
@@ -5162,7 +5366,7 @@ abstract class AppLocalizations {
   /// No description provided for @releaseNotes094.
   ///
   /// In en, this message translates to:
-  /// **'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.'**
+  /// **'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you, and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today\'s plan, with Goro showing every exercise.\nGoro\'s animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.'**
   String get releaseNotes094;
 
   /// No description provided for @releaseNotes093.
