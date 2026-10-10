@@ -51,11 +51,12 @@ every stage, amount and challenge norm is in [ARCHITECTURE § Exercise Catalog](
 ## Features
 
 - **Smooth progression:** reps ↑ → sets ↑ → rest ↓ → a Challenge (judged by Skala the bull) → the next stage; each branch moves on once a day, in any workout
-- **Daily workout generation:** the branches take turns day by day; the size is Short, Standard or Full, and the Home button shows an honest time estimate that learns your pace
+- **Daily workout generation:** the branches take turns day by day; the size is Short, Standard or Full, and the Home button shows an honest time estimate that learns your pace; an arrow on the button unfolds the day's plan
+- **Home screen:** before the first workout of the day the host's line, an open challenge to start right there, the next goals (SP to the next rank, the nearest achievement) and the course's branches; after it the latest workouts and what grew today (reps, a set, less rest, a new stage)
 - **Hands-free workouts:** timed holds start after a get-ready countdown (pause if you need more time), holds on one side run on both with a switch-sides countdown, sounds and vibration for every phase
-- **Course builder:** put a course together from any built-in branches, or make a branch of your own — pick exercises, put them in order, and the app sets the reps, sets, rests and challenges
-- **Goro's animations for every exercise** — 126 Lottie files, most of them generated in-house with `tools/lottie`
-- **Course hosts:** each course has its host with six moods on Home and in the Profile, cheering on the summary and presenting the course's achievements
+- **Course builder:** put a course together from any built-in branches, or make a branch of your own — pick exercises, put them in order, and the app sets the reps, sets, rests and challenges; own courses can be hidden from the course list without deleting them
+- **Goro's animations for every exercise** — 126 Lottie files, most of them generated in-house with `tools/lottie`, shown wherever an exercise is named (cropped to the figure in small thumbnails)
+- **Course hosts:** each course has its host with six moods on Home and in the Profile, speaking in its own voice (four lines per mood, a new one on every visit or tap), cheering on the summary and holding the course's achievements — a grey medal with a padlock while one is still ahead; Goro has a few fun poses on About (tap him)
 - **Gamification:** Strength Points, streaks and freezes, ranks with a display-only decay after long breaks, 41 achievements, bonus workouts
 - **History:** a workout calendar with a heatmap, tappable streak / SP / rank stats
 - **Exercise library** with search in every language and tag filters; **custom routines** (a quick one by focus, or saved ones)
@@ -107,7 +108,7 @@ test/                          # 1000+ tests: services, catalog integrity, Hive 
 assets/animations/             # Lottie exercise animations (126 files)
 assets/goro, assets/skala, assets/hosts   # Mascot, judge and course hosts (SVG)
 tools/lottie/                  # Animation rigs and generators (gen_*.py per branch or course), checks, preview stands
-tools/characters/              # Generators of Skala and the course hosts
+tools/characters/              # Generators of Goro's poses, Skala and the course hosts
 web/                           # Web shell (index.html, manifest, icons); deployed by .github/workflows/web.yml
 .github/workflows/             # web.yml (Pages deploy), ci.yml (l10n, analyze, test, Android debug build on push / PR), release.yml (release builds, disabled)
 ```
@@ -167,8 +168,8 @@ A rank that is not trained for 21 days is *shown* one tier lower (further tiers 
 
 - **0.1 – 0.7 ✅** (numbered 1.x until April 2026): the first branches and gamification, sound, widget, Health, Friends, courses, the exercise library, custom routines
 - **0.8 ✅:** calendar and interactive stats, rank decay, the web version, animations for the exercises of the first courses, the get-ready countdown and holds on each side, workout sizes with a learned estimate, German and Spanish, Evening Stretch and the course hosts
-- **0.9 ✅:** Morning Routine, Yoga, an animation for every exercise, the course builder, "What's new" with the whole history
-- **Next ideas:** many more exercises and branches outside the courses; sounds redone for every action of a workout; a fuller Home screen (today's plan, today so far, the week); richer native widgets; exercise animations wherever an exercise is named — see [DEV_NOTES § Next ideas](internal_docs/DEV_NOTES.md#next-ideas-owner-2026-10-10--not-ordered-yet-the-owner-picks)
+- **0.9 ✅:** Morning Routine, Yoga, an animation for every exercise, the course builder, "What's new" with the whole history; 0.9.4 (in review): a fuller Home with the plan in the workout button, animations wherever an exercise is named, the hosts' own voices
+- **Next ideas:** many more exercises and branches outside the courses; sounds redone for every action of a workout; richer native widgets; the project's notes reworked into a clearer structure — see DEV_NOTES § Next ideas
 - **v1.0:** the first store release — Friends tested on real phones, store accounts, proofread German and Spanish
 - **Later:** "Support the author" (in-app tips)
 

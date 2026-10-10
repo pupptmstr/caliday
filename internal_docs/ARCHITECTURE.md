@@ -1079,6 +1079,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | — | Sounds redone from scratch: a cue for every action of a workout, generated in-house by a script | 📐 idea with a cue list (owner, 2026-10-10) — DEV_NOTES § Next ideas 2 |
 | — | Home: fill the empty field between the host and the buttons (today's plan, today so far, the week…) | ✅ 0.9.4 — the owner's pick: host's line + challenge + next goals + branches before the first workout, history + today's growth after it, the plan folded into the button (§ Home: the middle and the plan) |
 | — | Native home-screen widgets redone: more information, more sizes (large, iOS lock screen) | 💡 idea (owner, 2026-10-10) — DEV_NOTES § Next ideas 4 |
+| — | The project's notes reworked: ARCHITECTURE, DEV_NOTES and README are too long and mixed to read comfortably; redesign them together with the owner into a clearer structure | 💡 idea (owner, 2026-10-10) — DEV_NOTES § Next ideas 6 |
 | v1.x | More branches, also outside any course (to be picked in the builder), many more exercises | 📐 next, on a branch of its own (owner, 2026-10-09): 3–4 branches, ~20 exercises with animations — DEV_NOTES § Roadmap 3 |
 | v1.0 | Custom course builder — (a) a course from existing branches, (b) a branch of one's own: own exercises in order, progression through them (owner's plan, 3rd) | ✅ 0.9.3 — § Courses (own courses), § CustomStages |
 | v1.0 | "What's new" with the whole history: the 6 newest versions in full, every minor line from 0.1 in its main points, folded | ✅ 0.9.3 — § What's new |

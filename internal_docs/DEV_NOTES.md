@@ -14,7 +14,7 @@ A living document. Contains current status, active feature specs in progress, an
 - Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
 - Store accounts (Apple Developer Program, Google Play Console): the release CI is drafted but disabled until they exist ("Release builds (CI)" below).
 
-The owner's plan for the **big features after that** (2026-10-07), in their order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap. The configurator is in (0.9.3); the many more exercises come on a branch of their own next (owner, 2026-10-09). Further ideas of 2026-10-10 (sounds, the Home middle, native widgets, animations everywhere): Active Specs § Next ideas.
+The owner's plan for the **big features after that** (2026-10-07), in their order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap. The configurator is in (0.9.3); the many more exercises come on a branch of their own next (owner, 2026-10-09). Further ideas of 2026-10-10 (sounds, native widgets, the project's notes reworked; the Home middle and animations everywhere are done in 0.9.4): Active Specs § Next ideas.
 
 | Layer | Status |
 |-------|--------|
@@ -49,7 +49,7 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 
 ## Active Specs (ideas in progress)
 
-### Next ideas (owner, 2026-10-10) — not ordered yet, the owner picks
+### Next ideas (owner, 2026-10-10) — not ordered yet, the owner picks (3 and 5 done in 0.9.4; 6 added the same day)
 
 Recorded on the owner's request after the course builder (0.9.3). None is started; the open items from before stay where they are (backlog in ARCHITECTURE; below in this section: release CI, held-back dependencies, Friends on real phones, "Support the author", the parked Telegram idea, the Lottie status) — see "Still open from before" at the end.
 
@@ -125,6 +125,19 @@ Built together with idea 3: `ExerciseThumb`, cropped to the figure (`tools/lotti
 **Technical details.** One shared `ExerciseThumb(exercise, size)` widget: a still frame in lists (many Lottie players in a scrolling list cost frames), playing for the item in focus or on a tap; the placeholder icon where an exercise has no animation (none today); a tap anywhere opens the existing exercise sheet. Lottie compositions are cached by the package (check `Lottie.asset` caching and `animate: false` / a fixed frame with Context7). A test that every place uses it is not needed; check the UI in the web build.
 
 **When to tackle:** after the new exercises (their animations then show everywhere at once) or together with idea 3 (the plan on Home needs the thumbnails anyway).
+
+#### 6. The project's notes reworked — idea (owner, 2026-10-10)
+**Concept.** The project's knowledge lives in two very large files and the README: `internal_docs/ARCHITECTURE.md` (~1100 lines: stack, structure, models and Hive fields, the whole exercise catalog, services, navigation, design, Lottie tooling, testing, the backlog) and `internal_docs/DEV_NOTES.md` (~2300 lines: status, active specs, parked research, and ~1800 lines of change history in 100+ session entries), plus `README.md`. The owner finds them hard to read and wants to **sit down together** and redesign the system into something more logical, correct and comfortable to read. Not started; this records the wish, the design is done with the owner.
+
+**What a redesign has to keep (found 2026-10-10):**
+- The readers: the owner (what the app does, what changed, what is next), Claude at the start of every session (CLAUDE.md says "read ARCHITECTURE at session start" — today that is ~1100 lines of context), and the skills `implement-feature`, `pre-commit`, `document-idea`, which write into named sections.
+- Links into the files: `CLAUDE.md`, the three skills, `BRAND.md`, `pages/home.md`, `.github/workflows/release.yml`, `test/data/enums_test.dart`, many "ARCHITECTURE § …" mentions in the notes themselves and the README; anchors that GitHub builds from headings.
+- `docs/` is the GitHub Pages site (privacy policy, terms) — not for internal notes.
+- Rules that live only in these files (the Hive typeIds and fields that must never change, the no-duration rule, the session-branch workflow…) must stay easy to find.
+
+**Directions to discuss (nothing decided):** a `internal_docs/` folder by topic with a short index (overview, data model and Hive, catalog, services, UI and design, tooling, testing, decisions); a changelog by version (one entry per merged branch, like "What's new") instead of one per session; one file per active idea or spec, moved to an archive when done; decisions as short records (why it is so); a much shorter "read first" file for session start; the README for people outside the project only.
+
+**When to tackle:** a session of its own with the owner, when they pick it; any time.
 
 #### Still open from before (not lost)
 - v1.0 blockers only the owner can clear: Friends on two real phones (checklist below), the HealthKit capability and the widget App Group in Xcode, store accounts (release CI drafted and disabled), native proofreading of German and Spanish and the store listings.
@@ -466,6 +479,12 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-10 — The notes rework recorded as an idea; README brought up to 0.9.4
+
+**What was done:** The owner finds the project's notes (ARCHITECTURE ~1100 lines, DEV_NOTES ~2300 lines, README) hard to read and wants to redesign them together later: recorded as Next ideas 6 with what a redesign must keep (readers, links into the files from CLAUDE.md, the skills, BRAND, the release workflow and a test) and directions to discuss, and as a backlog row. README: the Home screen, the plan in the workout button, animations wherever an exercise is named, the hosts' voices and locked-achievement pose, Goro's poses, hiding own courses; the roadmap and next ideas updated.
+
+**Modified files:** `internal_docs/DEV_NOTES.md`, `internal_docs/ARCHITECTURE.md`, `README.md`
 
 ### 2026-10-10 — Each host speaks in its own voice, four lines per mood (0.9.4)
 
