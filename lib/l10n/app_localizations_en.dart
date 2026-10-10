@@ -3023,47 +3023,104 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get homeHostHappy1 => 'Today is a good day to get a little stronger.';
+  String get hostLinesGoroHappy =>
+      'Today is a good day to get a little stronger.\nOne workout and today counts.\nA little every day is how the branches grow.\nI\'ve warmed up already. Your turn!';
 
   @override
-  String get homeHostHappy2 => 'One workout and today counts.';
+  String get hostLinesGoroSad =>
+      'It\'s evening and no workout yet. Shall we?\nIt\'s not too late: today counts if you start now.\nI\'ve been waiting all day. A few sets before bed?\nEven one set is better than none.';
 
   @override
-  String get homeHostHappy3 => 'A little every day is how the branches grow.';
+  String get hostLinesGoroAngry =>
+      'Your streak is at risk! You can still save it today.\nMidnight is close. Shall we save the streak?\nWe didn\'t build this streak to lose it now!\nLast chance today. I\'m right here — shall we?';
 
   @override
-  String get homeHostHappy4 => 'The warm-up is waiting. Your turn!';
+  String get hostLinesGoroSupportive =>
+      'Welcome back! Shall we start small?\nA break is fine. What matters is coming back.\nYour progress is right where you left it.\nI kept your branches safe. Ready?';
 
   @override
-  String get homeHostSad1 => 'It\'s evening and no workout yet. Shall we?';
+  String get hostLinesGoroSleeping =>
+      'Night is for resting. We\'ll go on in the morning.\nSleep is part of training too.\nMuscles grow while you sleep. Good night!\nZzz… Goro is asleep. Time for you too.';
 
   @override
-  String get homeHostSad2 =>
-      'It\'s not too late: today counts if you start now.';
+  String get hostLinesRaffiHappy =>
+      'Stand tall! A straight back makes a smoother day.\nYour neck will thank you today.\nI look down on everyone, but only to check their posture.\nA couple of exercises and your shoulders open up.';
 
   @override
-  String get homeHostAngry1 =>
-      'Your streak is at risk! You can still save it today.';
+  String get hostLinesRaffiSad =>
+      'At a desk all day? Time to stretch.\nEvening is a great time to loosen your neck.\nI\'ve been craning my neck looking for you. Shall we?\nYour back is tired from the day; let it rest in motion.';
 
   @override
-  String get homeHostAngry2 => 'Midnight is close. Shall we save the streak?';
+  String get hostLinesRaffiAngry =>
+      'Your streak is at risk! Straighten up and go.\nAlmost midnight, and the streak hangs by a thread. Save it?\nI keep my head up high; keeping the streak is up to you!\nThere\'s still time to save the streak. Shall we?';
 
   @override
-  String get homeHostSupportive1 => 'Welcome back! Shall we start small?';
+  String get hostLinesRaffiSupportive =>
+      'Welcome back! Your posture missed you.\nA break is no trouble. Shall we start with the neck?\nYour progress is safe, I kept an eye on it.\nComing back is what counts. We\'ll straighten out the rest.';
 
   @override
-  String get homeHostSupportive2 =>
-      'A break is fine. What matters is coming back.';
+  String get hostLinesRaffiSleeping =>
+      'Giraffes sleep standing up. You\'d better lie down.\nNight. A lower pillow is kinder to your neck.\nSleep straightens you out as well as exercise. More in the morning.\nShh… Good night.';
 
   @override
-  String get homeHostSupportive3 => 'Your progress is right where you left it.';
+  String get hostLinesLunaHappy =>
+      'Stretching is the best way to end a day.\nI usually sleep in the daytime, but I woke up for you.\nSlow and calm: stretching doesn\'t like a rush.\nTonight your body will thank you for the stretch.';
 
   @override
-  String get homeHostSleeping1 =>
-      'Night is for resting. We\'ll go on in the morning.';
+  String get hostLinesLunaSad =>
+      'Evening is my favourite time. Shall we stretch?\nJust the time to let go of the day.\nThe lights are low, the mat is waiting.\nA little stretching and you\'ll sleep better.';
 
   @override
-  String get homeHostSleeping2 => 'Sleep is part of training too.';
+  String get hostLinesLunaAngry =>
+      'Hoo! Your streak is at risk, and night is coming.\nOwls never hurry, but now it\'s worth it.\nMidnight is close. Shall we save the streak together?\nThe last stretch of the day is still waiting for you.';
+
+  @override
+  String get hostLinesLunaSupportive =>
+      'Welcome back. Let\'s start gently.\nA break is rest too. Now let\'s stretch.\nI waited for you. Your progress is safe.\nTake your time: your body remembers.';
+
+  @override
+  String get hostLinesLunaSleeping =>
+      'Owls don\'t sleep at night. But you should.\nI\'ll keep watch over your streak; you sleep.\nThe night is for owls; for you, sleep.\nGood night. Your body will thank you in the morning.';
+
+  @override
+  String get hostLinesAuroraHappy =>
+      'Morning or not, a little routine is always welcome.\nLet\'s loosen up and the day will go brighter.\nI\'ve already sung three songs. Your turn to move!\nA morning routine is the best alarm clock.';
+
+  @override
+  String get hostLinesAuroraSad =>
+      'The morning\'s gone, but a routine works in the evening too.\nI\'ve been singing since dawn. Shall we move at least now?\nIt\'s not too late: today still counts.\nA little movement chases the evening tiredness away.';
+
+  @override
+  String get hostLinesAuroraAngry =>
+      'Your streak is in danger! Quick, time to move!\nMidnight is close. Shall we save the streak?\nTweet-tweet, alarm: your streak is at risk!\nLast chance today. I believe in you!';
+
+  @override
+  String get hostLinesAuroraSupportive =>
+      'Welcome back! A new morning, a new start.\nA break is fine. Shall we start with the joints?\nI kept your progress safe. Shall we go on?\nEvery morning is a reason to come back.';
+
+  @override
+  String get hostLinesAuroraSleeping =>
+      'Larks go to bed early. Time for you too.\nSleep, and we\'ll greet the sunrise together.\nI don\'t sing at night. Rest.\nI\'ll wake you with a song. Good night!';
+
+  @override
+  String get hostLinesMisoHappy =>
+      'Stretch like a cat and the day gets softer.\nPurr. The mat is already rolled out.\nBreathe deeper, move slower.\nYoga is just a long cat stretch.';
+
+  @override
+  String get hostLinesMisoSad =>
+      'Evening is time for a calm practice.\nI\'ve curled up on the mat and I\'m waiting for you.\nA little yoga and the evening gets quieter.\nThere\'s still time for a few poses before bed.';
+
+  @override
+  String get hostLinesMisoAngry =>
+      'Fur on end: your streak is at risk!\nEven cats get up for what matters. Save the streak?\nMidnight is close. One practice and the streak is safe.\nMeow! Last chance for today.';
+
+  @override
+  String get hostLinesMisoSupportive =>
+      'Welcome back. No rush, cat-style.\nA break is a practice of calm too.\nYour progress is right here, I kept it warm.\nLet\'s start simple: breathe in, breathe out, stretch.';
+
+  @override
+  String get hostLinesMisoSleeping =>
+      'Cats sleep sixteen hours a day. Eight will do for you.\nPurrr… good night.\nSleep is the best pose. More in the morning.\nCurl up and rest.';
 
   @override
   String get courseBuilderNameHint => 'Course name';
@@ -3230,7 +3287,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseNotes094 =>
-      'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you, and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today\'s plan, with Goro showing every exercise.\nGoro\'s animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.';
+      'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you (each host its own, a new one every time you open the app or tap it), and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today\'s plan, with Goro showing every exercise.\nGoro\'s animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.';
 
   @override
   String get releaseNotes093 =>

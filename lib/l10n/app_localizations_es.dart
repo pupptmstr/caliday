@@ -3034,51 +3034,104 @@ class AppLocalizationsEs extends AppLocalizations {
   }
 
   @override
-  String get homeHostHappy1 =>
-      'Hoy es un buen día para ser un poco más fuerte.';
+  String get hostLinesGoroHappy =>
+      'Hoy es un buen día para ser un poco más fuerte.\nUn entrenamiento y el día cuenta.\nUn poco cada día: así crecen las ramas.\nYo ya he calentado. ¡Tu turno!';
 
   @override
-  String get homeHostHappy2 => 'Un entrenamiento y el día cuenta.';
+  String get hostLinesGoroSad =>
+      'Ya cae la tarde y aún no has entrenado. ¿Vamos?\nAún no es tarde: el día cuenta si empiezas ahora.\nTe he esperado todo el día. ¿Unas series antes de dormir?\nIncluso una serie es mejor que nada.';
 
   @override
-  String get homeHostHappy3 => 'Un poco cada día: así crecen las ramas.';
+  String get hostLinesGoroAngry =>
+      '¡Tu racha está en peligro! Hoy aún puedes salvarla.\nFalta poco para medianoche. ¿Salvamos la racha?\n¡No construimos esta racha para perderla ahora!\nÚltima oportunidad de hoy. Estoy aquí, ¿empezamos?';
 
   @override
-  String get homeHostHappy4 => 'El calentamiento te espera. ¡Tu turno!';
+  String get hostLinesGoroSupportive =>
+      '¡Qué bien verte de nuevo! ¿Empezamos poco a poco?\nUna pausa está bien. Lo importante es volver.\nTu progreso sigue ahí: seguimos desde la misma etapa.\nHe cuidado tus ramas. ¿Vamos?';
 
   @override
-  String get homeHostSad1 => 'Ya cae la tarde y aún no has entrenado. ¿Vamos?';
+  String get hostLinesGoroSleeping =>
+      'La noche es para descansar. Seguimos por la mañana.\nDormir también es parte del entrenamiento.\nLos músculos crecen mientras duermes. ¡Buenas noches!\nZzz… Goro duerme. A ti también te toca.';
 
   @override
-  String get homeHostSad2 =>
-      'Aún no es tarde: el día cuenta si empiezas ahora.';
+  String get hostLinesRaffiHappy =>
+      '¡Endereza la espalda! Con la espalda recta, el día va mejor.\nTu cuello te lo agradecerá hoy mismo.\nMiro a todos desde arriba, pero solo para revisar su postura.\nUn par de ejercicios y los hombros se abren solos.';
 
   @override
-  String get homeHostAngry1 =>
-      '¡Tu racha está en peligro! Hoy aún puedes salvarla.';
+  String get hostLinesRaffiSad =>
+      '¿Todo el día en el escritorio? Es hora de estirarse.\nLa tarde es un buen momento para soltar el cuello.\nHe estirado el cuello buscándote. ¿Empezamos?\nTu espalda está cansada del día: déjala descansar en movimiento.';
 
   @override
-  String get homeHostAngry2 =>
-      'Falta poco para medianoche. ¿Salvamos la racha?';
+  String get hostLinesRaffiAngry =>
+      '¡Tu racha está en peligro! Endereza la espalda y adelante.\nCasi medianoche y la racha pende de un hilo. ¿La salvamos?\nYo mantengo la cabeza alta; mantener la racha te toca a ti.\nAún hay tiempo para salvar la racha. ¿Empezamos?';
 
   @override
-  String get homeHostSupportive1 =>
-      '¡Qué bien verte de nuevo! ¿Empezamos poco a poco?';
+  String get hostLinesRaffiSupportive =>
+      '¡Qué bien verte de nuevo! Tu postura te echaba de menos.\nUna pausa no es problema. ¿Empezamos por el cuello?\nTu progreso está a salvo, lo he vigilado.\nLo importante es volver. Lo demás lo enderezamos.';
 
   @override
-  String get homeHostSupportive2 =>
-      'Una pausa está bien. Lo importante es volver.';
+  String get hostLinesRaffiSleeping =>
+      'Las jirafas duermen de pie. Tú mejor acuéstate.\nEs de noche. Una almohada más baja cuida tu cuello.\nDormir endereza tanto como el ejercicio. Seguimos por la mañana.\nShh… Buenas noches.';
 
   @override
-  String get homeHostSupportive3 =>
-      'Tu progreso sigue ahí: seguimos desde la misma etapa.';
+  String get hostLinesLunaHappy =>
+      'Estirar es la mejor manera de terminar el día.\nDe día suelo dormir, pero me he despertado por ti.\nDespacio y con calma: el estiramiento no quiere prisas.\nEsta noche tu cuerpo te agradecerá el estiramiento.';
 
   @override
-  String get homeHostSleeping1 =>
-      'La noche es para descansar. Seguimos por la mañana.';
+  String get hostLinesLunaSad =>
+      'La tarde es mi momento favorito. ¿Estiramos?\nJusto el momento de soltar la tensión del día.\nLa luz está tenue, la esterilla te espera.\nUn poco de estiramiento y dormirás mejor.';
 
   @override
-  String get homeHostSleeping2 => 'Dormir también es parte del entrenamiento.';
+  String get hostLinesLunaAngry =>
+      '¡Uh! Tu racha está en peligro y la noche se acerca.\nLos búhos nunca tienen prisa, pero ahora merece la pena.\nFalta poco para medianoche. ¿Salvamos la racha?\nEl último estiramiento del día aún te espera.';
+
+  @override
+  String get hostLinesLunaSupportive =>
+      'Qué bien verte de nuevo. Empecemos con suavidad.\nUna pausa también es descanso. Ahora, a estirar.\nTe he esperado. Tu progreso sigue ahí.\nSin prisa: tu cuerpo lo recuerda todo.';
+
+  @override
+  String get hostLinesLunaSleeping =>
+      'Los búhos no duermen de noche. Tú sí deberías.\nYo vigilo tu racha; tú duerme.\nLa noche es para los búhos; para ti, el sueño.\nBuenas noches. Por la mañana tu cuerpo te lo agradecerá.';
+
+  @override
+  String get hostLinesAuroraHappy =>
+      'Mañana o no, un poco de movimiento siempre viene bien.\nMovámonos y el día irá con más energía.\nYa he cantado tres canciones. ¡Te toca moverte!\nLa rutina matutina es el mejor despertador.';
+
+  @override
+  String get hostLinesAuroraSad =>
+      'La mañana ya pasó, pero la rutina también sirve por la tarde.\nLlevo cantando desde el amanecer. ¿Nos movemos al menos ahora?\nAún no es tarde: el día todavía cuenta.\nUn poco de movimiento ahuyenta el cansancio de la tarde.';
+
+  @override
+  String get hostLinesAuroraAngry =>
+      '¡Tu racha está en peligro! ¡Rápido, a moverse!\nFalta poco para medianoche. ¿Salvamos la racha?\n¡Pío-pío, alarma: tu racha está en peligro!\nÚltima oportunidad de hoy. ¡Creo en ti!';
+
+  @override
+  String get hostLinesAuroraSupportive =>
+      '¡Qué bien verte de nuevo! Nueva mañana, nuevo comienzo.\nUna pausa está bien. ¿Empezamos por las articulaciones?\nHe cuidado tu progreso. ¿Seguimos?\nCada mañana es un motivo para volver.';
+
+  @override
+  String get hostLinesAuroraSleeping =>
+      'Las alondras se acuestan temprano. Tú también deberías.\nDuerme: mañana saludamos el amanecer.\nDe noche no canto. Descansa.\nPor la mañana te despierto con una canción. ¡Buenas noches!';
+
+  @override
+  String get hostLinesMisoHappy =>
+      'Estírate como un gato y el día será más suave.\nRrr. La esterilla ya está extendida.\nRespira más hondo, muévete más despacio.\nEl yoga es solo un largo estiramiento gatuno.';
+
+  @override
+  String get hostLinesMisoSad =>
+      'La tarde es para una práctica tranquila.\nMe he hecho un ovillo en la esterilla y te espero.\nUn poco de yoga y la tarde se vuelve más tranquila.\nAún da tiempo para unas posturas antes de dormir.';
+
+  @override
+  String get hostLinesMisoAngry =>
+      'Con el pelo erizado: ¡tu racha está en peligro!\nHasta los gatos se levantan por lo importante. ¿Salvamos la racha?\nFalta poco para medianoche. Una práctica y la racha sigue viva.\n¡Miau! Última oportunidad de hoy.';
+
+  @override
+  String get hostLinesMisoSupportive =>
+      'Qué bien verte de nuevo. Sin prisa, al estilo gato.\nUna pausa también es una práctica de calma.\nTu progreso sigue aquí, lo he mantenido calentito.\nEmpecemos simple: inspira, espira, estírate.';
+
+  @override
+  String get hostLinesMisoSleeping =>
+      'Los gatos duermen dieciséis horas al día. A ti te bastan ocho.\nRrrr… buenas noches.\nDormir es la mejor postura. Seguimos por la mañana.\nHazte un ovillo y descansa.';
 
   @override
   String get courseBuilderNameHint => 'Nombre del curso';
@@ -3239,7 +3292,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseNotes094 =>
-      'Tus cursos ya están en la lista de cursos bajo +: desmarca uno para ocultarlo de la fila de arriba (se guarda), el lápiz lo abre para editarlo.\nUn curso propio lleva arriba una marca de herramientas en vez de la cara de su anfitrión.\nUn logro aún pendiente: su anfitrión ahora lo sostiene, una medalla gris con candado.\n«Acerca de»: toca a Goro, tiene algunas poses nuevas.\nPantalla principal: antes del primer entrenamiento del día tu anfitrión te dice unas palabras, y debajo están tus próximas metas (el siguiente rango, el logro más cercano, un reto abierto que puedes empezar ahí mismo) y las ramas del curso.\nDespués, la pantalla principal muestra tus últimos entrenamientos y lo que ha crecido hoy: más repeticiones, una serie, menos descanso, una etapa nueva.\nLa flecha del botón de entrenamiento despliega el plan del día, con Goro mostrando cada ejercicio.\nLas animaciones de Goro dondequiera que se nombra un ejercicio: el camino de una rama, la pestaña Cursos, los constructores, los entrenamientos guardados, el historial, el descanso antes del siguiente ejercicio.';
+      'Tus cursos ya están en la lista de cursos bajo +: desmarca uno para ocultarlo de la fila de arriba (se guarda), el lápiz lo abre para editarlo.\nUn curso propio lleva arriba una marca de herramientas en vez de la cara de su anfitrión.\nUn logro aún pendiente: su anfitrión ahora lo sostiene, una medalla gris con candado.\n«Acerca de»: toca a Goro, tiene algunas poses nuevas.\nPantalla principal: antes del primer entrenamiento del día tu anfitrión te dice unas palabras (cada uno las suyas, nuevas cada vez que abres la app o las tocas), y debajo están tus próximas metas (el siguiente rango, el logro más cercano, un reto abierto que puedes empezar ahí mismo) y las ramas del curso.\nDespués, la pantalla principal muestra tus últimos entrenamientos y lo que ha crecido hoy: más repeticiones, una serie, menos descanso, una etapa nueva.\nLa flecha del botón de entrenamiento despliega el plan del día, con Goro mostrando cada ejercicio.\nLas animaciones de Goro dondequiera que se nombra un ejercicio: el camino de una rama, la pestaña Cursos, los constructores, los entrenamientos guardados, el historial, el descanso antes del siguiente ejercicio.';
 
   @override
   String get releaseNotes093 =>

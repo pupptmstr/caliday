@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:caliday/data/models/branch_growth.dart';
 import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/models/workout_log.dart';
@@ -84,15 +86,20 @@ void main() {
     expect(HomeDigest.growthOn(logs, DateTime(2026, 10, 8)), isEmpty);
   });
 
-  test('the host keeps a line all day and says the next one tomorrow, across DST', () {
-    for (final (a, b) in [
-      (DateTime(2026, 10, 24, 0, 5), DateTime(2026, 10, 24, 23, 55)),
-      (DateTime(2026, 10, 25, 0, 5), DateTime(2026, 10, 25, 23, 55)),
-      (DateTime(2026, 3, 29, 0, 5), DateTime(2026, 3, 29, 23, 55)),
-    ]) {
-      expect(HomeDigest.lineIndex(a, 4), HomeDigest.lineIndex(b, 4));
+  test('the next line is never the one just shown, and every line comes up', () {
+    final random = Random(3);
+    var previous = HomeDigest.nextLine(4, null, random);
+    final seen = {previous};
+    for (var i = 0; i < 200; i++) {
+      final next = HomeDigest.nextLine(4, previous, random);
+      expect(next, isNot(previous));
+      expect(next, inInclusiveRange(0, 3));
+      seen.add(next);
+      previous = next;
     }
-    final today = HomeDigest.lineIndex(DateTime(2026, 10, 25, 12), 4);
-    expect(HomeDigest.lineIndex(DateTime(2026, 10, 26, 12), 4), (today + 1) % 4);
+    expect(seen, {0, 1, 2, 3});
+    expect(HomeDigest.nextLine(1, 0, random), 0);
+    expect(HomeDigest.nextLine(4, 9, random), inInclusiveRange(0, 3),
+        reason: 'a stale index (fewer lines now) is ignored');
   });
 }

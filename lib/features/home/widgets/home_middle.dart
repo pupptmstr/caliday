@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -39,7 +41,7 @@ class HomeBeforeWorkout extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        HostLineCard(line: HostLineCard.lineFor(context.l10n, expression, now)),
+HostLineCard(host: data.activeCourse.host, mood: expression),
         const SizedBox(height: 20),
         _NextGoals(data: data),
         const SizedBox(height: 20),
@@ -89,66 +91,146 @@ class HomeAfterWorkout extends ConsumerWidget {
 
 // ── The host's line ───────────────────────────────────────────────────────────
 
-/// What the active course's host (in the hero zone above) says, for its
-/// mood: the same line all day, another one tomorrow ([HomeDigest.lineIndex]).
-class HostLineCard extends StatelessWidget {
-  const HostLineCard({super.key, required this.line});
+/// What the active course's host (in the hero zone above) says, in its own
+/// voice and for its mood: four lines each (`hostLines<Host><Mood>`, one per
+/// line of the ARB text). Another one each time Home is built anew or the app
+/// comes back, and on a tap; never the same twice in a row.
+class HostLineCard extends StatefulWidget {
+  const HostLineCard({super.key, required this.host, required this.mood});
 
-  final String line;
+  final CourseId host;
+  final GoroExpression mood;
 
-  static String lineFor(AppLocalizations l, GoroExpression mood, DateTime now) {
-    final lines = switch (mood) {
-      GoroExpression.sad => [l.homeHostSad1, l.homeHostSad2],
-      GoroExpression.angry => [l.homeHostAngry1, l.homeHostAngry2],
-      GoroExpression.supportive => [
-        l.homeHostSupportive1,
-        l.homeHostSupportive2,
-        l.homeHostSupportive3,
-      ],
-      GoroExpression.sleeping => [l.homeHostSleeping1, l.homeHostSleeping2],
-      GoroExpression.happy || GoroExpression.excited => [
-        l.homeHostHappy1,
-        l.homeHostHappy2,
-        l.homeHostHappy3,
-        l.homeHostHappy4,
-      ],
+  static List<String> linesFor(
+      AppLocalizations l, CourseId host, GoroExpression mood) {
+    final (happy, sad, angry, supportive, sleeping) = switch (host) {
+      CourseId.calisthenics => (
+          l.hostLinesGoroHappy,
+          l.hostLinesGoroSad,
+          l.hostLinesGoroAngry,
+          l.hostLinesGoroSupportive,
+          l.hostLinesGoroSleeping,
+        ),
+      CourseId.healthyBody => (
+          l.hostLinesRaffiHappy,
+          l.hostLinesRaffiSad,
+          l.hostLinesRaffiAngry,
+          l.hostLinesRaffiSupportive,
+          l.hostLinesRaffiSleeping,
+        ),
+      CourseId.eveningStretch => (
+          l.hostLinesLunaHappy,
+          l.hostLinesLunaSad,
+          l.hostLinesLunaAngry,
+          l.hostLinesLunaSupportive,
+          l.hostLinesLunaSleeping,
+        ),
+      CourseId.morningRoutine => (
+          l.hostLinesAuroraHappy,
+          l.hostLinesAuroraSad,
+          l.hostLinesAuroraAngry,
+          l.hostLinesAuroraSupportive,
+          l.hostLinesAuroraSleeping,
+        ),
+      CourseId.yoga => (
+          l.hostLinesMisoHappy,
+          l.hostLinesMisoSad,
+          l.hostLinesMisoAngry,
+          l.hostLinesMisoSupportive,
+          l.hostLinesMisoSleeping,
+        ),
     };
-    return lines[HomeDigest.lineIndex(now, lines.length)];
+    final text = switch (mood) {
+      GoroExpression.sad => sad,
+      GoroExpression.angry => angry,
+      GoroExpression.supportive => supportive,
+      GoroExpression.sleeping => sleeping,
+      GoroExpression.happy || GoroExpression.excited => happy,
+    };
+    return text.split('\n');
+  }
+
+  @override
+  State<HostLineCard> createState() => _HostLineCardState();
+}
+
+class _HostLineCardState extends State<HostLineCard>
+    with WidgetsBindingObserver {
+  static final _random = Random();
+
+  /// The line last shown per host and mood in this run, so that the next
+  /// visit says another one.
+  static final Map<String, int> _last = {};
+
+  int? _index;
+
+  String get _key => '${widget.host.name}/${widget.mood.name}';
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
+  @override
+  void didUpdateWidget(HostLineCard old) {
+    super.didUpdateWidget(old);
+    if (old.host != widget.host || old.mood != widget.mood) _index = null;
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) setState(() => _index = null);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final scheme = Theme.of(context).colorScheme;
     final isDark = Theme.of(context).brightness == Brightness.dark;
+    final lines =
+        HostLineCard.linesFor(context.l10n, widget.host, widget.mood);
+    if (_index == null || _index! >= lines.length) {
+      _index = HomeDigest.nextLine(lines.length, _last[_key], _random);
+      _last[_key] = _index!;
+    }
     // A speech bubble whose tail points up at the host in the hero zone
     // (a portrait of its own here would repeat the big one above).
-    return Column(
-      children: [
-        CustomPaint(
-          size: const Size(22, 10),
-          painter: _BubbleTail(scheme.surfaceContainerHighest),
-        ),
-        Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-          decoration: BoxDecoration(
-            color: scheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(18),
-            boxShadow: isDark
-                ? AppTheme.cardShadowDark
-                : AppTheme.cardShadowLight,
+    return GestureDetector(
+      onTap: () => setState(() => _index = null),
+      child: Column(
+        children: [
+          CustomPaint(
+            size: const Size(22, 10),
+            painter: _BubbleTail(scheme.surfaceContainerHighest),
           ),
-          child: Text(
-            line,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              height: 1.3,
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            decoration: BoxDecoration(
+              color: scheme.surfaceContainerHighest,
+              borderRadius: BorderRadius.circular(18),
+              boxShadow:
+                  isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
+            ),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 250),
+              child: Text(
+                lines[_index!],
+                key: ValueKey(lines[_index!]),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontSize: 15, fontWeight: FontWeight.w600, height: 1.3),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

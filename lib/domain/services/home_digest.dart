@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import '../../core/utils/calendar_days.dart';
 import '../../data/models/branch_growth.dart';
 import '../../data/models/enums.dart';
@@ -64,10 +66,17 @@ abstract final class HomeDigest {
     return [for (final l in ofDay) ...?l.growth];
   }
 
-  /// Which of [count] lines the host says on [now]'s day: the same all day,
-  /// the next one the day after.
-  static int lineIndex(DateTime now, int count) =>
-      calendarDaysBetween(DateTime(2026), now) % count;
+  /// Which of [count] lines the host says next: any but [previous], so a
+  /// line never comes twice in a row (owner: one line hanging on the screen
+  /// gets annoying).
+  static int nextLine(int count, int? previous, Random random) {
+    if (count <= 1) return 0;
+    if (previous == null || previous < 0 || previous >= count) {
+      return random.nextInt(count);
+    }
+    final i = random.nextInt(count - 1);
+    return i >= previous ? i + 1 : i;
+  }
 }
 
 enum GoalUnit { days, workouts }
