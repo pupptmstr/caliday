@@ -15,10 +15,8 @@ void main() {
           l10n.exerciseLibraryCount(n),
           l10n.rankDecayWarning(n),
           l10n.notificationStreakLostBody(n),
-          l10n.profileFriendsCount(n),
           l10n.customWorkoutExerciseCount(n),
           l10n.summaryBonusCount(n),
-          l10n.friendsScanConfirmBody(500, n),
           l10n.homeChallengeNormReps(n),
           l10n.workoutAmountReps(n),
           l10n.historyDetailReps(0, n),
@@ -82,26 +80,19 @@ void main() {
   group('Russian counted nouns', () {
     final ru = AppLocalizationsRu();
 
-    test('friends, exercises, times, a friend\'s streak', () {
-      const friends = {1: '1 друг', 2: '2 друга', 5: '5 друзей', 11: '11 друзей', 21: '21 друг'};
-      friends.forEach((n, t) => expect(ru.profileFriendsCount(n), t, reason: '$n'));
+    test('exercises, times', () {
       const exercises = {1: '1 упражнение', 3: '3 упражнения', 5: '5 упражнений', 21: '21 упражнение'};
       exercises.forEach((n, t) => expect(ru.customWorkoutExerciseCount(n), t, reason: '$n'));
       expect(ru.summaryBonusCount(2), contains('2 раза'));
       expect(ru.summaryBonusCount(5), contains('5 раз!'));
       expect(ru.summaryBonusCount(22), contains('22 раза'));
-      expect(ru.friendsScanConfirmBody(500, 1), endsWith('стрик 1 день'));
-      expect(ru.friendsScanConfirmBody(500, 3), endsWith('стрик 3 дня'));
-      expect(ru.friendsScanConfirmBody(500, 12), endsWith('стрик 12 дней'));
     });
   });
 
   group('English counted nouns: one is singular', () {
     final en = AppLocalizationsEn();
 
-    test('friends, exercises, times', () {
-      expect(en.profileFriendsCount(1), '1 friend');
-      expect(en.profileFriendsCount(4), '4 friends');
+    test('exercises, times', () {
       expect(en.customWorkoutExerciseCount(1), '1 exercise');
       expect(en.customWorkoutExerciseCount(6), '6 exercises');
       expect(en.summaryBonusCount(1), contains('1 time today'));

@@ -102,4 +102,15 @@ void main() {
     expect(HomeDigest.nextLine(4, 9, random), inInclusiveRange(0, 3),
         reason: 'a stale index (fewer lines now) is ignored');
   });
+
+  test('the part of the day of each hour', () {
+    final parts = [for (var h = 0; h < 24; h++) HomeDigest.dayPartOf(h)];
+    expect(parts, [
+      for (var h = 0; h < 5; h++) DayPart.night,
+      for (var h = 5; h < 12; h++) DayPart.morning,
+      for (var h = 12; h < 18; h++) DayPart.day,
+      for (var h = 18; h < 23; h++) DayPart.evening,
+      DayPart.night,
+    ]);
+  });
 }

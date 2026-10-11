@@ -102,7 +102,7 @@ class _BranchBuilderScreenState extends ConsumerState<BranchBuilderScreen> {
       title: l10n.branchBuilderDelete,
       body: l10n.branchBuilderDeleteConfirm(branch.name),
       confirm: l10n.customWorkoutDelete,
-      cancel: l10n.friendsCancel,
+      cancel: l10n.commonCancel,
     );
     if (!ok) return;
     await ref.read(customBranchesProvider.notifier).delete(branch.id);

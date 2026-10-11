@@ -7,7 +7,7 @@ String? redirect(String uri, {required bool done}) =>
 void main() {
   group('before onboarding is done', () {
     test('every screen leads to the onboarding', () {
-      for (final path in ['/home', '/library', '/profile', '/workout', '/friends', '/settings']) {
+      for (final path in ['/home', '/library', '/profile', '/workout', '/settings']) {
         expect(redirect(path, done: false), '/onboarding', reason: path);
       }
     });
@@ -27,7 +27,7 @@ void main() {
     test('ordinary screens are left alone', () {
       for (final path in [
         '/home', '/library', '/library/exercises', '/profile', '/workout',
-        '/summary', '/branch/push', '/friends', '/settings', '/about',
+        '/summary', '/branch/push', '/settings', '/about',
       ]) {
         expect(redirect(path, done: true), isNull, reason: path);
       }
@@ -42,10 +42,10 @@ void main() {
       expect(redirect('caliday://workout', done: true), '/workout');
     });
 
-    test('a friend QR code opened by the system camera opens the friends screen', () {
-      // Not the workout: scanning a code must not start a training session.
-      expect(redirect('caliday://friend?d=AqGyw9TlYGGCKTpLbG1-kA', done: true), '/friends');
-      expect(redirect('caliday://friend?data=eyJ2IjoxfQ==', done: true), '/friends');
+    test('an old friend QR code opened by the system camera opens Home', () {
+      // Friends are gone (0.9.5); scanning a code must not start a workout.
+      expect(redirect('caliday://friend?d=AqGyw9TlYGGCKTpLbG1-kA', done: true), '/home');
+      expect(redirect('caliday://friend?data=eyJ2IjoxfQ==', done: true), '/home');
     });
 
     test('any other CaliDay link opens the workout as before', () {

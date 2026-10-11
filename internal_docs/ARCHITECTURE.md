@@ -32,10 +32,6 @@ calisthenics (handstand push-ups) through short daily sets of 5–15 minutes.
 | Home screen widget | `home_widget: ^0.9.1` |
 | Deep links | `app_links: ^7.0.0` |
 | Health | `health: ^13.3.1` |
-| QR generation | `qr_flutter: ^4.1.0` |
-| QR scanning | `mobile_scanner: ^7.2.0` |
-| BLE Central | `flutter_blue_plus: ">=2.2.1 <2.3.0"` (scan + GATT client; `License.free` required on `connect()`). Held below 2.3 on purpose: from 2.3.5 its Android build sends the package name, app name and version to the author's server (a "license ping", FlutterBluePlus License § 1.4) — the owner decides (DEV_NOTES § Dependencies held back) |
-| BLE Peripheral | `ble_peripheral: ^2.4.0` (advertising + GATT server) |
 | Target platforms | iOS (primary), Android (secondary), Web (PWA on GitHub Pages — see § Web Build). No desktop: the `linux/`, `windows/` and `macos/` folders were an untouched `flutter create` template and were removed (2026-10-07); `flutter create --platforms=… .` brings them back |
 
 ---
@@ -56,8 +52,7 @@ lib/
 │   │   ├── notification_service.dart  ← NotificationService singleton: hands what NotificationPlanner decided to the plugin (no-op on web)
 │   │   ├── sound_service.dart         ← SoundService singleton
 │   │   ├── health_service.dart        ← HealthService singleton (plugin calls only; the energy / weight logic is WorkoutEnergy)
-│   │   ├── widget_service.dart        ← WidgetService singleton (`texts(rank, locale)`: every text the native widgets show, from the ARB files through `l10nFor`)
-│   │   └── ble_service.dart           ← BleService singleton (Central: scan + GATT read; Peripheral: advertising + GATT server; the bytes are BleProfileCodec)
+│   │   └── widget_service.dart        ← WidgetService singleton (`texts(rank, locale)`: every text the native widgets show, from the ARB files through `l10nFor`)
 │   ├── providers/
 │   │   ├── locale_provider.dart       ← LocaleNotifier (NotifierProvider<LocaleNotifier, String>)
 │   │   ├── theme_provider.dart        ← ThemeNotifier (system / light / dark)
@@ -78,9 +73,6 @@ lib/
 │   │   ├── skill_progress.dart + .g.dart
 │   │   ├── user_profile.dart + .g.dart
 │   │   ├── workout_log.dart + .g.dart
-│   │   ├── friend_profile.dart + .g.dart
-│   │   ├── friend_qr_codec.dart       ← FriendQrCodec: the compact binary QR format (v2) + the old JSON one (v1)
-│   │   ├── ble_profile_codec.dart     ← BleProfileCodec: profile JSON <-> the GATT characteristic bytes
 │   │   ├── custom_routine.dart + .g.dart
 │   │   ├── custom_branch.dart + .g.dart ← CustomBranch: the user's own branch (exercise ids in order)
 │   │   ├── custom_course.dart + .g.dart ← CustomCourse: the user's own course (branch keys, host)
@@ -90,9 +82,9 @@ lib/
 │   │   ├── skill_progress_repository.dart
 │   │   ├── workout_repository.dart
 │   │   ├── achievement_repository.dart
-│   │   ├── friend_repository.dart     ← Box<FriendProfile> 'friends', keyed by friend.id
 │   │   ├── custom_routine_repository.dart ← CustomRoutineRepository + CustomRoutinesNotifier + customRoutinesProvider
 │   │   └── custom_course_repository.dart ← own branches and courses: repositories + customBranchesProvider / customCoursesProvider
+│   ├── retired_boxes.dart             ← deleteRetiredBoxes(): the boxes of removed features (`friends`), deleted at start-up
 │   └── static/
 │       ├── exercise_catalog.dart      ← Push(7)+Pull(6)+Core(6)+Legs(5)+Balance(6)+Flex(6)+Posture(6)+Neck(5) + warmup/cooldown; `libraryAll` getter
 │       ├── supplementary_exercise_catalog.dart ← 9 supplementary exercises (bonus workouts, custom routines)
@@ -163,12 +155,6 @@ lib/
     │       ├── settings_screen.dart
     │       ├── about_screen.dart          ← /about
     │       └── developer_options_screen.dart ← kDebugMode only
-    ├── friends/
-    │   ├── providers/friends_provider.dart  ← FriendsNotifier, friendsCountProvider
-    │   ├── screens/
-    │   │   ├── friends_screen.dart          ← /friends: QR, BLE nearby, list
-    │   │   └── qr_scan_screen.dart          ← Navigator.push modal (not go_router)
-    │   └── widgets/friend_detail_bottom_sheet.dart
     └── onboarding/
         ├── providers/onboarding_provider.dart ← OnboardingState + calibration + profile creation
         ├── screens/onboarding_screen.dart
@@ -192,7 +178,7 @@ CaliDay supports multiple **courses** (like Duolingo). Each course has its own b
 - `CourseId.morningRoutine` → morningSpine, morningJoints, morningArms, morningEnergy (0.9.0; every pose standing, no jumps; the bonus workout keeps the supplementary block)
 - `CourseId.yoga` → yogaStanding, yogaOneLeg, yogaBackbends, yogaFlow, **balance** (0.9.1; Balance is the Calisthenics branch itself, one progress for both — courses may share exercises and branches, owner 2026-10-08)
 
-**Own courses (0.9.3, the course builder; owner's plan, 3rd big feature).** The user puts a course together in the Courses tab ("+" → "Create your own course"): a name, a host (one of the five; the art is that course's, `CustomCourse.hostIndex`) and branches — built-in ones, whose progress stays shared with their courses, and **own branches**: catalog exercises (`OwnBranch.pickable`: the library, warm-ups, cool-downs, the supplementary pool) in the user's order, each a stage, the amounts and the challenge norms derived by `CustomStages` (§ CustomStages). `CourseId` and `BranchId` are Hive enums and cannot hold them, so the app runs on runtime types beside them: `Branch` (`BuiltInBranch(BranchId)` | `OwnBranch(CustomBranch)`, `domain/models/branch.dart`) and `Course` (`BuiltInCourse(CourseId)` | `OwnCourse(CustomCourse, own branches)`), both equal by `key` — a built-in one's enum name, an own one's `custom_<id>` (`CustomBranch.keyFor`; no `BranchId` name starts with `custom_`). The generator, the progression, the Courses tab, the Branch Journey and the challenge take a `Branch`; Home, Profile and the summary show `Course.host`; `Course.builtIn` is null for an own course (achievement hosts follow the built-in courses). An own course: `addsSupplementary` true, branches needing the bar are left out without one (`branchesFor(hasPullUpBar:)`, like built-in ones), a deleted own branch drops out of it. Own branches have no achievements of their own (`AchievementService.checkAfterOwnStageAdvance`: only `first_challenge`), are not in the onboarding and not shared with friends. Its warm-up and cool-downs are those of the built-in branch of the current stage's exercise (`OwnBranch.warmupAt` / `cooldownsAt`); a warm-up or cool-down that is itself a stage of the plan is not added twice. Editing an own branch keeps the user on their exercise (`CustomStages.remap`); deleting it removes it from every own course with its progress; deleting a course keeps its branches.
+**Own courses (0.9.3, the course builder; owner's plan, 3rd big feature).** The user puts a course together in the Courses tab ("+" → "Create your own course"): a name, a host (one of the five; the art is that course's, `CustomCourse.hostIndex`) and branches — built-in ones, whose progress stays shared with their courses, and **own branches**: catalog exercises (`OwnBranch.pickable`: the library, warm-ups, cool-downs, the supplementary pool) in the user's order, each a stage, the amounts and the challenge norms derived by `CustomStages` (§ CustomStages). `CourseId` and `BranchId` are Hive enums and cannot hold them, so the app runs on runtime types beside them: `Branch` (`BuiltInBranch(BranchId)` | `OwnBranch(CustomBranch)`, `domain/models/branch.dart`) and `Course` (`BuiltInCourse(CourseId)` | `OwnCourse(CustomCourse, own branches)`), both equal by `key` — a built-in one's enum name, an own one's `custom_<id>` (`CustomBranch.keyFor`; no `BranchId` name starts with `custom_`). The generator, the progression, the Courses tab, the Branch Journey and the challenge take a `Branch`; Home, Profile and the summary show `Course.host`; `Course.builtIn` is null for an own course (achievement hosts follow the built-in courses). An own course: `addsSupplementary` true, branches needing the bar are left out without one (`branchesFor(hasPullUpBar:)`, like built-in ones), a deleted own branch drops out of it. Own branches have no achievements of their own (`AchievementService.checkAfterOwnStageAdvance`: only `first_challenge`), and are not in the onboarding. Its warm-up and cool-downs are those of the built-in branch of the current stage's exercise (`OwnBranch.warmupAt` / `cooldownsAt`); a warm-up or cool-down that is itself a stage of the plan is not added twice. Editing an own branch keeps the user on their exercise (`CustomStages.remap`); deleting it removes it from every own course with its progress; deleting a course keeps its branches.
 
 **Progression is global per branch:** `SkillProgress` keys are `branch.name` only (e.g. `"push"`), and `custom_<id>` for an own branch (`SkillProgress.branchKey`; `branchId` is null there, `customBranchId` set). Branches are physical skills — progress is shared across all courses containing that branch.
 **Streak and SP are global.** Enrolled courses are `UserProfile.activeCourseIds`, the one shown now is `activeCourseIndex` (read through the `enrolledCourses` / `activeCourse` getters); while an own course is shown, `activeCustomCourseId` names it (cleared when a built-in one is picked; a stale id falls back to the built-in course).
@@ -241,7 +227,7 @@ Determined in `_finishWorkout`: `isPrimary = !workoutRepo.hasPrimaryWorkoutToday
 
 ### Home: the middle and the plan (0.9.4, owner 2026-10-10)
 The hero zone (host, streak, SP, rank) is unchanged. Below it a scrollable middle and two buttons:
-- **Before the first workout of the day** (`HomeBeforeWorkout`): the host's line (a speech bubble whose tail points up at the host in the hero — no second portrait, owner): **each host speaks in its own voice, four lines per mood** (owner: one line hanging on the screen gets annoying; different for different hosts) — `hostLines<Host><Mood>` in the ARB files, one line per text line (`HostLineCard.linesFor`), moods happy / sad / angry / supportive / sleeping; another line each time Home is built anew, when the app comes back and on a tap of the bubble, never the same twice in a row (`HomeDigest.nextLine`, the last one per host and mood kept for the run); a test checks four lines per host and mood in every language, none repeated within a host, ≤ 80 characters; an unlocked challenge as a card with the next stage's animation, its norm, Skala and "Accept challenge" (starts it like the Courses tab); "Next goals" — SP to the next rank with a bar (`HomeDigest.nextRank`) and the nearest streak or workout-count achievement (`nearestAchievement`, "3 more days"); the course's branches with the current stage's animation, stage x/y and the stage bar (`ProgressionService.stageFraction`, shared with the Courses tab). A host may speak of itself in its own gender (Luna and Aurora are she, Goro, Raffi and Miso he); the user is never gendered in any language.
+- **Before the first workout of the day** (`HomeBeforeWorkout`): the host's line (a speech bubble whose tail points up at the host in the hero — no second portrait, owner), and above it, when the user gave a name, a greeting by the part of the day (0.9.5: "Good morning, Anna!" / "Hi" / "Good evening" / "Still up?" — `HomeDigest.dayPartOf(hour)`: morning 5–11, day 12–17, evening 18–22, night 23–4; `HostLineCard.greetingFor`, `greeting<Part>` in the ARB files): **each host speaks in its own voice, four lines per mood** (owner: one line hanging on the screen gets annoying; different for different hosts) — `hostLines<Host><Mood>` in the ARB files, one line per text line (`HostLineCard.linesFor`), moods happy / sad / angry / supportive / sleeping; another line each time Home is built anew, when the app comes back and on a tap of the bubble, never the same twice in a row (`HomeDigest.nextLine`, the last one per host and mood kept for the run); a test checks four lines per host and mood in every language, none repeated within a host, ≤ 80 characters; an unlocked challenge as a card with the next stage's animation, its norm, Skala and "Accept challenge" (starts it like the Courses tab); "Next goals" — SP to the next rank with a bar (`HomeDigest.nextRank`) and the nearest streak or workout-count achievement (`nearestAchievement`, "3 more days"); the course's branches with the current stage's animation, stage x/y and the stage bar (`ProgressionService.stageFraction`, shared with the Courses tab). A host may speak of itself in its own gender (Luna and Aurora are she, Goro, Raffi and Miso he); the user is never gendered in any language.
 - **After it** (`HomeAfterWorkout`): the last three workouts (`WorkoutLogTile(compact: true)`: "Today, 08:40", no tags) with "See all" (the history sheet of the SP chip), then "Progress today" — `HomeDigest.growthOn(today)` from `WorkoutLog.growth`: "Push 10 → 12 reps", "2 → 3 sets", "rest 60 → 45 s", "the challenge is open", "new stage: …". Logs from before 0.9.4 have no growth.
 - **The workout button** (`WorkoutPlanButton`): a narrow arrow strip at its right end (52 px, owner: "not half the button") unfolds the plan that will run (`todayPlanProvider`) above the label, each exercise with its animation, the amount ("3 × 12", "2 × 30 s each side") and a tap to its sheet; always folded when Home opens and after a start (owner); its height is bounded by the free space (`LayoutBuilder`, the list scrolls). The done state ("Again") folds the bonus plan the same way. The old "Workout done" banner is gone (history and growth say it).
 
@@ -263,7 +249,7 @@ The hero zone (host, streak, SP, rank) is unchanged. Below it a scrollable middl
 | 6 | `ExerciseType` (enum) |
 | 7 | `Rank` (enum) |
 | 8 | `FitnessGoal` (enum) |
-| 9 | `FriendProfile` |
+| 9 | retired: `FriendProfile` (Friends, removed in 0.9.5) — never reuse |
 | 10 | `CourseId` (enum) |
 | 11 | `CustomRoutine` |
 | 12 | `CustomBranch` |
@@ -278,13 +264,13 @@ The hero zone (host, streak, SP, rank) is unchanged. Below it a scrollable middl
 | @14 | String? | themeModeName (null=system, 'light', 'dark') |
 | @15 | bool? | hasPullUpBar |
 | @16 | — | reserved, unused |
-| @17 | String? | peerId (v1.4 Friends) |
-| @18 | String? | displayName (v1.4 Friends) |
+| @17 | — | retired: peerId (Friends, removed in 0.9.5) — never reuse; older profiles still hold it, the adapter skips it |
+| @18 | String? | displayName — the user's name (onboarding step 1, Settings → Profile): the host's greeting on Home, the Profile header, the summary title; null / empty = none |
 | @19 | bool? | soundEnabled (null → true) |
 | @20 | bool? | hapticEnabled (null → true) |
 | @21 | bool? | healthWorkoutsEnabled |
 | @22 | bool? | healthWeightEnabled |
-| @23 | bool? | bleDiscoverable (v1.4 Friends) |
+| @23 | — | retired: bleDiscoverable (Friends, removed in 0.9.5) — never reuse |
 | @24 | List<int>? | activeCourseIds — CourseId indices; null → [0] (calisthenics) |
 | @25 | int? | activeCourseIndex — index into activeCourseIds; null → 0 |
 | @26 | String? | lastSeenReleaseVersion — the newest "What's new" version the user has opened; null → none yet (every entry is new). A new user starts at the current version (set by `completeOnboarding`) |
@@ -342,29 +328,15 @@ Not `key`: that getter is `HiveObject`'s own (the box key), hence `SkillProgress
 | @9 | int? | estimatedDurationSec — the raw `WorkoutPlan.estimatedDurationSec` when the workout started (never the pace-corrected figure); null on logs from before it was recorded and on the debug screen's fake logs. Compared with `durationSec` to learn the pace |
 | @10 | List\<BranchGrowth\>? | growth — how each branch moved on in this workout (0.9.4; null before): `WorkoutProgression.growth` compares each touched branch before and after. `BranchGrowth` (typeId 14): @0 branchKey, @1/@2 stage, @3/@4 amount (reps or seconds), @5/@6 sets, @7/@8 restSec (from / to), @9 challengeUnlocked; `kind` = the one step taken (amount, sets, rest, challenge, stage — a branch moves once a day, a challenge passed is a stage) |
 
-### FriendProfile HiveFields
-
-| Field | Type | Description |
-|-------|------|-------------|
-| @0 | String | id — random hex peer ID |
-| @1 | String | displayName |
-| @2 | int | totalSP |
-| @3 | int | currentStreak |
-| @4 | int | longestStreak |
-| @5 | int | rankIndex (index into Rank.values) |
-| @6 | Map<String,int> | branchStages — no longer filled or shown (branch progress is not shared since 0.8.19); kept for the Hive layout |
-| @7 | DateTime | profileDate — when snapshot was taken on friend's device |
-| @8 | DateTime | lastSynced — when we last received an update |
-
 ### Hive boxes
 - `'user_profile'` — `Box<UserProfile>` (single record, key `'profile'`)
 - `'skill_progress'` — `Box<SkillProgress>` (key = `branch.name`, e.g. `'push'`)
 - `'workout_log'` — `Box<WorkoutLog>`
 - `'achievements'` — `Box<DateTime>` (key = achievementId, value = when it was earned)
-- `'friends'` — `Box<FriendProfile>` (key = friend.id)
 - `'custom_routines'` — `Box<CustomRoutine>` (key = routine.id)
 - `'custom_branches'` — `Box<CustomBranch>` (key = branch.id)
 - `'custom_courses'` — `Box<CustomCourse>` (key = course.id)
+- Retired: `'friends'` (FriendProfile, until 0.9.5) — `deleteRetiredBoxes()` (`data/retired_boxes.dart`) deletes it at start-up, not awaited (on the web, deleting an IndexedDB database that an open tab of an older build holds waits until that tab closes); the name is never used again
 
 ### Exercise Model
 `Exercise` is a static `const` model, **not stored in Hive**.
@@ -613,32 +585,6 @@ otherwise                          → 0
 - `checkAfterStageAdvance({branch, newStage, allProgress, alreadyEarned})` → `List<String>` newly earned ids (`first_challenge`, per-branch milestones, `<branch>_complete`, secret `all_complete`)
 - Pure: `alreadyEarned` is updated in place, persistence is the caller's job. Every id it can return must exist in `AchievementCatalog` (the achievements screen looks them up); a test enforces that in both directions.
 
-### BleService (singleton)
-- `startDiscovery()` — 30s BLE scan filtered by service UUID `ca11da00-...-0001`; updates `nearbyStream`
-- `stopDiscovery()` — stops scan
-- `nearbyStream` — `Stream<List<NearbyDevice>>` broadcast
-- `readProfileJson(NearbyDevice)` — GATT client read of characteristic `ca11da00-...-0002`; returns decoded `Map<String,dynamic>` or null if remote has no GATT server
-- `startAdvertising(profileJson, displayName)` — initializes `BlePeripheral`, registers GATT service + READ characteristic serving profile JSON bytes, starts BLE advertising with `displayName` as local name
-- `stopAdvertising()` — stops advertising and clears GATT services
-
-**Import note:** `ble_peripheral` exports a class `BleService` — import the package with prefix `blep` to avoid name collision with our `BleService` singleton.
-
-### FriendsNotifier (Notifier)
-- `addOrUpdate(FriendProfile)` → `bool` (true = new friend)
-- `remove(String id)`
-- Provider: `friendsProvider` (`NotifierProvider<FriendsNotifier, List<FriendProfile>>`)
-- `friendsCountProvider` — derived `Provider<int>` for Profile screen badge
-
-### QR Profile Exchange
-- The profile map has the fields `v, id, name, sp, streak, longestStreak, rank, date` (built in `friends_screen.dart`; the same map goes over BLE as JSON, see `BleProfileCodec`). **Branch progress is not shared** (owner's decision, 2026-10-07), so a new branch never changes the format; `stages` from an older build (QR format 1 / 2, BLE) is ignored, and the friend sheet shows no branches.
-- `FriendProfile.buildQrPayload(map)` → `FriendQrCodec.encode`; `FriendProfile.tryParseQrPayload(text)` → `FriendQrCodec.decode` + `fromQrJson` (null for anything invalid, never throws).
-- **Format 3 (written, since 0.8.19)**: `caliday://friend?d=<base64url, no padding>` of
-  `[3] [id: 16 bytes] [sp, streak, longestStreak: varints] [rank: 1 byte] [date: varint] [name: UTF-8, the rest]`.
-  Varints are computed with arithmetic (not shifts) so they are exact on the web, where an int is a double; at most 7 bytes. Builds before 0.8.19 cannot read it.
-- **Format 2 (still read)**: format 3 plus 4 bytes of branch stages after the rank byte (one nibble per branch); the bytes are skipped. A real format 2 code of 0.8.18 is a fixture in `friend_qr_codec_test.dart`.
-- **Format 1 (still read, and written when format 3 cannot hold the data)**: `caliday://friend?data=<base64url of the JSON>`. Used for an id that is not 32 lower-case hex characters, an empty name, a negative number, an unknown rank.
-- Size at error correction H (the screen needs it for the logo): typical profile 61 characters / QR version 7 / 45×45 modules (format 2: 66 / 8; format 1: 314 / 19); a 13-character Cyrillic name 89 / 9; the 30-character maximum 135 / 11. Guarded in `friend_qr_codec_test.dart`.
-
 ### SoundService (singleton)
 - Methods: `tick()`, `ding()`, `pop()`, `complete()`
 - **Do NOT use `await player.stop()` before play()** — causes Android MediaPlayer reset (~100–200ms). `player.play()` handles restart on its own.
@@ -667,7 +613,6 @@ Persistence is the responsibility of the calling code via repositories.
 - `/settings` — settings
 - `/whats-new` — "What's new": the history of what changed in each version (bell in the Profile app bar, with a dot while an entry is unseen)
 - `/about` — about the app
-- `/friends` — friends list + QR + BLE nearby
 - `/dev-options` — devtools (`kDebugMode` only)
 
 ### Library sub-routes (nested under `/library`)
@@ -706,7 +651,7 @@ Both entry points lead to the same flow: `challengeBranchProvider = branch` → 
 
 ### RouterNotifier
 - `isOnboardingCompleteProvider` — `NotifierProvider<OnboardingGateNotifier, bool>`, initialized from `userRepository.hasProfile`
-- Redirect logic lives in `appRedirect()` (`core/router/app_redirect.dart`, pure, tested): before onboarding is done everything (deep links too) goes to `/onboarding`; afterwards `caliday://friend…` → `/friends`, any other `caliday://…` (the widget's `caliday://workout`) → `/workout`; a finished onboarding is never shown again
+- Redirect logic lives in `appRedirect()` (`core/router/app_redirect.dart`, pure, tested): before onboarding is done everything (deep links too) goes to `/onboarding`; afterwards `caliday://friend…` (a friend QR code of a build before 0.9.5, opened by the system camera) → `/home`, any other `caliday://…` (the widget's `caliday://workout`) → `/workout`; a finished onboarding is never shown again
 
 ---
 
@@ -883,7 +828,7 @@ The key is the Android channel id; the ids never change (`NotificationKind`).
 - `flutter_timezone ^5.0.0`: use field `.identifier` (not `.name`)
 - `build_runner ^2.13.1` (unblocked after migrating to `hive_ce_generator ^1.11.1` which uses `analyzer ^10.0.0`)
 - NotificationService init — ONLY in `postFrameCallback`, not in `main()` before `runApp()`
-- AndroidManifest permissions: `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`, `USE_EXACT_ALARM` + `SCHEDULE_EXACT_ALARM`, `VIBRATE`, `BLUETOOTH_SCAN` / `_CONNECT` / `_ADVERTISE` (+ legacy `BLUETOOTH`, `BLUETOOTH_ADMIN`), `CAMERA` (QR), Health Connect `READ_WEIGHT` / `WRITE_EXERCISE` / `WRITE_TOTAL_CALORIES_BURNED`
+- AndroidManifest permissions: `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`, `USE_EXACT_ALARM` + `SCHEDULE_EXACT_ALARM`, `VIBRATE`, Health Connect `READ_WEIGHT` / `WRITE_EXERCISE` / `WRITE_TOTAL_CALORIES_BURNED`
 - Proguard: `keep.xml` (drawable) + `proguard-rules.pro` (dexterous + TypeToken)
 
 ### Android Notifications
@@ -918,8 +863,6 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 | Workouts, progression, SP, streaks, achievements, library, custom routines | ✅ | — |
 | Sound | ✅ | audioplayers web |
 | Haptics | ⚠️ Android Chrome only | engine maps to `navigator.vibrate` |
-| Friends — QR show/scan | ✅ | mobile_scanner web (camera needs HTTPS) |
-| Friends — BLE nearby / discoverable | ❌ | hidden in `friends_screen.dart` + `settings_screen.dart` |
 | Notifications | ❌ | `NotificationService.init/scheduleAll/scheduleStreakLost/scheduleRankAtRisk` no-op (every new scheduler needs its own `kIsWeb` guard: without `init()` the timezone database is never loaded); Settings section hidden |
 | Health | ❌ | Settings section + onboarding step hidden |
 | Home Screen Widget, widget deep links | ❌ | `main.dart` skips the whole post-frame native init; `WidgetService.update` no-op |
@@ -978,9 +921,8 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 | Repositories | `test/data/repositories/` | real Hive via `test/helpers/hive_test_env.dart` (same adapters and box names as `main()`; `reopen()` proves a field really went through its adapter) |
 | Localization | `test/l10n/`, `test/core/app_languages_test.dart` | every ARB file has the keys and placeholders of the template, none undeclared, and is a language of the pickers (`appLanguages`); plural forms, and in every language a counted message carries its number; **no Cyrillic text in `lib/` outside a short allow-list** (`no_hardcoded_text_test.dart`: debug screen and the DEBUG tile, the debug test notification, the language list (each language named in itself), the search's "ё" — each with its reason; the test also fails when an allowed file no longer needs its exception) and **no English text in the places where text is shown**: the first argument of `Text(`/`Text.rich(` and the value of `label:`, `title:`, `subtitle:`, `hintText:`, `tooltip:`, `message:`… including a literal inside a ternary or a `+`, but not an argument of a call such as `DateFormat('d MMMM')`; "SP", "CaliDay", "dBm" are the same in every language; paths are compared with `/` on every OS (Windows lists `lib\...`); `lib/data/` (the catalog's source text) is not scanned; the test checks itself on probe snippets so that a scan that matches nothing cannot pass |
 | Notification plan | `test/domain/services/notification_planner_test.dart` | which reminders exist for which settings, their times, DST (Berlin) and other zones, the one-off streak-lost / rank-at-risk alerts, the language (none → Russian, unknown → English), every kind with its own text in every language |
-| Friend QR + BLE payloads | `test/data/friend_qr_codec_test.dart`, `ble_profile_codec_test.dart`, `test/features/friends/friend_qr_payload_test.dart` | round trips, all number ranges, size (QR version, 512-byte GATT limit), format 1 and 2 compatibility (a real format 2 code), branch progress never written and ignored when read, thousands of random / damaged inputs never throw |
 | Health energy | `test/domain/services/workout_energy_test.dart` | MET formula, which weight sample is used, implausible weights fall back to 70 kg |
-| Router redirect | `test/core/router/app_redirect_test.dart` | onboarding gate, widget and friend deep links, no redirect loops |
+| Router redirect | `test/core/router/app_redirect_test.dart` | onboarding gate, widget deep links, an old friend QR link opens Home, no redirect loops |
 | Workout timer | `test/features/workout/workout_timer_test.dart` | a timed exercise waits for Start in every transition (first, after rest, no-rest sets, next exercise), then counts down and confirms itself |
 | Widget texts | `test/core/widget_service_test.dart` | the widget's texts are the app's in every language (unknown → English); the Swift and Kotlin code reads every key the app writes; no hard-coded Russian in the native widgets; the iOS gallery description has every app language |
 | Repository / CI files | `test/repo/workflows_test.dart` | the three workflows pin one Flutter version, the release workflow stays disabled and tag-only, ci.yml keeps its l10n / build steps |
@@ -989,8 +931,8 @@ Conventions:
 - Prefer a pure function with an injectable `now` over faking the clock (`RankDecayService.daysSinceLastWorkout`, `StreakService.daysSinceLastWorkout`, `CompactHeatmap.weekGrid`).
 - DST tests are written for Europe/Berlin; on a machine in a zone without DST they pass without proving anything.
 - If a known data gap ever has to be tolerated, allow-list it **explicitly** in the test with a comment, never skip silently (there is none at the moment).
-- Widget tests exist only for the friends QR widgets (`test/features/friends/`), Goro's poses on About (`test/features/settings/goro_poses_test.dart`) and the workout button's plan (`test/features/home/workout_plan_button_test.dart`; it pumps a fixed time — the thumbnails' looping Lottie never settles); there are no golden tests. UI is otherwise checked by running the app — `flutter run -d web-server` plus the in-app browser works well (dev options are `kDebugMode` only).
-- Plugin-bound code is split: the decision (what, when, which bytes, which number) is a pure function that is tested; the thin wrapper that calls the plugin is not (`NotificationService`, `HealthService`, `BleService`, `WidgetService.update`). Keep new plugin code in that shape.
+- Widget tests exist only for Goro's poses on About (`test/features/settings/goro_poses_test.dart`) and the workout button's plan (`test/features/home/workout_plan_button_test.dart`; it pumps a fixed time — the thumbnails' looping Lottie never settles); there are no golden tests. UI is otherwise checked by running the app — `flutter run -d web-server` plus the in-app browser works well (dev options are `kDebugMode` only).
+- Plugin-bound code is split: the decision (what, when, which bytes, which number) is a pure function that is tested; the thin wrapper that calls the plugin is not (`NotificationService`, `HealthService`, `WidgetService.update`). Keep new plugin code in that shape.
 
 ---
 
@@ -1039,9 +981,9 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v0.2 | About screen | ✅ |
 | v0.3 | Home Screen Widget (iOS + Android) | ✅ |
 | v0.3 | Apple Health / Health Connect | ✅ |
-| v0.4 | Friends — QR + BLE scan (Central role) | ✅ |
-| v0.4 | Friends — BLE advertising (Peripheral role) | ✅ |
-| v0.4 | Friends — BLE GATT server (profile exchange without QR) | ✅ |
+| v0.4 | Friends — QR + BLE scan (Central role) | ✅ → removed in 0.9.5 |
+| v0.4 | Friends — BLE advertising (Peripheral role) | ✅ → removed in 0.9.5 |
+| v0.4 | Friends — BLE GATT server (profile exchange without QR) | ✅ → removed in 0.9.5 |
 | v0.5 | Multi-Course system (Calisthenics + Healthy Body) — CourseId, Posture & Neck branches, Library tab | ✅ |
 | v0.5 | Flex (Flexibility & Mobility) branch | ✅ |
 | v0.5 | Supplementary exercise pool (random, no progression) | ✅ |
@@ -1069,7 +1011,8 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | — | Telegram: the web build as a Mini App, reminders sent by a bot | 💡 idea, **parked** by the owner (2026-10-07): a thought on the side, not planned; the research is kept in DEV_NOTES § Telegram Mini App + bot |
 | — | Animation shape redesign — rounded/oval frames for Lottie animations | 💡 idea |
 | v1.0 | German and Spanish translations (owner's plan 2026-10-07, 1st of the three big features) | ✅/⚠️ in the app since 0.8.16 as drafts; native proofreading and the store listings are open; the legal pages stay in English only (owner, 2026-10-09; the widget's texts follow the app's language since 0.8.18) — see DEV_NOTES § Roadmap |
-| v1.0 | Friends: branch progress no longer shared (QR format 3), so a new branch never changes the format | ✅ 0.8.19 |
+| v1.0 | Friends: branch progress no longer shared (QR format 3), so a new branch never changes the format | ✅ 0.8.19 → removed in 0.9.5 |
+| — | Friends removed (owner, 2026-10-11: without a server a one-off QR / Bluetooth swap of a snapshot added little and cost a lot — untested BLE, camera and Bluetooth permissions, a package with a licence ping). The name stays and is used: the host's greeting on Home, the Profile header, the summary title, Settings → Profile | ✅ 0.9.5 — the `friends` box is deleted at start-up (§ Hive boxes); typeId 9 and UserProfile fields 17 / 23 retired |
 | v1.0 | Progression per branch and per day, in any workout (two courses on one day both progress) | ✅ 0.8.19 |
 | v1.0 | Additional courses — Yoga (harder and harder poses), Morning Routine, Evening Stretch; each a set of branches like today (owner's plan, 2nd) | **Evening Stretch: ✅ in 0.8.20 (4 branches, 19 exercises, texts in 4 languages, all animations, the host Luna)** — § Exercise Catalog, DEV_NOTES § Roadmap 2b-1. **Morning Routine: ✅ 0.9.0, merged 2026-10-08** — the course, its 4 branches (Spine, Joints, Arms, Energy), 22 exercises, texts in 4 languages and 4 achievements are in; Aurora drawn; all 22 animations, approved by the owner (§ Exercise Catalog, DEV_NOTES § Roadmap 2b-2). **Yoga: ✅ 0.9.1, merged 2026-10-09 (PR #3)** — the course with Standing, Equilibrium, Backbends, Flow and the shared Balance, 21 stage exercises (3 reused), texts in 4 languages, 4 achievements; Miso drawn; all 18 new animations approved (§ Exercise Catalog, DEV_NOTES § Roadmap 2b-3); courses may share exercises and branches (owner, 2026-10-08) |
 | v1.0 | Per-side holds — a one-sided hold runs side 1 → "switch sides" countdown → side 2, hands-free (prerequisite of Evening Stretch; also for existing one-sided stretches) | ✅ 0.8.20 — § Timed exercises: the get-ready countdown |

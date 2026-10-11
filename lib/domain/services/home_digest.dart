@@ -77,7 +77,18 @@ abstract final class HomeDigest {
     final i = random.nextInt(count - 1);
     return i >= previous ? i + 1 : i;
   }
+
+  /// The part of the day the host's greeting names, by the local [hour]:
+  /// morning 5–11, day 12–17, evening 18–22, night 23–4.
+  static DayPart dayPartOf(int hour) => switch (hour) {
+        >= 5 && < 12 => DayPart.morning,
+        >= 12 && < 18 => DayPart.day,
+        >= 18 && < 23 => DayPart.evening,
+        _ => DayPart.night,
+      };
 }
+
+enum DayPart { morning, day, evening, night }
 
 enum GoalUnit { days, workouts }
 

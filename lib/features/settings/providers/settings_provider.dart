@@ -10,6 +10,7 @@ import '../../../core/services/widget_service.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/repositories/user_repository.dart';
 import '../../home/providers/home_provider.dart';
+import '../../profile/providers/profile_provider.dart';
 
 // ── State ─────────────────────────────────────────────────────────────────────
 
@@ -29,7 +30,6 @@ class SettingsState {
     required this.healthWorkoutsEnabled,
     required this.healthWeightEnabled,
     required this.displayName,
-    required this.bleDiscoverable,
   });
 
   final bool notificationsEnabled;
@@ -46,7 +46,6 @@ class SettingsState {
   final bool healthWorkoutsEnabled;
   final bool healthWeightEnabled;
   final String displayName;
-  final bool bleDiscoverable;
 
   /// Notification time as a zero-padded string, e.g. "09:00".
   String get timeLabel {
@@ -70,7 +69,6 @@ class SettingsState {
     bool? healthWorkoutsEnabled,
     bool? healthWeightEnabled,
     String? displayName,
-    bool? bleDiscoverable,
   }) {
     return SettingsState(
       notificationsEnabled: notificationsEnabled ?? this.notificationsEnabled,
@@ -89,7 +87,6 @@ class SettingsState {
           healthWorkoutsEnabled ?? this.healthWorkoutsEnabled,
       healthWeightEnabled: healthWeightEnabled ?? this.healthWeightEnabled,
       displayName: displayName ?? this.displayName,
-      bleDiscoverable: bleDiscoverable ?? this.bleDiscoverable,
     );
   }
 }
@@ -122,7 +119,6 @@ class SettingsNotifier extends Notifier<SettingsState> {
       healthWorkoutsEnabled: p.healthWorkoutsEnabled ?? false,
       healthWeightEnabled: p.healthWeightEnabled ?? false,
       displayName: p.displayName ?? '',
-      bleDiscoverable: p.bleDiscoverable ?? false,
     );
   }
 
@@ -223,12 +219,9 @@ class SettingsNotifier extends Notifier<SettingsState> {
     state = state.copyWith(displayName: value);
     final p = ref.read(userRepositoryProvider).getProfile()..displayName = value;
     ref.read(userRepositoryProvider).saveProfile(p);
-  }
-
-  void setBleDiscoverable(bool value) {
-    state = state.copyWith(bleDiscoverable: value);
-    final p = ref.read(userRepositoryProvider).getProfile()..bleDiscoverable = value;
-    ref.read(userRepositoryProvider).saveProfile(p);
+    // Home greets by name and the Profile shows it; both tabs stay alive.
+    ref.invalidate(homeDataProvider);
+    ref.invalidate(profileDataProvider);
   }
 
   void _save() {

@@ -98,7 +98,7 @@ class _CourseBuilderScreenState extends ConsumerState<CourseBuilderScreen> {
       title: l10n.courseBuilderDelete,
       body: l10n.courseBuilderDeleteConfirm(course.name),
       confirm: l10n.customWorkoutDelete,
-      cancel: l10n.friendsCancel,
+      cancel: l10n.commonCancel,
     );
     if (!ok) return;
     await ref.read(customCoursesProvider.notifier).delete(course.id);

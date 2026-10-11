@@ -1,6 +1,6 @@
 # Terms of Use — CaliDay
 
-**Last updated: October 6, 2026**
+**Last updated: October 11, 2026**
 
 ---
 
@@ -54,9 +54,6 @@ You may not:
 
 CaliDay stores all data locally on your device. Any workout routines, custom exercise
 lists, or other content you create within the app belong to you and remain on your device.
-
-When you choose to share your profile via the Friends feature (Section 5 of the Privacy Policy),
-you are responsible for that sharing. Only share your profile with people you trust.
 
 ---
 

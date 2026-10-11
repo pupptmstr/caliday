@@ -11,6 +11,7 @@ import '../../../core/extensions/exercise_l10n.dart';
 import '../../../core/services/sound_service.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/models/exercise.dart';
+import '../../../data/repositories/user_repository.dart';
 import '../../../domain/models/workout_plan.dart' show prepSecFor;
 import '../../../l10n/app_localizations.dart';
 import '../providers/workout_provider.dart';
@@ -111,6 +112,8 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
             'healthSaved': s.healthSaved,
             'rankRestored': s.rankRestored,
             'courseIdIndex': s.courseIdIndex,
+            'displayName':
+                ref.read(userRepositoryProvider).getProfile().displayName,
           });
         }
       },

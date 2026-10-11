@@ -262,6 +262,14 @@
     }
   },
   "summaryTitle": "Great workout!",
+  "summaryTitleNamed": "Great workout, {name}!",
+  "@summaryTitleNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "summarySubtitle": "Keep it up — one more step forward",
   "summaryLabelTime": "Time",
   "summaryLabelExercises": "Exer.",
@@ -845,75 +853,10 @@
   "settingsHealthWeightTitle": "Read body weight",
   "settingsHealthWeightSubtitle": "For accurate calorie estimates (default 70 kg)",
   "summaryHealthSaved": "Saved to Health ✓",
-  "friendsTitle": "Friends",
-  "friendsMyQrTitle": "My Profile",
-  "friendsShareHint": "Show this code to a friend to share your profile",
-  "friendsScanQr": "Scan QR Code",
-  "friendsSectionNearby": "NEARBY",
-  "friendsSectionList": "FRIENDS",
-  "friendsNearbyEmpty": "No CaliDay users found nearby",
-  "friendsNearbyScanning": "Scanning…",
-  "friendsNearbyBleOff": "Bluetooth is off",
-  "friendsNearbyConnect": "Get profile",
-  "friendsEmpty": "No friends yet. Scan a QR code to add your first friend.",
-  "friendsAdded": "Friend added!",
-  "friendsUpdated": "Profile updated!",
-  "friendsScanError": "Invalid QR code",
-  "friendsScanTryAgain": "Try again",
-  "friendsScanCameraDeniedTitle": "Camera access is blocked",
-  "friendsScanCameraDeniedWeb": "Allow the camera for this site (the camera or lock icon in the address bar), then press Try again. Or show your own QR code to your friend instead.",
-  "friendsScanCameraDeniedApp": "Allow camera access for CaliDay in your device settings, then press Try again.",
-  "friendsScanCameraUnsupportedTitle": "No camera available",
-  "friendsScanCameraUnsupportedBody": "This device or browser has no camera the app can use. Show your own QR code to your friend instead.",
-  "friendsScanCameraFailedTitle": "Could not start the camera",
-  "friendsScanCameraFailedBody": "Check that no other app is using the camera and that you are online (in a browser the scanner is downloaded on first use), then try again.",
-  "friendsScanConfirmBody": "{sp} SP · {streak}-day streak",
-  "@friendsScanConfirmBody": {
-    "placeholders": {
-      "sp": {
-        "type": "int"
-      },
-      "streak": {
-        "type": "int"
-      }
-    }
-  },
-  "friendsCancel": "Cancel",
-  "friendsAdd": "Add",
-  "friendsDetailLastSynced": "Synced: {date}",
-  "@friendsDetailLastSynced": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
-  "friendsDeleteTitle": "Remove friend",
-  "friendsDeleteBody": "Remove {name} from friends?",
-  "@friendsDeleteBody": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "friendsDeleteConfirm": "Remove",
-  "settingsSectionFriends": "FRIENDS",
-  "settingsFriendsNameTitle": "Display name",
-  "settingsFriendsNamePlaceholder": "Enter your name",
-  "settingsFriendsDiscoverableTitle": "Discoverable via Bluetooth",
-  "settingsFriendsDiscoverableSubtitle": "Other CaliDay users can find you nearby",
-  "profileFriendsTitle": "Friends",
-  "profileFriendsAll": "All friends →",
-  "profileFriendsEmpty": "No friends yet",
-  "profileFriendsCount": "{count, plural, one{{count} friend} other{{count} friends}}",
-  "@profileFriendsCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
+  "commonCancel": "Cancel",
+  "settingsSectionProfile": "PROFILE",
+  "settingsNameTitle": "Name",
+  "settingsNamePlaceholder": "Enter your name",
   "exerciseFlexS1HipFlexorStretchName": "Hip Flexor Stretch",
   "exerciseFlexS1HipFlexorStretchDesc": "Step into a lunge and lower your back knee to the floor. Push your hips forward to feel the stretch at the front of your hip. Hold each side.",
   "exerciseFlexS1HipFlexorStretchTip": "Keep your back straight and push hips forward — feel the stretch in the front of your hip.",
@@ -1272,6 +1215,38 @@
   "hostLinesMisoAngry": "Fur on end: your streak is at risk!\nEven cats get up for what matters. Save the streak?\nMidnight is close. One practice and the streak is safe.\nMeow! Last chance for today.",
   "hostLinesMisoSupportive": "Welcome back. No rush, cat-style.\nA break is a practice of calm too.\nYour progress is right here, I kept it warm.\nLet's start simple: breathe in, breathe out, stretch.",
   "hostLinesMisoSleeping": "Cats sleep sixteen hours a day. Eight will do for you.\nPurrr… good night.\nSleep is the best pose. More in the morning.\nCurl up and rest.",
+  "greetingMorning": "Good morning, {name}!",
+  "@greetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingDay": "Hi, {name}!",
+  "@greetingDay": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingEvening": "Good evening, {name}!",
+  "@greetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingNight": "Still up, {name}?",
+  "@greetingNight": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "courseBuilderNameHint": "Course name",
   "courseBuilderNameRequired": "Give the course a name",
   "courseBuilderHostTitle": "Host",
@@ -1386,6 +1361,7 @@
   "whatsNewRecent": "Recent updates",
   "whatsNewHistory": "Version history",
   "releaseNotes094": "Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host's face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you (each host its own, a new one every time you open the app or tap it), and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today's plan, with Goro showing every exercise.\nGoro's animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.",
+  "releaseNotes095": "Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.",
   "releaseNotes093": "Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of CaliDay, version by version, is folded below them.",
   "releaseHistory01": "The first version: short daily workouts, SP points, streaks, reminders and a first-run setup.\nFive skills: push-ups, core, pull-ups, legs and balance; the workout takes turns between them day by day.\nThe path of a skill: every stage on one screen, and a challenge to move on early.\nAchievements, extra workouts on the same day and a dark theme.\nRussian and English.\nGoro shows every push-up stage in an animation.",
   "releaseHistory02": "Sound and vibration during a workout.\nThe workout history.\nA new home screen with three tabs at the bottom.\nStreak freezes: one missed day no longer breaks the streak.\nThe About screen.",
@@ -1395,5 +1371,5 @@
   "releaseHistory06": "The exercise library: every exercise, with search and filters.\nTap the streak, the rank or the freezes in the profile to see what they mean.",
   "releaseHistory07": "Your own workouts: pick exercises and save them as a routine, or start a quick one by focus.\nAnimations for the balance stages.\nThe privacy policy and the terms of use.",
   "releaseHistory08": "The stats on the home screen open the calendar, the history and the ranks; a workout calendar.\nA rank slips after long breaks and comes back with training.\nCaliDay in the browser: the web version.\nAnimations for every exercise of the first courses.\nTimed holds start by themselves after a short countdown; a hold on one side runs on both.\nWorkouts are Short, Standard or Full, with an estimate of the time that learns your pace.\n“What's new” under the bell in the profile; German and Spanish.\nEvery skill moves on once a day, in any workout.\nA new course, Evening Stretch, and a host for every course.",
-  "releaseHistory09": "New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order."
+  "releaseHistory09": "New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name."
 }

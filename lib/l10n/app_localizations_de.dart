@@ -342,6 +342,11 @@ class AppLocalizationsDe extends AppLocalizations {
   String get summaryTitle => 'Starkes Training!';
 
   @override
+  String summaryTitleNamed(String name) {
+    return 'Starkes Training, $name!';
+  }
+
+  @override
   String get summarySubtitle => 'Weiter so — wieder ein Schritt nach vorn';
 
   @override
@@ -2200,146 +2205,16 @@ class AppLocalizationsDe extends AppLocalizations {
   String get summaryHealthSaved => 'In Health gespeichert ✓';
 
   @override
-  String get friendsTitle => 'Freunde';
+  String get commonCancel => 'Abbrechen';
 
   @override
-  String get friendsMyQrTitle => 'Mein Profil';
+  String get settingsSectionProfile => 'PROFIL';
 
   @override
-  String get friendsShareHint =>
-      'Zeig diesen Code einem Freund, um dein Profil zu teilen';
+  String get settingsNameTitle => 'Name';
 
   @override
-  String get friendsScanQr => 'QR-Code scannen';
-
-  @override
-  String get friendsSectionNearby => 'IN DER NÄHE';
-
-  @override
-  String get friendsSectionList => 'FREUNDE';
-
-  @override
-  String get friendsNearbyEmpty => 'Keine CaliDay-Nutzer in der Nähe gefunden';
-
-  @override
-  String get friendsNearbyScanning => 'Suche läuft…';
-
-  @override
-  String get friendsNearbyBleOff => 'Bluetooth ist aus';
-
-  @override
-  String get friendsNearbyConnect => 'Profil abrufen';
-
-  @override
-  String get friendsEmpty =>
-      'Noch keine Freunde. Scann einen QR-Code, um deinen ersten Freund hinzuzufügen.';
-
-  @override
-  String get friendsAdded => 'Freund hinzugefügt!';
-
-  @override
-  String get friendsUpdated => 'Profil aktualisiert!';
-
-  @override
-  String get friendsScanError => 'Ungültiger QR-Code';
-
-  @override
-  String get friendsScanTryAgain => 'Erneut versuchen';
-
-  @override
-  String get friendsScanCameraDeniedTitle => 'Kamerazugriff ist blockiert';
-
-  @override
-  String get friendsScanCameraDeniedWeb =>
-      'Erlaube die Kamera für diese Seite (das Kamera- oder Schloss-Symbol in der Adressleiste) und tippe dann auf „Erneut versuchen“. Oder zeig deinem Freund stattdessen deinen eigenen QR-Code.';
-
-  @override
-  String get friendsScanCameraDeniedApp =>
-      'Erlaube CaliDay in den Geräteeinstellungen den Kamerazugriff und tippe dann auf „Erneut versuchen“.';
-
-  @override
-  String get friendsScanCameraUnsupportedTitle => 'Keine Kamera verfügbar';
-
-  @override
-  String get friendsScanCameraUnsupportedBody =>
-      'Dieses Gerät oder dieser Browser hat keine Kamera, die die App nutzen kann. Zeig deinem Freund stattdessen deinen eigenen QR-Code.';
-
-  @override
-  String get friendsScanCameraFailedTitle =>
-      'Kamera konnte nicht gestartet werden';
-
-  @override
-  String get friendsScanCameraFailedBody =>
-      'Prüfe, dass keine andere App die Kamera nutzt und dass du online bist (im Browser wird der Scanner beim ersten Mal heruntergeladen), und versuch es dann noch einmal.';
-
-  @override
-  String friendsScanConfirmBody(int sp, int streak) {
-    String _temp0 = intl.Intl.pluralLogic(
-      streak,
-      locale: localeName,
-      other: '$streak Tage',
-      one: '$streak Tag',
-    );
-    return '$sp SP · Serie: $_temp0';
-  }
-
-  @override
-  String get friendsCancel => 'Abbrechen';
-
-  @override
-  String get friendsAdd => 'Hinzufügen';
-
-  @override
-  String friendsDetailLastSynced(String date) {
-    return 'Synchronisiert: $date';
-  }
-
-  @override
-  String get friendsDeleteTitle => 'Freund entfernen';
-
-  @override
-  String friendsDeleteBody(String name) {
-    return '$name aus deinen Freunden entfernen?';
-  }
-
-  @override
-  String get friendsDeleteConfirm => 'Entfernen';
-
-  @override
-  String get settingsSectionFriends => 'FREUNDE';
-
-  @override
-  String get settingsFriendsNameTitle => 'Anzeigename';
-
-  @override
-  String get settingsFriendsNamePlaceholder => 'Gib deinen Namen ein';
-
-  @override
-  String get settingsFriendsDiscoverableTitle => 'Per Bluetooth auffindbar';
-
-  @override
-  String get settingsFriendsDiscoverableSubtitle =>
-      'Andere CaliDay-Nutzer in der Nähe können dich finden';
-
-  @override
-  String get profileFriendsTitle => 'Freunde';
-
-  @override
-  String get profileFriendsAll => 'Alle Freunde →';
-
-  @override
-  String get profileFriendsEmpty => 'Noch keine Freunde';
-
-  @override
-  String profileFriendsCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count Freunde',
-      one: '$count Freund',
-    );
-    return '$_temp0';
-  }
+  String get settingsNamePlaceholder => 'Gib deinen Namen ein';
 
   @override
   String get exerciseFlexS1HipFlexorStretchName => 'Hüftbeuger-Dehnung';
@@ -3125,6 +3000,26 @@ class AppLocalizationsDe extends AppLocalizations {
       'Katzen schlafen sechzehn Stunden am Tag. Dir reichen acht.\nSchnurrr… gute Nacht.\nSchlaf ist die beste Haltung. Morgen geht es weiter.\nRoll dich ein und ruh dich aus.';
 
   @override
+  String greetingMorning(String name) {
+    return 'Guten Morgen, $name!';
+  }
+
+  @override
+  String greetingDay(String name) {
+    return 'Hallo, $name!';
+  }
+
+  @override
+  String greetingEvening(String name) {
+    return 'Guten Abend, $name!';
+  }
+
+  @override
+  String greetingNight(String name) {
+    return 'Noch wach, $name?';
+  }
+
+  @override
   String get courseBuilderNameHint => 'Name des Kurses';
 
   @override
@@ -3286,6 +3181,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Deine eigenen Kurse stehen jetzt in der Kursliste unter +: Entferne den Haken, um einen Kurs oben auszublenden (er bleibt erhalten), der Stift öffnet ihn zum Bearbeiten.\nEin eigener Kurs trägt oben ein Werkzeug-Zeichen statt des Gesichts seines Hosts.\nEin Erfolg, der noch vor dir liegt: Sein Host hält ihn jetzt in den Händen, eine graue Medaille mit Schloss.\n„Über die App“: Tippe auf Goro, er hat ein paar neue Posen.\nStartbildschirm: Vor dem ersten Training des Tages sagt dein Host ein paar Worte (jeder seine eigenen, neue bei jedem Öffnen und auf Tippen), darunter stehen deine nächsten Ziele (der nächste Rang, der nächste Erfolg, eine freie Challenge, die du direkt hier startest) und die Zweige des Kurses.\nDanach zeigt der Startbildschirm deine letzten Trainings und was heute gewachsen ist: mehr Wiederholungen, ein Satz, weniger Pause, eine neue Stufe.\nDer Pfeil am Trainingsknopf klappt den Plan des Tages auf, Goro zeigt jede Übung.\nGoros Animationen überall, wo eine Übung genannt wird: der Weg eines Zweigs, der Tab „Kurse“, die Baukästen, gespeicherte Trainings, der Verlauf, die Pause vor der nächsten Übung.';
 
   @override
+  String get releaseNotes095 =>
+      'Freunde gibt es nicht mehr: Ohne Server konnten sie nur einmal einen QR-Code tauschen, mehr nicht. Die App braucht keine Kamera und kein Bluetooth mehr.\nDein Name: Dein Host begrüßt dich damit auf dem Startbildschirm, Profil und Trainingsabschluss zeigen ihn. Ändern unter Einstellungen → Profil.';
+
+  @override
   String get releaseNotes093 =>
       'Dein eigener Kurs: Tippe im Tab „Kurse“ auf + und stell Zweige aus allen Kursen zusammen, wähle den Host und gib dem Kurs einen Namen.\nEin eigener Zweig: Wähle Übungen und bring sie in eine Reihenfolge, jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges legt die App fest, wie in jedem Zweig.\nUnter der Glocke stehen die neuesten Updates oben, darunter ist die ganze Geschichte von CaliDay Version für Version eingeklappt.';
 
@@ -3323,5 +3222,5 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.';
+      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.';
 }

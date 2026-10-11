@@ -360,6 +360,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get summaryTitle => 'Great workout!';
 
   @override
+  String summaryTitleNamed(String name) {
+    return 'Great workout, $name!';
+  }
+
+  @override
   String get summarySubtitle => 'Keep it up — one more step forward';
 
   @override
@@ -2214,139 +2219,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get summaryHealthSaved => 'Saved to Health ✓';
 
   @override
-  String get friendsTitle => 'Friends';
+  String get commonCancel => 'Cancel';
 
   @override
-  String get friendsMyQrTitle => 'My Profile';
+  String get settingsSectionProfile => 'PROFILE';
 
   @override
-  String get friendsShareHint =>
-      'Show this code to a friend to share your profile';
+  String get settingsNameTitle => 'Name';
 
   @override
-  String get friendsScanQr => 'Scan QR Code';
-
-  @override
-  String get friendsSectionNearby => 'NEARBY';
-
-  @override
-  String get friendsSectionList => 'FRIENDS';
-
-  @override
-  String get friendsNearbyEmpty => 'No CaliDay users found nearby';
-
-  @override
-  String get friendsNearbyScanning => 'Scanning…';
-
-  @override
-  String get friendsNearbyBleOff => 'Bluetooth is off';
-
-  @override
-  String get friendsNearbyConnect => 'Get profile';
-
-  @override
-  String get friendsEmpty =>
-      'No friends yet. Scan a QR code to add your first friend.';
-
-  @override
-  String get friendsAdded => 'Friend added!';
-
-  @override
-  String get friendsUpdated => 'Profile updated!';
-
-  @override
-  String get friendsScanError => 'Invalid QR code';
-
-  @override
-  String get friendsScanTryAgain => 'Try again';
-
-  @override
-  String get friendsScanCameraDeniedTitle => 'Camera access is blocked';
-
-  @override
-  String get friendsScanCameraDeniedWeb =>
-      'Allow the camera for this site (the camera or lock icon in the address bar), then press Try again. Or show your own QR code to your friend instead.';
-
-  @override
-  String get friendsScanCameraDeniedApp =>
-      'Allow camera access for CaliDay in your device settings, then press Try again.';
-
-  @override
-  String get friendsScanCameraUnsupportedTitle => 'No camera available';
-
-  @override
-  String get friendsScanCameraUnsupportedBody =>
-      'This device or browser has no camera the app can use. Show your own QR code to your friend instead.';
-
-  @override
-  String get friendsScanCameraFailedTitle => 'Could not start the camera';
-
-  @override
-  String get friendsScanCameraFailedBody =>
-      'Check that no other app is using the camera and that you are online (in a browser the scanner is downloaded on first use), then try again.';
-
-  @override
-  String friendsScanConfirmBody(int sp, int streak) {
-    return '$sp SP · $streak-day streak';
-  }
-
-  @override
-  String get friendsCancel => 'Cancel';
-
-  @override
-  String get friendsAdd => 'Add';
-
-  @override
-  String friendsDetailLastSynced(String date) {
-    return 'Synced: $date';
-  }
-
-  @override
-  String get friendsDeleteTitle => 'Remove friend';
-
-  @override
-  String friendsDeleteBody(String name) {
-    return 'Remove $name from friends?';
-  }
-
-  @override
-  String get friendsDeleteConfirm => 'Remove';
-
-  @override
-  String get settingsSectionFriends => 'FRIENDS';
-
-  @override
-  String get settingsFriendsNameTitle => 'Display name';
-
-  @override
-  String get settingsFriendsNamePlaceholder => 'Enter your name';
-
-  @override
-  String get settingsFriendsDiscoverableTitle => 'Discoverable via Bluetooth';
-
-  @override
-  String get settingsFriendsDiscoverableSubtitle =>
-      'Other CaliDay users can find you nearby';
-
-  @override
-  String get profileFriendsTitle => 'Friends';
-
-  @override
-  String get profileFriendsAll => 'All friends →';
-
-  @override
-  String get profileFriendsEmpty => 'No friends yet';
-
-  @override
-  String profileFriendsCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count friends',
-      one: '$count friend',
-    );
-    return '$_temp0';
-  }
+  String get settingsNamePlaceholder => 'Enter your name';
 
   @override
   String get exerciseFlexS1HipFlexorStretchName => 'Hip Flexor Stretch';
@@ -3123,6 +3005,26 @@ class AppLocalizationsEn extends AppLocalizations {
       'Cats sleep sixteen hours a day. Eight will do for you.\nPurrr… good night.\nSleep is the best pose. More in the morning.\nCurl up and rest.';
 
   @override
+  String greetingMorning(String name) {
+    return 'Good morning, $name!';
+  }
+
+  @override
+  String greetingDay(String name) {
+    return 'Hi, $name!';
+  }
+
+  @override
+  String greetingEvening(String name) {
+    return 'Good evening, $name!';
+  }
+
+  @override
+  String greetingNight(String name) {
+    return 'Still up, $name?';
+  }
+
+  @override
   String get courseBuilderNameHint => 'Course name';
 
   @override
@@ -3290,6 +3192,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you (each host its own, a new one every time you open the app or tap it), and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today\'s plan, with Goro showing every exercise.\nGoro\'s animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.';
 
   @override
+  String get releaseNotes095 =>
+      'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.';
+
+  @override
   String get releaseNotes093 =>
       'Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of CaliDay, version by version, is folded below them.';
 
@@ -3327,5 +3233,5 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.';
+      'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.';
 }

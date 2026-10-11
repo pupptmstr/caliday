@@ -26,6 +26,30 @@ class SettingsScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 12),
           children: [
+            // ── Profile section ───────────────────────────────────────────
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Text(
+                l10n.settingsSectionProfile,
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w700,
+                  letterSpacing: 1.2,
+                  color: scheme.primary,
+                ),
+              ),
+            ),
+
+            _SettingsTile(
+              title: l10n.settingsNameTitle,
+              subtitle: state.displayName.isEmpty
+                  ? l10n.settingsNamePlaceholder
+                  : state.displayName,
+              trailing: const Icon(Icons.edit_outlined),
+              onTap: () => _showNameEditor(
+                  context, state.displayName, notifier.setDisplayName),
+            ),
+
             // ── Theme section ─────────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -283,44 +307,6 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ],
 
-            // ── Friends section ──────────────────────────────────────────
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-              child: Text(
-                l10n.settingsSectionFriends,
-                style: TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  letterSpacing: 1.2,
-                  color: scheme.primary,
-                ),
-              ),
-            ),
-
-            _SettingsTile(
-              title: l10n.settingsFriendsNameTitle,
-              subtitle: state.displayName.isEmpty
-                  ? l10n.settingsFriendsNamePlaceholder
-                  : state.displayName,
-              trailing: const Icon(Icons.edit_outlined),
-              onTap: () => _showNameEditor(
-                  context, state.displayName, notifier.setDisplayName),
-            ),
-
-            // BLE discovery is not available in browsers.
-            if (!kIsWeb) ...[
-              const Divider(indent: 20, endIndent: 20, height: 1),
-
-              _SettingsTile(
-                title: l10n.settingsFriendsDiscoverableTitle,
-                subtitle: l10n.settingsFriendsDiscoverableSubtitle,
-                trailing: Switch(
-                  value: state.bleDiscoverable,
-                  onChanged: notifier.setBleDiscoverable,
-                ),
-              ),
-            ],
-
             // ── About section ─────────────────────────────────────────────
             const Divider(indent: 20, endIndent: 20, height: 1),
             _SettingsTile(
@@ -468,20 +454,20 @@ Future<void> _showNameEditor(
   final result = await showDialog<String>(
     context: context,
     builder: (ctx) => AlertDialog(
-      title: Text(context.l10n.settingsFriendsNameTitle),
+      title: Text(context.l10n.settingsNameTitle),
       content: TextField(
         controller: controller,
         maxLength: 30,
         autofocus: true,
         textCapitalization: TextCapitalization.words,
         decoration: InputDecoration(
-          hintText: context.l10n.settingsFriendsNamePlaceholder,
+          hintText: context.l10n.settingsNamePlaceholder,
         ),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(ctx).pop(null),
-          child: Text(context.l10n.friendsCancel),
+          child: Text(context.l10n.commonCancel),
         ),
         FilledButton(
           onPressed: () => Navigator.of(ctx).pop(controller.text.trim()),

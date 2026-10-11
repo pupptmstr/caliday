@@ -7,9 +7,8 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.9.3 on `main` (the course builder, merged 2026-10-09, PR #5). **0.9.4** is in progress on `session/2026-10-10-feedback`: the owner's feedback on 0.9.3 (own courses in the course list, the own-course mark, hosts holding achievements still ahead, Goro's fun poses), then the middle of Home with the plan folded into the workout button and exercise animations wherever an exercise is named (Next ideas 3 and 5); see the Change History. `main` is protected since 2026-10-10 (PRs only, squash merges, CI required; ARCHITECTURE § Web Build). The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
+**Version:** v0.9.4 on `main` (the middle of Home, animations wherever an exercise is named, the owner's feedback on 0.9.3; merged 2026-10-10, PR #6). **0.9.5** is in progress on `session/2026-10-11-new-branches`: Friends removed and the user's name put to use (done), then the new branches outside the courses (Next ideas 1); see the Change History. `main` is protected since 2026-10-10 (PRs only, squash merges, CI required; ARCHITECTURE § Web Build). The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
 **Next priority:** v1.0 release. What still stands in the way:
-- Friends has never been tested on two real phones (checklist below).
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
 - Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
 - Store accounts (Apple Developer Program, Google Play Console): the release CI is drafted but disabled until they exist ("Release builds (CI)" below).
@@ -20,7 +19,7 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 |-------|--------|
 | Data models + Hive | ✅ |
 | ExerciseCatalog (20 branches — Calisthenics, Healthy Body, Evening Stretch, Morning Routine, Yoga) | ✅ |
-| Repositories (User, SkillProgress, Workout, Achievement, Friend, CustomRoutine) | ✅ |
+| Repositories (User, SkillProgress, Workout, Achievement, CustomRoutine, own branches and courses) | ✅ |
 | Domain services | ✅ |
 | Navigation (GoRouter + bottom nav) | ✅ |
 | Onboarding (8 steps, incl. course selection) | ✅ |
@@ -34,7 +33,6 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 | Sound + haptics | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
-| Friends (BLE + QR, v0.4; not yet tested on real devices) | ✅/⚠️ |
 | Exercise Library (search + tag filter) | ✅ |
 | Custom Workouts (Quick Routine + Saved Routines) | ✅ |
 | Course builder (own courses from built-in and own branches; own branches from exercises, amounts derived) | ✅ 0.9.3 |
@@ -51,7 +49,7 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 
 ### Next ideas (owner, 2026-10-10) — not ordered yet, the owner picks (3 and 5 done in 0.9.4; 6 added the same day)
 
-Recorded on the owner's request after the course builder (0.9.3). None is started; the open items from before stay where they are (backlog in ARCHITECTURE; below in this section: release CI, held-back dependencies, Friends on real phones, "Support the author", the parked Telegram idea, the Lottie status) — see "Still open from before" at the end.
+Recorded on the owner's request after the course builder (0.9.3). None is started; the open items from before stay where they are (backlog in ARCHITECTURE; below in this section: release CI, held-back dependencies, "Support the author", the parked Telegram idea, the Lottie status) — see "Still open from before" at the end.
 
 #### 1. New exercises and branches
 The "many more exercises" of the owner's third big feature, on a branch of their own: 3–4 branches outside any course, about 20 exercises with animations. Proposed gaps and the steps are in § Roadmap 3 ("Next"); a session card with the brief was proposed on 2026-10-09. Content first, agreed with the owner.
@@ -140,8 +138,8 @@ Built together with idea 3: `ExerciseThumb`, cropped to the figure (`tools/lotti
 **When to tackle:** a session of its own with the owner, when they pick it; any time.
 
 #### Still open from before (not lost)
-- v1.0 blockers only the owner can clear: Friends on two real phones (checklist below), the HealthKit capability and the widget App Group in Xcode, store accounts (release CI drafted and disabled), native proofreading of German and Spanish and the store listings.
-- Decisions waiting: `flutter_blue_plus` 2.3 and its licence ping (§ Dependencies held back); the major dependency upgrades (go_router 18, flutter_local_notifications 22, home_widget 0.10, package_info_plus 10) on a branch of their own.
+- v1.0 blockers only the owner can clear: the HealthKit capability and the widget App Group in Xcode, store accounts (release CI drafted and disabled), native proofreading of German and Spanish and the store listings.
+- Decisions waiting: the major dependency upgrades (go_router 18, flutter_local_notifications 22, home_widget 0.10, package_info_plus 10) on a branch of their own.
 - Ideas: "Support the author" (tax / legal first), rounded / oval frames for the animations, Rex the streak monkey (deferred), the Telegram Mini App (parked — not proposed).
 
 
@@ -180,60 +178,7 @@ Secrets: `ANDROID_KEYSTORE_BASE64` (PowerShell: `[Convert]::ToBase64String([IO.F
 
 ### Dependencies held back (2026-10-09)
 
-`flutter pub upgrade` within the constraints (the owner asked for minor updates only; the major ones — `go_router` 18, `flutter_local_notifications` 22, `home_widget` 0.10, `package_info_plus` 10 — wait for a branch of their own). One minor update is **held back for the owner to decide**:
-
-- **`flutter_blue_plus` stays below 2.3** (`">=2.2.1 <2.3.0"` in `pubspec.yaml`, resolves 2.2.3). From 2.3.5 its Android build runs `license_ping.gradle`, which sends the package name, app name, app version, the plugin version and the date to the author's server on every build (FlutterBluePlus License 1.6, § 1.4: "may attempt to send limited license telemetry at build time"; a failed ping does not stop the build). It is no end-user data, but the app's principle is that nothing leaves the device and the builds run on the owner's machine and in CI. The license itself is unchanged in substance from the 2.2.x one we already use: free for personal and nonprofit use, a paid licence for any for-profit use, "including commercial use by individuals" — worth a look before the "Support the author" tips (§ "Support the Author"). 2.3.x brings Darwin and Android connection fixes we have not needed (Friends over BLE is still untested on phones). Options: keep 2.2.x; take 2.3.x and accept the ping; replace the package.
-
----
-
-### v0.4 — Friends — нужно протестировать на реальных устройствах
-
-Фича реализована, но **не тестировалась на физических устройствах**. Требует проверки вдвоём (два телефона).
-
-#### Чеклист тестирования
-
-**QR (iOS + Android):**
-
-Проверено владельцем 2026-10-06 на **веб-версии**: телефон (браузер) сканировал QR с экрана компьютера (localhost) — отсканировалось, друг добавился, карточка открылась, удаление сработало. Нативные приложения iOS и Android этим не проверены, поэтому пункты ниже остаются открытыми; отмечено, что подтверждено на вебе.
-- [ ] Открыть экран Friends → появляется QR-код своего профиля (веб ✅)
-- [ ] Сканировать QR другого человека → диалог подтверждения показывает имя + SP + streak (веб ✅)
-- [ ] Подтвердить → друг появляется в списке (веб ✅)
-- [ ] Повторно сканировать того же человека → обновляет данные (не дублирует)
-- [ ] Открыть карточку друга → показывает ранг, ветки, дату синхронизации (веб ✅)
-- [ ] Удалить друга → исчезает из списка (веб ✅)
-- [ ] Невалидный QR → показывает snackbar с ошибкой (не крашится)
-- [ ] Новый компактный QR (формат 2, 49×49 модулей) сканируется с экрана телефона на телефон (iOS и Android)
-- [ ] Системная камера: QR друга открывает приложение на экране Friends (раньше любая ссылка `caliday://` вела на тренировку); нужно проверить на устройстве
-
-**BLE — сканирование (требует двух устройств):**
-- [ ] iOS → iOS: обнаружение работает
-- [ ] Android → Android: обнаружение работает
-- [ ] iOS → Android: обнаружение работает (и наоборот)
-- [ ] BLE выключен → секция "Nearby" показывает сообщение "Bluetooth выключен"
-- [ ] Кнопка Refresh → запускает повторное сканирование
-- [ ] Tile "Connect" → читает профиль по GATT и добавляет друга (snackbar «добавлен» / «обновлён»); если GATT недоступен или JSON битый — открывается QR-сканер (fallback)
-- [ ] Свой экран Friends рекламирует устройство (advertising) — второй телефон видит его в секции Nearby
-
-**BLE — разрешения:**
-- [ ] Android: при первом открытии Friends появляется запрос `BLUETOOTH_SCAN` + `BLUETOOTH_CONNECT`
-- [ ] iOS: при первом открытии появляется запрос `NSBluetoothAlwaysUsageDescription`
-- [ ] Отказ от разрешений → приложение не крашится, показывает "Bluetooth выключен"
-
-**Специфично для iOS:**
-- [ ] BLE-сканирование работает на iOS 14+ (минимальная поддерживаемая версия)
-- [ ] QR-сканер запрашивает разрешение камеры при первом использовании
-
-**Специфично для Android:**
-- [ ] BLE-разрешения правильно запрашиваются на Android 12+ (API 31+) через `BLUETOOTH_SCAN` (neverForLocation)
-- [ ] На Android 11 и ниже — legacy разрешения `BLUETOOTH` + `BLUETOOTH_ADMIN` работают
-
-#### Известные ограничения
-- BLE advertising и GATT-сервер реализованы, но тоже **не проверялись на реальных устройствах** — это часть чеклиста выше.
-- На вебе BLE нет вовсе (секции скрыты), остаётся только QR.
-- На вебе единственный путь добавить друга — QR, и он требует доступ к камере в браузере; при блокировке экран сканера теперь объясняет, что делать (см. запись в Change History). Если камеры нет вовсе, друг может отсканировать **твой** QR.
-- QR теперь компактный (формат 2): обычный профиль ≈ 66 символов, версия 8, 49×49 модулей (было 93×93). Сборки до формата 2 новый QR прочитать не могут; новые читают оба формата. Сканирование нового кода телефон → телефон не проверялось.
-
----
+`flutter pub upgrade` within the constraints (the owner asked for minor updates only; the major ones — `go_router` 18, `flutter_local_notifications` 22, `home_widget` 0.10, `package_info_plus` 10 — wait for a branch of their own). The one minor update that was held back, `flutter_blue_plus` 2.3 (its Android build "license-pings" the author's server), is moot: the package left with Friends in 0.9.5.
 
 ---
 
@@ -479,6 +424,33 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-11 — Friends removed; the user's name greets them instead (0.9.5)
+
+**What was done:** The owner removed Friends ("without a server it makes little sense and adds problems"): the QR / BLE exchange, its screens, model, repository, codecs, the BLE service, the Settings section, the Profile block and the `/friends` route are gone, with the four packages (`qr_flutter`, `mobile_scanner`, `flutter_blue_plus` — and with it the held-back licence-ping question —, `ble_peripheral`), the Bluetooth and camera permissions (Android manifest, iOS `Info.plist`, the three pods in `Podfile.lock`) and the never-run real-device checklist. The name asked in the onboarding was used by Friends only; the owner chose to keep it and use it (rather than drop the step): above the host's line on Home a greeting by the part of the day ("Добрый вечер, Петя!"), the name under the host on the Profile, "Great workout, Anna!" on the summary, and the field moved to a new first Settings section, Profile. Version 0.9.5+35, "What's new" entry, the 0.9 history line extended.
+
+**New files:**
+- `lib/data/retired_boxes.dart` — `deleteRetiredBoxes()`: deletes the `friends` box left by older builds
+
+**Removed files:** `lib/features/friends/` (screens, provider, widgets), `lib/core/services/ble_service.dart`, `lib/data/models/{friend_profile(.g),friend_qr_codec,ble_profile_codec}.dart`, `lib/data/repositories/friend_repository.dart`, and their tests (`test/features/friends/`, `friend_qr_codec_test`, `ble_profile_codec_test`, `friend_repository_test`).
+
+**Modified files:**
+- `lib/main.dart`, `lib/hive_registrar.g.dart`, `test/helpers/hive_test_env.dart` — no FriendProfile adapter or box; `deleteRetiredBoxes()` after the migrations, not awaited
+- `lib/data/models/user_profile.dart` + `.g.dart` (by hand) — fields 17 (peerId) and 23 (bleDiscoverable) dropped (25 fields written), 18 (displayName) documented as the user's name
+- `lib/core/router/app_redirect.dart`, `app_router.dart` — no `/friends`; an old `caliday://friend…` link opens Home (not the workout)
+- `lib/features/settings/` — the Friends section replaced by Profile (name) at the top; `setDisplayName` invalidates Home and Profile; `bleDiscoverable` gone
+- `lib/features/profile/screens/profile_screen.dart` — the name under the host; no friends block
+- `lib/features/home/widgets/home_middle.dart`, `lib/domain/services/home_digest.dart` — `HostLineCard.greetingFor`, `HomeDigest.dayPartOf` (morning 5–11, day 12–17, evening 18–22, night 23–4)
+- `lib/features/workout/screens/{workout,summary}_screen.dart` — the name goes to the summary in its extras; `summaryTitleNamed`
+- `l10n/*.arb` — the Friends messages removed; `friendsCancel` → `commonCancel` (the builders and dialogs used it), `settingsFriendsName*` → `settingsName*`; new `settingsSectionProfile`, `greeting{Morning,Day,Evening,Night}`, `summaryTitleNamed`, `releaseNotes095`
+- `docs/PRIVACY_POLICY.md`, `docs/TERMS_OF_USE.md` — Camera, peer-to-peer sharing and Bluetooth sections removed (renumbered), a paragraph on the removed feature and the deleted list; dated 2026-10-11
+- `README.md`, `design-system/caliday/pages/profile.md`, ARCHITECTURE — Friends taken out; typeId 9 and fields 17 / 23 marked retired
+- Tests: `user_and_achievement_repository_test` (a profile written with fields 17 / 23 by a stand-in of the old adapter still loads; the `friends` box is deleted, nothing to delete is no error), `home_digest_test` (the part of each hour), `host_lines_test` (a greeting per part of the day in every language, the name trimmed, none without a name), `app_redirect_test`, `plural_test`, `no_hardcoded_text_test` (no `dBm` any more)
+
+**Key issues and solutions:**
+- **Old data.** Hive adapters read every stored field into a map and take the ones they know, so a profile with fields 17 / 23 loads with the new adapter (proved by a test that writes such a record through a stand-in adapter registered with `override: true`). The FriendProfile records (typeId 9) would not load without their adapter, so the box is never opened, only deleted: `Hive.deleteBoxFromDisk` is a no-op when the files are missing (VM: checks each file; web: `indexedDB.deleteDatabase`). It is **not awaited** in `main()`: on the web, deleting a database that an open tab of an older build still holds is blocked until that tab closes, which would hang the start-up.
+- **The name had no use outside Friends**, though the onboarding promised "Goro will call you by name"; now the promise holds (the host of the course greets).
+- Checked: `flutter analyze` clean, 1030 tests pass; the web build at 375 × 812 — a fresh onboarding with a name, the greeting on Home ("Добрый вечер, Петя!"), the Profile header, Settings → Profile, a rename shown on the Profile at once; no console errors. The summary title was not run through a real workout (a one-line switch).
 
 ### 2026-10-10 — The notes rework recorded as an idea; README brought up to 0.9.4
 

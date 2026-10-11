@@ -262,6 +262,14 @@
     }
   },
   "summaryTitle": "Starkes Training!",
+  "summaryTitleNamed": "Starkes Training, {name}!",
+  "@summaryTitleNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "summarySubtitle": "Weiter so — wieder ein Schritt nach vorn",
   "summaryLabelTime": "Zeit",
   "summaryLabelExercises": "Übungen",
@@ -845,75 +853,10 @@
   "settingsHealthWeightTitle": "Körpergewicht lesen",
   "settingsHealthWeightSubtitle": "Für eine genauere Kalorienschätzung (Standard: 70 kg)",
   "summaryHealthSaved": "In Health gespeichert ✓",
-  "friendsTitle": "Freunde",
-  "friendsMyQrTitle": "Mein Profil",
-  "friendsShareHint": "Zeig diesen Code einem Freund, um dein Profil zu teilen",
-  "friendsScanQr": "QR-Code scannen",
-  "friendsSectionNearby": "IN DER NÄHE",
-  "friendsSectionList": "FREUNDE",
-  "friendsNearbyEmpty": "Keine CaliDay-Nutzer in der Nähe gefunden",
-  "friendsNearbyScanning": "Suche läuft…",
-  "friendsNearbyBleOff": "Bluetooth ist aus",
-  "friendsNearbyConnect": "Profil abrufen",
-  "friendsEmpty": "Noch keine Freunde. Scann einen QR-Code, um deinen ersten Freund hinzuzufügen.",
-  "friendsAdded": "Freund hinzugefügt!",
-  "friendsUpdated": "Profil aktualisiert!",
-  "friendsScanError": "Ungültiger QR-Code",
-  "friendsScanTryAgain": "Erneut versuchen",
-  "friendsScanCameraDeniedTitle": "Kamerazugriff ist blockiert",
-  "friendsScanCameraDeniedWeb": "Erlaube die Kamera für diese Seite (das Kamera- oder Schloss-Symbol in der Adressleiste) und tippe dann auf „Erneut versuchen“. Oder zeig deinem Freund stattdessen deinen eigenen QR-Code.",
-  "friendsScanCameraDeniedApp": "Erlaube CaliDay in den Geräteeinstellungen den Kamerazugriff und tippe dann auf „Erneut versuchen“.",
-  "friendsScanCameraUnsupportedTitle": "Keine Kamera verfügbar",
-  "friendsScanCameraUnsupportedBody": "Dieses Gerät oder dieser Browser hat keine Kamera, die die App nutzen kann. Zeig deinem Freund stattdessen deinen eigenen QR-Code.",
-  "friendsScanCameraFailedTitle": "Kamera konnte nicht gestartet werden",
-  "friendsScanCameraFailedBody": "Prüfe, dass keine andere App die Kamera nutzt und dass du online bist (im Browser wird der Scanner beim ersten Mal heruntergeladen), und versuch es dann noch einmal.",
-  "friendsScanConfirmBody": "{sp} SP · Serie: {streak, plural, one{{streak} Tag} other{{streak} Tage}}",
-  "@friendsScanConfirmBody": {
-    "placeholders": {
-      "sp": {
-        "type": "int"
-      },
-      "streak": {
-        "type": "int"
-      }
-    }
-  },
-  "friendsCancel": "Abbrechen",
-  "friendsAdd": "Hinzufügen",
-  "friendsDetailLastSynced": "Synchronisiert: {date}",
-  "@friendsDetailLastSynced": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
-  "friendsDeleteTitle": "Freund entfernen",
-  "friendsDeleteBody": "{name} aus deinen Freunden entfernen?",
-  "@friendsDeleteBody": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "friendsDeleteConfirm": "Entfernen",
-  "settingsSectionFriends": "FREUNDE",
-  "settingsFriendsNameTitle": "Anzeigename",
-  "settingsFriendsNamePlaceholder": "Gib deinen Namen ein",
-  "settingsFriendsDiscoverableTitle": "Per Bluetooth auffindbar",
-  "settingsFriendsDiscoverableSubtitle": "Andere CaliDay-Nutzer in der Nähe können dich finden",
-  "profileFriendsTitle": "Freunde",
-  "profileFriendsAll": "Alle Freunde →",
-  "profileFriendsEmpty": "Noch keine Freunde",
-  "profileFriendsCount": "{count, plural, one{{count} Freund} other{{count} Freunde}}",
-  "@profileFriendsCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
+  "commonCancel": "Abbrechen",
+  "settingsSectionProfile": "PROFIL",
+  "settingsNameTitle": "Name",
+  "settingsNamePlaceholder": "Gib deinen Namen ein",
   "exerciseFlexS1HipFlexorStretchName": "Hüftbeuger-Dehnung",
   "exerciseFlexS1HipFlexorStretchDesc": "Geh in einen Ausfallschritt und senk das hintere Knie auf den Boden. Schieb die Hüfte nach vorn, bis du die Dehnung vorn an der Hüfte spürst. Halte auf jeder Seite.",
   "exerciseFlexS1HipFlexorStretchTip": "Halte den Rücken gerade und schieb die Hüfte nach vorn — spür die Dehnung vorn an der Hüfte.",
@@ -1272,6 +1215,38 @@
   "hostLinesMisoAngry": "Das Fell sträubt sich: Deine Serie ist in Gefahr!\nSelbst Katzen stehen für Wichtiges auf. Retten wir die Serie?\nBald ist Mitternacht. Eine Praxis, und die Serie hält.\nMiau! Letzte Chance für heute.",
   "hostLinesMisoSupportive": "Schön, dass du wieder da bist. Ohne Eile, wie eine Katze.\nEine Pause ist auch eine Übung in Ruhe.\nDein Fortschritt ist noch da, ich habe ihn warm gehalten.\nFangen wir einfach an: einatmen, ausatmen, strecken.",
   "hostLinesMisoSleeping": "Katzen schlafen sechzehn Stunden am Tag. Dir reichen acht.\nSchnurrr… gute Nacht.\nSchlaf ist die beste Haltung. Morgen geht es weiter.\nRoll dich ein und ruh dich aus.",
+  "greetingMorning": "Guten Morgen, {name}!",
+  "@greetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingDay": "Hallo, {name}!",
+  "@greetingDay": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingEvening": "Guten Abend, {name}!",
+  "@greetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingNight": "Noch wach, {name}?",
+  "@greetingNight": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "courseBuilderNameHint": "Name des Kurses",
   "courseBuilderNameRequired": "Gib dem Kurs einen Namen",
   "courseBuilderHostTitle": "Host",
@@ -1386,6 +1361,7 @@
   "whatsNewRecent": "Neueste Updates",
   "whatsNewHistory": "Versionsverlauf",
   "releaseNotes094": "Deine eigenen Kurse stehen jetzt in der Kursliste unter +: Entferne den Haken, um einen Kurs oben auszublenden (er bleibt erhalten), der Stift öffnet ihn zum Bearbeiten.\nEin eigener Kurs trägt oben ein Werkzeug-Zeichen statt des Gesichts seines Hosts.\nEin Erfolg, der noch vor dir liegt: Sein Host hält ihn jetzt in den Händen, eine graue Medaille mit Schloss.\n„Über die App“: Tippe auf Goro, er hat ein paar neue Posen.\nStartbildschirm: Vor dem ersten Training des Tages sagt dein Host ein paar Worte (jeder seine eigenen, neue bei jedem Öffnen und auf Tippen), darunter stehen deine nächsten Ziele (der nächste Rang, der nächste Erfolg, eine freie Challenge, die du direkt hier startest) und die Zweige des Kurses.\nDanach zeigt der Startbildschirm deine letzten Trainings und was heute gewachsen ist: mehr Wiederholungen, ein Satz, weniger Pause, eine neue Stufe.\nDer Pfeil am Trainingsknopf klappt den Plan des Tages auf, Goro zeigt jede Übung.\nGoros Animationen überall, wo eine Übung genannt wird: der Weg eines Zweigs, der Tab „Kurse“, die Baukästen, gespeicherte Trainings, der Verlauf, die Pause vor der nächsten Übung.",
+  "releaseNotes095": "Freunde gibt es nicht mehr: Ohne Server konnten sie nur einmal einen QR-Code tauschen, mehr nicht. Die App braucht keine Kamera und kein Bluetooth mehr.\nDein Name: Dein Host begrüßt dich damit auf dem Startbildschirm, Profil und Trainingsabschluss zeigen ihn. Ändern unter Einstellungen → Profil.",
   "releaseNotes093": "Dein eigener Kurs: Tippe im Tab „Kurse“ auf + und stell Zweige aus allen Kursen zusammen, wähle den Host und gib dem Kurs einen Namen.\nEin eigener Zweig: Wähle Übungen und bring sie in eine Reihenfolge, jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges legt die App fest, wie in jedem Zweig.\nUnter der Glocke stehen die neuesten Updates oben, darunter ist die ganze Geschichte von CaliDay Version für Version eingeklappt.",
   "releaseHistory01": "Die erste Version: kurze tägliche Trainings, SP-Punkte, Serien, Erinnerungen und eine Ersteinrichtung.\nFünf Skills: Liegestütze, Rumpf, Klimmzüge, Beine und Balance; das Training wechselt sie Tag für Tag ab.\nDer Weg eines Skills: alle Stufen auf einem Bildschirm und eine Challenge, um früher weiterzukommen.\nErfolge, zusätzliche Trainings am selben Tag und ein dunkles Design.\nRussisch und Englisch.\nGoro zeigt jede Liegestütz-Stufe in einer Animation.",
   "releaseHistory02": "Ton und Vibration während des Trainings.\nDer Trainingsverlauf.\nEin neuer Startbildschirm mit drei Tabs unten.\nSerienschutz: Ein verpasster Tag beendet die Serie nicht mehr.\nDer Bildschirm „Über die App“.",
@@ -1395,5 +1371,5 @@
   "releaseHistory06": "Die Übungsbibliothek: alle Übungen, mit Suche und Filtern.\nTippe im Profil auf Serie, Rang oder Serienschutz, um zu sehen, was sie bedeuten.",
   "releaseHistory07": "Eigene Trainings: Wähle Übungen und speichere sie als Routine oder starte eine schnelle nach Schwerpunkt.\nAnimationen für die Balance-Stufen.\nDie Datenschutzerklärung und die Nutzungsbedingungen.",
   "releaseHistory08": "Die Werte auf dem Startbildschirm öffnen Kalender, Verlauf und Ränge; ein Trainingskalender.\nEin Rang sinkt nach langen Pausen und kommt mit dem Training zurück.\nCaliDay im Browser: die Web-Version.\nAnimationen für jede Übung der ersten Kurse.\nÜbungen auf Zeit starten nach einem kurzen Countdown von selbst; Übungen für eine Seite laufen auf beiden.\nTrainings sind Kurz, Standard oder Voll, mit einer Zeitschätzung, die dein Tempo lernt.\n„Was ist neu“ unter der Glocke im Profil; Deutsch und Spanisch.\nJeder Skill wächst einmal am Tag, in jedem Training.\nEin neuer Kurs, „Dehnen am Abend“, und ein Host für jeden Kurs.",
-  "releaseHistory09": "Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge."
+  "releaseHistory09": "Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen."
 }

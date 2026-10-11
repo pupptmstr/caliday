@@ -326,6 +326,11 @@ class AppLocalizationsRu extends AppLocalizations {
   String get summaryTitle => 'Отличная тренировка!';
 
   @override
+  String summaryTitleNamed(String name) {
+    return 'Отличная тренировка, $name!';
+  }
+
+  @override
   String get summarySubtitle => 'Так держать — ещё один шаг вперёд';
 
   @override
@@ -2181,149 +2186,16 @@ class AppLocalizationsRu extends AppLocalizations {
   String get summaryHealthSaved => 'Сохранено в Health ✓';
 
   @override
-  String get friendsTitle => 'Друзья';
+  String get commonCancel => 'Отмена';
 
   @override
-  String get friendsMyQrTitle => 'Мой профиль';
+  String get settingsSectionProfile => 'ПРОФИЛЬ';
 
   @override
-  String get friendsShareHint =>
-      'Покажи этот код другу, чтобы поделиться профилем';
+  String get settingsNameTitle => 'Имя';
 
   @override
-  String get friendsScanQr => 'Сканировать QR-код';
-
-  @override
-  String get friendsSectionNearby => 'РЯДОМ';
-
-  @override
-  String get friendsSectionList => 'ДРУЗЬЯ';
-
-  @override
-  String get friendsNearbyEmpty => 'Пользователей CaliDay рядом нет';
-
-  @override
-  String get friendsNearbyScanning => 'Поиск…';
-
-  @override
-  String get friendsNearbyBleOff => 'Bluetooth выключен';
-
-  @override
-  String get friendsNearbyConnect => 'Получить профиль';
-
-  @override
-  String get friendsEmpty =>
-      'Друзей пока нет. Отсканируй QR-код, чтобы добавить первого.';
-
-  @override
-  String get friendsAdded => 'Друг добавлен!';
-
-  @override
-  String get friendsUpdated => 'Профиль обновлён!';
-
-  @override
-  String get friendsScanError => 'Неверный QR-код';
-
-  @override
-  String get friendsScanTryAgain => 'Повторить';
-
-  @override
-  String get friendsScanCameraDeniedTitle => 'Доступ к камере заблокирован';
-
-  @override
-  String get friendsScanCameraDeniedWeb =>
-      'Разрешите камеру для этого сайта (значок камеры или замка в адресной строке) и нажмите «Повторить». Или покажите другу свой QR-код.';
-
-  @override
-  String get friendsScanCameraDeniedApp =>
-      'Разрешите CaliDay доступ к камере в настройках устройства и нажмите «Повторить».';
-
-  @override
-  String get friendsScanCameraUnsupportedTitle => 'Камера недоступна';
-
-  @override
-  String get friendsScanCameraUnsupportedBody =>
-      'На этом устройстве или в браузере нет камеры, доступной приложению. Покажите другу свой QR-код.';
-
-  @override
-  String get friendsScanCameraFailedTitle => 'Не удалось запустить камеру';
-
-  @override
-  String get friendsScanCameraFailedBody =>
-      'Проверьте, что камеру не занимает другое приложение и что есть интернет (в браузере сканер загружается при первом использовании), и повторите.';
-
-  @override
-  String friendsScanConfirmBody(int sp, int streak) {
-    String _temp0 = intl.Intl.pluralLogic(
-      streak,
-      locale: localeName,
-      other: '$streak дня',
-      many: '$streak дней',
-      few: '$streak дня',
-      one: '$streak день',
-    );
-    return '$sp SP · стрик $_temp0';
-  }
-
-  @override
-  String get friendsCancel => 'Отмена';
-
-  @override
-  String get friendsAdd => 'Добавить';
-
-  @override
-  String friendsDetailLastSynced(String date) {
-    return 'Синхронизировано: $date';
-  }
-
-  @override
-  String get friendsDeleteTitle => 'Удалить друга';
-
-  @override
-  String friendsDeleteBody(String name) {
-    return 'Удалить $name из друзей?';
-  }
-
-  @override
-  String get friendsDeleteConfirm => 'Удалить';
-
-  @override
-  String get settingsSectionFriends => 'ДРУЗЬЯ';
-
-  @override
-  String get settingsFriendsNameTitle => 'Имя для друзей';
-
-  @override
-  String get settingsFriendsNamePlaceholder => 'Введи своё имя';
-
-  @override
-  String get settingsFriendsDiscoverableTitle => 'Виден через Bluetooth';
-
-  @override
-  String get settingsFriendsDiscoverableSubtitle =>
-      'Другие пользователи CaliDay смогут найти тебя рядом';
-
-  @override
-  String get profileFriendsTitle => 'Друзья';
-
-  @override
-  String get profileFriendsAll => 'Все друзья →';
-
-  @override
-  String get profileFriendsEmpty => 'Друзей пока нет';
-
-  @override
-  String profileFriendsCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count друга',
-      many: '$count друзей',
-      few: '$count друга',
-      one: '$count друг',
-    );
-    return '$_temp0';
-  }
+  String get settingsNamePlaceholder => 'Введи своё имя';
 
   @override
   String get exerciseFlexS1HipFlexorStretchName => 'Растяжка сгибателей бедра';
@@ -3122,6 +2994,26 @@ class AppLocalizationsRu extends AppLocalizations {
       'Коты спят по шестнадцать часов. Тебе хватит восьми.\nМурр… спокойной ночи.\nСон — лучшая поза. Утром продолжим.\nСвернись клубком и отдыхай.';
 
   @override
+  String greetingMorning(String name) {
+    return 'Доброе утро, $name!';
+  }
+
+  @override
+  String greetingDay(String name) {
+    return 'Привет, $name!';
+  }
+
+  @override
+  String greetingEvening(String name) {
+    return 'Добрый вечер, $name!';
+  }
+
+  @override
+  String greetingNight(String name) {
+    return 'Не спится, $name?';
+  }
+
+  @override
   String get courseBuilderNameHint => 'Название курса';
 
   @override
@@ -3267,6 +3159,10 @@ class AppLocalizationsRu extends AppLocalizations {
       'Свои курсы появились в списке курсов под +: сними галочку, чтобы спрятать курс из ряда сверху (он сохранится), карандаш открывает его для правки.\nСвой курс в ряду сверху отмечен значком с инструментами вместо лица ведущего.\nЕщё не полученное достижение ведущий теперь держит в руках: серая медаль с замочком.\n«О приложении»: нажми на Горо, у него есть несколько новых поз.\nГлавный экран: до первой тренировки дня ведущий говорит пару слов (у каждого свои, новые при каждом открытии и по нажатию), а ниже — ближайшие цели (следующий ранг, ближайшее достижение, открытое испытание, которое можно начать прямо отсюда) и ветки курса.\nПосле тренировки на главном экране — последние тренировки и что сегодня выросло: повторы, подход, меньше отдыха, новый этап.\nСтрелка на кнопке тренировки раскрывает план дня, и Горо показывает каждое упражнение.\nАнимации Горо везде, где названо упражнение: путь ветки, вкладка «Курсы», конструкторы, сохранённые тренировки, история, отдых перед следующим упражнением.';
 
   @override
+  String get releaseNotes095 =>
+      'Друзей больше нет: без сервера они только обменивались QR-кодом один раз, и всё. Приложению больше не нужны камера и Bluetooth.\nТвоё имя: ведущий здоровается по имени на главном экране, а профиль и итог тренировки его показывают. Поменять — в Настройках, раздел «Профиль».';
+
+  @override
   String get releaseNotes093 =>
       'Свой курс: на вкладке «Курсы» нажми + и собери ветки из любых курсов, выбери ведущего и дай курсу название.\nСвоя ветка: выбери упражнения и расставь их по порядку, каждое станет этапом. Повторы, подходы, отдых и испытания приложение подберёт само, как в любой ветке.\nВ колокольчике сверху последние обновления, а под ними свёрнута вся история CaliDay по версиям.';
 
@@ -3304,5 +3200,5 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'Новые курсы: «Утренняя зарядка» с жаворонком Авророй и «Йога» с котом Мисо.\nВедущие вручают достижения своего курса; упражнения на каждую сторону стали короче.\nУ каждого упражнения есть анимация.\nСвои курсы: из готовых веток и своих, собранных из упражнений в твоём порядке.';
+      'Новые курсы: «Утренняя зарядка» с жаворонком Авророй и «Йога» с котом Мисо.\nВедущие вручают достижения своего курса; упражнения на каждую сторону стали короче.\nУ каждого упражнения есть анимация.\nСвои курсы: из готовых веток и своих, собранных из упражнений в твоём порядке.\nДрузья убраны; ведущий здоровается по имени.';
 }

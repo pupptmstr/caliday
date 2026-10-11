@@ -2,7 +2,7 @@
 
 > **PROJECT:** CaliDay
 > **Screen:** Profile (stats, rank, achievements tab)
-> **Last updated:** 2026-10-06
+> **Last updated:** 2026-10-11
 >
 > Rules here **override** `design-system/caliday/MASTER.md`.
 
@@ -20,16 +20,14 @@ It is read-heavy — the goal is **data at a glance with visual reward feeling**
 
 ```
 ┌────────────────────────────────┐
-│  Goro idle (h=100, centered)   │
-│  Display name (if set)         │
+│  Host idle (h=100, centered)   │
+│  The user's name (if set)      │
 ├────────────────────────────────┤
 │  _RankCard (gradient bg)       │
 │  rank icon + name + SP + bar   │
 ├────────────────────────────────┤
 │  _StatsGrid (one row of 4)     │
 │  streak|record|workouts|freezes│
-├────────────────────────────────┤
-│  Friends count (if any)        │
 ├────────────────────────────────┤
 │  Achievements row (scrollable) │
 ├────────────────────────────────┤

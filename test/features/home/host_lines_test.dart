@@ -37,6 +37,24 @@ void main() {
     }
   });
 
+  test('the host greets by name in every language, at any hour', () {
+    for (final l10n in allTranslations) {
+      final greetings = <String>{};
+      for (var hour = 0; hour < 24; hour++) {
+        final g = HostLineCard.greetingFor(l10n, '  Alexandra ', hour)!;
+        expect(g, contains('Alexandra'), reason: '${l10n.localeName} $hour');
+        expect(g, isNot(contains(' Alexandra ')),
+            reason: 'the name is trimmed');
+        expect(g.length, lessThanOrEqualTo(40), reason: g);
+        greetings.add(g);
+      }
+      expect(greetings, hasLength(4),
+          reason: '${l10n.localeName}: one greeting per part of the day');
+      expect(HostLineCard.greetingFor(l10n, null, 9), isNull);
+      expect(HostLineCard.greetingFor(l10n, '   ', 9), isNull);
+    }
+  });
+
   test('the hosts do not share their happy lines', () {
     for (final l10n in allTranslations) {
       final happy = [

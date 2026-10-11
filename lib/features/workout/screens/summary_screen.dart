@@ -40,6 +40,7 @@ class SummaryScreen extends StatelessWidget {
     final healthSaved = extras['healthSaved'] as bool? ?? false;
     final rankRestored = extras['rankRestored'] as bool? ?? false;
     final courseIndex = extras['courseIdIndex'] as int?;
+    final name = (extras['displayName'] as String?)?.trim() ?? '';
     // The course's host cheers; a custom routine (no course) gets Goro.
     final cheer = courseIndex != null && courseIndex < CourseId.values.length
         ? CourseId.values[courseIndex].hostCheer
@@ -64,7 +65,7 @@ class SummaryScreen extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                l10n.summaryTitle,
+                name.isEmpty ? l10n.summaryTitle : l10n.summaryTitleNamed(name),
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),

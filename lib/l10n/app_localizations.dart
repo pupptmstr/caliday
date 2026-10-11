@@ -624,6 +624,12 @@ abstract class AppLocalizations {
   /// **'Great workout!'**
   String get summaryTitle;
 
+  /// No description provided for @summaryTitleNamed.
+  ///
+  /// In en, this message translates to:
+  /// **'Great workout, {name}!'**
+  String summaryTitleNamed(String name);
+
   /// No description provided for @summarySubtitle.
   ///
   /// In en, this message translates to:
@@ -3774,233 +3780,29 @@ abstract class AppLocalizations {
   /// **'Saved to Health ✓'**
   String get summaryHealthSaved;
 
-  /// No description provided for @friendsTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Friends'**
-  String get friendsTitle;
-
-  /// No description provided for @friendsMyQrTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'My Profile'**
-  String get friendsMyQrTitle;
-
-  /// No description provided for @friendsShareHint.
-  ///
-  /// In en, this message translates to:
-  /// **'Show this code to a friend to share your profile'**
-  String get friendsShareHint;
-
-  /// No description provided for @friendsScanQr.
-  ///
-  /// In en, this message translates to:
-  /// **'Scan QR Code'**
-  String get friendsScanQr;
-
-  /// No description provided for @friendsSectionNearby.
-  ///
-  /// In en, this message translates to:
-  /// **'NEARBY'**
-  String get friendsSectionNearby;
-
-  /// No description provided for @friendsSectionList.
-  ///
-  /// In en, this message translates to:
-  /// **'FRIENDS'**
-  String get friendsSectionList;
-
-  /// No description provided for @friendsNearbyEmpty.
-  ///
-  /// In en, this message translates to:
-  /// **'No CaliDay users found nearby'**
-  String get friendsNearbyEmpty;
-
-  /// No description provided for @friendsNearbyScanning.
-  ///
-  /// In en, this message translates to:
-  /// **'Scanning…'**
-  String get friendsNearbyScanning;
-
-  /// No description provided for @friendsNearbyBleOff.
-  ///
-  /// In en, this message translates to:
-  /// **'Bluetooth is off'**
-  String get friendsNearbyBleOff;
-
-  /// No description provided for @friendsNearbyConnect.
-  ///
-  /// In en, this message translates to:
-  /// **'Get profile'**
-  String get friendsNearbyConnect;
-
-  /// No description provided for @friendsEmpty.
-  ///
-  /// In en, this message translates to:
-  /// **'No friends yet. Scan a QR code to add your first friend.'**
-  String get friendsEmpty;
-
-  /// No description provided for @friendsAdded.
-  ///
-  /// In en, this message translates to:
-  /// **'Friend added!'**
-  String get friendsAdded;
-
-  /// No description provided for @friendsUpdated.
-  ///
-  /// In en, this message translates to:
-  /// **'Profile updated!'**
-  String get friendsUpdated;
-
-  /// No description provided for @friendsScanError.
-  ///
-  /// In en, this message translates to:
-  /// **'Invalid QR code'**
-  String get friendsScanError;
-
-  /// No description provided for @friendsScanTryAgain.
-  ///
-  /// In en, this message translates to:
-  /// **'Try again'**
-  String get friendsScanTryAgain;
-
-  /// No description provided for @friendsScanCameraDeniedTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Camera access is blocked'**
-  String get friendsScanCameraDeniedTitle;
-
-  /// No description provided for @friendsScanCameraDeniedWeb.
-  ///
-  /// In en, this message translates to:
-  /// **'Allow the camera for this site (the camera or lock icon in the address bar), then press Try again. Or show your own QR code to your friend instead.'**
-  String get friendsScanCameraDeniedWeb;
-
-  /// No description provided for @friendsScanCameraDeniedApp.
-  ///
-  /// In en, this message translates to:
-  /// **'Allow camera access for CaliDay in your device settings, then press Try again.'**
-  String get friendsScanCameraDeniedApp;
-
-  /// No description provided for @friendsScanCameraUnsupportedTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'No camera available'**
-  String get friendsScanCameraUnsupportedTitle;
-
-  /// No description provided for @friendsScanCameraUnsupportedBody.
-  ///
-  /// In en, this message translates to:
-  /// **'This device or browser has no camera the app can use. Show your own QR code to your friend instead.'**
-  String get friendsScanCameraUnsupportedBody;
-
-  /// No description provided for @friendsScanCameraFailedTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Could not start the camera'**
-  String get friendsScanCameraFailedTitle;
-
-  /// No description provided for @friendsScanCameraFailedBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Check that no other app is using the camera and that you are online (in a browser the scanner is downloaded on first use), then try again.'**
-  String get friendsScanCameraFailedBody;
-
-  /// No description provided for @friendsScanConfirmBody.
-  ///
-  /// In en, this message translates to:
-  /// **'{sp} SP · {streak}-day streak'**
-  String friendsScanConfirmBody(int sp, int streak);
-
-  /// No description provided for @friendsCancel.
+  /// No description provided for @commonCancel.
   ///
   /// In en, this message translates to:
   /// **'Cancel'**
-  String get friendsCancel;
+  String get commonCancel;
 
-  /// No description provided for @friendsAdd.
+  /// No description provided for @settingsSectionProfile.
   ///
   /// In en, this message translates to:
-  /// **'Add'**
-  String get friendsAdd;
+  /// **'PROFILE'**
+  String get settingsSectionProfile;
 
-  /// No description provided for @friendsDetailLastSynced.
+  /// No description provided for @settingsNameTitle.
   ///
   /// In en, this message translates to:
-  /// **'Synced: {date}'**
-  String friendsDetailLastSynced(String date);
+  /// **'Name'**
+  String get settingsNameTitle;
 
-  /// No description provided for @friendsDeleteTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove friend'**
-  String get friendsDeleteTitle;
-
-  /// No description provided for @friendsDeleteBody.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove {name} from friends?'**
-  String friendsDeleteBody(String name);
-
-  /// No description provided for @friendsDeleteConfirm.
-  ///
-  /// In en, this message translates to:
-  /// **'Remove'**
-  String get friendsDeleteConfirm;
-
-  /// No description provided for @settingsSectionFriends.
-  ///
-  /// In en, this message translates to:
-  /// **'FRIENDS'**
-  String get settingsSectionFriends;
-
-  /// No description provided for @settingsFriendsNameTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Display name'**
-  String get settingsFriendsNameTitle;
-
-  /// No description provided for @settingsFriendsNamePlaceholder.
+  /// No description provided for @settingsNamePlaceholder.
   ///
   /// In en, this message translates to:
   /// **'Enter your name'**
-  String get settingsFriendsNamePlaceholder;
-
-  /// No description provided for @settingsFriendsDiscoverableTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Discoverable via Bluetooth'**
-  String get settingsFriendsDiscoverableTitle;
-
-  /// No description provided for @settingsFriendsDiscoverableSubtitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Other CaliDay users can find you nearby'**
-  String get settingsFriendsDiscoverableSubtitle;
-
-  /// No description provided for @profileFriendsTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Friends'**
-  String get profileFriendsTitle;
-
-  /// No description provided for @profileFriendsAll.
-  ///
-  /// In en, this message translates to:
-  /// **'All friends →'**
-  String get profileFriendsAll;
-
-  /// No description provided for @profileFriendsEmpty.
-  ///
-  /// In en, this message translates to:
-  /// **'No friends yet'**
-  String get profileFriendsEmpty;
-
-  /// No description provided for @profileFriendsCount.
-  ///
-  /// In en, this message translates to:
-  /// **'{count, plural, one{{count} friend} other{{count} friends}}'**
-  String profileFriendsCount(int count);
+  String get settingsNamePlaceholder;
 
   /// No description provided for @exerciseFlexS1HipFlexorStretchName.
   ///
@@ -5208,6 +5010,30 @@ abstract class AppLocalizations {
   /// **'Cats sleep sixteen hours a day. Eight will do for you.\nPurrr… good night.\nSleep is the best pose. More in the morning.\nCurl up and rest.'**
   String get hostLinesMisoSleeping;
 
+  /// No description provided for @greetingMorning.
+  ///
+  /// In en, this message translates to:
+  /// **'Good morning, {name}!'**
+  String greetingMorning(String name);
+
+  /// No description provided for @greetingDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Hi, {name}!'**
+  String greetingDay(String name);
+
+  /// No description provided for @greetingEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Good evening, {name}!'**
+  String greetingEvening(String name);
+
+  /// No description provided for @greetingNight.
+  ///
+  /// In en, this message translates to:
+  /// **'Still up, {name}?'**
+  String greetingNight(String name);
+
   /// No description provided for @courseBuilderNameHint.
   ///
   /// In en, this message translates to:
@@ -5441,6 +5267,12 @@ abstract class AppLocalizations {
   /// **'Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host\'s face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you (each host its own, a new one every time you open the app or tap it), and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today\'s plan, with Goro showing every exercise.\nGoro\'s animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.'**
   String get releaseNotes094;
 
+  /// No description provided for @releaseNotes095.
+  ///
+  /// In en, this message translates to:
+  /// **'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.'**
+  String get releaseNotes095;
+
   /// No description provided for @releaseNotes093.
   ///
   /// In en, this message translates to:
@@ -5498,7 +5330,7 @@ abstract class AppLocalizations {
   /// No description provided for @releaseHistory09.
   ///
   /// In en, this message translates to:
-  /// **'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.'**
+  /// **'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.'**
   String get releaseHistory09;
 }
 

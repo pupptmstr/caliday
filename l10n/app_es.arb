@@ -262,6 +262,14 @@
     }
   },
   "summaryTitle": "¡Gran entrenamiento!",
+  "summaryTitleNamed": "¡Gran entrenamiento, {name}!",
+  "@summaryTitleNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "summarySubtitle": "Sigue así: un paso más hacia delante",
   "summaryLabelTime": "Tiempo",
   "summaryLabelExercises": "Ejerc.",
@@ -845,75 +853,10 @@
   "settingsHealthWeightTitle": "Leer el peso corporal",
   "settingsHealthWeightSubtitle": "Para estimar mejor las calorías (por defecto 70 kg)",
   "summaryHealthSaved": "Guardado en Salud ✓",
-  "friendsTitle": "Amigos",
-  "friendsMyQrTitle": "Mi perfil",
-  "friendsShareHint": "Muestra este código a un amigo para compartir tu perfil",
-  "friendsScanQr": "Escanear código QR",
-  "friendsSectionNearby": "CERCA",
-  "friendsSectionList": "AMIGOS",
-  "friendsNearbyEmpty": "No hay usuarios de CaliDay cerca",
-  "friendsNearbyScanning": "Buscando…",
-  "friendsNearbyBleOff": "El Bluetooth está apagado",
-  "friendsNearbyConnect": "Obtener perfil",
-  "friendsEmpty": "Aún no tienes amigos. Escanea un código QR para añadir el primero.",
-  "friendsAdded": "¡Amigo añadido!",
-  "friendsUpdated": "¡Perfil actualizado!",
-  "friendsScanError": "Código QR no válido",
-  "friendsScanTryAgain": "Reintentar",
-  "friendsScanCameraDeniedTitle": "El acceso a la cámara está bloqueado",
-  "friendsScanCameraDeniedWeb": "Permite la cámara para este sitio (el icono de la cámara o del candado en la barra de direcciones) y pulsa Reintentar. O muestra tu propio código QR a tu amigo.",
-  "friendsScanCameraDeniedApp": "Permite el acceso a la cámara para CaliDay en los ajustes del dispositivo y pulsa Reintentar.",
-  "friendsScanCameraUnsupportedTitle": "No hay cámara disponible",
-  "friendsScanCameraUnsupportedBody": "Este dispositivo o navegador no tiene una cámara que la app pueda usar. Muestra tu propio código QR a tu amigo.",
-  "friendsScanCameraFailedTitle": "No se pudo iniciar la cámara",
-  "friendsScanCameraFailedBody": "Comprueba que ninguna otra app esté usando la cámara y que tienes conexión (en el navegador el escáner se descarga la primera vez) y vuelve a intentarlo.",
-  "friendsScanConfirmBody": "{sp} SP · racha de {streak, plural, one{{streak} día} other{{streak} días}}",
-  "@friendsScanConfirmBody": {
-    "placeholders": {
-      "sp": {
-        "type": "int"
-      },
-      "streak": {
-        "type": "int"
-      }
-    }
-  },
-  "friendsCancel": "Cancelar",
-  "friendsAdd": "Añadir",
-  "friendsDetailLastSynced": "Sincronizado: {date}",
-  "@friendsDetailLastSynced": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
-  "friendsDeleteTitle": "Eliminar amigo",
-  "friendsDeleteBody": "¿Eliminar a {name} de tus amigos?",
-  "@friendsDeleteBody": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "friendsDeleteConfirm": "Eliminar",
-  "settingsSectionFriends": "AMIGOS",
-  "settingsFriendsNameTitle": "Nombre visible",
-  "settingsFriendsNamePlaceholder": "Escribe tu nombre",
-  "settingsFriendsDiscoverableTitle": "Visible por Bluetooth",
-  "settingsFriendsDiscoverableSubtitle": "Otros usuarios de CaliDay cerca pueden encontrarte",
-  "profileFriendsTitle": "Amigos",
-  "profileFriendsAll": "Todos los amigos →",
-  "profileFriendsEmpty": "Aún no tienes amigos",
-  "profileFriendsCount": "{count, plural, one{{count} amigo} other{{count} amigos}}",
-  "@profileFriendsCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
+  "commonCancel": "Cancelar",
+  "settingsSectionProfile": "PERFIL",
+  "settingsNameTitle": "Nombre",
+  "settingsNamePlaceholder": "Escribe tu nombre",
   "exerciseFlexS1HipFlexorStretchName": "Estiramiento del flexor de cadera",
   "exerciseFlexS1HipFlexorStretchDesc": "Da una zancada y apoya la rodilla de atrás en el suelo. Empuja la cadera hacia delante hasta sentir el estiramiento en la parte delantera de la cadera. Mantén en cada lado.",
   "exerciseFlexS1HipFlexorStretchTip": "Espalda recta y cadera hacia delante: siente el estiramiento en la parte delantera de la cadera.",
@@ -1272,6 +1215,38 @@
   "hostLinesMisoAngry": "Con el pelo erizado: ¡tu racha está en peligro!\nHasta los gatos se levantan por lo importante. ¿Salvamos la racha?\nFalta poco para medianoche. Una práctica y la racha sigue viva.\n¡Miau! Última oportunidad de hoy.",
   "hostLinesMisoSupportive": "Qué bien verte de nuevo. Sin prisa, al estilo gato.\nUna pausa también es una práctica de calma.\nTu progreso sigue aquí, lo he mantenido calentito.\nEmpecemos simple: inspira, espira, estírate.",
   "hostLinesMisoSleeping": "Los gatos duermen dieciséis horas al día. A ti te bastan ocho.\nRrrr… buenas noches.\nDormir es la mejor postura. Seguimos por la mañana.\nHazte un ovillo y descansa.",
+  "greetingMorning": "¡Buenos días, {name}!",
+  "@greetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingDay": "¡Hola, {name}!",
+  "@greetingDay": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingEvening": "¡Buenas noches, {name}!",
+  "@greetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingNight": "¿No puedes dormir, {name}?",
+  "@greetingNight": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "courseBuilderNameHint": "Nombre del curso",
   "courseBuilderNameRequired": "Ponle un nombre al curso",
   "courseBuilderHostTitle": "Anfitrión",
@@ -1386,6 +1361,7 @@
   "whatsNewRecent": "Últimas actualizaciones",
   "whatsNewHistory": "Historial de versiones",
   "releaseNotes094": "Tus cursos ya están en la lista de cursos bajo +: desmarca uno para ocultarlo de la fila de arriba (se guarda), el lápiz lo abre para editarlo.\nUn curso propio lleva arriba una marca de herramientas en vez de la cara de su anfitrión.\nUn logro aún pendiente: su anfitrión ahora lo sostiene, una medalla gris con candado.\n«Acerca de»: toca a Goro, tiene algunas poses nuevas.\nPantalla principal: antes del primer entrenamiento del día tu anfitrión te dice unas palabras (cada uno las suyas, nuevas cada vez que abres la app o las tocas), y debajo están tus próximas metas (el siguiente rango, el logro más cercano, un reto abierto que puedes empezar ahí mismo) y las ramas del curso.\nDespués, la pantalla principal muestra tus últimos entrenamientos y lo que ha crecido hoy: más repeticiones, una serie, menos descanso, una etapa nueva.\nLa flecha del botón de entrenamiento despliega el plan del día, con Goro mostrando cada ejercicio.\nLas animaciones de Goro dondequiera que se nombra un ejercicio: el camino de una rama, la pestaña Cursos, los constructores, los entrenamientos guardados, el historial, el descanso antes del siguiente ejercicio.",
+  "releaseNotes095": "Ya no hay amigos: sin servidor solo podían intercambiar un código QR una vez y nada más. La app ya no necesita la cámara ni el Bluetooth.\nTu nombre: tu anfitrión te saluda con él en la pantalla de inicio, y el perfil y el final del entrenamiento lo muestran. Cámbialo en Ajustes → Perfil.",
   "releaseNotes093": "Tu propio curso: en la pestaña Cursos toca + y reúne ramas de cualquier curso, elige el anfitrión y ponle un nombre.\nUna rama propia: elige ejercicios y ordénalos, cada uno será una etapa. Las repeticiones, las series, los descansos y los retos los pone la app, como en cualquier rama.\nEn la campana, arriba están las últimas actualizaciones y debajo, plegada, toda la historia de CaliDay versión a versión.",
   "releaseHistory01": "La primera versión: entrenamientos diarios cortos, puntos SP, rachas, recordatorios y una configuración inicial.\nCinco habilidades: flexiones, core, dominadas, piernas y equilibrio; el entrenamiento las alterna día a día.\nEl camino de una habilidad: todas las etapas en una pantalla y un reto para avanzar antes.\nLogros, entrenamientos extra el mismo día y un tema oscuro.\nRuso e inglés.\nGoro muestra cada etapa de las flexiones en una animación.",
   "releaseHistory02": "Sonido y vibración durante el entrenamiento.\nEl historial de entrenamientos.\nUna pantalla de inicio nueva con tres pestañas abajo.\nProtectores de racha: un día perdido ya no rompe la racha.\nLa pantalla «Acerca de».",
@@ -1395,5 +1371,5 @@
   "releaseHistory06": "La biblioteca de ejercicios: todos los ejercicios, con búsqueda y filtros.\nToca la racha, el rango o los protectores en el perfil para ver qué significan.",
   "releaseHistory07": "Tus propios entrenamientos: elige ejercicios y guárdalos como rutina, o empieza una rápida por enfoque.\nAnimaciones para las etapas de equilibrio.\nLa política de privacidad y las condiciones de uso.",
   "releaseHistory08": "Las estadísticas de la pantalla de inicio abren el calendario, el historial y los rangos; un calendario de entrenamientos.\nEl rango baja tras pausas largas y vuelve con el entrenamiento.\nCaliDay en el navegador: la versión web.\nAnimaciones para cada ejercicio de los primeros cursos.\nLos ejercicios por tiempo empiezan solos tras una cuenta atrás corta; los de un lado se hacen a ambos.\nLos entrenamientos son Corto, Estándar o Completo, con una estimación del tiempo que aprende tu ritmo.\n«Novedades» en la campana del perfil; alemán y español.\nCada habilidad avanza una vez al día, en cualquier entrenamiento.\nUn curso nuevo, Estiramiento nocturno, y un anfitrión para cada curso.",
-  "releaseHistory09": "Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden."
+  "releaseHistory09": "Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.\nSe quitan los amigos; tu anfitrión te saluda por tu nombre."
 }

@@ -41,7 +41,12 @@ class HomeBeforeWorkout extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-HostLineCard(host: data.activeCourse.host, mood: expression),
+        HostLineCard(
+          host: data.activeCourse.host,
+          mood: expression,
+          name: data.profile.displayName,
+          now: now,
+        ),
         const SizedBox(height: 20),
         _NextGoals(data: data),
         const SizedBox(height: 20),
@@ -96,10 +101,33 @@ class HomeAfterWorkout extends ConsumerWidget {
 /// line of the ARB text). Another one each time Home is built anew or the app
 /// comes back, and on a tap; never the same twice in a row.
 class HostLineCard extends StatefulWidget {
-  const HostLineCard({super.key, required this.host, required this.mood});
+  const HostLineCard({
+    super.key,
+    required this.host,
+    required this.mood,
+    this.name,
+    required this.now,
+  });
 
   final CourseId host;
   final GoroExpression mood;
+
+  /// The user's name: the host greets with it above the line (none when
+  /// null or blank).
+  final String? name;
+  final DateTime now;
+
+  /// "Good morning, Anna!" by the part of the day, or null without a name.
+  static String? greetingFor(AppLocalizations l, String? name, int hour) {
+    final n = name?.trim() ?? '';
+    if (n.isEmpty) return null;
+    return switch (HomeDigest.dayPartOf(hour)) {
+      DayPart.morning => l.greetingMorning(n),
+      DayPart.day => l.greetingDay(n),
+      DayPart.evening => l.greetingEvening(n),
+      DayPart.night => l.greetingNight(n),
+    };
+  }
 
   static List<String> linesFor(
       AppLocalizations l, CourseId host, GoroExpression mood) {
@@ -195,6 +223,8 @@ class _HostLineCardState extends State<HostLineCard>
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final lines =
         HostLineCard.linesFor(context.l10n, widget.host, widget.mood);
+    final greeting =
+        HostLineCard.greetingFor(context.l10n, widget.name, widget.now.hour);
     if (_index == null || _index! >= lines.length) {
       _index = HomeDigest.nextLine(lines.length, _last[_key], _random);
       _last[_key] = _index!;
@@ -218,15 +248,33 @@ class _HostLineCardState extends State<HostLineCard>
               boxShadow:
                   isDark ? AppTheme.cardShadowDark : AppTheme.cardShadowLight,
             ),
-            child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 250),
-              child: Text(
-                lines[_index!],
-                key: ValueKey(lines[_index!]),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontSize: 15, fontWeight: FontWeight.w600, height: 1.3),
-              ),
+            child: Column(
+              children: [
+                if (greeting != null) ...[
+                  Text(
+                    greeting,
+                    textAlign: TextAlign.center,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w800,
+                      color: scheme.primary,
+                    ),
+                  ),
+                  const SizedBox(height: 4),
+                ],
+                AnimatedSwitcher(
+                  duration: const Duration(milliseconds: 250),
+                  child: Text(
+                    lines[_index!],
+                    key: ValueKey(lines[_index!]),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontSize: 15, fontWeight: FontWeight.w600, height: 1.3),
+                  ),
+                ),
+              ],
             ),
           ),
         ],
