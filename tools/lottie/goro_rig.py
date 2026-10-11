@@ -171,6 +171,10 @@ BASE_POSE = dict(
     sc_uarm_n=1.0, sc_farm_n=1.0, sc_uarm_f=1.0, sc_farm_f=1.0,
     # Torso thickness scale: widens the torso as it turns towards the viewer.
     sc_torso=1.0,
+    # Torso length scale ('body' only): the shoulders and hips move with it,
+    # the head offset is the caller's (a shorter body for poses Goro's long
+    # torso cannot reach, e.g. the pike push-up).
+    sc_len=1.0,
     # Pelvis rotation (deg, clockwise) about the waist, split-torso poses only.
     pel=0.0,
     # Three-part spine bend (see SPINE_H1), spine poses only.
@@ -240,10 +244,11 @@ class Spec:
 def joint_of(pose, limb):
     """World position of the limb's root joint (shoulder or hip)."""
     c = (pose['cx'], pose['cy'])
+    k = pose.get('sc_len', 1.0)
     if limb.startswith('arm'):
-        return add(c, rot((pose['sh_' + limb[-1]], SHOULDER[1]), pose['br']))
+        return add(c, rot((pose['sh_' + limb[-1]], SHOULDER[1] * k), pose['br']))
     hip_x = pose['hip_' + limb[-1]]
-    local = (hip_x, TORSO_H / 2)
+    local = (hip_x, TORSO_H / 2 * k)
     if pose['pel']:
         local = add(WAIST, rot((local[0] - WAIST[0], local[1] - WAIST[1]),
                                pose['pel']))
@@ -286,7 +291,8 @@ def solve(spec, pose):
     out = {}
     c = (pose['cx'], pose['cy'])
     br = pose['br']
-    out['body'] = dict(p=c, r=br, s=(100 * pose['sc_torso'], 100))
+    k = pose.get('sc_len', 1.0)
+    out['body'] = dict(p=c, r=br, s=(100 * pose['sc_torso'], 100 if k == 1.0 else 100 * k))
     out['torso_u'] = dict(p=add(c, rot((0, (-50 + UPPER_BOTTOM) / 2), br)), r=br,
                           s=(100 * pose['sc_torso'], 100))
     s1, s2 = pose['spine']

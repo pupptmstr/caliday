@@ -528,7 +528,9 @@ def shoulder_taps():
         for side in ('n', 'f'):
             planted = floor_arm(p, side, TAP_HANDS[side])['arm_' + side]
             sh = gr.joint_of(p, 'arm_' + side)
-            tap = gr.ik_to_fk(p, 'arm_' + side, (sh[0] + 3, sh[1] + 2), (0.3, 1))
+            # a fully folded arm points its elbow at the target: aim just behind and
+            # below the shoulder so the elbow drops back towards the feet
+            tap = gr.ik_to_fk(p, 'arm_' + side, (sh[0] - 6, sh[1] + 14), (-1, 0.4))
             p['arm_' + side] = lerp_angles(planted, tap, taps[side])
         return p
 
@@ -571,64 +573,72 @@ def plank_up_down():
 
 
 # ── arms_shoulders_s4_pike_pushup / s6_elevated_pike ─────────────────────────
-# An upside-down V (hips high, legs straight); the elbows bend back and the top
-# of the head comes down towards the floor ahead of the hands, then the arms
-# press back. The elevated one has the feet on a chair, the back nearly upright.
+# An upside-down V: the hips the highest point, the legs straight, the head
+# between the arms. The elbows bend back and the top of the head comes down
+# towards the floor ahead of the hands, then the arms press back; the hips ride
+# forward a little on the straight legs. Goro's own proportions (a torso longer
+# than his legs, short arms) leave no room for that V, so these two are drawn
+# with a shorter body, longer legs and a little longer arms (owner: the
+# exercise must read, the proportions may change). The elevated one has the
+# feet on a chair and the back nearly upright.
 
-PIKE_HANDS = {'n': (270.0, 368.0), 'f': (264.0, 368.0)}
+PIKE_BODY, PIKE_ARMS = 0.72, 1.15              # torso length, arm length scales
 
 
-def _pike(name, feet, hip_top, lower, props=None):
+def _meet(c1, r1, c2, r2):
+    """The upper intersection of two circles (the hips between the feet and
+    the shoulders)."""
+    d = math.dist(c1, c2)
+    d = min(max(d, abs(r1 - r2) + 1e-6), r1 + r2 - 1e-6)
+    a = (r1 * r1 - r2 * r2 + d * d) / (2 * d)
+    h = math.sqrt(max(0.0, r1 * r1 - a * a))
+    ex = ((c2[0] - c1[0]) / d, (c2[1] - c1[1]) / d)
+    mid = (c1[0] + a * ex[0], c1[1] + a * ex[1])
+    return min(((mid[0] - h * ex[1], mid[1] + h * ex[0]),
+                (mid[0] + h * ex[1], mid[1] - h * ex[0])), key=lambda q: q[1])
+
+
+def _scaled_limb(p, limb, target, scale, bend):
+    """FK angles and segment scales of a limb ``scale`` times its length."""
+    l1, l2 = (gr.UARM, gr.FARM) if limb.startswith('arm') else (gr.THIGH, gr.SHIN)
+    side = limb[-1]
+    p[limb] = gr.ik2(gr.joint_of(p, limb), target, l1 * scale, l2 * scale, bend)
+    parts = ('uarm', 'farm') if limb.startswith('arm') else ('thigh', 'shin')
+    for part in parts:
+        p['sc_%s_%s' % (part, side)] = scale
+    return p
+
+
+def _pike(name, feet, legs, hands, sh_top, sh_bottom, props=None):
     T = 48
+    reach = 89.0 * PIKE_BODY                       # hip joint to shoulder joint
+    leg_len = LEG * legs
 
     def pose(t):
         u = ramp(t, [(0, 0), (4, 0), (20, 1), (26, 1), (42, 0), (48, 0)])
-        hip = (hip_top[0] + 4 * u, hip_top[1] + 6 * u)
-        sh0 = add(PIKE_HANDS['n'], (-14, -76))
-        sh = add(sh0, (10 * u, lower * u))
-        d = (sh[0] - hip[0], sh[1] - hip[1])
-        br = math.degrees(math.atan2(d[0], -d[1]))
-        p = gr.mk(gr.P(SIDE_BASE), hip, br, ht=24 + 10 * u)
+        sh = mix(sh_top, sh_bottom, u)
+        hips = _meet(feet['n'], leg_len, sh, reach)
+        br = math.degrees(math.atan2(sh[0] - hips[0], -(sh[1] - hips[1])))
+        p = gr.P(SIDE_BASE, br=br, sc_len=PIKE_BODY, hip_n=3.0, hip_f=0.0, sh_n=3.0,
+                 sh_f=3.0, head=(7.0, -83.0 + 50.0 * (1 - PIKE_BODY)), ht=30 + 12 * u)
+        p = placed(p, 'arm_n', sh)
         for side in ('n', 'f'):
-            p = gr.plant(p, 'leg_' + side, feet[side], (1, -1))
+            p = _scaled_limb(p, 'leg_' + side, feet[side], legs, (1, -1))
             p['foot_' + side] = (2, 2, 0) if feet[side][1] > 360 else (4, 3, 0)
-            p = floor_arm(p, side, PIKE_HANDS[side])
+            j = gr.joint_of(p, 'arm_' + side)
+            d = (hands[side][0] - j[0], hands[side][1] - j[1])
+            p = _scaled_limb(p, 'arm_' + side, hands[side], PIKE_ARMS, (-d[1], d[0]))
         return p
 
     return gr.Spec(name, T, gr.sampled(T, pose), modes=SIDE_FK, order=SIDE_ORDER,
                    props=props)
 
 
-# Goro's legs (84 px) are shorter than his torso, so with the feet on the floor
-# the hips rise no higher than the legs reach and the head already hangs near
-# the floor in his upside-down V (the downward dog of plank_to_dog). From that
-# V the elbows bend and the shoulders travel forward and down over the hands,
-# the straight legs tipping forward over the feet (onto the balls), and back.
-
 def pike_pushup():
-    from gen_morning import plank_toes
-    T = 48
-    hands = {'n': (279.0, 368.0), 'f': (273.0, 368.0)}
-    toes = plank_toes((276.0, 290.0))
-
-    def hips_at(a_leg):
-        return add(toes, mul(dirv(a_leg), -LEG))
-
-    top = hips_at(10.0)
-    br0 = math.degrees(math.atan2(hands['n'][0] - top[0], -(hands['n'][1] - top[1])))
-
-    def pose(t):
-        u = ramp(t, [(0, 0), (4, 0), (20, 1), (26, 1), (42, 0), (48, 0)])
-        a_leg = 10.0 + 18.0 * u
-        p = gr.mk(gr.P(SIDE_BASE), hips_at(a_leg), br0 + 3.0 * u, ht=22.0 + 8.0 * u)
-        for side in ('n', 'f'):
-            p['leg_' + side] = (a_leg, a_leg)
-            p['foot_' + side] = (2, 2 - 5 * u, 40 * u)
-            p = floor_arm(p, side, hands[side])
-        return p
-
-    return gr.Spec('arms_shoulders_s4_pike_pushup', T, gr.sampled(T, pose), modes=SIDE_FK,
-                   order=SIDE_ORDER)
+    feet = {'n': (150.0, 372.0), 'f': (144.0, 372.0)}
+    hands = {'n': (264.0, 368.0), 'f': (258.0, 368.0)}
+    return _pike('arms_shoulders_s4_pike_pushup', feet, 1.5, hands,
+                 (222.0, 284.0), (230.0, 314.0))
 
 
 def elevated_pike():
@@ -645,7 +655,9 @@ def elevated_pike():
             gr.bar('back', x0 + 5, SEAT_Y - 48, 10, 96, CHAIR, frames, 3, 63),
         ]
 
-    return _pike('arms_shoulders_s6_elevated_pike', feet, (226.0, 236.0), 34, props)
+    hands = {'n': (262.0, 368.0), 'f': (256.0, 368.0)}
+    return _pike('arms_shoulders_s6_elevated_pike', feet, 1.2, hands,
+                 (256.0, 280.0), (266.0, 314.0), props)
 
 
 # ── arms_shoulders_s5_chair_dips_straight ────────────────────────────────────
