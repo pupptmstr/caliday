@@ -5,10 +5,10 @@
 /// round it, as (left, top, side); it may reach past the canvas.
 const Map<String, (int, int, int)> kAnimationCrops = {
   'assets/animations/arms_shoulders_s1_shoulder_taps.json': (86, 158, 295),
-  'assets/animations/arms_shoulders_s2_chair_dips.json': (30, 110, 293),
+  'assets/animations/arms_shoulders_s2_chair_dips.json': (38, 116, 285),
   'assets/animations/arms_shoulders_s3_plank_up_down.json': (78, 154, 310),
-  'assets/animations/arms_shoulders_s4_pike_pushup.json': (152, 196, 223),
-  'assets/animations/arms_shoulders_s5_chair_dips_straight.json': (35, 112, 290),
+  'assets/animations/arms_shoulders_s4_pike_pushup.json': (80, 194, 250),
+  'assets/animations/arms_shoulders_s5_chair_dips_straight.json': (52, 118, 283),
   'assets/animations/arms_shoulders_s6_elevated_pike.json': (88, 164, 253),
   'assets/animations/bal_s1_one_leg_stand.json': (32, 78, 332),
   'assets/animations/bal_s2_one_arm_plank.json': (7, 155, 278),

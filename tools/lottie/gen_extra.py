@@ -222,15 +222,38 @@ def chair_props(frames):
     ]
 
 
+def _seat_gap(p):
+    """How far the torso's back edge stays in front of the seat's front edge
+    (negative: it is inside the chair). Only the part below the seat top
+    counts: above it the back may lean over the seat."""
+    c = (p['cx'], p['cy'])
+    top = add(c, gr.rot((-28.0, -50.0), p['br']))
+    bottom = add(c, gr.rot((-28.0, 50.0), p['br']))
+    xs = [bottom[0]]
+    if (top[1] - SEAT_Y) * (bottom[1] - SEAT_Y) < 0:     # the edge crosses the seat top
+        k = (SEAT_Y - top[1]) / (bottom[1] - top[1])
+        xs.append(top[0] + (bottom[0] - top[0]) * k)
+    elif top[1] > SEAT_Y:
+        xs.append(top[0])
+    return min(xs) - (SEAT_X[1] + 3)
+
+
+def _dip_body(shoulder_y, br, hands, forward=0.0):
+    """A dip pose with the near shoulder at ``shoulder_y``, the torso tilted
+    by ``br``, its back ``forward`` px in front of the seat edge."""
+    p = placed(gr.P(SIDE_BASE, cx=0.0, cy=0.0, br=br, ht=-6), 'arm_n',
+               (hands['n'][0], shoulder_y))
+    p['cx'] += forward - _seat_gap(p)
+    return p
+
+
 def chair_dip(name, ankles, foot):
     T = 48
     hands = {'n': (SEAT_X[1] + 2, SEAT_Y - 4), 'f': (SEAT_X[1] - 4, SEAT_Y - 4)}
 
     def pose(t):
         u = ramp(t, [(0, 0), (4, 0), (20, 1), (26, 1), (42, 0), (48, 0)])
-        sh = (hands['n'][0] + 8 - 2 * u, hands['n'][1] - 76 + 26 * u)
-        p = gr.P(SIDE_BASE, cx=0.0, cy=0.0, br=6 + 8 * u, ht=-6)
-        p = placed(p, 'arm_n', sh)
+        p = _dip_body(hands['n'][1] - 70 + 24 * u, 2 + 4 * u, hands)
         for side in ('n', 'f'):
             p = gr.plant(p, 'arm_' + side, hands[side], (-1, -0.3))
             p = gr.plant(p, 'leg_' + side, ankles[side], (1, -1))
@@ -242,7 +265,7 @@ def chair_dip(name, ankles, foot):
 
 def chair_dips():
     return chair_dip('arms_shoulders_s2_chair_dips',
-                     {'n': (246.0, 372.0), 'f': (240.0, 372.0)}, (5, 4, 0))
+                     {'n': (254.0, 372.0), 'f': (248.0, 372.0)}, (5, 4, 0))
 
 
 # ── cardio_s6_burpee ─────────────────────────────────────────────────────────
@@ -576,9 +599,36 @@ def _pike(name, feet, hip_top, lower, props=None):
                    props=props)
 
 
+# Goro's legs (84 px) are shorter than his torso, so with the feet on the floor
+# the hips rise no higher than the legs reach and the head already hangs near
+# the floor in his upside-down V (the downward dog of plank_to_dog). From that
+# V the elbows bend and the shoulders travel forward and down over the hands,
+# the straight legs tipping forward over the feet (onto the balls), and back.
+
 def pike_pushup():
-    feet = {'n': (184.0, 372.0), 'f': (178.0, 372.0)}
-    return _pike('arms_shoulders_s4_pike_pushup', feet, (212.0, 262.0), 30)
+    from gen_morning import plank_toes
+    T = 48
+    hands = {'n': (279.0, 368.0), 'f': (273.0, 368.0)}
+    toes = plank_toes((276.0, 290.0))
+
+    def hips_at(a_leg):
+        return add(toes, mul(dirv(a_leg), -LEG))
+
+    top = hips_at(10.0)
+    br0 = math.degrees(math.atan2(hands['n'][0] - top[0], -(hands['n'][1] - top[1])))
+
+    def pose(t):
+        u = ramp(t, [(0, 0), (4, 0), (20, 1), (26, 1), (42, 0), (48, 0)])
+        a_leg = 10.0 + 18.0 * u
+        p = gr.mk(gr.P(SIDE_BASE), hips_at(a_leg), br0 + 3.0 * u, ht=22.0 + 8.0 * u)
+        for side in ('n', 'f'):
+            p['leg_' + side] = (a_leg, a_leg)
+            p['foot_' + side] = (2, 2 - 5 * u, 40 * u)
+            p = floor_arm(p, side, hands[side])
+        return p
+
+    return gr.Spec('arms_shoulders_s4_pike_pushup', T, gr.sampled(T, pose), modes=SIDE_FK,
+                   order=SIDE_ORDER)
 
 
 def elevated_pike():
@@ -605,18 +655,29 @@ def elevated_pike():
 def chair_dips_straight():
     T = 48
     hands = {'n': (SEAT_X[1] + 2, SEAT_Y - 4), 'f': (SEAT_X[1] - 4, SEAT_Y - 4)}
-    heel = {'n': (262.0, 370.0), 'f': (256.0, 370.0)}
+
+    def sh_y(u):
+        return hands['n'][1] - 70 + 24 * u
+
+    # the heels where the bottom of the dip has straight legs and an upright back
+    low = _dip_body(sh_y(1.0), 4.0, hands)
+    hip = gr.joint_of(low, 'leg_n')
+    hx = hip[0] + math.sqrt(83.0 ** 2 - (370.0 - hip[1]) ** 2)
+    heel = {'n': (hx, 370.0), 'f': (hx - 6, 370.0)}
 
     def pose(t):
         u = ramp(t, [(0, 0), (4, 0), (20, 1), (26, 1), (42, 0), (48, 0)])
-        sh = (hands['n'][0] + 8 - 2 * u, hands['n'][1] - 76 + 26 * u)
+        # straight legs to the heels; at the top the body may stand a little
+        # further from the seat, as far as the arms reach
         best = None
-        for br10 in range(-200, 600):
-            br = br10 / 10
-            q = placed(gr.P(SIDE_BASE, cx=0.0, cy=0.0, br=br, ht=-6), 'arm_n', sh)
-            err = abs(math.dist(gr.joint_of(q, 'leg_n'), heel['n']) - 83.0)
-            if best is None or err < best[0]:
-                best = (err, q)
+        for fwd in range(0, 21):
+            for br2 in range(-40, 21):
+                q = _dip_body(sh_y(u), br2 / 2, hands, fwd)
+                err = abs(math.dist(gr.joint_of(q, 'leg_n'), heel['n']) - 83.0)
+                err += 5 * max(0.0, math.dist(gr.joint_of(q, 'arm_n'), hands['n']) - 78.5)
+                err += 0.02 * fwd + 0.01 * abs(br2)
+                if best is None or err < best[0]:
+                    best = (err, q)
         p = best[1]
         for side in ('n', 'f'):
             p = gr.plant(p, 'arm_' + side, hands[side], (-1, -0.3))
