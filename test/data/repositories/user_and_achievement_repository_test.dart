@@ -3,6 +3,7 @@ import 'package:caliday/data/static/course_catalog.dart';
 import 'package:caliday/data/models/user_profile.dart';
 import 'package:caliday/data/repositories/achievement_repository.dart';
 import 'package:caliday/data/repositories/user_repository.dart';
+import 'package:caliday/data/retired_boxes.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive_ce.dart';
 
@@ -46,9 +47,7 @@ void main() {
         hapticEnabled: false,
         healthWorkoutsEnabled: true,
         healthWeightEnabled: true,
-        peerId: 'peer-1',
         displayName: 'Goro',
-        bleDiscoverable: true,
         activeCourseIds: [0, 1],
         activeCourseIndex: 1,
         lastSeenReleaseVersion: '0.8.12',
@@ -78,9 +77,7 @@ void main() {
       expect(p.hapticEnabled, isFalse);
       expect(p.healthWorkoutsEnabled, isTrue);
       expect(p.healthWeightEnabled, isTrue);
-      expect(p.peerId, 'peer-1');
       expect(p.displayName, 'Goro');
-      expect(p.bleDiscoverable, isTrue);
       expect(p.activeCourseIds, [0, 1]);
       expect(p.activeCourseIndex, 1);
       expect(p.lastSeenReleaseVersion, '0.8.12');
@@ -97,6 +94,44 @@ void main() {
       expect(p.activeCourseIds, isNull);
       expect(p.activeCourseIndex, isNull);
       expect(p.lastSeenReleaseVersion, isNull);
+    });
+
+    test('a profile saved with the removed Friends fields still loads', () async {
+      // Builds before 0.9.5 also wrote HiveFields 17 (peerId) and 23
+      // (bleDiscoverable); the adapter must skip them.
+      await Hive.box<UserProfile>('user_profile').close();
+      Hive.registerAdapter(_ProfileWithFriendsFieldsAdapter(), override: true);
+      final old = await Hive.openBox<_ProfileWithFriendsFields>('user_profile');
+      await old.put('profile', _ProfileWithFriendsFields());
+      await old.close();
+      Hive.registerAdapter(UserProfileAdapter(), override: true);
+      await Hive.openBox<UserProfile>('user_profile');
+
+      final p = UserRepository().getProfile();
+      expect(p.totalSP, 5230);
+      expect(p.displayName, 'Goro');
+      expect(p.lastSeenReleaseVersion, '0.9.4');
+
+      await UserRepository().saveProfile(p);
+      await env.reopen();
+      expect(UserRepository().getProfile().displayName, 'Goro');
+    });
+  });
+
+  group('retired boxes', () {
+    test('the Friends box left by an older build is deleted', () async {
+      final friends = await Hive.openBox<String>('friends');
+      await friends.put('a1b2', 'a friend');
+      await friends.close();
+      expect(await Hive.boxExists('friends'), isTrue);
+
+      await deleteRetiredBoxes();
+      expect(await Hive.boxExists('friends'), isFalse);
+    });
+
+    test('nothing to delete is not an error', () async {
+      expect(await Hive.boxExists('friends'), isFalse);
+      await deleteRetiredBoxes();
     });
   });
 
@@ -142,7 +177,7 @@ void main() {
       expect(branches.where((b) => b == BranchId.flex), hasLength(1));
 
       final all = UserProfile(activeCourseIds: [0, 1, 2, 3, 4], hasPullUpBar: true);
-      expect(all.activeBranches.toSet(), BranchId.values.toSet());
+      expect(all.activeBranches.toSet(), CourseCatalog.courseBranches.toSet());
     });
   });
 
@@ -182,4 +217,33 @@ void main() {
       expect(AchievementRepository().isEarned('push_s3'), isTrue);
     });
   });
+}
+
+/// A profile as builds before 0.9.5 stored it, with the Friends fields.
+class _ProfileWithFriendsFields {}
+
+class _ProfileWithFriendsFieldsAdapter
+    extends TypeAdapter<_ProfileWithFriendsFields> {
+  @override
+  final typeId = 0;
+
+  @override
+  _ProfileWithFriendsFields read(BinaryReader reader) =>
+      throw UnimplementedError();
+
+  @override
+  void write(BinaryWriter writer, _ProfileWithFriendsFields obj) {
+    writer
+      ..writeByte(5)
+      ..writeByte(1)
+      ..write(5230)
+      ..writeByte(17)
+      ..write('0123456789abcdef0123456789abcdef')
+      ..writeByte(18)
+      ..write('Goro')
+      ..writeByte(23)
+      ..write(true)
+      ..writeByte(26)
+      ..write('0.9.4');
+  }
 }

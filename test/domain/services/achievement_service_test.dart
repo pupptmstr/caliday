@@ -2,6 +2,7 @@ import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/models/skill_progress.dart';
 import 'package:caliday/data/models/user_profile.dart';
 import 'package:caliday/data/static/achievement_catalog.dart';
+import 'package:caliday/data/static/course_catalog.dart';
 import 'package:caliday/domain/services/achievement_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -147,6 +148,27 @@ void main() {
             reason: branch.name);
         expect(advance(branch, branch.stageCount), contains(id), reason: branch.name);
       });
+    });
+
+    test('completing a branch outside the courses earns its achievement', () {
+      const ids = {
+        BranchId.strongBack: 'strong_back_complete',
+        BranchId.glutes: 'glutes_complete',
+        BranchId.armsShoulders: 'arms_shoulders_complete',
+        BranchId.cardio: 'cardio_complete',
+      };
+      ids.forEach((branch, id) {
+        expect(advance(branch, branch.stageCount - 1), isNot(contains(id)),
+            reason: branch.name);
+        expect(advance(branch, branch.stageCount), contains(id), reason: branch.name);
+      });
+    });
+
+    test('all_complete does not wait for the branches outside the courses', () {
+      // Owner, 2026-10-11: those branches are optional.
+      final courses = _progressAt(
+          (b) => CourseCatalog.otherBranches.contains(b) ? 1 : b.stageCount);
+      expect(advance(BranchId.push, 7, progress: courses), contains('all_complete'));
     });
 
     test('Healthy Body branches have no achievements of their own yet', () {

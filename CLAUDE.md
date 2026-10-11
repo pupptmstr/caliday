@@ -46,9 +46,9 @@ dart run build_runner build       # Code generation (Hive adapters)
 dart run flutter_launcher_icons   # Icons
 flutter gen-l10n                  # L10n
 flutter build web --release --base-href /caliday/app/   # Web build (CI deploys it to GitHub Pages)
-python3 tools/lottie/gen_flex.py  # Regenerate Flex Lottie animations (also gen_supp.py, gen_posture.py, gen_neck.py, gen_cooldown.py, gen_pull.py, gen_push.py, gen_evening.py, gen_morning.py, gen_yoga.py; enliven.py / patch_old.py fix designer files in place)
+python3 tools/lottie/gen_flex.py  # Regenerate Flex Lottie animations (also gen_supp.py, gen_posture.py, gen_neck.py, gen_cooldown.py, gen_pull.py, gen_push.py, gen_evening.py, gen_morning.py, gen_yoga.py, gen_extra.py; enliven.py / patch_old.py fix designer files in place)
 python3 tools/lottie/check_anim.py NAME ...   # Jump / loop-seam check of generated animations
-python3 tools/lottie/build_preview.py --preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning|yoga   # Page to watch generated animations
+python3 tools/lottie/build_preview.py --preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning|yoga|extra   # Page to watch generated animations
 python3 tools/lottie/frame_sheet.py build/sheet.html --count 8 FILE.json   # Still frames side by side (open via the lottie-sheets preview server)
 python3 tools/lottie/thumb_crops.py   # Re-crop the exercise thumbnails after adding or redrawing an animation (a test fails otherwise)
 python3 tools/characters/gen_goro.py  # Goro's fun poses (About) and his locked-achievement pose; gen_hosts.py / gen_skala.py for the hosts and Skala

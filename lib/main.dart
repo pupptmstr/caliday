@@ -21,13 +21,13 @@ import 'data/models/custom_course.dart';
 import 'data/models/custom_routine.dart';
 import 'data/models/enums.dart';
 import 'data/models/exercise_result.dart';
-import 'data/models/friend_profile.dart';
 import 'data/models/skill_progress.dart';
 import 'data/models/user_profile.dart';
 import 'data/models/workout_log.dart';
 import 'data/repositories/skill_progress_repository.dart';
 import 'data/repositories/user_repository.dart';
 import 'data/repositories/workout_repository.dart';
+import 'data/retired_boxes.dart';
 import 'domain/services/streak_service.dart';
 
 Future<void> main() async {
@@ -56,7 +56,6 @@ Future<void> main() async {
     ..registerAdapter(ExerciseResultAdapter())
     ..registerAdapter(WorkoutLogAdapter())
     ..registerAdapter(BranchGrowthAdapter())
-    ..registerAdapter(FriendProfileAdapter())
     ..registerAdapter(CustomRoutineAdapter())
     ..registerAdapter(CustomBranchAdapter())
     ..registerAdapter(CustomCourseAdapter());
@@ -67,7 +66,6 @@ Future<void> main() async {
     Hive.openBox<SkillProgress>('skill_progress'),
     Hive.openBox<WorkoutLog>('workout_log'),
     Hive.openBox<DateTime>('achievements'),
-    Hive.openBox<FriendProfile>('friends'),
     Hive.openBox<CustomRoutine>('custom_routines'),
     Hive.openBox<CustomBranch>('custom_branches'),
     Hive.openBox<CustomCourse>('custom_courses'),
@@ -75,6 +73,10 @@ Future<void> main() async {
 
   // Migrate SkillProgress keys to bare branch keys (branches are global skills).
   await SkillProgressRepository().runMigrations();
+
+  // Not awaited: on the web, deleting a database that an open tab of an older
+  // build still holds waits until that tab is closed.
+  unawaited(deleteRetiredBoxes());
 
   runApp(const ProviderScope(child: CaliDayApp()));
 }

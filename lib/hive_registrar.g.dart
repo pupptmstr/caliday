@@ -9,7 +9,6 @@ import 'package:caliday/data/models/custom_course.dart';
 import 'package:caliday/data/models/custom_routine.dart';
 import 'package:caliday/data/models/enums.dart';
 import 'package:caliday/data/models/exercise_result.dart';
-import 'package:caliday/data/models/friend_profile.dart';
 import 'package:caliday/data/models/skill_progress.dart';
 import 'package:caliday/data/models/user_profile.dart';
 import 'package:caliday/data/models/workout_log.dart';
@@ -25,7 +24,6 @@ extension HiveRegistrar on HiveInterface {
     registerAdapter(ExerciseResultAdapter());
     registerAdapter(ExerciseTypeAdapter());
     registerAdapter(FitnessGoalAdapter());
-    registerAdapter(FriendProfileAdapter());
     registerAdapter(RankAdapter());
     registerAdapter(SetTypeAdapter());
     registerAdapter(SkillProgressAdapter());
@@ -45,7 +43,6 @@ extension IsolatedHiveRegistrar on IsolatedHiveInterface {
     registerAdapter(ExerciseResultAdapter());
     registerAdapter(ExerciseTypeAdapter());
     registerAdapter(FitnessGoalAdapter());
-    registerAdapter(FriendProfileAdapter());
     registerAdapter(RankAdapter());
     registerAdapter(SetTypeAdapter());
     registerAdapter(SkillProgressAdapter());

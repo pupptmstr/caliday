@@ -7,9 +7,8 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.9.3 on `main` (the course builder, merged 2026-10-09, PR #5). **0.9.4** is in progress on `session/2026-10-10-feedback`: the owner's feedback on 0.9.3 (own courses in the course list, the own-course mark, hosts holding achievements still ahead, Goro's fun poses), then the middle of Home with the plan folded into the workout button and exercise animations wherever an exercise is named (Next ideas 3 and 5); see the Change History. `main` is protected since 2026-10-10 (PRs only, squash merges, CI required; ARCHITECTURE § Web Build). The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
+**Version:** v0.9.4 on `main` (the middle of Home, animations wherever an exercise is named, the owner's feedback on 0.9.3; merged 2026-10-10, PR #6). **0.9.5** is in progress on `session/2026-10-11-new-branches`: Friends removed and the user's name put to use, then the four branches outside the courses (Strong Back, Glutes, Arms & Shoulders, Cardio — Next ideas 1, the "many more exercises" of the owner's third big feature); see the Change History. `main` is protected since 2026-10-10 (PRs only, squash merges, CI required; ARCHITECTURE § Web Build). The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
 **Next priority:** v1.0 release. What still stands in the way:
-- Friends has never been tested on two real phones (checklist below).
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
 - Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
 - Store accounts (Apple Developer Program, Google Play Console): the release CI is drafted but disabled until they exist ("Release builds (CI)" below).
@@ -19,8 +18,8 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 | Layer | Status |
 |-------|--------|
 | Data models + Hive | ✅ |
-| ExerciseCatalog (20 branches — Calisthenics, Healthy Body, Evening Stretch, Morning Routine, Yoga) | ✅ |
-| Repositories (User, SkillProgress, Workout, Achievement, Friend, CustomRoutine) | ✅ |
+| ExerciseCatalog (24 branches — Calisthenics, Healthy Body, Evening Stretch, Morning Routine, Yoga, and 4 outside the courses) | ✅ |
+| Repositories (User, SkillProgress, Workout, Achievement, CustomRoutine, own branches and courses) | ✅ |
 | Domain services | ✅ |
 | Navigation (GoRouter + bottom nav) | ✅ |
 | Onboarding (8 steps, incl. course selection) | ✅ |
@@ -30,11 +29,10 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 | Notifications (5 types: morning, evening, streak at risk, streak lost, rank at risk) | ✅ |
 | Dark theme | ✅ |
 | Goro (6 expressions) + Skala | ✅ |
-| Lottie animations (133 of 133 exercises; the pigeon pose from above and 90/90 from the front added in 0.9.2) | ✅ |
+| Lottie animations (155 of 155 exercises; the 22 of the branches outside the courses added in 0.9.5) | ✅ |
 | Sound + haptics | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
-| Friends (BLE + QR, v0.4; not yet tested on real devices) | ✅/⚠️ |
 | Exercise Library (search + tag filter) | ✅ |
 | Custom Workouts (Quick Routine + Saved Routines) | ✅ |
 | Course builder (own courses from built-in and own branches; own branches from exercises, amounts derived) | ✅ 0.9.3 |
@@ -51,10 +49,10 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 
 ### Next ideas (owner, 2026-10-10) — not ordered yet, the owner picks (3 and 5 done in 0.9.4; 6 added the same day)
 
-Recorded on the owner's request after the course builder (0.9.3). None is started; the open items from before stay where they are (backlog in ARCHITECTURE; below in this section: release CI, held-back dependencies, Friends on real phones, "Support the author", the parked Telegram idea, the Lottie status) — see "Still open from before" at the end.
+Recorded on the owner's request after the course builder (0.9.3). None is started; the open items from before stay where they are (backlog in ARCHITECTURE; below in this section: release CI, held-back dependencies, "Support the author", the parked Telegram idea, the Lottie status) — see "Still open from before" at the end.
 
-#### 1. New exercises and branches
-The "many more exercises" of the owner's third big feature, on a branch of their own: 3–4 branches outside any course, about 20 exercises with animations. Proposed gaps and the steps are in § Roadmap 3 ("Next"); a session card with the brief was proposed on 2026-10-09. Content first, agreed with the owner.
+#### 1. New exercises and branches — done (0.9.5)
+Four branches outside the courses, 22 exercises with animations (owner, 2026-10-11: the table as proposed; outside the courses, picked in the builder; `all_complete` stays the courses' achievement; the Cardio keeps its jumps). The six riskiest animations were drafted first (Y-T-W, reverse snow angels, door-frame row, fire hydrant, chair dips, burpee) and approved; content in ARCHITECTURE § Branches outside the courses.
 
 #### 2. Sounds, redone from scratch
 **Concept.** Today there are four sounds from March 2026 (`assets/sounds/`: `tick`, `ding`, `pop`, `complete`, played by `SoundService`) and one `if` chain in `workout_screen.dart` (`ref.listen` on the phase) decides which plays; several different moments share one sound (`pop` = set done, side done, next exercise; `ding` = rest over and hold started). The owner wants all of them remade, more of them, one for every action inside a workout, and the sounds themselves regenerated. The workout is hands-free (ARCHITECTURE § Timed exercises: the get-ready countdown): the user is on the floor and not looking, so each moment must be recognisable by ear.
@@ -140,8 +138,8 @@ Built together with idea 3: `ExerciseThumb`, cropped to the figure (`tools/lotti
 **When to tackle:** a session of its own with the owner, when they pick it; any time.
 
 #### Still open from before (not lost)
-- v1.0 blockers only the owner can clear: Friends on two real phones (checklist below), the HealthKit capability and the widget App Group in Xcode, store accounts (release CI drafted and disabled), native proofreading of German and Spanish and the store listings.
-- Decisions waiting: `flutter_blue_plus` 2.3 and its licence ping (§ Dependencies held back); the major dependency upgrades (go_router 18, flutter_local_notifications 22, home_widget 0.10, package_info_plus 10) on a branch of their own.
+- v1.0 blockers only the owner can clear: the HealthKit capability and the widget App Group in Xcode, store accounts (release CI drafted and disabled), native proofreading of German and Spanish and the store listings.
+- Decisions waiting: the major dependency upgrades (go_router 18, flutter_local_notifications 22, home_widget 0.10, package_info_plus 10) on a branch of their own.
 - Ideas: "Support the author" (tax / legal first), rounded / oval frames for the animations, Rex the streak monkey (deferred), the Telegram Mini App (parked — not proposed).
 
 
@@ -180,60 +178,7 @@ Secrets: `ANDROID_KEYSTORE_BASE64` (PowerShell: `[Convert]::ToBase64String([IO.F
 
 ### Dependencies held back (2026-10-09)
 
-`flutter pub upgrade` within the constraints (the owner asked for minor updates only; the major ones — `go_router` 18, `flutter_local_notifications` 22, `home_widget` 0.10, `package_info_plus` 10 — wait for a branch of their own). One minor update is **held back for the owner to decide**:
-
-- **`flutter_blue_plus` stays below 2.3** (`">=2.2.1 <2.3.0"` in `pubspec.yaml`, resolves 2.2.3). From 2.3.5 its Android build runs `license_ping.gradle`, which sends the package name, app name, app version, the plugin version and the date to the author's server on every build (FlutterBluePlus License 1.6, § 1.4: "may attempt to send limited license telemetry at build time"; a failed ping does not stop the build). It is no end-user data, but the app's principle is that nothing leaves the device and the builds run on the owner's machine and in CI. The license itself is unchanged in substance from the 2.2.x one we already use: free for personal and nonprofit use, a paid licence for any for-profit use, "including commercial use by individuals" — worth a look before the "Support the author" tips (§ "Support the Author"). 2.3.x brings Darwin and Android connection fixes we have not needed (Friends over BLE is still untested on phones). Options: keep 2.2.x; take 2.3.x and accept the ping; replace the package.
-
----
-
-### v0.4 — Friends — нужно протестировать на реальных устройствах
-
-Фича реализована, но **не тестировалась на физических устройствах**. Требует проверки вдвоём (два телефона).
-
-#### Чеклист тестирования
-
-**QR (iOS + Android):**
-
-Проверено владельцем 2026-10-06 на **веб-версии**: телефон (браузер) сканировал QR с экрана компьютера (localhost) — отсканировалось, друг добавился, карточка открылась, удаление сработало. Нативные приложения iOS и Android этим не проверены, поэтому пункты ниже остаются открытыми; отмечено, что подтверждено на вебе.
-- [ ] Открыть экран Friends → появляется QR-код своего профиля (веб ✅)
-- [ ] Сканировать QR другого человека → диалог подтверждения показывает имя + SP + streak (веб ✅)
-- [ ] Подтвердить → друг появляется в списке (веб ✅)
-- [ ] Повторно сканировать того же человека → обновляет данные (не дублирует)
-- [ ] Открыть карточку друга → показывает ранг, ветки, дату синхронизации (веб ✅)
-- [ ] Удалить друга → исчезает из списка (веб ✅)
-- [ ] Невалидный QR → показывает snackbar с ошибкой (не крашится)
-- [ ] Новый компактный QR (формат 2, 49×49 модулей) сканируется с экрана телефона на телефон (iOS и Android)
-- [ ] Системная камера: QR друга открывает приложение на экране Friends (раньше любая ссылка `caliday://` вела на тренировку); нужно проверить на устройстве
-
-**BLE — сканирование (требует двух устройств):**
-- [ ] iOS → iOS: обнаружение работает
-- [ ] Android → Android: обнаружение работает
-- [ ] iOS → Android: обнаружение работает (и наоборот)
-- [ ] BLE выключен → секция "Nearby" показывает сообщение "Bluetooth выключен"
-- [ ] Кнопка Refresh → запускает повторное сканирование
-- [ ] Tile "Connect" → читает профиль по GATT и добавляет друга (snackbar «добавлен» / «обновлён»); если GATT недоступен или JSON битый — открывается QR-сканер (fallback)
-- [ ] Свой экран Friends рекламирует устройство (advertising) — второй телефон видит его в секции Nearby
-
-**BLE — разрешения:**
-- [ ] Android: при первом открытии Friends появляется запрос `BLUETOOTH_SCAN` + `BLUETOOTH_CONNECT`
-- [ ] iOS: при первом открытии появляется запрос `NSBluetoothAlwaysUsageDescription`
-- [ ] Отказ от разрешений → приложение не крашится, показывает "Bluetooth выключен"
-
-**Специфично для iOS:**
-- [ ] BLE-сканирование работает на iOS 14+ (минимальная поддерживаемая версия)
-- [ ] QR-сканер запрашивает разрешение камеры при первом использовании
-
-**Специфично для Android:**
-- [ ] BLE-разрешения правильно запрашиваются на Android 12+ (API 31+) через `BLUETOOTH_SCAN` (neverForLocation)
-- [ ] На Android 11 и ниже — legacy разрешения `BLUETOOTH` + `BLUETOOTH_ADMIN` работают
-
-#### Известные ограничения
-- BLE advertising и GATT-сервер реализованы, но тоже **не проверялись на реальных устройствах** — это часть чеклиста выше.
-- На вебе BLE нет вовсе (секции скрыты), остаётся только QR.
-- На вебе единственный путь добавить друга — QR, и он требует доступ к камере в браузере; при блокировке экран сканера теперь объясняет, что делать (см. запись в Change History). Если камеры нет вовсе, друг может отсканировать **твой** QR.
-- QR теперь компактный (формат 2): обычный профиль ≈ 66 символов, версия 8, 49×49 модулей (было 93×93). Сборки до формата 2 новый QR прочитать не могут; новые читают оба формата. Сканирование нового кода телефон → телефон не проверялось.
-
----
+`flutter pub upgrade` within the constraints (the owner asked for minor updates only; the major ones — `go_router` 18, `flutter_local_notifications` 22, `home_widget` 0.10, `package_info_plus` 10 — wait for a branch of their own). The one minor update that was held back, `flutter_blue_plus` 2.3 (its Android build "license-pings" the author's server), is moot: the package left with Friends in 0.9.5.
 
 ---
 
@@ -434,7 +379,7 @@ Implemented as decided; see ARCHITECTURE § Timed exercises (Holds on each side)
 #### 3. The course builder — done (0.9.3)
 Built before 2c, at the owner's word (2026-10-09: "the builder now, the new exercises on the next branch"). As decided: (a) a course from existing branches, its progress shared with the built-in courses; (b) a branch of one's own, exercises in order, each a stage, the app sets the amounts and the progression ("количество повторений и прогрессия строится самим приложением", owner). The owner's choices of 2026-10-09: the host of an own course is picked from the five (Goro by default). The design that was open is settled in ARCHITECTURE § Courses (own courses and branches) and § CustomStages; no migration was needed (`activeCourseIds` stays, an own course is `activeCustomCourseId`). Not done on purpose: own courses in the onboarding, achievements of own branches (only `first_challenge` counts), sharing them with friends.
 
-**Next (owner, 2026-10-09): many more exercises, on a branch of their own** — 3–4 branches outside any course (2c), about 20 exercises with animations; proposed gaps: a back without a pull-up bar (superman, prone Y-T-W, reverse snow angels…), glutes (donkey kicks, fire hydrants, single-leg bridge, hip thrust), arms and shoulders without equipment (chair dips, pike push-ups, shoulder taps), cardio. Content to be agreed with the owner first; the builder lists new branches by itself (a group "other branches" will be needed for branches outside the courses).
+**Done in 0.9.5:** the many more exercises — Strong Back, Glutes, Arms & Shoulders, Cardio (ARCHITECTURE § Branches outside the courses). The plan was (owner, 2026-10-09): 3–4 branches outside any course (2c), about 20 exercises with animations; proposed gaps: a back without a pull-up bar (superman, prone Y-T-W, reverse snow angels…), glutes (donkey kicks, fire hydrants, single-leg bridge, hip thrust), arms and shoulders without equipment (chair dips, pike push-ups, shoulder taps), cardio. Content to be agreed with the owner first; the builder lists new branches by itself (a group "other branches" will be needed for branches outside the courses).
 
 ### "Support the Author" Button — idea
 
@@ -469,7 +414,7 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 ### Lottie Animations — status per branch (2026-10-08)
 
-126 files in `assets/animations/`. Yoga (0.9.1): all 18 new ones (`gen_yoga.py`: Warrior II, triangle, side angle, tree, eagle and half moon from the front, the rest from the side); three stages reuse the sphinx, the downward dog and plank to dog. Morning Routine (0.9.0): all 22 (`gen_morning.py`). Evening Stretch (0.8.20): all 19 (`gen_evening.py`; the cat-cow reuses `cooldown_cat_cow`). Complete: Push (7), Core (7 + alt), Pull (6), Legs (5), Balance (6), Flex (5 of 6), Supplementary pool (9, one reuses `warmup_wrist_circles`), Posture (6: four generated — the pigeon from above since 0.9.2 —, dead bug and kneeling lunge reuse `supp_dead_bug` / `flex_s1_hip_flexor_stretch`), Neck (6, all generated), warmups (7/7), cooldowns (6/6). Every exercise has an animation since 0.9.2: `flex_s3_hip_9090` is the 90/90 switch from the front (`gen_flex.py`, after the owner's reference, approved 2026-10-09).
+148 files in `assets/animations/`. The branches outside the courses (0.9.5): all 22 (`gen_extra.py`: Y-T-W and reverse snow angels from above, the fire hydrant from behind, the skater jumps from the front, the rest from the side). Yoga (0.9.1): all 18 new ones (`gen_yoga.py`: Warrior II, triangle, side angle, tree, eagle and half moon from the front, the rest from the side); three stages reuse the sphinx, the downward dog and plank to dog. Morning Routine (0.9.0): all 22 (`gen_morning.py`). Evening Stretch (0.8.20): all 19 (`gen_evening.py`; the cat-cow reuses `cooldown_cat_cow`). Complete: Push (7), Core (7 + alt), Pull (6), Legs (5), Balance (6), Flex (5 of 6), Supplementary pool (9, one reuses `warmup_wrist_circles`), Posture (6: four generated — the pigeon from above since 0.9.2 —, dead bug and kneeling lunge reuse `supp_dead_bug` / `flex_s1_hip_flexor_stretch`), Neck (6, all generated), warmups (7/7), cooldowns (6/6). Every exercise has an animation since 0.9.2: `flex_s3_hip_9090` is the 90/90 switch from the front (`gen_flex.py`, after the owner's reference, approved 2026-10-09).
 
 Nothing planned is missing. `cooldown_cat_cow` was replaced by a generated one (2026-10-06).
 
@@ -479,6 +424,63 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-11 — Four branches outside the courses: Strong Back, Glutes, Arms & Shoulders, Cardio (0.9.5)
+
+**What was done:** Next ideas 1, the "many more exercises" of the owner's third big feature. The content was proposed as a table and taken as it was (owner: outside the courses, picked in the course builder; the secret `all_complete` keeps counting the courses' branches only; the Cardio keeps its jumps). Four `BranchId` values (HiveFields 20–23), 22 exercises with texts in four languages, tags, warm-ups / cool-downs reused, four `<branch>_complete` achievements presented by Goro, the builder's group "Branches outside the courses" (first, above the courses), 22 animations (the six riskiest drafted first and approved: Y-T-W, reverse snow angels, door-frame row, fire hydrant, chair dips, burpee), their thumbnail squares, a line in the 0.9.5 "What's new" and in the 0.9 history line.
+
+**New files:**
+- `tools/lottie/gen_extra.py` — the 22 animations (ARCHITECTURE § Lottie Animation Tooling)
+- `assets/animations/{strong_back,glutes,arms_shoulders,cardio}_*.json` — 22 files
+
+**Modified files:**
+- `lib/data/models/enums.dart` + `enums.g.dart` (by hand) — `strongBack`, `glutes`, `armsShoulders`, `cardio`: emoji, icon, name, stage count
+- `lib/data/static/exercise_catalog.dart` — the exercises, four progressions, `libraryAll` / `all`, `progressionFor`, warm-ups / cool-downs
+- `lib/data/static/course_catalog.dart` — `courseBranches`, `otherBranches`; `courseOf` returns null for a branch outside every course (it threw before)
+- `lib/domain/services/achievement_service.dart`, `lib/data/static/achievement_catalog.dart`, `lib/core/extensions/achievement_l10n.dart` — the four achievements; `all_complete` over `courseBranches`
+- `lib/core/extensions/exercise_l10n.dart`, `lib/data/static/exercise_tags_catalog.dart` — texts and tags of the 22 exercises
+- `lib/data/repositories/skill_progress_repository.dart`, `developer_options_screen.dart` — the new branches in the exhaustive switches
+- `lib/features/library/screens/course_builder_screen.dart` — the "Branches outside the courses" group
+- `lib/data/static/animation_crops.dart` — regenerated (`thumb_crops.py --chrome` with the local Chrome on Windows)
+- `l10n/*.arb` — 79 messages per language (4 branch names, 66 exercise texts, 8 achievement texts, the group title); `courseBuilderCreateEntryDesc` mentions the new branches; `releaseNotes095` / `releaseHistory09` extended
+- `tools/lottie/build_preview.py` — the `extra` preset (all 22)
+- Tests: `enums_test` (frozen indices with the four values; every branch is in a course or among the other branches, never both; `courseOf` null outside), `achievement_service_test` (the four achievements; `all_complete` without the branches outside the courses), `user_and_achievement_repository_test` (all five courses give `courseBranches`)
+
+**Key issues and solutions:**
+- **`courseOf` threw** (`firstWhere`) for a branch no course lists — the achievement sheet would have crashed on the new achievements. It is nullable now, and null means Goro.
+- **Goro's proportions** (legs 84 px, arms 80 px against a 100 px torso) shaped three animations: the door-frame row needed the feet past the post for a visible lean, the hip thrust a low sofa (a knee-high one leaves no room for a level thigh), the elevated pike a chair right behind the hands. **The fire hydrant** read as lying down from above (arms foreshortened to dots) and is drawn from behind instead.
+- **A leg in line with the body is at `br`**, the torso's local down, not `br + 180` (that put the extended leg of the single-leg hip thrust and the legs of the forearm plank behind the torso, pointing at the head).
+- **The owner's review of the stand (same day):** in both chair dips the body sank into the chair (the shoulders were placed almost over the hands, so the back went through the seat), and the pike push-up hung in the air (the hips stood 110 px above the feet; Goro's legs are 84). The dips now keep the back edge of the torso in front of the seat's front edge below the seat top (`_seat_gap`, the body moved forward just enough), and the straight-leg dips may stand a little further from the seat at the top, as far as the arms reach, solved together with the torso tilt so the legs stay straight to the heels. The pike push-up starts from the downward dog of `plank_to_dog` (the only V Goro's proportions allow: legs shorter than the torso, the head already near the floor) and bends the elbows while the straight legs tip forward over the feet. A contact check over every side view (the lowest point of feet and hands per frame, the seat gap) confirmed the rest touch the floor.
+- **Second review:** the shoulder taps bent the elbow towards the head — the tap target sat on the shoulder, so the arm folded completely and IK pointed the elbow at it whatever the `bend` (the target is now just behind and below the shoulder, the elbow drops back). Both pike push-ups were still unclear with Goro's proportions; the owner allowed other proportions, so they have a shorter torso (new `sc_len` in `goro_rig`, byte-identical at 1), longer legs and slightly longer arms, and read as an upside-down V with the hips on top.
+- The heredoc + `'''` combination broke the Bash tool's parsing; the generator blocks were written as files and spliced in.
+- Checked: `flutter analyze` clean, 1125 tests pass; every animation through `check_anim.py` (the cardio jumps keep their fast-move reports) and on the preview stand; the web build (below).
+
+### 2026-10-11 — Friends removed; the user's name greets them instead (0.9.5)
+
+**What was done:** The owner removed Friends ("without a server it makes little sense and adds problems"): the QR / BLE exchange, its screens, model, repository, codecs, the BLE service, the Settings section, the Profile block and the `/friends` route are gone, with the four packages (`qr_flutter`, `mobile_scanner`, `flutter_blue_plus` — and with it the held-back licence-ping question —, `ble_peripheral`), the Bluetooth and camera permissions (Android manifest, iOS `Info.plist`, the three pods in `Podfile.lock`) and the never-run real-device checklist. The name asked in the onboarding was used by Friends only; the owner chose to keep it and use it (rather than drop the step): above the host's line on Home a greeting by the part of the day ("Добрый вечер, Петя!"), the name under the host on the Profile, "Great workout, Anna!" on the summary, and the field moved to a new first Settings section, Profile. Version 0.9.5+35, "What's new" entry, the 0.9 history line extended.
+
+**New files:**
+- `lib/data/retired_boxes.dart` — `deleteRetiredBoxes()`: deletes the `friends` box left by older builds
+
+**Removed files:** `lib/features/friends/` (screens, provider, widgets), `lib/core/services/ble_service.dart`, `lib/data/models/{friend_profile(.g),friend_qr_codec,ble_profile_codec}.dart`, `lib/data/repositories/friend_repository.dart`, and their tests (`test/features/friends/`, `friend_qr_codec_test`, `ble_profile_codec_test`, `friend_repository_test`).
+
+**Modified files:**
+- `lib/main.dart`, `lib/hive_registrar.g.dart`, `test/helpers/hive_test_env.dart` — no FriendProfile adapter or box; `deleteRetiredBoxes()` after the migrations, not awaited
+- `lib/data/models/user_profile.dart` + `.g.dart` (by hand) — fields 17 (peerId) and 23 (bleDiscoverable) dropped (25 fields written), 18 (displayName) documented as the user's name
+- `lib/core/router/app_redirect.dart`, `app_router.dart` — no `/friends`; an old `caliday://friend…` link opens Home (not the workout)
+- `lib/features/settings/` — the Friends section replaced by Profile (name) at the top; `setDisplayName` invalidates Home and Profile; `bleDiscoverable` gone
+- `lib/features/profile/screens/profile_screen.dart` — the name under the host; no friends block
+- `lib/features/home/widgets/home_middle.dart`, `lib/domain/services/home_digest.dart` — `HostLineCard.greetingFor`, `HomeDigest.dayPartOf` (morning 5–11, day 12–17, evening 18–22, night 23–4)
+- `lib/features/workout/screens/{workout,summary}_screen.dart` — the name goes to the summary in its extras; `summaryTitleNamed`
+- `l10n/*.arb` — the Friends messages removed; `friendsCancel` → `commonCancel` (the builders and dialogs used it), `settingsFriendsName*` → `settingsName*`; new `settingsSectionProfile`, `greeting{Morning,Day,Evening,Night}`, `summaryTitleNamed`, `releaseNotes095`
+- `docs/PRIVACY_POLICY.md`, `docs/TERMS_OF_USE.md` — Camera, peer-to-peer sharing and Bluetooth sections removed (renumbered), a paragraph on the removed feature and the deleted list; dated 2026-10-11
+- `README.md`, `design-system/caliday/pages/profile.md`, ARCHITECTURE — Friends taken out; typeId 9 and fields 17 / 23 marked retired
+- Tests: `user_and_achievement_repository_test` (a profile written with fields 17 / 23 by a stand-in of the old adapter still loads; the `friends` box is deleted, nothing to delete is no error), `home_digest_test` (the part of each hour), `host_lines_test` (a greeting per part of the day in every language, the name trimmed, none without a name), `app_redirect_test`, `plural_test`, `no_hardcoded_text_test` (no `dBm` any more)
+
+**Key issues and solutions:**
+- **Old data.** Hive adapters read every stored field into a map and take the ones they know, so a profile with fields 17 / 23 loads with the new adapter (proved by a test that writes such a record through a stand-in adapter registered with `override: true`). The FriendProfile records (typeId 9) would not load without their adapter, so the box is never opened, only deleted: `Hive.deleteBoxFromDisk` is a no-op when the files are missing (VM: checks each file; web: `indexedDB.deleteDatabase`). It is **not awaited** in `main()`: on the web, deleting a database that an open tab of an older build still holds is blocked until that tab closes, which would hang the start-up.
+- **The name had no use outside Friends**, though the onboarding promised "Goro will call you by name"; now the promise holds (the host of the course greets).
+- Checked: `flutter analyze` clean, 1030 tests pass; the web build at 375 × 812 — a fresh onboarding with a name, the greeting on Home ("Добрый вечер, Петя!"), the Profile header, Settings → Profile, a rename shown on the Profile at once; no console errors. The summary title was not run through a real workout (a one-line switch).
 
 ### 2026-10-10 — The notes rework recorded as an idea; README brought up to 0.9.4
 

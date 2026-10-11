@@ -114,6 +114,18 @@ class AppLocalizationsEs extends AppLocalizations {
   String get homeBranchYogaFlow => 'Flujo';
 
   @override
+  String get homeBranchStrongBack => 'Espalda fuerte';
+
+  @override
+  String get homeBranchGlutes => 'Glúteos';
+
+  @override
+  String get homeBranchArmsShoulders => 'Brazos y hombros';
+
+  @override
+  String get homeBranchCardio => 'Cardio';
+
+  @override
   String get courseNameCalisthenics => 'Calistenia';
 
   @override
@@ -340,6 +352,11 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get summaryTitle => '¡Gran entrenamiento!';
+
+  @override
+  String summaryTitleNamed(String name) {
+    return '¡Gran entrenamiento, $name!';
+  }
 
   @override
   String get summarySubtitle => 'Sigue así: un paso más hacia delante';
@@ -674,6 +691,34 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get achievementYogaFlowCompleteDesc =>
       'Las 5 etapas de Flujo, superadas. Del perro boca abajo al saludo al sol B.';
+
+  @override
+  String get achievementStrongBackCompleteName => 'Columna de acero';
+
+  @override
+  String get achievementStrongBackCompleteDesc =>
+      'Las 5 etapas de Espalda fuerte, superadas. De la Y-T-W boca abajo al remo en el marco de la puerta.';
+
+  @override
+  String get achievementGlutesCompleteName => 'Motor potente';
+
+  @override
+  String get achievementGlutesCompleteDesc =>
+      'Las 5 etapas de Glúteos, superadas. De la patada de burro al hip thrust a una pierna.';
+
+  @override
+  String get achievementArmsShouldersCompleteName => 'Atlas';
+
+  @override
+  String get achievementArmsShouldersCompleteDesc =>
+      'Las 6 etapas de Brazos y hombros, superadas. De los toques de hombro a las flexiones en pica con pies en silla.';
+
+  @override
+  String get achievementCardioCompleteName => 'Móvil perpetuo';
+
+  @override
+  String get achievementCardioCompleteDesc =>
+      'Las 6 etapas de Cardio, superadas. De las rodillas arriba a los burpees.';
 
   @override
   String get achievementAllCompleteName => 'Colección completa';
@@ -2094,6 +2139,255 @@ class AppLocalizationsEs extends AppLocalizations {
       'Respira de forma regular: la respiración marca el ritmo.';
 
   @override
+  String get exerciseStrongBackS1YtwName => 'Y-T-W boca abajo';
+
+  @override
+  String get exerciseStrongBackS1YtwDesc =>
+      'Túmbate boca abajo, con la frente justo sobre el suelo. Sube los brazos estirados en Y por encima de la cabeza y bájalos; a los lados en T, bájalos; luego en W, con los codos doblados junto a las costillas. Una ronda de las tres letras es una repetición.';
+
+  @override
+  String get exerciseStrongBackS1YtwTip =>
+      'Junta las escápulas y llévalas hacia abajo; cuello largo, mirada al suelo.';
+
+  @override
+  String get exerciseStrongBackS2ReverseSnowAngelName =>
+      'Ángel de nieve inverso';
+
+  @override
+  String get exerciseStrongBackS2ReverseSnowAngelDesc =>
+      'Túmbate boca abajo con los brazos junto a la cadera. Levanta un poco el pecho y los brazos del suelo y llévalos estirados en un arco amplio por los lados hasta encima de la cabeza, y vuelve a la cadera.';
+
+  @override
+  String get exerciseStrongBackS2ReverseSnowAngelTip =>
+      'Los brazos no tocan el suelo en todo el recorrido; muévete despacio, trabajan las escápulas.';
+
+  @override
+  String get exerciseStrongBackS3SupermanName => 'Superman, aguante';
+
+  @override
+  String get exerciseStrongBackS3SupermanDesc =>
+      'Túmbate boca abajo con los brazos estirados por encima de la cabeza. Levanta a la vez brazos, pecho y piernas del suelo y aguanta, estirándote de los dedos de las manos a las puntas de los pies.';
+
+  @override
+  String get exerciseStrongBackS3SupermanTip =>
+      'Mira al suelo, no al frente; aprieta los glúteos para cuidar la zona lumbar.';
+
+  @override
+  String get exerciseStrongBackS4SwimmersName => 'Nadador';
+
+  @override
+  String get exerciseStrongBackS4SwimmersDesc =>
+      'En la postura de superman mantén el pecho y las piernas arriba y nada: el brazo derecho y la pierna izquierda suben mientras el brazo izquierdo y la pierna derecha bajan, y al revés, a ritmo constante.';
+
+  @override
+  String get exerciseStrongBackS4SwimmersTip =>
+      'Movimientos cortos y rápidos; el pecho sigue arriba todo el tiempo.';
+
+  @override
+  String get exerciseStrongBackS5DoorRowName => 'Remo en el marco de la puerta';
+
+  @override
+  String get exerciseStrongBackS5DoorRowDesc =>
+      'Ponte en una puerta abierta, con los pies justo pasado el marco, y agárralo con las dos manos a la altura del pecho. Inclínate hacia atrás con los brazos estirados y el cuerpo en línea, luego lleva el pecho al marco y vuelve despacio.';
+
+  @override
+  String get exerciseStrongBackS5DoorRowTip =>
+      'Cuanto más pasen los pies del marco, más difícil. Comprueba antes que el marco sea firme.';
+
+  @override
+  String get exerciseGlutesS1DonkeyKicksName => 'Patada de burro';
+
+  @override
+  String get exerciseGlutesS1DonkeyKicksDesc =>
+      'En cuadrupedia, manos bajo los hombros y rodillas bajo la cadera. Sin estirar la rodilla, empuja un pie hacia el techo hasta que el muslo quede a la altura de la espalda y bájalo. Alterna las piernas; cada patada es una repetición.';
+
+  @override
+  String get exerciseGlutesS1DonkeyKicksTip =>
+      'No arquees la zona lumbar; empuja el glúteo, no el impulso.';
+
+  @override
+  String get exerciseGlutesS2FireHydrantName => 'Boca de incendios';
+
+  @override
+  String get exerciseGlutesS2FireHydrantDesc =>
+      'En cuadrupedia, manos bajo los hombros y rodillas bajo la cadera. Con la rodilla doblada en ángulo recto, levanta un muslo hacia el lado hasta la altura de la cadera y bájalo. Alterna las piernas; cada subida es una repetición.';
+
+  @override
+  String get exerciseGlutesS2FireHydrantTip =>
+      'Cadera nivelada y espalda quieta; solo se mueve la pierna.';
+
+  @override
+  String get exerciseGlutesS3SingleLegBridgeName =>
+      'Puente de glúteos a una pierna';
+
+  @override
+  String get exerciseGlutesS3SingleLegBridgeDesc =>
+      'Túmbate boca arriba, rodillas dobladas y pies en el suelo. Estira una pierna y empuja con el talón de la otra para subir la cadera hasta que rodilla, cadera y hombros queden en línea, y baja. Alterna las piernas; cada subida es una repetición.';
+
+  @override
+  String get exerciseGlutesS3SingleLegBridgeTip =>
+      'Empuja con el talón y mantén los dos lados de la cadera a la misma altura.';
+
+  @override
+  String get exerciseGlutesS4HipThrustName => 'Hip thrust en el sofá';
+
+  @override
+  String get exerciseGlutesS4HipThrustDesc =>
+      'Siéntate en el suelo con la parte alta de la espalda apoyada en el borde del sofá, rodillas dobladas y pies planos. Empuja con los talones para subir la cadera hasta que el cuerpo quede recto de las rodillas a los hombros, aprieta y baja.';
+
+  @override
+  String get exerciseGlutesS4HipThrustTip =>
+      'Barbilla un poco hacia el pecho y mirada al frente; no arquees la espalda arriba.';
+
+  @override
+  String get exerciseGlutesS5SingleLegHipThrustName =>
+      'Hip thrust a una pierna';
+
+  @override
+  String get exerciseGlutesS5SingleLegHipThrustDesc =>
+      'El hip thrust en el sofá sobre una pierna, con la otra estirada. Sube y baja la cadera empujando con el talón del pie de apoyo. Alterna las piernas; cada subida es una repetición.';
+
+  @override
+  String get exerciseGlutesS5SingleLegHipThrustTip =>
+      'Cadera nivelada; si se inclina, haz menos repeticiones.';
+
+  @override
+  String get exerciseArmsShouldersS1ShoulderTapsName =>
+      'Toques de hombro en plancha';
+
+  @override
+  String get exerciseArmsShouldersS1ShoulderTapsDesc =>
+      'En plancha alta, manos bajo los hombros y pies algo separados. Levanta una mano y toca el hombro contrario, vuelve a apoyarla y luego la otra. Cada toque es una repetición.';
+
+  @override
+  String get exerciseArmsShouldersS1ShoulderTapsTip =>
+      'La cadera no se mueve; si se balancea, separa más los pies.';
+
+  @override
+  String get exerciseArmsShouldersS2ChairDipsName =>
+      'Fondos en silla, rodillas dobladas';
+
+  @override
+  String get exerciseArmsShouldersS2ChairDipsDesc =>
+      'Siéntate en el borde de una silla firme, con las manos en el borde junto a la cadera. Saca la cadera de la silla, rodillas dobladas y pies planos. Dobla los codos hacia atrás para bajar la cadera y empuja para subir.';
+
+  @override
+  String get exerciseArmsShouldersS2ChairDipsTip =>
+      'Hombros lejos de las orejas; los codos apuntan atrás, no hacia fuera. La silla no debe moverse: apóyala en la pared.';
+
+  @override
+  String get exerciseArmsShouldersS3PlankUpDownName => 'Plancha arriba y abajo';
+
+  @override
+  String get exerciseArmsShouldersS3PlankUpDownDesc =>
+      'Desde la plancha de antebrazos, apoya una mano y luego la otra y sube a la plancha alta; vuelve a un antebrazo y luego al otro. Cada cambio es una repetición.';
+
+  @override
+  String get exerciseArmsShouldersS3PlankUpDownTip =>
+      'Cadera lo más quieta posible; empieza cada repetición con el otro brazo.';
+
+  @override
+  String get exerciseArmsShouldersS4PikePushupName => 'Flexiones en pica';
+
+  @override
+  String get exerciseArmsShouldersS4PikePushupDesc =>
+      'Empieza en una V invertida: manos a la anchura de los hombros, cadera alta y piernas lo más estiradas posible. Dobla los codos para bajar la coronilla hacia el suelo entre las manos y empuja para volver.';
+
+  @override
+  String get exerciseArmsShouldersS4PikePushupTip =>
+      'Los codos van atrás, no hacia los lados; cuanto más cerca estén los pies de las manos, más trabajan los hombros.';
+
+  @override
+  String get exerciseArmsShouldersS5ChairDipsStraightName =>
+      'Fondos en silla, piernas estiradas';
+
+  @override
+  String get exerciseArmsShouldersS5ChairDipsStraightDesc =>
+      'Fondos en silla con las piernas estiradas delante y solo los talones en el suelo. Baja la cadera doblando los codos hacia atrás y empuja para subir.';
+
+  @override
+  String get exerciseArmsShouldersS5ChairDipsStraightTip =>
+      'La espalda cerca de la silla; baja hasta que los brazos queden paralelos al suelo.';
+
+  @override
+  String get exerciseArmsShouldersS6ElevatedPikeName =>
+      'Flexiones en pica con pies en silla';
+
+  @override
+  String get exerciseArmsShouldersS6ElevatedPikeDesc =>
+      'Flexiones en pica con los pies sobre una silla: manos en el suelo y cadera alta sobre las manos, con la espalda casi vertical. Baja la coronilla hacia el suelo y empuja para volver.';
+
+  @override
+  String get exerciseArmsShouldersS6ElevatedPikeTip =>
+      'Es el paso previo a la flexión en parada de manos: muévete despacio, con el cuello neutro.';
+
+  @override
+  String get exerciseCardioS1HighKneesName => 'Rodillas arriba';
+
+  @override
+  String get exerciseCardioS1HighKneesDesc =>
+      'Corre en el sitio subiendo cada rodilla a la altura de la cadera, con los brazos activos. Aterriza suave sobre la parte delantera del pie.';
+
+  @override
+  String get exerciseCardioS1HighKneesTip =>
+      'Espalda recta, sin inclinarte hacia atrás; la velocidad llega con el tiempo.';
+
+  @override
+  String get exerciseCardioS2SkaterJumpsName => 'Saltos de patinador';
+
+  @override
+  String get exerciseCardioS2SkaterJumpsDesc =>
+      'Salta de lado de un pie al otro como un patinador, la pierna libre pasa por detrás de la de apoyo y los brazos acompañan. Aterriza suave con la rodilla doblada.';
+
+  @override
+  String get exerciseCardioS2SkaterJumpsTip =>
+      'Aterriza y quédate un instante antes del siguiente salto: primero distancia, luego velocidad.';
+
+  @override
+  String get exerciseCardioS3SquatJumpsName => 'Sentadilla con salto';
+
+  @override
+  String get exerciseCardioS3SquatJumpsDesc =>
+      'Baja en sentadilla con los brazos atrás y salta hacia arriba con los brazos sobre la cabeza. Aterriza suave en la sentadilla y repite.';
+
+  @override
+  String get exerciseCardioS3SquatJumpsTip =>
+      'Aterriza con las rodillas flexibles, primero la punta del pie, rodillas sobre los pies.';
+
+  @override
+  String get exerciseCardioS4FastClimbersName => 'Escaladores rápidos';
+
+  @override
+  String get exerciseCardioS4FastClimbersDesc =>
+      'En plancha alta, manos bajo los hombros, cambia los pies rápido: una rodilla al pecho mientras la otra pierna va atrás, como correr en plancha.';
+
+  @override
+  String get exerciseCardioS4FastClimbersTip =>
+      'Cadera a la altura de los hombros; mantén un ritmo que aguantes hasta el final.';
+
+  @override
+  String get exerciseCardioS5HalfBurpeeName => 'Medio burpee';
+
+  @override
+  String get exerciseCardioS5HalfBurpeeDesc =>
+      'Agáchate y apoya las manos en el suelo, lleva los pies atrás a plancha con pasos, vuelve con pasos y ponte de pie. Aún sin salto ni flexión.';
+
+  @override
+  String get exerciseCardioS5HalfBurpeeTip =>
+      'Espalda recta en la plancha; acelera solo cuando los movimientos sean fluidos.';
+
+  @override
+  String get exerciseCardioS6BurpeeName => 'Burpees';
+
+  @override
+  String get exerciseCardioS6BurpeeDesc =>
+      'Sentadilla con las manos en el suelo, salta con los pies atrás a plancha, haz una flexión, salta con los pies hacia las manos y salta hacia arriba con los brazos sobre la cabeza.';
+
+  @override
+  String get exerciseCardioS6BurpeeTip =>
+      'Aterriza suave cada vez: un burpee fluido vale más que uno rápido y descuidado.';
+
+  @override
   String get aboutTitle => 'Acerca de';
 
   @override
@@ -2209,146 +2503,16 @@ class AppLocalizationsEs extends AppLocalizations {
   String get summaryHealthSaved => 'Guardado en Salud ✓';
 
   @override
-  String get friendsTitle => 'Amigos';
+  String get commonCancel => 'Cancelar';
 
   @override
-  String get friendsMyQrTitle => 'Mi perfil';
+  String get settingsSectionProfile => 'PERFIL';
 
   @override
-  String get friendsShareHint =>
-      'Muestra este código a un amigo para compartir tu perfil';
+  String get settingsNameTitle => 'Nombre';
 
   @override
-  String get friendsScanQr => 'Escanear código QR';
-
-  @override
-  String get friendsSectionNearby => 'CERCA';
-
-  @override
-  String get friendsSectionList => 'AMIGOS';
-
-  @override
-  String get friendsNearbyEmpty => 'No hay usuarios de CaliDay cerca';
-
-  @override
-  String get friendsNearbyScanning => 'Buscando…';
-
-  @override
-  String get friendsNearbyBleOff => 'El Bluetooth está apagado';
-
-  @override
-  String get friendsNearbyConnect => 'Obtener perfil';
-
-  @override
-  String get friendsEmpty =>
-      'Aún no tienes amigos. Escanea un código QR para añadir el primero.';
-
-  @override
-  String get friendsAdded => '¡Amigo añadido!';
-
-  @override
-  String get friendsUpdated => '¡Perfil actualizado!';
-
-  @override
-  String get friendsScanError => 'Código QR no válido';
-
-  @override
-  String get friendsScanTryAgain => 'Reintentar';
-
-  @override
-  String get friendsScanCameraDeniedTitle =>
-      'El acceso a la cámara está bloqueado';
-
-  @override
-  String get friendsScanCameraDeniedWeb =>
-      'Permite la cámara para este sitio (el icono de la cámara o del candado en la barra de direcciones) y pulsa Reintentar. O muestra tu propio código QR a tu amigo.';
-
-  @override
-  String get friendsScanCameraDeniedApp =>
-      'Permite el acceso a la cámara para CaliDay en los ajustes del dispositivo y pulsa Reintentar.';
-
-  @override
-  String get friendsScanCameraUnsupportedTitle => 'No hay cámara disponible';
-
-  @override
-  String get friendsScanCameraUnsupportedBody =>
-      'Este dispositivo o navegador no tiene una cámara que la app pueda usar. Muestra tu propio código QR a tu amigo.';
-
-  @override
-  String get friendsScanCameraFailedTitle => 'No se pudo iniciar la cámara';
-
-  @override
-  String get friendsScanCameraFailedBody =>
-      'Comprueba que ninguna otra app esté usando la cámara y que tienes conexión (en el navegador el escáner se descarga la primera vez) y vuelve a intentarlo.';
-
-  @override
-  String friendsScanConfirmBody(int sp, int streak) {
-    String _temp0 = intl.Intl.pluralLogic(
-      streak,
-      locale: localeName,
-      other: '$streak días',
-      one: '$streak día',
-    );
-    return '$sp SP · racha de $_temp0';
-  }
-
-  @override
-  String get friendsCancel => 'Cancelar';
-
-  @override
-  String get friendsAdd => 'Añadir';
-
-  @override
-  String friendsDetailLastSynced(String date) {
-    return 'Sincronizado: $date';
-  }
-
-  @override
-  String get friendsDeleteTitle => 'Eliminar amigo';
-
-  @override
-  String friendsDeleteBody(String name) {
-    return '¿Eliminar a $name de tus amigos?';
-  }
-
-  @override
-  String get friendsDeleteConfirm => 'Eliminar';
-
-  @override
-  String get settingsSectionFriends => 'AMIGOS';
-
-  @override
-  String get settingsFriendsNameTitle => 'Nombre visible';
-
-  @override
-  String get settingsFriendsNamePlaceholder => 'Escribe tu nombre';
-
-  @override
-  String get settingsFriendsDiscoverableTitle => 'Visible por Bluetooth';
-
-  @override
-  String get settingsFriendsDiscoverableSubtitle =>
-      'Otros usuarios de CaliDay cerca pueden encontrarte';
-
-  @override
-  String get profileFriendsTitle => 'Amigos';
-
-  @override
-  String get profileFriendsAll => 'Todos los amigos →';
-
-  @override
-  String get profileFriendsEmpty => 'Aún no tienes amigos';
-
-  @override
-  String profileFriendsCount(int count) {
-    String _temp0 = intl.Intl.pluralLogic(
-      count,
-      locale: localeName,
-      other: '$count amigos',
-      one: '$count amigo',
-    );
-    return '$_temp0';
-  }
+  String get settingsNamePlaceholder => 'Escribe tu nombre';
 
   @override
   String get exerciseFlexS1HipFlexorStretchName =>
@@ -2899,7 +3063,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get courseBuilderCreateEntryDesc =>
-      'Elige ramas de cualquier curso o crea las tuyas con ejercicios';
+      'Elige ramas de cualquier curso o fuera de ellos, o crea las tuyas con ejercicios';
 
   @override
   String get courseBuilderNewTitle => 'Nuevo curso';
@@ -3134,6 +3298,26 @@ class AppLocalizationsEs extends AppLocalizations {
       'Los gatos duermen dieciséis horas al día. A ti te bastan ocho.\nRrrr… buenas noches.\nDormir es la mejor postura. Seguimos por la mañana.\nHazte un ovillo y descansa.';
 
   @override
+  String greetingMorning(String name) {
+    return '¡Buenos días, $name!';
+  }
+
+  @override
+  String greetingDay(String name) {
+    return '¡Hola, $name!';
+  }
+
+  @override
+  String greetingEvening(String name) {
+    return '¡Buenas noches, $name!';
+  }
+
+  @override
+  String greetingNight(String name) {
+    return '¿No puedes dormir, $name?';
+  }
+
+  @override
   String get courseBuilderNameHint => 'Nombre del curso';
 
   @override
@@ -3151,6 +3335,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get courseBuilderMyBranches => 'Mis ramas';
+
+  @override
+  String get courseBuilderOtherBranches => 'Ramas fuera de los cursos';
 
   @override
   String get courseBuilderCreateBranch => 'Crear una rama';
@@ -3295,6 +3482,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Tus cursos ya están en la lista de cursos bajo +: desmarca uno para ocultarlo de la fila de arriba (se guarda), el lápiz lo abre para editarlo.\nUn curso propio lleva arriba una marca de herramientas en vez de la cara de su anfitrión.\nUn logro aún pendiente: su anfitrión ahora lo sostiene, una medalla gris con candado.\n«Acerca de»: toca a Goro, tiene algunas poses nuevas.\nPantalla principal: antes del primer entrenamiento del día tu anfitrión te dice unas palabras (cada uno las suyas, nuevas cada vez que abres la app o las tocas), y debajo están tus próximas metas (el siguiente rango, el logro más cercano, un reto abierto que puedes empezar ahí mismo) y las ramas del curso.\nDespués, la pantalla principal muestra tus últimos entrenamientos y lo que ha crecido hoy: más repeticiones, una serie, menos descanso, una etapa nueva.\nLa flecha del botón de entrenamiento despliega el plan del día, con Goro mostrando cada ejercicio.\nLas animaciones de Goro dondequiera que se nombra un ejercicio: el camino de una rama, la pestaña Cursos, los constructores, los entrenamientos guardados, el historial, el descanso antes del siguiente ejercicio.';
 
   @override
+  String get releaseNotes095 =>
+      'Ya no hay amigos: sin servidor solo podían intercambiar un código QR una vez y nada más. La app ya no necesita la cámara ni el Bluetooth.\nTu nombre: tu anfitrión te saluda con él en la pantalla de inicio, y el perfil y el final del entrenamiento lo muestran. Cámbialo en Ajustes → Perfil.\nCuatro ramas nuevas fuera de los cursos: Espalda fuerte, Glúteos, Brazos y hombros y Cardio: 22 ejercicios, cada uno con la animación de Goro. Añádelas a tu propio curso: Cursos → + → Crear tu propio curso.';
+
+  @override
   String get releaseNotes093 =>
       'Tu propio curso: en la pestaña Cursos toca + y reúne ramas de cualquier curso, elige el anfitrión y ponle un nombre.\nUna rama propia: elige ejercicios y ordénalos, cada uno será una etapa. Las repeticiones, las series, los descansos y los retos los pone la app, como en cualquier rama.\nEn la campana, arriba están las últimas actualizaciones y debajo, plegada, toda la historia de CaliDay versión a versión.';
 
@@ -3332,5 +3523,5 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.';
+      'Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.\nSe quitan los amigos; tu anfitrión te saluda por tu nombre.\nCuatro ramas fuera de los cursos: espalda, glúteos, brazos y hombros, cardio.';
 }

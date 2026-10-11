@@ -1,12 +1,11 @@
 # Privacy Policy — CaliDay
 
-**Last updated: October 6, 2026**
+**Last updated: October 11, 2026**
 
 ---
 
 CaliDay is a home workout app built on a simple principle: your data belongs to you.
-This policy explains what information the app uses, how it stays on your device,
-and the one case where you can choose to share a profile snapshot with another person.
+This policy explains what information the app uses and how it stays on your device.
 
 ---
 
@@ -16,8 +15,7 @@ and the one case where you can choose to share a profile snapshot with another p
 
 There are no accounts, no sign-up, no cloud sync. Everything you do in the app —
 workouts, progress, streak, settings — is stored locally on your device using
-on-device storage (Hive). This data never leaves your device unless you explicitly
-choose to use the Friends feature (see Section 5).
+on-device storage (Hive). This data never leaves your device.
 
 ---
 
@@ -27,7 +25,7 @@ The following data is stored **on your device only**:
 
 | Data | Purpose |
 |------|---------|
-| Display name (optional) | Shown in your profile; shared only if you use Friends |
+| Your name (optional) | Shown in your profile; the app greets you by it |
 | Workout history | Tracking your progress over time |
 | Skill progress (branch stages) | Determining which exercises to generate |
 | Streak and SP (Strength Points) | Gamification |
@@ -36,13 +34,17 @@ The following data is stored **on your device only**:
 
 All of this data is deleted when you uninstall the app.
 
+Versions before 0.9.5 had a Friends feature that exchanged a profile snapshot with another
+person by QR code or Bluetooth. It has been removed: the friends list stored on your device is
+deleted the first time a newer version starts, and the app no longer uses the camera or
+Bluetooth.
+
 ### Web version
 
 CaliDay is also available as a web app at <https://pupptmstr.github.io/caliday/app/>. It works the
 same way: everything you do is stored in your browser, on your device, and is never sent to
 CaliDay's developers. The data is deleted when you clear the site data for that address in your
-browser. The web app has no Health integration, Bluetooth, home screen widget or notifications; the
-camera is used only to scan a QR code, as described in Section 4.
+browser. The web app has no Health integration, home screen widget or notifications.
 
 The web page itself is hosted on GitHub Pages. Like any web host, GitHub may process technical data
 such as your IP address when you load the page, under GitHub's own privacy statement. CaliDay does
@@ -63,56 +65,7 @@ You can revoke this permission at any time in your device's Health or Settings a
 
 ---
 
-## 4. Camera
-
-The camera is used **only** for scanning a friend's QR code on the Friends screen.
-No photos are taken, saved, or transmitted. The camera is accessed only while the
-QR scan screen is open and is released immediately after scanning.
-
----
-
-## 5. Peer-to-Peer Profile Sharing (Friends Feature)
-
-The Friends feature lets you share your workout profile with another person directly,
-without any server involvement.
-
-**What is shared:**
-- Your display name
-- Your current rank, SP, and streak
-- Your branch progress (which stage you've reached in each branch)
-
-**How it works:**
-- Sharing happens **only when you explicitly initiate it** — by opening the Friends screen
-  and either showing your QR code or tapping Connect on a nearby Bluetooth device.
-- The transfer is **direct, device-to-device**: via QR code (optical) or Bluetooth (local).
-  No data passes through the internet or any server.
-- The recipient sees a **snapshot** of your profile at the moment of sharing.
-  It is not a live feed and does not update automatically.
-
-**What you should know:**
-- Once you share your profile with someone, they have a copy of that snapshot on their device.
-  Removing a friend from your list deletes their data from your device,
-  but cannot remove your snapshot from theirs — the same as handing someone a business card.
-- Your workout history, health data, and saved routines are **never included** in the shared profile.
-
-This feature is **entirely optional**. If you never open the Friends screen, no peer-to-peer
-data exchange ever occurs.
-
----
-
-## 6. Bluetooth
-
-Bluetooth is used **only** for the Friends feature:
-- To discover nearby devices also running CaliDay (scan)
-- To advertise your presence to nearby CaliDay users (peripheral mode, optional)
-- To exchange profile data directly with a specific nearby device (GATT)
-
-Bluetooth is never used to transmit data to the internet, analytics services, or any third party.
-Advertising is active only while the Friends screen is open.
-
----
-
-## 7. Push Notifications
+## 4. Push Notifications
 
 CaliDay schedules local push notifications (workout reminders, streak alerts) entirely on-device.
 No push tokens are sent to any server. Notifications are managed by your device's operating system.
@@ -120,7 +73,7 @@ You can disable them at any time in your device's Settings.
 
 ---
 
-## 8. Analytics and Advertising
+## 5. Analytics and Advertising
 
 CaliDay contains **no analytics SDKs, no crash reporting services, no advertising networks,
 and no tracking of any kind.** The developers do not know how many people use the app,
@@ -128,7 +81,7 @@ what workouts they do, or anything else about user behavior.
 
 ---
 
-## 9. Children
+## 6. Children
 
 CaliDay is not directed at children under the age of 13. We do not knowingly collect
 any information from children. If you are a parent or guardian and believe your child
@@ -137,7 +90,7 @@ the app stores nothing off-device that could be retrieved.
 
 ---
 
-## 10. Changes to This Policy
+## 7. Changes to This Policy
 
 If this policy is updated, the "Last updated" date at the top will change.
 Significant changes will be noted in the app's release notes.
@@ -145,7 +98,7 @@ Continued use of the app after a policy update constitutes acceptance of the rev
 
 ---
 
-## 11. Contact
+## 8. Contact
 
 Questions about this privacy policy:
 

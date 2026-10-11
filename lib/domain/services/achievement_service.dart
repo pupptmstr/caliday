@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../data/models/enums.dart';
 import '../../data/models/skill_progress.dart';
 import '../../data/models/user_profile.dart';
+import '../../data/static/course_catalog.dart';
 
 /// Pure service that computes which achievements are newly earned.
 ///
@@ -130,10 +131,19 @@ class AchievementService {
         check('yoga_backbends_complete', newStage >= BranchId.yogaBackbends.stageCount);
       case BranchId.yogaFlow:
         check('yoga_flow_complete', newStage >= BranchId.yogaFlow.stageCount);
+      case BranchId.strongBack:
+        check('strong_back_complete', newStage >= BranchId.strongBack.stageCount);
+      case BranchId.glutes:
+        check('glutes_complete', newStage >= BranchId.glutes.stageCount);
+      case BranchId.armsShoulders:
+        check('arms_shoulders_complete', newStage >= BranchId.armsShoulders.stageCount);
+      case BranchId.cardio:
+        check('cardio_complete', newStage >= BranchId.cardio.stageCount);
     }
 
-    // all_complete: every branch at max stage
-    final allDone = BranchId.values.every((b) {
+    // all_complete: every branch of the built-in courses at max stage (the
+    // branches outside the courses are optional, owner 2026-10-11)
+    final allDone = CourseCatalog.courseBranches.every((b) {
       final p = allProgress[b];
       return p != null && p.currentStage >= b.stageCount;
     });

@@ -50,11 +50,27 @@ class CourseCatalog {
 
   /// The course whose host stands for [branch]: [active] when it holds the
   /// branch (Balance is Miso's while Yoga is the active course), otherwise
-  /// the first course that lists it (Balance and Flex are Goro's).
-  static CourseId courseOf(BranchId branch, {CourseId? active}) {
+  /// the first course that lists it (Balance and Flex are Goro's); null for a
+  /// branch outside every course ([otherBranches]).
+  static CourseId? courseOf(BranchId branch, {CourseId? active}) {
     if (active != null && branchesFor(active).contains(branch)) return active;
-    return all.firstWhere((c) => branchesFor(c).contains(branch));
+    for (final c in all) {
+      if (branchesFor(c).contains(branch)) return c;
+    }
+    return null;
   }
 
   static const List<CourseId> all = CourseId.values;
+
+  /// Every branch of the built-in courses, once, in course order.
+  static List<BranchId> get courseBranches =>
+      {for (final c in all) ...branchesFor(c)}.toList();
+
+  /// The branches no built-in course lists (0.9.5: Strong Back, Glutes, Arms
+  /// & Shoulders, Cardio): trained through an own course, offered by the
+  /// course builder under "Other branches"; optional for `all_complete`.
+  static List<BranchId> get otherBranches => [
+        for (final b in BranchId.values)
+          if (!courseBranches.contains(b)) b,
+      ];
 }

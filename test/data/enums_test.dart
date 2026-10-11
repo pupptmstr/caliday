@@ -118,6 +118,7 @@ void main() {
         'eveningBack', 'eveningHips', 'eveningFolds', 'eveningShoulders',
         'morningSpine', 'morningJoints', 'morningArms', 'morningEnergy',
         'yogaStanding', 'yogaOneLeg', 'yogaBackbends', 'yogaFlow',
+        'strongBack', 'glutes', 'armsShoulders', 'cardio',
       ]);
       expect(Rank.values.map((r) => r.name), [
         'beginner', 'amateur', 'sportsman', 'athlete', 'master', 'legend',
@@ -152,16 +153,27 @@ void main() {
           CourseId.healthyBody);
       expect(CourseCatalog.courseOf(BranchId.push, active: CourseId.yoga),
           CourseId.calisthenics);
-      for (final b in BranchId.values) {
-        expect(CourseCatalog.branchesFor(CourseCatalog.courseOf(b)), contains(b));
+      for (final b in CourseCatalog.courseBranches) {
+        expect(CourseCatalog.branchesFor(CourseCatalog.courseOf(b)!), contains(b));
       }
     });
 
-    test('every branch belongs to at least one course', () {
-      final covered = {
-        for (final c in CourseId.values) ...CourseCatalog.branchesFor(c),
-      };
-      expect(covered, BranchId.values.toSet());
+    test('a branch outside the courses has no course (Goro presents it)', () {
+      for (final b in CourseCatalog.otherBranches) {
+        expect(CourseCatalog.courseOf(b), isNull, reason: b.name);
+        expect(CourseCatalog.courseOf(b, active: CourseId.yoga), isNull, reason: b.name);
+      }
+    });
+
+    test('every branch is in a course or among the other branches, never both', () {
+      expect(CourseCatalog.otherBranches, [
+        BranchId.strongBack, BranchId.glutes, BranchId.armsShoulders, BranchId.cardio,
+      ]);
+      final course = CourseCatalog.courseBranches.toSet();
+      expect(course.intersection(CourseCatalog.otherBranches.toSet()), isEmpty);
+      expect({...course, ...CourseCatalog.otherBranches}, BranchId.values.toSet());
+      expect(CourseCatalog.courseBranches, hasLength(course.length),
+          reason: 'a shared branch (Flex, Balance) is listed once');
     });
   });
 }

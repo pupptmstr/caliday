@@ -2594,6 +2594,446 @@ class ExerciseCatalog {
     animationPath: 'assets/animations/warmup_neck_rolls.json',
   );
 
+  // ── Strong Back (outside the courses, 0.9.5) ───────────────────────────────────────
+  static const Exercise strongBackS1Ytw = Exercise(
+    id: 'strong_back_s1_ytw',
+    name: 'Prone Y-T-W Raises',
+    description:
+        'Lie face down, forehead just above the floor. Lift your straight arms into a Y overhead and lower them; out to the sides in a T, lower; then a W, elbows bent by your ribs. One round of all three letters is one rep.',
+    branch: BranchId.strongBack,
+    stage: 1,
+    type: ExerciseType.reps,
+    startReps: 4,
+    targetReps: 10,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    techniqueTip: 'Squeeze your shoulder blades together and down; keep your neck long, eyes on the floor.',
+    animationPath: 'assets/animations/strong_back_s1_ytw.json',
+  );
+
+  static const Exercise strongBackS2ReverseSnowAngel = Exercise(
+    id: 'strong_back_s2_reverse_snow_angel',
+    name: 'Reverse Snow Angels',
+    description:
+        'Lie face down with your arms by your hips. Lift your chest and arms slightly off the floor and sweep the straight arms out to the sides and on overhead, then back to your hips.',
+    branch: BranchId.strongBack,
+    stage: 2,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 15,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    challengeTargetReps: 6,
+    techniqueTip: 'The arms stay off the floor the whole way; move slowly and let the shoulder blades do the work.',
+    animationPath: 'assets/animations/strong_back_s2_reverse_snow_angel.json',
+  );
+
+  static const Exercise strongBackS3Superman = Exercise(
+    id: 'strong_back_s3_superman',
+    name: 'Superman Hold',
+    description:
+        'Lie face down with your arms stretched overhead. Lift your arms, chest and legs off the floor at once and hold, reaching long from your fingers to your toes.',
+    branch: BranchId.strongBack,
+    stage: 3,
+    type: ExerciseType.timed,
+    startReps: 15, // seconds
+    targetReps: 45, // seconds
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    challengeTargetReps: 20,
+    techniqueTip: 'Look at the floor, not ahead; squeeze your glutes to protect your lower back.',
+    animationPath: 'assets/animations/strong_back_s3_superman.json',
+  );
+
+  static const Exercise strongBackS4Swimmers = Exercise(
+    id: 'strong_back_s4_swimmers',
+    name: 'Swimmers',
+    description:
+        'In the superman position keep your chest and legs up and swim: the right arm and left leg rise as the left arm and right leg lower, then switch, at an even pace.',
+    branch: BranchId.strongBack,
+    stage: 4,
+    type: ExerciseType.timed,
+    startReps: 20, // seconds
+    targetReps: 45, // seconds
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    challengeTargetReps: 20,
+    techniqueTip: 'Small, quick moves; the chest stays lifted the whole time.',
+    animationPath: 'assets/animations/strong_back_s4_swimmers.json',
+  );
+
+  static const Exercise strongBackS5DoorRow = Exercise(
+    id: 'strong_back_s5_door_row',
+    name: 'Door Frame Rows',
+    description:
+        'Stand in an open doorway, feet just past the frame, and hold the frame with both hands at chest height. Lean back on straight arms with your body in one line, then pull your chest to the frame and lower yourself back slowly.',
+    branch: BranchId.strongBack,
+    stage: 5,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 15,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 3,
+    challengeTargetReps: 6,
+    techniqueTip: 'The farther your feet are past the frame, the harder it gets. Check first that the frame is solid.',
+    animationPath: 'assets/animations/strong_back_s5_door_row.json',
+  );
+
+  // ── Glutes (outside the courses, 0.9.5) ────────────────────────────────────────────
+  static const Exercise glutesS1DonkeyKicks = Exercise(
+    id: 'glutes_s1_donkey_kicks',
+    name: 'Donkey Kicks',
+    description:
+        'On all fours, hands under your shoulders and knees under your hips. Keeping the knee bent, push one foot up toward the ceiling until the thigh is level with your back, then lower it. Alternate legs; each kick is one rep.',
+    branch: BranchId.glutes,
+    stage: 1,
+    type: ExerciseType.reps,
+    startReps: 10,
+    targetReps: 24,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    techniqueTip: "Don't arch your lower back; the push comes from the glute, not from a swing.",
+    animationPath: 'assets/animations/glutes_s1_donkey_kicks.json',
+  );
+
+  static const Exercise glutesS2FireHydrant = Exercise(
+    id: 'glutes_s2_fire_hydrant',
+    name: 'Fire Hydrants',
+    description:
+        'On all fours, hands under your shoulders and knees under your hips. Keeping the knee bent at a right angle, lift one thigh out to the side up to hip height, then lower it. Alternate legs; each lift is one rep.',
+    branch: BranchId.glutes,
+    stage: 2,
+    type: ExerciseType.reps,
+    startReps: 10,
+    targetReps: 24,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    challengeTargetReps: 12,
+    techniqueTip: 'Keep your hips level and your back still; only the leg moves.',
+    animationPath: 'assets/animations/glutes_s2_fire_hydrant.json',
+  );
+
+  static const Exercise glutesS3SingleLegBridge = Exercise(
+    id: 'glutes_s3_single_leg_bridge',
+    name: 'Single-Leg Glute Bridge',
+    description:
+        'Lie on your back, knees bent, feet on the floor. Stretch one leg out and push through the other heel to lift your hips until knee, hips and shoulders are in a line, then lower. Alternate legs; each lift is one rep.',
+    branch: BranchId.glutes,
+    stage: 3,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 16,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    challengeTargetReps: 8,
+    techniqueTip: 'Push through the heel and keep both sides of your hips at the same height.',
+    animationPath: 'assets/animations/glutes_s3_single_leg_bridge.json',
+  );
+
+  static const Exercise glutesS4HipThrust = Exercise(
+    id: 'glutes_s4_hip_thrust',
+    name: 'Hip Thrust on the Sofa',
+    description:
+        'Sit on the floor with your upper back against the edge of a sofa, knees bent, feet flat. Push through your heels to lift your hips until your body is level from knees to shoulders, squeeze and lower.',
+    branch: BranchId.glutes,
+    stage: 4,
+    type: ExerciseType.reps,
+    startReps: 8,
+    targetReps: 20,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    challengeTargetReps: 10,
+    techniqueTip: "Tuck your chin a little and look ahead; don't arch your back at the top.",
+    animationPath: 'assets/animations/glutes_s4_hip_thrust.json',
+  );
+
+  static const Exercise glutesS5SingleLegHipThrust = Exercise(
+    id: 'glutes_s5_single_leg_hip_thrust',
+    name: 'Single-Leg Hip Thrust',
+    description:
+        'The sofa hip thrust on one leg, the other one stretched out. Lift and lower your hips pushing through the heel of the planted foot. Alternate legs; each lift is one rep.',
+    branch: BranchId.glutes,
+    stage: 5,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 16,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 3,
+    challengeTargetReps: 8,
+    techniqueTip: 'Keep your hips level; if they tilt, do fewer reps.',
+    animationPath: 'assets/animations/glutes_s5_single_leg_hip_thrust.json',
+  );
+
+  // ── Arms & Shoulders (outside the courses, 0.9.5) ──────────────────────────────────
+  static const Exercise armsShouldersS1ShoulderTaps = Exercise(
+    id: 'arms_shoulders_s1_shoulder_taps',
+    name: 'Plank Shoulder Taps',
+    description:
+        'In a high plank, hands under your shoulders, feet a little apart. Lift one hand and tap the opposite shoulder, put it back, then the other. Each tap is one rep.',
+    branch: BranchId.armsShoulders,
+    stage: 1,
+    type: ExerciseType.reps,
+    startReps: 10,
+    targetReps: 24,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    techniqueTip: 'Keep your hips still; if they sway, set your feet wider.',
+    animationPath: 'assets/animations/arms_shoulders_s1_shoulder_taps.json',
+  );
+
+  static const Exercise armsShouldersS2ChairDips = Exercise(
+    id: 'arms_shoulders_s2_chair_dips',
+    name: 'Chair Dips, Knees Bent',
+    description:
+        'Sit on the edge of a sturdy chair, hands on the edge beside your hips. Slide your hips off, knees bent, feet flat. Bend your elbows straight back to lower your hips, then press back up.',
+    branch: BranchId.armsShoulders,
+    stage: 2,
+    type: ExerciseType.reps,
+    startReps: 5,
+    targetReps: 15,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    challengeTargetReps: 6,
+    techniqueTip: 'Shoulders down, away from your ears; elbows point back, not out. The chair must not slide: put it against a wall.',
+    animationPath: 'assets/animations/arms_shoulders_s2_chair_dips.json',
+  );
+
+  static const Exercise armsShouldersS3PlankUpDown = Exercise(
+    id: 'arms_shoulders_s3_plank_up_down',
+    name: 'Plank Up-Downs',
+    description:
+        'From a forearm plank, put one hand and then the other on the floor and press up into a high plank; come back down onto one forearm, then the other. Each change is one rep.',
+    branch: BranchId.armsShoulders,
+    stage: 3,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 16,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 2,
+    challengeTargetReps: 8,
+    techniqueTip: 'Keep your hips as still as you can; lead with the other arm every rep.',
+    animationPath: 'assets/animations/arms_shoulders_s3_plank_up_down.json',
+  );
+
+  static const Exercise armsShouldersS4PikePushup = Exercise(
+    id: 'arms_shoulders_s4_pike_pushup',
+    name: 'Pike Push-ups',
+    description:
+        'Start in an upside-down V: hands shoulder-width apart, hips high, legs as straight as you can. Bend your elbows to lower the top of your head toward the floor between your hands, then press back up.',
+    branch: BranchId.armsShoulders,
+    stage: 4,
+    type: ExerciseType.reps,
+    startReps: 4,
+    targetReps: 12,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 3,
+    challengeTargetReps: 5,
+    techniqueTip: 'Elbows go back, not out to the sides; the closer your feet are to your hands, the more your shoulders work.',
+    animationPath: 'assets/animations/arms_shoulders_s4_pike_pushup.json',
+  );
+
+  static const Exercise armsShouldersS5ChairDipsStraight = Exercise(
+    id: 'arms_shoulders_s5_chair_dips_straight',
+    name: 'Chair Dips, Legs Straight',
+    description:
+        'Chair dips with your legs straight out in front, only the heels on the floor. Lower your hips by bending your elbows straight back, then press up.',
+    branch: BranchId.armsShoulders,
+    stage: 5,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 16,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 3,
+    challengeTargetReps: 8,
+    techniqueTip: 'Keep your back close to the chair and stop when your upper arms are level with the floor.',
+    animationPath: 'assets/animations/arms_shoulders_s5_chair_dips_straight.json',
+  );
+
+  static const Exercise armsShouldersS6ElevatedPike = Exercise(
+    id: 'arms_shoulders_s6_elevated_pike',
+    name: 'Elevated Pike Push-ups',
+    description:
+        'Pike push-ups with your feet on a chair: hands on the floor, hips high over your hands, your back almost vertical. Lower the top of your head toward the floor and press back up.',
+    branch: BranchId.armsShoulders,
+    stage: 6,
+    type: ExerciseType.reps,
+    startReps: 3,
+    targetReps: 10,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 60,
+    targetRestSec: 30,
+    spBase: 3,
+    challengeTargetReps: 4,
+    techniqueTip: 'The step before the handstand push-up: move slowly and keep your neck neutral.',
+    animationPath: 'assets/animations/arms_shoulders_s6_elevated_pike.json',
+  );
+
+  // ── Cardio (outside the courses, 0.9.5) ────────────────────────────────────────────
+  static const Exercise cardioS1HighKnees = Exercise(
+    id: 'cardio_s1_high_knees',
+    name: 'High Knees',
+    description:
+        'Run on the spot, driving each knee up to hip height, arms pumping. Land softly on the balls of your feet.',
+    branch: BranchId.cardio,
+    stage: 1,
+    type: ExerciseType.timed,
+    startReps: 20, // seconds
+    targetReps: 45, // seconds
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 45,
+    targetRestSec: 20,
+    spBase: 2,
+    techniqueTip: "Stand tall, don't lean back; the speed comes with time.",
+    animationPath: 'assets/animations/cardio_s1_high_knees.json',
+  );
+
+  static const Exercise cardioS2SkaterJumps = Exercise(
+    id: 'cardio_s2_skater_jumps',
+    name: 'Skater Jumps',
+    description:
+        'Jump sideways from one foot to the other like a speed skater, the free leg sweeping behind the standing one and the arms swinging across. Land softly on a bent knee.',
+    branch: BranchId.cardio,
+    stage: 2,
+    type: ExerciseType.timed,
+    startReps: 20, // seconds
+    targetReps: 45, // seconds
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 45,
+    targetRestSec: 20,
+    spBase: 2,
+    challengeTargetReps: 30,
+    techniqueTip: 'Land and hold for a moment before the next jump: distance first, speed later.',
+    animationPath: 'assets/animations/cardio_s2_skater_jumps.json',
+  );
+
+  static const Exercise cardioS3SquatJumps = Exercise(
+    id: 'cardio_s3_squat_jumps',
+    name: 'Squat Jumps',
+    description:
+        'Squat down with your arms back, then jump straight up with your arms overhead. Land softly back into the squat and go again.',
+    branch: BranchId.cardio,
+    stage: 3,
+    type: ExerciseType.timed,
+    startReps: 20, // seconds
+    targetReps: 40, // seconds
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 45,
+    targetRestSec: 20,
+    spBase: 2,
+    challengeTargetReps: 20,
+    techniqueTip: 'Land on soft knees, toes first, the knees over your toes.',
+    animationPath: 'assets/animations/cardio_s3_squat_jumps.json',
+  );
+
+  static const Exercise cardioS4FastClimbers = Exercise(
+    id: 'cardio_s4_fast_climbers',
+    name: 'Fast Mountain Climbers',
+    description:
+        'In a high plank, hands under your shoulders, switch your feet quickly: one knee drives toward your chest as the other leg goes back, like running in a plank.',
+    branch: BranchId.cardio,
+    stage: 4,
+    type: ExerciseType.timed,
+    startReps: 20, // seconds
+    targetReps: 45, // seconds
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 45,
+    targetRestSec: 20,
+    spBase: 2,
+    challengeTargetReps: 30,
+    techniqueTip: 'Hips level with your shoulders; keep a pace you can hold to the end.',
+    animationPath: 'assets/animations/cardio_s4_fast_climbers.json',
+  );
+
+  static const Exercise cardioS5HalfBurpee = Exercise(
+    id: 'cardio_s5_half_burpee',
+    name: 'Half Burpees',
+    description:
+        'Squat and put your hands on the floor, step your feet back into a plank, step them in again and stand up. No jump and no push-up yet.',
+    branch: BranchId.cardio,
+    stage: 5,
+    type: ExerciseType.reps,
+    startReps: 6,
+    targetReps: 15,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 45,
+    targetRestSec: 20,
+    spBase: 2,
+    challengeTargetReps: 6,
+    techniqueTip: 'Keep your back flat in the plank; speed up only once the moves are smooth.',
+    animationPath: 'assets/animations/cardio_s5_half_burpee.json',
+  );
+
+  static const Exercise cardioS6Burpee = Exercise(
+    id: 'cardio_s6_burpee',
+    name: 'Burpees',
+    description:
+        'Squat with your hands on the floor, jump your feet back into a plank, do one push-up, jump your feet back to your hands and jump up with your arms overhead.',
+    branch: BranchId.cardio,
+    stage: 6,
+    type: ExerciseType.reps,
+    startReps: 5,
+    targetReps: 15,
+    startSets: 1,
+    targetSets: 3,
+    startRestSec: 45,
+    targetRestSec: 20,
+    spBase: 3,
+    challengeTargetReps: 6,
+    techniqueTip: 'Land softly every time; a smooth burpee beats a fast, sloppy one.',
+    animationPath: 'assets/animations/cardio_s6_burpee.json',
+  );
+
   // ── Grouped accessors ─────────────────────────────────────────────────────
 
   /// All Push progression exercises ordered by stage.
@@ -2783,6 +3223,44 @@ class ExerciseCatalog {
     yogaFlowS5SunSalutationB,
   ];
 
+  /// Strong Back (outside the courses) progression ordered by stage.
+  static const List<Exercise> strongBackProgression = [
+    strongBackS1Ytw,
+    strongBackS2ReverseSnowAngel,
+    strongBackS3Superman,
+    strongBackS4Swimmers,
+    strongBackS5DoorRow,
+  ];
+
+  /// Glutes (outside the courses) progression ordered by stage.
+  static const List<Exercise> glutesProgression = [
+    glutesS1DonkeyKicks,
+    glutesS2FireHydrant,
+    glutesS3SingleLegBridge,
+    glutesS4HipThrust,
+    glutesS5SingleLegHipThrust,
+  ];
+
+  /// Arms & Shoulders (outside the courses) progression ordered by stage.
+  static const List<Exercise> armsShouldersProgression = [
+    armsShouldersS1ShoulderTaps,
+    armsShouldersS2ChairDips,
+    armsShouldersS3PlankUpDown,
+    armsShouldersS4PikePushup,
+    armsShouldersS5ChairDipsStraight,
+    armsShouldersS6ElevatedPike,
+  ];
+
+  /// Cardio (outside the courses) progression ordered by stage.
+  static const List<Exercise> cardioProgression = [
+    cardioS1HighKnees,
+    cardioS2SkaterJumps,
+    cardioS3SquatJumps,
+    cardioS4FastClimbers,
+    cardioS5HalfBurpee,
+    cardioS6Burpee,
+  ];
+
   /// Warmup exercises (stage = 0).
   static const List<Exercise> warmups = [
     warmupArmRotations,
@@ -2834,6 +3312,10 @@ class ExerciseCatalog {
     ...yogaOneLegProgression,
     ...yogaBackbendsProgression,
     ...yogaFlowProgression,
+    ...strongBackProgression,
+    ...glutesProgression,
+    ...armsShouldersProgression,
+    ...cardioProgression,
     ...warmups,
     ...cooldowns,
   ];
@@ -2860,6 +3342,10 @@ class ExerciseCatalog {
     ...yogaOneLegProgression,
     ...yogaBackbendsProgression,
     ...yogaFlowProgression,
+    ...strongBackProgression,
+    ...glutesProgression,
+    ...armsShouldersProgression,
+    ...cardioProgression,
     ...warmups,
     ...cooldowns,
   ];
@@ -2886,6 +3372,10 @@ class ExerciseCatalog {
         BranchId.yogaOneLeg => yogaOneLegProgression,
         BranchId.yogaBackbends => yogaBackbendsProgression,
         BranchId.yogaFlow => yogaFlowProgression,
+        BranchId.strongBack => strongBackProgression,
+        BranchId.glutes => glutesProgression,
+        BranchId.armsShoulders => armsShouldersProgression,
+        BranchId.cardio => cardioProgression,
       };
 
   /// Returns the exercise for [branch] at [stage], or null if not found.
@@ -2935,6 +3425,10 @@ class ExerciseCatalog {
         BranchId.yogaBackbends ||
         BranchId.yogaFlow =>
           cooldownCatCow,
+        BranchId.strongBack => warmupArmRotations,
+        BranchId.glutes => warmupHipCircles,
+        BranchId.armsShoulders => warmupWristCircles,
+        BranchId.cardio => warmupJumpingJacks,
       };
 
   /// Returns the cooldown exercise(s) for the given [branch].
@@ -2962,5 +3456,9 @@ class ExerciseCatalog {
         BranchId.yogaBackbends ||
         BranchId.yogaFlow =>
           [cooldownLyingRelaxation],
+        BranchId.strongBack => [cooldownCatCow],
+        BranchId.glutes => [cooldownHipFlexor],
+        BranchId.armsShoulders => [cooldownShoulderStretch],
+        BranchId.cardio => [cooldownQuadStretch],
       };
 }

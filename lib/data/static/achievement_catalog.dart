@@ -77,6 +77,11 @@ abstract final class AchievementCatalog {
     Achievement(id: 'yoga_one_leg_complete', emoji: '🦩', branch: BranchId.yogaOneLeg),
     Achievement(id: 'yoga_backbends_complete', emoji: '🌈', branch: BranchId.yogaBackbends),
     Achievement(id: 'yoga_flow_complete', emoji: '☀️', branch: BranchId.yogaFlow),
+    // ── Branches outside the courses ──────────────────────────────────────────
+    Achievement(id: 'strong_back_complete', emoji: '🐢', branch: BranchId.strongBack),
+    Achievement(id: 'glutes_complete', emoji: '🍑', branch: BranchId.glutes),
+    Achievement(id: 'arms_shoulders_complete', emoji: '🦾', branch: BranchId.armsShoulders),
+    Achievement(id: 'cardio_complete', emoji: '❤️‍🔥', branch: BranchId.cardio),
     // ── Secret ────────────────────────────────────────────────────────────────
     Achievement(id: 'all_complete', emoji: '🌟', isSecret: true),
   ];

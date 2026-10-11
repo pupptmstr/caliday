@@ -31,9 +31,7 @@ class UserProfile extends HiveObject {
     this.hapticEnabled,
     this.healthWorkoutsEnabled,
     this.healthWeightEnabled,
-    this.peerId,
     this.displayName,
-    this.bleDiscoverable,
     this.activeCourseIds,
     this.activeCourseIndex,
     this.lastSeenReleaseVersion,
@@ -122,20 +120,13 @@ class UserProfile extends HiveObject {
   @HiveField(22)
   bool? healthWeightEnabled;
 
-  /// Unique peer identifier used for friend QR/BLE exchange.
-  /// Generated on first use; stored as a 32-char hex string.
-  @HiveField(17)
-  String? peerId;
+  // HiveFields 17 (peerId) and 23 (bleDiscoverable) belonged to Friends,
+  // removed in 0.9.5: never reuse them (older profiles still hold them).
 
-  /// Name shown to friends when sharing the profile.
-  /// null = not set; falls back to rank name in the QR payload.
+  /// The user's name: the host greets with it on Home, the Profile and the
+  /// summary show it. null or empty = not set.
   @HiveField(18)
   String? displayName;
-
-  /// Whether the app advertises itself via BLE so nearby users can discover it.
-  /// null → false (opt-in).
-  @HiveField(23)
-  bool? bleDiscoverable;
 
   /// Indices of enrolled [CourseId]s. null → [0] (calisthenics, legacy users).
   @HiveField(24)

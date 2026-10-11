@@ -61,6 +61,10 @@
   "homeBranchYogaOneLeg": "Equilibrium",
   "homeBranchYogaBackbends": "Backbends",
   "homeBranchYogaFlow": "Flow",
+  "homeBranchStrongBack": "Strong Back",
+  "homeBranchGlutes": "Glutes",
+  "homeBranchArmsShoulders": "Arms & Shoulders",
+  "homeBranchCardio": "Cardio",
   "courseNameCalisthenics": "Calisthenics",
   "courseNameHealthyBody": "Healthy Body",
   "courseNameEveningStretch": "Evening Stretch",
@@ -262,6 +266,14 @@
     }
   },
   "summaryTitle": "Great workout!",
+  "summaryTitleNamed": "Great workout, {name}!",
+  "@summaryTitleNamed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "summarySubtitle": "Keep it up — one more step forward",
   "summaryLabelTime": "Time",
   "summaryLabelExercises": "Exer.",
@@ -367,6 +379,14 @@
   "achievementYogaBackbendsCompleteDesc": "All 6 stages of the Backbends skill cleared. From sphinx to wheel.",
   "achievementYogaFlowCompleteName": "Sunrise",
   "achievementYogaFlowCompleteDesc": "All 5 stages of the Flow skill cleared. From downward dog to Sun Salutation B.",
+  "achievementStrongBackCompleteName": "Iron Spine",
+  "achievementStrongBackCompleteDesc": "All 5 stages of the Strong Back skill cleared. From Y-T-W raises to door frame rows.",
+  "achievementGlutesCompleteName": "Power Engine",
+  "achievementGlutesCompleteDesc": "All 5 stages of the Glutes skill cleared. From donkey kicks to the single-leg hip thrust.",
+  "achievementArmsShouldersCompleteName": "Atlas",
+  "achievementArmsShouldersCompleteDesc": "All 6 stages of the Arms & Shoulders skill cleared. From shoulder taps to elevated pike push-ups.",
+  "achievementCardioCompleteName": "Perpetual Motion",
+  "achievementCardioCompleteDesc": "All 6 stages of the Cardio skill cleared. From high knees to burpees.",
   "achievementAllCompleteName": "Full Collection",
   "achievementAllCompleteDesc": "All 5 branches completed. Absolute champion.",
   "summaryBonusTitle": "Bonus Workout",
@@ -806,6 +826,72 @@
   "exerciseYogaFlowS5SunSalutationBName": "Sun Salutation B",
   "exerciseYogaFlowS5SunSalutationBDesc": "Like Sun Salutation A, with Chair Pose at the start and the end and Warrior I on each side: chair, fold, plank, lower, upward dog, downward dog, Warrior I on one side, back through the plank to downward dog, Warrior I on the other side, then forward to the chair.",
   "exerciseYogaFlowS5SunSalutationBTip": "Keep your breath even: it sets the pace.",
+  "exerciseStrongBackS1YtwName": "Prone Y-T-W Raises",
+  "exerciseStrongBackS1YtwDesc": "Lie face down, forehead just above the floor. Lift your straight arms into a Y overhead and lower them; out to the sides in a T, lower; then a W, elbows bent by your ribs. One round of all three letters is one rep.",
+  "exerciseStrongBackS1YtwTip": "Squeeze your shoulder blades together and down; keep your neck long, eyes on the floor.",
+  "exerciseStrongBackS2ReverseSnowAngelName": "Reverse Snow Angels",
+  "exerciseStrongBackS2ReverseSnowAngelDesc": "Lie face down with your arms by your hips. Lift your chest and arms slightly off the floor and sweep the straight arms out to the sides and on overhead, then back to your hips.",
+  "exerciseStrongBackS2ReverseSnowAngelTip": "The arms stay off the floor the whole way; move slowly and let the shoulder blades do the work.",
+  "exerciseStrongBackS3SupermanName": "Superman Hold",
+  "exerciseStrongBackS3SupermanDesc": "Lie face down with your arms stretched overhead. Lift your arms, chest and legs off the floor at once and hold, reaching long from your fingers to your toes.",
+  "exerciseStrongBackS3SupermanTip": "Look at the floor, not ahead; squeeze your glutes to protect your lower back.",
+  "exerciseStrongBackS4SwimmersName": "Swimmers",
+  "exerciseStrongBackS4SwimmersDesc": "In the superman position keep your chest and legs up and swim: the right arm and left leg rise as the left arm and right leg lower, then switch, at an even pace.",
+  "exerciseStrongBackS4SwimmersTip": "Small, quick moves; the chest stays lifted the whole time.",
+  "exerciseStrongBackS5DoorRowName": "Door Frame Rows",
+  "exerciseStrongBackS5DoorRowDesc": "Stand in an open doorway, feet just past the frame, and hold the frame with both hands at chest height. Lean back on straight arms with your body in one line, then pull your chest to the frame and lower yourself back slowly.",
+  "exerciseStrongBackS5DoorRowTip": "The farther your feet are past the frame, the harder it gets. Check first that the frame is solid.",
+  "exerciseGlutesS1DonkeyKicksName": "Donkey Kicks",
+  "exerciseGlutesS1DonkeyKicksDesc": "On all fours, hands under your shoulders and knees under your hips. Keeping the knee bent, push one foot up toward the ceiling until the thigh is level with your back, then lower it. Alternate legs; each kick is one rep.",
+  "exerciseGlutesS1DonkeyKicksTip": "Don't arch your lower back; the push comes from the glute, not from a swing.",
+  "exerciseGlutesS2FireHydrantName": "Fire Hydrants",
+  "exerciseGlutesS2FireHydrantDesc": "On all fours, hands under your shoulders and knees under your hips. Keeping the knee bent at a right angle, lift one thigh out to the side up to hip height, then lower it. Alternate legs; each lift is one rep.",
+  "exerciseGlutesS2FireHydrantTip": "Keep your hips level and your back still; only the leg moves.",
+  "exerciseGlutesS3SingleLegBridgeName": "Single-Leg Glute Bridge",
+  "exerciseGlutesS3SingleLegBridgeDesc": "Lie on your back, knees bent, feet on the floor. Stretch one leg out and push through the other heel to lift your hips until knee, hips and shoulders are in a line, then lower. Alternate legs; each lift is one rep.",
+  "exerciseGlutesS3SingleLegBridgeTip": "Push through the heel and keep both sides of your hips at the same height.",
+  "exerciseGlutesS4HipThrustName": "Hip Thrust on the Sofa",
+  "exerciseGlutesS4HipThrustDesc": "Sit on the floor with your upper back against the edge of a sofa, knees bent, feet flat. Push through your heels to lift your hips until your body is level from knees to shoulders, squeeze and lower.",
+  "exerciseGlutesS4HipThrustTip": "Tuck your chin a little and look ahead; don't arch your back at the top.",
+  "exerciseGlutesS5SingleLegHipThrustName": "Single-Leg Hip Thrust",
+  "exerciseGlutesS5SingleLegHipThrustDesc": "The sofa hip thrust on one leg, the other one stretched out. Lift and lower your hips pushing through the heel of the planted foot. Alternate legs; each lift is one rep.",
+  "exerciseGlutesS5SingleLegHipThrustTip": "Keep your hips level; if they tilt, do fewer reps.",
+  "exerciseArmsShouldersS1ShoulderTapsName": "Plank Shoulder Taps",
+  "exerciseArmsShouldersS1ShoulderTapsDesc": "In a high plank, hands under your shoulders, feet a little apart. Lift one hand and tap the opposite shoulder, put it back, then the other. Each tap is one rep.",
+  "exerciseArmsShouldersS1ShoulderTapsTip": "Keep your hips still; if they sway, set your feet wider.",
+  "exerciseArmsShouldersS2ChairDipsName": "Chair Dips, Knees Bent",
+  "exerciseArmsShouldersS2ChairDipsDesc": "Sit on the edge of a sturdy chair, hands on the edge beside your hips. Slide your hips off, knees bent, feet flat. Bend your elbows straight back to lower your hips, then press back up.",
+  "exerciseArmsShouldersS2ChairDipsTip": "Shoulders down, away from your ears; elbows point back, not out. The chair must not slide: put it against a wall.",
+  "exerciseArmsShouldersS3PlankUpDownName": "Plank Up-Downs",
+  "exerciseArmsShouldersS3PlankUpDownDesc": "From a forearm plank, put one hand and then the other on the floor and press up into a high plank; come back down onto one forearm, then the other. Each change is one rep.",
+  "exerciseArmsShouldersS3PlankUpDownTip": "Keep your hips as still as you can; lead with the other arm every rep.",
+  "exerciseArmsShouldersS4PikePushupName": "Pike Push-ups",
+  "exerciseArmsShouldersS4PikePushupDesc": "Start in an upside-down V: hands shoulder-width apart, hips high, legs as straight as you can. Bend your elbows to lower the top of your head toward the floor between your hands, then press back up.",
+  "exerciseArmsShouldersS4PikePushupTip": "Elbows go back, not out to the sides; the closer your feet are to your hands, the more your shoulders work.",
+  "exerciseArmsShouldersS5ChairDipsStraightName": "Chair Dips, Legs Straight",
+  "exerciseArmsShouldersS5ChairDipsStraightDesc": "Chair dips with your legs straight out in front, only the heels on the floor. Lower your hips by bending your elbows straight back, then press up.",
+  "exerciseArmsShouldersS5ChairDipsStraightTip": "Keep your back close to the chair and stop when your upper arms are level with the floor.",
+  "exerciseArmsShouldersS6ElevatedPikeName": "Elevated Pike Push-ups",
+  "exerciseArmsShouldersS6ElevatedPikeDesc": "Pike push-ups with your feet on a chair: hands on the floor, hips high over your hands, your back almost vertical. Lower the top of your head toward the floor and press back up.",
+  "exerciseArmsShouldersS6ElevatedPikeTip": "The step before the handstand push-up: move slowly and keep your neck neutral.",
+  "exerciseCardioS1HighKneesName": "High Knees",
+  "exerciseCardioS1HighKneesDesc": "Run on the spot, driving each knee up to hip height, arms pumping. Land softly on the balls of your feet.",
+  "exerciseCardioS1HighKneesTip": "Stand tall, don't lean back; the speed comes with time.",
+  "exerciseCardioS2SkaterJumpsName": "Skater Jumps",
+  "exerciseCardioS2SkaterJumpsDesc": "Jump sideways from one foot to the other like a speed skater, the free leg sweeping behind the standing one and the arms swinging across. Land softly on a bent knee.",
+  "exerciseCardioS2SkaterJumpsTip": "Land and hold for a moment before the next jump: distance first, speed later.",
+  "exerciseCardioS3SquatJumpsName": "Squat Jumps",
+  "exerciseCardioS3SquatJumpsDesc": "Squat down with your arms back, then jump straight up with your arms overhead. Land softly back into the squat and go again.",
+  "exerciseCardioS3SquatJumpsTip": "Land on soft knees, toes first, the knees over your toes.",
+  "exerciseCardioS4FastClimbersName": "Fast Mountain Climbers",
+  "exerciseCardioS4FastClimbersDesc": "In a high plank, hands under your shoulders, switch your feet quickly: one knee drives toward your chest as the other leg goes back, like running in a plank.",
+  "exerciseCardioS4FastClimbersTip": "Hips level with your shoulders; keep a pace you can hold to the end.",
+  "exerciseCardioS5HalfBurpeeName": "Half Burpees",
+  "exerciseCardioS5HalfBurpeeDesc": "Squat and put your hands on the floor, step your feet back into a plank, step them in again and stand up. No jump and no push-up yet.",
+  "exerciseCardioS5HalfBurpeeTip": "Keep your back flat in the plank; speed up only once the moves are smooth.",
+  "exerciseCardioS6BurpeeName": "Burpees",
+  "exerciseCardioS6BurpeeDesc": "Squat with your hands on the floor, jump your feet back into a plank, do one push-up, jump your feet back to your hands and jump up with your arms overhead.",
+  "exerciseCardioS6BurpeeTip": "Land softly every time; a smooth burpee beats a fast, sloppy one.",
   "aboutTitle": "About",
   "aboutSectionSupport": "SUPPORT",
   "aboutContactUs": "Contact Us",
@@ -845,75 +931,10 @@
   "settingsHealthWeightTitle": "Read body weight",
   "settingsHealthWeightSubtitle": "For accurate calorie estimates (default 70 kg)",
   "summaryHealthSaved": "Saved to Health ✓",
-  "friendsTitle": "Friends",
-  "friendsMyQrTitle": "My Profile",
-  "friendsShareHint": "Show this code to a friend to share your profile",
-  "friendsScanQr": "Scan QR Code",
-  "friendsSectionNearby": "NEARBY",
-  "friendsSectionList": "FRIENDS",
-  "friendsNearbyEmpty": "No CaliDay users found nearby",
-  "friendsNearbyScanning": "Scanning…",
-  "friendsNearbyBleOff": "Bluetooth is off",
-  "friendsNearbyConnect": "Get profile",
-  "friendsEmpty": "No friends yet. Scan a QR code to add your first friend.",
-  "friendsAdded": "Friend added!",
-  "friendsUpdated": "Profile updated!",
-  "friendsScanError": "Invalid QR code",
-  "friendsScanTryAgain": "Try again",
-  "friendsScanCameraDeniedTitle": "Camera access is blocked",
-  "friendsScanCameraDeniedWeb": "Allow the camera for this site (the camera or lock icon in the address bar), then press Try again. Or show your own QR code to your friend instead.",
-  "friendsScanCameraDeniedApp": "Allow camera access for CaliDay in your device settings, then press Try again.",
-  "friendsScanCameraUnsupportedTitle": "No camera available",
-  "friendsScanCameraUnsupportedBody": "This device or browser has no camera the app can use. Show your own QR code to your friend instead.",
-  "friendsScanCameraFailedTitle": "Could not start the camera",
-  "friendsScanCameraFailedBody": "Check that no other app is using the camera and that you are online (in a browser the scanner is downloaded on first use), then try again.",
-  "friendsScanConfirmBody": "{sp} SP · {streak}-day streak",
-  "@friendsScanConfirmBody": {
-    "placeholders": {
-      "sp": {
-        "type": "int"
-      },
-      "streak": {
-        "type": "int"
-      }
-    }
-  },
-  "friendsCancel": "Cancel",
-  "friendsAdd": "Add",
-  "friendsDetailLastSynced": "Synced: {date}",
-  "@friendsDetailLastSynced": {
-    "placeholders": {
-      "date": {
-        "type": "String"
-      }
-    }
-  },
-  "friendsDeleteTitle": "Remove friend",
-  "friendsDeleteBody": "Remove {name} from friends?",
-  "@friendsDeleteBody": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "friendsDeleteConfirm": "Remove",
-  "settingsSectionFriends": "FRIENDS",
-  "settingsFriendsNameTitle": "Display name",
-  "settingsFriendsNamePlaceholder": "Enter your name",
-  "settingsFriendsDiscoverableTitle": "Discoverable via Bluetooth",
-  "settingsFriendsDiscoverableSubtitle": "Other CaliDay users can find you nearby",
-  "profileFriendsTitle": "Friends",
-  "profileFriendsAll": "All friends →",
-  "profileFriendsEmpty": "No friends yet",
-  "profileFriendsCount": "{count, plural, one{{count} friend} other{{count} friends}}",
-  "@profileFriendsCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
+  "commonCancel": "Cancel",
+  "settingsSectionProfile": "PROFILE",
+  "settingsNameTitle": "Name",
+  "settingsNamePlaceholder": "Enter your name",
   "exerciseFlexS1HipFlexorStretchName": "Hip Flexor Stretch",
   "exerciseFlexS1HipFlexorStretchDesc": "Step into a lunge and lower your back knee to the floor. Push your hips forward to feel the stretch at the front of your hip. Hold each side.",
   "exerciseFlexS1HipFlexorStretchTip": "Keep your back straight and push hips forward — feel the stretch in the front of your hip.",
@@ -1098,7 +1119,7 @@
   "notificationRankAtRiskBody": "14 days without training — your rank will start dropping soon. Come back!",
   "widgetDoneLabel": "Done",
   "courseBuilderCreateEntry": "Create your own course",
-  "courseBuilderCreateEntryDesc": "Pick branches from any course or make your own from exercises",
+  "courseBuilderCreateEntryDesc": "Pick branches from any course, the ones outside the courses, or make your own from exercises",
   "courseBuilderNewTitle": "New course",
   "courseBuilderEditTitle": "Edit course",
   "courseBuilderEditButton": "Edit",
@@ -1272,12 +1293,45 @@
   "hostLinesMisoAngry": "Fur on end: your streak is at risk!\nEven cats get up for what matters. Save the streak?\nMidnight is close. One practice and the streak is safe.\nMeow! Last chance for today.",
   "hostLinesMisoSupportive": "Welcome back. No rush, cat-style.\nA break is a practice of calm too.\nYour progress is right here, I kept it warm.\nLet's start simple: breathe in, breathe out, stretch.",
   "hostLinesMisoSleeping": "Cats sleep sixteen hours a day. Eight will do for you.\nPurrr… good night.\nSleep is the best pose. More in the morning.\nCurl up and rest.",
+  "greetingMorning": "Good morning, {name}!",
+  "@greetingMorning": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingDay": "Hi, {name}!",
+  "@greetingDay": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingEvening": "Good evening, {name}!",
+  "@greetingEvening": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "greetingNight": "Still up, {name}?",
+  "@greetingNight": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "courseBuilderNameHint": "Course name",
   "courseBuilderNameRequired": "Give the course a name",
   "courseBuilderHostTitle": "Host",
   "courseBuilderBranchesTitle": "Branches",
   "courseBuilderBranchesHint": "A built-in branch keeps one progress with its course.",
   "courseBuilderMyBranches": "My branches",
+  "courseBuilderOtherBranches": "Branches outside the courses",
   "courseBuilderCreateBranch": "Create a branch",
   "courseBuilderStages": "{count, plural, one{{count} stage} other{{count} stages}}",
   "@courseBuilderStages": {
@@ -1386,6 +1440,7 @@
   "whatsNewRecent": "Recent updates",
   "whatsNewHistory": "Version history",
   "releaseNotes094": "Your own courses are in the course list under +: untick one to hide it from the row at the top (it is kept), the pencil opens it for editing.\nAn own course carries a hand-tool mark in the row at the top instead of its host's face.\nAn achievement still ahead: its host now holds it, a grey medal with a padlock.\nAbout: tap Goro, he has a few new poses.\nHome screen: before the first workout of the day your host has a word for you (each host its own, a new one every time you open the app or tap it), and below are your next goals (the next rank, the nearest achievement, an open challenge you can start right there) and the branches of the course.\nAfter it, the home screen shows your latest workouts and what grew today: more reps, a set, less rest, a new stage.\nThe arrow on the workout button unfolds today's plan, with Goro showing every exercise.\nGoro's animations wherever an exercise is named: the path of a branch, the Courses tab, the builders, saved workouts, the history, the rest before the next exercise.",
+  "releaseNotes095": "Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.\nFour new branches outside the courses: Strong Back, Glutes, Arms & Shoulders and Cardio — 22 exercises, each with Goro’s animation. Add them to your own course: Courses → + → Create your own course.",
   "releaseNotes093": "Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of CaliDay, version by version, is folded below them.",
   "releaseHistory01": "The first version: short daily workouts, SP points, streaks, reminders and a first-run setup.\nFive skills: push-ups, core, pull-ups, legs and balance; the workout takes turns between them day by day.\nThe path of a skill: every stage on one screen, and a challenge to move on early.\nAchievements, extra workouts on the same day and a dark theme.\nRussian and English.\nGoro shows every push-up stage in an animation.",
   "releaseHistory02": "Sound and vibration during a workout.\nThe workout history.\nA new home screen with three tabs at the bottom.\nStreak freezes: one missed day no longer breaks the streak.\nThe About screen.",
@@ -1395,5 +1450,5 @@
   "releaseHistory06": "The exercise library: every exercise, with search and filters.\nTap the streak, the rank or the freezes in the profile to see what they mean.",
   "releaseHistory07": "Your own workouts: pick exercises and save them as a routine, or start a quick one by focus.\nAnimations for the balance stages.\nThe privacy policy and the terms of use.",
   "releaseHistory08": "The stats on the home screen open the calendar, the history and the ranks; a workout calendar.\nA rank slips after long breaks and comes back with training.\nCaliDay in the browser: the web version.\nAnimations for every exercise of the first courses.\nTimed holds start by themselves after a short countdown; a hold on one side runs on both.\nWorkouts are Short, Standard or Full, with an estimate of the time that learns your pace.\n“What's new” under the bell in the profile; German and Spanish.\nEvery skill moves on once a day, in any workout.\nA new course, Evening Stretch, and a host for every course.",
-  "releaseHistory09": "New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order."
+  "releaseHistory09": "New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio."
 }
