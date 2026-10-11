@@ -116,6 +116,18 @@ class AppLocalizationsRu extends AppLocalizations {
   String get homeBranchYogaFlow => 'Поток';
 
   @override
+  String get homeBranchStrongBack => 'Сильная спина';
+
+  @override
+  String get homeBranchGlutes => 'Ягодицы';
+
+  @override
+  String get homeBranchArmsShoulders => 'Руки и плечи';
+
+  @override
+  String get homeBranchCardio => 'Кардио';
+
+  @override
   String get courseNameCalisthenics => 'Калистеника';
 
   @override
@@ -658,6 +670,34 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get achievementYogaFlowCompleteDesc =>
       'Все 5 этапов «Потока» пройдены. От собаки мордой вниз до приветствия солнцу B.';
+
+  @override
+  String get achievementStrongBackCompleteName => 'Стальной хребет';
+
+  @override
+  String get achievementStrongBackCompleteDesc =>
+      'Все 5 этапов «Сильной спины» пройдены. От Y-T-W лёжа до тяги в дверном проёме.';
+
+  @override
+  String get achievementGlutesCompleteName => 'Мощный мотор';
+
+  @override
+  String get achievementGlutesCompleteDesc =>
+      'Все 5 этапов «Ягодиц» пройдены. От отведения ноги назад до моста от дивана на одной ноге.';
+
+  @override
+  String get achievementArmsShouldersCompleteName => 'Атлант';
+
+  @override
+  String get achievementArmsShouldersCompleteDesc =>
+      'Все 6 этапов «Рук и плеч» пройдены. От касаний плеч в планке до отжиманий уголком с ногами на стуле.';
+
+  @override
+  String get achievementCardioCompleteName => 'Вечный двигатель';
+
+  @override
+  String get achievementCardioCompleteDesc =>
+      'Все 6 этапов «Кардио» пройдены. От бега с высоким подниманием колен до бёрпи.';
 
   @override
   String get achievementAllCompleteName => 'Полный комплект';
@@ -2071,6 +2111,255 @@ class AppLocalizationsRu extends AppLocalizations {
       'Дыхание ровное — оно задаёт темп.';
 
   @override
+  String get exerciseStrongBackS1YtwName => 'Y-T-W лёжа на животе';
+
+  @override
+  String get exerciseStrongBackS1YtwDesc =>
+      'Ляг на живот, лоб чуть над полом. Подними прямые руки буквой Y над головой и опусти; в стороны буквой T, опусти; затем буквой W — локти согнуты у рёбер. Один круг из трёх букв — один повтор.';
+
+  @override
+  String get exerciseStrongBackS1YtwTip =>
+      'Своди лопатки вместе и вниз; шея длинная, взгляд в пол.';
+
+  @override
+  String get exerciseStrongBackS2ReverseSnowAngelName =>
+      'Обратный «снежный ангел»';
+
+  @override
+  String get exerciseStrongBackS2ReverseSnowAngelDesc =>
+      'Ляг на живот, руки вдоль тела у бёдер. Чуть приподними грудь и руки над полом и проведи прямые руки широкой дугой через стороны над головой, затем обратно к бёдрам.';
+
+  @override
+  String get exerciseStrongBackS2ReverseSnowAngelTip =>
+      'Руки не касаются пола всю дорогу; двигайся медленно, работают лопатки.';
+
+  @override
+  String get exerciseStrongBackS3SupermanName => 'Супермен, удержание';
+
+  @override
+  String get exerciseStrongBackS3SupermanDesc =>
+      'Ляг на живот, руки вытянуты над головой. Одновременно подними от пола руки, грудь и ноги и держи, тянись от пальцев рук до носков.';
+
+  @override
+  String get exerciseStrongBackS3SupermanTip =>
+      'Смотри в пол, а не вперёд; напряги ягодицы, чтобы беречь поясницу.';
+
+  @override
+  String get exerciseStrongBackS4SwimmersName => 'Пловец';
+
+  @override
+  String get exerciseStrongBackS4SwimmersDesc =>
+      'В положении супермена держи грудь и ноги поднятыми и «плыви»: правая рука и левая нога поднимаются, левая рука и правая нога опускаются, затем наоборот, в ровном темпе.';
+
+  @override
+  String get exerciseStrongBackS4SwimmersTip =>
+      'Движения короткие и частые; грудь остаётся поднятой всё время.';
+
+  @override
+  String get exerciseStrongBackS5DoorRowName => 'Тяга в дверном проёме';
+
+  @override
+  String get exerciseStrongBackS5DoorRowDesc =>
+      'Встань в открытом дверном проёме, стопы чуть дальше косяка, и возьмись за косяк обеими руками на уровне груди. Отклонись назад на прямых руках, тело в одну линию, затем подтяни грудь к косяку и медленно вернись.';
+
+  @override
+  String get exerciseStrongBackS5DoorRowTip =>
+      'Чем дальше стопы за косяком, тем тяжелее. Сначала убедись, что косяк прочный.';
+
+  @override
+  String get exerciseGlutesS1DonkeyKicksName =>
+      'Отведение ноги назад на четвереньках';
+
+  @override
+  String get exerciseGlutesS1DonkeyKicksDesc =>
+      'На четвереньках: ладони под плечами, колени под тазом. Не разгибая колено, толкни стопу вверх к потолку, пока бедро не окажется на уровне спины, и опусти. Ноги по очереди; каждый мах — повтор.';
+
+  @override
+  String get exerciseGlutesS1DonkeyKicksTip =>
+      'Не прогибай поясницу; толкает ягодица, а не инерция.';
+
+  @override
+  String get exerciseGlutesS2FireHydrantName => '«Пожарный гидрант»';
+
+  @override
+  String get exerciseGlutesS2FireHydrantDesc =>
+      'На четвереньках: ладони под плечами, колени под тазом. Не разгибая колено (прямой угол), отведи бедро в сторону до уровня таза и опусти. Ноги по очереди; каждый подъём — повтор.';
+
+  @override
+  String get exerciseGlutesS2FireHydrantTip =>
+      'Таз ровный, спина неподвижна; двигается только нога.';
+
+  @override
+  String get exerciseGlutesS3SingleLegBridgeName =>
+      'Ягодичный мостик на одной ноге';
+
+  @override
+  String get exerciseGlutesS3SingleLegBridgeDesc =>
+      'Ляг на спину, колени согнуты, стопы на полу. Вытяни одну ногу, а пяткой другой толкни таз вверх, пока колено, таз и плечи не встанут в линию, и опусти. Ноги по очереди; каждый подъём — повтор.';
+
+  @override
+  String get exerciseGlutesS3SingleLegBridgeTip =>
+      'Толкай пяткой и держи обе стороны таза на одной высоте.';
+
+  @override
+  String get exerciseGlutesS4HipThrustName => 'Ягодичный мост от дивана';
+
+  @override
+  String get exerciseGlutesS4HipThrustDesc =>
+      'Сядь на пол, лопатками упрись в край дивана, колени согнуты, стопы на полу. Толкни пятками таз вверх, пока тело от колен до плеч не станет ровным, сожми ягодицы и опусти.';
+
+  @override
+  String get exerciseGlutesS4HipThrustTip =>
+      'Подбородок чуть к груди, взгляд вперёд; не прогибайся вверху.';
+
+  @override
+  String get exerciseGlutesS5SingleLegHipThrustName =>
+      'Мост от дивана на одной ноге';
+
+  @override
+  String get exerciseGlutesS5SingleLegHipThrustDesc =>
+      'Ягодичный мост от дивана на одной ноге, другая вытянута. Поднимай и опускай таз, толкая пяткой опорной ноги. Ноги по очереди; каждый подъём — повтор.';
+
+  @override
+  String get exerciseGlutesS5SingleLegHipThrustTip =>
+      'Таз ровный; если он перекашивается, сделай меньше повторов.';
+
+  @override
+  String get exerciseArmsShouldersS1ShoulderTapsName => 'Касания плеч в планке';
+
+  @override
+  String get exerciseArmsShouldersS1ShoulderTapsDesc =>
+      'В планке на прямых руках, ладони под плечами, стопы чуть врозь. Подними одну руку, коснись противоположного плеча, верни, затем другой. Каждое касание — повтор.';
+
+  @override
+  String get exerciseArmsShouldersS1ShoulderTapsTip =>
+      'Таз неподвижен; если раскачивается, расставь стопы шире.';
+
+  @override
+  String get exerciseArmsShouldersS2ChairDipsName =>
+      'Обратные отжимания от стула';
+
+  @override
+  String get exerciseArmsShouldersS2ChairDipsDesc =>
+      'Сядь на край устойчивого стула, ладони на краю у бёдер. Сдвинь таз вперёд со стула, колени согнуты, стопы на полу. Сгибай локти строго назад, опуская таз, и выжми себя вверх.';
+
+  @override
+  String get exerciseArmsShouldersS2ChairDipsTip =>
+      'Плечи вниз, от ушей; локти смотрят назад, а не в стороны. Стул не должен ехать: поставь его к стене.';
+
+  @override
+  String get exerciseArmsShouldersS3PlankUpDownName => 'Планка вверх-вниз';
+
+  @override
+  String get exerciseArmsShouldersS3PlankUpDownDesc =>
+      'Из планки на предплечьях поставь одну ладонь, затем другую и выйди в планку на прямых руках; вернись на одно предплечье, затем на другое. Каждая смена — повтор.';
+
+  @override
+  String get exerciseArmsShouldersS3PlankUpDownTip =>
+      'Таз как можно неподвижнее; каждый повтор начинай с другой руки.';
+
+  @override
+  String get exerciseArmsShouldersS4PikePushupName => 'Отжимания уголком';
+
+  @override
+  String get exerciseArmsShouldersS4PikePushupDesc =>
+      'Встань в перевёрнутую V: ладони на ширине плеч, таз высоко, ноги как можно прямее. Сгибая локти, опусти макушку к полу между ладонями и выжми себя обратно.';
+
+  @override
+  String get exerciseArmsShouldersS4PikePushupTip =>
+      'Локти уходят назад, а не в стороны; чем ближе стопы к рукам, тем сильнее работают плечи.';
+
+  @override
+  String get exerciseArmsShouldersS5ChairDipsStraightName =>
+      'Обратные отжимания, ноги прямые';
+
+  @override
+  String get exerciseArmsShouldersS5ChairDipsStraightDesc =>
+      'Обратные отжимания от стула с прямыми ногами: стопы далеко впереди, на полу только пятки. Опускай таз, сгибая локти строго назад, и выжимай себя вверх.';
+
+  @override
+  String get exerciseArmsShouldersS5ChairDipsStraightTip =>
+      'Спина близко к стулу; опускайся, пока плечо не станет параллельно полу.';
+
+  @override
+  String get exerciseArmsShouldersS6ElevatedPikeName =>
+      'Отжимания уголком, ноги на стуле';
+
+  @override
+  String get exerciseArmsShouldersS6ElevatedPikeDesc =>
+      'Отжимания уголком со стопами на стуле: ладони на полу, таз высоко над руками, спина почти вертикальна. Опусти макушку к полу и выжми себя обратно.';
+
+  @override
+  String get exerciseArmsShouldersS6ElevatedPikeTip =>
+      'Шаг перед отжиманиями в стойке на руках: двигайся медленно, шея нейтральна.';
+
+  @override
+  String get exerciseCardioS1HighKneesName => 'Бег с высоким подниманием колен';
+
+  @override
+  String get exerciseCardioS1HighKneesDesc =>
+      'Бег на месте: каждое колено до уровня таза, руки работают. Приземляйся мягко на переднюю часть стопы.';
+
+  @override
+  String get exerciseCardioS1HighKneesTip =>
+      'Держи спину прямо, не заваливайся назад; скорость придёт со временем.';
+
+  @override
+  String get exerciseCardioS2SkaterJumpsName => 'Конькобежец с прыжком';
+
+  @override
+  String get exerciseCardioS2SkaterJumpsDesc =>
+      'Прыжками с ноги на ногу в стороны, как конькобежец: свободная нога уходит назад за опорную, руки маятником. Приземляйся мягко на согнутое колено.';
+
+  @override
+  String get exerciseCardioS2SkaterJumpsTip =>
+      'Приземлись и на миг замри перед следующим прыжком: сначала дальность, потом скорость.';
+
+  @override
+  String get exerciseCardioS3SquatJumpsName => 'Прыжки из приседа';
+
+  @override
+  String get exerciseCardioS3SquatJumpsDesc =>
+      'Присядь, руки назад, затем выпрыгни вверх, руки над головой. Мягко приземлись обратно в присед и повтори.';
+
+  @override
+  String get exerciseCardioS3SquatJumpsTip =>
+      'Приземляйся на мягкие колени, сначала на носки; колени над носками.';
+
+  @override
+  String get exerciseCardioS4FastClimbersName => 'Скалолаз в темпе';
+
+  @override
+  String get exerciseCardioS4FastClimbersDesc =>
+      'В планке на прямых руках, ладони под плечами, быстро меняй ноги: одно колено к груди, другая нога назад, как бег в планке.';
+
+  @override
+  String get exerciseCardioS4FastClimbersTip =>
+      'Таз на уровне плеч; держи темп, который выдержишь до конца.';
+
+  @override
+  String get exerciseCardioS5HalfBurpeeName => 'Полубёрпи';
+
+  @override
+  String get exerciseCardioS5HalfBurpeeDesc =>
+      'Присядь и поставь ладони на пол, шагами отставь ноги назад в планку, шагами верни их и встань. Пока без прыжка и без отжимания.';
+
+  @override
+  String get exerciseCardioS5HalfBurpeeTip =>
+      'В планке спина ровная; ускоряйся, только когда движения станут плавными.';
+
+  @override
+  String get exerciseCardioS6BurpeeName => 'Бёрпи';
+
+  @override
+  String get exerciseCardioS6BurpeeDesc =>
+      'Присед с ладонями на полу, прыжком ноги назад в планку, одно отжимание, прыжком ноги к рукам и выпрыгивание вверх с руками над головой.';
+
+  @override
+  String get exerciseCardioS6BurpeeTip =>
+      'Каждый раз приземляйся мягко: плавное бёрпи лучше быстрого и небрежного.';
+
+  @override
   String get aboutTitle => 'О приложении';
 
   @override
@@ -2751,7 +3040,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get courseBuilderCreateEntryDesc =>
-      'Собери ветки из любых курсов или сделай свои из упражнений';
+      'Собери ветки из любых курсов и вне курсов или сделай свои из упражнений';
 
   @override
   String get courseBuilderNewTitle => 'Новый курс';
@@ -3033,6 +3322,9 @@ class AppLocalizationsRu extends AppLocalizations {
   String get courseBuilderMyBranches => 'Мои ветки';
 
   @override
+  String get courseBuilderOtherBranches => 'Ветки вне курсов';
+
+  @override
   String get courseBuilderCreateBranch => 'Создать ветку';
 
   @override
@@ -3160,7 +3452,7 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get releaseNotes095 =>
-      'Друзей больше нет: без сервера они только обменивались QR-кодом один раз, и всё. Приложению больше не нужны камера и Bluetooth.\nТвоё имя: ведущий здоровается по имени на главном экране, а профиль и итог тренировки его показывают. Поменять — в Настройках, раздел «Профиль».';
+      'Друзей больше нет: без сервера они только обменивались QR-кодом один раз, и всё. Приложению больше не нужны камера и Bluetooth.\nТвоё имя: ведущий здоровается по имени на главном экране, а профиль и итог тренировки его показывают. Поменять — в Настройках, раздел «Профиль».\nЧетыре новые ветки вне курсов: «Сильная спина», «Ягодицы», «Руки и плечи» и «Кардио» — 22 упражнения, у каждого анимация Горо. Добавь их в свой курс: Курсы → + → Создать свой курс.';
 
   @override
   String get releaseNotes093 =>
@@ -3200,5 +3492,5 @@ class AppLocalizationsRu extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'Новые курсы: «Утренняя зарядка» с жаворонком Авророй и «Йога» с котом Мисо.\nВедущие вручают достижения своего курса; упражнения на каждую сторону стали короче.\nУ каждого упражнения есть анимация.\nСвои курсы: из готовых веток и своих, собранных из упражнений в твоём порядке.\nДрузья убраны; ведущий здоровается по имени.';
+      'Новые курсы: «Утренняя зарядка» с жаворонком Авророй и «Йога» с котом Мисо.\nВедущие вручают достижения своего курса; упражнения на каждую сторону стали короче.\nУ каждого упражнения есть анимация.\nСвои курсы: из готовых веток и своих, собранных из упражнений в твоём порядке.\nДрузья убраны; ведущий здоровается по имени.\nЧетыре ветки вне курсов: спина, ягодицы, руки и плечи, кардио.';
 }

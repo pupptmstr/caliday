@@ -114,6 +114,18 @@ class AppLocalizationsDe extends AppLocalizations {
   String get homeBranchYogaFlow => 'Flow';
 
   @override
+  String get homeBranchStrongBack => 'Starker Rücken';
+
+  @override
+  String get homeBranchGlutes => 'Gesäß';
+
+  @override
+  String get homeBranchArmsShoulders => 'Arme & Schultern';
+
+  @override
+  String get homeBranchCardio => 'Cardio';
+
+  @override
   String get courseNameCalisthenics => 'Calisthenics';
 
   @override
@@ -682,6 +694,34 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get achievementYogaFlowCompleteDesc =>
       'Alle 5 Stufen von Flow geschafft. Vom herabschauenden Hund bis zum Sonnengruß B.';
+
+  @override
+  String get achievementStrongBackCompleteName => 'Stählerner Rücken';
+
+  @override
+  String get achievementStrongBackCompleteDesc =>
+      'Alle 5 Stufen von Starker Rücken geschafft. Vom Y-T-W in Bauchlage bis zum Rudern im Türrahmen.';
+
+  @override
+  String get achievementGlutesCompleteName => 'Kraftmotor';
+
+  @override
+  String get achievementGlutesCompleteDesc =>
+      'Alle 5 Stufen von Gesäß geschafft. Von Donkey Kicks bis zum einbeinigen Hip Thrust.';
+
+  @override
+  String get achievementArmsShouldersCompleteName => 'Atlas';
+
+  @override
+  String get achievementArmsShouldersCompleteDesc =>
+      'Alle 6 Stufen von Arme & Schultern geschafft. Vom Schultertippen bis zum erhöhten Pike-Liegestütz.';
+
+  @override
+  String get achievementCardioCompleteName => 'Perpetuum mobile';
+
+  @override
+  String get achievementCardioCompleteDesc =>
+      'Alle 6 Stufen von Cardio geschafft. Vom Kniehebelauf bis zu Burpees.';
 
   @override
   String get achievementAllCompleteName => 'Komplette Sammlung';
@@ -2089,6 +2129,253 @@ class AppLocalizationsDe extends AppLocalizations {
       'Atme gleichmäßig: Der Atem gibt das Tempo vor.';
 
   @override
+  String get exerciseStrongBackS1YtwName => 'Y-T-W in Bauchlage';
+
+  @override
+  String get exerciseStrongBackS1YtwDesc =>
+      'Leg dich auf den Bauch, die Stirn knapp über dem Boden. Heb die gestreckten Arme als Y über den Kopf und senk sie; seitlich als T, senk sie; dann als W, die Ellbogen gebeugt neben den Rippen. Eine Runde aus allen drei Buchstaben ist eine Wiederholung.';
+
+  @override
+  String get exerciseStrongBackS1YtwTip =>
+      'Zieh die Schulterblätter zusammen und nach unten; der Nacken bleibt lang, der Blick zum Boden.';
+
+  @override
+  String get exerciseStrongBackS2ReverseSnowAngelName =>
+      'Umgekehrter Schneeengel';
+
+  @override
+  String get exerciseStrongBackS2ReverseSnowAngelDesc =>
+      'Leg dich auf den Bauch, die Arme neben den Hüften. Heb Brust und Arme leicht vom Boden und führ die gestreckten Arme in einem weiten Bogen seitlich bis über den Kopf, dann zurück zu den Hüften.';
+
+  @override
+  String get exerciseStrongBackS2ReverseSnowAngelTip =>
+      'Die Arme bleiben die ganze Zeit über dem Boden; beweg dich langsam, die Schulterblätter arbeiten.';
+
+  @override
+  String get exerciseStrongBackS3SupermanName => 'Superman halten';
+
+  @override
+  String get exerciseStrongBackS3SupermanDesc =>
+      'Leg dich auf den Bauch, die Arme über den Kopf gestreckt. Heb Arme, Brust und Beine gleichzeitig vom Boden und halte, lang gestreckt von den Fingern bis zu den Zehen.';
+
+  @override
+  String get exerciseStrongBackS3SupermanTip =>
+      'Schau auf den Boden, nicht nach vorn; spann den Po an, um den unteren Rücken zu schützen.';
+
+  @override
+  String get exerciseStrongBackS4SwimmersName => 'Schwimmer';
+
+  @override
+  String get exerciseStrongBackS4SwimmersDesc =>
+      'In der Superman-Position bleiben Brust und Beine oben, und du schwimmst: Rechter Arm und linkes Bein gehen hoch, während linker Arm und rechtes Bein sinken, dann wechseln, in gleichmäßigem Tempo.';
+
+  @override
+  String get exerciseStrongBackS4SwimmersTip =>
+      'Kurze, schnelle Bewegungen; die Brust bleibt die ganze Zeit oben.';
+
+  @override
+  String get exerciseStrongBackS5DoorRowName => 'Rudern im Türrahmen';
+
+  @override
+  String get exerciseStrongBackS5DoorRowDesc =>
+      'Stell dich in einen offenen Türrahmen, die Füße knapp hinter dem Rahmen, und greif ihn mit beiden Händen auf Brusthöhe. Lehn dich mit gestreckten Armen zurück, der Körper in einer Linie, dann zieh die Brust zum Rahmen und geh langsam zurück.';
+
+  @override
+  String get exerciseStrongBackS5DoorRowTip =>
+      'Je weiter die Füße hinter dem Rahmen stehen, desto schwerer wird es. Prüf zuerst, ob der Rahmen stabil ist.';
+
+  @override
+  String get exerciseGlutesS1DonkeyKicksName => 'Donkey Kicks';
+
+  @override
+  String get exerciseGlutesS1DonkeyKicksDesc =>
+      'Im Vierfüßlerstand, Hände unter den Schultern, Knie unter den Hüften. Mit gebeugtem Knie drückst du einen Fuß zur Decke, bis der Oberschenkel auf Höhe des Rückens ist, und senkst ihn. Beine abwechselnd; jeder Kick zählt als Wiederholung.';
+
+  @override
+  String get exerciseGlutesS1DonkeyKicksTip =>
+      'Kein Hohlkreuz; die Kraft kommt aus dem Po, nicht aus dem Schwung.';
+
+  @override
+  String get exerciseGlutesS2FireHydrantName => 'Fire Hydrants';
+
+  @override
+  String get exerciseGlutesS2FireHydrantDesc =>
+      'Im Vierfüßlerstand, Hände unter den Schultern, Knie unter den Hüften. Das Knie bleibt im rechten Winkel gebeugt: Heb einen Oberschenkel seitlich bis auf Hüfthöhe und senk ihn. Beine abwechselnd; jedes Heben zählt als Wiederholung.';
+
+  @override
+  String get exerciseGlutesS2FireHydrantTip =>
+      'Die Hüfte bleibt gerade, der Rücken ruhig; nur das Bein bewegt sich.';
+
+  @override
+  String get exerciseGlutesS3SingleLegBridgeName => 'Einbeiniges Beckenheben';
+
+  @override
+  String get exerciseGlutesS3SingleLegBridgeDesc =>
+      'Leg dich auf den Rücken, Knie gebeugt, Füße am Boden. Streck ein Bein aus und drück dich über die Ferse des anderen hoch, bis Knie, Hüfte und Schultern eine Linie bilden, dann senk dich. Beine abwechselnd; jedes Heben zählt als Wiederholung.';
+
+  @override
+  String get exerciseGlutesS3SingleLegBridgeTip =>
+      'Drück über die Ferse und halte beide Hüftseiten auf gleicher Höhe.';
+
+  @override
+  String get exerciseGlutesS4HipThrustName => 'Hip Thrust am Sofa';
+
+  @override
+  String get exerciseGlutesS4HipThrustDesc =>
+      'Setz dich auf den Boden, den oberen Rücken an die Sofakante gelehnt, Knie gebeugt, Füße flach. Drück über die Fersen die Hüfte hoch, bis der Körper von den Knien bis zu den Schultern gerade ist, spann den Po an und senk dich.';
+
+  @override
+  String get exerciseGlutesS4HipThrustTip =>
+      'Kinn leicht zur Brust, Blick nach vorn; oben kein Hohlkreuz.';
+
+  @override
+  String get exerciseGlutesS5SingleLegHipThrustName => 'Einbeiniger Hip Thrust';
+
+  @override
+  String get exerciseGlutesS5SingleLegHipThrustDesc =>
+      'Der Hip Thrust am Sofa auf einem Bein, das andere ausgestreckt. Heb und senk die Hüfte über die Ferse des Standbeins. Beine abwechselnd; jedes Heben zählt als Wiederholung.';
+
+  @override
+  String get exerciseGlutesS5SingleLegHipThrustTip =>
+      'Die Hüfte bleibt gerade; kippt sie, mach weniger Wiederholungen.';
+
+  @override
+  String get exerciseArmsShouldersS1ShoulderTapsName =>
+      'Schultertippen im Stütz';
+
+  @override
+  String get exerciseArmsShouldersS1ShoulderTapsDesc =>
+      'Im hohen Stütz, Hände unter den Schultern, Füße etwas auseinander. Heb eine Hand, tipp die gegenüberliegende Schulter an, setz sie ab, dann die andere. Jedes Tippen zählt als Wiederholung.';
+
+  @override
+  String get exerciseArmsShouldersS1ShoulderTapsTip =>
+      'Die Hüfte bleibt ruhig; schwankt sie, stell die Füße weiter auseinander.';
+
+  @override
+  String get exerciseArmsShouldersS2ChairDipsName =>
+      'Dips am Stuhl, Knie gebeugt';
+
+  @override
+  String get exerciseArmsShouldersS2ChairDipsDesc =>
+      'Setz dich auf die Kante eines stabilen Stuhls, die Hände neben den Hüften auf der Kante. Schieb die Hüfte nach vorn vom Stuhl, Knie gebeugt, Füße flach. Beug die Ellbogen nach hinten, senk die Hüfte und drück dich wieder hoch.';
+
+  @override
+  String get exerciseArmsShouldersS2ChairDipsTip =>
+      'Schultern weg von den Ohren; die Ellbogen zeigen nach hinten, nicht zur Seite. Der Stuhl darf nicht rutschen: Stell ihn an eine Wand.';
+
+  @override
+  String get exerciseArmsShouldersS3PlankUpDownName => 'Stütz hoch und runter';
+
+  @override
+  String get exerciseArmsShouldersS3PlankUpDownDesc =>
+      'Aus dem Unterarmstütz setzt du erst eine, dann die andere Hand auf und drückst dich in den hohen Stütz; dann zurück auf einen Unterarm und den anderen. Jeder Wechsel zählt als Wiederholung.';
+
+  @override
+  String get exerciseArmsShouldersS3PlankUpDownTip =>
+      'Halte die Hüfte so ruhig wie möglich; beginne jede Wiederholung mit dem anderen Arm.';
+
+  @override
+  String get exerciseArmsShouldersS4PikePushupName => 'Pike-Liegestütz';
+
+  @override
+  String get exerciseArmsShouldersS4PikePushupDesc =>
+      'Starte in einem umgedrehten V: Hände schulterbreit, Hüfte hoch, Beine so gestreckt wie möglich. Beug die Ellbogen und senk den Scheitel zwischen den Händen Richtung Boden, dann drück dich wieder hoch.';
+
+  @override
+  String get exerciseArmsShouldersS4PikePushupTip =>
+      'Die Ellbogen gehen nach hinten, nicht zur Seite; je näher die Füße an den Händen, desto mehr arbeiten die Schultern.';
+
+  @override
+  String get exerciseArmsShouldersS5ChairDipsStraightName =>
+      'Dips am Stuhl, Beine gestreckt';
+
+  @override
+  String get exerciseArmsShouldersS5ChairDipsStraightDesc =>
+      'Dips am Stuhl mit gestreckten Beinen, nur die Fersen am Boden. Senk die Hüfte, indem du die Ellbogen nach hinten beugst, dann drück dich hoch.';
+
+  @override
+  String get exerciseArmsShouldersS5ChairDipsStraightTip =>
+      'Der Rücken bleibt nah am Stuhl; geh nur so tief, bis die Oberarme waagerecht sind.';
+
+  @override
+  String get exerciseArmsShouldersS6ElevatedPikeName =>
+      'Pike-Liegestütz erhöht';
+
+  @override
+  String get exerciseArmsShouldersS6ElevatedPikeDesc =>
+      'Pike-Liegestütz mit den Füßen auf einem Stuhl: Hände am Boden, die Hüfte hoch über den Händen, der Rücken fast senkrecht. Senk den Scheitel Richtung Boden und drück dich wieder hoch.';
+
+  @override
+  String get exerciseArmsShouldersS6ElevatedPikeTip =>
+      'Die Stufe vor dem Handstand-Liegestütz: Beweg dich langsam, der Nacken bleibt neutral.';
+
+  @override
+  String get exerciseCardioS1HighKneesName => 'Kniehebelauf';
+
+  @override
+  String get exerciseCardioS1HighKneesDesc =>
+      'Lauf auf der Stelle und zieh jedes Knie bis auf Hüfthöhe, die Arme schwingen mit. Lande weich auf den Fußballen.';
+
+  @override
+  String get exerciseCardioS1HighKneesTip =>
+      'Bleib aufrecht, lehn dich nicht zurück; das Tempo kommt mit der Zeit.';
+
+  @override
+  String get exerciseCardioS2SkaterJumpsName => 'Eisschnellläufer-Sprünge';
+
+  @override
+  String get exerciseCardioS2SkaterJumpsDesc =>
+      'Spring seitlich von einem Fuß auf den anderen wie ein Eisschnellläufer, das freie Bein schwingt hinter das Standbein, die Arme schwingen mit. Lande weich mit gebeugtem Knie.';
+
+  @override
+  String get exerciseCardioS2SkaterJumpsTip =>
+      'Lande und halte kurz, bevor du weiterspringst: erst Weite, dann Tempo.';
+
+  @override
+  String get exerciseCardioS3SquatJumpsName => 'Sprungkniebeugen';
+
+  @override
+  String get exerciseCardioS3SquatJumpsDesc =>
+      'Geh in die Hocke, die Arme nach hinten, dann spring gerade nach oben, die Arme über den Kopf. Lande weich wieder in der Hocke und spring erneut.';
+
+  @override
+  String get exerciseCardioS3SquatJumpsTip =>
+      'Lande mit weichen Knien, zuerst auf den Ballen, die Knie über den Zehen.';
+
+  @override
+  String get exerciseCardioS4FastClimbersName => 'Schnelle Bergsteiger';
+
+  @override
+  String get exerciseCardioS4FastClimbersDesc =>
+      'Im hohen Stütz, Hände unter den Schultern, wechsel die Füße schnell: ein Knie zur Brust, das andere Bein nach hinten, wie Laufen im Stütz.';
+
+  @override
+  String get exerciseCardioS4FastClimbersTip =>
+      'Die Hüfte auf Schulterhöhe; halte ein Tempo, das du bis zum Ende schaffst.';
+
+  @override
+  String get exerciseCardioS5HalfBurpeeName => 'Halbe Burpees';
+
+  @override
+  String get exerciseCardioS5HalfBurpeeDesc =>
+      'Geh in die Hocke, Hände auf den Boden, geh mit den Füßen schrittweise nach hinten in den Stütz, wieder nach vorn und steh auf. Noch ohne Sprung und ohne Liegestütz.';
+
+  @override
+  String get exerciseCardioS5HalfBurpeeTip =>
+      'Im Stütz bleibt der Rücken gerade; werde erst schneller, wenn die Bewegungen flüssig sind.';
+
+  @override
+  String get exerciseCardioS6BurpeeName => 'Burpees';
+
+  @override
+  String get exerciseCardioS6BurpeeDesc =>
+      'Hocke mit den Händen am Boden, mit einem Sprung die Füße nach hinten in den Stütz, ein Liegestütz, mit einem Sprung die Füße zu den Händen und Strecksprung mit den Armen über dem Kopf.';
+
+  @override
+  String get exerciseCardioS6BurpeeTip =>
+      'Lande jedes Mal weich: Ein sauberer Burpee ist besser als ein schneller, schlampiger.';
+
+  @override
   String get aboutTitle => 'Über die App';
 
   @override
@@ -2765,7 +3052,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get courseBuilderCreateEntryDesc =>
-      'Wähle Zweige aus allen Kursen oder baue eigene aus Übungen';
+      'Wähle Zweige aus allen Kursen und außerhalb davon oder baue eigene aus Übungen';
 
   @override
   String get courseBuilderNewTitle => 'Neuer Kurs';
@@ -3039,6 +3326,9 @@ class AppLocalizationsDe extends AppLocalizations {
   String get courseBuilderMyBranches => 'Meine Zweige';
 
   @override
+  String get courseBuilderOtherBranches => 'Zweige außerhalb der Kurse';
+
+  @override
   String get courseBuilderCreateBranch => 'Zweig erstellen';
 
   @override
@@ -3182,7 +3472,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseNotes095 =>
-      'Freunde gibt es nicht mehr: Ohne Server konnten sie nur einmal einen QR-Code tauschen, mehr nicht. Die App braucht keine Kamera und kein Bluetooth mehr.\nDein Name: Dein Host begrüßt dich damit auf dem Startbildschirm, Profil und Trainingsabschluss zeigen ihn. Ändern unter Einstellungen → Profil.';
+      'Freunde gibt es nicht mehr: Ohne Server konnten sie nur einmal einen QR-Code tauschen, mehr nicht. Die App braucht keine Kamera und kein Bluetooth mehr.\nDein Name: Dein Host begrüßt dich damit auf dem Startbildschirm, Profil und Trainingsabschluss zeigen ihn. Ändern unter Einstellungen → Profil.\nVier neue Zweige außerhalb der Kurse: Starker Rücken, Gesäß, Arme & Schultern und Cardio — 22 Übungen, jede mit Goros Animation. Nimm sie in deinen eigenen Kurs auf: Kurse → + → Eigenen Kurs erstellen.';
 
   @override
   String get releaseNotes093 =>
@@ -3222,5 +3512,5 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.';
+      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.\nVier Zweige außerhalb der Kurse: Rücken, Gesäß, Arme und Schultern, Cardio.';
 }

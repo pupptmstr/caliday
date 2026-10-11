@@ -7,7 +7,7 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.9.4 on `main` (the middle of Home, animations wherever an exercise is named, the owner's feedback on 0.9.3; merged 2026-10-10, PR #6). **0.9.5** is in progress on `session/2026-10-11-new-branches`: Friends removed and the user's name put to use (done), then the new branches outside the courses (Next ideas 1); see the Change History. `main` is protected since 2026-10-10 (PRs only, squash merges, CI required; ARCHITECTURE § Web Build). The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
+**Version:** v0.9.4 on `main` (the middle of Home, animations wherever an exercise is named, the owner's feedback on 0.9.3; merged 2026-10-10, PR #6). **0.9.5** is in progress on `session/2026-10-11-new-branches`: Friends removed and the user's name put to use, then the four branches outside the courses (Strong Back, Glutes, Arms & Shoulders, Cardio — Next ideas 1, the "many more exercises" of the owner's third big feature); see the Change History. `main` is protected since 2026-10-10 (PRs only, squash merges, CI required; ARCHITECTURE § Web Build). The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
 **Next priority:** v1.0 release. What still stands in the way:
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
 - Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
@@ -18,7 +18,7 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 | Layer | Status |
 |-------|--------|
 | Data models + Hive | ✅ |
-| ExerciseCatalog (20 branches — Calisthenics, Healthy Body, Evening Stretch, Morning Routine, Yoga) | ✅ |
+| ExerciseCatalog (24 branches — Calisthenics, Healthy Body, Evening Stretch, Morning Routine, Yoga, and 4 outside the courses) | ✅ |
 | Repositories (User, SkillProgress, Workout, Achievement, CustomRoutine, own branches and courses) | ✅ |
 | Domain services | ✅ |
 | Navigation (GoRouter + bottom nav) | ✅ |
@@ -29,7 +29,7 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 | Notifications (5 types: morning, evening, streak at risk, streak lost, rank at risk) | ✅ |
 | Dark theme | ✅ |
 | Goro (6 expressions) + Skala | ✅ |
-| Lottie animations (133 of 133 exercises; the pigeon pose from above and 90/90 from the front added in 0.9.2) | ✅ |
+| Lottie animations (155 of 155 exercises; the 22 of the branches outside the courses added in 0.9.5) | ✅ |
 | Sound + haptics | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
@@ -51,8 +51,8 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 
 Recorded on the owner's request after the course builder (0.9.3). None is started; the open items from before stay where they are (backlog in ARCHITECTURE; below in this section: release CI, held-back dependencies, "Support the author", the parked Telegram idea, the Lottie status) — see "Still open from before" at the end.
 
-#### 1. New exercises and branches
-The "many more exercises" of the owner's third big feature, on a branch of their own: 3–4 branches outside any course, about 20 exercises with animations. Proposed gaps and the steps are in § Roadmap 3 ("Next"); a session card with the brief was proposed on 2026-10-09. Content first, agreed with the owner.
+#### 1. New exercises and branches — done (0.9.5)
+Four branches outside the courses, 22 exercises with animations (owner, 2026-10-11: the table as proposed; outside the courses, picked in the builder; `all_complete` stays the courses' achievement; the Cardio keeps its jumps). The six riskiest animations were drafted first (Y-T-W, reverse snow angels, door-frame row, fire hydrant, chair dips, burpee) and approved; content in ARCHITECTURE § Branches outside the courses.
 
 #### 2. Sounds, redone from scratch
 **Concept.** Today there are four sounds from March 2026 (`assets/sounds/`: `tick`, `ding`, `pop`, `complete`, played by `SoundService`) and one `if` chain in `workout_screen.dart` (`ref.listen` on the phase) decides which plays; several different moments share one sound (`pop` = set done, side done, next exercise; `ding` = rest over and hold started). The owner wants all of them remade, more of them, one for every action inside a workout, and the sounds themselves regenerated. The workout is hands-free (ARCHITECTURE § Timed exercises: the get-ready countdown): the user is on the floor and not looking, so each moment must be recognisable by ear.
@@ -379,7 +379,7 @@ Implemented as decided; see ARCHITECTURE § Timed exercises (Holds on each side)
 #### 3. The course builder — done (0.9.3)
 Built before 2c, at the owner's word (2026-10-09: "the builder now, the new exercises on the next branch"). As decided: (a) a course from existing branches, its progress shared with the built-in courses; (b) a branch of one's own, exercises in order, each a stage, the app sets the amounts and the progression ("количество повторений и прогрессия строится самим приложением", owner). The owner's choices of 2026-10-09: the host of an own course is picked from the five (Goro by default). The design that was open is settled in ARCHITECTURE § Courses (own courses and branches) and § CustomStages; no migration was needed (`activeCourseIds` stays, an own course is `activeCustomCourseId`). Not done on purpose: own courses in the onboarding, achievements of own branches (only `first_challenge` counts), sharing them with friends.
 
-**Next (owner, 2026-10-09): many more exercises, on a branch of their own** — 3–4 branches outside any course (2c), about 20 exercises with animations; proposed gaps: a back without a pull-up bar (superman, prone Y-T-W, reverse snow angels…), glutes (donkey kicks, fire hydrants, single-leg bridge, hip thrust), arms and shoulders without equipment (chair dips, pike push-ups, shoulder taps), cardio. Content to be agreed with the owner first; the builder lists new branches by itself (a group "other branches" will be needed for branches outside the courses).
+**Done in 0.9.5:** the many more exercises — Strong Back, Glutes, Arms & Shoulders, Cardio (ARCHITECTURE § Branches outside the courses). The plan was (owner, 2026-10-09): 3–4 branches outside any course (2c), about 20 exercises with animations; proposed gaps: a back without a pull-up bar (superman, prone Y-T-W, reverse snow angels…), glutes (donkey kicks, fire hydrants, single-leg bridge, hip thrust), arms and shoulders without equipment (chair dips, pike push-ups, shoulder taps), cardio. Content to be agreed with the owner first; the builder lists new branches by itself (a group "other branches" will be needed for branches outside the courses).
 
 ### "Support the Author" Button — idea
 
@@ -414,7 +414,7 @@ Key points for Germany (discussed 2026-03-23, not a substitute for professional 
 
 ### Lottie Animations — status per branch (2026-10-08)
 
-126 files in `assets/animations/`. Yoga (0.9.1): all 18 new ones (`gen_yoga.py`: Warrior II, triangle, side angle, tree, eagle and half moon from the front, the rest from the side); three stages reuse the sphinx, the downward dog and plank to dog. Morning Routine (0.9.0): all 22 (`gen_morning.py`). Evening Stretch (0.8.20): all 19 (`gen_evening.py`; the cat-cow reuses `cooldown_cat_cow`). Complete: Push (7), Core (7 + alt), Pull (6), Legs (5), Balance (6), Flex (5 of 6), Supplementary pool (9, one reuses `warmup_wrist_circles`), Posture (6: four generated — the pigeon from above since 0.9.2 —, dead bug and kneeling lunge reuse `supp_dead_bug` / `flex_s1_hip_flexor_stretch`), Neck (6, all generated), warmups (7/7), cooldowns (6/6). Every exercise has an animation since 0.9.2: `flex_s3_hip_9090` is the 90/90 switch from the front (`gen_flex.py`, after the owner's reference, approved 2026-10-09).
+148 files in `assets/animations/`. The branches outside the courses (0.9.5): all 22 (`gen_extra.py`: Y-T-W and reverse snow angels from above, the fire hydrant from behind, the skater jumps from the front, the rest from the side). Yoga (0.9.1): all 18 new ones (`gen_yoga.py`: Warrior II, triangle, side angle, tree, eagle and half moon from the front, the rest from the side); three stages reuse the sphinx, the downward dog and plank to dog. Morning Routine (0.9.0): all 22 (`gen_morning.py`). Evening Stretch (0.8.20): all 19 (`gen_evening.py`; the cat-cow reuses `cooldown_cat_cow`). Complete: Push (7), Core (7 + alt), Pull (6), Legs (5), Balance (6), Flex (5 of 6), Supplementary pool (9, one reuses `warmup_wrist_circles`), Posture (6: four generated — the pigeon from above since 0.9.2 —, dead bug and kneeling lunge reuse `supp_dead_bug` / `flex_s1_hip_flexor_stretch`), Neck (6, all generated), warmups (7/7), cooldowns (6/6). Every exercise has an animation since 0.9.2: `flex_s3_hip_9090` is the 90/90 switch from the front (`gen_flex.py`, after the owner's reference, approved 2026-10-09).
 
 Nothing planned is missing. `cooldown_cat_cow` was replaced by a generated one (2026-10-06).
 
@@ -424,6 +424,34 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-11 — Four branches outside the courses: Strong Back, Glutes, Arms & Shoulders, Cardio (0.9.5)
+
+**What was done:** Next ideas 1, the "many more exercises" of the owner's third big feature. The content was proposed as a table and taken as it was (owner: outside the courses, picked in the course builder; the secret `all_complete` keeps counting the courses' branches only; the Cardio keeps its jumps). Four `BranchId` values (HiveFields 20–23), 22 exercises with texts in four languages, tags, warm-ups / cool-downs reused, four `<branch>_complete` achievements presented by Goro, the builder's group "Branches outside the courses" (first, above the courses), 22 animations (the six riskiest drafted first and approved: Y-T-W, reverse snow angels, door-frame row, fire hydrant, chair dips, burpee), their thumbnail squares, a line in the 0.9.5 "What's new" and in the 0.9 history line.
+
+**New files:**
+- `tools/lottie/gen_extra.py` — the 22 animations (ARCHITECTURE § Lottie Animation Tooling)
+- `assets/animations/{strong_back,glutes,arms_shoulders,cardio}_*.json` — 22 files
+
+**Modified files:**
+- `lib/data/models/enums.dart` + `enums.g.dart` (by hand) — `strongBack`, `glutes`, `armsShoulders`, `cardio`: emoji, icon, name, stage count
+- `lib/data/static/exercise_catalog.dart` — the exercises, four progressions, `libraryAll` / `all`, `progressionFor`, warm-ups / cool-downs
+- `lib/data/static/course_catalog.dart` — `courseBranches`, `otherBranches`; `courseOf` returns null for a branch outside every course (it threw before)
+- `lib/domain/services/achievement_service.dart`, `lib/data/static/achievement_catalog.dart`, `lib/core/extensions/achievement_l10n.dart` — the four achievements; `all_complete` over `courseBranches`
+- `lib/core/extensions/exercise_l10n.dart`, `lib/data/static/exercise_tags_catalog.dart` — texts and tags of the 22 exercises
+- `lib/data/repositories/skill_progress_repository.dart`, `developer_options_screen.dart` — the new branches in the exhaustive switches
+- `lib/features/library/screens/course_builder_screen.dart` — the "Branches outside the courses" group
+- `lib/data/static/animation_crops.dart` — regenerated (`thumb_crops.py --chrome` with the local Chrome on Windows)
+- `l10n/*.arb` — 79 messages per language (4 branch names, 66 exercise texts, 8 achievement texts, the group title); `courseBuilderCreateEntryDesc` mentions the new branches; `releaseNotes095` / `releaseHistory09` extended
+- `tools/lottie/build_preview.py` — the `extra` preset (all 22)
+- Tests: `enums_test` (frozen indices with the four values; every branch is in a course or among the other branches, never both; `courseOf` null outside), `achievement_service_test` (the four achievements; `all_complete` without the branches outside the courses), `user_and_achievement_repository_test` (all five courses give `courseBranches`)
+
+**Key issues and solutions:**
+- **`courseOf` threw** (`firstWhere`) for a branch no course lists — the achievement sheet would have crashed on the new achievements. It is nullable now, and null means Goro.
+- **Goro's proportions** (legs 84 px, arms 80 px against a 100 px torso) shaped three animations: the door-frame row needed the feet past the post for a visible lean, the hip thrust a low sofa (a knee-high one leaves no room for a level thigh), the elevated pike a chair right behind the hands. **The fire hydrant** read as lying down from above (arms foreshortened to dots) and is drawn from behind instead.
+- **A leg in line with the body is at `br`**, the torso's local down, not `br + 180` (that put the extended leg of the single-leg hip thrust and the legs of the forearm plank behind the torso, pointing at the head).
+- The heredoc + `'''` combination broke the Bash tool's parsing; the generator blocks were written as files and spliced in.
+- Checked: `flutter analyze` clean, 1125 tests pass; every animation through `check_anim.py` (the cardio jumps keep their fast-move reports) and on the preview stand; the web build (below).
 
 ### 2026-10-11 — Friends removed; the user's name greets them instead (0.9.5)
 

@@ -65,6 +65,19 @@ enum BranchId {
 
   @HiveField(19)
   yogaFlow,
+
+  // Branches outside any course (0.9.5): picked in the course builder.
+  @HiveField(20)
+  strongBack,
+
+  @HiveField(21)
+  glutes,
+
+  @HiveField(22)
+  armsShoulders,
+
+  @HiveField(23)
+  cardio,
 }
 
 @HiveType(typeId: 10)
@@ -346,6 +359,10 @@ extension BranchIdExtension on BranchId {
         BranchId.yogaOneLeg => '🦩',
         BranchId.yogaBackbends => '🌈',
         BranchId.yogaFlow => '☀️',
+        BranchId.strongBack => '🐢',
+        BranchId.glutes => '🍑',
+        BranchId.armsShoulders => '🦾',
+        BranchId.cardio => '❤️‍🔥',
       };
 
   IconData get icon => switch (this) {
@@ -369,6 +386,10 @@ extension BranchIdExtension on BranchId {
         BranchId.yogaOneLeg => Icons.sports_gymnastics,
         BranchId.yogaBackbends => Icons.looks,
         BranchId.yogaFlow => Icons.wb_sunny,
+        BranchId.strongBack => Icons.rowing,
+        BranchId.glutes => Icons.airline_seat_legroom_extra,
+        BranchId.armsShoulders => Icons.sports_handball,
+        BranchId.cardio => Icons.favorite,
       };
 
   String localizedName(AppLocalizations l10n) => switch (this) {
@@ -392,6 +413,10 @@ extension BranchIdExtension on BranchId {
         BranchId.yogaOneLeg => l10n.homeBranchYogaOneLeg,
         BranchId.yogaBackbends => l10n.homeBranchYogaBackbends,
         BranchId.yogaFlow => l10n.homeBranchYogaFlow,
+        BranchId.strongBack => l10n.homeBranchStrongBack,
+        BranchId.glutes => l10n.homeBranchGlutes,
+        BranchId.armsShoulders => l10n.homeBranchArmsShoulders,
+        BranchId.cardio => l10n.homeBranchCardio,
       };
 
   int get stageCount => switch (this) {
@@ -415,6 +440,10 @@ extension BranchIdExtension on BranchId {
         BranchId.yogaOneLeg => 5,
         BranchId.yogaBackbends => 6,
         BranchId.yogaFlow => 5,
+        BranchId.strongBack => 5,
+        BranchId.glutes => 5,
+        BranchId.armsShoulders => 6,
+        BranchId.cardio => 6,
       };
 
   bool get requiresEquipment => this == BranchId.pull;

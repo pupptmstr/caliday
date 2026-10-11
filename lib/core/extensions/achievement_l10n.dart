@@ -43,6 +43,10 @@ abstract final class AchievementL10n {
         'yoga_one_leg_complete' => l.achievementYogaOneLegCompleteName,
         'yoga_backbends_complete' => l.achievementYogaBackbendsCompleteName,
         'yoga_flow_complete' => l.achievementYogaFlowCompleteName,
+        'strong_back_complete' => l.achievementStrongBackCompleteName,
+        'glutes_complete' => l.achievementGlutesCompleteName,
+        'arms_shoulders_complete' => l.achievementArmsShouldersCompleteName,
+        'cardio_complete' => l.achievementCardioCompleteName,
         'all_complete' => l.achievementAllCompleteName,
         _ => id,
       };
@@ -88,6 +92,10 @@ abstract final class AchievementL10n {
         'yoga_one_leg_complete' => l.achievementYogaOneLegCompleteDesc,
         'yoga_backbends_complete' => l.achievementYogaBackbendsCompleteDesc,
         'yoga_flow_complete' => l.achievementYogaFlowCompleteDesc,
+        'strong_back_complete' => l.achievementStrongBackCompleteDesc,
+        'glutes_complete' => l.achievementGlutesCompleteDesc,
+        'arms_shoulders_complete' => l.achievementArmsShouldersCompleteDesc,
+        'cardio_complete' => l.achievementCardioCompleteDesc,
         'all_complete' => l.achievementAllCompleteDesc,
         _ => '',
       };

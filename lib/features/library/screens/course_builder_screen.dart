@@ -209,6 +209,16 @@ class _CourseBuilderScreenState extends ConsumerState<CourseBuilderScreen> {
             ),
           ),
 
+          // ── The branches outside the courses ─────────────────────────────
+          const SizedBox(height: 12),
+          _GroupHeader(l10n.courseBuilderOtherBranches),
+          for (final id in CourseCatalog.otherBranches)
+            _BranchTile(
+              branch: BuiltInBranch(id),
+              selected: _keys.contains(id.name),
+              onTap: () => _toggle(BuiltInBranch(id)),
+            ),
+
           // ── The built-in branches, by course ─────────────────────────────
           for (final course in CourseId.values) ...[
             const SizedBox(height: 12),

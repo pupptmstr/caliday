@@ -177,7 +177,7 @@ void main() {
       expect(branches.where((b) => b == BranchId.flex), hasLength(1));
 
       final all = UserProfile(activeCourseIds: [0, 1, 2, 3, 4], hasPullUpBar: true);
-      expect(all.activeBranches.toSet(), BranchId.values.toSet());
+      expect(all.activeBranches.toSet(), CourseCatalog.courseBranches.toSet());
     });
   });
 

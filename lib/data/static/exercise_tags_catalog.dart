@@ -376,6 +376,74 @@ class ExerciseTagsCatalog {
       ExerciseTag.mobility, ExerciseTag.strength, ExerciseTag.endurance, ExerciseTag.legs,
     ],
 
+    // ── Branches outside the courses (0.9.5) ──────────────────────────────────
+    'strong_back_s1_ytw': [
+      ExerciseTag.back, ExerciseTag.shoulders, ExerciseTag.postureFocus, ExerciseTag.floorOnly, ExerciseTag.beginner,
+    ],
+    'strong_back_s2_reverse_snow_angel': [
+      ExerciseTag.back, ExerciseTag.shoulders, ExerciseTag.postureFocus, ExerciseTag.floorOnly, ExerciseTag.mobility,
+    ],
+    'strong_back_s3_superman': [
+      ExerciseTag.back, ExerciseTag.glutes, ExerciseTag.floorOnly, ExerciseTag.strength, ExerciseTag.endurance,
+    ],
+    'strong_back_s4_swimmers': [
+      ExerciseTag.back, ExerciseTag.glutes, ExerciseTag.shoulders, ExerciseTag.floorOnly, ExerciseTag.endurance,
+    ],
+    'strong_back_s5_door_row': [
+      ExerciseTag.back, ExerciseTag.shoulders, ExerciseTag.strength,
+    ],
+    'glutes_s1_donkey_kicks': [
+      ExerciseTag.glutes, ExerciseTag.floorOnly, ExerciseTag.strength, ExerciseTag.beginner,
+    ],
+    'glutes_s2_fire_hydrant': [
+      ExerciseTag.glutes, ExerciseTag.hipFlexor, ExerciseTag.floorOnly, ExerciseTag.strength,
+    ],
+    'glutes_s3_single_leg_bridge': [
+      ExerciseTag.glutes, ExerciseTag.legs, ExerciseTag.core, ExerciseTag.floorOnly, ExerciseTag.strength,
+    ],
+    'glutes_s4_hip_thrust': [
+      ExerciseTag.glutes, ExerciseTag.legs, ExerciseTag.strength,
+    ],
+    'glutes_s5_single_leg_hip_thrust': [
+      ExerciseTag.glutes, ExerciseTag.legs, ExerciseTag.strength,
+    ],
+    'arms_shoulders_s1_shoulder_taps': [
+      ExerciseTag.shoulders, ExerciseTag.core, ExerciseTag.strength, ExerciseTag.beginner,
+    ],
+    'arms_shoulders_s2_chair_dips': [
+      ExerciseTag.shoulders, ExerciseTag.chest, ExerciseTag.strength,
+    ],
+    'arms_shoulders_s3_plank_up_down': [
+      ExerciseTag.shoulders, ExerciseTag.core, ExerciseTag.strength, ExerciseTag.endurance,
+    ],
+    'arms_shoulders_s4_pike_pushup': [
+      ExerciseTag.shoulders, ExerciseTag.strength,
+    ],
+    'arms_shoulders_s5_chair_dips_straight': [
+      ExerciseTag.shoulders, ExerciseTag.chest, ExerciseTag.strength,
+    ],
+    'arms_shoulders_s6_elevated_pike': [
+      ExerciseTag.shoulders, ExerciseTag.strength,
+    ],
+    'cardio_s1_high_knees': [
+      ExerciseTag.legs, ExerciseTag.core, ExerciseTag.endurance, ExerciseTag.beginner,
+    ],
+    'cardio_s2_skater_jumps': [
+      ExerciseTag.legs, ExerciseTag.glutes, ExerciseTag.endurance,
+    ],
+    'cardio_s3_squat_jumps': [
+      ExerciseTag.legs, ExerciseTag.glutes, ExerciseTag.endurance, ExerciseTag.strength,
+    ],
+    'cardio_s4_fast_climbers': [
+      ExerciseTag.core, ExerciseTag.shoulders, ExerciseTag.legs, ExerciseTag.endurance,
+    ],
+    'cardio_s5_half_burpee': [
+      ExerciseTag.legs, ExerciseTag.core, ExerciseTag.endurance,
+    ],
+    'cardio_s6_burpee': [
+      ExerciseTag.legs, ExerciseTag.chest, ExerciseTag.core, ExerciseTag.endurance, ExerciseTag.strength,
+    ],
+
     // ── Warmups ───────────────────────────────────────────────────────────────
     'warmup_arm_rotations': [
       ExerciseTag.warmup, ExerciseTag.shoulders, ExerciseTag.mobility,

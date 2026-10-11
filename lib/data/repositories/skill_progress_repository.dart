@@ -171,6 +171,10 @@ class SkillProgressRepository {
       case BranchId.yogaOneLeg:
       case BranchId.yogaBackbends:
       case BranchId.yogaFlow:
+      case BranchId.strongBack:
+      case BranchId.glutes:
+      case BranchId.armsShoulders:
+      case BranchId.cardio:
         // The stage-1 exercise's own starting values.
         final first = ExerciseCatalog.forStage(branch, 1)!;
         return SkillProgress(

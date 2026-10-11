@@ -224,6 +224,10 @@ class _DeveloperOptionsScreenState
         BranchId.yogaOneLeg => 'Yoga one leg',
         BranchId.yogaBackbends => 'Yoga backbends',
         BranchId.yogaFlow => 'Yoga flow',
+        BranchId.strongBack => 'Strong back',
+        BranchId.glutes => 'Glutes',
+        BranchId.armsShoulders => 'Arms & shoulders',
+        BranchId.cardio => 'Cardio',
       };
 
   Widget _buildBranchCard(BranchId branch) {

@@ -53,6 +53,14 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
         return BranchId.yogaBackbends;
       case 19:
         return BranchId.yogaFlow;
+      case 20:
+        return BranchId.strongBack;
+      case 21:
+        return BranchId.glutes;
+      case 22:
+        return BranchId.armsShoulders;
+      case 23:
+        return BranchId.cardio;
       default:
         return BranchId.push;
     }
@@ -101,6 +109,14 @@ class BranchIdAdapter extends TypeAdapter<BranchId> {
         writer.writeByte(18);
       case BranchId.yogaFlow:
         writer.writeByte(19);
+      case BranchId.strongBack:
+        writer.writeByte(20);
+      case BranchId.glutes:
+        writer.writeByte(21);
+      case BranchId.armsShoulders:
+        writer.writeByte(22);
+      case BranchId.cardio:
+        writer.writeByte(23);
     }
   }
 
