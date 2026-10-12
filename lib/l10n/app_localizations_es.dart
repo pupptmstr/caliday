@@ -903,7 +903,17 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsSoundTitle => 'Sonidos';
 
   @override
-  String get settingsSoundSubtitle => 'Sonidos durante el entrenamiento';
+  String get settingsSoundSubtitle =>
+      '«Principales» deja lo que necesitas sin mirar la pantalla: empieza y termina el aguante, cambio de lado, la siguiente serie o ejercicio, el final.';
+
+  @override
+  String get settingsSoundAll => 'Todos';
+
+  @override
+  String get settingsSoundKey => 'Principales';
+
+  @override
+  String get settingsSoundOff => 'Ninguno';
 
   @override
   String get settingsHapticTitle => 'Vibración';
@@ -3487,7 +3497,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseNotes096 =>
-      'Puedes entrenar solo con tus propios cursos: en la lista de cursos bajo + desmarca todos los cursos incluidos; basta con un curso marcado, sea cual sea.\nUn logro se abre a todo el ancho de la pantalla, no solo al ancho de su texto.';
+      'Puedes entrenar solo con tus propios cursos: en la lista de cursos bajo + desmarca todos los cursos incluidos; basta con un curso marcado, sea cual sea.\nUn logro se abre a todo el ancho de la pantalla, no solo al ancho de su texto.\nSonidos nuevos para el entrenamiento, uno para cada momento: prepárate, empieza el aguante, la mitad, cambio de lado, serie hecha, el siguiente ejercicio, el reto de Skala, el final. Suenan sobre tu música en lugar de pararla. Ajustes → Sonidos: todos, principales o ninguno.';
 
   @override
   String get releaseNotes093 =>
@@ -3527,5 +3537,5 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.\nSe quitan los amigos; tu anfitrión te saluda por tu nombre.\nCuatro ramas fuera de los cursos: espalda, glúteos, brazos y hombros, cardio.';
+      'Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.\nSe quitan los amigos; tu anfitrión te saluda por tu nombre.\nCuatro ramas fuera de los cursos: espalda, glúteos, brazos y hombros, cardio.\nUn sonido para cada momento del entrenamiento, sobre tu música.';
 }

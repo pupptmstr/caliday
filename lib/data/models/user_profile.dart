@@ -36,6 +36,7 @@ class UserProfile extends HiveObject {
     this.activeCourseIndex,
     this.lastSeenReleaseVersion,
     this.activeCustomCourseId,
+    this.soundModeName,
   });
 
   @HiveField(0)
@@ -103,6 +104,7 @@ class UserProfile extends HiveObject {
   bool? hasPullUpBar;
 
   /// Whether workout sound effects are enabled. null → true (default on).
+  /// Replaced by [soundModeName] in 0.9.6, which still writes it (off = false).
   @HiveField(19)
   bool? soundEnabled;
 
@@ -149,6 +151,12 @@ class UserProfile extends HiveObject {
   /// built-in one is.
   @HiveField(27)
   String? activeCustomCourseId;
+
+  /// `SoundMode.name` of the workout sounds: 'all' | 'key' | 'off' (0.9.6).
+  /// null → from [soundEnabled], the on/off switch it replaced
+  /// (`SoundMode.from`).
+  @HiveField(28)
+  String? soundModeName;
 
   // ── Computed helpers ────────────────────────────────────────────────────────
 

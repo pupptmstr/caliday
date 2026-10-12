@@ -487,3 +487,30 @@ extension WorkoutSizeLocalization on WorkoutSize {
         WorkoutSize.full => l10n.workoutSizeFullDesc,
       };
 }
+
+/// How many sounds a workout plays (Settings → Sounds; owner, 2026-10-12):
+/// every cue, only the key ones (`SoundCue.key`: what a user who is not looking
+/// at the screen needs) or none. Haptics have their own switch. Stored by name
+/// in `UserProfile.soundModeName`; not stored by Hive itself.
+enum SoundMode {
+  all,
+  key,
+  off;
+
+  /// The mode of a stored [name]; a profile from before 0.9.6 has none and
+  /// keeps its on/off switch ([legacyEnabled], null = on).
+  static SoundMode from(String? name, {bool? legacyEnabled}) {
+    for (final m in values) {
+      if (m.name == name) return m;
+    }
+    return legacyEnabled == false ? off : all;
+  }
+}
+
+extension SoundModeLocalization on SoundMode {
+  String localizedName(AppLocalizations l10n) => switch (this) {
+        SoundMode.all => l10n.settingsSoundAll,
+        SoundMode.key => l10n.settingsSoundKey,
+        SoundMode.off => l10n.settingsSoundOff,
+      };
+}

@@ -15,6 +15,7 @@ import '../../../data/repositories/user_repository.dart';
 import '../../../domain/models/workout_plan.dart' show prepSecFor;
 import '../../../l10n/app_localizations.dart';
 import '../providers/workout_provider.dart';
+import '../workout_cues.dart';
 import '../../library/widgets/exercise_thumb.dart';
 
 class WorkoutScreen extends ConsumerStatefulWidget {
@@ -30,17 +31,15 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
   @override
   void initState() {
     super.initState();
+    final sounds = SoundService.instance..preload();
+    unawaited(sounds.play(startCue(ref.read(workoutProvider).plan)));
     _timer = Timer.periodic(
       const Duration(seconds: 1),
       (_) {
-        final s = ref.read(workoutProvider);
-        // Play tick for the last 5 seconds of a rest, a get-ready countdown or
-        // a hold (not on the final second). Nothing counting down — a reps
-        // exercise, a paused countdown — reports 0 and is excluded by the guard.
-        final left = s.runningCountdownSec;
-        if (left >= 2 && left <= 6) {
-          unawaited(SoundService.instance.tick());
-        }
+        // The ticks of a countdown's last seconds and a long hold's halfway
+        // point; the change the tick makes has its own cue (below).
+        final cue = cueForSecond(ref.read(workoutProvider));
+        if (cue != null) unawaited(sounds.play(cue));
         ref.read(workoutProvider.notifier).tick();
       },
     );
@@ -119,35 +118,11 @@ class _WorkoutScreenState extends ConsumerState<WorkoutScreen> {
       },
     );
 
-    // Sound and haptic feedback on phase transitions.
+    // A cue for every change the user has to hear (workout_cues.dart).
     ref.listen<WorkoutState>(workoutProvider, (prev, next) {
       if (prev == null) return;
-      final svc = SoundService.instance;
-      if (next.phase == WorkoutPhase.done) {
-        // Workout complete.
-        unawaited(svc.complete());
-      } else if (prev.phase == WorkoutPhase.rest &&
-          next.phase == WorkoutPhase.exercise) {
-        // Rest ended → exercise begins.
-        unawaited(svc.ding());
-      } else if (prev.phase == WorkoutPhase.exercise &&
-          next.phase == WorkoutPhase.rest) {
-        // Set confirmed → rest begins.
-        unawaited(svc.pop());
-      } else if (prev.isGettingReady && next.isHolding) {
-        // Get-ready countdown over → the hold begins by itself, so the user
-        // in position has to hear it.
-        unawaited(svc.ding());
-      } else if (prev.isHolding && next.isGettingReady) {
-        // One side of a hold done → switch sides (or the next set without a
-        // rest); the user may not be looking at the screen.
-        unawaited(svc.pop());
-      } else if (prev.phase == WorkoutPhase.exercise &&
-          next.phase == WorkoutPhase.exercise &&
-          prev.exerciseIndex != next.exerciseIndex) {
-        // Set confirmed → next exercise (no rest between them).
-        unawaited(svc.pop());
-      }
+      final cue = cueForChange(prev, next);
+      if (cue != null) unawaited(SoundService.instance.play(cue));
     });
 
     if (state.phase == WorkoutPhase.done) {
@@ -357,7 +332,10 @@ class _ExerciseView extends StatelessWidget {
               if (!isTimed)
                 _RepsDisplay(
                   repsInput: state.repsInput,
-                  onAdjust: notifier.adjustReps,
+                  onAdjust: (delta) {
+                    SoundService.instance.tap();
+                    notifier.adjustReps(delta);
+                  },
                 )
               else if (gettingReady)
                 _TimedDisplay(

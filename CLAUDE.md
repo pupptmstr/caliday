@@ -52,6 +52,7 @@ python3 tools/lottie/build_preview.py --preset flex|supp|posture|neck|cooldown|p
 python3 tools/lottie/frame_sheet.py build/sheet.html --count 8 FILE.json   # Still frames side by side (open via the lottie-sheets preview server)
 python3 tools/lottie/thumb_crops.py   # Re-crop the exercise thumbnails after adding or redrawing an animation (a test fails otherwise)
 python3 tools/characters/gen_goro.py  # Goro's fun poses (About) and his locked-achievement pose; gen_hosts.py / gen_skala.py for the hosts and Skala
+python3 tools/sounds/gen_sounds.py   # Regenerate the workout cues (assets/sounds); build_preview.py makes a page to listen to them
 ```
 
 ## Code Style

@@ -53,7 +53,7 @@ every stage, amount and challenge norm is in [ARCHITECTURE § Exercise Catalog](
 - **Smooth progression:** reps ↑ → sets ↑ → rest ↓ → a Challenge (judged by Skala the bull) → the next stage; each branch moves on once a day, in any workout
 - **Daily workout generation:** the branches take turns day by day; the size is Short, Standard or Full, and the Home button shows an honest time estimate that learns your pace; an arrow on the button unfolds the day's plan
 - **Home screen:** before the first workout of the day the host's line, an open challenge to start right there, the next goals (SP to the next rank, the nearest achievement) and the course's branches; after it the latest workouts and what grew today (reps, a set, less rest, a new stage)
-- **Hands-free workouts:** timed holds start after a get-ready countdown (pause if you need more time), holds on one side run on both with a switch-sides countdown, sounds and vibration for every phase
+- **Hands-free workouts:** timed holds start after a get-ready countdown (pause if you need more time), holds on one side run on both with a switch-sides countdown, a sound of its own for every moment (all, key only or off) that plays over your music, and vibration
 - **Course builder:** put a course together from any built-in branches, or make a branch of your own — pick exercises, put them in order, and the app sets the reps, sets, rests and challenges; own courses can be hidden from the course list without deleting them
 - **Branches outside the courses:** Strong Back, Glutes, Arms & Shoulders and Cardio — put them into your own course
 - **Goro's animations for every exercise** — 148 Lottie files, most of them generated in-house with `tools/lottie`, shown wherever an exercise is named (cropped to the figure in small thumbnails)
@@ -168,7 +168,7 @@ A rank that is not trained for 21 days is *shown* one tier lower (further tiers 
 - **0.1 – 0.7 ✅** (numbered 1.x until April 2026): the first branches and gamification, sound, widget, Health, Friends, courses, the exercise library, custom routines
 - **0.8 ✅:** calendar and interactive stats, rank decay, the web version, animations for the exercises of the first courses, the get-ready countdown and holds on each side, workout sizes with a learned estimate, German and Spanish, Evening Stretch and the course hosts
 - **0.9 ✅:** Morning Routine, Yoga, an animation for every exercise, the course builder, "What's new" with the whole history, a fuller Home with the plan in the workout button, animations wherever an exercise is named, the hosts' own voices; 0.9.5 (in progress): Friends removed (without a server they added little), the host greets you by name, new branches outside the courses
-- **Next ideas:** sounds redone for every action of a workout; richer native widgets; the project's notes reworked into a clearer structure — see DEV_NOTES § Next ideas
+- **Next ideas:** richer native widgets; the project's notes reworked into a clearer structure — see DEV_NOTES § Next ideas
 - **v1.0:** the first store release — store accounts, proofread German and Spanish
 - **Later:** "Support the author" (in-app tips)
 

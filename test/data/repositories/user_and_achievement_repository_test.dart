@@ -51,6 +51,7 @@ void main() {
         activeCourseIds: [0, 1],
         activeCourseIndex: 1,
         lastSeenReleaseVersion: '0.8.12',
+        soundModeName: 'key',
       );
       await UserRepository().saveProfile(saved);
 
@@ -81,6 +82,7 @@ void main() {
       expect(p.activeCourseIds, [0, 1]);
       expect(p.activeCourseIndex, 1);
       expect(p.lastSeenReleaseVersion, '0.8.12');
+      expect(p.soundModeName, 'key');
     });
 
     test('optional fields stay null through a round trip', () async {
@@ -91,6 +93,7 @@ void main() {
       expect(p.locale, isNull);
       expect(p.hasPullUpBar, isNull);
       expect(p.soundEnabled, isNull);
+      expect(p.soundModeName, isNull);
       expect(p.activeCourseIds, isNull);
       expect(p.activeCourseIndex, isNull);
       expect(p.lastSeenReleaseVersion, isNull);

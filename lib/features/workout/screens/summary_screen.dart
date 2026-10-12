@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -5,10 +7,12 @@ import 'package:go_router/go_router.dart';
 import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
+import '../../../core/services/sound_service.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/static/achievement_catalog.dart';
 import '../../../domain/models/branch.dart';
 import '../../library/widgets/exercise_thumb.dart';
+import '../workout_cues.dart';
 
 /// Post-workout summary screen.
 ///
@@ -60,6 +64,13 @@ class SummaryScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
+              _SummaryCues(summaryCues(
+                achievement: newAchievementIds.isNotEmpty,
+                freezeUsed: freezeUsed,
+                freezeEarned: freezeEarned,
+                challengeUnlocked: challengeUnlocked,
+                newStage: challengePassed && newStageExerciseId != null,
+              )),
               Center(
                 child: SvgPicture.asset(cheer, height: 120),
               ),
@@ -141,6 +152,41 @@ class SummaryScreen extends StatelessWidget {
       ),
     );
   }
+}
+
+/// Plays the summary's [cues] once, one after another, after the
+/// end-of-workout cue; draws nothing.
+class _SummaryCues extends StatefulWidget {
+  const _SummaryCues(this.cues);
+
+  final List<SoundCue> cues;
+
+  @override
+  State<_SummaryCues> createState() => _SummaryCuesState();
+}
+
+class _SummaryCuesState extends State<_SummaryCues> {
+  final _timers = <Timer>[];
+
+  @override
+  void initState() {
+    super.initState();
+    for (final (i, cue) in widget.cues.indexed) {
+      _timers.add(Timer(kSummaryCueDelay + kSummaryCueGap * i,
+          () => unawaited(SoundService.instance.play(cue))));
+    }
+  }
+
+  @override
+  void dispose() {
+    for (final t in _timers) {
+      t.cancel();
+    }
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) => const SizedBox.shrink();
 }
 
 class _FreezeUsedBanner extends StatelessWidget {

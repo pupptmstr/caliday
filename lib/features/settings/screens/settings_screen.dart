@@ -178,9 +178,20 @@ class SettingsScreen extends ConsumerWidget {
             _SettingsTile(
               title: l10n.settingsSoundTitle,
               subtitle: l10n.settingsSoundSubtitle,
-              trailing: Switch(
-                value: state.soundEnabled,
-                onChanged: notifier.setSoundEnabled,
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 4, 20, 12),
+              child: SegmentedButton<SoundMode>(
+                showSelectedIcon: false,
+                segments: [
+                  for (final mode in SoundMode.values)
+                    ButtonSegment(
+                      value: mode,
+                      label: Text(mode.localizedName(l10n)),
+                    ),
+                ],
+                selected: {state.soundMode},
+                onSelectionChanged: (s) => notifier.setSoundMode(s.first),
               ),
             ),
 

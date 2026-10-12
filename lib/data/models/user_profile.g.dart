@@ -42,13 +42,14 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       activeCourseIndex: (fields[25] as num?)?.toInt(),
       lastSeenReleaseVersion: fields[26] as String?,
       activeCustomCourseId: fields[27] as String?,
+      soundModeName: fields[28] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, UserProfile obj) {
     writer
-      ..writeByte(25)
+      ..writeByte(26)
       ..writeByte(0)
       ..write(obj.rank)
       ..writeByte(1)
@@ -98,7 +99,9 @@ class UserProfileAdapter extends TypeAdapter<UserProfile> {
       ..writeByte(26)
       ..write(obj.lastSeenReleaseVersion)
       ..writeByte(27)
-      ..write(obj.activeCustomCourseId);
+      ..write(obj.activeCustomCourseId)
+      ..writeByte(28)
+      ..write(obj.soundModeName);
   }
 
   @override
