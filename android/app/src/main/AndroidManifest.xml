@@ -49,27 +49,50 @@
                 <data android:scheme="caliday"/>
             </intent-filter>
         </activity>
-        <!-- Home Screen Widget: 2×2 small -->
+        <!-- Home-screen widgets (CaliDayWidgets.kt): Today, Goro, Streak, Rank -->
         <receiver
             android:name=".CaliDayWidgetReceiver"
+            android:label="@string/widget_today_name"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/caliday_widget_info"/>
+                android:resource="@xml/widget_today_info"/>
         </receiver>
-        <!-- Home Screen Widget: 4×2 medium -->
         <receiver
-            android:name=".CaliDayWidgetMediumReceiver"
+            android:name=".GoroWidgetReceiver"
+            android:label="@string/widget_goro_name"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
             </intent-filter>
             <meta-data
                 android:name="android.appwidget.provider"
-                android:resource="@xml/caliday_widget_medium_info"/>
+                android:resource="@xml/widget_goro_info"/>
+        </receiver>
+        <receiver
+            android:name=".StreakWidgetReceiver"
+            android:label="@string/widget_streak_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_streak_info"/>
+        </receiver>
+        <receiver
+            android:name=".RankWidgetReceiver"
+            android:label="@string/widget_rank_name"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_rank_info"/>
         </receiver>
         <!-- Required by Health Connect: lets the system show permission rationale
              when the user views CaliDay in Health Connect → App permissions. -->

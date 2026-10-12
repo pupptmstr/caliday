@@ -11,6 +11,7 @@ import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 import 'core/providers/locale_provider.dart';
 import 'core/providers/theme_provider.dart';
 import 'core/theme/app_theme.dart';
+import 'core/router/app_redirect.dart';
 import 'core/router/app_router.dart';
 import 'core/services/health_service.dart';
 import 'core/services/notification_service.dart';
@@ -26,9 +27,8 @@ import 'data/models/user_profile.dart';
 import 'data/models/workout_log.dart';
 import 'data/repositories/skill_progress_repository.dart';
 import 'data/repositories/user_repository.dart';
-import 'data/repositories/workout_repository.dart';
 import 'data/retired_boxes.dart';
-import 'domain/services/streak_service.dart';
+import 'features/home/providers/home_widget_sync.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -91,12 +91,18 @@ class CaliDayApp extends ConsumerStatefulWidget {
 class _CaliDayAppState extends ConsumerState<CaliDayApp> {
   StreamSubscription<Uri>? _linkSub;
 
+  AppLifecycleListener? _lifecycle;
+
   @override
   void initState() {
     super.initState();
     // Notifications, Health, the Home Screen Widget and widget deep links are
     // native-only; the web build skips them entirely.
     if (kIsWeb) return;
+    // The widgets catch up with whatever changed while the app was open.
+    _lifecycle = AppLifecycleListener(
+      onHide: () => unawaited(ref.read(homeWidgetSyncProvider).push()),
+    );
     // Initialise notifications after the first frame so that the Android
     // Activity is fully active before we call any platform channel methods.
     // This also ensures scheduleAll runs after permission is granted.
@@ -114,32 +120,19 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
       // Initialise Health SDK (Apple Health / Health Connect).
       await HealthService.instance.configure();
 
-      // Initialise the Home Screen Widget and push current data.
+      // Initialise the home-screen widgets and push the current state.
       await WidgetService.instance.init();
-      final workoutRepo = WorkoutRepository();
-      final streakService = const StreakService();
-      final days = streakService.daysSinceLastWorkout(profile);
-      final displayStreak = (days <= 1 ||
-              (days == 2 && profile.streakFreezeCount > 0))
-          ? profile.currentStreak
-          : 0;
-      unawaited(WidgetService.instance.update(
-        streak: displayStreak,
-        totalSP: profile.totalSP,
-        workoutDoneToday: workoutRepo.hasWorkoutToday(),
-        rank: profile.rank,
-        locale: ref.read(localeProvider),
-      ));
+      unawaited(ref.read(homeWidgetSyncProvider).push());
 
-      // Handle deep links from the Home Screen Widget tap (caliday://workout).
+      // Handle deep links from a home-screen widget tap (caliday://…).
       final appLinks = AppLinks();
       final initialLink = await appLinks.getInitialLink();
       if (initialLink != null && initialLink.scheme == 'caliday') {
-        ref.read(routerProvider).go('/workout');
+        ref.read(routerProvider).go(deepLinkTarget(initialLink));
       }
       _linkSub = appLinks.uriLinkStream.listen((uri) {
         if (uri.scheme == 'caliday') {
-          ref.read(routerProvider).go('/workout');
+          ref.read(routerProvider).go(deepLinkTarget(uri));
         }
       });
     });
@@ -147,6 +140,7 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
 
   @override
   void dispose() {
+    _lifecycle?.dispose();
     _linkSub?.cancel();
     super.dispose();
   }

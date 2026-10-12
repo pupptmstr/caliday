@@ -5178,6 +5178,48 @@ abstract class AppLocalizations {
   /// **'Done'**
   String get widgetDoneLabel;
 
+  /// No description provided for @widgetTimeToTrain.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to train'**
+  String get widgetTimeToTrain;
+
+  /// No description provided for @widgetPlanSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, one{{count} exercise} other{{count} exercises}} · ≈ {minutes} min'**
+  String widgetPlanSummary(int count, int minutes);
+
+  /// No description provided for @widgetSpToday.
+  ///
+  /// In en, this message translates to:
+  /// **'+{sp} SP today'**
+  String widgetSpToday(int sp);
+
+  /// No description provided for @widgetTodayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get widgetTodayTitle;
+
+  /// No description provided for @widgetStreakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get widgetStreakTitle;
+
+  /// No description provided for @widgetRankTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rank'**
+  String get widgetRankTitle;
+
+  /// No description provided for @widgetRankTop.
+  ///
+  /// In en, this message translates to:
+  /// **'Top rank'**
+  String get widgetRankTop;
+
   /// No description provided for @courseBuilderCreateEntry.
   ///
   /// In en, this message translates to:
@@ -5765,6 +5807,12 @@ abstract class AppLocalizations {
   /// **'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.\nFour new branches outside the courses: Strong Back, Glutes, Arms & Shoulders and Cardio — 22 exercises, each with Goro’s animation. Add them to your own course: Courses → + → Create your own course.'**
   String get releaseNotes095;
 
+  /// No description provided for @releaseNotes097.
+  ///
+  /// In en, this message translates to:
+  /// **'New home-screen widgets with Goro: Today (the day\'s plan, the week and the streak, in three sizes), Goro (his face follows your day: he sleeps at night, frowns when your streak is at risk, cheers after a workout), Streak and Rank. Goro takes a new pose every day.\nOn iPhone there are widgets for the lock screen too: the streak, the way to the next rank and today\'s plan.\nA tap on a widget opens its place: the workout, Home, the calendar or the profile.'**
+  String get releaseNotes097;
+
   /// No description provided for @releaseNotes096.
   ///
   /// In en, this message translates to:
@@ -5828,7 +5876,7 @@ abstract class AppLocalizations {
   /// No description provided for @releaseHistory09.
   ///
   /// In en, this message translates to:
-  /// **'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio.\nA sound for every moment of a workout, over your music.'**
+  /// **'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio.\nA sound for every moment of a workout, over your music.\nHome-screen widgets with Goro: Today, Goro, Streak and Rank; on iPhone on the lock screen too.'**
   String get releaseHistory09;
 }
 

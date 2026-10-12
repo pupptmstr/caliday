@@ -8,12 +8,12 @@ description: Step-by-step workflow for implementing a new feature or fixing a bu
 ## Step 1 — Load context
 
 Read in this order:
-1. `internal_docs/ARCHITECTURE.md` — architecture, storage models, service APIs, patterns
-2. `internal_docs/DEV_NOTES.md` — current status and the feature spec (if it exists in "Active Specs")
+1. `internal_docs/README.md` — the index and the rules that must not break; then `internal_docs/STATUS.md` (current status) and the feature's spec in `internal_docs/specs/` if it has one
+2. The `internal_docs/reference/` files the task touches (data-hive, progression, workout, screens, platform…)
 3. **If the task involves UI:** read `design-system/caliday/BRAND.md` (colors, Goro, gradients, anti-patterns) and the relevant page file in `design-system/caliday/pages/` if it exists
 4. Relevant code files (find via Glob/Grep)
 
-**Key patterns from ARCHITECTURE.md** to keep in mind:
+**Key patterns** (`reference/overview.md` § Key Patterns) to keep in mind:
 - Services mutate objects in place; saving is the caller's responsibility
 - `homeDataProvider` and `profileDataProvider` must be invalidated after a workout
 - `context.canPop() ? context.pop() : context.go('/home')` when exiting workout
@@ -39,7 +39,7 @@ Read in this order:
 
 Before writing code, formulate a plan:
 - Which files will be modified / created
-- If adding Hive CE fields — check ARCHITECTURE.md for the next free `@HiveField` number
+- If adding Hive CE fields — check `internal_docs/reference/data-hive.md` for the next free `@HiveField` number
 - Is code generation needed (`dart run build_runner build`)
 - Are new l10n keys needed
 - Are changes to `app_router.dart` needed
@@ -54,13 +54,13 @@ Principles:
 - Don't add docstrings/comments to existing code
 - UI strings via l10n (don't hardcode in code)
 - Follow emoji policy: UI chrome → Material Icons, content (achievements) → emoji OK
-- **All project documentation (ARCHITECTURE.md, DEV_NOTES.md, skills, memory) is written in English**
+- **All project documentation (`internal_docs/`, skills, memory) is written in English**
 
 ## Step 5 — Verify
 
 ```bash
 flutter analyze          # Required — must stay at zero issues
-flutter test             # Required — add or adjust tests for new logic (see ARCHITECTURE.md § Testing)
+flutter test             # Required — add or adjust tests for new logic (see internal_docs/reference/testing.md)
 dart run build_runner build   # If models changed
 flutter gen-l10n         # If .arb files changed
 ```
@@ -77,8 +77,8 @@ Work happens on the session branch, never on `main` (CLAUDE.md § Branches and V
 ## Step 7 — Document and commit
 
 Use the `pre-commit` skill:
-- History in DEV_NOTES
-- Update ARCHITECTURE.md (final decisions, backlog status → ✅)
+- The version's entry in `internal_docs/CHANGELOG.md`
+- The `reference/` files the change affects, `decisions/`, `STATUS.md` (a finished spec moves to `specs/done/`)
 - Update MEMORY.md
 - Commit in English
 
@@ -96,10 +96,10 @@ Use the `pre-commit` skill:
 
 ## Checklist for features with Hive CE changes
 
-- [ ] Next free `@HiveField` number verified (see ARCHITECTURE.md → UserProfile HiveFields)
+- [ ] Next free `@HiveField` number verified (see `reference/data-hive.md` → UserProfile HiveFields)
 - [ ] typeId not changed for any existing class
 - [ ] `.g.dart` file regenerated (`dart run build_runner build`)
-- [ ] New fields documented in ARCHITECTURE.md → UserProfile HiveFields
+- [ ] New fields documented in `reference/data-hive.md`
 - [ ] `main.dart`: if new Hive box added — `await Hive.openBox<T>('name')` present
 
 ## Checklist for logic with dates or notifications
@@ -120,7 +120,7 @@ Use the `pre-commit` skill:
 - [ ] Route added to `app_router.dart`
 - [ ] On exit from workout: `context.canPop() ? context.pop() : context.go('/home')`
 - [ ] Deep link guard in RouterNotifier if needed
-- [ ] Route added to the navigation table in ARCHITECTURE.md
+- [ ] Route added to the navigation list in `reference/screens.md`
 
 ## Checklist for Android specifics
 

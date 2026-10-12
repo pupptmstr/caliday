@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_today_name">Hoy</string>
+    <string name="widget_today_desc">El plan de hoy, tu racha y la semana.</string>
+    <string name="widget_goro_name">Goro</string>
+    <string name="widget_goro_desc">El humor de Goro sigue tu día.</string>
+    <string name="widget_streak_name">Racha</string>
+    <string name="widget_streak_desc">Tu racha, la semana y tus protectores.</string>
+    <string name="widget_rank_name">Rango</string>
+    <string name="widget_rank_desc">Tu rango, tus SP y el camino al siguiente.</string>
+</resources>

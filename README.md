@@ -46,7 +46,7 @@ The app is built on proven game-based learning mechanics:
 20 built-in branches with over 100 stages; 133 exercises in total with the
 warm-ups, cool-downs and the supplementary set. Progress belongs to the branch,
 so a branch shared by two courses moves once for both. The full catalog with
-every stage, amount and challenge norm is in [ARCHITECTURE § Exercise Catalog](internal_docs/ARCHITECTURE.md#exercise-catalog).
+every stage, amount and challenge norm is in [the exercise catalog](internal_docs/reference/courses.md#exercise-catalog).
 
 ## Features
 
@@ -63,7 +63,7 @@ every stage, amount and challenge norm is in [ARCHITECTURE § Exercise Catalog](
 - **Exercise library** with search in every language and tag filters; **custom routines** (a quick one by focus, or saved ones)
 - **"What's new"** under the bell in the profile: the latest updates in full and the whole version history, folded
 - **Notifications:** morning reminder, evening nudge, streak at risk, streak lost, rank at risk
-- **Home screen widget** (iOS + Android): small and medium, in the app's language
+- **Home-screen widgets with Goro** (iOS + Android): Today (the day's plan, the week, the streak — three sizes), Goro (his mood follows your day), Streak and Rank; on iPhone also on the lock screen. Every text in the app's language
 - **Health integration:** Apple Health and Health Connect — the workout and its calories, if you want
 - **Languages:** English, Russian, German and Spanish (German and Spanish are drafts awaiting native proofreading)
 - **Dark theme**, onboarding with a push-up calibration and course choice
@@ -103,7 +103,7 @@ lib/
     ├── profile/               # Profile, achievements, calendar, "What's new"
     └── settings/
 
-test/                          # 1100+ tests: services, catalog integrity, Hive repositories, ARB files, notification plan, router, workflows
+test/                          # 1160+ tests: services, catalog integrity, Hive repositories, ARB files, notification plan, router, workflows
 assets/animations/             # Lottie exercise animations (148 files)
 assets/goro, assets/skala, assets/hosts   # Mascot, judge and course hosts (SVG)
 tools/lottie/                  # Animation rigs and generators (gen_*.py per branch or course), checks, preview stands
@@ -114,7 +114,7 @@ web/                           # Web shell (index.html, manifest, icons); deploy
 
 ## Quick Start
 
-**Requirements:** Flutter 3.41.9 (stable, the version CI uses), Dart ≥ 3.11
+**Requirements:** Flutter 3.47.7 (stable, the version CI uses), Dart ≥ 3.11; iOS 16+, Xcode 27 with CocoaPods; Android builds need JDK 17 or 21
 
 ```bash
 # Install dependencies
@@ -158,8 +158,7 @@ A rank that is not trained for 21 days is *shown* one tier lower (further tiers 
 
 ## Documentation
 
-- [Architecture](internal_docs/ARCHITECTURE.md) — tech decisions, data models, service APIs, the exercise catalog, testing, feature backlog
-- [Dev Notes](internal_docs/DEV_NOTES.md) — current status, active feature specs and ideas, change history
+- [Project notes](internal_docs/README.md) — the index: [status](internal_docs/STATUS.md), [changelog](internal_docs/CHANGELOG.md), the reference by topic (data, courses, progression, workout, screens, platforms, testing, tooling), decisions, specs
 - [Design system](design-system/caliday/BRAND.md) — brand, mascot and hosts, colours, UX rules
 - [Privacy Policy](docs/PRIVACY_POLICY.md) · [Terms of Use](docs/TERMS_OF_USE.md)
 
@@ -167,8 +166,8 @@ A rank that is not trained for 21 days is *shown* one tier lower (further tiers 
 
 - **0.1 – 0.7 ✅** (numbered 1.x until April 2026): the first branches and gamification, sound, widget, Health, Friends, courses, the exercise library, custom routines
 - **0.8 ✅:** calendar and interactive stats, rank decay, the web version, animations for the exercises of the first courses, the get-ready countdown and holds on each side, workout sizes with a learned estimate, German and Spanish, Evening Stretch and the course hosts
-- **0.9 ✅:** Morning Routine, Yoga, an animation for every exercise, the course builder, "What's new" with the whole history, a fuller Home with the plan in the workout button, animations wherever an exercise is named, the hosts' own voices; 0.9.5 (in progress): Friends removed (without a server they added little), the host greets you by name, new branches outside the courses
-- **Next ideas:** richer native widgets; the project's notes reworked into a clearer structure — see DEV_NOTES § Next ideas
+- **0.9 ✅:** Morning Routine, Yoga, an animation for every exercise, the course builder, "What's new" with the whole history, a fuller Home with the plan in the workout button, animations wherever an exercise is named, the hosts' own voices; Friends removed (without a server they added little), the host greets you by name, four branches outside the courses; a sound for every moment of a workout; widgets with Goro and the iOS lock screen (0.9.7)
+- **Next ideas:** app performance, vibration patterns of our own — see [STATUS § Ideas](internal_docs/STATUS.md)
 - **v1.0:** the first store release — store accounts, proofread German and Spanish
 - **Later:** "Support the author" (in-app tips)
 

@@ -1,0 +1,40 @@
+# The workout: flow, timer, holds, sounds
+
+> Part of the project notes — the index is [internal_docs/README.md](../README.md).
+
+## Workout Flow
+```
+home → push(/workout) → pushReplacement(/summary) → go(/home)
+```
+After completion: `ref.invalidate(homeDataProvider)` + `ref.invalidate(profileDataProvider)`
+
+## Timed exercises: the get-ready countdown
+The hold of a timed exercise (plank, dead hang, stretches) does not start the moment the exercise appears: a get-ready countdown runs first, so the user can take position and read the description, and the workout stays hands-free (nothing to tap between the rest and the hold). `WorkoutState.prepSec` is that countdown: `kPrepNewExerciseSec` = 10 s when a new exercise begins (the first one, after a rest between exercises, after a set with no rest), `kPrepNextSetSec` = 5 s before the next set of the same exercise (`prepSecFor(planned, setIndex)`, in `domain/models/workout_plan.dart` because the time estimate shares it; reps exercises get 0). `tick()` counts `prepSec` down and, when it reaches 0, the hold (`timerSec`) simply starts counting by itself; the full hold still confirms the set by itself, and **Stop** during the hold confirms it early.
+
+**Pause / Continue.** `pausePrep()` sets `prepPaused`, which freezes `prepSec`; `resumePrep()` clears it and the countdown goes on from where it stopped (it is not restarted). Both do nothing outside the countdown (during the hold, a rest, a reps exercise) or when already in that state. Every place that begins a set sets `prepSec` and clears `prepPaused` (entering a rest resets both to 0 / false).
+
+Derived on `WorkoutState`: `isGettingReady` (exercise phase, `prepSec > 0`), `isHolding`, and `runningCountdownSec` (the seconds of whatever is counting down right now — the rest, the countdown or the hold — and 0 when nothing is, e.g. a paused countdown). The screen plays the last-seconds ticks from `runningCountdownSec` and the **go** cue when the countdown turns into the hold (the user in position is not looking at the screen; § SoundService and the workout cues). Buttons for a timed exercise: **Pause** (outlined, the quiet one) → **Continue** (filled) → **Stop** (filled) — all 56 px high, so nothing moves when they swap. The ring uses `secondary` with the label "get ready" and goes grey (`outline`) with "paused" while paused; the hold ring is `primary` with "sec" (one `_TimedDisplay` draws all three). A hint under the description changes with the state and disappears when the hold starts. The rest countdown is unchanged. Time spent in the countdown counts into the workout duration. Tested in `test/features/workout/workout_timer_test.dart`.
+
+**Holds on each side (0.8.20).** `Exercise.perSide` marks a one-sided timed hold (`holdsPerSet` = 2; it means nothing for a reps exercise). One set runs side 1 → a `kPrepSwitchSideSec` = 5 s countdown labelled "switch sides" → side 2 → the rest, with no tap: `confirmSet()` on side 1 (the hold running out, or **Stop**) does not end the set but sets `WorkoutState.sideIndex` = 1, keeps the seconds held in `firstSideSec` and starts the switch countdown (`prepSecFor(planned, setIndex, side: 1)`; it can be paused like the other one). Every transition that leaves the set resets `sideIndex` to 0. Getters: `isLastSide`, `isSwitchingSides`. **The amounts are per side:** the target, the progression and the challenge norm; the recorded `actualDurationSec` is the **weaker side** (the minimum of the two), so a set and a challenge pass only when both sides reach it; `SPService` counts both sides (`seconds × holdsPerSet`); the estimate counts both holds and the switch countdown. The screen shows "Set 1 of 3 · side 2 of 2", the **switch sides** cue when a side ends (the user may be lying down), "N sec each side" on the rest screen, the Branch Journey params and the challenge norm. Flagged today: `flex_s1_hip_flexor_stretch`, `flex_s3_hip_9090`, `neck_s1_neck_tilt`, `posture_s5_kneeling_lunge`, `posture_s6_pigeon_pose`, `bal_s1_one_leg_stand`, `bal_s2_one_arm_plank`, `cooldown_quad_stretch`, `cooldown_hip_flexor`, `cooldown_lat_stretch`, `supp_side_plank` (their targets were kept and became per side, so those workouts got longer).
+
+## WorkoutState when phase == done
+- `spEarned`, `durationSec`, `isPrimary`, `workoutsToday`
+- `freezeEarned`, `freezeUsed`
+- `challengeUnlocked`, `challengePassed`, `newStageExerciseId`
+- `newAchievementIds`
+- `rankRestored` — the rank had decayed before this workout (summary banner)
+- `healthSaved: bool`
+
+## Launching a Challenge
+1. Home → ChallengeCard button (`isChallengeUnlocked == true`)
+2. BranchJourney → "Take the challenge" button on the current stage (always available)
+Both entry points lead to the same flow: `challengeBranchProvider = branch` → `/workout`.
+
+## SoundService (singleton) and the workout cues (0.9.6)
+The workout is hands-free, so every moment has a cue of its own, told apart by ear (owner, 2026-10-12; before 0.9.6 four MP3s shared the moments: `tick`, `ding`, `pop`, `complete`).
+- **`SoundCue`** (`core/services/sound_service.dart`): 21 cues, one WAV each in `assets/sounds` (16-bit mono, 22.05 kHz, ~690 KB in all), with `key` (kept by the "key only" mode) and a `CueHaptic` (light / medium / heavy / selection / triple heavy). A test checks that every cue has its file and every file is a cue.
+- **Which cue when** — pure functions in `features/workout/workout_cues.dart`, tested over the real state machine (`workout_cues_test.dart`): `startCue(plan)` (Skala's drum for a challenge) when the workout screen opens; `cueForSecond(state)` from the screen's 1 s timer before it ticks: the last `kTickSeconds` = 5 seconds of a get-ready or rest countdown tick, the last one higher (`tickLast`), a hold's last 5 seconds tick lower (`tickHold`), a hold of `kHalfwayMinSec` = 20 s or more gets `holdHalf`; `cueForChange(prev, next)` from `ref.listen`: `go` (countdown → hold), `switchSides`, `setDone` (to a rest, or the next set without one), `restOver` / `nextExercise` / `skip` (a rest left before its last second), `pause` / `resume`, and at `done` `complete` or, for a challenge, `challengePassed` / `challengeFailed`. The summary plays `summaryCues(...)` in the order of its banners (achievement, freeze used, freeze earned, challenge unlocked = Skala's drum, new stage) from `kSummaryCueDelay` (2.1 s, after the end cue) every `kSummaryCueGap` (0.9 s). The rep counter's − / + only taps (`SoundService.tap()`, a selection click).
+- **Settings → Sounds:** `SoundMode` all / key only / off (`UserProfile.soundModeName`, HiveField 28; a profile from before keeps its on/off switch). "Key only" keeps `tickLast`, `go`, `switchSides`, `setDone`, `restOver`, `nextExercise` and the three end cues. Vibration keeps its own switch and follows every cue whatever the sound mode.
+- **Playback:** one `AudioPlayer` per cue, created on first use or by `preload()` when the workout screen opens, each with `AudioContextConfig(focus: mixWithOthers)`: cues play over the user's music (with the default context, `focus: gain`, a tick paused the music on Android and interrupted it on iOS; the context is ignored on the web). **Do NOT use `await player.stop()` before play()** — causes Android MediaPlayer reset (~100–200ms). `player.play()` handles restart on its own. A failed player is dropped and made anew next time.
+- **The sounds** are synthesised by `tools/sounds/gen_sounds.py` (standard library only, like `tools/lottie`): one family of timbres in C major — wooden ticks, a marimba, a glockenspiel ping, a felt pad for the user's own taps, a soft drum for Skala — with contours that say what happens (up = on we go, down = done / rest, wood = a countdown), each normalised to the loudness of its role and peaking at −1 dBFS at most. `tools/sounds/build_preview.py` builds a page with every cue and a short workout played in real time (`build/sounds_preview.html`; `--fragment` for an Artifact).
+- Configured from `SettingsNotifier` on load and on settings change

@@ -23,10 +23,9 @@ import '../../../domain/services/workout_energy.dart';
 import '../../../domain/services/workout_generator_service.dart';
 import '../../../domain/services/workout_pace.dart';
 import '../../../domain/services/workout_progression.dart';
-import '../../../core/providers/locale_provider.dart';
 import '../../../core/services/health_service.dart';
 import '../../../core/services/notification_service.dart';
-import '../../../core/services/widget_service.dart';
+import '../../home/providers/home_widget_sync.dart';
 import '../../home/providers/home_provider.dart' show activeCourseProvider, homeDataProvider;
 import '../../profile/providers/profile_provider.dart';
 import '../../settings/providers/settings_provider.dart';
@@ -725,14 +724,8 @@ class WorkoutNotifier extends Notifier<WorkoutState> {
     ref.invalidate(homeDataProvider);
     ref.invalidate(profileDataProvider);
 
-    // Push fresh data to the Home Screen Widget.
-    unawaited(WidgetService.instance.update(
-      streak: ref.read(displayStreakProvider),
-      totalSP: profile.totalSP,
-      workoutDoneToday: true,
-      rank: profile.rank,
-      locale: ref.read(localeProvider),
-    ));
+    // Push fresh data to the home-screen widgets.
+    unawaited(ref.read(homeWidgetSyncProvider).push());
 
     state = state.copyWith(
       phase: WorkoutPhase.done,

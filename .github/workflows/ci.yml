@@ -22,7 +22,7 @@ env:
   # Keep in sync with web.yml and release.yml (test/repo/workflows_test.dart
   # checks that all three agree) and with the local SDK: pubspec.lock is
   # resolved against the SDK-pinned packages of this Flutter version.
-  FLUTTER_VERSION: 3.41.9
+  FLUTTER_VERSION: 3.47.7
 
 jobs:
   check:

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/widget_root" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@drawable/widget_bg_rank" android:padding="12dp">
+    <ImageView android:id="@+id/widget_goro" style="@style/WidgetGoro" android:layout_width="76dp"
+        android:layout_height="76dp" android:layout_gravity="top|end" android:layout_marginTop="-6dp"
+        android:layout_marginEnd="-6dp" android:src="@drawable/goro_pose_barbell" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+        <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical">
+            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@drawable/ic_widget_medal"
+                android:contentDescription="@null" />
+            <TextView android:id="@+id/rank_title" style="@style/WidgetText.Caps" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginStart="5dp" />
+        </LinearLayout>
+        <FrameLayout android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
+        <TextView android:id="@+id/rank_name" style="@style/WidgetText.Black" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:textSize="20sp" />
+        <TextView android:id="@+id/rank_sp" style="@style/WidgetText" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="2dp" android:layout_marginBottom="6dp"
+            android:textSize="12.5sp" android:alpha="0.85" android:drawableStart="@drawable/ic_widget_bolt_s"
+            android:drawablePadding="3dp" />
+        <ProgressBar android:id="@+id/rank_bar" style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent" android:layout_height="7dp" android:max="1000"
+            android:progressDrawable="@drawable/widget_bar" />
+        <TextView android:id="@+id/rank_goal" style="@style/WidgetText" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="5dp" android:textSize="10.5sp"
+            android:alpha="0.85" android:maxLines="2" />
+    </LinearLayout>
+</FrameLayout>

@@ -92,7 +92,7 @@ void main() {
     test('displayed names: the middle ranks differ between English and Russian',
         () {
       // The enum values follow the Russian names, so `sportsman` is "Athlete"
-      // and `athlete` is "Champion" in English. Documented in ARCHITECTURE.md.
+      // and `athlete` is "Champion" in English. Documented in internal_docs/reference/progression.md.
       final en = AppLocalizationsEn();
       final ru = AppLocalizationsRu();
       expect(Rank.values.map((r) => r.localizedName(en)),

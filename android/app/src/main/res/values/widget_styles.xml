@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="WidgetText">
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+    <style name="WidgetText.Black">
+        <item name="android:fontFamily">sans-serif-black</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+    <style name="WidgetText.Caps">
+        <item name="android:textSize">10.5sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.08</item>
+        <item name="android:alpha">0.75</item>
+    </style>
+    <style name="WidgetChip" parent="WidgetText.Black">
+        <item name="android:textSize">13sp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:drawablePadding">3dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="WidgetChip.Streak">
+        <item name="android:textColor">#FF9500</item>
+        <item name="android:background">@drawable/widget_chip_streak</item>
+        <item name="android:drawableStart">@drawable/ic_widget_flame_s</item>
+    </style>
+    <style name="WidgetChip.Freeze">
+        <item name="android:background">@drawable/widget_chip_ice</item>
+        <item name="android:drawableStart">@drawable/ic_widget_snow_s</item>
+    </style>
+    <style name="WidgetChip.SP">
+        <item name="android:background">@drawable/widget_chip_sp</item>
+        <item name="android:drawableStart">@drawable/ic_widget_bolt_s</item>
+    </style>
+    <style name="WidgetGoro">
+        <item name="android:background">@drawable/widget_glow</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:contentDescription">@null</item>
+    </style>
+</resources>

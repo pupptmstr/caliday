@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 
 import '../../../core/extensions/build_context_l10n.dart';
@@ -217,6 +218,10 @@ class _WorkoutCalendarScreenState
 
     return Scaffold(
       appBar: AppBar(
+        // Opened straight from the Streak widget there is nothing to pop.
+        leading: context.canPop()
+            ? null
+            : BackButton(onPressed: () => context.go('/profile')),
         title: Text(l10n.calendarTitle),
       ),
       body: SingleChildScrollView(
