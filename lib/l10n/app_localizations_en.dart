@@ -3524,6 +3524,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.\nFour new branches outside the courses: Strong Back, Glutes, Arms & Shoulders and Cardio — 22 exercises, each with Goro’s animation. Add them to your own course: Courses → + → Create your own course.';
 
   @override
+  String get releaseNotes098 =>
+      'The web version on iPhone now plays every workout sound — the ticks, the start of a hold, switch sides, the end of a rest — not only the ones that follow a tap.\nCaliDay has a website: pupptmstr.github.io/caliday — what the app is about, in four languages.';
+
+  @override
   String get releaseNotes097 =>
       'New home-screen widgets with Goro: Today (the day\'s plan, the week and the streak, in three sizes), Goro (his face follows your day: he sleeps at night, frowns when your streak is at risk, cheers after a workout), Streak and Rank. Goro takes a new pose every day.\nOn iPhone there are widgets for the lock screen too: the streak, the way to the next rank and today\'s plan.\nA tap on a widget opens its place: the workout, Home, the calendar or the profile.';
 

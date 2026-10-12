@@ -97,9 +97,9 @@ iOS: one timeline for all four kinds, an entry now and at 0, 6, 20, 22 and 23 o'
 
 Same Flutter app compiled for the browser; data stays local (Hive CE → **IndexedDB**, one database per box).
 
-- **URL:** `https://pupptmstr.github.io/caliday/app/` (hash routing: `#/home`)
+- **URL:** `https://pupptmstr.github.io/caliday/app/` (hash routing: `#/home`); the landing page is the root of the same site (§ Landing page)
 - **Build:** `flutter build web --release --base-href /caliday/app/`
-- **Deploy:** `.github/workflows/web.yml` on every push to `main` — builds the app + Jekyll-renders `docs/` (legal docs keep their URLs `/caliday/PRIVACY_POLICY`, `/caliday/TERMS_OF_USE`) → one Pages artifact. Requires Settings → Pages → Source = **GitHub Actions**. The `deploy` job needs both `build` and a parallel `test` job (`flutter test`), so a push that breaks the tests does not reach the live site (guarded in `test/repo/workflows_test.dart`).
+- **Deploy:** `.github/workflows/web.yml` on every push to `main` — builds the app + Jekyll-renders `docs/` (legal docs keep their URLs `/caliday/PRIVACY_POLICY`, `/caliday/TERMS_OF_USE`) + renders the landing page (`tools/site/build_site.py _site`) → one Pages artifact. Requires Settings → Pages → Source = **GitHub Actions**. The `deploy` job needs both `build` and a parallel `test` job (`flutter test`), so a push that breaks the tests does not reach the live site (guarded in `test/repo/workflows_test.dart`).
 - **Flutter version** is pinned in all three workflows (`web.yml`, `ci.yml`, `release.yml`, `3.47.7` since 0.9.7) to match `pubspec.lock` (SDK-pinned packages like `matcher`, `test_api`). Bump all of them together with the local SDK; `test/repo/workflows_test.dart` fails when they differ.
 - **`main` is protected** (owner, 2026-10-10; repository ruleset "Protect main"): changes only through a pull request, merged as a **squash** (merge commits and rebase merges are off for the whole repository; the commit takes the PR title and body), the CI jobs `check` and `android` must pass, linear history, no force pushes, no deletion. Nobody pushes to `main` directly, an admin included; an admin may merge a PR past red checks (bypass "pull request only"). Merged branches are deleted automatically (a closed PR keeps its commits and can restore the branch).
 - **Checks:** `.github/workflows/ci.yml` on every push to `main` and every pull request — `flutter gen-l10n` must leave `lib/l10n` unchanged (the generated files are committed), `flutter analyze`, `flutter test`, and a debug Android build (`flutter build apk --debug`, which is what catches a broken Gradle / plugin setup such as the Glance range). Older runs of the same ref are cancelled.
@@ -110,7 +110,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 | Feature | Web | How |
 |---------|-----|-----|
 | Workouts, progression, SP, streaks, achievements, library, custom routines | ✅ | — |
-| Sound | ✅ | audioplayers web (HTML audio; the audio context that mixes cues with music is ignored) — checked 2026-10-12: every cue of a workout plays |
+| Sound | ✅ | `WebCuePlayer` (Web Audio, one context unlocked by the first tap; 0.9.8) — audioplayers' `<audio>` elements stayed silent on iPhone when the timer started them. On iOS the cues follow the silent switch and mix with music |
 | Haptics | ⚠️ Android Chrome only | engine maps to `navigator.vibrate` |
 | Notifications | ❌ | `NotificationService.init/scheduleAll/scheduleStreakLost/scheduleRankAtRisk` no-op (every new scheduler needs its own `kIsWeb` guard: without `init()` the timezone database is never loaded); Settings section hidden |
 | Health | ❌ | Settings section + onboarding step hidden |
@@ -124,6 +124,16 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 
 ### Caveats
 - Data is per browser/origin; clearing site data wipes progress. Safari may evict storage of sites not added to the Home Screen after 7 days without a visit — on iOS, install via Share → Add to Home Screen.
+
+## Landing page (0.9.8)
+
+`https://pupptmstr.github.io/caliday/` (English), `ru/`, `de/`, `es/` — what the app is, with links to the web app, the stores (coming soon) and GitHub; the same languages as the app (owner, 2026-10-12).
+- **Sources:** `site/template.html` (`{{key}}` placeholders), `site/strings/<code>.json` (one per language, the same keys as `en.json`; a missing key fails the build), `site/site.css` (the app's tokens: brand gradients, the orange streak, tiles; light and dark), `site/site.js` (the exercise animations, the running hold on the mock-up, the reveal), `site/icons.svg`, `site/og-<code>.png` (link previews, `tools/site/make_og.py`).
+- **Build:** `python3 tools/site/build_site.py OUT [--url …]` renders a page per language (`hreflang`, canonical, Open Graph, JSON-LD `SoftwareApplication`), writes `sitemap.xml`, and copies from the app what the site shows: the characters' SVGs into `img/`, the exercise animations into `anim/` with `anim/crops.json` (the squares of `animation_crops.dart`, so the figures are cropped like `ExerciseThumb`). The address is `--url` (default the github.io one): a custom domain is that argument plus the DNS — and then the web app's `--base-href` and the legal URLs move too.
+- **The phones** of the first screen are HTML drawn with the app's tokens, not screenshots; they play the real Lottie files (lottie-web 5.12.2 light from cdnjs, with SRI).
+- **Search:** `robots.txt` is read only at a domain's root, so on a project site the sitemap is sent through Google Search Console; its verification meta tag would go into the template's `<head>`.
+- **Preview:** `python3 tools/site/build_site.py build/site_preview`, then the `caliday-site` server of `.claude/launch.json` (port 8097). The app and the legal links point at `app/` and `PRIVACY_POLICY`, which only the deployed site has.
+- **Store links:** placeholders until the listings exist; Apple's "Download on the App Store" badge may only be used for an app that is on the store.
 
 ## Release builds (CI) — drafted, disabled
 

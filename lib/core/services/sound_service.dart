@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import '../../data/models/enums.dart';
+import 'web_cue_player.dart';
 
 /// How a cue feels in the hand when haptics are on.
 enum CueHaptic { none, selection, light, medium, heavy, triple }
@@ -50,6 +52,9 @@ enum SoundCue {
   /// The path [AssetSource] takes (relative to `assets/`).
   String get asset => 'sounds/$file.wav';
 
+  /// The key of the file in the asset bundle (what the web build loads).
+  String get bundleKey => 'assets/$asset';
+
   /// Whether [mode] plays this cue's sound (haptics follow their own switch).
   bool soundsIn(SoundMode mode) => switch (mode) {
         SoundMode.all => true,
@@ -62,6 +67,8 @@ enum SoundCue {
 ///
 /// Singleton — call [configure] whenever settings change. Playing is
 /// fire-and-forget: errors are swallowed so a sound can never break a workout.
+/// The web build plays the sounds through [WebCuePlayer] (Web Audio): iOS
+/// Safari silenced audioplayers' cues that the timer starts.
 class SoundService {
   SoundService._();
   static final SoundService instance = SoundService._();
@@ -83,11 +90,19 @@ class SoundService {
   void configure({required SoundMode mode, required bool hapticEnabled}) {
     _mode = mode;
     _hapticEnabled = hapticEnabled;
+    if (kIsWeb) WebCuePlayer.instance.attach();
   }
 
   /// Gets every cue ready, so the first tick of a workout is not late.
   void preload() {
     if (_mode == SoundMode.off) return;
+    if (kIsWeb) {
+      WebCuePlayer.instance.preload([
+        for (final cue in SoundCue.values)
+          if (cue.soundsIn(_mode)) cue.bundleKey,
+      ]);
+      return;
+    }
     for (final cue in SoundCue.values) {
       if (cue.soundsIn(_mode)) unawaited(_player(cue).then((_) {}, onError: (_) {}));
     }
@@ -98,6 +113,10 @@ class SoundService {
   Future<void> play(SoundCue cue) async {
     if (_hapticEnabled) unawaited(_haptic(cue.haptic));
     if (!cue.soundsIn(_mode)) return;
+    if (kIsWeb) {
+      WebCuePlayer.instance.play(cue.bundleKey);
+      return;
+    }
     try {
       final player = await _player(cue);
       // play() restarts a finished cue by itself; stop() first would reset

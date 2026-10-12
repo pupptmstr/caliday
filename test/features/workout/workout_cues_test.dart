@@ -7,6 +7,7 @@ import 'package:caliday/data/static/exercise_catalog.dart';
 import 'package:caliday/domain/models/workout_plan.dart';
 import 'package:caliday/features/workout/providers/workout_provider.dart';
 import 'package:caliday/features/workout/workout_cues.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -260,5 +261,13 @@ void main() {
         f.uri.pathSegments.last,
     };
     expect(files, {for (final c in SoundCue.values) '${c.file}.wav'});
+  });
+
+  test('the web build finds every cue in the asset bundle', () async {
+    TestWidgetsFlutterBinding.ensureInitialized();
+    for (final cue in SoundCue.values) {
+      final data = await rootBundle.load(cue.bundleKey);
+      expect(data.lengthInBytes, greaterThan(44), reason: cue.bundleKey);
+    }
   });
 }

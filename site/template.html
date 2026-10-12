@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="{{lang}}" data-base="{{base}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{meta_title}}</title>
+<meta name="description" content="{{meta_desc}}">
+<link rel="canonical" href="{{page_url}}">
+{{hreflang}}
+<meta name="theme-color" content="#4DA6FF">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" type="image/png" href="{{base}}favicon.png">
+<link rel="apple-touch-icon" href="{{base}}img/icon-192.png">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CaliDay">
+<meta property="og:title" content="{{meta_title}}">
+<meta property="og:description" content="{{meta_desc}}">
+<meta property="og:url" content="{{page_url}}">
+<meta property="og:image" content="%SITE_URL%og-{{lang}}.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="{{og_locale}}">
+<meta name="twitter:card" content="summary_large_image">
+
+<script type="application/ld+json">
+{{jsonld}}
+</script>
+
+<link rel="stylesheet" href="{{base}}site.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bodymovin/5.12.2/lottie_light.min.js" integrity="sha512-Pe5arL9TnWlLgXT1VY0d50tfo6J9bh0qM7irYJuACQcGz7mbIahBXZmNeav+46mTQBtPY170Vi89KDa4kd4QVg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script src="{{base}}site.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">{{skip}}</a>
+
+<header class="hero">
+  <div class="wrap">
+    <nav class="nav" aria-label="{{nav_label}}">
+      <a class="brand" href="./"><img src="{{base}}img/icon-192.png" alt="" width="38" height="38">CaliDay</a>
+      <div class="nav-links">
+        <a class="nl" href="#how">{{nav_how}}</a>
+        <a class="nl" href="#courses">{{nav_courses}}</a>
+        <a class="nl" href="#faq">{{nav_faq}}</a>
+        <details class="lang">
+          <summary aria-label="{{lang_label}}"><svg class="i"><use href="{{base}}icons.svg#i-globe"/></svg>{{lang_short}}</summary>
+          <ul>
+{{lang_menu}}
+          </ul>
+        </details>
+        <a class="btn btn-white btn-open" href="{{app_url}}">{{open_app}}</a>
+      </div>
+    </nav>
+
+    <div class="hero-grid">
+      <div>
+        <div class="chips">
+          <span class="chip"><svg class="i"><use href="{{base}}icons.svg#i-check"/></svg>{{chip_free}}</span>
+          <span class="chip"><svg class="i"><use href="{{base}}icons.svg#i-check"/></svg>{{chip_noads}}</span>
+          <span class="chip"><svg class="i"><use href="{{base}}icons.svg#i-check"/></svg>{{chip_noaccount}}</span>
+        </div>
+        <h1>CaliDay</h1>
+        <p class="tagline">{{tagline}}</p>
+        <p class="lead">{{lead}}</p>
+        <div class="hero-cta">
+          <a class="btn btn-white" href="{{app_url}}"><svg class="i"><use href="{{base}}icons.svg#i-dumbbell"/></svg>{{cta_web}}</a>
+          <span class="btn btn-glass btn-soon" role="note"><svg class="i"><use href="{{base}}icons.svg#i-phone"/></svg>{{cta_stores}} <small>{{soon}}</small></span>
+        </div>
+        <p class="hero-note"><svg class="i"><use href="{{base}}icons.svg#i-install"/></svg>{{hero_note}}</p>
+      </div>
+
+      <div class="phones" aria-hidden="true">
+        <div class="phone phone-a">
+          <div class="screen">
+            <div class="island"></div>
+            <div class="m-hero">
+              <div class="status" style="color:#fff"><span>9:41</span><span class="status-icons"><span class="sig"></span><span class="bat"></span></span></div>
+              <div class="m-title">CaliDay</div>
+              <div class="m-chips">
+                <span class="m-chip energy"><svg class="i"><use href="{{base}}icons.svg#i-flame"/></svg>{{mock_streak}}</span>
+                <span class="m-chip"><svg class="i"><use href="{{base}}icons.svg#i-bolt"/></svg>3 420 SP</span>
+                <span class="m-chip"><svg class="i"><use href="{{base}}icons.svg#i-award"/></svg>{{rank_now}}</span>
+              </div>
+              <div class="m-face"><img src="{{base}}img/goro_face_happy.svg" alt="" width="132" height="132"></div>
+            </div>
+            <div class="m-bubble"><b>{{name_goro}}:</b> {{goro_line}}</div>
+            <div class="m-section">{{mock_plan}}</div>
+            <div class="m-row"><div class="m-thumb lottie" data-anim="push_s3_full_pushup"></div><div><b>{{ex_push}}</b><small>3 × 10</small></div><span class="up"><svg class="i"><use href="{{base}}icons.svg#i-trend"/></svg></span></div>
+            <div class="m-row"><div class="m-thumb lottie" data-anim="core_s2_plank"></div><div><b>{{ex_plank}}</b><small>3 × 30 {{sec}}</small></div></div>
+            <div class="m-row"><div class="m-thumb lottie" data-anim="cardio_s3_squat_jumps"></div><div><b>{{ex_squatjump}}</b><small>3 × 12</small></div></div>
+            <div class="m-cta"><svg class="i"><use href="{{base}}icons.svg#i-dumbbell"/></svg>{{mock_cta}}</div>
+            <div class="m-tabs">
+              <span class="on"><svg class="i"><use href="{{base}}icons.svg#i-dumbbell"/></svg>{{tab_workout}}</span>
+              <span><svg class="i"><use href="{{base}}icons.svg#i-book"/></svg>{{tab_courses}}</span>
+              <span><svg class="i"><use href="{{base}}icons.svg#i-user"/></svg>{{tab_profile}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="phone phone-b">
+          <div class="screen m-dark">
+            <div class="island"></div>
+            <div class="status"><span>9:41</span><span class="status-icons"><span class="sig"></span><span class="bat"></span></span></div>
+            <div class="m-top"><svg class="i"><use href="{{base}}icons.svg#i-x"/></svg><span>{{mock_workout}}</span></div>
+            <div class="m-progress"><i></i></div>
+            <div class="m-anim lottie" data-anim="core_s2_plank"></div>
+            <div class="m-set">{{mock_set}}</div>
+            <div class="m-name">{{ex_plank}}</div>
+            <div class="m-desc">{{plank_desc}}</div>
+            <div class="m-ring" data-hold="30">
+              <svg viewBox="0 0 116 116"><circle class="track" cx="58" cy="58" r="50"/><circle class="arc" cx="58" cy="58" r="50"/></svg>
+              <div><b>30</b><small>{{sec}}</small></div>
+            </div>
+            <div class="m-pause"><svg class="i"><use href="{{base}}icons.svg#i-pause"/></svg>{{pause}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="wrap">
+    <section class="stats" aria-label="{{stats_label}}">
+      <div class="stat"><svg class="i"><use href="{{base}}icons.svg#i-dumbbell"/></svg><b>155</b><span>{{stat_ex}}</span></div>
+      <div class="stat"><svg class="i"><use href="{{base}}icons.svg#i-trend"/></svg><b>24</b><span>{{stat_branches}}</span></div>
+      <div class="stat"><svg class="i"><use href="{{base}}icons.svg#i-book"/></svg><b>5</b><span>{{stat_courses}}</span></div>
+      <div class="stat energy"><svg class="i"><use href="{{base}}icons.svg#i-trophy"/></svg><b>45</b><span>{{stat_ach}}</span></div>
+    </section>
+
+    <section class="section reveal" id="how">
+      <div class="head-center">
+        <p class="eyebrow">{{how_eyebrow}}</p>
+        <h2>{{how_title}}</h2>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="step-n">1</div><h3>{{step1_t}}</h3><p>{{step1_p}}</p></div>
+        <div class="step"><div class="step-n">2</div><h3>{{step2_t}}</h3><p>{{step2_p}}</p></div>
+        <div class="step"><div class="step-n">3</div><h3>{{step3_t}}</h3><p>{{step3_p}}</p></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="exercises">
+      <div class="head-center">
+        <p class="eyebrow">{{ex_eyebrow}}</p>
+        <h2>{{ex_title}}</h2>
+        <p class="sub">{{ex_sub}}</p>
+      </div>
+      <div class="ex-grid">
+        <div class="ex"><div class="ex-tile"><div class="lottie" data-anim="push_s3_full_pushup"></div></div><b>{{ex_push}}</b></div>
+        <div class="ex"><div class="ex-tile"><div class="lottie" data-anim="pull_s3_pullup"></div></div><b>{{ex_pull}}</b></div>
+        <div class="ex"><div class="ex-tile"><div class="lottie" data-anim="bal_s6_free_hs"></div></div><b>{{ex_hs}}</b></div>
+        <div class="ex"><div class="ex-tile"><div class="lottie" data-anim="yoga_standing_s3_warrior_2"></div></div><b>{{ex_warrior}}</b></div>
+        <div class="ex"><div class="ex-tile"><div class="lottie" data-anim="cardio_s3_squat_jumps"></div></div><b>{{ex_squatjump}}</b></div>
+        <div class="ex"><div class="ex-tile"><div class="lottie" data-anim="evening_hips_s4_butterfly"></div></div><b>{{ex_butterfly}}</b></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="courses">
+      <div class="head-center">
+        <p class="eyebrow">{{courses_eyebrow}}</p>
+        <h2>{{courses_title}}</h2>
+        <p class="sub">{{courses_sub}}</p>
+      </div>
+      <div class="courses">
+        <article class="course"><img src="{{base}}img/goro_idle_v2.svg" alt="{{name_goro}}" width="92" height="92"><div><h3>{{c_cali}}</h3><span class="host">{{host_goro}}</span><p>{{c_cali_desc}}</p></div></article>
+        <article class="course"><img src="{{base}}img/raffi_idle.svg" alt="{{name_raffi}}" width="92" height="92"><div><h3>{{c_healthy}}</h3><span class="host">{{host_raffi}}</span><p>{{c_healthy_desc}}</p></div></article>
+        <article class="course"><img src="{{base}}img/miso_idle.svg" alt="{{name_miso}}" width="92" height="92"><div><h3>{{c_yoga}}</h3><span class="host">{{host_miso}}</span><p>{{c_yoga_desc}}</p></div></article>
+        <article class="course"><img src="{{base}}img/aurora_idle.svg" alt="{{name_aurora}}" width="92" height="92"><div><h3>{{c_morning}}</h3><span class="host">{{host_aurora}}</span><p>{{c_morning_desc}}</p></div></article>
+        <article class="course"><img src="{{base}}img/luna_idle.svg" alt="{{name_luna}}" width="92" height="92"><div><h3>{{c_evening}}</h3><span class="host">{{host_luna}}</span><p>{{c_evening_desc}}</p></div></article>
+        <article class="course course-own"><div class="own-icon"><svg class="i"><use href="{{base}}icons.svg#i-tool"/></svg></div><div><h3>{{c_own}}</h3><span class="host">{{host_own}}</span><p>{{c_own_desc}}</p></div></article>
+      </div>
+    </section>
+
+    <section class="section reveal" id="game">
+      <div class="head-center">
+        <p class="eyebrow">{{game_eyebrow}}</p>
+        <h2>{{game_title}}</h2>
+        <p class="sub">{{game_sub}}</p>
+      </div>
+      <div class="game">
+        <div>
+          <div class="rank">
+            <div class="rank-top">
+              <div class="rank-icon"><svg class="i"><use href="{{base}}icons.svg#i-award"/></svg></div>
+              <div><h3>{{rank_now}}</h3><p class="rank-sp">3 420 SP</p></div>
+            </div>
+            <div class="rank-bar"><i style="width:47%"></i></div>
+            <p class="rank-next">{{rank_next}}</p>
+          </div>
+          <div class="tiles">
+            <div class="tile energy"><svg class="i"><use href="{{base}}icons.svg#i-flame"/></svg><b>12</b><span>{{tile_streak}}</span></div>
+            <div class="tile"><svg class="i"><use href="{{base}}icons.svg#i-trophy"/></svg><b>21</b><span>{{tile_record}}</span></div>
+            <div class="tile"><svg class="i"><use href="{{base}}icons.svg#i-dumbbell"/></svg><b>48</b><span>{{tile_workouts}}</span></div>
+            <div class="tile"><svg class="i"><use href="{{base}}icons.svg#i-snow"/></svg><b>2</b><span>{{tile_freezes}}</span></div>
+          </div>
+        </div>
+        <ul class="points">
+          <li><span class="ic"><svg class="i"><use href="{{base}}icons.svg#i-bolt"/></svg></span><div><b>{{g1_t}}</b><p>{{g1_p}}</p></div></li>
+          <li><span class="ic energy"><svg class="i"><use href="{{base}}icons.svg#i-flame"/></svg></span><div><b>{{g2_t}}</b><p>{{g2_p}}</p></div></li>
+          <li><span class="ic"><svg class="i"><use href="{{base}}icons.svg#i-award"/></svg></span><div><b>{{g3_t}}</b><p>{{g3_p}}</p></div></li>
+          <li><span class="ic"><svg class="i"><use href="{{base}}icons.svg#i-trophy"/></svg></span><div><b>{{g4_t}}</b><p>{{g4_p}}</p></div></li>
+        </ul>
+      </div>
+      <div class="arena">
+        <img src="{{base}}img/skala_neutral.svg" alt="{{name_skala}}" width="140" height="140">
+        <div><h3>{{arena_t}}</h3><p>{{arena_p}}</p></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="features">
+      <div class="head-center">
+        <p class="eyebrow">{{feat_eyebrow}}</p>
+        <h2>{{feat_title}}</h2>
+      </div>
+      <div class="features">
+        <div class="feature"><span class="ic"><svg class="i"><use href="{{base}}icons.svg#i-sound"/></svg></span><h3>{{f1_t}}</h3><p>{{f1_p}}</p></div>
+        <div class="feature"><span class="ic"><svg class="i"><use href="{{base}}icons.svg#i-sliders"/></svg></span><h3>{{f2_t}}</h3><p>{{f2_p}}</p></div>
+        <div class="feature"><span class="ic"><svg class="i"><use href="{{base}}icons.svg#i-grid"/></svg></span><h3>{{f3_t}}</h3><p>{{f3_p}}</p></div>
+        <div class="feature"><span class="ic"><svg class="i"><use href="{{base}}icons.svg#i-heart"/></svg></span><h3>{{f4_t}}</h3><p>{{f4_p}}</p></div>
+        <div class="feature"><span class="ic"><svg class="i"><use href="{{base}}icons.svg#i-bell"/></svg></span><h3>{{f5_t}}</h3><p>{{f5_p}}</p></div>
+        <div class="feature"><span class="ic"><svg class="i"><use href="{{base}}icons.svg#i-install"/></svg></span><h3>{{f6_t}}</h3><p>{{f6_p}}</p></div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="privacy">
+      <div class="privacy">
+        <img src="{{base}}img/goro_pose_one_arm_handstand.svg" alt="" width="180" height="180">
+        <div>
+          <p class="eyebrow">{{priv_eyebrow}}</p>
+          <h2>{{priv_t}}</h2>
+          <p>{{priv_p}}</p>
+          <div class="pills">
+            <span class="pill"><svg class="i"><use href="{{base}}icons.svg#i-check"/></svg>{{pill_account}}</span>
+            <span class="pill"><svg class="i"><use href="{{base}}icons.svg#i-check"/></svg>{{pill_ads}}</span>
+            <span class="pill"><svg class="i"><use href="{{base}}icons.svg#i-check"/></svg>{{pill_tracking}}</span>
+            <span class="pill"><svg class="i"><use href="{{base}}icons.svg#i-check"/></svg>{{pill_free}}</span>
+          </div>
+          <div class="links">
+            <a href="https://github.com/pupptmstr/caliday"><svg class="i i-fill"><use href="{{base}}icons.svg#i-github"/></svg>{{priv_github}}</a>
+            <a href="{{base}}PRIVACY_POLICY"><svg class="i"><use href="{{base}}icons.svg#i-lock"/></svg>{{priv_policy}}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section reveal" id="faq">
+      <div class="head-center">
+        <p class="eyebrow">{{faq_eyebrow}}</p>
+        <h2>{{faq_title}}</h2>
+      </div>
+      <div class="faq">
+        <details><summary>{{q1}}<svg class="i"><use href="{{base}}icons.svg#i-chevron"/></svg></summary><p>{{a1}}</p></details>
+        <details><summary>{{q2}}<svg class="i"><use href="{{base}}icons.svg#i-chevron"/></svg></summary><p>{{a2}}</p></details>
+        <details><summary>{{q3}}<svg class="i"><use href="{{base}}icons.svg#i-chevron"/></svg></summary><p>{{a3}}</p></details>
+        <details><summary>{{q4}}<svg class="i"><use href="{{base}}icons.svg#i-chevron"/></svg></summary><p>{{a4}}</p></details>
+        <details><summary>{{q5}}<svg class="i"><use href="{{base}}icons.svg#i-chevron"/></svg></summary><p>{{a5}}</p></details>
+        <details><summary>{{q6}}<svg class="i"><use href="{{base}}icons.svg#i-chevron"/></svg></summary><p>{{a6}}</p></details>
+      </div>
+    </section>
+
+    <section class="final reveal">
+      <img src="{{base}}img/goro_flex_v2.svg" alt="" width="210" height="210">
+      <div>
+        <h2>{{final_t}}</h2>
+        <p>{{final_p}}</p>
+        <div class="hero-cta">
+          <a class="btn btn-white" href="{{app_url}}"><svg class="i"><use href="{{base}}icons.svg#i-dumbbell"/></svg>{{cta_web}}</a>
+          <a class="btn btn-glass" href="https://github.com/pupptmstr/caliday"><svg class="i i-fill"><use href="{{base}}icons.svg#i-github"/></svg>GitHub</a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="./"><img src="{{base}}img/icon-192.png" alt="" width="32" height="32">CaliDay</a>
+    <nav aria-label="{{foot_label}}">
+      <a href="{{app_url}}">{{foot_app}}</a>
+      <a href="https://github.com/pupptmstr/caliday">GitHub</a>
+      <a href="{{base}}PRIVACY_POLICY">{{foot_privacy}}</a>
+      <a href="{{base}}TERMS_OF_USE">{{foot_terms}}</a>
+    </nav>
+    <p class="copy">{{foot_copy}}</p>
+  </div>
+</footer>
+</body>
+</html>

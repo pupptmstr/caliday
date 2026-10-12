@@ -1,7 +1,8 @@
 # Builds the Flutter web app and publishes it to GitHub Pages together with
-# the legal docs from docs/ (their URLs are referenced from the app and the
-# store listings, so they must keep working):
+# the landing page from site/ and the legal docs from docs/ (their URLs are
+# referenced from the app and the store listings, so they must keep working):
 #
+#   https://pupptmstr.github.io/caliday/                ← landing (en; ru/, de/, es/)
 #   https://pupptmstr.github.io/caliday/app/            ← web app
 #   https://pupptmstr.github.io/caliday/PRIVACY_POLICY  ← docs/PRIVACY_POLICY.md
 #
@@ -49,11 +50,13 @@ jobs:
           destination: ./_docs_site
 
       # The Jekyll container leaves root-owned files, so assemble the final
-      # site in a fresh directory instead of writing into its output.
+      # site in a fresh directory instead of writing into its output. The
+      # landing page (site/, tools/site/build_site.py) takes the root.
       - name: Assemble site
         run: |
           mkdir _site
           cp -r _docs_site/. _site/
+          python3 tools/site/build_site.py _site
           cp -r build/web _site/app
 
       - uses: actions/upload-pages-artifact@v5

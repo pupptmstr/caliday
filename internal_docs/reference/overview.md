@@ -209,4 +209,6 @@ python3 tools/lottie/check_anim.py NAME ...  # Jump / loop-seam check of generat
 python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning|yoga]  # Build build/lottie_preview.html to watch them
 python3 tools/sounds/gen_sounds.py  # Regenerate the workout cues (assets/sounds/*.wav)
 python3 tools/sounds/build_preview.py  # Build build/sounds_preview.html to listen to them
+python3 tools/site/build_site.py build/site_preview  # Render the landing page (served by the caliday-site launch config)
+python3 tools/site/make_og.py  # Redraw the landing page's link-preview cards (site/og-<lang>.png)
 ```
