@@ -136,10 +136,13 @@ void main() {
   });
 
   group('UserProfile course helpers', () {
-    test('no enrolled courses means calisthenics', () {
+    test('a legacy profile means calisthenics; an empty list means none', () {
       expect(UserProfile().enrolledCourses, [CourseId.calisthenics]);
-      expect(UserProfile(activeCourseIds: []).enrolledCourses,
-          [CourseId.calisthenics]);
+      final ownOnly = UserProfile(activeCourseIds: []);
+      expect(ownOnly.enrolledCourses, isEmpty);
+      expect(ownOnly.activeCourse, CourseId.calisthenics);
+      expect(UserProfile(activeCourseIds: [99]).activeCourse,
+          CourseId.calisthenics);
     });
 
     test('ignores course indices that no longer exist', () {

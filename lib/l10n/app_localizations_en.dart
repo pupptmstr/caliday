@@ -3483,6 +3483,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.\nFour new branches outside the courses: Strong Back, Glutes, Arms & Shoulders and Cardio — 22 exercises, each with Goro’s animation. Add them to your own course: Courses → + → Create your own course.';
 
   @override
+  String get releaseNotes096 =>
+      'You can train your own courses only: in the course list under + untick every built-in course — one ticked course of any kind is enough.\nAn achievement opens across the whole width of the screen, not just as wide as its text.';
+
+  @override
   String get releaseNotes093 =>
       'Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of CaliDay, version by version, is folded below them.';
 

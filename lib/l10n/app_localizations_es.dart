@@ -3486,6 +3486,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ya no hay amigos: sin servidor solo podían intercambiar un código QR una vez y nada más. La app ya no necesita la cámara ni el Bluetooth.\nTu nombre: tu anfitrión te saluda con él en la pantalla de inicio, y el perfil y el final del entrenamiento lo muestran. Cámbialo en Ajustes → Perfil.\nCuatro ramas nuevas fuera de los cursos: Espalda fuerte, Glúteos, Brazos y hombros y Cardio: 22 ejercicios, cada uno con la animación de Goro. Añádelas a tu propio curso: Cursos → + → Crear tu propio curso.';
 
   @override
+  String get releaseNotes096 =>
+      'Puedes entrenar solo con tus propios cursos: en la lista de cursos bajo + desmarca todos los cursos incluidos; basta con un curso marcado, sea cual sea.\nUn logro se abre a todo el ancho de la pantalla, no solo al ancho de su texto.';
+
+  @override
   String get releaseNotes093 =>
       'Tu propio curso: en la pestaña Cursos toca + y reúne ramas de cualquier curso, elige el anfitrión y ponle un nombre.\nUna rama propia: elige ejercicios y ordénalos, cada uno será una etapa. Las repeticiones, las series, los descansos y los retos los pone la app, como en cualquier rama.\nEn la campana, arriba están las últimas actualizaciones y debajo, plegada, toda la historia de CaliDay versión a versión.';
 

@@ -65,6 +65,13 @@ abstract final class AppTheme {
 
   // ── ThemeData ──────────────────────────────────────────────────────────────
 
+  /// Bottom sheets span the screen (up to 640 px on a tablet or the web). The
+  /// Material default only caps the width, so a sheet of short centred lines
+  /// (an achievement, a rank) shrank to the width of its text.
+  static const _bottomSheetTheme = BottomSheetThemeData(
+    constraints: BoxConstraints.tightFor(width: 640),
+  );
+
   static ThemeData get light => ThemeData(
         useMaterial3: true,
         colorScheme: ColorScheme.fromSeed(
@@ -86,6 +93,7 @@ abstract final class AppTheme {
           ),
           margin: EdgeInsets.zero,
         ),
+        bottomSheetTheme: _bottomSheetTheme,
         filledButtonTheme: FilledButtonThemeData(
           style: FilledButton.styleFrom(
             backgroundColor: brandBlue,
@@ -124,6 +132,7 @@ abstract final class AppTheme {
           ),
           margin: EdgeInsets.zero,
         ),
+        bottomSheetTheme: _bottomSheetTheme,
         filledButtonTheme: FilledButtonThemeData(
           style: FilledButton.styleFrom(
             backgroundColor: brandBlue,

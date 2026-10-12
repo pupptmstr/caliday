@@ -183,7 +183,7 @@ CaliDay supports multiple **courses** (like Duolingo). Each course has its own b
 
 **Progression is global per branch:** `SkillProgress` keys are `branch.name` only (e.g. `"push"`), and `custom_<id>` for an own branch (`SkillProgress.branchKey`; `branchId` is null there, `customBranchId` set). Branches are physical skills — progress is shared across all courses containing that branch.
 **Streak and SP are global.** Enrolled courses are `UserProfile.activeCourseIds`, the one shown now is `activeCourseIndex` (read through the `enrolledCourses` / `activeCourse` getters); while an own course is shown, `activeCustomCourseId` names it (cleared when a built-in one is picked; a stale id falls back to the built-in course).
-Switching courses happens in the Library tab via pill tabs: the enrolled built-in courses, then every own course that is shown (`enrolledCoursesProvider`). An own course's pill carries the own-course mark (`kOwnCourseIcon`, a hand tool, `library/widgets/builder_widgets.dart`) instead of its host's face (owner, 2026-10-10: the host leads Home and the Profile, the pill only says "made by you"). The course list under "+" lists the own courses too, below the built-in ones: a tick like theirs (unticked = `CustomCourse.shown` false: no pill, nothing deleted; a hidden active course falls back to a built-in one) and a pencil that opens the builder (saving there shows the course again). At least one built-in course stays enrolled, as before.
+Switching courses happens in the Library tab via pill tabs: the enrolled built-in courses, then every own course that is shown (`enrolledCoursesProvider`). An own course's pill carries the own-course mark (`kOwnCourseIcon`, a hand tool, `library/widgets/builder_widgets.dart`) instead of its host's face (owner, 2026-10-10: the host leads Home and the Profile, the pill only says "made by you"). The course list under "+" lists the own courses too, below the built-in ones: a tick like theirs (unticked = `CustomCourse.shown` false: no pill, nothing deleted; a hidden active course falls back to the first pill left) and a pencil that opens the builder (saving there shows the course again). **One ticked course of any kind stays** (owner, 2026-10-12, 0.9.6; before, one built-in course always stayed, so nobody could train only their own courses): `activeCourseIds` may be empty, the built-in `activeCourse` is then Calisthenics and `ActiveCourseNotifier` shows the first own course; `enrolledCoursesProvider` is never empty (Calisthenics when no course is left, e.g. the last own course deleted).
 
 ### Progression Branches
 24 branches: 20 in the courses and 4 outside them (appended `BranchId` HiveFields: Evening Stretch 8–11, Morning Routine 12–15, Yoga 16–19, the branches outside the courses 20–23; `CourseId.eveningStretch` is HiveField 2, `CourseId.morningRoutine` 3, `CourseId.yoga` 4). Pull requires a pull-up bar (`requiresEquipment = true`).
@@ -272,7 +272,7 @@ The hero zone (host, streak, SP, rank) is unchanged. Below it a scrollable middl
 | @21 | bool? | healthWorkoutsEnabled |
 | @22 | bool? | healthWeightEnabled |
 | @23 | — | retired: bleDiscoverable (Friends, removed in 0.9.5) — never reuse |
-| @24 | List<int>? | activeCourseIds — CourseId indices; null → [0] (calisthenics) |
+| @24 | List<int>? | activeCourseIds — CourseId indices; null → [0] (calisthenics); empty → no built-in course, only own ones (0.9.6) |
 | @25 | int? | activeCourseIndex — index into activeCourseIds; null → 0 |
 | @26 | String? | lastSeenReleaseVersion — the newest "What's new" version the user has opened; null → none yet (every entry is new). A new user starts at the current version (set by `completeOnboarding`) |
 | @27 | String? | activeCustomCourseId — `CustomCourse.id` of the own course shown now; null → the built-in `activeCourse` |
@@ -738,6 +738,8 @@ Brand tokens are centralised in `lib/core/theme/app_theme.dart` (`abstract final
 | Challenge bg | — | `#5C1A1A` |
 
 Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.cardShadowLight/Dark`.
+
+Bottom sheets span the screen up to 640 px (`bottomSheetTheme`, `BoxConstraints.tightFor(width: 640)`, 0.9.6): the Material default only caps the width, so a sheet of short centred lines shrank to its text.
 
 ### App Icon
 - `assets/icon/icon.png` — 1024×1024 (iOS)

@@ -128,7 +128,8 @@ class UserProfile extends HiveObject {
   @HiveField(18)
   String? displayName;
 
-  /// Indices of enrolled [CourseId]s. null → [0] (calisthenics, legacy users).
+  /// Indices of enrolled [CourseId]s. null → [0] (calisthenics, legacy users);
+  /// empty → none: the user trains only their own courses (0.9.6).
   @HiveField(24)
   List<int>? activeCourseIds;
 
@@ -153,15 +154,17 @@ class UserProfile extends HiveObject {
 
   List<CourseId> get enrolledCourses {
     final ids = activeCourseIds;
-    if (ids == null || ids.isEmpty) return [CourseId.calisthenics];
+    if (ids == null) return [CourseId.calisthenics];
     return ids
         .where((i) => i >= 0 && i < CourseId.values.length)
         .map((i) => CourseId.values[i])
         .toList();
   }
 
+  /// The built-in course shown now; calisthenics when none is enrolled.
   CourseId get activeCourse {
     final courses = enrolledCourses;
+    if (courses.isEmpty) return CourseId.calisthenics;
     final idx = activeCourseIndex ?? 0;
     if (idx < 0 || idx >= courses.length) return courses.first;
     return courses[idx];
