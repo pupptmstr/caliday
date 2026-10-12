@@ -3060,6 +3060,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get widgetDoneLabel => 'Done';
 
   @override
+  String get widgetTimeToTrain => 'Time to train';
+
+  @override
+  String widgetPlanSummary(int count, int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count exercises',
+      one: '$count exercise',
+    );
+    return '$_temp0 · ≈ $minutes min';
+  }
+
+  @override
+  String widgetSpToday(int sp) {
+    return '+$sp SP today';
+  }
+
+  @override
+  String get widgetTodayTitle => 'Today';
+
+  @override
+  String get widgetStreakTitle => 'Streak';
+
+  @override
+  String get widgetRankTitle => 'Rank';
+
+  @override
+  String get widgetRankTop => 'Top rank';
+
+  @override
   String get courseBuilderCreateEntry => 'Create your own course';
 
   @override
@@ -3493,6 +3524,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.\nFour new branches outside the courses: Strong Back, Glutes, Arms & Shoulders and Cardio — 22 exercises, each with Goro’s animation. Add them to your own course: Courses → + → Create your own course.';
 
   @override
+  String get releaseNotes097 =>
+      'New home-screen widgets with Goro: Today (the day\'s plan, the week and the streak, in three sizes), Goro (his face follows your day: he sleeps at night, frowns when your streak is at risk, cheers after a workout), Streak and Rank. Goro takes a new pose every day.\nOn iPhone there are widgets for the lock screen too: the streak, the way to the next rank and today\'s plan.\nA tap on a widget opens its place: the workout, Home, the calendar or the profile.';
+
+  @override
   String get releaseNotes096 =>
       'You can train your own courses only: in the course list under + untick every built-in course — one ticked course of any kind is enough.\nAn achievement opens across the whole width of the screen, not just as wide as its text.\nNew workout sounds, a cue for every moment: get ready, the hold starts, halfway, switch sides, set done, the next exercise, Skala’s challenge, the end. They play over your music instead of stopping it. Settings → Sounds: all, key only or off.';
 
@@ -3534,5 +3569,5 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio.\nA sound for every moment of a workout, over your music.';
+      'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio.\nA sound for every moment of a workout, over your music.\nHome-screen widgets with Goro: Today, Goro, Streak and Rank; on iPhone on the lock screen too.';
 }

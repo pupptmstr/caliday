@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../../core/extensions/achievement_l10n.dart';
 import '../../../core/extensions/build_context_l10n.dart';
 import '../../../core/extensions/exercise_l10n.dart';
+import '../../../core/extensions/growth_l10n.dart';
 import '../../../core/providers/goro_expression_provider.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../data/models/branch_growth.dart';
@@ -677,22 +678,7 @@ class _TodayGrowth extends ConsumerWidget {
         for (final (g, branch) in rows)
           () {
             final exercise = branch.stage(g.toStage);
-            final timed = branch.stage(g.fromStage)?.type == ExerciseType.timed;
-            final change = switch (g.kind) {
-              GrowthKind.stage => l10n.homeGrowthStage(
-                exercise == null ? '' : ExerciseL10n.name(l10n, exercise.id),
-              ),
-              GrowthKind.sets => l10n.homeGrowthSets(g.fromSets, g.toSets),
-              GrowthKind.amount =>
-                timed
-                    ? l10n.homeGrowthSeconds(g.fromAmount, g.toAmount)
-                    : l10n.homeGrowthReps(g.fromAmount, g.toAmount),
-              GrowthKind.rest => l10n.homeGrowthRest(
-                g.fromRestSec,
-                g.toRestSec,
-              ),
-              GrowthKind.challenge => l10n.homeGrowthChallenge,
-            };
+            final change = GrowthL10n.change(l10n, g, branch);
             return InkWell(
               onTap: () => context.push('/branch/${branch.key}'),
               child: Padding(

@@ -3058,6 +3058,37 @@ class AppLocalizationsDe extends AppLocalizations {
   String get widgetDoneLabel => 'Erledigt';
 
   @override
+  String get widgetTimeToTrain => 'Zeit fürs Training';
+
+  @override
+  String widgetPlanSummary(int count, int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count Übungen',
+      one: '$count Übung',
+    );
+    return '$_temp0 · ≈ $minutes Min.';
+  }
+
+  @override
+  String widgetSpToday(int sp) {
+    return '+$sp SP heute';
+  }
+
+  @override
+  String get widgetTodayTitle => 'Heute';
+
+  @override
+  String get widgetStreakTitle => 'Serie';
+
+  @override
+  String get widgetRankTitle => 'Rang';
+
+  @override
+  String get widgetRankTop => 'Höchster Rang';
+
+  @override
   String get courseBuilderCreateEntry => 'Eigenen Kurs erstellen';
 
   @override
@@ -3485,6 +3516,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Freunde gibt es nicht mehr: Ohne Server konnten sie nur einmal einen QR-Code tauschen, mehr nicht. Die App braucht keine Kamera und kein Bluetooth mehr.\nDein Name: Dein Host begrüßt dich damit auf dem Startbildschirm, Profil und Trainingsabschluss zeigen ihn. Ändern unter Einstellungen → Profil.\nVier neue Zweige außerhalb der Kurse: Starker Rücken, Gesäß, Arme & Schultern und Cardio — 22 Übungen, jede mit Goros Animation. Nimm sie in deinen eigenen Kurs auf: Kurse → + → Eigenen Kurs erstellen.';
 
   @override
+  String get releaseNotes097 =>
+      'Neue Widgets mit Goro für den Startbildschirm: Heute (der Plan des Tages, die Woche und die Serie, in drei Größen), Goro (sein Gesicht folgt deinem Tag: nachts schläft er, er runzelt die Stirn, wenn deine Serie in Gefahr ist, und freut sich nach dem Training), Serie und Rang. Jeden Tag zeigt sich Goro in einer neuen Pose.\nAuf dem iPhone gibt es auch Widgets für den Sperrbildschirm: die Serie, den Weg zum nächsten Rang und den Plan für heute.\nEin Tipp auf ein Widget öffnet seinen Ort: das Training, den Startbildschirm der App, den Kalender oder das Profil.';
+
+  @override
   String get releaseNotes096 =>
       'Du kannst nur mit deinen eigenen Kursen trainieren: Entferne in der Kursliste unter + die Haken bei allen eingebauten Kursen — ein angehakter Kurs, egal welcher, genügt.\nEin Erfolg öffnet sich über die ganze Bildschirmbreite, nicht nur so breit wie sein Text.\nNeue Trainingstöne, ein eigener für jeden Moment: Mach dich bereit, das Halten beginnt, Halbzeit, Seitenwechsel, Satz geschafft, die nächste Übung, Skalas Herausforderung, das Ende. Sie klingen über deiner Musik, statt sie anzuhalten. Einstellungen → Töne: alle, wichtige oder aus.';
 
@@ -3526,5 +3561,5 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.\nVier Zweige außerhalb der Kurse: Rücken, Gesäß, Arme und Schultern, Cardio.\nEin eigener Ton für jeden Moment des Trainings, über deiner Musik.';
+      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.\nVier Zweige außerhalb der Kurse: Rücken, Gesäß, Arme und Schultern, Cardio.\nEin eigener Ton für jeden Moment des Trainings, über deiner Musik.\nWidgets mit Goro: Heute, Goro, Serie und Rang; auf dem iPhone auch auf dem Sperrbildschirm.';
 }

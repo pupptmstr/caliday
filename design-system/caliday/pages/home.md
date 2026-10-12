@@ -48,7 +48,7 @@ The user opens it every day. It must:
 └────────────────────────────────┘
 ```
 
-**The middle** is the owner's pick (2026-10-10) among the options of DEV_NOTES § Next ideas 3: before the first workout of the day the host's line (a speech bubble with its tail pointing up at the host in the hero — never a second portrait of the host), an unlocked challenge (tertiary card, next stage's animation, norm, Skala, "Accept challenge"), the next goals and the course's branches; after it the last three workouts and how the branches grew today. No week row: the calendar is one tap on the streak chip. Cards have the shadow of BRAND.md. Details: ARCHITECTURE § Home: the middle and the plan.
+**The middle** is the owner's pick (2026-10-10) among the options of `internal_docs/specs/done/next-ideas-2026-10-10.md` § 3: before the first workout of the day the host's line (a speech bubble with its tail pointing up at the host in the hero — never a second portrait of the host), an unlocked challenge (tertiary card, next stage's animation, norm, Skala, "Accept challenge"), the next goals and the course's branches; after it the last three workouts and how the branches grew today. No week row: the calendar is one tap on the streak chip. Cards have the shadow of BRAND.md. Details: `internal_docs/reference/screens.md` § Home: the middle and the plan.
 
 ---
 

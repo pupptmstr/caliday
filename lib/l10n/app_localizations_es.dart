@@ -3069,6 +3069,37 @@ class AppLocalizationsEs extends AppLocalizations {
   String get widgetDoneLabel => 'Hecho';
 
   @override
+  String get widgetTimeToTrain => 'Hora de entrenar';
+
+  @override
+  String widgetPlanSummary(int count, int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count ejercicios',
+      one: '$count ejercicio',
+    );
+    return '$_temp0 · ≈ $minutes min';
+  }
+
+  @override
+  String widgetSpToday(int sp) {
+    return '+$sp SP hoy';
+  }
+
+  @override
+  String get widgetTodayTitle => 'Hoy';
+
+  @override
+  String get widgetStreakTitle => 'Racha';
+
+  @override
+  String get widgetRankTitle => 'Rango';
+
+  @override
+  String get widgetRankTop => 'Rango máximo';
+
+  @override
   String get courseBuilderCreateEntry => 'Crear tu propio curso';
 
   @override
@@ -3496,6 +3527,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ya no hay amigos: sin servidor solo podían intercambiar un código QR una vez y nada más. La app ya no necesita la cámara ni el Bluetooth.\nTu nombre: tu anfitrión te saluda con él en la pantalla de inicio, y el perfil y el final del entrenamiento lo muestran. Cámbialo en Ajustes → Perfil.\nCuatro ramas nuevas fuera de los cursos: Espalda fuerte, Glúteos, Brazos y hombros y Cardio: 22 ejercicios, cada uno con la animación de Goro. Añádelas a tu propio curso: Cursos → + → Crear tu propio curso.';
 
   @override
+  String get releaseNotes097 =>
+      'Nuevos widgets con Goro para la pantalla de inicio: Hoy (el plan del día, la semana y la racha, en tres tamaños), Goro (su cara sigue tu día: duerme de noche, frunce el ceño cuando tu racha está en peligro y se alegra después de entrenar), Racha y Rango. Cada día Goro aparece en una pose nueva.\nEn el iPhone también hay widgets para la pantalla de bloqueo: la racha, el camino al siguiente rango y el plan de hoy.\nAl tocar un widget se abre su lugar: el entrenamiento, el inicio, el calendario o el perfil.';
+
+  @override
   String get releaseNotes096 =>
       'Puedes entrenar solo con tus propios cursos: en la lista de cursos bajo + desmarca todos los cursos incluidos; basta con un curso marcado, sea cual sea.\nUn logro se abre a todo el ancho de la pantalla, no solo al ancho de su texto.\nSonidos nuevos para el entrenamiento, uno para cada momento: prepárate, empieza el aguante, la mitad, cambio de lado, serie hecha, el siguiente ejercicio, el reto de Skala, el final. Suenan sobre tu música en lugar de pararla. Ajustes → Sonidos: todos, principales o ninguno.';
 
@@ -3537,5 +3572,5 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.\nSe quitan los amigos; tu anfitrión te saluda por tu nombre.\nCuatro ramas fuera de los cursos: espalda, glúteos, brazos y hombros, cardio.\nUn sonido para cada momento del entrenamiento, sobre tu música.';
+      'Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.\nSe quitan los amigos; tu anfitrión te saluda por tu nombre.\nCuatro ramas fuera de los cursos: espalda, glúteos, brazos y hombros, cardio.\nUn sonido para cada momento del entrenamiento, sobre tu música.\nWidgets con Goro: Hoy, Goro, Racha y Rango; en el iPhone, también en la pantalla de bloqueo.';
 }

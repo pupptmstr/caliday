@@ -8,11 +8,11 @@
 # What works without any store account:
 #   - analyze + test, tag / pubspec version check
 #   - Android APK + AAB signed with your own upload keystore (needs the
-#     ANDROID_* secrets below; the keystore is free to create, see DEV_NOTES)
+#     ANDROID_* secrets below; the keystore is free to create, see internal_docs/reference/platform.md)
 #   - iOS compile check without signing (an unsigned Runner.app, not installable)
 # Needs an Apple Developer account (not set up yet): the signed IPA step.
 # Store uploads (Google Play, TestFlight) are not here at all; they need the
-# accounts first. Setup checklist: internal_docs/DEV_NOTES.md -> "Release builds (CI)".
+# accounts first. Setup checklist: internal_docs/reference/platform.md -> "Release builds (CI)".
 name: Release builds
 
 on:
@@ -30,7 +30,7 @@ concurrency:
 env:
   # Keep in sync with web.yml and the local SDK: pubspec.lock is resolved
   # against the SDK-pinned packages of this Flutter version.
-  FLUTTER_VERSION: 3.41.9
+  FLUTTER_VERSION: 3.47.7
 
 jobs:
   verify:

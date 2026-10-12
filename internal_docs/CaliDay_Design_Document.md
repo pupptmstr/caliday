@@ -5,7 +5,7 @@ _Gamified Home Workouts_
 **Design Document v1.0** | February 2026
 
 > **Status (October 2026):** this is the original design document — the vision as of February 2026, not the current
-> specification. What is implemented, and how, is in `internal_docs/ARCHITECTURE.md`; the plan is its Feature Backlog.
+> specification. What is implemented, and how, is in `internal_docs/reference/`; the plan is `internal_docs/STATUS.md`.
 > Places where the product went another way are marked **[now]**.
 
 ---
@@ -327,7 +327,7 @@ On the first launch the app runs a short survey to calibrate the starting level:
 
 1. "How often do you exercise?" — Never / Sometimes / Regularly
 2. "How many push-ups can you do?" — 0 / 1–5 / 5–15 / 15+
-3. "How big should a workout be?" — Short / Standard / Full (2 / 3 / all skills; was "5 / 10 / 15 minutes" until 0.8.11, see ARCHITECTURE § Workout size)
+3. "How big should a workout be?" — Short / Standard / Full (2 / 3 / all skills; was "5 / 10 / 15 minutes" until 0.8.11, see `reference/progression.md` § Workout size)
 4. "What is your goal?" — General fitness / Push strength / Calisthenics & skills
 5. Notification time selection
 6. First trial set (immediately after onboarding!)
@@ -336,7 +336,7 @@ On the first launch the app runs a short survey to calibrate the starting level:
 
 ## 10. MVP
 
-> **[now]** The version numbers below were renumbered to 0.x while the app is pre-release (v1.0 = first public release). Everything listed under 10.1 and 10.2, plus custom sets, Apple Health / Health Connect, Android and Russian / English localisation from 10.3, is implemented; see the Feature Backlog in `ARCHITECTURE.md`. Open from 10.3: the Apple Watch companion and video demonstrations.
+> **[now]** The version numbers below were renumbered to 0.x while the app is pre-release (v1.0 = first public release). Everything listed under 10.1 and 10.2, plus custom sets, Apple Health / Health Connect, Android and Russian / English localisation from 10.3, is implemented; see `internal_docs/CHANGELOG.md` and `STATUS.md`. Open from 10.3: the Apple Watch companion and video demonstrations.
 
 ### 10.1 MVP v1.0 — First Release
 

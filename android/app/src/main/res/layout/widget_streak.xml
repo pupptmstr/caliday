@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/widget_root" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@drawable/widget_bg_ember" android:padding="12dp"
+    android:orientation="vertical" android:gravity="center_horizontal">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical">
+        <ImageView android:layout_width="13dp" android:layout_height="13dp" android:src="@drawable/ic_widget_flame_s"
+            android:contentDescription="@null" />
+        <TextView android:id="@+id/streak_title" style="@style/WidgetText.Black" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="4dp"
+            android:textSize="11.5sp" android:textAllCaps="true" android:letterSpacing="0.06" android:textColor="#FF9500" />
+            <ImageView android:id="@+id/snow_0" android:layout_width="13dp" android:layout_height="13dp"
+                android:layout_marginStart="2dp" android:src="@drawable/ic_widget_snow" android:contentDescription="@null" />
+            <ImageView android:id="@+id/snow_1" android:layout_width="13dp" android:layout_height="13dp"
+                android:layout_marginStart="2dp" android:src="@drawable/ic_widget_snow" android:contentDescription="@null" />
+            <ImageView android:id="@+id/snow_2" android:layout_width="13dp" android:layout_height="13dp"
+                android:layout_marginStart="2dp" android:src="@drawable/ic_widget_snow" android:contentDescription="@null" />
+    </LinearLayout>
+    <FrameLayout android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
+    <TextView android:id="@+id/streak_number" style="@style/WidgetText.Black" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:textSize="50sp" android:textColor="#FF9500" android:text="0"
+        android:shadowColor="#8CFF9500" android:shadowRadius="18" />
+    <TextView android:id="@+id/streak_unit" style="@style/WidgetText" android:layout_width="wrap_content"
+        android:layout_height="wrap_content" android:textSize="14sp" android:alpha="0.8" />
+    <FrameLayout android:layout_width="1dp" android:layout_height="0dp" android:layout_weight="1" />
+    <include layout="@layout/widget_week_small" />
+</LinearLayout>

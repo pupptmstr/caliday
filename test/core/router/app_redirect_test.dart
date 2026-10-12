@@ -38,8 +38,17 @@ void main() {
       expect(redirect('/onboarding/step2', done: true), '/home');
     });
 
-    test('the Home Screen widget opens the workout', () {
+    test('each home-screen widget opens its place', () {
       expect(redirect('caliday://workout', done: true), '/workout');
+      expect(redirect('caliday://home', done: true), '/home');
+      expect(redirect('caliday://calendar', done: true), '/calendar');
+      expect(redirect('caliday://profile', done: true), '/profile');
+    });
+
+    test('a widget link before the onboarding still waits for it', () {
+      for (final link in ['caliday://home', 'caliday://calendar', 'caliday://profile']) {
+        expect(redirect(link, done: false), '/onboarding');
+      }
     });
 
     test('an old friend QR code opened by the system camera opens Home', () {

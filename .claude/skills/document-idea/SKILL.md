@@ -1,70 +1,42 @@
 ---
 name: document-idea
-description: Workflow for documenting a new product idea or feature proposal in CaliDay. Use when a new idea appears — records the idea in ARCHITECTURE.md backlog and elaborates implementation design in DEV_NOTES.md.
+description: Workflow for documenting a new product idea or feature proposal in CaliDay. Use when a new idea appears — records the idea in internal_docs/STATUS.md and, when it needs planning, a spec file in internal_docs/specs/.
 ---
 
 # Document Idea Workflow
 
-**All documentation must be written in English** (ARCHITECTURE.md, DEV_NOTES.md, specs, memory).
+**All documentation is written in English** (the notes, specs, memory).
 
 Ideas are recorded in two places with different levels of detail:
-- **ARCHITECTURE.md** — the idea itself (one line in the backlog)
-- **DEV_NOTES.md** — implementation elaboration (detailed spec)
+- **`internal_docs/STATUS.md` § Ideas, open** — the idea itself, one row with a link
+- **`internal_docs/specs/<idea>.md`** — the elaboration, when the idea needs planning
 
-## Step 1 — Add to ARCHITECTURE.md backlog
+## Step 1 — A row in STATUS.md
 
-Find the "Feature Backlog" section in `internal_docs/ARCHITECTURE.md` and add a row to the table:
+Add a row to the "Ideas, open" table: the idea in a few words, who asked and when, and the link to its spec (or "—"). Parked ideas go under "Parked, do not propose"; their research, if any, to `internal_docs/research/`.
+
+## Step 2 — A spec in specs/ (if the idea needs planning)
+
+One file per idea, `internal_docs/specs/<short-name>.md`, starting with the line
+`> Part of the project notes — the index is [internal_docs/README.md](../README.md).`
 
 ```markdown
-| v?.? | Feature name | 💡 idea |
+# <Idea> — idea / designed (who, date)
+
+**The wish:** [what and why, in the owner's words]
+
+**Options / design:** [how it could look and work; what is decided and what is open for the owner]
+
+**Technical notes:** [data, packages to check with Context7, what it touches, risks]
+
+**Done when:** [what the owner will see]
 ```
 
-Statuses:
-- `💡 idea` — idea, not yet elaborated
-- `📐 designed` — has a detailed spec in DEV_NOTES
-- `🔒 waiting` — waiting for assets, decisions, or external conditions
-- `✅` — implemented
+Don't describe what is obvious from the code or already in `internal_docs/reference/`. Focus on non-trivial decisions, UX scenarios, dependencies and the questions for the owner.
 
-## Step 2 — Create a spec in DEV_NOTES.md
+## After implementing an idea
 
-If the idea is elaborated or requires planning — add a section to `internal_docs/DEV_NOTES.md`
-in the "Active Specs" section.
-
-Spec structure:
-```markdown
-### v?.? — Feature name — designed / idea
-
-#### Concept
-[1-2 paragraphs: what it is, why, key principles]
-
-#### UX / Mechanics
-[How it looks and works for the user]
-
-#### Technical Tasks
-| # | Task |
-|---|------|
-| 1 | ... |
-
-#### Technical Details
-[Data models, algorithms, packages]
-
-#### When to tackle
-[Conditions/priority]
-```
-
-Don't describe what is obvious from the code or already in ARCHITECTURE.md.
-Focus on: non-trivial technical decisions, UX scenarios, dependencies.
-
-## Step 3 — Update status in ARCHITECTURE.md
-
-If the elaboration level increased (idea → designed):
-```markdown
-| v?.? | Feature name | 📐 designed |
-```
-
-## After implementing a feature
-
-When a feature is implemented:
-1. In ARCHITECTURE.md: status → `✅`, add final decisions to relevant sections
-2. In DEV_NOTES.md: remove spec from "Active Specs", add entry to "Change History"
-3. Run the `pre-commit` skill
+1. The spec moves to `internal_docs/specs/done/` with a line on top saying what was built and where it is described.
+2. STATUS.md: the row leaves "Ideas, open".
+3. The final decisions go into the `reference/` files and `decisions/README.md`; the version's entry in `CHANGELOG.md` tells what was done.
+4. Run the `pre-commit` skill.

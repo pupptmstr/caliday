@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/widget_root" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@drawable/widget_bg_brand" android:padding="12dp">
+    <ImageView android:id="@+id/widget_goro" style="@style/WidgetGoro" android:layout_width="match_parent"
+        android:layout_height="match_parent" android:layout_marginTop="26dp" android:layout_marginBottom="32dp"
+        android:src="@drawable/goro_pose_flag" />
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical">
+        <TextView android:id="@+id/chip_streak" style="@style/WidgetChip.Streak" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" />
+        <FrameLayout android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
+        <TextView android:id="@+id/chip_freeze" style="@style/WidgetChip.Freeze" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="0" android:visibility="gone" />
+    </LinearLayout>
+    <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom">
+        <TextView android:id="@+id/caption_plan" style="@style/WidgetText" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:textSize="12.5sp" android:maxLines="2" />
+        <LinearLayout android:id="@+id/caption_done" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical" android:visibility="gone">
+            <ImageView android:layout_width="15dp" android:layout_height="15dp" android:src="@drawable/ic_widget_check"
+                android:contentDescription="@null" />
+            <TextView android:id="@+id/caption_done_text" style="@style/WidgetText" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginStart="5dp" android:textSize="12.5sp" />
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>

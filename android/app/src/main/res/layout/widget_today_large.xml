@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/widget_root" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@drawable/widget_bg_brand" android:padding="14dp"
+    android:orientation="vertical">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical">
+        <ImageView android:id="@+id/widget_goro" style="@style/WidgetGoro" android:layout_width="104dp"
+            android:layout_height="104dp" android:src="@drawable/goro_pose_flag" />
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+            android:layout_marginStart="10dp" android:orientation="vertical">
+            <TextView android:id="@+id/course_name" style="@style/WidgetText.Caps" android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView android:id="@+id/today_title" style="@style/WidgetText.Black" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="3dp" android:textSize="24sp" />
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_marginTop="6dp" android:orientation="horizontal">
+                <TextView android:id="@+id/chip_streak" style="@style/WidgetChip.Streak" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" />
+                <TextView android:id="@+id/chip_sp" style="@style/WidgetChip.SP" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="0" />
+                <TextView android:id="@+id/chip_freeze" style="@style/WidgetChip.Freeze" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="0" android:visibility="gone" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+    <include layout="@layout/widget_week" />
+    <ImageView android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginTop="8dp"
+        android:background="#33FFFFFF" android:contentDescription="@null" />
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+        android:layout_marginTop="8dp">
+        <LinearLayout android:id="@+id/plan_block" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:visibility="gone">
+            <TextView android:id="@+id/plan_summary" style="@style/WidgetText.Caps" android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <LinearLayout android:id="@+id/plan_row_0" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" android:orientation="horizontal" android:gravity="center_vertical"
+                android:visibility="gone">
+                <ImageView android:layout_width="6dp" android:layout_height="6dp" android:src="@drawable/widget_bullet"
+                    android:contentDescription="@null" />
+                <TextView android:id="@+id/plan_name_0" style="@style/WidgetText" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp"
+                    android:textSize="13.5sp" />
+                <TextView android:id="@+id/plan_value_0" style="@style/WidgetText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="13sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/plan_row_1" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" android:orientation="horizontal" android:gravity="center_vertical"
+                android:visibility="gone">
+                <ImageView android:layout_width="6dp" android:layout_height="6dp" android:src="@drawable/widget_bullet"
+                    android:contentDescription="@null" />
+                <TextView android:id="@+id/plan_name_1" style="@style/WidgetText" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp"
+                    android:textSize="13.5sp" />
+                <TextView android:id="@+id/plan_value_1" style="@style/WidgetText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="13sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/plan_row_2" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" android:orientation="horizontal" android:gravity="center_vertical"
+                android:visibility="gone">
+                <ImageView android:layout_width="6dp" android:layout_height="6dp" android:src="@drawable/widget_bullet"
+                    android:contentDescription="@null" />
+                <TextView android:id="@+id/plan_name_2" style="@style/WidgetText" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp"
+                    android:textSize="13.5sp" />
+                <TextView android:id="@+id/plan_value_2" style="@style/WidgetText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="13sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/plan_row_3" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" android:orientation="horizontal" android:gravity="center_vertical"
+                android:visibility="gone">
+                <ImageView android:layout_width="6dp" android:layout_height="6dp" android:src="@drawable/widget_bullet"
+                    android:contentDescription="@null" />
+                <TextView android:id="@+id/plan_name_3" style="@style/WidgetText" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp"
+                    android:textSize="13.5sp" />
+                <TextView android:id="@+id/plan_value_3" style="@style/WidgetText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="13sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/plan_row_4" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" android:orientation="horizontal" android:gravity="center_vertical"
+                android:visibility="gone">
+                <ImageView android:layout_width="6dp" android:layout_height="6dp" android:src="@drawable/widget_bullet"
+                    android:contentDescription="@null" />
+                <TextView android:id="@+id/plan_name_4" style="@style/WidgetText" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp"
+                    android:textSize="13.5sp" />
+                <TextView android:id="@+id/plan_value_4" style="@style/WidgetText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="13sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+            <TextView android:id="@+id/plan_more" style="@style/WidgetText" android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:layout_marginStart="14dp" android:layout_marginTop="4dp"
+                android:textSize="12sp" android:alpha="0.7" android:visibility="gone" />
+        </LinearLayout>
+        <LinearLayout android:id="@+id/done_block" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:visibility="gone">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical">
+                <ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_widget_check"
+                    android:contentDescription="@null" />
+                <TextView android:id="@+id/done_title" style="@style/WidgetText.Black" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:layout_marginStart="7dp" android:textSize="17sp" />
+            </LinearLayout>
+            <TextView android:id="@+id/sp_today" style="@style/WidgetText" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginStart="27dp" android:layout_marginTop="3dp"
+                android:textSize="14sp" android:alpha="0.85" />
+            <TextView android:id="@+id/growth_title" style="@style/WidgetText.Caps" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:layout_marginTop="8dp" android:visibility="gone" />
+            <LinearLayout android:id="@+id/growth_row_0" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" android:orientation="horizontal" android:gravity="center_vertical"
+                android:visibility="gone">
+                <ImageView android:layout_width="6dp" android:layout_height="6dp" android:src="@drawable/widget_bullet"
+                    android:contentDescription="@null" />
+                <TextView android:id="@+id/growth_name_0" style="@style/WidgetText" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp"
+                    android:textSize="13.5sp" />
+                <TextView android:id="@+id/growth_value_0" style="@style/WidgetText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="13sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/growth_row_1" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" android:orientation="horizontal" android:gravity="center_vertical"
+                android:visibility="gone">
+                <ImageView android:layout_width="6dp" android:layout_height="6dp" android:src="@drawable/widget_bullet"
+                    android:contentDescription="@null" />
+                <TextView android:id="@+id/growth_name_1" style="@style/WidgetText" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp"
+                    android:textSize="13.5sp" />
+                <TextView android:id="@+id/growth_value_1" style="@style/WidgetText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="13sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/growth_row_2" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" android:orientation="horizontal" android:gravity="center_vertical"
+                android:visibility="gone">
+                <ImageView android:layout_width="6dp" android:layout_height="6dp" android:src="@drawable/widget_bullet"
+                    android:contentDescription="@null" />
+                <TextView android:id="@+id/growth_name_2" style="@style/WidgetText" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp"
+                    android:textSize="13.5sp" />
+                <TextView android:id="@+id/growth_value_2" style="@style/WidgetText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="13sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+
+            <LinearLayout android:id="@+id/growth_row_3" android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="5dp" android:orientation="horizontal" android:gravity="center_vertical"
+                android:visibility="gone">
+                <ImageView android:layout_width="6dp" android:layout_height="6dp" android:src="@drawable/widget_bullet"
+                    android:contentDescription="@null" />
+                <TextView android:id="@+id/growth_name_3" style="@style/WidgetText" android:layout_width="0dp"
+                    android:layout_height="wrap_content" android:layout_weight="1" android:layout_marginStart="8dp"
+                    android:textSize="13.5sp" />
+                <TextView android:id="@+id/growth_value_3" style="@style/WidgetText" android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="13sp"
+                    android:alpha="0.8" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView android:id="@+id/train_label" style="@style/WidgetText.Black" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:textSize="17sp" android:visibility="gone" />
+    </FrameLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView android:id="@+id/rank_goal" style="@style/WidgetText.Black" android:layout_width="0dp"
+            android:layout_height="wrap_content" android:layout_weight="1" android:textSize="12sp" />
+        <TextView android:id="@+id/rank_name" style="@style/WidgetText" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:layout_marginStart="6dp" android:textSize="12sp"
+            android:alpha="0.75" />
+    </LinearLayout>
+    <ProgressBar android:id="@+id/rank_bar" style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent" android:layout_height="7dp" android:layout_marginTop="6dp"
+        android:max="1000" android:progressDrawable="@drawable/widget_bar" />
+</LinearLayout>

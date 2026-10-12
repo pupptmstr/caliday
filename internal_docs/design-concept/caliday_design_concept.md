@@ -61,7 +61,7 @@ Goro is the gorilla mascot of the CaliDay app. The central brand character.
 | **Bruno** | Exercise demonstrator | Calm, technical | Bear | ❌ Dropped in that role (2026-10-08): stage previews will play Goro's animations |
 | **Rex** | Streak motivator | Energetic, hyperactive | Small monkey, flame | 🔲 Deferred |
 
-**Course hosts (decided 2026-10-08):** every course has its own host — static art in 2–3 poses, like Skala — on the course cards, the workout summary of that course and its achievements. Goro stays the coach (Home, notifications) and performs every exercise animation. Details and the Skala redraw brief: `internal_docs/DEV_NOTES.md` § Course hosts.
+**Course hosts (decided 2026-10-08):** every course has its own host — static art in 2–3 poses, like Skala — on the course cards, the workout summary of that course and its achievements. Goro stays the coach (Home, notifications) and performs every exercise animation. Details and the Skala redraw brief: `internal_docs/specs/done/big-features-roadmap.md` § Course hosts.
 
 **Skala — details (v1.1) ✅ Ready:**
 Appears on the Challenge screen. Visually larger and more monumental than Goro — commands respect.
@@ -387,7 +387,7 @@ The files are in `assets/goro/` and `assets/skala/` (the designer's delivery not
 
 ### Exercise animations — delivered
 
-Every exercise has an animation (since 0.9.2: the pigeon pose from above, 90/90 from the front): **126 Lottie files in `assets/animations/`** for 133 exercises (some are shared; the 19 of Evening Stretch were added in 0.8.20, the 22 of Morning Routine in 0.9.0, the 18 of Yoga in 0.9.1). The list of files per exercise is in `ARCHITECTURE.md` → Exercise Catalog. The character is Goro in all of them; part of the set was drawn by the designer, the rest is generated with `tools/lottie` (see `ARCHITECTURE.md` → Lottie Animation Tooling).
+Every exercise has an animation (since 0.9.2: the pigeon pose from above, 90/90 from the front): **126 Lottie files in `assets/animations/`** for 133 exercises (some are shared; the 19 of Evening Stretch were added in 0.8.20, the 22 of Morning Routine in 0.9.0, the 18 of Yoga in 0.9.1). The list of files per exercise is in `internal_docs/reference/courses.md` → Exercise Catalog. The character is Goro in all of them; part of the set was drawn by the designer, the rest is generated with `tools/lottie` (see `internal_docs/reference/tooling.md`).
 
 ### Home screen widget — delivered
 

@@ -1121,6 +1121,30 @@
   "notificationRankAtRiskTitle": "Rang in Gefahr! ⚠️",
   "notificationRankAtRiskBody": "14 Tage ohne Training — dein Rang beginnt bald zu sinken. Komm zurück!",
   "widgetDoneLabel": "Erledigt",
+  "widgetTimeToTrain": "Zeit fürs Training",
+  "widgetPlanSummary": "{count, plural, one{{count} Übung} other{{count} Übungen}} · ≈ {minutes} Min.",
+  "@widgetPlanSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "widgetSpToday": "+{sp} SP heute",
+  "@widgetSpToday": {
+    "placeholders": {
+      "sp": {
+        "type": "int"
+      }
+    }
+  },
+  "widgetTodayTitle": "Heute",
+  "widgetStreakTitle": "Serie",
+  "widgetRankTitle": "Rang",
+  "widgetRankTop": "Höchster Rang",
   "courseBuilderCreateEntry": "Eigenen Kurs erstellen",
   "courseBuilderCreateEntryDesc": "Wähle Zweige aus allen Kursen und außerhalb davon oder baue eigene aus Übungen",
   "courseBuilderNewTitle": "Neuer Kurs",
@@ -1444,6 +1468,7 @@
   "whatsNewHistory": "Versionsverlauf",
   "releaseNotes094": "Deine eigenen Kurse stehen jetzt in der Kursliste unter +: Entferne den Haken, um einen Kurs oben auszublenden (er bleibt erhalten), der Stift öffnet ihn zum Bearbeiten.\nEin eigener Kurs trägt oben ein Werkzeug-Zeichen statt des Gesichts seines Hosts.\nEin Erfolg, der noch vor dir liegt: Sein Host hält ihn jetzt in den Händen, eine graue Medaille mit Schloss.\n„Über die App“: Tippe auf Goro, er hat ein paar neue Posen.\nStartbildschirm: Vor dem ersten Training des Tages sagt dein Host ein paar Worte (jeder seine eigenen, neue bei jedem Öffnen und auf Tippen), darunter stehen deine nächsten Ziele (der nächste Rang, der nächste Erfolg, eine freie Challenge, die du direkt hier startest) und die Zweige des Kurses.\nDanach zeigt der Startbildschirm deine letzten Trainings und was heute gewachsen ist: mehr Wiederholungen, ein Satz, weniger Pause, eine neue Stufe.\nDer Pfeil am Trainingsknopf klappt den Plan des Tages auf, Goro zeigt jede Übung.\nGoros Animationen überall, wo eine Übung genannt wird: der Weg eines Zweigs, der Tab „Kurse“, die Baukästen, gespeicherte Trainings, der Verlauf, die Pause vor der nächsten Übung.",
   "releaseNotes095": "Freunde gibt es nicht mehr: Ohne Server konnten sie nur einmal einen QR-Code tauschen, mehr nicht. Die App braucht keine Kamera und kein Bluetooth mehr.\nDein Name: Dein Host begrüßt dich damit auf dem Startbildschirm, Profil und Trainingsabschluss zeigen ihn. Ändern unter Einstellungen → Profil.\nVier neue Zweige außerhalb der Kurse: Starker Rücken, Gesäß, Arme & Schultern und Cardio — 22 Übungen, jede mit Goros Animation. Nimm sie in deinen eigenen Kurs auf: Kurse → + → Eigenen Kurs erstellen.",
+  "releaseNotes097": "Neue Widgets mit Goro für den Startbildschirm: Heute (der Plan des Tages, die Woche und die Serie, in drei Größen), Goro (sein Gesicht folgt deinem Tag: nachts schläft er, er runzelt die Stirn, wenn deine Serie in Gefahr ist, und freut sich nach dem Training), Serie und Rang. Jeden Tag zeigt sich Goro in einer neuen Pose.\nAuf dem iPhone gibt es auch Widgets für den Sperrbildschirm: die Serie, den Weg zum nächsten Rang und den Plan für heute.\nEin Tipp auf ein Widget öffnet seinen Ort: das Training, den Startbildschirm der App, den Kalender oder das Profil.",
   "releaseNotes096": "Du kannst nur mit deinen eigenen Kursen trainieren: Entferne in der Kursliste unter + die Haken bei allen eingebauten Kursen — ein angehakter Kurs, egal welcher, genügt.\nEin Erfolg öffnet sich über die ganze Bildschirmbreite, nicht nur so breit wie sein Text.\nNeue Trainingstöne, ein eigener für jeden Moment: Mach dich bereit, das Halten beginnt, Halbzeit, Seitenwechsel, Satz geschafft, die nächste Übung, Skalas Herausforderung, das Ende. Sie klingen über deiner Musik, statt sie anzuhalten. Einstellungen → Töne: alle, wichtige oder aus.",
   "releaseNotes093": "Dein eigener Kurs: Tippe im Tab „Kurse“ auf + und stell Zweige aus allen Kursen zusammen, wähle den Host und gib dem Kurs einen Namen.\nEin eigener Zweig: Wähle Übungen und bring sie in eine Reihenfolge, jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges legt die App fest, wie in jedem Zweig.\nUnter der Glocke stehen die neuesten Updates oben, darunter ist die ganze Geschichte von CaliDay Version für Version eingeklappt.",
   "releaseHistory01": "Die erste Version: kurze tägliche Trainings, SP-Punkte, Serien, Erinnerungen und eine Ersteinrichtung.\nFünf Skills: Liegestütze, Rumpf, Klimmzüge, Beine und Balance; das Training wechselt sie Tag für Tag ab.\nDer Weg eines Skills: alle Stufen auf einem Bildschirm und eine Challenge, um früher weiterzukommen.\nErfolge, zusätzliche Trainings am selben Tag und ein dunkles Design.\nRussisch und Englisch.\nGoro zeigt jede Liegestütz-Stufe in einer Animation.",
@@ -1454,5 +1479,5 @@
   "releaseHistory06": "Die Übungsbibliothek: alle Übungen, mit Suche und Filtern.\nTippe im Profil auf Serie, Rang oder Serienschutz, um zu sehen, was sie bedeuten.",
   "releaseHistory07": "Eigene Trainings: Wähle Übungen und speichere sie als Routine oder starte eine schnelle nach Schwerpunkt.\nAnimationen für die Balance-Stufen.\nDie Datenschutzerklärung und die Nutzungsbedingungen.",
   "releaseHistory08": "Die Werte auf dem Startbildschirm öffnen Kalender, Verlauf und Ränge; ein Trainingskalender.\nEin Rang sinkt nach langen Pausen und kommt mit dem Training zurück.\nCaliDay im Browser: die Web-Version.\nAnimationen für jede Übung der ersten Kurse.\nÜbungen auf Zeit starten nach einem kurzen Countdown von selbst; Übungen für eine Seite laufen auf beiden.\nTrainings sind Kurz, Standard oder Voll, mit einer Zeitschätzung, die dein Tempo lernt.\n„Was ist neu“ unter der Glocke im Profil; Deutsch und Spanisch.\nJeder Skill wächst einmal am Tag, in jedem Training.\nEin neuer Kurs, „Dehnen am Abend“, und ein Host für jeden Kurs.",
-  "releaseHistory09": "Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.\nVier Zweige außerhalb der Kurse: Rücken, Gesäß, Arme und Schultern, Cardio.\nEin eigener Ton für jeden Moment des Trainings, über deiner Musik."
+  "releaseHistory09": "Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.\nVier Zweige außerhalb der Kurse: Rücken, Gesäß, Arme und Schultern, Cardio.\nEin eigener Ton für jeden Moment des Trainings, über deiner Musik.\nWidgets mit Goro: Heute, Goro, Serie und Rang; auf dem iPhone auch auf dem Sperrbildschirm."
 }

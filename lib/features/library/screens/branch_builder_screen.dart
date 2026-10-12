@@ -204,10 +204,8 @@ class _BranchBuilderScreenState extends ConsumerState<BranchBuilderScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 16),
             sliver: SliverReorderableList(
               itemCount: stages.length,
-              onReorder: (from, to) => setState(() {
-                if (to > from) to -= 1;
-                _ids.insert(to, _ids.removeAt(from));
-              }),
+              onReorderItem: (from, to) =>
+                  setState(() => _ids.insert(to, _ids.removeAt(from))),
               itemBuilder: (_, i) => _StageTile(
                 key: ValueKey(stages[i].id),
                 index: i,

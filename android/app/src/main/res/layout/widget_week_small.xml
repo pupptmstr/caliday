@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal">
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+        android:orientation="vertical" android:gravity="center_horizontal">
+        <ImageView android:id="@+id/week_dot_0" android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/widget_dot_off" android:contentDescription="@null" />
+        <TextView android:id="@+id/week_day_0" style="@style/WidgetText" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textSize="8sp" android:alpha="0.9" />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+        android:orientation="vertical" android:gravity="center_horizontal">
+        <ImageView android:id="@+id/week_dot_1" android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/widget_dot_off" android:contentDescription="@null" />
+        <TextView android:id="@+id/week_day_1" style="@style/WidgetText" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textSize="8sp" android:alpha="0.9" />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+        android:orientation="vertical" android:gravity="center_horizontal">
+        <ImageView android:id="@+id/week_dot_2" android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/widget_dot_off" android:contentDescription="@null" />
+        <TextView android:id="@+id/week_day_2" style="@style/WidgetText" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textSize="8sp" android:alpha="0.9" />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+        android:orientation="vertical" android:gravity="center_horizontal">
+        <ImageView android:id="@+id/week_dot_3" android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/widget_dot_off" android:contentDescription="@null" />
+        <TextView android:id="@+id/week_day_3" style="@style/WidgetText" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textSize="8sp" android:alpha="0.9" />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+        android:orientation="vertical" android:gravity="center_horizontal">
+        <ImageView android:id="@+id/week_dot_4" android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/widget_dot_off" android:contentDescription="@null" />
+        <TextView android:id="@+id/week_day_4" style="@style/WidgetText" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textSize="8sp" android:alpha="0.9" />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+        android:orientation="vertical" android:gravity="center_horizontal">
+        <ImageView android:id="@+id/week_dot_5" android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/widget_dot_off" android:contentDescription="@null" />
+        <TextView android:id="@+id/week_day_5" style="@style/WidgetText" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textSize="8sp" android:alpha="0.9" />
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1"
+        android:orientation="vertical" android:gravity="center_horizontal">
+        <ImageView android:id="@+id/week_dot_6" android:layout_width="18dp" android:layout_height="18dp"
+            android:src="@drawable/widget_dot_off" android:contentDescription="@null" />
+        <TextView android:id="@+id/week_day_6" style="@style/WidgetText" android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:textSize="8sp" android:alpha="0.9" />
+    </LinearLayout>
+</LinearLayout>

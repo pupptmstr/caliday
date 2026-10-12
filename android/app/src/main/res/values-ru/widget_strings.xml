@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_today_name">Сегодня</string>
+    <string name="widget_today_desc">План на сегодня, серия и неделя.</string>
+    <string name="widget_goro_name">Горо</string>
+    <string name="widget_goro_desc">Настроение Горо следует за твоим днём.</string>
+    <string name="widget_streak_name">Серия</string>
+    <string name="widget_streak_desc">Серия, неделя и заморозки.</string>
+    <string name="widget_rank_name">Ранг</string>
+    <string name="widget_rank_desc">Ранг, SP и путь до следующего.</string>
+</resources>

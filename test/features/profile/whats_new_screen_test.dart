@@ -111,6 +111,7 @@ void main() {
     await tester.tap(find.text('ИСТОРИЯ ВЕРСИЙ'));
     await tester.pumpAndSettle();
     expect(find.text('Версия 0.1'), findsOneWidget);
-    expect(find.text('февраль – март 2026 г.'), findsOneWidget);
+    // intl 0.20.3 (CLDR 47) joins the year and "г." with a narrow no-break space.
+    expect(find.text('февраль – март 2026 г.'), findsOneWidget);
   });
 }

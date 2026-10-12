@@ -9,8 +9,11 @@ All data is stored locally (Hive), no backend, free, no ads.
 
 | Document | Contents |
 |----------|----------|
-| **`internal_docs/ARCHITECTURE.md`** | Tech stack, architecture, data models, Hive typeIds, services, navigation, design system, code style, backlog. **Read at session start.** |
-| **`internal_docs/DEV_NOTES.md`** | Current status, active feature specs, session change history |
+| **`internal_docs/README.md`** | The index of the project notes and the rules that must not break. **Read at session start**, then `STATUS.md` and the `reference/` files the task touches. |
+| `internal_docs/STATUS.md` | The version, what the app has, what waits for the owner, the open ideas |
+| `internal_docs/CHANGELOG.md` | One entry per version: what changed, decisions, non-obvious problems and fixes |
+| `internal_docs/reference/` | overview (stack, structure, conventions, commands), data-hive, courses, progression, workout, screens, platform (notifications, widgets, Health, iOS, Android, web, CI), testing, tooling |
+| `internal_docs/decisions/`, `specs/`, `research/` | Why things are so; one file per active idea (`specs/done/` for finished ones); parked research |
 | **`design-system/caliday/BRAND.md`** | Brand & character reference — Goro, Skala, colors, gradients, animations, anti-patterns. **Read before any UI task.** |
 | `design-system/caliday/MASTER.md` | UX style rules (Vibrant & Block-based), spacing, component specs |
 | `design-system/caliday/pages/` | Per-screen design rules (home.md, profile.md) |
@@ -40,7 +43,7 @@ for library APIs — it may be outdated.
 
 ```bash
 flutter run                       # Run
-flutter test                      # Tests (400+, no device needed — see ARCHITECTURE § Testing)
+flutter test                      # Tests (1160+, no device needed — see internal_docs/reference/testing.md)
 flutter analyze                   # Linter
 dart run build_runner build       # Code generation (Hive adapters)
 dart run flutter_launcher_icons   # Icons
@@ -53,6 +56,7 @@ python3 tools/lottie/frame_sheet.py build/sheet.html --count 8 FILE.json   # Sti
 python3 tools/lottie/thumb_crops.py   # Re-crop the exercise thumbnails after adding or redrawing an animation (a test fails otherwise)
 python3 tools/characters/gen_goro.py  # Goro's fun poses (About) and his locked-achievement pose; gen_hosts.py / gen_skala.py for the hosts and Skala
 python3 tools/sounds/gen_sounds.py   # Regenerate the workout cues (assets/sounds); build_preview.py makes a page to listen to them
+python3 tools/characters/export_widget_art.py   # Goro's faces and poses as PNG for the native home-screen widgets (iOS assets + Android drawable-nodpi)
 ```
 
 ## Code Style
@@ -87,7 +91,7 @@ Agent Skills in `.claude/skills/`. Auto-triggered by context.
 
 Use the `/pre-commit` skill or do manually:
 
-1. **Update `internal_docs/DEV_NOTES.md`** — add entry to "Change History": what was done, which files changed, any non-trivial issues and how they were resolved
-2. **Update `internal_docs/ARCHITECTURE.md`** — if the change affects architectural decisions, models, service APIs, or backlog
+1. **Update `internal_docs/CHANGELOG.md`** — the entry of the branch's version: what changed, the owner's decisions, non-trivial issues and how they were resolved (one entry per version, not per session)
+2. **Update the `internal_docs/reference/` files** the change affects (models and Hive fields, services, routes, platform setup, tests), `decisions/` for a new decision, `STATUS.md` when an idea starts, finishes or is parked
 3. **Update auto-memory** (`MEMORY.md` in `.claude/projects/.../memory/`) — new patterns, key decisions
 4. Only then create the commit

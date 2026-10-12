@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_today_name">Today</string>
+    <string name="widget_today_desc">Today\'s plan, your streak and the week.</string>
+    <string name="widget_goro_name">Goro</string>
+    <string name="widget_goro_desc">Goro\'s mood follows your day.</string>
+    <string name="widget_streak_name">Streak</string>
+    <string name="widget_streak_desc">Your streak, the week and the freezes.</string>
+    <string name="widget_rank_name">Rank</string>
+    <string name="widget_rank_desc">Your rank, SP and the way to the next one.</string>
+</resources>
