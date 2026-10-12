@@ -19,6 +19,7 @@ All data is stored locally (Hive), no backend, free, no ads.
 | `design-system/caliday/pages/` | Per-screen design rules (home.md, profile.md) |
 | `internal_docs/CaliDay_Design_Document.md` | Product design document |
 | `internal_docs/tz_designer.md` | Brief for the Lottie animations (status per branch, how they are generated) |
+| `site/` | The public landing page (template + strings per language), rendered by `tools/site/build_site.py` into the root of the GitHub Pages site |
 | `docs/` | Public legal pages (Privacy Policy, Terms of Use) published to GitHub Pages — URLs are referenced from the app and store listings |
 | `internal_docs/design-concept/caliday_design_concept.md` | Goro mascot design, colors, icons |
 
@@ -57,6 +58,8 @@ python3 tools/lottie/thumb_crops.py   # Re-crop the exercise thumbnails after ad
 python3 tools/characters/gen_goro.py  # Goro's fun poses (About) and his locked-achievement pose; gen_hosts.py / gen_skala.py for the hosts and Skala
 python3 tools/sounds/gen_sounds.py   # Regenerate the workout cues (assets/sounds); build_preview.py makes a page to listen to them
 python3 tools/characters/export_widget_art.py   # Goro's faces and poses as PNG for the native home-screen widgets (iOS assets + Android drawable-nodpi)
+python3 tools/site/build_site.py build/site_preview   # Render the landing page (site/, four languages); the caliday-site launch config serves it; CI renders it into the Pages site
+python3 tools/site/make_og.py   # Redraw the landing page's link-preview cards (site/og-<lang>.png)
 ```
 
 ## Code Style

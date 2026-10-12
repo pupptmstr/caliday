@@ -2,7 +2,7 @@ name: caliday
 description: "CaliDay — home calisthenics workouts with streak tracking and gamification."
 publish_to: 'none'
 
-version: 0.9.7+37
+version: 0.9.8+38
 
 environment:
   sdk: ^3.11.0
@@ -23,6 +23,8 @@ dependencies:
   go_router: ^18.0.2
   flutter_svg: ^2.2.4
   audioplayers: ^6.6.0
+  # Web Audio for the cues in the browser (web_cue_player_web.dart)
+  web: ^1.1.1
 
   url_launcher: ^6.3.0
   package_info_plus: ^10.2.2

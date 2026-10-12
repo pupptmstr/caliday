@@ -6,6 +6,24 @@ One entry per version, newest first: what changed, what the owner decided, and t
 
 ---
 
+## 0.9.8 — 2026-10-12 — A website; every workout sound in the web version on iPhone
+
+Branch `session/2026-10-12-landing`.
+
+**A landing page** (owner: a site that says what the app is, so that a search for "caliday" finds it, with the links to the web version, the stores and GitHub; styled like the app; in the app's languages): `https://pupptmstr.github.io/caliday/` — English at the root, `ru/`, `de/`, `es/` — deployed by `web.yml` together with the web app and the legal docs — [platform.md § Landing page](reference/platform.md#landing-page-098).
+- One template and one strings file per language (`site/template.html`, `site/strings/<code>.json`) rendered by `tools/site/build_site.py`, which takes from the app what the site shares with it instead of keeping copies (the characters' SVGs, seven exercise animations and their crops, read from `animation_crops.dart`), and writes the hreflang links, `sitemap.xml` and the JSON-LD. A missing string fails the build.
+- No screenshots: the two phones of the first screen are drawn in HTML with the app's tokens and play the real Lottie files, so every language has its own "screens". Driving the debug build in the simulator for a set of real screenshots per language was too slow to be worth it.
+- The owner dropped "free forever": the site says "free", "no ads", "no tracking".
+- Store links wait for the listings ("iPhone & Android — coming soon"; Apple's badge is only for an app that is on the App Store).
+- `robots.txt` works only at a domain's root, so on `github.io/caliday/` the sitemap reaches Google through Search Console (the owner's step).
+- An Actions deploy replaces the whole Pages site: the script writes into `_site/` next to the Jekyll output without clearing it, and keeps out of Jekyll's `assets/` folder (`img/`, `anim/`).
+
+**Every workout sound in the web version on iPhone** (the owner heard only some cues on the phone, no ticks): audioplayers' web player makes a new `<audio>` element (with an AudioContext of its own) for every play and drops it when it ends; iOS Safari lets an element start only inside a tap, so every cue the timer starts stayed silent and only Pause / Skip were heard. The guess that a sound had no time to finish was not it (a tick is 70 ms, one a second). Now the web build decodes every cue once and plays it on one Web Audio context (`WebCuePlayer`), unlocked by the first tap anywhere in the app — [workout.md § SoundService](reference/workout.md).
+- Checked in Chromium: one running context, the start cue and the five countdown ticks a second apart, no media element. The iPhone itself is the owner's check after the deploy.
+- Web Audio on iOS follows the silent switch and mixes with the music; the owner keeps it so (2026-10-12, [decisions](decisions/README.md)).
+
+**Recorded for later:** a new name for the app (owner, not urgent: `caliday.com` and `.app` are taken; no other app with the name was found) — [specs/new-name.md](specs/new-name.md).
+
 ## 0.9.7 — 2026-10-12 — Widgets with Goro; Flutter 3.47; the notes reworked
 
 Branch `session/2026-10-12-widgets-notes-deps`.

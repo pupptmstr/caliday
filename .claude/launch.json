@@ -12,6 +12,12 @@
       "runtimeExecutable": "python",
       "runtimeArgs": ["-m", "http.server", "8098", "--directory", "build"],
       "port": 8098
+    },
+    {
+      "name": "caliday-site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8097", "--directory", "build/site_preview"],
+      "port": 8097
     }
   ]
 }
