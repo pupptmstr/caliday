@@ -52,3 +52,6 @@ In the browser the cues play through Web Audio, which on iOS keeps quiet with th
 
 ### The site speaks the app's languages and says "free", not "free forever" (owner, 2026-10-12)
 Every language of the app has its page (`site/strings/<code>.json`); the site lists what the app is today — free, no ads, no account, no tracking — and makes no promise about the future.
+
+### The source is open to read, all rights reserved (owner, 2026-10-12)
+The repository is public, but `LICENSE` grants no right to use, copy, modify or distribute the code or the art without written permission — the same as the Terms of Use § 2. **Why:** the owner wants the project visible and the policies as written; an open-source license (GPL-3.0 was considered) would contradict the Terms.

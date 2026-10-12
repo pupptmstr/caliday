@@ -22,6 +22,8 @@ Branch `session/2026-10-12-landing`.
 - Checked in Chromium: one running context, the start cue and the five countdown ticks a second apart, no media element. The iPhone itself is the owner's check after the deploy.
 - Web Audio on iOS follows the silent switch and mixes with the music; the owner keeps it so (2026-10-12, [decisions](decisions/README.md)).
 
+**The GitHub repository presented** (owner: "the repository is not dressed up"): the README opens with the icon, the tagline, the links to the website and the web app, the CI and deploy badges and the six characters; its numbers were refreshed (24 branches, 155 exercises). A stray `--help` file in the root (an HTML fragment a tool wrote there in 0.9.5) is gone. On GitHub: the About description, the website link and 20 topics; the empty Wiki and Projects tabs are off. A `LICENSE` file says what the README and the Terms of Use already did: the source is open to read, all rights reserved (the owner first picked GPL-3.0, then chose to keep the policies as written).
+
 **Recorded for later:** a new name for the app (owner, not urgent: `caliday.com` and `.app` are taken; no other app with the name was found) — [specs/new-name.md](specs/new-name.md).
 
 ## 0.9.7 — 2026-10-12 — Widgets with Goro; Flutter 3.47; the notes reworked
