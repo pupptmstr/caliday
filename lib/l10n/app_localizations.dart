@@ -1611,8 +1611,26 @@ abstract class AppLocalizations {
   /// No description provided for @settingsSoundSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Audio feedback during workouts'**
+  /// **'“Key only” keeps what you need without looking at the screen: the hold starts and ends, switch sides, the next set or exercise, the end.'**
   String get settingsSoundSubtitle;
+
+  /// No description provided for @settingsSoundAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get settingsSoundAll;
+
+  /// No description provided for @settingsSoundKey.
+  ///
+  /// In en, this message translates to:
+  /// **'Key only'**
+  String get settingsSoundKey;
+
+  /// No description provided for @settingsSoundOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get settingsSoundOff;
 
   /// No description provided for @settingsHapticTitle.
   ///
@@ -5747,6 +5765,12 @@ abstract class AppLocalizations {
   /// **'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.\nFour new branches outside the courses: Strong Back, Glutes, Arms & Shoulders and Cardio — 22 exercises, each with Goro’s animation. Add them to your own course: Courses → + → Create your own course.'**
   String get releaseNotes095;
 
+  /// No description provided for @releaseNotes096.
+  ///
+  /// In en, this message translates to:
+  /// **'You can train your own courses only: in the course list under + untick every built-in course — one ticked course of any kind is enough.\nAn achievement opens across the whole width of the screen, not just as wide as its text.\nNew workout sounds, a cue for every moment: get ready, the hold starts, halfway, switch sides, set done, the next exercise, Skala’s challenge, the end. They play over your music instead of stopping it. Settings → Sounds: all, key only or off.'**
+  String get releaseNotes096;
+
   /// No description provided for @releaseNotes093.
   ///
   /// In en, this message translates to:
@@ -5804,7 +5828,7 @@ abstract class AppLocalizations {
   /// No description provided for @releaseHistory09.
   ///
   /// In en, this message translates to:
-  /// **'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio.'**
+  /// **'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio.\nA sound for every moment of a workout, over your music.'**
   String get releaseHistory09;
 }
 

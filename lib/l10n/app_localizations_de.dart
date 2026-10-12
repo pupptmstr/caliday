@@ -901,7 +901,17 @@ class AppLocalizationsDe extends AppLocalizations {
   String get settingsSoundTitle => 'Töne';
 
   @override
-  String get settingsSoundSubtitle => 'Akustisches Feedback beim Training';
+  String get settingsSoundSubtitle =>
+      '„Wichtige“ behält, was du brauchst, ohne auf den Bildschirm zu schauen: Halten beginnt und endet, Seitenwechsel, nächster Satz oder nächste Übung, das Ende.';
+
+  @override
+  String get settingsSoundAll => 'Alle';
+
+  @override
+  String get settingsSoundKey => 'Wichtige';
+
+  @override
+  String get settingsSoundOff => 'Aus';
 
   @override
   String get settingsHapticTitle => 'Vibration';
@@ -3475,6 +3485,10 @@ class AppLocalizationsDe extends AppLocalizations {
       'Freunde gibt es nicht mehr: Ohne Server konnten sie nur einmal einen QR-Code tauschen, mehr nicht. Die App braucht keine Kamera und kein Bluetooth mehr.\nDein Name: Dein Host begrüßt dich damit auf dem Startbildschirm, Profil und Trainingsabschluss zeigen ihn. Ändern unter Einstellungen → Profil.\nVier neue Zweige außerhalb der Kurse: Starker Rücken, Gesäß, Arme & Schultern und Cardio — 22 Übungen, jede mit Goros Animation. Nimm sie in deinen eigenen Kurs auf: Kurse → + → Eigenen Kurs erstellen.';
 
   @override
+  String get releaseNotes096 =>
+      'Du kannst nur mit deinen eigenen Kursen trainieren: Entferne in der Kursliste unter + die Haken bei allen eingebauten Kursen — ein angehakter Kurs, egal welcher, genügt.\nEin Erfolg öffnet sich über die ganze Bildschirmbreite, nicht nur so breit wie sein Text.\nNeue Trainingstöne, ein eigener für jeden Moment: Mach dich bereit, das Halten beginnt, Halbzeit, Seitenwechsel, Satz geschafft, die nächste Übung, Skalas Herausforderung, das Ende. Sie klingen über deiner Musik, statt sie anzuhalten. Einstellungen → Töne: alle, wichtige oder aus.';
+
+  @override
   String get releaseNotes093 =>
       'Dein eigener Kurs: Tippe im Tab „Kurse“ auf + und stell Zweige aus allen Kursen zusammen, wähle den Host und gib dem Kurs einen Namen.\nEin eigener Zweig: Wähle Übungen und bring sie in eine Reihenfolge, jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges legt die App fest, wie in jedem Zweig.\nUnter der Glocke stehen die neuesten Updates oben, darunter ist die ganze Geschichte von CaliDay Version für Version eingeklappt.';
 
@@ -3512,5 +3526,5 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.\nVier Zweige außerhalb der Kurse: Rücken, Gesäß, Arme und Schultern, Cardio.';
+      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.\nVier Zweige außerhalb der Kurse: Rücken, Gesäß, Arme und Schultern, Cardio.\nEin eigener Ton für jeden Moment des Trainings, über deiner Musik.';
 }

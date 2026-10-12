@@ -36,6 +36,7 @@ class UserProfile extends HiveObject {
     this.activeCourseIndex,
     this.lastSeenReleaseVersion,
     this.activeCustomCourseId,
+    this.soundModeName,
   });
 
   @HiveField(0)
@@ -103,6 +104,7 @@ class UserProfile extends HiveObject {
   bool? hasPullUpBar;
 
   /// Whether workout sound effects are enabled. null → true (default on).
+  /// Replaced by [soundModeName] in 0.9.6, which still writes it (off = false).
   @HiveField(19)
   bool? soundEnabled;
 
@@ -128,7 +130,8 @@ class UserProfile extends HiveObject {
   @HiveField(18)
   String? displayName;
 
-  /// Indices of enrolled [CourseId]s. null → [0] (calisthenics, legacy users).
+  /// Indices of enrolled [CourseId]s. null → [0] (calisthenics, legacy users);
+  /// empty → none: the user trains only their own courses (0.9.6).
   @HiveField(24)
   List<int>? activeCourseIds;
 
@@ -149,19 +152,27 @@ class UserProfile extends HiveObject {
   @HiveField(27)
   String? activeCustomCourseId;
 
+  /// `SoundMode.name` of the workout sounds: 'all' | 'key' | 'off' (0.9.6).
+  /// null → from [soundEnabled], the on/off switch it replaced
+  /// (`SoundMode.from`).
+  @HiveField(28)
+  String? soundModeName;
+
   // ── Computed helpers ────────────────────────────────────────────────────────
 
   List<CourseId> get enrolledCourses {
     final ids = activeCourseIds;
-    if (ids == null || ids.isEmpty) return [CourseId.calisthenics];
+    if (ids == null) return [CourseId.calisthenics];
     return ids
         .where((i) => i >= 0 && i < CourseId.values.length)
         .map((i) => CourseId.values[i])
         .toList();
   }
 
+  /// The built-in course shown now; calisthenics when none is enrolled.
   CourseId get activeCourse {
     final courses = enrolledCourses;
+    if (courses.isEmpty) return CourseId.calisthenics;
     final idx = activeCourseIndex ?? 0;
     if (idx < 0 || idx >= courses.length) return courses.first;
     return courses[idx];

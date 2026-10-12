@@ -903,7 +903,17 @@ class AppLocalizationsEs extends AppLocalizations {
   String get settingsSoundTitle => 'Sonidos';
 
   @override
-  String get settingsSoundSubtitle => 'Sonidos durante el entrenamiento';
+  String get settingsSoundSubtitle =>
+      '«Principales» deja lo que necesitas sin mirar la pantalla: empieza y termina el aguante, cambio de lado, la siguiente serie o ejercicio, el final.';
+
+  @override
+  String get settingsSoundAll => 'Todos';
+
+  @override
+  String get settingsSoundKey => 'Principales';
+
+  @override
+  String get settingsSoundOff => 'Ninguno';
 
   @override
   String get settingsHapticTitle => 'Vibración';
@@ -3486,6 +3496,10 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ya no hay amigos: sin servidor solo podían intercambiar un código QR una vez y nada más. La app ya no necesita la cámara ni el Bluetooth.\nTu nombre: tu anfitrión te saluda con él en la pantalla de inicio, y el perfil y el final del entrenamiento lo muestran. Cámbialo en Ajustes → Perfil.\nCuatro ramas nuevas fuera de los cursos: Espalda fuerte, Glúteos, Brazos y hombros y Cardio: 22 ejercicios, cada uno con la animación de Goro. Añádelas a tu propio curso: Cursos → + → Crear tu propio curso.';
 
   @override
+  String get releaseNotes096 =>
+      'Puedes entrenar solo con tus propios cursos: en la lista de cursos bajo + desmarca todos los cursos incluidos; basta con un curso marcado, sea cual sea.\nUn logro se abre a todo el ancho de la pantalla, no solo al ancho de su texto.\nSonidos nuevos para el entrenamiento, uno para cada momento: prepárate, empieza el aguante, la mitad, cambio de lado, serie hecha, el siguiente ejercicio, el reto de Skala, el final. Suenan sobre tu música en lugar de pararla. Ajustes → Sonidos: todos, principales o ninguno.';
+
+  @override
   String get releaseNotes093 =>
       'Tu propio curso: en la pestaña Cursos toca + y reúne ramas de cualquier curso, elige el anfitrión y ponle un nombre.\nUna rama propia: elige ejercicios y ordénalos, cada uno será una etapa. Las repeticiones, las series, los descansos y los retos los pone la app, como en cualquier rama.\nEn la campana, arriba están las últimas actualizaciones y debajo, plegada, toda la historia de CaliDay versión a versión.';
 
@@ -3523,5 +3537,5 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.\nSe quitan los amigos; tu anfitrión te saluda por tu nombre.\nCuatro ramas fuera de los cursos: espalda, glúteos, brazos y hombros, cardio.';
+      'Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.\nSe quitan los amigos; tu anfitrión te saluda por tu nombre.\nCuatro ramas fuera de los cursos: espalda, glúteos, brazos y hombros, cardio.\nUn sonido para cada momento del entrenamiento, sobre tu música.';
 }

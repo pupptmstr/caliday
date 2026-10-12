@@ -920,7 +920,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get settingsSoundTitle => 'Sounds';
 
   @override
-  String get settingsSoundSubtitle => 'Audio feedback during workouts';
+  String get settingsSoundSubtitle =>
+      '“Key only” keeps what you need without looking at the screen: the hold starts and ends, switch sides, the next set or exercise, the end.';
+
+  @override
+  String get settingsSoundAll => 'All';
+
+  @override
+  String get settingsSoundKey => 'Key only';
+
+  @override
+  String get settingsSoundOff => 'Off';
 
   @override
   String get settingsHapticTitle => 'Haptics';
@@ -3483,6 +3493,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.\nFour new branches outside the courses: Strong Back, Glutes, Arms & Shoulders and Cardio — 22 exercises, each with Goro’s animation. Add them to your own course: Courses → + → Create your own course.';
 
   @override
+  String get releaseNotes096 =>
+      'You can train your own courses only: in the course list under + untick every built-in course — one ticked course of any kind is enough.\nAn achievement opens across the whole width of the screen, not just as wide as its text.\nNew workout sounds, a cue for every moment: get ready, the hold starts, halfway, switch sides, set done, the next exercise, Skala’s challenge, the end. They play over your music instead of stopping it. Settings → Sounds: all, key only or off.';
+
+  @override
   String get releaseNotes093 =>
       'Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of CaliDay, version by version, is folded below them.';
 
@@ -3520,5 +3534,5 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseHistory09 =>
-      'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio.';
+      'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio.\nA sound for every moment of a workout, over your music.';
 }

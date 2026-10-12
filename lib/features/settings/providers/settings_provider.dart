@@ -25,7 +25,7 @@ class SettingsState {
     required this.workoutSize,
     required this.themeMode,
     required this.hasPullUpBar,
-    required this.soundEnabled,
+    required this.soundMode,
     required this.hapticEnabled,
     required this.healthWorkoutsEnabled,
     required this.healthWeightEnabled,
@@ -41,7 +41,7 @@ class SettingsState {
   final WorkoutSize workoutSize;
   final ThemeMode themeMode;
   final bool hasPullUpBar;
-  final bool soundEnabled;
+  final SoundMode soundMode;
   final bool hapticEnabled;
   final bool healthWorkoutsEnabled;
   final bool healthWeightEnabled;
@@ -64,7 +64,7 @@ class SettingsState {
     WorkoutSize? workoutSize,
     ThemeMode? themeMode,
     bool? hasPullUpBar,
-    bool? soundEnabled,
+    SoundMode? soundMode,
     bool? hapticEnabled,
     bool? healthWorkoutsEnabled,
     bool? healthWeightEnabled,
@@ -81,7 +81,7 @@ class SettingsState {
       workoutSize: workoutSize ?? this.workoutSize,
       themeMode: themeMode ?? this.themeMode,
       hasPullUpBar: hasPullUpBar ?? this.hasPullUpBar,
-      soundEnabled: soundEnabled ?? this.soundEnabled,
+      soundMode: soundMode ?? this.soundMode,
       hapticEnabled: hapticEnabled ?? this.hapticEnabled,
       healthWorkoutsEnabled:
           healthWorkoutsEnabled ?? this.healthWorkoutsEnabled,
@@ -101,9 +101,10 @@ class SettingsNotifier extends Notifier<SettingsState> {
 
   static SettingsState _load(UserRepository repo) {
     final p = repo.getProfile();
-    final sound = p.soundEnabled ?? true;
+    final sound =
+        SoundMode.from(p.soundModeName, legacyEnabled: p.soundEnabled);
     final haptic = p.hapticEnabled ?? true;
-    SoundService.instance.configure(soundEnabled: sound, hapticEnabled: haptic);
+    SoundService.instance.configure(mode: sound, hapticEnabled: haptic);
     return SettingsState(
       notificationsEnabled: p.notificationsEnabled,
       eveningReminderEnabled: p.eveningReminderEnabled,
@@ -114,7 +115,7 @@ class SettingsNotifier extends Notifier<SettingsState> {
       workoutSize: WorkoutSize.fromCode(p.preferredWorkoutMinutes ?? 10),
       themeMode: themeModeFromString(p.themeModeName),
       hasPullUpBar: p.hasPullUpBar ?? false,
-      soundEnabled: sound,
+      soundMode: sound,
       hapticEnabled: haptic,
       healthWorkoutsEnabled: p.healthWorkoutsEnabled ?? false,
       healthWeightEnabled: p.healthWeightEnabled ?? false,
@@ -177,20 +178,22 @@ class SettingsNotifier extends Notifier<SettingsState> {
     ref.invalidate(homeDataProvider);
   }
 
-  void setSoundEnabled(bool value) {
-    state = state.copyWith(soundEnabled: value);
+  void setSoundMode(SoundMode mode) {
+    state = state.copyWith(soundMode: mode);
     SoundService.instance.configure(
-      soundEnabled: value,
+      mode: mode,
       hapticEnabled: state.hapticEnabled,
     );
-    final p = ref.read(userRepositoryProvider).getProfile()..soundEnabled = value;
+    final p = ref.read(userRepositoryProvider).getProfile()
+      ..soundModeName = mode.name
+      ..soundEnabled = mode != SoundMode.off;
     ref.read(userRepositoryProvider).saveProfile(p);
   }
 
   void setHapticEnabled(bool value) {
     state = state.copyWith(hapticEnabled: value);
     SoundService.instance.configure(
-      soundEnabled: state.soundEnabled,
+      mode: state.soundMode,
       hapticEnabled: value,
     );
     final p = ref.read(userRepositoryProvider).getProfile()..hapticEnabled = value;

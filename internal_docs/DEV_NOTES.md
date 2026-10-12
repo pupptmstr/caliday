@@ -7,13 +7,13 @@ A living document. Contains current status, active feature specs in progress, an
 
 ## Current Status
 
-**Version:** v0.9.4 on `main` (the middle of Home, animations wherever an exercise is named, the owner's feedback on 0.9.3; merged 2026-10-10, PR #6). **0.9.5** is in progress on `session/2026-10-11-new-branches`: Friends removed and the user's name put to use, then the four branches outside the courses (Strong Back, Glutes, Arms & Shoulders, Cardio — Next ideas 1, the "many more exercises" of the owner's third big feature); see the Change History. `main` is protected since 2026-10-10 (PRs only, squash merges, CI required; ARCHITECTURE § Web Build). The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
+**Version:** v0.9.5 on `main` (Friends removed, the user's name put to use, four branches outside the courses; merged 2026-10-11, PR #7). **0.9.6** is in progress on `session/2026-10-12-sounds`: the owner's feedback on 0.9.5 (the achievement sheet as wide as its text; no way to train only own courses) and the sounds redone (Next ideas 2), waiting for the owner's go; see the Change History. `main` is protected since 2026-10-10 (PRs only, squash merges, CI required; ARCHITECTURE § Web Build). The owner keeps the version at 0.9.x until they call it 1.0 (2026-10-08).
 **Next priority:** v1.0 release. What still stands in the way:
 - iOS: the HealthKit capability has to be added by hand in Xcode (Runner → Signing & Capabilities).
 - Content for v1.0: additional courses (see the ARCHITECTURE.md backlog).
 - Store accounts (Apple Developer Program, Google Play Console): the release CI is drafted but disabled until they exist ("Release builds (CI)" below).
 
-The owner's plan for the **big features after that** (2026-10-07), in their order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap. The configurator is in (0.9.3); the many more exercises come on a branch of their own next (owner, 2026-10-09). Further ideas of 2026-10-10 (sounds, native widgets, the project's notes reworked; the Home middle and animations everywhere are done in 0.9.4): Active Specs § Next ideas.
+The owner's plan for the **big features after that** (2026-10-07), in their order: German and Spanish translations → additional courses → a course configurator with many more exercises. See Active Specs § Roadmap. The configurator is in (0.9.3), the many more exercises too (0.9.5). Further ideas of 2026-10-10 (native widgets, the project's notes reworked; the Home middle and animations everywhere are done in 0.9.4, the sounds in 0.9.6): Active Specs § Next ideas.
 
 | Layer | Status |
 |-------|--------|
@@ -30,7 +30,7 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 | Dark theme | ✅ |
 | Goro (6 expressions) + Skala | ✅ |
 | Lottie animations (155 of 155 exercises; the 22 of the branches outside the courses added in 0.9.5) | ✅ |
-| Sound + haptics | ✅ |
+| Sound + haptics (21 generated cues, all / key only / off, over the user's music — 0.9.6) | ✅ |
 | Home Screen Widget (iOS + Android) | ✅ |
 | Health Integration (iOS + Android) | ✅ |
 | Exercise Library (search + tag filter) | ✅ |
@@ -47,49 +47,15 @@ The owner's plan for the **big features after that** (2026-10-07), in their orde
 
 ## Active Specs (ideas in progress)
 
-### Next ideas (owner, 2026-10-10) — not ordered yet, the owner picks (3 and 5 done in 0.9.4; 6 added the same day)
+### Next ideas (owner, 2026-10-10) — not ordered yet, the owner picks (3 and 5 done in 0.9.4, 1 in 0.9.5, 2 in 0.9.6; 6 added the same day)
 
 Recorded on the owner's request after the course builder (0.9.3). None is started; the open items from before stay where they are (backlog in ARCHITECTURE; below in this section: release CI, held-back dependencies, "Support the author", the parked Telegram idea, the Lottie status) — see "Still open from before" at the end.
 
 #### 1. New exercises and branches — done (0.9.5)
 Four branches outside the courses, 22 exercises with animations (owner, 2026-10-11: the table as proposed; outside the courses, picked in the builder; `all_complete` stays the courses' achievement; the Cardio keeps its jumps). The six riskiest animations were drafted first (Y-T-W, reverse snow angels, door-frame row, fire hydrant, chair dips, burpee) and approved; content in ARCHITECTURE § Branches outside the courses.
 
-#### 2. Sounds, redone from scratch
-**Concept.** Today there are four sounds from March 2026 (`assets/sounds/`: `tick`, `ding`, `pop`, `complete`, played by `SoundService`) and one `if` chain in `workout_screen.dart` (`ref.listen` on the phase) decides which plays; several different moments share one sound (`pop` = set done, side done, next exercise; `ding` = rest over and hold started). The owner wants all of them remade, more of them, one for every action inside a workout, and the sounds themselves regenerated. The workout is hands-free (ARCHITECTURE § Timed exercises: the get-ready countdown): the user is on the floor and not looking, so each moment must be recognisable by ear.
-
-**UX / mechanics — the cues (a proposal to agree):**
-| Moment | Today | Proposed |
-|--------|-------|----------|
-| Workout starts (first exercise) | — | short "start" chime |
-| Get-ready countdown, last 3 s | `tick` | soft ticks, rising on the last one |
-| Hold starts (after the countdown) | `ding` | clear "go" |
-| Hold, halfway | — | one quiet blip (optional) |
-| Hold, last 3 s | `tick` | ticks (another pitch than the get-ready ones) |
-| Side 1 done → switch sides | `pop` | a two-note "swap" |
-| Reps set confirmed / hold done | `pop` | "done" pop |
-| Rep counter − / + | — | very soft click (haptic only?) |
-| Rest starts / last 3 s / over | `pop` / `tick` / `ding` | "breathe" whoosh / ticks / "next" |
-| Rest skipped | — | short skip |
-| Pause / continue | — | two short notes, down / up |
-| Next exercise (not the next set) | `pop` | its own "next exercise" cue |
-| Challenge starts (Skala) | — | low drum |
-| Challenge passed / failed | — | fanfare / soft falling notes |
-| Workout complete | `complete` | kept as the biggest cue |
-| Summary: stage up, achievement, freeze earned or used, rank up | — | small stingers on the summary screen |
-
-**Technical tasks:**
-| # | Task |
-|---|------|
-| 1 | Agree the cue list with the owner (which moments, which are optional) |
-| 2 | `tools/sounds/gen_sounds.py` — synthesise every cue in code (like `tools/lottie`): one family of timbres (warm, marimba / wood-like, in the app's playful style), envelopes, equal loudness, short (< 0.4 s except the fanfare and `complete`); writes WAV and the shipped format; a preview page to listen and approve, as the animation stands |
-| 3 | A pure `WorkoutCue cueFor(WorkoutState prev, WorkoutState next)` (+ the tick seconds) replacing the `if` chain, with a test over the real state machine (like `workout_timer_test`) |
-| 4 | `SoundService`: one method per cue (or `play(WorkoutCue)`), a player per cue or `AudioPool` for the ticks (latency), haptics per cue |
-| 5 | Audio session: cues mix with the user's music (ducking, not stopping it) on iOS and Android; check what `audioplayers` does today (Context7 at the time) |
-| 6 | Settings: maybe "Sounds: all / key cues / off" instead of on/off — owner's call |
-
-**Technical details.** Formats: `audioplayers` plays MP3 on iOS, Android and web; keep MP3 (or AAC/M4A + OGG for the web) — decide with the generator. Assets small (the four today are 13–29 KB). No downloaded sound packs: generated in-house, no licences.
-
-**When to tackle:** any time; independent of the exercises. A session of its own.
+#### 2. Sounds, redone from scratch — done (0.9.6)
+**Owner's picks (2026-10-12)**, after listening to the draft page: the timbre as drafted; every cue, the optional ones too (the halfway point of a hold, the summary cues); the countdown keeps 5 ticks, the last one higher; Settings → Sounds "all / key only / off". 21 cues generated by `tools/sounds/gen_sounds.py`; how they are chosen: ARCHITECTURE § SoundService and the workout cues. Open: vibration patterns of our own (the owner asked 2026-10-12 what the haptics do and whether they can be changed — Flutter has only the preset impacts; a pattern per cue needs a package, see the Change History of 2026-10-12). **Decided not to do (owner, 2026-10-12):** haptics in Safari on iPhone through the hidden `<input type="checkbox" switch>` trick — Safari has no `navigator.vibrate`, and since iOS 26.5 the switch ticks only under a real finger tap, so the timer-driven cues (ticks, go, switch sides, the end of a hold) could never vibrate there; only taps could, through an HTML overlay under each Flutter button, on undocumented WebKit behaviour. Do not propose it again. **To check (owner, on an iPhone):** whether the cues play in the web build with the silent switch on — Safari is reported to mute Web Audio then, and audioplayers' web player routes its `<audio>` through an `AudioContext`.
 
 #### 3. Home screen: fill the empty middle — done (0.9.4)
 **Owner's pick (2026-10-10):** before the first workout of the day the host's line + C + F (an open challenge, the next goals, the branches); after it the history and today's growth (B); no week row (the calendar is behind the streak chip); the plan folded into the workout button (an arrow at its side, always folded at first). Built as decided: ARCHITECTURE § Home: the middle and the plan. The text below is the proposal it came from.
@@ -424,6 +390,52 @@ The Flex, supplementary, Posture and Neck sets and the cat-cow are generated by 
 
 
 ## Change History
+
+### 2026-10-12 — Workout sounds redone: a cue for every moment (0.9.6)
+
+**What was done:** Next ideas 2. The four MP3s of March 2026, which several moments shared, gave way to 21 cues synthesised in code; the owner listened to a draft page (an Artifact built by `tools/sounds/build_preview.py`) and kept everything as drafted, with the countdown at 5 ticks, the last higher, and a three-way setting. A pure cue chooser replaced the `if` chain of the workout screen; the summary plays its cues after the end cue; the rep counter only taps. Checked in the web build: a real workout played start, the ticks, go, halfway, the hold ticks, set done, next exercise, skip, pause, resume and complete, each `play()` resolved.
+
+**New files:**
+- `tools/sounds/gen_sounds.py` — synthesises the cues (standard library only): voices, contours, loudness per role
+- `tools/sounds/build_preview.py` — a page to listen to every cue and to a 46-second workout
+- `assets/sounds/*.wav` — the 21 cues (the four `*.mp3` removed)
+- `lib/features/workout/workout_cues.dart` — `startCue`, `cueForSecond`, `cueForChange`, `summaryCues`
+- `test/features/workout/workout_cues_test.dart` — the cues of a run of the real state machine, the modes, the files
+
+**Modified files:**
+- `lib/core/services/sound_service.dart` — `SoundCue` (file, key, haptic), `play(cue)`, `preload()`, `tap()`; a player per cue with the mix-with-music audio context
+- `lib/data/models/enums.dart` — `SoundMode` (all / key / off) with `from(name, legacyEnabled:)`
+- `lib/data/models/user_profile.dart` (+ `.g.dart`) — HiveField 28 `soundModeName`
+- `lib/features/settings/` — the Sounds switch became a three-way segmented control; `settingsSound{All,Key,Off}`, a new subtitle in four languages
+- `lib/features/workout/screens/workout_screen.dart` — the start cue, the per-second cue, the change cue, the rep counter tap
+- `lib/features/workout/screens/summary_screen.dart` — `_SummaryCues` plays the summary's cues once
+- `l10n/app_*.arb` — the 0.9.6 "What's new" line and a point in the 0.9 history line
+- `CLAUDE.md`, `README.md` — the sound tools; the feature line
+
+**Key issues and solutions:**
+- **The cues stopped the user's music:** audioplayers' default context asks for the audio focus (`AudioContextConfigFocus.gain`): on Android every tick paused other apps' music, on iOS the `playback` category without `mixWithOthers` interrupted it. Each cue's player now gets `AudioContextConfig(focus: mixWithOthers)`. On Android the global context only applies to players created after it is set (`AudioplayersPlugin.kt` copies `defaultAudioContext` into each new player), so it is set on each player instead. The web ignores audio contexts (a log line). Not yet heard on a real phone.
+- **No numpy, no ffmpeg, maybe Windows:** the generator uses `math`, `random`, `wave` only and writes WAV — every platform's player and every browser plays 16-bit PCM WAV without decoding latency. 44.1 kHz made 1.3 MB; 22.05 kHz (a phone speaker plays nothing higher) and a −50 dB trim made 692 KB. The draft was too quiet (peaks at −8 dB); the loudness targets went up 5 dB, the peak limiter keeps everything under −1 dBFS.
+- **Telling a skipped rest from one that ran out:** both go through `_endRest()`; the timer calls it at the rest's last second, so a change from a rest with `timerSec > 1` was a skip.
+- **Ticks:** the timer reads `runningCountdownSec` before ticking, so the tick of second `left` is heard as the ring shows `left − 1`; ticks at 6…2 give five, the one at 2 is the higher `tickLast`, and at 1 the change itself has its cue (go, rest over, next exercise). A hold's halfway point is `left == target ~/ 2 + 1`.
+- **Haptics (owner's question):** every cue keeps a haptic (light / medium / heavy / selection / three heavy), following its own switch in any sound mode. Flutter's `HapticFeedback` only has preset impacts and notifications; patterns of our own (length, strength, rhythm) need a package (Core Haptics on iOS, vibration patterns on Android). On the web the engine maps the presets to `navigator.vibrate` of 10 / 20 / 30 ms (`platform_dispatcher.dart`): Android Chrome only — Safari on iOS has no Vibration API.
+- **Checking audio on the web without hearing it:** `HTMLMediaElement.prototype.play` was wrapped to log each file and whether its promise resolved. A hash-only navigation does not reload the page, so the wrapper got installed twice and every play showed up twice; one `play()` on a dummy element proved it.
+
+### 2026-10-12 — Owner's feedback on 0.9.5: full-width sheets, own courses only (0.9.6)
+
+**What was done:** Two points of feedback on 0.9.5 (owner, 2026-10-12). (1) The achievement sheet was only as wide as its text — every bottom sheet now spans the screen (up to 640 px). (2) With own courses one could not untick every built-in course, so nobody could train only their own courses; now one ticked course of any kind is enough. Version 0.9.6 with its "What's new" line in four languages.
+
+**Modified files:**
+- `lib/core/theme/app_theme.dart` — `bottomSheetTheme` with `BoxConstraints.tightFor(width: 640)` in both themes
+- `lib/data/models/user_profile.dart` — `activeCourseIds`: null → Calisthenics (legacy), empty → none; `activeCourse` falls back to Calisthenics when none is enrolled (it threw on an empty list before)
+- `lib/features/home/providers/home_provider.dart` — `enrolledCoursesProvider` never empty (Calisthenics when no course is left); `ActiveCourseNotifier` shows the first own course when no built-in one is enrolled
+- `lib/features/library/screens/library_screen.dart` — the course list: one ticked course (built-in or own) stays instead of one built-in; the ticks start from the pills; a removed active course gives way to the first pill left
+- `lib/features/library/screens/course_builder_screen.dart` — deleting a course remembers the course the app falls back to (before, it always switched to the built-in one, even when another own course was shown)
+- `pubspec.yaml`, `lib/data/static/release_notes_catalog.dart`, `l10n/app_*.arb` — 0.9.6+36, `releaseNotes096`, the 0.9 line reaches 2026-10-12
+- `test/data/repositories/custom_course_repository_test.dart`, `user_and_achievement_repository_test.dart` — own courses only: the pills, the shown course, hiding one, deleting the last one
+
+**Key issues and solutions:**
+- **Why a sheet shrank to its text:** Material 3 gives bottom sheets `constraints: BoxConstraints(maxWidth: 640)`, and `BottomSheet` wraps them in an `Align`, which loosens the width — so a sheet of short centred lines (`Column` with `MainAxisSize.min`) took the width of its widest line. Lists and `DraggableScrollableSheet`s filled the width anyway, which is why only the achievement, rank, calendar-day and similar sheets showed it. `tightFor(width: 640)` is clamped by the screen: full width on a phone, 640 px centred on a tablet or the web.
+- **An empty course list had meant Calisthenics:** `enrolledCourses` read `[]` like a legacy `null`. The old course list never let it become empty and the onboarding always stores one course, so no stored profile relies on it; the fallback moved to `enrolledCoursesProvider` (no built-in and no own course shown → Calisthenics), which also covers deleting the last own course while no built-in one is enrolled.
 
 ### 2026-10-11 — Four branches outside the courses: Strong Back, Glutes, Arms & Shoulders, Cardio (0.9.5)
 

@@ -8,7 +8,6 @@ import '../../../data/models/custom_branch.dart';
 import '../../../data/models/custom_course.dart';
 import '../../../data/models/enums.dart';
 import '../../../data/repositories/custom_course_repository.dart';
-import '../../../data/repositories/user_repository.dart';
 import '../../../data/static/course_catalog.dart';
 import '../../../domain/models/branch.dart';
 import '../../../domain/models/course.dart';
@@ -102,11 +101,11 @@ class _CourseBuilderScreenState extends ConsumerState<CourseBuilderScreen> {
     );
     if (!ok) return;
     await ref.read(customCoursesProvider.notifier).delete(course.id);
-    // Back to the built-in course that was shown before.
-    final profile = ref.read(userRepositoryProvider).getProfile();
+    // The active course rebuilds without it (the built-in one shown before,
+    // or the first own course left); remember that one.
     ref
         .read(activeCourseProvider.notifier)
-        .select(BuiltInCourse(profile.activeCourse));
+        .select(ref.read(activeCourseProvider));
     ref.invalidate(homeDataProvider);
     if (mounted) context.pop();
   }

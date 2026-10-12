@@ -215,4 +215,48 @@ void main() {
       expect(container.read(activeCourseProvider), const BuiltInCourse(CourseId.yoga));
     });
   });
+
+  group('only own courses (no built-in one enrolled)', () {
+    setUp(() async {
+      await UserRepository().saveProfile(UserProfile(activeCourseIds: []));
+      await CustomBranchRepository().save(_branch('b1', ['legs_s1_squat']));
+      await CustomCourseRepository().save(_course('c1', ['custom_b1']));
+      await CustomCourseRepository().save(_course('c2', ['push'], minute: 1));
+    });
+
+    test('the pills are the own courses, and the first one is shown', () {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      expect(container.read(enrolledCoursesProvider).map((c) => c.key),
+          ['custom_c1', 'custom_c2']);
+      expect(container.read(activeCourseProvider).key, 'custom_c1');
+    });
+
+    test('a hidden own course gives way to the other one', () async {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      container.listen(activeCourseProvider, (_, _) {});
+      final data =
+          container.read(customCoursesProvider).firstWhere((c) => c.id == 'c1');
+      await container
+          .read(customCoursesProvider.notifier)
+          .save(data..shown = false);
+      expect(container.read(activeCourseProvider).key, 'custom_c2');
+    });
+
+    test('with no course left it is Calisthenics, as for a new profile',
+        () async {
+      final container = ProviderContainer();
+      addTearDown(container.dispose);
+      container.listen(activeCourseProvider, (_, _) {});
+      container.listen(enrolledCoursesProvider, (_, _) {});
+      final notifier = container.read(customCoursesProvider.notifier);
+      await notifier.delete('c1');
+      await notifier.delete('c2');
+      expect(container.read(enrolledCoursesProvider),
+          [const BuiltInCourse(CourseId.calisthenics)]);
+      expect(container.read(activeCourseProvider),
+          const BuiltInCourse(CourseId.calisthenics));
+    });
+  });
 }

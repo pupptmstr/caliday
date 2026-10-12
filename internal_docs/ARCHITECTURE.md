@@ -183,7 +183,7 @@ CaliDay supports multiple **courses** (like Duolingo). Each course has its own b
 
 **Progression is global per branch:** `SkillProgress` keys are `branch.name` only (e.g. `"push"`), and `custom_<id>` for an own branch (`SkillProgress.branchKey`; `branchId` is null there, `customBranchId` set). Branches are physical skills — progress is shared across all courses containing that branch.
 **Streak and SP are global.** Enrolled courses are `UserProfile.activeCourseIds`, the one shown now is `activeCourseIndex` (read through the `enrolledCourses` / `activeCourse` getters); while an own course is shown, `activeCustomCourseId` names it (cleared when a built-in one is picked; a stale id falls back to the built-in course).
-Switching courses happens in the Library tab via pill tabs: the enrolled built-in courses, then every own course that is shown (`enrolledCoursesProvider`). An own course's pill carries the own-course mark (`kOwnCourseIcon`, a hand tool, `library/widgets/builder_widgets.dart`) instead of its host's face (owner, 2026-10-10: the host leads Home and the Profile, the pill only says "made by you"). The course list under "+" lists the own courses too, below the built-in ones: a tick like theirs (unticked = `CustomCourse.shown` false: no pill, nothing deleted; a hidden active course falls back to a built-in one) and a pencil that opens the builder (saving there shows the course again). At least one built-in course stays enrolled, as before.
+Switching courses happens in the Library tab via pill tabs: the enrolled built-in courses, then every own course that is shown (`enrolledCoursesProvider`). An own course's pill carries the own-course mark (`kOwnCourseIcon`, a hand tool, `library/widgets/builder_widgets.dart`) instead of its host's face (owner, 2026-10-10: the host leads Home and the Profile, the pill only says "made by you"). The course list under "+" lists the own courses too, below the built-in ones: a tick like theirs (unticked = `CustomCourse.shown` false: no pill, nothing deleted; a hidden active course falls back to the first pill left) and a pencil that opens the builder (saving there shows the course again). **One ticked course of any kind stays** (owner, 2026-10-12, 0.9.6; before, one built-in course always stayed, so nobody could train only their own courses): `activeCourseIds` may be empty, the built-in `activeCourse` is then Calisthenics and `ActiveCourseNotifier` shows the first own course; `enrolledCoursesProvider` is never empty (Calisthenics when no course is left, e.g. the last own course deleted).
 
 ### Progression Branches
 24 branches: 20 in the courses and 4 outside them (appended `BranchId` HiveFields: Evening Stretch 8–11, Morning Routine 12–15, Yoga 16–19, the branches outside the courses 20–23; `CourseId.eveningStretch` is HiveField 2, `CourseId.morningRoutine` 3, `CourseId.yoga` 4). Pull requires a pull-up bar (`requiresEquipment = true`).
@@ -267,15 +267,16 @@ The hero zone (host, streak, SP, rank) is unchanged. Below it a scrollable middl
 | @16 | — | reserved, unused |
 | @17 | — | retired: peerId (Friends, removed in 0.9.5) — never reuse; older profiles still hold it, the adapter skips it |
 | @18 | String? | displayName — the user's name (onboarding step 1, Settings → Profile): the host's greeting on Home, the Profile header, the summary title; null / empty = none |
-| @19 | bool? | soundEnabled (null → true) |
+| @19 | bool? | soundEnabled (null → true) — replaced by @28 in 0.9.6, still written (off = false) |
 | @20 | bool? | hapticEnabled (null → true) |
 | @21 | bool? | healthWorkoutsEnabled |
 | @22 | bool? | healthWeightEnabled |
 | @23 | — | retired: bleDiscoverable (Friends, removed in 0.9.5) — never reuse |
-| @24 | List<int>? | activeCourseIds — CourseId indices; null → [0] (calisthenics) |
+| @24 | List<int>? | activeCourseIds — CourseId indices; null → [0] (calisthenics); empty → no built-in course, only own ones (0.9.6) |
 | @25 | int? | activeCourseIndex — index into activeCourseIds; null → 0 |
 | @26 | String? | lastSeenReleaseVersion — the newest "What's new" version the user has opened; null → none yet (every entry is new). A new user starts at the current version (set by `completeOnboarding`) |
 | @27 | String? | activeCustomCourseId — `CustomCourse.id` of the own course shown now; null → the built-in `activeCourse` |
+| @28 | String? | soundModeName — `SoundMode.name` ('all' / 'key' / 'off', 0.9.6); null → from @19 (`SoundMode.from`) |
 
 ### SkillProgress HiveFields
 
@@ -598,9 +599,13 @@ otherwise                          → 0
 - `checkAfterStageAdvance({branch, newStage, allProgress, alreadyEarned})` → `List<String>` newly earned ids (`first_challenge`, per-branch milestones, `<branch>_complete`, secret `all_complete`)
 - Pure: `alreadyEarned` is updated in place, persistence is the caller's job. Every id it can return must exist in `AchievementCatalog` (the achievements screen looks them up); a test enforces that in both directions.
 
-### SoundService (singleton)
-- Methods: `tick()`, `ding()`, `pop()`, `complete()`
-- **Do NOT use `await player.stop()` before play()** — causes Android MediaPlayer reset (~100–200ms). `player.play()` handles restart on its own.
+### SoundService (singleton) and the workout cues (0.9.6)
+The workout is hands-free, so every moment has a cue of its own, told apart by ear (owner, 2026-10-12; before 0.9.6 four MP3s shared the moments: `tick`, `ding`, `pop`, `complete`).
+- **`SoundCue`** (`core/services/sound_service.dart`): 21 cues, one WAV each in `assets/sounds` (16-bit mono, 22.05 kHz, ~690 KB in all), with `key` (kept by the "key only" mode) and a `CueHaptic` (light / medium / heavy / selection / triple heavy). A test checks that every cue has its file and every file is a cue.
+- **Which cue when** — pure functions in `features/workout/workout_cues.dart`, tested over the real state machine (`workout_cues_test.dart`): `startCue(plan)` (Skala's drum for a challenge) when the workout screen opens; `cueForSecond(state)` from the screen's 1 s timer before it ticks: the last `kTickSeconds` = 5 seconds of a get-ready or rest countdown tick, the last one higher (`tickLast`), a hold's last 5 seconds tick lower (`tickHold`), a hold of `kHalfwayMinSec` = 20 s or more gets `holdHalf`; `cueForChange(prev, next)` from `ref.listen`: `go` (countdown → hold), `switchSides`, `setDone` (to a rest, or the next set without one), `restOver` / `nextExercise` / `skip` (a rest left before its last second), `pause` / `resume`, and at `done` `complete` or, for a challenge, `challengePassed` / `challengeFailed`. The summary plays `summaryCues(...)` in the order of its banners (achievement, freeze used, freeze earned, challenge unlocked = Skala's drum, new stage) from `kSummaryCueDelay` (2.1 s, after the end cue) every `kSummaryCueGap` (0.9 s). The rep counter's − / + only taps (`SoundService.tap()`, a selection click).
+- **Settings → Sounds:** `SoundMode` all / key only / off (`UserProfile.soundModeName`, HiveField 28; a profile from before keeps its on/off switch). "Key only" keeps `tickLast`, `go`, `switchSides`, `setDone`, `restOver`, `nextExercise` and the three end cues. Vibration keeps its own switch and follows every cue whatever the sound mode.
+- **Playback:** one `AudioPlayer` per cue, created on first use or by `preload()` when the workout screen opens, each with `AudioContextConfig(focus: mixWithOthers)`: cues play over the user's music (with the default context, `focus: gain`, a tick paused the music on Android and interrupted it on iOS; the context is ignored on the web). **Do NOT use `await player.stop()` before play()** — causes Android MediaPlayer reset (~100–200ms). `player.play()` handles restart on its own. A failed player is dropped and made anew next time.
+- **The sounds** are synthesised by `tools/sounds/gen_sounds.py` (standard library only, like `tools/lottie`): one family of timbres in C major — wooden ticks, a marimba, a glockenspiel ping, a felt pad for the user's own taps, a soft drum for Skala — with contours that say what happens (up = on we go, down = done / rest, wood = a countdown), each normalised to the loudness of its role and peaking at −1 dBFS at most. `tools/sounds/build_preview.py` builds a page with every cue and a short workout played in real time (`build/sounds_preview.html`; `--fragment` for an Artifact).
 - Configured from `SettingsNotifier` on load and on settings change
 
 ### Mutation Pattern
@@ -645,9 +650,9 @@ The hold of a timed exercise (plank, dead hang, stretches) does not start the mo
 
 **Pause / Continue.** `pausePrep()` sets `prepPaused`, which freezes `prepSec`; `resumePrep()` clears it and the countdown goes on from where it stopped (it is not restarted). Both do nothing outside the countdown (during the hold, a rest, a reps exercise) or when already in that state. Every place that begins a set sets `prepSec` and clears `prepPaused` (entering a rest resets both to 0 / false).
 
-Derived on `WorkoutState`: `isGettingReady` (exercise phase, `prepSec > 0`), `isHolding`, and `runningCountdownSec` (the seconds of whatever is counting down right now — the rest, the countdown or the hold — and 0 when nothing is, e.g. a paused countdown). The screen plays the last-seconds tick from `runningCountdownSec` and a **ding** when the countdown turns into the hold (the user in position is not looking at the screen). Buttons for a timed exercise: **Pause** (outlined, the quiet one) → **Continue** (filled) → **Stop** (filled) — all 56 px high, so nothing moves when they swap. The ring uses `secondary` with the label "get ready" and goes grey (`outline`) with "paused" while paused; the hold ring is `primary` with "sec" (one `_TimedDisplay` draws all three). A hint under the description changes with the state and disappears when the hold starts. The rest countdown is unchanged. Time spent in the countdown counts into the workout duration. Tested in `test/features/workout/workout_timer_test.dart`.
+Derived on `WorkoutState`: `isGettingReady` (exercise phase, `prepSec > 0`), `isHolding`, and `runningCountdownSec` (the seconds of whatever is counting down right now — the rest, the countdown or the hold — and 0 when nothing is, e.g. a paused countdown). The screen plays the last-seconds ticks from `runningCountdownSec` and the **go** cue when the countdown turns into the hold (the user in position is not looking at the screen; § SoundService and the workout cues). Buttons for a timed exercise: **Pause** (outlined, the quiet one) → **Continue** (filled) → **Stop** (filled) — all 56 px high, so nothing moves when they swap. The ring uses `secondary` with the label "get ready" and goes grey (`outline`) with "paused" while paused; the hold ring is `primary` with "sec" (one `_TimedDisplay` draws all three). A hint under the description changes with the state and disappears when the hold starts. The rest countdown is unchanged. Time spent in the countdown counts into the workout duration. Tested in `test/features/workout/workout_timer_test.dart`.
 
-**Holds on each side (0.8.20).** `Exercise.perSide` marks a one-sided timed hold (`holdsPerSet` = 2; it means nothing for a reps exercise). One set runs side 1 → a `kPrepSwitchSideSec` = 5 s countdown labelled "switch sides" → side 2 → the rest, with no tap: `confirmSet()` on side 1 (the hold running out, or **Stop**) does not end the set but sets `WorkoutState.sideIndex` = 1, keeps the seconds held in `firstSideSec` and starts the switch countdown (`prepSecFor(planned, setIndex, side: 1)`; it can be paused like the other one). Every transition that leaves the set resets `sideIndex` to 0. Getters: `isLastSide`, `isSwitchingSides`. **The amounts are per side:** the target, the progression and the challenge norm; the recorded `actualDurationSec` is the **weaker side** (the minimum of the two), so a set and a challenge pass only when both sides reach it; `SPService` counts both sides (`seconds × holdsPerSet`); the estimate counts both holds and the switch countdown. The screen shows "Set 1 of 3 · side 2 of 2", a **pop** when a side ends (the user may be lying down), "N sec each side" on the rest screen, the Branch Journey params and the challenge norm. Flagged today: `flex_s1_hip_flexor_stretch`, `flex_s3_hip_9090`, `neck_s1_neck_tilt`, `posture_s5_kneeling_lunge`, `posture_s6_pigeon_pose`, `bal_s1_one_leg_stand`, `bal_s2_one_arm_plank`, `cooldown_quad_stretch`, `cooldown_hip_flexor`, `cooldown_lat_stretch`, `supp_side_plank` (their targets were kept and became per side, so those workouts got longer).
+**Holds on each side (0.8.20).** `Exercise.perSide` marks a one-sided timed hold (`holdsPerSet` = 2; it means nothing for a reps exercise). One set runs side 1 → a `kPrepSwitchSideSec` = 5 s countdown labelled "switch sides" → side 2 → the rest, with no tap: `confirmSet()` on side 1 (the hold running out, or **Stop**) does not end the set but sets `WorkoutState.sideIndex` = 1, keeps the seconds held in `firstSideSec` and starts the switch countdown (`prepSecFor(planned, setIndex, side: 1)`; it can be paused like the other one). Every transition that leaves the set resets `sideIndex` to 0. Getters: `isLastSide`, `isSwitchingSides`. **The amounts are per side:** the target, the progression and the challenge norm; the recorded `actualDurationSec` is the **weaker side** (the minimum of the two), so a set and a challenge pass only when both sides reach it; `SPService` counts both sides (`seconds × holdsPerSet`); the estimate counts both holds and the switch countdown. The screen shows "Set 1 of 3 · side 2 of 2", the **switch sides** cue when a side ends (the user may be lying down), "N sec each side" on the rest screen, the Branch Journey params and the challenge norm. Flagged today: `flex_s1_hip_flexor_stretch`, `flex_s3_hip_9090`, `neck_s1_neck_tilt`, `posture_s5_kneeling_lunge`, `posture_s6_pigeon_pose`, `bal_s1_one_leg_stand`, `bal_s2_one_arm_plank`, `cooldown_quad_stretch`, `cooldown_hip_flexor`, `cooldown_lat_stretch`, `supp_side_plank` (their targets were kept and became per side, so those workouts got longer).
 
 ### WorkoutState when phase == done
 - `spEarned`, `durationSec`, `isPrimary`, `workoutsToday`
@@ -738,6 +743,8 @@ Brand tokens are centralised in `lib/core/theme/app_theme.dart` (`abstract final
 | Challenge bg | — | `#5C1A1A` |
 
 Helper constants: `AppTheme.heroGradient`, `AppTheme.rankGradient`, `AppTheme.cardShadowLight/Dark`.
+
+Bottom sheets span the screen up to 640 px (`bottomSheetTheme`, `BoxConstraints.tightFor(width: 640)`, 0.9.6): the Material default only caps the width, so a sheet of short centred lines shrank to its text.
 
 ### App Icon
 - `assets/icon/icon.png` — 1024×1024 (iOS)
@@ -877,7 +884,7 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 | Feature | Web | How |
 |---------|-----|-----|
 | Workouts, progression, SP, streaks, achievements, library, custom routines | ✅ | — |
-| Sound | ✅ | audioplayers web |
+| Sound | ✅ | audioplayers web (HTML audio; the audio context that mixes cues with music is ignored) — checked 2026-10-12: every cue of a workout plays |
 | Haptics | ⚠️ Android Chrome only | engine maps to `navigator.vibrate` |
 | Notifications | ❌ | `NotificationService.init/scheduleAll/scheduleStreakLost/scheduleRankAtRisk` no-op (every new scheduler needs its own `kIsWeb` guard: without `init()` the timezone database is never loaded); Settings section hidden |
 | Health | ❌ | Settings section + onboarding step hidden |
@@ -976,6 +983,8 @@ python3 tools/lottie/enliven.py  # Add sway / rock to the nearly still balance f
 python3 tools/lottie/patch_old.py  # Targeted fixes of designer files (dog head, L-sit arms; in place)
 python3 tools/lottie/check_anim.py NAME ...  # Jump / loop-seam check of generated files
 python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning|yoga]  # Build build/lottie_preview.html to watch them
+python3 tools/sounds/gen_sounds.py  # Regenerate the workout cues (assets/sounds/*.wav)
+python3 tools/sounds/build_preview.py  # Build build/sounds_preview.html to listen to them
 ```
 
 ---
@@ -1036,7 +1045,7 @@ python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|
 | v1.0 | Course hosts — a character per course (Goro, Raffi the giraffe, Luna the owl, Aurora the lark, Miso the cat) on the course cards, the summary and the achievements; Goro keeps Home and every animation | ✅ 0.8.20: Raffi and Luna drawn with the six moods, an idle and a cheer pose; the active course's host is on Home (`GoroExpression.assetFor(course)`), Profile, the course cards (onboarding, Library) and the summary (`CourseId.hostFace` / `hostPortrait` / `hostIdle` / `hostCheer`); Goro keeps the icon, onboarding welcome, notifications, widget and About; Aurora drawn in 0.9.0 with Morning Routine, Miso in 0.9.1 with Yoga; on the achievements of their branches since 0.9.2 (§ Gamification) |
 | v1.0 | Skala redrawn as a real bull (it was a recoloured Goro with horns) | ✅ 0.8.20 — `tools/characters/gen_skala.py` |
 | — | Exercise animations wherever an exercise is named: pickers (routine and branch builders), Branch Journey stages (the earlier "stage previews" idea, which took Bruno's role), Courses-tab cards, history, summary | ✅ 0.9.4 — § Exercise animations wherever an exercise is named |
-| — | Sounds redone from scratch: a cue for every action of a workout, generated in-house by a script | 📐 idea with a cue list (owner, 2026-10-10) — DEV_NOTES § Next ideas 2 |
+| — | Sounds redone from scratch: a cue for every action of a workout, generated in-house by a script | ✅ 0.9.6 — 21 cues, Settings → Sounds all / key only / off, over the user's music; § SoundService and the workout cues |
 | — | Home: fill the empty field between the host and the buttons (today's plan, today so far, the week…) | ✅ 0.9.4 — the owner's pick: host's line + challenge + next goals + branches before the first workout, history + today's growth after it, the plan folded into the button (§ Home: the middle and the plan) |
 | — | Native home-screen widgets redone: more information, more sizes (large, iOS lock screen) | 💡 idea (owner, 2026-10-10) — DEV_NOTES § Next ideas 4 |
 | — | The project's notes reworked: ARCHITECTURE, DEV_NOTES and README are too long and mixed to read comfortably; redesign them together with the owner into a clearer structure | 💡 idea (owner, 2026-10-10) — DEV_NOTES § Next ideas 6 |

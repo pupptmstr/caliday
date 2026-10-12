@@ -248,23 +248,35 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
   @override
   void initState() {
     super.initState();
-    _selected = widget.profile.enrolledCourses.toSet();
+    // As the pills show them (Calisthenics when no course is left).
+    _selected = {
+      for (final c in ref.read(enrolledCoursesProvider))
+        if (c case BuiltInCourse(:final id)) id,
+    };
     _shownOwn = {
       for (final c in ref.read(customCoursesProvider))
         if (c.shown) c.id,
     };
   }
 
+  /// One ticked course, built-in or own, always stays: the user may train
+  /// only their own courses (owner, 2026-10-12).
+  bool get _canUntick => _selected.length + _shownOwn.length > 1;
+
   void _toggleOwn(CustomCourse course) => setState(() {
-        if (!_shownOwn.remove(course.id)) _shownOwn.add(course.id);
+        if (!_shownOwn.contains(course.id)) {
+          _shownOwn.add(course.id);
+        } else if (_canUntick) {
+          _shownOwn.remove(course.id);
+        }
       });
 
   void _toggle(CourseId course) {
     setState(() {
-      if (_selected.contains(course)) {
-        if (_selected.length > 1) _selected.remove(course);
-      } else {
+      if (!_selected.contains(course)) {
         _selected.add(course);
+      } else if (_canUntick) {
+        _selected.remove(course);
       }
     });
   }
@@ -290,19 +302,19 @@ class _CourseEnrollSheetState extends ConsumerState<_CourseEnrollSheet> {
     profile.activeCourseIds = newIds;
     await ref.read(userRepositoryProvider).saveProfile(profile);
 
+    // Invalidate so LibraryScreen rebuilds with updated enrollment.
+    ref.invalidate(enrolledCoursesProvider);
+
     // If the currently active course was removed or hidden, reset to the
-    // first; otherwise select it again, which keeps its index right in the
-    // new list.
+    // first one left; otherwise select it again, which keeps its index right
+    // in the new list.
     final stays = switch (active) {
       BuiltInCourse(:final id) => _selected.contains(id),
       OwnCourse(:final data) => _shownOwn.contains(data.id),
     };
     ref
         .read(activeCourseProvider.notifier)
-        .select(stays ? active : BuiltInCourse(CourseId.values[newIds.first]));
-
-    // Invalidate so LibraryScreen rebuilds with updated enrollment.
-    ref.invalidate(enrolledCoursesProvider);
+        .select(stays ? active : ref.read(enrolledCoursesProvider).first);
     ref.invalidate(homeDataProvider);
 
     if (mounted) Navigator.of(context).pop();

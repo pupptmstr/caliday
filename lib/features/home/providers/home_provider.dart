@@ -14,22 +14,28 @@ import '../../../domain/services/streak_service.dart';
 
 /// The courses of the Courses tab, in the order of the pills: the built-in
 /// ones the user enrolled in, then their own ones that are shown
-/// ([CustomCourse.shown]). Invalidate it after the enrollment changes; own
-/// courses follow [customCoursesProvider] by themselves.
+/// ([CustomCourse.shown]). Never empty: with no course left (the last own
+/// course deleted while no built-in one is enrolled) it is Calisthenics, as
+/// for a new profile. Invalidate it after the enrollment changes; own courses
+/// follow [customCoursesProvider] by themselves.
 final enrolledCoursesProvider = Provider<List<Course>>((ref) {
   final profile = ref.watch(userRepositoryProvider).getProfile();
   final own = ref.watch(customBranchesProvider);
-  return [
+  final courses = [
     for (final c in profile.enrolledCourses) BuiltInCourse(c),
     for (final c in ref.watch(customCoursesProvider))
       if (c.shown) OwnCourse(c, own),
   ];
+  return courses.isEmpty
+      ? const [BuiltInCourse(CourseId.calisthenics)]
+      : courses;
 });
 
 /// Currently active course on the Home screen (last selected by the user):
 /// the own course of [UserProfile.activeCustomCourseId] while it exists and
-/// is shown, otherwise the built-in [UserProfile.activeCourse]. Rebuilt when the own
-/// courses or branches change, so an edited course shows its new branches.
+/// is shown, otherwise the built-in [UserProfile.activeCourse] — or, when no
+/// built-in course is enrolled, the first own course shown. Rebuilt when the
+/// own courses or branches change, so an edited course shows its new branches.
 class ActiveCourseNotifier extends Notifier<Course> {
   @override
   Course build() {
@@ -39,6 +45,10 @@ class ActiveCourseNotifier extends Notifier<Course> {
     final ownId = profile.activeCustomCourseId;
     final data = courses.where((c) => c.id == ownId && c.shown).firstOrNull;
     if (data != null) return OwnCourse(data, own);
+    if (profile.enrolledCourses.isEmpty) {
+      final first = courses.where((c) => c.shown).firstOrNull;
+      if (first != null) return OwnCourse(first, own);
+    }
     return BuiltInCourse(profile.activeCourse);
   }
 

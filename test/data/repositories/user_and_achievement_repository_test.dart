@@ -51,6 +51,7 @@ void main() {
         activeCourseIds: [0, 1],
         activeCourseIndex: 1,
         lastSeenReleaseVersion: '0.8.12',
+        soundModeName: 'key',
       );
       await UserRepository().saveProfile(saved);
 
@@ -81,6 +82,7 @@ void main() {
       expect(p.activeCourseIds, [0, 1]);
       expect(p.activeCourseIndex, 1);
       expect(p.lastSeenReleaseVersion, '0.8.12');
+      expect(p.soundModeName, 'key');
     });
 
     test('optional fields stay null through a round trip', () async {
@@ -91,6 +93,7 @@ void main() {
       expect(p.locale, isNull);
       expect(p.hasPullUpBar, isNull);
       expect(p.soundEnabled, isNull);
+      expect(p.soundModeName, isNull);
       expect(p.activeCourseIds, isNull);
       expect(p.activeCourseIndex, isNull);
       expect(p.lastSeenReleaseVersion, isNull);
@@ -136,10 +139,13 @@ void main() {
   });
 
   group('UserProfile course helpers', () {
-    test('no enrolled courses means calisthenics', () {
+    test('a legacy profile means calisthenics; an empty list means none', () {
       expect(UserProfile().enrolledCourses, [CourseId.calisthenics]);
-      expect(UserProfile(activeCourseIds: []).enrolledCourses,
-          [CourseId.calisthenics]);
+      final ownOnly = UserProfile(activeCourseIds: []);
+      expect(ownOnly.enrolledCourses, isEmpty);
+      expect(ownOnly.activeCourse, CourseId.calisthenics);
+      expect(UserProfile(activeCourseIds: [99]).activeCourse,
+          CourseId.calisthenics);
     });
 
     test('ignores course indices that no longer exist', () {
