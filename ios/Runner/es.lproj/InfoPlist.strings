@@ -1,0 +1,3 @@
+/* The Apple Health permission prompts in this language (Info.plist holds the English base). */
+"NSHealthShareUsageDescription" = "TreniDay lee tu peso corporal de Apple Health para calcular con más precisión las calorías de un entrenamiento.";
+"NSHealthUpdateUsageDescription" = "TreniDay guarda tus entrenamientos y las calorías quemadas en Apple Health.";

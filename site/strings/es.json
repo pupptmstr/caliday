@@ -148,6 +148,8 @@
   "a4": "Solo en tu dispositivo (en la versión web, en el almacenamiento de tu navegador). No hay cuenta y nada se envía a un servidor.",
   "q5": "¿Hay app para iPhone y Android?",
   "a5": "Las apps llegarán muy pronto a App Store y Google Play. Mientras tanto, la versión web funciona en cualquier móvil y se puede añadir a la pantalla de inicio.",
+  "a5_testers": "Google Play solo admite una app nueva después de que 12 personas la prueben durante dos semanas. ¿Tienes un móvil Android y quieres la app antes?",
+  "a5_testers_link": "Únete a los probadores",
   "q6": "¿En qué idiomas está?",
   "a6": "En español, inglés, ruso y alemán.",
   "q7": "¿Cómo hago una pregunta o informo de un problema?",

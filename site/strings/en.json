@@ -148,6 +148,8 @@
   "a4": "Only on your device (in the web version, in your browser's storage). There is no account and nothing is sent to a server.",
   "q5": "Is there an app for iPhone and Android?",
   "a5": "The apps are coming to the App Store and Google Play. Until then the web version works on any phone and can be added to the home screen.",
+  "a5_testers": "Google Play lets a new app in only after 12 people have tested it for two weeks. Have an Android phone and want the app sooner?",
+  "a5_testers_link": "Join the testers",
   "q6": "Which languages does it speak?",
   "a6": "English, Russian, German and Spanish.",
   "q7": "How do I ask a question or report a problem?",

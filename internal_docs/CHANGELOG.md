@@ -6,6 +6,18 @@ One entry per version, newest first: what changed, what the owner decided, and t
 
 ---
 
+## 0.9.10 — 2026-10-13 — Ready for the stores; Android testers wanted
+
+Branch `session/2026-10-13-store-fixes`.
+
+**What the stores check on upload** (found by the store-listing work: `specs/store-listing.md` § Before the first upload, PR #15) — [platform.md § iOS specifics, § Health Integration, § Android Specifics](reference/platform.md#ios-specifics); `test/repo/store_requirements_test.dart` keeps them from drifting:
+- iOS: the Health prompts were Russian only — English in `Info.plist` now, translated in `<lang>.lproj/InfoPlist.strings` for the four app languages; `ITSAppUsesNonExemptEncryption = false`; a privacy manifest for the app and the widget (UserDefaults through the App Group, `1C8F.1`; no tracking, no data collected).
+- **iPhone only for 1.0** (owner: iPad later, recorded as an idea): `TARGETED_DEVICE_FAMILY = 1` everywhere, no iPad orientations. The Xcode project was edited with the `xcodeproj` gem of Homebrew's CocoaPods: the system Ruby lacks it, and Homebrew's Ruby 4 loads it only with the gems' `lib` folders on `RUBYLIB`. Checked in the built app: `UIDeviceFamily = [1]`, the four `.lproj` folders, a `PrivacyInfo.xcprivacy` in the app and in the widget.
+- Android: `USE_EXACT_ALARM` dropped (Play allows it only for alarm clocks and calendars; `SCHEDULE_EXACT_ALARM` stays and the reminders fall back to inexact alarms, as they already did); Health Connect's privacy-policy link opened Home on Android 14 and had no handler on Android 13 — `PermissionsRationaleActivity` hands the policy to the browser for both. Checked in the merged manifest of the APK.
+
+**Android testers wanted** (owner: no 12 people with Android phones, no paid testers, no advertising — [decisions](decisions/README.md#ios-and-the-web-first-android-when-the-testers-gather-owner-2026-10-13)): the owner made the Google Group [treniday-testers](https://groups.google.com/g/treniday-testers); the site's FAQ ("Is there an app for iPhone and Android?") and About in the web version on an Android phone invite to join it. Its members become the closed testers once the Play account exists.
+- Flutter's web engine takes the platform from `navigator.platform` before the user agent: a browser emulating an Android phone that keeps `MacIntel` (with touch points) is taken for an iPhone, so the invite was checked on a copy of the page with `navigator.platform` set as on a real phone (`Linux armv8l`). An Android phone asking for the desktop site reports Linux and gets no invite — fine.
+
 ## 0.9.9 — 2026-10-13 — CaliDay is now TreniDay
 
 Branch `session/2026-10-13-treniday`.

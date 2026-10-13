@@ -148,6 +148,8 @@
   "a4": "Nur auf deinem Gerät (in der Web-Version im Speicher deines Browsers). Es gibt kein Konto, und nichts wird an einen Server geschickt.",
   "q5": "Gibt es eine App für iPhone und Android?",
   "a5": "Die Apps kommen bald in den App Store und zu Google Play. Bis dahin läuft die Web-Version auf jedem Handy und lässt sich auf den Startbildschirm legen.",
+  "a5_testers": "Google Play lässt eine neue App erst zu, wenn 12 Leute sie zwei Wochen lang getestet haben. Du hast ein Android-Handy und willst die App früher?",
+  "a5_testers_link": "Werde Tester",
   "q6": "Welche Sprachen spricht TreniDay?",
   "a6": "Deutsch, Englisch, Russisch und Spanisch.",
   "q7": "Wie stelle ich eine Frage oder melde ein Problem?",

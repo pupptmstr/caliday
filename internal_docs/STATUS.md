@@ -2,7 +2,7 @@
 
 > Part of the project notes — the index is [README.md](README.md). Updated with every branch.
 
-**Version:** 0.9.9 on `main` (CaliDay renamed to TreniDay everywhere, the repository too; 2026-10-13). The owner keeps the version at 0.9.x until they call it 1.0.
+**Version:** 0.9.10 on branch `session/2026-10-13-store-fixes` (what the stores check on upload; iPhone only; Android testers wanted), waiting for the owner's go. `main` has 0.9.9. The owner keeps the version at 0.9.x until they call it 1.0.
 
 ## What the app has
 
@@ -20,9 +20,9 @@
 
 ## Waiting for the owner (v1.0 blockers)
 
-- **Apple ID in Xcode** (Settings → Accounts) so automatic signing registers the App IDs, the App Group and HealthKit for a real device; then the paid Apple Developer Program and the Google Play Console for the stores. A new personal Play account must run a **closed test with at least 12 testers opted in for 14 days in a row** before it may apply for production access — the longest step. **Plan (owner, 2026-10-13):** iOS and the web first; Android once 12 testers gather by themselves (a call on the site and in the web version on Android phones; no paid testers, no advertising) — [decisions](decisions/README.md#ios-and-the-web-first-android-when-the-testers-gather-owner-2026-10-13). The release CI is drafted and disabled until then ([platform.md § Release builds](reference/platform.md#release-builds-ci--drafted-disabled)).
+- **Apple ID in Xcode** (Settings → Accounts) so automatic signing registers the App IDs, the App Group and HealthKit for a real device; then the paid Apple Developer Program and the Google Play Console for the stores. A new personal Play account must run a **closed test with at least 12 testers opted in for 14 days in a row** before it may apply for production access — the longest step. **Plan (owner, 2026-10-13):** iOS and the web first; Android once 12 testers gather by themselves (the Google Group [treniday-testers](https://groups.google.com/g/treniday-testers), invited from the site's FAQ and from About in the web version on Android phones, 0.9.10; no paid testers, no advertising) — [decisions](decisions/README.md#ios-and-the-web-first-android-when-the-testers-gather-owner-2026-10-13). The release CI is drafted and disabled until then ([platform.md § Release builds](reference/platform.md#release-builds-ci--drafted-disabled)).
 - **Native proofreading** of German and Spanish — the app and the site (`site/strings/de.json`, `es.json`) — and the store listings (`fastlane/metadata/de-DE`, `es-ES`, `android/de-DE`, `android/es-ES`; the legal pages stay English only).
-- **The store listings — ready for review** (branch `session/2026-10-13-store-listing`): the texts of both stores in four languages in `fastlane/metadata/` (within every limit: `tools/store/check_listing.py`), the answers for App Privacy, Data safety, the age ratings, the Health declarations and export compliance, and the screenshot plan — [specs/store-listing.md](specs/store-listing.md). Before the first upload: the owner's iPad decision (the app shows its phone layout stretched on an iPad; iPhone only for 1.0 is recommended) and a native follow-up (English Health purpose strings, `ITSAppUsesNonExemptEncryption`, a privacy manifest, no `USE_EXACT_ALARM`, the privacy policy from Health Connect); the screenshots are not made yet.
+- **The store listings — ready for review** (merged 2026-10-13): the texts of both stores in four languages in `fastlane/metadata/` (within every limit: `tools/store/check_listing.py`), the answers for App Privacy, Data safety, the age ratings, the Health declarations and export compliance, and the screenshot plan — [specs/store-listing.md](specs/store-listing.md). The native settings the stores check on upload are done in 0.9.10, and 1.0 is iPhone only (owner); the screenshots are not made yet.
 - **The name, optionally:** a word mark "TreniDay" in classes 9 and 41 (DPMA or EUIPO) — [specs/done/new-name.md](specs/done/new-name.md). Own domain later, if the owner wants (`treniday.com` / `.app` were free on 2026-10-13).
 
 ## Ideas, open (the owner picks)
@@ -32,6 +32,7 @@
 | App performance — measure, agree a budget, fix (owner, 2026-10-12) | [specs/performance.md](specs/performance.md) |
 | "Support the author" (in-app purchase) — tax / legal set-up first | [research/support-the-author.md](research/support-the-author.md) |
 | Rounded / oval frames for the exercise animations (owner: later) | — |
+| iPad support with a wide layout (owner, 2026-10-13: after 1.0, which is iPhone only) | [platform.md § iOS specifics](reference/platform.md#ios-specifics) |
 | Progress export / import through a file, **merged** into what the device has — a new phone, web → app (owner, 2026-10-13) | [specs/progress-export.md](specs/progress-export.md) |
 
 **Parked or declined, do not propose:** the Telegram Mini App + bot ([research/telegram-mini-app.md](research/telegram-mini-app.md)); iPhone Safari haptics through the switch-checkbox trick; vibration patterns of our own ([research/vibration-patterns.md](research/vibration-patterns.md)); Rex, the streak monkey; a visit counter on the site (Search Console is enough); a redirect from the old `/caliday/` address — all the owner's, 2026-10-13 for the last four.

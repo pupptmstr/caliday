@@ -61,3 +61,6 @@ CaliDay became **TreniDay** ("treni", colloquial Russian for training sessions, 
 
 ### iOS and the web first, Android when the testers gather (owner, 2026-10-13)
 A new personal Google Play account must run a closed test with 12 testers for 14 days in a row before it may publish, and the owner has no 12 people with Android phones. So the first store release is the App Store; Android users have the web version (installable from Chrome; no reminders, widgets or Health Connect there). Testers are gathered without paying anyone: a call to join on the site and in the web version on Android, maybe a tester-exchange community. **Not:** paid tester services (a fake test risks a refused production access), advertising, a company only for an organization account (it would skip the rule — worth checking only if a Gewerbe is registered anyway), APKs outside Play (Google's developer verification reaches sideloading worldwide in 2027).
+
+### 1.0 is for iPhone only; iPad later (owner, 2026-10-13)
+On an iPad the phone layout stretched across the whole screen, an iPad app needs its own screenshots and is reviewed on an iPad, and a later version can add iPad support but never drop it. So 1.0 builds for iPhone only (iPads run it in the iPhone window); iPad support with a wide layout is an open idea. — [platform.md § iOS specifics](../reference/platform.md#ios-specifics)

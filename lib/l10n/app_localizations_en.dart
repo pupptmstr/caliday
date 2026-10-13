@@ -2410,6 +2410,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aboutContactUsSubtitle => 'Report a bug or ask a question';
 
   @override
+  String get aboutAndroidTesters => 'Android app: become a tester';
+
+  @override
+  String get aboutAndroidTestersSubtitle =>
+      'Google Play lets a new app in after 12 people have tested it for two weeks';
+
+  @override
   String get aboutPrivacyPolicy => 'Privacy Policy';
 
   @override
@@ -3522,6 +3529,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get releaseNotes095 =>
       'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.\nFour new branches outside the courses: Strong Back, Glutes, Arms & Shoulders and Cardio — 22 exercises, each with Goro’s animation. Add them to your own course: Courses → + → Create your own course.';
+
+  @override
+  String get releaseNotes0910 =>
+      'Want TreniDay as an Android app? In the web version on an Android phone, About invites you to become a tester: Google Play lets a new app in after 12 people have tested it for two weeks.\nThe Apple Health permission requests speak your language.\nOn Android, the privacy policy link in Health Connect opens the policy.';
 
   @override
   String get releaseNotes099 =>

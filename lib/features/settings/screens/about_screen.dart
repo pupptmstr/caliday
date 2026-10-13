@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -71,6 +72,16 @@ class _AboutScreenState extends State<AboutScreen> {
                 ),
               ),
             ),
+            if (androidTestersInviteShown(
+                isWeb: kIsWeb, platform: defaultTargetPlatform)) ...[
+              _AboutTile(
+                title: l10n.aboutAndroidTesters,
+                subtitle: l10n.aboutAndroidTestersSubtitle,
+                icon: Icons.android,
+                url: androidTestersUrl,
+              ),
+              const Divider(indent: 20, endIndent: 20, height: 1),
+            ],
             _AboutTile(
               title: l10n.aboutContactUs,
               subtitle: l10n.aboutContactUsSubtitle,
@@ -118,6 +129,18 @@ class _AboutScreenState extends State<AboutScreen> {
     );
   }
 }
+
+/// The Google Group whose members become the closed testers of the Android app
+/// on Google Play (a new personal account needs 12 of them for 14 days).
+const androidTestersUrl = 'https://groups.google.com/g/treniday-testers';
+
+/// The invitation to test the Android app shows only in the web version opened
+/// on an Android phone: those are the people who would install it.
+bool androidTestersInviteShown({
+  required bool isWeb,
+  required TargetPlatform platform,
+}) =>
+    isWeb && platform == TargetPlatform.android;
 
 class _AboutTile extends StatelessWidget {
   const _AboutTile({

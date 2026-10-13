@@ -2,7 +2,7 @@
 
 > Part of the project notes — the index is [internal_docs/README.md](../README.md).
 
-**The goal (owner):** have both listings ready before the developer accounts exist, so that once they do, only the upload is left. **State:** the texts, the forms' answers and the screenshot plan are ready for the owner's review; German and Spanish are drafts for the native proofreading (like the app's and the site's). Some native settings must change before the first upload — § [Before the first upload](#before-the-first-upload).
+**The goal (owner):** have both listings ready before the developer accounts exist, so that once they do, only the upload is left. **State:** the texts, the forms' answers and the screenshot plan are ready for the owner's review; German and Spanish are drafts for the native proofreading (like the app's and the site's). The native settings the stores check on upload are done in 0.9.10 — § [Before the first upload](#before-the-first-upload).
 
 ## What is in the repository
 
@@ -125,7 +125,7 @@ Category: the one for utility / productivity / other apps (not Game: the game el
 
 ## Before the first upload
 
-Native settings, not app logic — one follow-up branch, after the owner's decisions:
+**Done in 0.9.10** (branch `session/2026-10-13-store-fixes`, [CHANGELOG](../CHANGELOG.md)); kept as the record of what the stores check, and `test/repo/store_requirements_test.dart` guards it. The owner chose iPhone only for 1.0 (item 6; iPad support is an open idea).
 
 1. **iOS Health purpose strings are Russian only** (`NSHealthShareUsageDescription`, `NSHealthUpdateUsageDescription` in `Info.plist`). App Review reads them on an English device; they need English as the base and an `InfoPlist.strings` per app language (the widget gallery texts already follow the system language the same way).
 2. **`ITSAppUsesNonExemptEncryption` = `false`** in `ios/Runner/Info.plist` (§ Export compliance).
@@ -166,7 +166,7 @@ No "free" in the images (both stores frown on price claims in the graphics); no 
 
 ## Upload checklist (once the accounts exist)
 
-1. The native follow-up of § Before the first upload, merged; the iPad decision taken.
+1. The native follow-up of § Before the first upload, merged; the iPad decision taken — both done (0.9.10, iPhone only).
 2. App Store Connect: create the app (bundle id `com.pupptmstr.treniday`, SKU `treniday`, primary language English (U.S.)); App Privacy, age rating, DSA status, pricing and availability as above.
 3. `fastlane deliver` (texts) → screenshots → the first build from the release CI (TestFlight) → submit with the review notes.
 4. Play Console: create the app (default language en-US, App, Free), App content forms as above, `fastlane supply` (texts) → images → the closed test with 12 testers for 14 days → production.
