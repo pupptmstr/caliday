@@ -23,7 +23,7 @@ Branch `session/2026-10-13-treniday`.
 
 **The repository and the address:** GitHub redirects a renamed repository (git, issues, links) but **not its Pages site** — `/caliday/` stops answering. The repository is renamed together with the merge, so the old address is down only until the new build deploys to `/treniday/`.
 
-**Recorded for later:** progress export and import through a file — moving to a new phone, or from the web version to the app (owner) — [specs/progress-export.md](specs/progress-export.md).
+**Recorded for later:** progress export and import through a file — moving to a new phone, or from the web version to the app; the import **merges** with what the device has, never replaces it (owner) — [specs/progress-export.md](specs/progress-export.md).
 
 ## 0.9.8 — 2026-10-12 — A website; every workout sound in the web version on iPhone
 

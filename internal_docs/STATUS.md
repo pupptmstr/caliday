@@ -34,7 +34,7 @@
 | Vibration patterns of our own per cue | [specs/vibration-patterns.md](specs/vibration-patterns.md) |
 | "Support the author" (in-app purchase) — tax / legal set-up first | [research/support-the-author.md](research/support-the-author.md) |
 | Rounded / oval frames for the exercise animations | — |
-| Progress export / import through a file — a new phone, web → app (owner, 2026-10-13) | [specs/progress-export.md](specs/progress-export.md) |
+| Progress export / import through a file, **merged** into what the device has — a new phone, web → app (owner, 2026-10-13) | [specs/progress-export.md](specs/progress-export.md) |
 | Rex, the streak monkey | deferred |
 
 **Parked, do not propose:** the Telegram Mini App + bot ([research/telegram-mini-app.md](research/telegram-mini-app.md)); iPhone Safari haptics through the switch-checkbox trick.
