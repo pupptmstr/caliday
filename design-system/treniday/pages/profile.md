@@ -1,10 +1,10 @@
 # Profile Screen — Design Rules
 
-> **PROJECT:** CaliDay
+> **PROJECT:** TreniDay
 > **Screen:** Profile (stats, rank, achievements tab)
 > **Last updated:** 2026-10-11
 >
-> Rules here **override** `design-system/caliday/MASTER.md`.
+> Rules here **override** `design-system/treniday/MASTER.md`.
 
 ---
 

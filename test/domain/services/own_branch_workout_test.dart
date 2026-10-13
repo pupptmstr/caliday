@@ -1,16 +1,16 @@
-import 'package:caliday/data/models/branch_growth.dart';
-import 'package:caliday/data/models/custom_branch.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/exercise_result.dart';
-import 'package:caliday/data/models/skill_progress.dart';
-import 'package:caliday/data/repositories/skill_progress_repository.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
-import 'package:caliday/data/static/supplementary_exercise_catalog.dart';
-import 'package:caliday/domain/models/branch.dart';
-import 'package:caliday/domain/models/workout_plan.dart';
-import 'package:caliday/domain/services/achievement_service.dart';
-import 'package:caliday/domain/services/workout_generator_service.dart';
-import 'package:caliday/domain/services/workout_progression.dart';
+import 'package:treniday/data/models/branch_growth.dart';
+import 'package:treniday/data/models/custom_branch.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/exercise_result.dart';
+import 'package:treniday/data/models/skill_progress.dart';
+import 'package:treniday/data/repositories/skill_progress_repository.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
+import 'package:treniday/data/static/supplementary_exercise_catalog.dart';
+import 'package:treniday/domain/models/branch.dart';
+import 'package:treniday/domain/models/workout_plan.dart';
+import 'package:treniday/domain/services/achievement_service.dart';
+import 'package:treniday/domain/services/workout_generator_service.dart';
+import 'package:treniday/domain/services/workout_progression.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Progress without Hive: what a test put in, else the start of stage 1.

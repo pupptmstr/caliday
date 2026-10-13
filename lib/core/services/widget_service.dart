@@ -11,21 +11,21 @@ class WidgetService {
   WidgetService._();
   static final WidgetService instance = WidgetService._();
 
-  static const _appGroupId = 'group.com.pupptmstr.caliday';
+  static const _appGroupId = 'group.com.pupptmstr.treniday';
 
-  /// The widget kinds on iOS (`CaliDayWidget.swift`) and their providers on
+  /// The widget kinds on iOS (`TreniDayWidget.swift`) and their providers on
   /// Android, in the same order: Today, Goro, Streak, Rank.
   static const iOSKinds = [
-    'CaliDayWidget',
-    'CaliDayGoroWidget',
-    'CaliDayStreakWidget',
-    'CaliDayRankWidget',
+    'TreniDayWidget',
+    'TreniDayGoroWidget',
+    'TreniDayStreakWidget',
+    'TreniDayRankWidget',
   ];
   static const androidProviders = [
-    'com.pupptmstr.caliday.CaliDayWidgetReceiver',
-    'com.pupptmstr.caliday.GoroWidgetReceiver',
-    'com.pupptmstr.caliday.StreakWidgetReceiver',
-    'com.pupptmstr.caliday.RankWidgetReceiver',
+    'com.pupptmstr.treniday.TreniDayWidgetReceiver',
+    'com.pupptmstr.treniday.GoroWidgetReceiver',
+    'com.pupptmstr.treniday.StreakWidgetReceiver',
+    'com.pupptmstr.treniday.RankWidgetReceiver',
   ];
 
   /// Must be called once during app startup (before any [update] calls).

@@ -1,6 +1,6 @@
-# CaliDay — project notes: read this first
+# TreniDay — project notes: read this first
 
-CaliDay is a Flutter app for short home workouts with a game around them: courses of skill branches with staged progression, SP, streaks, ranks, achievements and Goro the gorilla (plus a host per course). Everything stays on the device (Hive), no backend, free, no ads. iOS first, Android second, the web as a PWA on GitHub Pages.
+TreniDay is a Flutter app for short home workouts with a game around them: courses of skill branches with staged progression, SP, streaks, ranks, achievements and Goro the gorilla (plus a host per course). Everything stays on the device (Hive), no backend, free, no ads. iOS first, Android second, the web as a PWA on GitHub Pages.
 
 ## Rules that must not break
 
@@ -33,7 +33,7 @@ CaliDay is a Flutter app for short home workouts with a game around them: course
 | [specs/](specs/) | one file per active idea; [specs/done/](specs/done/) keeps the finished ones |
 | [research/](research/) | researched and parked or not started: the Telegram Mini App, "Support the author" |
 
-Design and product, outside this folder: `design-system/caliday/BRAND.md` (the brand and characters — **read before any UI task**), `design-system/caliday/MASTER.md` and `pages/` (UX rules per screen), `internal_docs/CaliDay_Design_Document.md` (the product design document), `internal_docs/design-concept/` (Goro's design), `internal_docs/tz_designer.md` (the animation brief). `site/` is the landing page (rendered by `tools/site/build_site.py`) and `docs/` the legal pages (privacy policy, terms); both are public on GitHub Pages — never internal notes.
+Design and product, outside this folder: `design-system/treniday/BRAND.md` (the brand and characters — **read before any UI task**), `design-system/treniday/MASTER.md` and `pages/` (UX rules per screen), `internal_docs/TreniDay_Design_Document.md` (the product design document), `internal_docs/design-concept/` (Goro's design), `internal_docs/tz_designer.md` (the animation brief). `site/` is the landing page (rendered by `tools/site/build_site.py`) and `docs/` the legal pages (privacy policy, terms); both are public on GitHub Pages — never internal notes.
 
 ## Working on the project
 

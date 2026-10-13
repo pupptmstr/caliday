@@ -6,7 +6,7 @@ import '../../l10n/app_localizations.dart';
 import 'rank_decay_service.dart';
 import 'streak_service.dart';
 
-/// The notifications CaliDay can schedule. The ids are stable (they identify a
+/// The notifications TreniDay can schedule. The ids are stable (they identify a
 /// notification to cancel or replace) — never renumber them.
 enum NotificationKind {
   morning(1, 'morning', 'Morning reminder'),

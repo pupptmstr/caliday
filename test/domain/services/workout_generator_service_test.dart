@@ -1,13 +1,13 @@
 import 'dart:math';
 
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/skill_progress.dart';
-import 'package:caliday/data/repositories/skill_progress_repository.dart';
-import 'package:caliday/data/static/course_catalog.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
-import 'package:caliday/data/static/supplementary_exercise_catalog.dart';
-import 'package:caliday/domain/models/workout_plan.dart';
-import 'package:caliday/domain/services/workout_generator_service.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/skill_progress.dart';
+import 'package:treniday/data/repositories/skill_progress_repository.dart';
+import 'package:treniday/data/static/course_catalog.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
+import 'package:treniday/data/static/supplementary_exercise_catalog.dart';
+import 'package:treniday/domain/models/workout_plan.dart';
+import 'package:treniday/domain/services/workout_generator_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// Progress source without Hive: every branch starts at stage 1 unless a test

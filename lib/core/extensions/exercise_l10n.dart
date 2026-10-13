@@ -1,4 +1,4 @@
-import 'package:caliday/l10n/app_localizations.dart';
+import 'package:treniday/l10n/app_localizations.dart';
 
 /// Provides localised display strings for exercises looked up by their ID.
 ///

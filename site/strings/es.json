@@ -2,8 +2,8 @@
   "lang_name": "Español",
   "lang_short": "ES",
   "og_locale": "es_ES",
-  "meta_title": "CaliDay — entrenamientos en casa gratis que se sienten como un juego",
-  "meta_desc": "CaliDay es una app gratis para entrenar en casa con Goro el gorila: ramas de habilidades con tu propio peso, desde la flexión en la pared hasta la parada de manos, yoga y estiramientos, rachas, rangos y logros. Sin anuncios y sin cuenta.",
+  "meta_title": "TreniDay — entrenamientos en casa gratis que se sienten como un juego",
+  "meta_desc": "TreniDay es una app gratis para entrenar en casa con Goro el gorila: ramas de habilidades con tu propio peso, desde la flexión en la pared hasta la parada de manos, yoga y estiramientos, rachas, rangos y logros. Sin anuncios y sin cuenta.",
   "app_desc": "Entrenamientos cortos con tu propio peso en casa con Goro el gorila: ramas de habilidades, cursos, rachas, rangos y logros. Gratis, sin anuncios y sin cuenta.",
 
   "skip": "Ir al contenido",
@@ -43,7 +43,7 @@
   "sec": "s",
   "pause": "Pausa",
 
-  "stats_label": "CaliDay en cifras",
+  "stats_label": "TreniDay en cifras",
   "stat_ex": "ejercicios animados",
   "stat_branches": "ramas de habilidades",
   "stat_courses": "cursos y los tuyos",
@@ -124,11 +124,11 @@
   "f5_t": "Recordatorios amables",
   "f5_p": "Un recordatorio por la mañana, un empujón por la tarde y un aviso cuando tu racha esté en peligro — cada uno se puede desactivar.",
   "f6_t": "Funciona en el navegador",
-  "f6_p": "Sin instalar nada: abre CaliDay en el navegador y añádela a tu pantalla de inicio.",
+  "f6_p": "Sin instalar nada: abre TreniDay en el navegador y añádela a tu pantalla de inicio.",
 
   "priv_eyebrow": "Privacidad",
   "priv_t": "Tu progreso se queda contigo",
-  "priv_p": "CaliDay no tiene servidor ni cuentas. Todo lo que haces se guarda en tu dispositivo y en ningún otro sitio. El código es abierto y cualquiera puede leerlo.",
+  "priv_p": "TreniDay no tiene servidor ni cuentas. Todo lo que haces se guarda en tu dispositivo y en ningún otro sitio. El código es abierto y cualquiera puede leerlo.",
   "pill_account": "Sin cuenta",
   "pill_ads": "Sin anuncios",
   "pill_tracking": "Sin rastreo",
@@ -138,8 +138,8 @@
 
   "faq_eyebrow": "Preguntas",
   "faq_title": "Preguntas frecuentes",
-  "q1": "¿CaliDay es gratis?",
-  "a1": "Sí. CaliDay es gratis, sin anuncios, sin suscripciones y sin funciones de pago.",
+  "q1": "¿TreniDay es gratis?",
+  "a1": "Sí. TreniDay es gratis, sin anuncios, sin suscripciones y sin funciones de pago.",
   "q2": "¿Necesito material?",
   "a2": "Casi nada: el suelo, una pared y a veces una silla. Una barra de dominadas activa la rama de Tracción; sin ella, la app planifica tus entrenamientos sin barra.",
   "q3": "¿Cuánto dura un entrenamiento?",
@@ -158,5 +158,5 @@
   "foot_app": "App web",
   "foot_privacy": "Política de privacidad",
   "foot_terms": "Términos de uso",
-  "foot_copy": "© 2026 CaliDay"
+  "foot_copy": "© 2026 TreniDay"
 }

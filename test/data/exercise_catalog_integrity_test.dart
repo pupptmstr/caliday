@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:caliday/core/extensions/exercise_l10n.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
-import 'package:caliday/data/static/exercise_tags_catalog.dart';
-import 'package:caliday/data/static/supplementary_exercise_catalog.dart';
+import 'package:treniday/core/extensions/exercise_l10n.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
+import 'package:treniday/data/static/exercise_tags_catalog.dart';
+import 'package:treniday/data/static/supplementary_exercise_catalog.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../helpers/all_translations.dart';

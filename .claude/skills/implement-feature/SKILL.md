@@ -1,6 +1,6 @@
 ---
 name: implement-feature
-description: Step-by-step workflow for implementing a new feature or fixing a bug in CaliDay. Use when starting work on any non-trivial change — ensures correct context loading, architecture alignment, and proper documentation at the end.
+description: Step-by-step workflow for implementing a new feature or fixing a bug in TreniDay. Use when starting work on any non-trivial change — ensures correct context loading, architecture alignment, and proper documentation at the end.
 ---
 
 # Implement Feature Workflow
@@ -10,7 +10,7 @@ description: Step-by-step workflow for implementing a new feature or fixing a bu
 Read in this order:
 1. `internal_docs/README.md` — the index and the rules that must not break; then `internal_docs/STATUS.md` (current status) and the feature's spec in `internal_docs/specs/` if it has one
 2. The `internal_docs/reference/` files the task touches (data-hive, progression, workout, screens, platform…)
-3. **If the task involves UI:** read `design-system/caliday/BRAND.md` (colors, Goro, gradients, anti-patterns) and the relevant page file in `design-system/caliday/pages/` if it exists
+3. **If the task involves UI:** read `design-system/treniday/BRAND.md` (colors, Goro, gradients, anti-patterns) and the relevant page file in `design-system/treniday/pages/` if it exists
 4. Relevant code files (find via Glob/Grep)
 
 **Key patterns** (`reference/overview.md` § Key Patterns) to keep in mind:
@@ -86,8 +86,8 @@ Use the `pre-commit` skill:
 
 ## Checklist for UI changes
 
-- [ ] Read `design-system/caliday/BRAND.md` before making visual decisions
-- [ ] Check `design-system/caliday/pages/[screen].md` for screen-specific rules
+- [ ] Read `design-system/treniday/BRAND.md` before making visual decisions
+- [ ] Check `design-system/treniday/pages/[screen].md` for screen-specific rules
 - [ ] Streak elements use `AppTheme.energy` (#FF9500) — never grey or blue
 - [ ] New cards have `AppTheme.cardShadowLight/Dark` — no flat cards
 - [ ] CTA buttons use gradient (`AppTheme.heroGradient` / `AppTheme.rankGradient`) not flat fill

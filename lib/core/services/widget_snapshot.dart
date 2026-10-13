@@ -1,4 +1,4 @@
-import 'package:caliday/l10n/app_localizations.dart';
+import 'package:treniday/l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
 
 import '../../data/models/custom_branch.dart';
@@ -14,7 +14,7 @@ import '../l10n/app_languages.dart';
 import '../utils/calendar_days.dart';
 
 /// Everything the native home-screen widgets show, as the key → value pairs
-/// they read (`ios/CaliDayWidget/WidgetState.swift`,
+/// they read (`ios/TreniDayWidget/WidgetState.swift`,
 /// `android/.../WidgetState.kt`).
 ///
 /// A widget renders without the app, often hours or days after the snapshot,

@@ -17,7 +17,7 @@
     <uses-permission android:name="android.permission.health.WRITE_EXERCISE"/>
     <uses-permission android:name="android.permission.health.WRITE_TOTAL_CALORIES_BURNED"/>
     <application
-        android:label="CaliDay"
+        android:label="TreniDay"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -41,17 +41,17 @@
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
-            <!-- Deep link from Home Screen Widget: caliday://workout -->
+            <!-- Deep link from Home Screen Widget: treniday://workout -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW"/>
                 <category android:name="android.intent.category.DEFAULT"/>
                 <category android:name="android.intent.category.BROWSABLE"/>
-                <data android:scheme="caliday"/>
+                <data android:scheme="treniday"/>
             </intent-filter>
         </activity>
-        <!-- Home-screen widgets (CaliDayWidgets.kt): Today, Goro, Streak, Rank -->
+        <!-- Home-screen widgets (TreniDayWidgets.kt): Today, Goro, Streak, Rank -->
         <receiver
-            android:name=".CaliDayWidgetReceiver"
+            android:name=".TreniDayWidgetReceiver"
             android:label="@string/widget_today_name"
             android:exported="true">
             <intent-filter>
@@ -95,7 +95,7 @@
                 android:resource="@xml/widget_rank_info"/>
         </receiver>
         <!-- Required by Health Connect: lets the system show permission rationale
-             when the user views CaliDay in Health Connect → App permissions. -->
+             when the user views TreniDay in Health Connect → App permissions. -->
         <activity-alias
             android:name="ViewPermissionUsageActivity"
             android:exported="true"

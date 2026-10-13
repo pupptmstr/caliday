@@ -1,4 +1,4 @@
-import 'package:caliday/features/profile/widgets/compact_heatmap.dart';
+import 'package:treniday/features/profile/widgets/compact_heatmap.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// The DST cases are about Europe/Berlin (clocks go forward on 2026-03-29).

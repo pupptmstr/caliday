@@ -6,18 +6,18 @@
 
 ---
 
-**Project:** CaliDay
+**Project:** TreniDay
 **Category:** Fitness/Gym App — Flutter (iOS primary, Android secondary)
 
-> **CaliDay Override:** This is a Flutter app, not a web app. CSS variables and web CSS snippets
+> **TreniDay Override:** This is a Flutter app, not a web app. CSS variables and web CSS snippets
 > below are **reference only**. Actual implementation uses `lib/core/theme/app_theme.dart`.
-> Use the "CaliDay Brand Overrides" section below instead of the generic palette.
+> Use the "TreniDay Brand Overrides" section below instead of the generic palette.
 >
 > **Brand & character reference** (Goro, Skala, colors, animations, anti-patterns) → `BRAND.md`
 
 ---
 
-## CaliDay Brand Overrides (use these, not the generic palette below)
+## TreniDay Brand Overrides (use these, not the generic palette below)
 
 | Role | AppTheme Token | HEX | Usage |
 |------|---------------|-----|-------|

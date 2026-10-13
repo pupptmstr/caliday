@@ -1007,7 +1007,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get onboardingHealthBody =>
-      'CaliDay kann deine Trainings automatisch in Apple Health (iOS) oder Health Connect (Android) speichern.';
+      'TreniDay kann deine Trainings automatisch in Apple Health (iOS) oder Health Connect (Android) speichern.';
 
   @override
   String get onboardingHealthEnable => 'Aktivieren';
@@ -2406,7 +2406,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get aboutLegalConsent =>
-      'Mit der Nutzung von CaliDay stimmst du der Datenschutzerklärung und den Nutzungsbedingungen zu.';
+      'Mit der Nutzung von TreniDay stimmst du der Datenschutzerklärung und den Nutzungsbedingungen zu.';
 
   @override
   String get aboutCopyright => '© 2026 pupptmstr';
@@ -3516,8 +3516,12 @@ class AppLocalizationsDe extends AppLocalizations {
       'Freunde gibt es nicht mehr: Ohne Server konnten sie nur einmal einen QR-Code tauschen, mehr nicht. Die App braucht keine Kamera und kein Bluetooth mehr.\nDein Name: Dein Host begrüßt dich damit auf dem Startbildschirm, Profil und Trainingsabschluss zeigen ihn. Ändern unter Einstellungen → Profil.\nVier neue Zweige außerhalb der Kurse: Starker Rücken, Gesäß, Arme & Schultern und Cardio — 22 Übungen, jede mit Goros Animation. Nimm sie in deinen eigenen Kurs auf: Kurse → + → Eigenen Kurs erstellen.';
 
   @override
+  String get releaseNotes099 =>
+      'CaliDay heißt jetzt TreniDay: ein neuer Name, derselbe Goro und dein ganzer Fortschritt.\nDie Web-Version ist umgezogen: pupptmstr.github.io/treniday/app — öffne sie im selben Browser, und dein Fortschritt ist da.';
+
+  @override
   String get releaseNotes098 =>
-      'Die Web-Version spielt auf dem iPhone jetzt alle Töne des Trainings — die Ticks, den Start einer Halteübung, Seite wechseln, das Ende der Pause —, nicht nur die nach einem Tippen.\nCaliDay hat eine Website: pupptmstr.github.io/caliday — alles über die App in vier Sprachen.';
+      'Die Web-Version spielt auf dem iPhone jetzt alle Töne des Trainings — die Ticks, den Start einer Halteübung, Seite wechseln, das Ende der Pause —, nicht nur die nach einem Tippen.\nTreniDay hat eine Website: pupptmstr.github.io/treniday — alles über die App in vier Sprachen.';
 
   @override
   String get releaseNotes097 =>
@@ -3529,7 +3533,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseNotes093 =>
-      'Dein eigener Kurs: Tippe im Tab „Kurse“ auf + und stell Zweige aus allen Kursen zusammen, wähle den Host und gib dem Kurs einen Namen.\nEin eigener Zweig: Wähle Übungen und bring sie in eine Reihenfolge, jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges legt die App fest, wie in jedem Zweig.\nUnter der Glocke stehen die neuesten Updates oben, darunter ist die ganze Geschichte von CaliDay Version für Version eingeklappt.';
+      'Dein eigener Kurs: Tippe im Tab „Kurse“ auf + und stell Zweige aus allen Kursen zusammen, wähle den Host und gib dem Kurs einen Namen.\nEin eigener Zweig: Wähle Übungen und bring sie in eine Reihenfolge, jede wird eine Stufe. Wiederholungen, Sätze, Pausen und die Challenges legt die App fest, wie in jedem Zweig.\nUnter der Glocke stehen die neuesten Updates oben, darunter ist die ganze Geschichte von TreniDay Version für Version eingeklappt.';
 
   @override
   String get releaseHistory01 =>
@@ -3561,9 +3565,9 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get releaseHistory08 =>
-      'Die Werte auf dem Startbildschirm öffnen Kalender, Verlauf und Ränge; ein Trainingskalender.\nEin Rang sinkt nach langen Pausen und kommt mit dem Training zurück.\nCaliDay im Browser: die Web-Version.\nAnimationen für jede Übung der ersten Kurse.\nÜbungen auf Zeit starten nach einem kurzen Countdown von selbst; Übungen für eine Seite laufen auf beiden.\nTrainings sind Kurz, Standard oder Voll, mit einer Zeitschätzung, die dein Tempo lernt.\n„Was ist neu“ unter der Glocke im Profil; Deutsch und Spanisch.\nJeder Skill wächst einmal am Tag, in jedem Training.\nEin neuer Kurs, „Dehnen am Abend“, und ein Host für jeden Kurs.';
+      'Die Werte auf dem Startbildschirm öffnen Kalender, Verlauf und Ränge; ein Trainingskalender.\nEin Rang sinkt nach langen Pausen und kommt mit dem Training zurück.\nTreniDay im Browser: die Web-Version.\nAnimationen für jede Übung der ersten Kurse.\nÜbungen auf Zeit starten nach einem kurzen Countdown von selbst; Übungen für eine Seite laufen auf beiden.\nTrainings sind Kurz, Standard oder Voll, mit einer Zeitschätzung, die dein Tempo lernt.\n„Was ist neu“ unter der Glocke im Profil; Deutsch und Spanisch.\nJeder Skill wächst einmal am Tag, in jedem Training.\nEin neuer Kurs, „Dehnen am Abend“, und ein Host für jeden Kurs.';
 
   @override
   String get releaseHistory09 =>
-      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.\nVier Zweige außerhalb der Kurse: Rücken, Gesäß, Arme und Schultern, Cardio.\nEin eigener Ton für jeden Moment des Trainings, über deiner Musik.\nWidgets mit Goro: Heute, Goro, Serie und Rang; auf dem iPhone auch auf dem Sperrbildschirm.';
+      'Neue Kurse: „Morgenroutine“ mit Lerche Aurora und „Yoga“ mit Kater Miso.\nDie Hosts überreichen die Erfolge ihres Kurses; kürzere Übungen pro Seite.\nJede Übung hat eine Animation.\nEigene Kurse: aus fertigen Zweigen und eigenen, gebaut aus Übungen in deiner Reihenfolge.\nFreunde entfernt; dein Host begrüßt dich mit deinem Namen.\nVier Zweige außerhalb der Kurse: Rücken, Gesäß, Arme und Schultern, Cardio.\nEin eigener Ton für jeden Moment des Trainings, über deiner Musik.\nWidgets mit Goro: Heute, Goro, Serie und Rang; auf dem iPhone auch auf dem Sperrbildschirm.\nEin neuer Name: CaliDay heißt jetzt TreniDay.';
 }

@@ -1,8 +1,8 @@
-import 'package:caliday/data/models/branch_growth.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/exercise_result.dart';
-import 'package:caliday/data/models/workout_log.dart';
-import 'package:caliday/data/repositories/workout_repository.dart';
+import 'package:treniday/data/models/branch_growth.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/exercise_result.dart';
+import 'package:treniday/data/models/workout_log.dart';
+import 'package:treniday/data/repositories/workout_repository.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/hive_test_env.dart';

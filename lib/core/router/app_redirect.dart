@@ -3,19 +3,19 @@
 ///
 /// - Nobody gets past the onboarding before it is done, deep links included
 ///   (there is no profile to train with).
-/// - `caliday://…` links come from the home-screen widgets: see
+/// - `treniday://…` links come from the home-screen widgets: see
 ///   [deepLinkTarget].
 /// - A finished onboarding is never shown again.
 String? appRedirect({required Uri uri, required bool onboardingDone}) {
   final onOnboarding = uri.path.startsWith('/onboarding');
 
   if (!onboardingDone) return onOnboarding ? null : '/onboarding';
-  if (uri.scheme == 'caliday') return deepLinkTarget(uri);
+  if (uri.scheme == 'treniday') return deepLinkTarget(uri);
   if (onOnboarding) return '/home';
   return null;
 }
 
-/// Where a `caliday://` link opens:
+/// Where a `treniday://` link opens:
 /// - `workout` (the Today widget) the workout screen;
 /// - `home` (the Goro widget) Home;
 /// - `calendar` (the Streak widget) the workout calendar;

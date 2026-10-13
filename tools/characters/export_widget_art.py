@@ -9,7 +9,7 @@ flex pose (after a workout) to PNG with headless Chrome: the blue tile of each
 file left out (the widget draws its own background), cropped to the figure as
 a square with a little air, transparent round it. It writes
 
-    ios/CaliDayWidget/Assets.xcassets/<name>.imageset/<name>.png
+    ios/TreniDayWidget/Assets.xcassets/<name>.imageset/<name>.png
     android/app/src/main/res/drawable-nodpi/<name>.png
 
 Run it again after redrawing any of them (`gen_goro.py` writes the poses; the
@@ -26,7 +26,7 @@ import tempfile
 
 ROOT = pathlib.Path(__file__).resolve().parents[2]
 GORO = ROOT / 'assets' / 'goro'
-IOS = ROOT / 'ios' / 'CaliDayWidget' / 'Assets.xcassets'
+IOS = ROOT / 'ios' / 'TreniDayWidget' / 'Assets.xcassets'
 ANDROID = ROOT / 'android' / 'app' / 'src' / 'main' / 'res' / 'drawable-nodpi'
 CHROME = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'
 

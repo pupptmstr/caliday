@@ -2,9 +2,9 @@
 # the landing page from site/ and the legal docs from docs/ (their URLs are
 # referenced from the app and the store listings, so they must keep working):
 #
-#   https://pupptmstr.github.io/caliday/                ← landing (en; ru/, de/, es/)
-#   https://pupptmstr.github.io/caliday/app/            ← web app
-#   https://pupptmstr.github.io/caliday/PRIVACY_POLICY  ← docs/PRIVACY_POLICY.md
+#   https://pupptmstr.github.io/treniday/                ← landing (en; ru/, de/, es/)
+#   https://pupptmstr.github.io/treniday/app/            ← web app
+#   https://pupptmstr.github.io/treniday/PRIVACY_POLICY  ← docs/PRIVACY_POLICY.md
 #
 # Requires Settings → Pages → Source = "GitHub Actions".
 name: Deploy web
@@ -39,7 +39,7 @@ jobs:
 
       - run: flutter pub get
 
-      - run: flutter build web --release --base-href /caliday/app/
+      - run: flutter build web --release --base-href /treniday/app/
 
       - uses: actions/configure-pages@v6
 

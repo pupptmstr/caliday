@@ -1,9 +1,9 @@
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/skill_progress.dart';
-import 'package:caliday/data/models/user_profile.dart';
-import 'package:caliday/data/static/achievement_catalog.dart';
-import 'package:caliday/data/static/course_catalog.dart';
-import 'package:caliday/domain/services/achievement_service.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/skill_progress.dart';
+import 'package:treniday/data/models/user_profile.dart';
+import 'package:treniday/data/static/achievement_catalog.dart';
+import 'package:treniday/data/static/course_catalog.dart';
+import 'package:treniday/domain/services/achievement_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Map<BranchId, SkillProgress> _progressAt(int Function(BranchId) stage) => {

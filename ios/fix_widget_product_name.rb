@@ -6,13 +6,13 @@ require 'xcodeproj'
 
 project = Xcodeproj::Project.open('ios/Runner.xcodeproj')
 
-widget = project.targets.find { |t| t.name == 'CaliDayWidget' }
-abort "❌ CaliDayWidget target not found" unless widget
+widget = project.targets.find { |t| t.name == 'TreniDayWidget' }
+abort "❌ TreniDayWidget target not found" unless widget
 
 widget.build_configurations.each do |config|
-  config.build_settings['PRODUCT_NAME'] = 'CaliDayWidget'
-  config.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = 'com.pupptmstr.caliday.CaliDayWidget'
+  config.build_settings['PRODUCT_NAME'] = 'TreniDayWidget'
+  config.build_settings['PRODUCT_BUNDLE_IDENTIFIER'] = 'com.pupptmstr.treniday.TreniDayWidget'
 end
 
 project.save
-puts "✅ PRODUCT_NAME fixed for CaliDayWidget"
+puts "✅ PRODUCT_NAME fixed for TreniDayWidget"

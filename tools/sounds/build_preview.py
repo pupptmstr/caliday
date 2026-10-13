@@ -288,14 +288,14 @@ def build(sound_dir):
     script = (SCRIPT.replace('__SOUNDS__', json.dumps(sounds))
               .replace('__DEMO__', json.dumps(DEMO, ensure_ascii=False))
               .replace('__GROUP_OF__', json.dumps(group_of)))
-    return f"""<title>Звуки тренировки CaliDay</title>
+    return f"""<title>Звуки тренировки TreniDay</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600&family=Barlow+Condensed:wght@600;700&display=swap">
 <style>{STYLE}</style>
 <main>
 <header style="display:grid;gap:12px">
-<h1>Звуки тренировки CaliDay</h1>
+<h1>Звуки тренировки TreniDay</h1>
 <p class="lead">{cue_count(len(sounds))} вместо четырёх прежних, в приложении с версии 0.9.6. Все синтезированы скриптом
 <code>tools/sounds/gen_sounds.py</code> в одной семье тембров — деревянные тики, маримба, колокольчик,
 мягкий барабан Скалы. Вверх — «поехали», вниз — «готово, отдыхай», дерево — отсчёт.</p>

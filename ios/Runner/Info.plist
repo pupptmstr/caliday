@@ -7,7 +7,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Caliday</string>
+	<string>TreniDay</string>
 	<key>CFBundleLocalizations</key>
 	<array>
 		<string>ru</string>
@@ -22,7 +22,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>caliday</string>
+	<string>treniday</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -64,17 +64,17 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>com.pupptmstr.caliday</string>
+			<string>com.pupptmstr.treniday</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>caliday</string>
+				<string>treniday</string>
 			</array>
 		</dict>
 	</array>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>CaliDay записывает ваши тренировки и калории в Apple Health.</string>
+	<string>TreniDay записывает ваши тренировки и калории в Apple Health.</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>CaliDay считывает массу тела из Apple Health для точного расчёта калорий.</string>
+	<string>TreniDay считывает массу тела из Apple Health для точного расчёта калорий.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

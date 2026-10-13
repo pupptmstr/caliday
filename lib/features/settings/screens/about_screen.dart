@@ -41,7 +41,7 @@ class _AboutScreenState extends State<AboutScreen> {
             const SizedBox(height: 12),
             Center(
               child: Text(
-                'CaliDay',
+                'TreniDay',
                 style: Theme.of(context).textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.w800,
                     ),
@@ -81,13 +81,13 @@ class _AboutScreenState extends State<AboutScreen> {
             _AboutTile(
               title: l10n.aboutPrivacyPolicy,
               icon: Icons.privacy_tip_outlined,
-              url: 'https://pupptmstr.github.io/caliday/PRIVACY_POLICY',
+              url: 'https://pupptmstr.github.io/treniday/PRIVACY_POLICY',
             ),
             const Divider(indent: 20, endIndent: 20, height: 1),
             _AboutTile(
               title: l10n.aboutTermsOfUse,
               icon: Icons.gavel_outlined,
-              url: 'https://pupptmstr.github.io/caliday/TERMS_OF_USE',
+              url: 'https://pupptmstr.github.io/treniday/TERMS_OF_USE',
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),

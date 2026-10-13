@@ -1,6 +1,6 @@
-import 'package:caliday/core/providers/goro_expression_provider.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/features/home/widgets/home_middle.dart';
+import 'package:treniday/core/providers/goro_expression_provider.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/features/home/widgets/home_middle.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../../helpers/all_translations.dart';

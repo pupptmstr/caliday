@@ -1,15 +1,15 @@
 import 'dart:io';
 
-import 'package:caliday/core/l10n/app_languages.dart';
-import 'package:caliday/core/router/app_redirect.dart';
-import 'package:caliday/core/services/widget_service.dart';
-import 'package:caliday/core/services/widget_snapshot.dart';
-import 'package:caliday/data/models/user_profile.dart';
+import 'package:treniday/core/l10n/app_languages.dart';
+import 'package:treniday/core/router/app_redirect.dart';
+import 'package:treniday/core/services/widget_service.dart';
+import 'package:treniday/core/services/widget_snapshot.dart';
+import 'package:treniday/data/models/user_profile.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-const _swiftDir = 'ios/CaliDayWidget';
-const _kotlinDir = 'android/app/src/main/kotlin/com/pupptmstr/caliday';
+const _swiftDir = 'ios/TreniDayWidget';
+const _kotlinDir = 'android/app/src/main/kotlin/com/pupptmstr/treniday';
 const _res = 'android/app/src/main/res';
 
 final _cyrillic = RegExp('[А-Яа-яЁё]');
@@ -103,14 +103,14 @@ void main() {
 
   test('each widget link opens a place of its own', () {
     final links = {
-      ...RegExp(r'caliday://(\w+)').allMatches(swift).map((m) => m.group(1)!),
+      ...RegExp(r'treniday://(\w+)').allMatches(swift).map((m) => m.group(1)!),
     };
     final androidLinks = {
-      ...RegExp(r'caliday://(\w+)').allMatches(kotlin).map((m) => m.group(1)!),
+      ...RegExp(r'treniday://(\w+)').allMatches(kotlin).map((m) => m.group(1)!),
     };
     expect(links, {'workout', 'home', 'calendar', 'profile'});
     expect(androidLinks, links);
-    expect({for (final l in links) deepLinkTarget(Uri.parse('caliday://$l'))},
+    expect({for (final l in links) deepLinkTarget(Uri.parse('treniday://$l'))},
         hasLength(links.length));
   });
 

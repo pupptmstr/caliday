@@ -1,8 +1,8 @@
-name: caliday
-description: "CaliDay — home calisthenics workouts with streak tracking and gamification."
+name: treniday
+description: "TreniDay — home calisthenics workouts with streak tracking and gamification."
 publish_to: 'none'
 
-version: 0.9.8+38
+version: 0.9.9+39
 
 environment:
   sdk: ^3.11.0

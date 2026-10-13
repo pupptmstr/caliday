@@ -1,7 +1,7 @@
-import 'package:caliday/data/models/user_profile.dart';
-import 'package:caliday/domain/services/notification_planner.dart';
-import 'package:caliday/l10n/app_localizations_en.dart';
-import 'package:caliday/l10n/app_localizations_ru.dart';
+import 'package:treniday/data/models/user_profile.dart';
+import 'package:treniday/domain/services/notification_planner.dart';
+import 'package:treniday/l10n/app_localizations_en.dart';
+import 'package:treniday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;

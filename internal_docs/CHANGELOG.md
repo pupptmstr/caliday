@@ -1,4 +1,4 @@
-# CaliDay — Changelog
+# TreniDay — Changelog
 
 One entry per version, newest first: what changed, what the owner decided, and the problems that were not obvious and how they were solved. What the user reads under the bell is in the ARB files (`releaseNotes<version>`); how things work now is in [reference/](reference/). Since 0.9.0 a version is one session branch, merged into `main` as one squash commit.
 
@@ -6,16 +6,35 @@ One entry per version, newest first: what changed, what the owner decided, and t
 
 ---
 
+## 0.9.9 — 2026-10-13 — CaliDay is now TreniDay
+
+Branch `session/2026-10-13-treniday`.
+
+**The new name** (owner: play with "training" and "day / daily" so that the name says daily workouts; Goro stays; first the name, then everything else). Of a checked shortlist the owner chose **TreniDay**, written with a capital D. The `caliday` domains were taken, and the checks found CALIDAY filed as a US trademark in class 41 (fitness training) by another company; TreniDay was free in every domain zone, store and register searched — the shortlist and the checks are in [specs/done/new-name.md](specs/done/new-name.md).
+
+**Renamed everywhere at once** (owner: "absolutely everywhere", the repository too): every `CaliDay` / `caliday` in the tracked files became `TreniDay` / `treniday` by one script, and the paths with the name moved (`ios/TreniDayWidget/`, the Kotlin package folder, `design-system/treniday/`, the design documents). That covers:
+- the app's name (iOS `CFBundleDisplayName` — it was "Caliday" with a small d —, the Android label, the web manifest and title, the launch screen), the texts that name the app in all four languages, and the "What's new" history;
+- the Dart package (`package:treniday/…`; `hive_registrar.g.dart` and the l10n files regenerated, not edited);
+- **the ids:** bundle / application id `com.pupptmstr.treniday` (the widget `com.pupptmstr.treniday.TreniDayWidget`), the App Group `group.com.pupptmstr.treniday`, the deep-link scheme `treniday://`, the iOS widget kinds `TreniDay…Widget`, the Android Today receiver `TreniDayWidgetReceiver`, the Xcode widget target and its folder. Nothing is in a store yet, so changing them costs nothing now and could not be done after the first release. On a test phone the renamed app installs as a new app beside the old one (the old one's data stays with it);
+- the site (`pupptmstr.github.io/treniday/`, the og cards redrawn by `make_og.py`), the legal pages, the README, the LICENSE, the workflows (`--base-href /treniday/app/`, the release file names), the tools, the notes, the skills and `CLAUDE.md`.
+- Left as they were: the git history, the local folder of the checkout, the Claude project memory's folder name (it follows the local path), and two lines of the 0.9.8 entry that speak about the old name itself.
+
+**The web users keep their progress:** Hive on the web stores each box as an IndexedDB database of the origin `pupptmstr.github.io`, which the move from `/caliday/app/` to `/treniday/app/` does not change, and no box name contained the old name. The web build has no service worker, so no old copy stays cached.
+
+**The repository and the address:** GitHub redirects a renamed repository (git, issues, links) but **not its Pages site** — `/caliday/` stops answering. The repository is renamed together with the merge, so the old address is down only until the new build deploys to `/treniday/`.
+
+**Recorded for later:** progress export and import through a file — moving to a new phone, or from the web version to the app; the import **merges** with what the device has, never replaces it (owner) — [specs/progress-export.md](specs/progress-export.md).
+
 ## 0.9.8 — 2026-10-12 — A website; every workout sound in the web version on iPhone
 
 Branch `session/2026-10-12-landing`.
 
-**A landing page** (owner: a site that says what the app is, so that a search for "caliday" finds it, with the links to the web version, the stores and GitHub; styled like the app; in the app's languages): `https://pupptmstr.github.io/caliday/` — English at the root, `ru/`, `de/`, `es/` — deployed by `web.yml` together with the web app and the legal docs — [platform.md § Landing page](reference/platform.md#landing-page-098).
+**A landing page** (owner: a site that says what the app is, so that a search for "caliday" finds it, with the links to the web version, the stores and GitHub; styled like the app; in the app's languages): `https://pupptmstr.github.io/treniday/` — English at the root, `ru/`, `de/`, `es/` — deployed by `web.yml` together with the web app and the legal docs — [platform.md § Landing page](reference/platform.md#landing-page-098).
 - One template and one strings file per language (`site/template.html`, `site/strings/<code>.json`) rendered by `tools/site/build_site.py`, which takes from the app what the site shares with it instead of keeping copies (the characters' SVGs, seven exercise animations and their crops, read from `animation_crops.dart`), and writes the hreflang links, `sitemap.xml` and the JSON-LD. A missing string fails the build.
 - No screenshots: the two phones of the first screen are drawn in HTML with the app's tokens and play the real Lottie files, so every language has its own "screens". Driving the debug build in the simulator for a set of real screenshots per language was too slow to be worth it.
 - The owner dropped "free forever": the site says "free", "no ads", "no tracking".
 - Store links wait for the listings ("iPhone & Android — coming soon"; Apple's badge is only for an app that is on the App Store).
-- `robots.txt` works only at a domain's root, so on `github.io/caliday/` the sitemap reaches Google through Search Console (the owner's step).
+- `robots.txt` works only at a domain's root, so on `github.io/treniday/` the sitemap reaches Google through Search Console (the owner's step).
 - An Actions deploy replaces the whole Pages site: the script writes into `_site/` next to the Jekyll output without clearing it, and keeps out of Jekyll's `assets/` folder (`img/`, `anim/`).
 
 **Every workout sound in the web version on iPhone** (the owner heard only some cues on the phone, no ticks): audioplayers' web player makes a new `<audio>` element (with an AudioContext of its own) for every play and drops it when it ends; iOS Safari lets an element start only inside a tap, so every cue the timer starts stayed silent and only Pause / Skip were heard. The guess that a sound had no time to finish was not it (a tick is 70 ms, one a second). Now the web build decodes every cue once and plays it on one Web Audio context (`WebCuePlayer`), unlocked by the first tap anywhere in the app — [workout.md § SoundService](reference/workout.md).
@@ -24,16 +43,16 @@ Branch `session/2026-10-12-landing`.
 
 **The GitHub repository presented** (owner: "the repository is not dressed up"): the README opens with the icon, the tagline, the links to the website and the web app, the CI and deploy badges and the six characters; its numbers were refreshed (24 branches, 155 exercises). A stray `--help` file in the root (an HTML fragment a tool wrote there in 0.9.5) is gone. On GitHub: the About description, the website link and 20 topics; the empty Wiki and Projects tabs are off. A `LICENSE` file says what the README and the Terms of Use already did: the source is open to read, all rights reserved (the owner first picked GPL-3.0, then chose to keep the policies as written).
 
-**Recorded for later:** a new name for the app (owner, not urgent: `caliday.com` and `.app` are taken; no other app with the name was found) — [specs/new-name.md](specs/new-name.md).
+**Recorded for later:** a new name for the app (owner, not urgent: `caliday.com` and `.app` are taken; no other app with the name was found) — [specs/done/new-name.md](specs/done/new-name.md).
 
 ## 0.9.7 — 2026-10-12 — Widgets with Goro; Flutter 3.47; the notes reworked
 
 Branch `session/2026-10-12-widgets-notes-deps`.
 
-**Home-screen widgets redone** (idea of 2026-10-10; the owner chose the set and the look on an HTML mock-up with Goro's real art: the brand-blue background, a dark ember for the Streak, a new pose every day, a night sky while Goro sleeps): Today (small / medium / large; the day's plan or done, the week, the way to the next rank), Goro (his face by the mood of the day), Streak, Rank; on iOS also four lock-screen widgets (rectangular Today, circular Streak and Rank, the inline line). Each opens its place (`caliday://workout | home | calendar | profile`). See [platform.md § Home-screen widgets](reference/platform.md#home-screen-widgets-097).
+**Home-screen widgets redone** (idea of 2026-10-10; the owner chose the set and the look on an HTML mock-up with Goro's real art: the brand-blue background, a dark ember for the Streak, a new pose every day, a night sky while Goro sleeps): Today (small / medium / large; the day's plan or done, the week, the way to the next rank), Goro (his face by the mood of the day), Streak, Rank; on iOS also four lock-screen widgets (rectangular Today, circular Streak and Rank, the inline line). Each opens its place (`treniday://workout | home | calendar | profile`). See [platform.md § Home-screen widgets](reference/platform.md#home-screen-widgets-097).
 - The data is one pure snapshot (`WidgetSnapshot`), every text from the ARB files; the widgets decide by the moment they render with the app's rules mirrored in Swift and Kotlin (done today, the streak after midnight, the mood by the hour, the pose of the day). The old `workoutDoneToday` flag went stale at midnight; now the snapshot carries days.
 - Goro's art for the widgets is rendered from the app's SVGs by `tools/characters/export_widget_art.py` (headless Chrome, the tile removed, cropped to the figure). An empty placeholder path (`M0,0`) in the sleeping face pulled the crop box to the corner: the box is measured over visible shapes only.
-- iOS: a `WidgetBundle` of four kinds; the old kind `CaliDayWidget` is the Today widget, so a placed widget keeps working. A radial glow with a fixed radius showed a square edge in a smaller frame — it now fades out at the inscribed circle.
+- iOS: a `WidgetBundle` of four kinds; the old kind `TreniDayWidget` is the Today widget, so a placed widget keeps working. A radial glow with a fixed radius showed a square edge in a smaller frame — it now fades out at the inscribed circle.
 - Android: four providers, Today and Rank resizable with a layout per size (`RemoteViews` size map on 12+). `adb` cannot send `APPWIDGET_UPDATE` (protected broadcast), and a force-stopped app shows placeholders; checking states was done through the app (debug options, then leaving the app).
 - "Done · +0 SP" for a day without SP became just "Done".
 
@@ -56,7 +75,7 @@ Branch `session/2026-10-12-widgets-notes-deps`.
 
 ## 0.9.5 — 2026-10-11 — Friends removed; the host greets you by name; four branches outside the courses
 
-- **Friends removed** (owner: without a server a one-off QR / Bluetooth swap added little and cost a lot): screens, model, codecs, BLE service, four packages, the camera and Bluetooth permissions, the privacy-policy sections. typeId 9 and UserProfile fields 17 / 23 are retired; the `friends` box is deleted at start-up, not awaited (on the web a database an old tab holds blocks the delete). An old `caliday://friend` link opens Home.
+- **Friends removed** (owner: without a server a one-off QR / Bluetooth swap added little and cost a lot): screens, model, codecs, BLE service, four packages, the camera and Bluetooth permissions, the privacy-policy sections. typeId 9 and UserProfile fields 17 / 23 are retired; the `friends` box is deleted at start-up, not awaited (on the web a database an old tab holds blocks the delete). An old `treniday://friend` link opens Home.
 - **The name is used:** a greeting by the part of the day above the host's line on Home, the Profile header, the summary title, Settings → Profile.
 - **Strong Back, Glutes, Arms & Shoulders, Cardio** — branches outside every course (BranchId HiveFields 20–23), 22 exercises with animations (`gen_extra.py`), picked in the course builder; `all_complete` counts only the courses' branches. `CourseCatalog.courseOf` threw for a branch no course lists; it returns null (Goro presents those achievements).
 - Animation lessons: Goro's proportions (legs 84 px, arms 80 px, torso 100 px) dictated the props (a low sofa, the feet past the door post); the owner allowed other proportions for the pike push-ups (`sc_len`); a leg in line with the body has the angle `br`, not `br + 180`.

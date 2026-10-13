@@ -1,9 +1,9 @@
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/exercise.dart';
-import 'package:caliday/data/models/exercise_result.dart';
-import 'package:caliday/data/models/skill_progress.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
-import 'package:caliday/domain/services/progression_service.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/exercise.dart';
+import 'package:treniday/data/models/exercise_result.dart';
+import 'package:treniday/data/models/skill_progress.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
+import 'package:treniday/domain/services/progression_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 Exercise _exercise({ExerciseType type = ExerciseType.reps, int targetReps = 10}) =>

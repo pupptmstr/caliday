@@ -4,7 +4,7 @@ import 'package:app_links/app_links.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:caliday/l10n/app_localizations.dart';
+import 'package:treniday/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive_ce_flutter/hive_ce_flutter.dart';
 
@@ -78,17 +78,17 @@ Future<void> main() async {
   // build still holds waits until that tab is closed.
   unawaited(deleteRetiredBoxes());
 
-  runApp(const ProviderScope(child: CaliDayApp()));
+  runApp(const ProviderScope(child: TreniDayApp()));
 }
 
-class CaliDayApp extends ConsumerStatefulWidget {
-  const CaliDayApp({super.key});
+class TreniDayApp extends ConsumerStatefulWidget {
+  const TreniDayApp({super.key});
 
   @override
-  ConsumerState<CaliDayApp> createState() => _CaliDayAppState();
+  ConsumerState<TreniDayApp> createState() => _TreniDayAppState();
 }
 
-class _CaliDayAppState extends ConsumerState<CaliDayApp> {
+class _TreniDayAppState extends ConsumerState<TreniDayApp> {
   StreamSubscription<Uri>? _linkSub;
 
   AppLifecycleListener? _lifecycle;
@@ -124,14 +124,14 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
       await WidgetService.instance.init();
       unawaited(ref.read(homeWidgetSyncProvider).push());
 
-      // Handle deep links from a home-screen widget tap (caliday://…).
+      // Handle deep links from a home-screen widget tap (treniday://…).
       final appLinks = AppLinks();
       final initialLink = await appLinks.getInitialLink();
-      if (initialLink != null && initialLink.scheme == 'caliday') {
+      if (initialLink != null && initialLink.scheme == 'treniday') {
         ref.read(routerProvider).go(deepLinkTarget(initialLink));
       }
       _linkSub = appLinks.uriLinkStream.listen((uri) {
-        if (uri.scheme == 'caliday') {
+        if (uri.scheme == 'treniday') {
           ref.read(routerProvider).go(deepLinkTarget(uri));
         }
       });
@@ -152,7 +152,7 @@ class _CaliDayAppState extends ConsumerState<CaliDayApp> {
     final themeMode = ref.watch(themeProvider);
 
     return MaterialApp.router(
-      title: 'CaliDay',
+      title: 'TreniDay',
       debugShowCheckedModeBanner: false,
       locale: Locale(locale),
       supportedLocales: AppLocalizations.supportedLocales,

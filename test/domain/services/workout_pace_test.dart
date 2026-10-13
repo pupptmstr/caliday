@@ -1,6 +1,6 @@
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/workout_log.dart';
-import 'package:caliday/domain/services/workout_pace.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/workout_log.dart';
+import 'package:treniday/domain/services/workout_pace.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// A finished workout that was estimated at [estimated] s and took [actual] s.

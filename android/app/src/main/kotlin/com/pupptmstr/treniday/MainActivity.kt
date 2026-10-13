@@ -1,4 +1,4 @@
-package com.pupptmstr.caliday
+package com.pupptmstr.treniday
 
 import io.flutter.embedding.android.FlutterFragmentActivity
 

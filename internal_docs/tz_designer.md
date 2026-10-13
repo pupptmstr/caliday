@@ -1,4 +1,4 @@
-# CaliDay — Техническое задание для дизайнера
+# TreniDay — Техническое задание для дизайнера
 ## Версия 2.0 / Апрель 2026
 
 ---
@@ -297,13 +297,13 @@
 ## Файлы для референса
 
 Контекст и стиль — `internal_docs/design-concept/`:
-- `caliday_design_concept.md` — полное описание стиля, цветов, характеров персонажей
-- `caliday_icon_face.svg` — лицо Горо
-- `caliday_icon.svg` — Горо флексит (стиль тела)
-- `caliday_icon_idle.svg` — Горо idle (пропорции)
-- `caliday_icon_preview.html` — открыть в браузере для просмотра
+- `treniday_design_concept.md` — полное описание стиля, цветов, характеров персонажей
+- `treniday_icon_face.svg` — лицо Горо
+- `treniday_icon.svg` — Горо флексит (стиль тела)
+- `treniday_icon_idle.svg` — Горо idle (пропорции)
+- `treniday_icon_preview.html` — открыть в браузере для просмотра
 
-Предыдущие работы (актуальный стиль тела) — `assets/goro/` (оригиналы поставки: `internal_docs/caliday_design_v1_1/RESULTS.md`):
+Предыдущие работы (актуальный стиль тела) — `assets/goro/` (оригиналы поставки: `internal_docs/treniday_design_v1_1/RESULTS.md`):
 - `goro_idle_v2.svg` — текущие пропорции тела Горо
 - `goro_flex_v2.svg` — текущий стиль тела Горо
 

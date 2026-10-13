@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:caliday/core/services/sound_service.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/exercise.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
-import 'package:caliday/domain/models/workout_plan.dart';
-import 'package:caliday/features/workout/providers/workout_provider.dart';
-import 'package:caliday/features/workout/workout_cues.dart';
+import 'package:treniday/core/services/sound_service.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/exercise.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
+import 'package:treniday/domain/models/workout_plan.dart';
+import 'package:treniday/features/workout/providers/workout_provider.dart';
+import 'package:treniday/features/workout/workout_cues.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

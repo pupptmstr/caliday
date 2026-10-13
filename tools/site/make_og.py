@@ -44,7 +44,7 @@ p {{ margin: 22px 0 0; font-size: 44px; font-weight: 800; line-height: 1.15; max
 </style></head><body>
 <img class="face" src="{face}">
 <div style="position:relative">
-  <h1>CaliDay</h1>
+  <h1>TreniDay</h1>
   <p>{tagline}</p>
   <div class="chips"><span class="chip">{free}</span><span class="chip">{noads}</span><span class="chip">{noaccount}</span></div>
 </div>

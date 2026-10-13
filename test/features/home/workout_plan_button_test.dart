@@ -1,8 +1,8 @@
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
-import 'package:caliday/domain/models/workout_plan.dart';
-import 'package:caliday/features/home/widgets/workout_plan_button.dart';
-import 'package:caliday/l10n/app_localizations.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
+import 'package:treniday/domain/models/workout_plan.dart';
+import 'package:treniday/features/home/widgets/workout_plan_button.dart';
+import 'package:treniday/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 

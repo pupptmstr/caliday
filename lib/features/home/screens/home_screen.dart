@@ -240,7 +240,7 @@ class _HeroZone extends StatelessWidget {
           children: [
             // ── App name ──────────────────────────────────────────────────
             const Text(
-              'CaliDay',
+              'TreniDay',
               style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.w900,

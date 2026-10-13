@@ -3,15 +3,15 @@
 // Check in to version control
 
 import 'package:hive_ce/hive_ce.dart';
-import 'package:caliday/data/models/branch_growth.dart';
-import 'package:caliday/data/models/custom_branch.dart';
-import 'package:caliday/data/models/custom_course.dart';
-import 'package:caliday/data/models/custom_routine.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/exercise_result.dart';
-import 'package:caliday/data/models/skill_progress.dart';
-import 'package:caliday/data/models/user_profile.dart';
-import 'package:caliday/data/models/workout_log.dart';
+import 'package:treniday/data/models/branch_growth.dart';
+import 'package:treniday/data/models/custom_branch.dart';
+import 'package:treniday/data/models/custom_course.dart';
+import 'package:treniday/data/models/custom_routine.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/exercise_result.dart';
+import 'package:treniday/data/models/skill_progress.dart';
+import 'package:treniday/data/models/user_profile.dart';
+import 'package:treniday/data/models/workout_log.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {

@@ -1,4 +1,4 @@
-import 'package:caliday/core/router/app_redirect.dart';
+import 'package:treniday/core/router/app_redirect.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 String? redirect(String uri, {required bool done}) =>
@@ -18,8 +18,8 @@ void main() {
     });
 
     test('deep links do not skip it either', () {
-      expect(redirect('caliday://workout', done: false), '/onboarding');
-      expect(redirect('caliday://friend?d=AqGy', done: false), '/onboarding');
+      expect(redirect('treniday://workout', done: false), '/onboarding');
+      expect(redirect('treniday://friend?d=AqGy', done: false), '/onboarding');
     });
   });
 
@@ -39,27 +39,27 @@ void main() {
     });
 
     test('each home-screen widget opens its place', () {
-      expect(redirect('caliday://workout', done: true), '/workout');
-      expect(redirect('caliday://home', done: true), '/home');
-      expect(redirect('caliday://calendar', done: true), '/calendar');
-      expect(redirect('caliday://profile', done: true), '/profile');
+      expect(redirect('treniday://workout', done: true), '/workout');
+      expect(redirect('treniday://home', done: true), '/home');
+      expect(redirect('treniday://calendar', done: true), '/calendar');
+      expect(redirect('treniday://profile', done: true), '/profile');
     });
 
     test('a widget link before the onboarding still waits for it', () {
-      for (final link in ['caliday://home', 'caliday://calendar', 'caliday://profile']) {
+      for (final link in ['treniday://home', 'treniday://calendar', 'treniday://profile']) {
         expect(redirect(link, done: false), '/onboarding');
       }
     });
 
     test('an old friend QR code opened by the system camera opens Home', () {
       // Friends are gone (0.9.5); scanning a code must not start a workout.
-      expect(redirect('caliday://friend?d=AqGyw9TlYGGCKTpLbG1-kA', done: true), '/home');
-      expect(redirect('caliday://friend?data=eyJ2IjoxfQ==', done: true), '/home');
+      expect(redirect('treniday://friend?d=AqGyw9TlYGGCKTpLbG1-kA', done: true), '/home');
+      expect(redirect('treniday://friend?data=eyJ2IjoxfQ==', done: true), '/home');
     });
 
-    test('any other CaliDay link opens the workout as before', () {
-      expect(redirect('caliday://', done: true), '/workout');
-      expect(redirect('caliday://something/else', done: true), '/workout');
+    test('any other TreniDay link opens the workout as before', () {
+      expect(redirect('treniday://', done: true), '/workout');
+      expect(redirect('treniday://something/else', done: true), '/workout');
     });
 
     test('a link with another scheme is just a location', () {
@@ -70,7 +70,7 @@ void main() {
   test('the redirect target itself is stable: no redirect loops', () {
     for (final done in [true, false]) {
       for (final from in [
-        '/home', '/onboarding', 'caliday://workout', 'caliday://friend?d=A', '/workout',
+        '/home', '/onboarding', 'treniday://workout', 'treniday://friend?d=A', '/workout',
       ]) {
         final first = redirect(from, done: done);
         if (first == null) continue;

@@ -2,8 +2,8 @@
   "lang_name": "Deutsch",
   "lang_short": "DE",
   "og_locale": "de_DE",
-  "meta_title": "CaliDay — kostenloses Heimtraining, das sich wie ein Spiel anfühlt",
-  "meta_desc": "CaliDay ist eine kostenlose App fürs Training zu Hause mit Goro, dem Gorilla: Skill-Zweige mit dem eigenen Körpergewicht vom Wand-Liegestütz bis zum Handstand, Yoga und Dehnen, Serien, Ränge und Erfolge. Ohne Werbung, ohne Konto.",
+  "meta_title": "TreniDay — kostenloses Heimtraining, das sich wie ein Spiel anfühlt",
+  "meta_desc": "TreniDay ist eine kostenlose App fürs Training zu Hause mit Goro, dem Gorilla: Skill-Zweige mit dem eigenen Körpergewicht vom Wand-Liegestütz bis zum Handstand, Yoga und Dehnen, Serien, Ränge und Erfolge. Ohne Werbung, ohne Konto.",
   "app_desc": "Kurze Workouts mit dem eigenen Körpergewicht zu Hause mit Goro, dem Gorilla: Skill-Zweige, Kurse, Serien, Ränge und Erfolge. Kostenlos, ohne Werbung, ohne Konto.",
 
   "skip": "Zum Inhalt",
@@ -43,7 +43,7 @@
   "sec": "Sek.",
   "pause": "Pause",
 
-  "stats_label": "CaliDay in Zahlen",
+  "stats_label": "TreniDay in Zahlen",
   "stat_ex": "animierte Übungen",
   "stat_branches": "Skill-Zweige",
   "stat_courses": "Kurse und eigene",
@@ -124,11 +124,11 @@
   "f5_t": "Sanfte Erinnerungen",
   "f5_p": "Eine Erinnerung am Morgen, ein Schubs am Abend und eine Warnung, wenn deine Serie in Gefahr ist — jede lässt sich abschalten.",
   "f6_t": "Läuft im Browser",
-  "f6_p": "Keine Installation nötig: Öffne CaliDay im Browser und leg es auf deinen Startbildschirm.",
+  "f6_p": "Keine Installation nötig: Öffne TreniDay im Browser und leg es auf deinen Startbildschirm.",
 
   "priv_eyebrow": "Datenschutz",
   "priv_t": "Dein Fortschritt bleibt bei dir",
-  "priv_p": "CaliDay hat keinen Server und kein Konto. Alles, was du tust, wird auf deinem Gerät gespeichert und nirgendwo sonst. Der Code ist offen, jeder kann ihn lesen.",
+  "priv_p": "TreniDay hat keinen Server und kein Konto. Alles, was du tust, wird auf deinem Gerät gespeichert und nirgendwo sonst. Der Code ist offen, jeder kann ihn lesen.",
   "pill_account": "Ohne Konto",
   "pill_ads": "Ohne Werbung",
   "pill_tracking": "Ohne Tracking",
@@ -138,8 +138,8 @@
 
   "faq_eyebrow": "Fragen",
   "faq_title": "Häufige Fragen",
-  "q1": "Ist CaliDay kostenlos?",
-  "a1": "Ja. CaliDay ist kostenlos, ohne Werbung, ohne Abos und ohne kostenpflichtige Funktionen.",
+  "q1": "Ist TreniDay kostenlos?",
+  "a1": "Ja. TreniDay ist kostenlos, ohne Werbung, ohne Abos und ohne kostenpflichtige Funktionen.",
   "q2": "Brauche ich Ausrüstung?",
   "a2": "Fast nichts: einen Boden, eine Wand und manchmal einen Stuhl. Eine Klimmzugstange schaltet den Zweig Ziehen frei; ohne sie plant die App deine Trainings ohne Stange.",
   "q3": "Wie lange dauert ein Training?",
@@ -148,7 +148,7 @@
   "a4": "Nur auf deinem Gerät (in der Web-Version im Speicher deines Browsers). Es gibt kein Konto, und nichts wird an einen Server geschickt.",
   "q5": "Gibt es eine App für iPhone und Android?",
   "a5": "Die Apps kommen bald in den App Store und zu Google Play. Bis dahin läuft die Web-Version auf jedem Handy und lässt sich auf den Startbildschirm legen.",
-  "q6": "Welche Sprachen spricht CaliDay?",
+  "q6": "Welche Sprachen spricht TreniDay?",
   "a6": "Deutsch, Englisch, Russisch und Spanisch.",
 
   "final_t": "Fang heute an",
@@ -158,5 +158,5 @@
   "foot_app": "Web-App",
   "foot_privacy": "Datenschutzerklärung",
   "foot_terms": "Nutzungsbedingungen",
-  "foot_copy": "© 2026 CaliDay"
+  "foot_copy": "© 2026 TreniDay"
 }

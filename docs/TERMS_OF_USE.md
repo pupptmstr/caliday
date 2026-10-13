@@ -1,28 +1,28 @@
-# Terms of Use — CaliDay
+# Terms of Use — TreniDay
 
-**Last updated: October 11, 2026**
+**Last updated: October 13, 2026**
 
 ---
 
-Please read these Terms of Use carefully before using CaliDay.
+Please read these Terms of Use carefully before using TreniDay.
 By installing or using the app, you agree to these terms.
-If you do not agree, do not use CaliDay.
+If you do not agree, do not use TreniDay.
 
 ---
 
 ## 1. Medical Disclaimer
 
-**CaliDay is not a medical service, and nothing in this app constitutes medical advice.**
+**TreniDay is not a medical service, and nothing in this app constitutes medical advice.**
 
 The workout programs, exercise instructions, and progression recommendations provided by
-CaliDay are for general fitness and educational purposes only. They are not a substitute
+TreniDay are for general fitness and educational purposes only. They are not a substitute
 for professional medical advice, diagnosis, or treatment.
 
 **Before starting any exercise program, consult a qualified healthcare provider**,
 especially if you have any pre-existing medical conditions, injuries, cardiovascular
 issues, or are pregnant.
 
-By using CaliDay you acknowledge that:
+By using TreniDay you acknowledge that:
 
 - Physical exercise carries an inherent risk of injury.
 - You are solely responsible for evaluating your physical condition and fitness level.
@@ -37,8 +37,8 @@ during exercise, stop immediately and seek medical attention.
 
 ## 2. License
 
-CaliDay is free to download and use. The developer grants you a personal,
-non-exclusive, non-transferable, revocable license to install and use CaliDay
+TreniDay is free to download and use. The developer grants you a personal,
+non-exclusive, non-transferable, revocable license to install and use TreniDay
 on devices you own or control, solely for your personal, non-commercial purposes.
 
 You may not:
@@ -52,14 +52,14 @@ You may not:
 
 ## 3. User-Generated Content
 
-CaliDay stores all data locally on your device. Any workout routines, custom exercise
+TreniDay stores all data locally on your device. Any workout routines, custom exercise
 lists, or other content you create within the app belong to you and remain on your device.
 
 ---
 
 ## 4. No Warranty
 
-CaliDay is provided **"as is"** and **"as available"** without any warranty of any kind,
+TreniDay is provided **"as is"** and **"as available"** without any warranty of any kind,
 express or implied — including but not limited to warranties of merchantability,
 fitness for a particular purpose, accuracy, and non-infringement.
 
@@ -75,7 +75,7 @@ The developer does not warrant that:
 
 To the maximum extent permitted by applicable law, the developer shall not be liable
 for any indirect, incidental, special, consequential, or punitive damages arising out
-of your use of — or inability to use — CaliDay, including but not limited to:
+of your use of — or inability to use — TreniDay, including but not limited to:
 
 - Personal injury or property damage
 - Loss of data
@@ -101,7 +101,7 @@ even if the app is removed from app stores.
 
 ## 7. Third-Party Platforms
 
-CaliDay is distributed through the Apple App Store and Google Play Store, and is also available as a web app hosted on GitHub Pages.
+TreniDay is distributed through the Apple App Store and Google Play Store, and is also available as a web app hosted on GitHub Pages.
 Your use of those platforms is governed by their respective terms of service.
 The developer has no control over — and is not responsible for — the policies or
 actions of Apple Inc. or Google LLC.
@@ -135,4 +135,4 @@ exclusive jurisdiction of the competent courts of Republic of Armenia.
 Questions about these Terms of Use:
 
 **Email:** [kurnyakov.petr@gmail.com](mailto:kurnyakov.petr@gmail.com)
-**GitHub:** [https://github.com/pupptmstr/caliday](https://github.com/pupptmstr/caliday)
+**GitHub:** [https://github.com/pupptmstr/treniday](https://github.com/pupptmstr/treniday)

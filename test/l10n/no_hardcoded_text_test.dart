@@ -46,7 +46,7 @@ Iterable<File> _libFiles() => Directory('lib')
 
 /// Words that read the same in every language: the brand and the unit of the
 /// strength points.
-const _sameInEveryLanguage = {'CaliDay', 'SP'};
+const _sameInEveryLanguage = {'TreniDay', 'SP'};
 
 /// Files that may show English-looking text, and why. Everything under
 /// `lib/data/` is left out of the scan: the exercise catalog holds the source
@@ -219,7 +219,7 @@ void main() {
 
       expect(_englishLiterals(write("Text('\${x.name} SP')")), isEmpty,
           reason: 'only interpolations and a word that is the same everywhere');
-      expect(_englishLiterals(write("Text('CaliDay')")), isEmpty);
+      expect(_englishLiterals(write("Text('TreniDay')")), isEmpty);
       expect(_englishLiterals(write("Text(l10n.homeTitle)")), isEmpty);
       expect(_englishLiterals(write("Text(cond ? l10n.a : l10n.b)")), isEmpty);
       expect(_englishLiterals(write("Text(DateFormat('d MMMM', 'ru').format(day))")), isEmpty,

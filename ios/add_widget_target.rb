@@ -1,5 +1,5 @@
 #!/opt/homebrew/opt/ruby/bin/ruby
-# Script to add CaliDayWidget Extension target to Runner.xcodeproj
+# Script to add TreniDayWidget Extension target to Runner.xcodeproj
 # Run from project root: ruby ios/add_widget_target.rb
 
 COCOAPODS_GEMS = '/opt/homebrew/Cellar/cocoapods/1.16.2_2/libexec/gems'
@@ -8,8 +8,8 @@ Dir.glob("#{COCOAPODS_GEMS}/*/lib").each { |p| $LOAD_PATH.unshift p }
 require 'xcodeproj'
 
 PROJECT_PATH    = 'ios/Runner.xcodeproj'
-WIDGET_NAME     = 'CaliDayWidget'
-BUNDLE_ID       = 'com.pupptmstr.caliday.CaliDayWidget'
+WIDGET_NAME     = 'TreniDayWidget'
+BUNDLE_ID       = 'com.pupptmstr.treniday.TreniDayWidget'
 DEPLOYMENT_TARGET = '14.0'
 
 project = Xcodeproj::Project.open(PROJECT_PATH)
@@ -41,7 +41,7 @@ widget_target.build_configurations.each do |config|
   # Use auto-generated Info.plist (Xcode 13+)
   s['GENERATE_INFOPLIST_FILE']        = 'YES'
   s['INFOPLIST_KEY_NSExtension_NSExtensionPointIdentifier'] = 'com.apple.widgetkit-extension'
-  s['INFOPLIST_KEY_CFBundleDisplayName'] = 'CaliDay'
+  s['INFOPLIST_KEY_CFBundleDisplayName'] = 'TreniDay'
   # WidgetKit + SwiftUI auto-link via @import; no manual framework needed
   s['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = 'NO'
 end
@@ -87,9 +87,9 @@ embed_file.settings = { 'ATTRIBUTES' => ['RemoveHeadersOnCopy'] }
 
 # ── 5. Save ───────────────────────────────────────────────────────────────────
 project.save
-puts "✅  Done! CaliDayWidget target added to #{PROJECT_PATH}"
+puts "✅  Done! TreniDayWidget target added to #{PROJECT_PATH}"
 puts ""
 puts "Next steps in Xcode:"
-puts "  1. Runner target → Signing & Capabilities → App Groups → group.com.pupptmstr.caliday"
-puts "  2. CaliDayWidget target → Signing & Capabilities → App Groups → group.com.pupptmstr.caliday"
-puts "  3. Build & run — then long-press home screen → + → search CaliDay"
+puts "  1. Runner target → Signing & Capabilities → App Groups → group.com.pupptmstr.treniday"
+puts "  2. TreniDayWidget target → Signing & Capabilities → App Groups → group.com.pupptmstr.treniday"
+puts "  3. Build & run — then long-press home screen → + → search TreniDay"

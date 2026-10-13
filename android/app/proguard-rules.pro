@@ -8,4 +8,4 @@
 -keep,allowobfuscation,allowshrinking class * extends com.google.gson.reflect.TypeToken
 
 # Keep the AppWidgetProvider receiver so R8 doesn't remove it.
--keep class com.pupptmstr.caliday.CaliDayWidgetReceiver { *; }
+-keep class com.pupptmstr.treniday.TreniDayWidgetReceiver { *; }
