@@ -25,14 +25,14 @@
 | **Achievements** | Union, the earliest date of each; then the achievement checks run on the merged state (combined totals can unlock new ones). |
 | **Own routines, branches, courses** | Union by id (ids are microsecond timestamps, unique across devices). The same id on both: this device's copy stays (`lastRunAt` = the later). Look-alike copies made separately on two devices stay as two; the user deletes one. |
 | **Settings and profile** | This device's settings stay (theme, language, reminders, sounds, haptics, Health, pull-up bar, goal, workout size). The name comes from the file only if this device has none. Active courses: the union, so a course trained on the other device shows up; the selected course stays. `lastSeenReleaseVersion`: the newer. |
-| **Health** | Imported workouts are not written to Apple Health / Health Connect. **Open:** offer it for workouts that came from the web (which has no Health)? |
+| **Health** | **Offered (owner, 2026-10-13):** after the merge, if this device writes workouts to Apple Health / Health Connect, the app offers to add the imported workouts there. It writes only those the health store does not already hold at that time (it reads the workouts of that range first), so a workout that reached Health from the other phone is not doubled. |
 
 ## Technical notes
 
 - A versioned JSON format of our own (`formatVersion`, `appVersion`, `exportedAt`, then each box), written by explicit codecs per model — not the Hive binary files, so the format survives Hive field changes and works across platforms. Workout days stay calendar days: the day of a log is derived with `calendar_days.dart` in the device's time zone, so the export stores the local date and time as recorded.
 - The merge is a pure function `merge(local, imported, now) → (merged, summary)` with tests: round trip export → import → equal; idempotence (merge twice = merge once); same-day workouts on both sides; a streak joined across the two devices' days; skill progress ahead on either side; achievements unlocked only by the combined totals; own content with the same and different ids.
 - Import refuses a file from a newer app version ("update the app first") and an unknown `formatVersion`; it validates everything before writing, and writes all boxes in one step with the old state kept until the write succeeds. After it: the widget snapshot, `scheduleAll()` for the notifications, the providers invalidated.
-- Packages to check with Context7: the share sheet (`share_plus`), picking a file (`file_picker`), saving in the browser (a download through `package:web`, or a package).
+- Packages to check with Context7: the share sheet (`share_plus`), picking a file (`file_picker`), saving in the browser (a download through `package:web`, or a package); reading workouts of a time range and writing past workouts with `health` (the app already uses it for writing).
 - The privacy policy gets a line: the file holds the user's progress and goes wherever the user sends it.
 
 **Done when:** the owner trains on the web and on a phone, exports from the web, adds the file on the phone and sees one history with both workouts, the SP of both, one streak over both devices' days, the further stage of each branch and every achievement — and adding the same file again changes nothing.
