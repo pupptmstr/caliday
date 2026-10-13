@@ -143,6 +143,7 @@ tools/lottie/                  # Animation rigs and generators (gen_*.py per bra
 tools/characters/              # Generators of Goro's poses, Skala and the course hosts
 tools/sounds/                  # Generator of the workout cues
 site/, tools/site/             # The landing page (template + strings per language) and its build script
+fastlane/metadata/             # The App Store and Google Play listings in four languages (tools/store/check_listing.py checks them)
 web/                           # Web shell (index.html, manifest, icons); deployed by .github/workflows/web.yml
 .github/workflows/             # web.yml (Pages deploy), ci.yml (l10n, analyze, test, Android debug build on push / PR), release.yml (release builds, disabled)
 ```
