@@ -5,12 +5,9 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <!-- Required to reschedule notifications after device reboot -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <!-- Exact alarm scheduling.
-         USE_EXACT_ALARM is auto-granted on Android 13+ (API 33+) — no user action needed.
-         SCHEDULE_EXACT_ALARM is the fallback for Android 12 (API 31-32); requires the user
-         to enable "Alarms & reminders" in system settings, but provides graceful degradation
-         to inexact alarms if not granted. -->
-    <uses-permission android:name="android.permission.USE_EXACT_ALARM" />
+    <!-- Exact alarm scheduling, when the user allows it ("Alarms & reminders"; denied by
+         default on Android 14+). NotificationService falls back to inexact alarms otherwise.
+         Not USE_EXACT_ALARM: Google Play allows it only for alarm-clock and calendar apps. -->
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <!-- Health Connect permissions (Android 14+ built-in; older = separate app) -->
     <uses-permission android:name="android.permission.health.READ_WEIGHT"/>
@@ -94,12 +91,21 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_rank_info"/>
         </receiver>
-        <!-- Required by Health Connect: lets the system show permission rationale
-             when the user views TreniDay in Health Connect → App permissions. -->
+        <!-- Required by Health Connect: the privacy policy as the permissions rationale,
+             opened from Health Connect → TreniDay. Up to Android 13 through the intent below,
+             from Android 14 through the alias. -->
+        <activity
+            android:name=".PermissionsRationaleActivity"
+            android:exported="true"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE"/>
+            </intent-filter>
+        </activity>
         <activity-alias
             android:name="ViewPermissionUsageActivity"
             android:exported="true"
-            android:targetActivity=".MainActivity"
+            android:targetActivity=".PermissionsRationaleActivity"
             android:permission="android.permission.START_VIEW_PERMISSION_USAGE">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW_PERMISSION_USAGE"/>

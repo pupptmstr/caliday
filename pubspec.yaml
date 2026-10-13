@@ -2,7 +2,7 @@ name: treniday
 description: "TreniDay — home calisthenics workouts with streak tracking and gamification."
 publish_to: 'none'
 
-version: 0.9.9+39
+version: 0.9.10+40
 
 environment:
   sdk: ^3.11.0

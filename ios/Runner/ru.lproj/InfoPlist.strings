@@ -1,0 +1,3 @@
+/* The Apple Health permission prompts in this language (Info.plist holds the English base). */
+"NSHealthShareUsageDescription" = "TreniDay считывает массу тела из Apple Health для точного расчёта калорий.";
+"NSHealthUpdateUsageDescription" = "TreniDay записывает ваши тренировки и калории в Apple Health.";

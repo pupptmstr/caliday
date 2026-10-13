@@ -2410,6 +2410,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get aboutContactUsSubtitle => 'Informa de un error o haz una pregunta';
 
   @override
+  String get aboutAndroidTesters => 'App para Android: hazte probador';
+
+  @override
+  String get aboutAndroidTestersSubtitle =>
+      'Google Play admite una app nueva cuando 12 personas la han probado durante dos semanas';
+
+  @override
   String get aboutPrivacyPolicy => 'Política de privacidad';
 
   @override
@@ -3525,6 +3532,10 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get releaseNotes095 =>
       'Ya no hay amigos: sin servidor solo podían intercambiar un código QR una vez y nada más. La app ya no necesita la cámara ni el Bluetooth.\nTu nombre: tu anfitrión te saluda con él en la pantalla de inicio, y el perfil y el final del entrenamiento lo muestran. Cámbialo en Ajustes → Perfil.\nCuatro ramas nuevas fuera de los cursos: Espalda fuerte, Glúteos, Brazos y hombros y Cardio: 22 ejercicios, cada uno con la animación de Goro. Añádelas a tu propio curso: Cursos → + → Crear tu propio curso.';
+
+  @override
+  String get releaseNotes0910 =>
+      '¿Quieres TreniDay como app para Android? En la versión web en un móvil Android, «Acerca de» te invita a ser probador: Google Play admite una app nueva cuando 12 personas la han probado durante dos semanas.\nLas solicitudes de acceso a Apple Health están en tu idioma.\nEn Android, el enlace a la política de privacidad en Health Connect abre la política.';
 
   @override
   String get releaseNotes099 =>

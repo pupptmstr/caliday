@@ -2381,6 +2381,14 @@ class AppLocalizationsRu extends AppLocalizations {
   String get aboutContactUsSubtitle => 'Сообщить об ошибке или задать вопрос';
 
   @override
+  String get aboutAndroidTesters =>
+      'Приложение для Android: стать тестировщиком';
+
+  @override
+  String get aboutAndroidTestersSubtitle =>
+      'Google Play пускает новое приложение, когда 12 человек протестируют его две недели';
+
+  @override
   String get aboutPrivacyPolicy => 'Политика конфиденциальности';
 
   @override
@@ -3495,6 +3503,10 @@ class AppLocalizationsRu extends AppLocalizations {
   @override
   String get releaseNotes095 =>
       'Друзей больше нет: без сервера они только обменивались QR-кодом один раз, и всё. Приложению больше не нужны камера и Bluetooth.\nТвоё имя: ведущий здоровается по имени на главном экране, а профиль и итог тренировки его показывают. Поменять — в Настройках, раздел «Профиль».\nЧетыре новые ветки вне курсов: «Сильная спина», «Ягодицы», «Руки и плечи» и «Кардио» — 22 упражнения, у каждого анимация Горо. Добавь их в свой курс: Курсы → + → Создать свой курс.';
+
+  @override
+  String get releaseNotes0910 =>
+      'Хочешь TreniDay приложением для Android? В веб-версии на телефоне с Android раздел «О приложении» зовёт в тестировщики: Google Play пускает новое приложение, когда 12 человек протестируют его две недели.\nЗапросы доступа к Apple Health — на твоём языке.\nНа Android ссылка на политику конфиденциальности в Health Connect открывает политику.';
 
   @override
   String get releaseNotes099 =>

@@ -2399,6 +2399,13 @@ class AppLocalizationsDe extends AppLocalizations {
       'Einen Fehler melden oder eine Frage stellen';
 
   @override
+  String get aboutAndroidTesters => 'Android-App: Werde Tester';
+
+  @override
+  String get aboutAndroidTestersSubtitle =>
+      'Google Play lässt eine neue App zu, wenn 12 Leute sie zwei Wochen lang getestet haben';
+
+  @override
   String get aboutPrivacyPolicy => 'Datenschutzerklärung';
 
   @override
@@ -3514,6 +3521,10 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get releaseNotes095 =>
       'Freunde gibt es nicht mehr: Ohne Server konnten sie nur einmal einen QR-Code tauschen, mehr nicht. Die App braucht keine Kamera und kein Bluetooth mehr.\nDein Name: Dein Host begrüßt dich damit auf dem Startbildschirm, Profil und Trainingsabschluss zeigen ihn. Ändern unter Einstellungen → Profil.\nVier neue Zweige außerhalb der Kurse: Starker Rücken, Gesäß, Arme & Schultern und Cardio — 22 Übungen, jede mit Goros Animation. Nimm sie in deinen eigenen Kurs auf: Kurse → + → Eigenen Kurs erstellen.';
+
+  @override
+  String get releaseNotes0910 =>
+      'Du willst TreniDay als Android-App? In der Web-Version auf einem Android-Handy lädt dich „Über die App“ ein, Tester zu werden: Google Play lässt eine neue App zu, wenn 12 Leute sie zwei Wochen lang getestet haben.\nDie Anfragen für Apple Health sind in deiner Sprache.\nAuf Android öffnet der Link zur Datenschutzerklärung in Health Connect die Erklärung.';
 
   @override
   String get releaseNotes099 =>

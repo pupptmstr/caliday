@@ -91,7 +91,7 @@ Placement:
 - **Summary** — `goro_flex_v2` (h=120)
 - **Profile** — `goro_idle_v2` (h=100)
 - **Onboarding welcome** — `goro_face_happy` (h=120)
-- **About** — `GoroPoses` (`features/settings/widgets/goro_poses.dart`, h=120): a random one of `kGoroPoses` (the idle and the six fun poses) each time the screen opens, a tap shows the next; the order is shuffled once, so every pose comes up before a repeat (owner, 2026-10-10: "just for fun", e.g. a one-arm handstand)
+- **About** — `GoroPoses` (`features/settings/widgets/goro_poses.dart`, h=120): a random one of `kGoroPoses` (the idle and the six fun poses) each time the screen opens, a tap shows the next; the order is shuffled once, so every pose comes up before a repeat (owner, 2026-10-10: "just for fun", e.g. a one-arm handstand). Support: in the web version on an Android phone only (`androidTestersInviteShown`), "Android app: become a tester" opens the Google Group `treniday-testers` whose members become the Play closed testers (0.9.10, owner); then contact, the privacy policy, the terms
 - **Achievement sheet** — `goro_flex_v2` once earned, `goro_locked` while ahead (the app's own achievements and the Calisthenics branches)
 
 **GoroExpressionProvider logic:**

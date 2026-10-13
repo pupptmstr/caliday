@@ -71,10 +71,12 @@
 			</array>
 		</dict>
 	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>TreniDay записывает ваши тренировки и калории в Apple Health.</string>
+	<string>TreniDay saves your workouts and the calories they burn to Apple Health.</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>TreniDay считывает массу тела из Apple Health для точного расчёта калорий.</string>
+	<string>TreniDay reads your body weight from Apple Health to count the calories of a workout more precisely.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -84,13 +86,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>

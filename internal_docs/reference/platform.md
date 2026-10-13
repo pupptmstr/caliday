@@ -53,6 +53,8 @@ iOS: one timeline for all four kinds, an entry now and at 0, 6, 20, 22 and 23 o'
 
 - **Xcode 27 needs a deployment target of 15 or more**; the app and the widget are at **16** (`IPHONEOS_DEPLOYMENT_TARGET` in `project.pbxproj`, `platform :ios, '16.0'` in the Podfile, whose `post_install` raises any pod below 16 — some plugins still declare 11–14).
 - **Plugins come through Swift Package Manager** since Flutter 3.47 (the project was migrated by `flutter build`: `FlutterGeneratedPluginSwiftPackage` in the project; CocoaPods keeps only the Flutter pod). CocoaPods is still needed for that (`brew install cocoapods`).
+- **iPhone only for 1.0** (owner, 2026-10-13): `TARGETED_DEVICE_FAMILY = 1` in every target, no iPad orientations in `Info.plist`; iPads run it in the iPhone window. iPad support may be added later (with a wide layout) but could never be removed once released.
+- **What App Store Connect checks on upload** (0.9.10; guarded by `test/repo/store_requirements_test.dart`): `ITSAppUsesNonExemptEncryption = false` in `Info.plist` (no encryption of our own, no network code); the Health prompts (`NSHealthShareUsageDescription`, `NSHealthUpdateUsageDescription`) in English in `Info.plist` and translated in `ios/Runner/<lang>.lproj/InfoPlist.strings` for every app language (they follow the system language, like the widget-gallery names); a privacy manifest `PrivacyInfo.xcprivacy` in the app (UserDefaults: `CA92.1`, `1C8F.1`) and in the widget (`1C8F.1`, it reads the App Group) — no tracking, no collected data; the plugins bring their own. Xcode's archive → Generate Privacy Report shows the whole app before the first upload.
 - **Signing:** automatic, team `7MPZ3B5273` on the app; `Runner.entitlements` (HealthKit + App Group), `TreniDayWidget.entitlements` (App Group). In the simulator both work without an account (checked 2026-10-12: the Health permission sheet appeared, the widget reads what the app writes). **For a real device** Xcode needs the owner's Apple ID (Settings → Accounts) so automatic signing can register the App IDs, the App Group and HealthKit — the owner's step; nobody else enters that password.
 
 ## Health Integration
@@ -64,7 +66,7 @@ iOS: one timeline for all four kinds, an entry now and at 0, 6, 20, 22 and 23 o'
 
 **Critical for Android:**
 - `MainActivity` extends `FlutterFragmentActivity` (not `FlutterActivity`)
-- `activity-alias` with `HEALTH_PERMISSIONS` in AndroidManifest is required for the permissions dialog
+- Health Connect needs an activity that shows the privacy policy as the permissions rationale: `PermissionsRationaleActivity` (no UI: it hands the policy URL to the browser and closes) with `androidx.health.ACTION_SHOW_PERMISSIONS_RATIONALE` up to Android 13, and the `ViewPermissionUsageActivity` alias (`VIEW_PERMISSION_USAGE` + `HEALTH_PERMISSIONS`) pointing at it from Android 14 (0.9.10; before, the alias opened Home and Android 13 had nothing)
 
 **iOS:** `Runner.entitlements` contains `com.apple.developer.healthkit` + App Group; `CODE_SIGN_ENTITLEMENTS` is set in all 3 build configs. See § iOS specifics for signing.
 
@@ -78,7 +80,7 @@ iOS: one timeline for all four kinds, an entry now and at 0, 6, 20, 22 and 23 o'
 - `flutter_timezone ^5.0.0`: use field `.identifier` (not `.name`)
 - `build_runner ^2.13.1` (unblocked after migrating to `hive_ce_generator ^1.11.1` which uses `analyzer ^10.0.0`)
 - NotificationService init — ONLY in `postFrameCallback`, not in `main()` before `runApp()`
-- AndroidManifest permissions: `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`, `USE_EXACT_ALARM` + `SCHEDULE_EXACT_ALARM`, `VIBRATE`, Health Connect `READ_WEIGHT` / `WRITE_EXERCISE` / `WRITE_TOTAL_CALORIES_BURNED`
+- AndroidManifest permissions: `POST_NOTIFICATIONS`, `RECEIVE_BOOT_COMPLETED`, `SCHEDULE_EXACT_ALARM` (exact reminders when the user allows them; inexact otherwise — not `USE_EXACT_ALARM`, which Play allows only for alarm-clock and calendar apps, 0.9.10), `VIBRATE`, Health Connect `READ_WEIGHT` / `WRITE_EXERCISE` / `WRITE_TOTAL_CALORIES_BURNED`
 - Proguard: `keep.xml` (drawable) + `proguard-rules.pro` (dexterous + TypeToken)
 
 ### Android Notifications

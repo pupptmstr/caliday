@@ -4098,6 +4098,18 @@ abstract class AppLocalizations {
   /// **'Report a bug or ask a question'**
   String get aboutContactUsSubtitle;
 
+  /// No description provided for @aboutAndroidTesters.
+  ///
+  /// In en, this message translates to:
+  /// **'Android app: become a tester'**
+  String get aboutAndroidTesters;
+
+  /// No description provided for @aboutAndroidTestersSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Google Play lets a new app in after 12 people have tested it for two weeks'**
+  String get aboutAndroidTestersSubtitle;
+
   /// No description provided for @aboutPrivacyPolicy.
   ///
   /// In en, this message translates to:
@@ -5806,6 +5818,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.\nFour new branches outside the courses: Strong Back, Glutes, Arms & Shoulders and Cardio — 22 exercises, each with Goro’s animation. Add them to your own course: Courses → + → Create your own course.'**
   String get releaseNotes095;
+
+  /// No description provided for @releaseNotes0910.
+  ///
+  /// In en, this message translates to:
+  /// **'Want TreniDay as an Android app? In the web version on an Android phone, About invites you to become a tester: Google Play lets a new app in after 12 people have tested it for two weeks.\nThe Apple Health permission requests speak your language.\nOn Android, the privacy policy link in Health Connect opens the policy.'**
+  String get releaseNotes0910;
 
   /// No description provided for @releaseNotes099.
   ///
