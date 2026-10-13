@@ -45,7 +45,7 @@ Each session works on `session/<date>-<topic>` from `main`; the version is bumpe
 `linux/`, `macos/`, `windows/` were an untouched `flutter create` template; `health` and `home_widget` have no desktop side anyway. `flutter create --platforms=… .` brings them back.
 
 ### Parked or declined, not to be proposed again
-The Telegram Mini App + bot (owner, 2026-10-07: a thought on the side); iPhone Safari haptics through the hidden switch-checkbox (owner, 2026-10-12); the 90/90 and pigeon in profile view (unreadable — both were later drawn from other views).
+The Telegram Mini App + bot (owner, 2026-10-07: a thought on the side); iPhone Safari haptics through the hidden switch-checkbox (owner, 2026-10-12); the 90/90 and pigeon in profile view (unreadable — both were later drawn from other views); vibration patterns of our own per cue and Rex the streak monkey (owner, 2026-10-13: not worth it); a visit counter on the site, even a cookie-free one (owner, 2026-10-13: Google Search Console is the only view of the site's popularity — the site says "No tracking"); a redirect page from the old `/caliday/` address (owner, 2026-10-13).
 
 ### Web cues follow the iPhone's silent switch (owner, 2026-10-12)
 In the browser the cues play through Web Audio, which on iOS keeps quiet with the silent switch on and mixes with the user's music. The other way (an audio session of type "playback") would sound through the switch but stop the music. **Why:** the owner chose to keep it so when the web sounds were fixed (0.9.8).
