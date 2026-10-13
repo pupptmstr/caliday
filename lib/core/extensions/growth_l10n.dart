@@ -1,4 +1,4 @@
-import 'package:caliday/l10n/app_localizations.dart';
+import 'package:treniday/l10n/app_localizations.dart';
 
 import '../../data/models/branch_growth.dart';
 import '../../data/models/enums.dart';

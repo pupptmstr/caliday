@@ -195,7 +195,7 @@ struct TodayView: View {
             }
         }
         .foregroundColor(.white)
-        .widgetURL(URL(string: "caliday://workout"))
+        .widgetURL(URL(string: "treniday://workout"))
     }
 
     @ViewBuilder private var caption: some View {
@@ -386,7 +386,7 @@ struct GoroView: View {
         .widgetBackground(asleep
             ? AnyView(ZStack { Backgrounds.night; Stars() })
             : AnyView(Backgrounds.brand))
-        .widgetURL(URL(string: "caliday://home"))
+        .widgetURL(URL(string: "treniday://home"))
     }
 }
 
@@ -420,7 +420,7 @@ struct StreakView: View {
             default: small
             }
         }
-        .widgetURL(URL(string: "caliday://calendar"))
+        .widgetURL(URL(string: "treniday://calendar"))
     }
 
     private var small: some View {
@@ -485,7 +485,7 @@ struct RankView: View {
             }
         }
         .foregroundColor(.white)
-        .widgetURL(URL(string: "caliday://profile"))
+        .widgetURL(URL(string: "treniday://profile"))
     }
 
     private var title: some View {

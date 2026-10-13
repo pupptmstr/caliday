@@ -55,3 +55,6 @@ Every language of the app has its page (`site/strings/<code>.json`); the site li
 
 ### The source is open to read, all rights reserved (owner, 2026-10-12)
 The repository is public, but `LICENSE` grants no right to use, copy, modify or distribute the code or the art without written permission — the same as the Terms of Use § 2. **Why:** the owner wants the project visible and the policies as written; an open-source license (GPL-3.0 was considered) would contradict the Terms.
+
+### The app is called TreniDay (owner, 2026-10-13)
+CaliDay became **TreniDay** ("treni", colloquial Russian for training sessions, and "day": a workout every day), written with a capital D; Goro stays the face. Renamed everywhere at once: the display name, the Dart package, the bundle / application ids, the App Group, the `treniday://` scheme, the widget kinds, the site, the legal pages, the notes and the repository. **Why:** the `caliday` domains are taken, and CALIDAY is filed as a US trademark in class 41 (fitness training belongs there) by another company; TreniDay was free everywhere it was checked. The ids changed too because nothing is in a store yet — after the first release they could not. — [specs/done/new-name.md](../specs/done/new-name.md)

@@ -164,7 +164,7 @@ test/                                  ← see § Testing
 - File naming: `snake_case`
 - Class naming: `PascalCase`
 - Public API comments in English
-- UI strings via l10n (`app_en.arb` is the template; every other `l10n/app_<code>.arb` must have the same messages and placeholders). **Adding a UI language:** its ARB file, `flutter gen-l10n`, a line in `appLanguages` (`core/l10n/app_languages.dart`), in `CFBundleLocalizations` of `ios/Runner/Info.plist` and in `galleryDescription()` of `CaliDayWidget.swift` (tests compare them) — the pickers, the system-language default, the notifications and the widget follow; `app_languages_test` and `arb_consistency_test` fail until the list and the files agree, and the "every language" tests (exercise texts, release notes not left in English, workout sizes, counted messages, notification texts) cover the new file by themselves through `test/helpers/all_translations.dart`. Text without a BuildContext comes from `l10nFor(code)` (`lookupAppLocalizations`), never from a hand-written table. `flutter gen-l10n` does not delete the generated `app_localizations_<code>.dart` of an ARB file that was removed. A counted noun is one plural message that includes the number (`{count, plural, one{{count} day} other{{count} days}}`): `arb_consistency_test` reads a bare word inside a plural branch as an undeclared placeholder. An amount and its unit are one message too (`workoutAmountReps(n)`, `durationSec(n)`), never a number followed by a separate unit word, which cannot agree with it ("1 reps"); English counts are plurals even where the number is usually above 1 (many stages start at 1 set, the hardest norms are 1 rep). Weekday and month names come from `intl` for the app locale, not from a hand-written list
+- UI strings via l10n (`app_en.arb` is the template; every other `l10n/app_<code>.arb` must have the same messages and placeholders). **Adding a UI language:** its ARB file, `flutter gen-l10n`, a line in `appLanguages` (`core/l10n/app_languages.dart`), in `CFBundleLocalizations` of `ios/Runner/Info.plist` and in `galleryDescription()` of `TreniDayWidget.swift` (tests compare them) — the pickers, the system-language default, the notifications and the widget follow; `app_languages_test` and `arb_consistency_test` fail until the list and the files agree, and the "every language" tests (exercise texts, release notes not left in English, workout sizes, counted messages, notification texts) cover the new file by themselves through `test/helpers/all_translations.dart`. Text without a BuildContext comes from `l10nFor(code)` (`lookupAppLocalizations`), never from a hand-written table. `flutter gen-l10n` does not delete the generated `app_localizations_<code>.dart` of an ARB file that was removed. A counted noun is one plural message that includes the number (`{count, plural, one{{count} day} other{{count} days}}`): `arb_consistency_test` reads a bare word inside a plural branch as an undeclared placeholder. An amount and its unit are one message too (`workoutAmountReps(n)`, `durationSec(n)`), never a number followed by a separate unit word, which cannot agree with it ("1 reps"); English counts are plurals even where the number is usually above 1 (many stages start at 1 set, the hardest norms are 1 rep). Weekday and month names come from `intl` for the app locale, not from a hand-written list
 - No clutter: do not add docstrings/comments to code you are not touching
 
 ### Key Patterns
@@ -180,7 +180,7 @@ test/                                  ← see § Testing
 - Services mutate HiveObjects in place; persistence is the responsibility of the caller
 - `ExerciseResult.completedReps` = rep count from the **last** set (MVP)
 - Challenge in a bonus workout: `advanceStage` is called ALWAYS (regardless of `isPrimary`)
-- Deep links (`caliday://…`) are routed by `appRedirect()`; do not special-case them in the router again
+- Deep links (`treniday://…`) are routed by `appRedirect()`; do not special-case them in the router again
 - Workout → check `canPop()` before `pop()`: `context.canPop() ? context.pop() : context.go('/home')`
 
 ## Commands
@@ -194,7 +194,7 @@ dart run flutter_launcher_icons   # Generate app icons
 flutter gen-l10n                  # Generate l10n (or flutter run)
 flutter build apk --release       # Android release APK
 flutter build ipa                 # iOS archive
-flutter build web --release --base-href /caliday/app/   # Web (deployed by CI)
+flutter build web --release --base-href /treniday/app/   # Web (deployed by CI)
 python3 tools/lottie/gen_flex.py  # Regenerate the Flex Lottie animations
 python3 tools/lottie/gen_supp.py  # Regenerate the supplementary-pool animations
 python3 tools/lottie/gen_posture.py  # Regenerate the Posture animations
@@ -209,6 +209,6 @@ python3 tools/lottie/check_anim.py NAME ...  # Jump / loop-seam check of generat
 python3 tools/lottie/build_preview.py [--preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning|yoga]  # Build build/lottie_preview.html to watch them
 python3 tools/sounds/gen_sounds.py  # Regenerate the workout cues (assets/sounds/*.wav)
 python3 tools/sounds/build_preview.py  # Build build/sounds_preview.html to listen to them
-python3 tools/site/build_site.py build/site_preview  # Render the landing page (served by the caliday-site launch config)
+python3 tools/site/build_site.py build/site_preview  # Render the landing page (served by the treniday-site launch config)
 python3 tools/site/make_og.py  # Redraw the landing page's link-preview cards (site/og-<lang>.png)
 ```

@@ -1,4 +1,4 @@
-# CALIDAY
+# TRENIDAY
 
 _Gamified Home Workouts_
 
@@ -12,13 +12,13 @@ _Gamified Home Workouts_
 
 ## 1. Vision & Overview
 
-CaliDay is a mobile app for home workouts with game-like progression mechanics. The app guides the
+TreniDay is a mobile app for home workouts with game-like progression mechanics. The app guides the
 user from absolute zero to advanced calisthenics skills through short daily sessions, gradually
 increasing difficulty and load.
 
 ### 1.1 Core Game Mechanics
 
-| Mechanic          | How it works in CaliDay                                    |
+| Mechanic          | How it works in TreniDay                                    |
 | ----------------- | ---------------------------------------------------------- |
 | Skill / Branch    | Muscle group / skill (push-ups, core, balance)             |
 | Session           | Set (short workout: 5–15 minutes)                          |
@@ -385,7 +385,7 @@ On the first launch the app runs a short survey to calibrate the starting level:
 
 ## 12. Summary
 
-CaliDay fills the gap between "can't get started" and "want to do a handstand." The mechanics of
+TreniDay fills the gap between "can't get started" and "want to do a handstand." The mechanics of
 short sessions, streaks, and skill levelling are applied to physical training with the lowest
 possible barrier to entry. The offline architecture eliminates infrastructure costs and simplifies
 development.

@@ -1,4 +1,4 @@
-// CaliDay landing page: Goro's exercise animations (lottie-web, cropped to
+// TreniDay landing page: Goro's exercise animations (lottie-web, cropped to
 // the figure like the app's ExerciseThumb), the running hold on the workout
 // mock-up and the reveal on scroll. Everything degrades to a static page.
 (function () {

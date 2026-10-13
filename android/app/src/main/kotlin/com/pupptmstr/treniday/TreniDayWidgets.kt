@@ -1,4 +1,4 @@
-package com.pupptmstr.caliday
+package com.pupptmstr.treniday
 
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
@@ -15,11 +15,10 @@ import android.widget.RemoteViews
 // The home-screen widgets (agreed with the owner 2026-10-12): Today, Goro,
 // Streak and Rank. What they show comes from the app (WidgetState.kt reads
 // it); the providers are listed in WidgetService.androidProviders.
-// CaliDayWidgetReceiver is the Today widget and keeps the class of the one
-// small widget there used to be.
+// TreniDayWidgetReceiver is the Today widget.
 
 /** Today: the plan of the day, the streak and the week; 2×2 up to 4×4. */
-class CaliDayWidgetReceiver : SizedWidget() {
+class TreniDayWidgetReceiver : SizedWidget() {
     override fun views(context: Context, entry: WidgetEntry, size: Size) = when (size) {
         Size.SMALL -> WidgetViews.todaySmall(context, entry)
         Size.MEDIUM -> WidgetViews.todayMedium(context, entry)
@@ -145,7 +144,7 @@ private object WidgetViews {
     private fun hasPlan(entry: WidgetEntry) = entry.isSnapshotDay && entry.snap.planCount > 0
 
     fun todaySmall(context: Context, entry: WidgetEntry) =
-        views(context, R.layout.widget_today_small, "caliday://workout").apply {
+        views(context, R.layout.widget_today_small, "treniday://workout").apply {
             setImageViewResource(R.id.widget_goro, entry.todayArt)
             chips(entry)
             show(R.id.caption_done, entry.done)
@@ -155,7 +154,7 @@ private object WidgetViews {
         }
 
     fun todayMedium(context: Context, entry: WidgetEntry) =
-        views(context, R.layout.widget_today_medium, "caliday://workout").apply {
+        views(context, R.layout.widget_today_medium, "treniday://workout").apply {
             setImageViewResource(R.id.widget_goro, entry.todayArt)
             chips(entry)
             setTextViewText(R.id.streak_big, "${entry.streak}")
@@ -189,7 +188,7 @@ private object WidgetViews {
     }
 
     fun todayLarge(context: Context, entry: WidgetEntry) =
-        views(context, R.layout.widget_today_large, "caliday://workout").apply {
+        views(context, R.layout.widget_today_large, "treniday://workout").apply {
             val s = entry.snap
             setImageViewResource(R.id.widget_goro, entry.todayArt)
             setTextViewText(R.id.course_name, s.courseName)
@@ -215,7 +214,7 @@ private object WidgetViews {
         }
 
     fun goro(context: Context, entry: WidgetEntry) =
-        views(context, R.layout.widget_goro, "caliday://home").apply {
+        views(context, R.layout.widget_goro, "treniday://home").apply {
             setImageViewResource(R.id.widget_goro, entry.face)
             setInt(
                 R.id.widget_root, "setBackgroundResource",
@@ -225,7 +224,7 @@ private object WidgetViews {
         }
 
     fun streak(context: Context, entry: WidgetEntry) =
-        views(context, R.layout.widget_streak, "caliday://calendar").apply {
+        views(context, R.layout.widget_streak, "treniday://calendar").apply {
             setTextViewText(R.id.streak_title, entry.snap.streakTitle)
             listOf(R.id.snow_0, R.id.snow_1, R.id.snow_2).forEachIndexed { i, id ->
                 setInt(id, "setImageAlpha", if (i < entry.snap.freezes) 255 else 71)
@@ -236,13 +235,13 @@ private object WidgetViews {
         }
 
     fun rankSmall(context: Context, entry: WidgetEntry) =
-        views(context, R.layout.widget_rank_small, "caliday://profile").apply {
+        views(context, R.layout.widget_rank_small, "treniday://profile").apply {
             setImageViewResource(R.id.widget_goro, entry.pose(shift = 3))
             rank(entry)
         }
 
     fun rankMedium(context: Context, entry: WidgetEntry) =
-        views(context, R.layout.widget_rank_medium, "caliday://profile").apply {
+        views(context, R.layout.widget_rank_medium, "treniday://profile").apply {
             setImageViewResource(R.id.widget_goro, entry.pose(shift = 3))
             rank(entry)
         }

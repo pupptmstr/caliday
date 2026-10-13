@@ -1,6 +1,6 @@
 ---
 name: pre-commit
-description: Pre-commit workflow for CaliDay project. Use before every git commit — updates project documentation and Claude's memory to reflect the changes being committed.
+description: Pre-commit workflow for TreniDay project. Use before every git commit — updates project documentation and Claude's memory to reflect the changes being committed.
 ---
 
 # Pre-Commit Workflow

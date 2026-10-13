@@ -1,7 +1,7 @@
-import 'package:caliday/core/extensions/exercise_l10n.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
-import 'package:caliday/features/library/providers/exercise_library_provider.dart';
-import 'package:caliday/l10n/app_localizations.dart';
+import 'package:treniday/core/extensions/exercise_l10n.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
+import 'package:treniday/features/library/providers/exercise_library_provider.dart';
+import 'package:treniday/l10n/app_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 

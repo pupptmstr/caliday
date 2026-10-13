@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:caliday/data/static/animation_crops.dart';
+import 'package:treniday/data/static/animation_crops.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// The thumbnails crop each animation to its figure; a new or redrawn file

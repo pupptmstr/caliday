@@ -1,7 +1,7 @@
-import 'package:caliday/data/static/release_notes_catalog.dart';
-import 'package:caliday/features/profile/providers/whats_new_provider.dart';
-import 'package:caliday/features/profile/screens/whats_new_screen.dart';
-import 'package:caliday/l10n/app_localizations.dart';
+import 'package:treniday/data/static/release_notes_catalog.dart';
+import 'package:treniday/features/profile/providers/whats_new_provider.dart';
+import 'package:treniday/features/profile/screens/whats_new_screen.dart';
+import 'package:treniday/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';

@@ -1,5 +1,5 @@
-import 'package:caliday/data/models/user_profile.dart';
-import 'package:caliday/domain/services/streak_service.dart';
+import 'package:treniday/data/models/user_profile.dart';
+import 'package:treniday/domain/services/streak_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// The DST cases are about Europe/Berlin (clocks go forward on 2026-03-29,

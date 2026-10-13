@@ -1,4 +1,4 @@
-package com.pupptmstr.caliday
+package com.pupptmstr.treniday
 
 import android.content.Context
 import android.content.SharedPreferences

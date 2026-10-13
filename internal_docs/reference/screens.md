@@ -29,7 +29,7 @@
 
 ## RouterNotifier
 - `isOnboardingCompleteProvider` — `NotifierProvider<OnboardingGateNotifier, bool>`, initialized from `userRepository.hasProfile`
-- Redirect logic lives in `appRedirect()` (`core/router/app_redirect.dart`, pure, tested): before onboarding is done everything (deep links too) goes to `/onboarding`; afterwards a `caliday://…` link goes where `deepLinkTarget` says — `workout` (Today widget) → `/workout`, `home` (Goro widget) → `/home`, `calendar` (Streak widget) → `/calendar`, `profile` (Rank widget) → `/profile`, `friend…` (a friend QR code of a build before 0.9.5, opened by the system camera) → `/home`, anything else → `/workout`; the `app_links` listener in `main.dart` uses the same function. The calendar opened straight from a widget has nothing to pop, so its back button goes to the Profile. A finished onboarding is never shown again
+- Redirect logic lives in `appRedirect()` (`core/router/app_redirect.dart`, pure, tested): before onboarding is done everything (deep links too) goes to `/onboarding`; afterwards a `treniday://…` link goes where `deepLinkTarget` says — `workout` (Today widget) → `/workout`, `home` (Goro widget) → `/home`, `calendar` (Streak widget) → `/calendar`, `profile` (Rank widget) → `/profile`, `friend…` (a friend QR code of a build before 0.9.5, opened by the system camera) → `/home`, anything else → `/workout`; the `app_links` listener in `main.dart` uses the same function. The calendar opened straight from a widget has nothing to pop, so its back button goes to the Profile. A finished onboarding is never shown again
 
 ## Onboarding (8 steps)
 
@@ -73,7 +73,7 @@ The bell in the Profile app bar opens `/whats-new`: the history of what changed 
 ## Design System
 
 > Full design system (style guide, UX rules, typography, anti-patterns) is in
-> `design-system/caliday/MASTER.md`. Page-specific overrides in `design-system/caliday/pages/`.
+> `design-system/treniday/MASTER.md`. Page-specific overrides in `design-system/treniday/pages/`.
 > **Style:** Vibrant & Block-based — bold, energetic, gamified. No static/flat visuals.
 
 ### Mascot Goro

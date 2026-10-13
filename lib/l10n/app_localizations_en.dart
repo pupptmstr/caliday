@@ -1026,7 +1026,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get onboardingHealthBody =>
-      'CaliDay can automatically save your workouts to Apple Health (iOS) or Health Connect (Android).';
+      'TreniDay can automatically save your workouts to Apple Health (iOS) or Health Connect (Android).';
 
   @override
   String get onboardingHealthEnable => 'Enable';
@@ -2417,7 +2417,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aboutLegalConsent =>
-      'By using CaliDay you agree to the Privacy Policy and Terms of Use.';
+      'By using TreniDay you agree to the Privacy Policy and Terms of Use.';
 
   @override
   String get aboutCopyright => '© 2026 pupptmstr';
@@ -3524,8 +3524,12 @@ class AppLocalizationsEn extends AppLocalizations {
       'Friends are gone: without a server they could only swap a QR code once, and that was it. The app no longer needs the camera or Bluetooth.\nYour name: your host greets you by it on the home screen, and the profile and the end of a workout show it. Change it in Settings → Profile.\nFour new branches outside the courses: Strong Back, Glutes, Arms & Shoulders and Cardio — 22 exercises, each with Goro’s animation. Add them to your own course: Courses → + → Create your own course.';
 
   @override
+  String get releaseNotes099 =>
+      'CaliDay is now TreniDay: a new name, the same Goro and all your progress.\nThe web version has moved to pupptmstr.github.io/treniday/app — open it in the same browser and your progress is there.';
+
+  @override
   String get releaseNotes098 =>
-      'The web version on iPhone now plays every workout sound — the ticks, the start of a hold, switch sides, the end of a rest — not only the ones that follow a tap.\nCaliDay has a website: pupptmstr.github.io/caliday — what the app is about, in four languages.';
+      'The web version on iPhone now plays every workout sound — the ticks, the start of a hold, switch sides, the end of a rest — not only the ones that follow a tap.\nTreniDay has a website: pupptmstr.github.io/treniday — what the app is about, in four languages.';
 
   @override
   String get releaseNotes097 =>
@@ -3537,7 +3541,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseNotes093 =>
-      'Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of CaliDay, version by version, is folded below them.';
+      'Make your own course: in the Courses tab tap + and pick branches from any course, choose its host and give it a name.\nA branch of your own: pick exercises and put them in order, each one becomes a stage. Reps, sets, rests and the challenges are set by the app, as in every branch.\nUnder the bell, the latest updates come first; the whole history of TreniDay, version by version, is folded below them.';
 
   @override
   String get releaseHistory01 =>
@@ -3569,9 +3573,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get releaseHistory08 =>
-      'The stats on the home screen open the calendar, the history and the ranks; a workout calendar.\nA rank slips after long breaks and comes back with training.\nCaliDay in the browser: the web version.\nAnimations for every exercise of the first courses.\nTimed holds start by themselves after a short countdown; a hold on one side runs on both.\nWorkouts are Short, Standard or Full, with an estimate of the time that learns your pace.\n“What\'s new” under the bell in the profile; German and Spanish.\nEvery skill moves on once a day, in any workout.\nA new course, Evening Stretch, and a host for every course.';
+      'The stats on the home screen open the calendar, the history and the ranks; a workout calendar.\nA rank slips after long breaks and comes back with training.\nTreniDay in the browser: the web version.\nAnimations for every exercise of the first courses.\nTimed holds start by themselves after a short countdown; a hold on one side runs on both.\nWorkouts are Short, Standard or Full, with an estimate of the time that learns your pace.\n“What\'s new” under the bell in the profile; German and Spanish.\nEvery skill moves on once a day, in any workout.\nA new course, Evening Stretch, and a host for every course.';
 
   @override
   String get releaseHistory09 =>
-      'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio.\nA sound for every moment of a workout, over your music.\nHome-screen widgets with Goro: Today, Goro, Streak and Rank; on iPhone on the lock screen too.';
+      'New courses: Morning Routine with Aurora the lark, and Yoga with Miso the cat.\nHosts present the achievements of their course; shorter holds on each side.\nEvery exercise has an animation.\nYour own courses: built-in branches and branches of your own, made of exercises in your order.\nFriends removed; your host greets you by name.\nFour branches outside the courses: back, glutes, arms and shoulders, cardio.\nA sound for every moment of a workout, over your music.\nHome-screen widgets with Goro: Today, Goro, Streak and Rank; on iPhone on the lock screen too.\nA new name: CaliDay is now TreniDay.';
 }

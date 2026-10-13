@@ -1,11 +1,11 @@
-import 'package:caliday/data/models/custom_branch.dart';
-import 'package:caliday/data/models/custom_course.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/user_profile.dart';
-import 'package:caliday/data/static/course_catalog.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
-import 'package:caliday/domain/models/branch.dart';
-import 'package:caliday/domain/models/course.dart';
+import 'package:treniday/data/models/custom_branch.dart';
+import 'package:treniday/data/models/custom_course.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/user_profile.dart';
+import 'package:treniday/data/static/course_catalog.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
+import 'package:treniday/domain/models/branch.dart';
+import 'package:treniday/domain/models/course.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 CustomBranch _own(String id, List<String> exerciseIds) => CustomBranch(

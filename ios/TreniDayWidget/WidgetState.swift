@@ -33,7 +33,7 @@ struct Snapshot {
     var spTodayText = ""
 
     static func read() -> Snapshot {
-        let d = UserDefaults(suiteName: "group.com.pupptmstr.caliday") ?? .standard
+        let d = UserDefaults(suiteName: "group.com.pupptmstr.treniday") ?? .standard
         func text(_ key: String) -> String { d.string(forKey: key) ?? "" }
         func lines(_ key: String) -> [(String, String)] {
             text(key).split(separator: "\n").map { line in

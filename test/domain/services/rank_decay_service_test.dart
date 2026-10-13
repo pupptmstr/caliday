@@ -1,6 +1,6 @@
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/user_profile.dart';
-import 'package:caliday/domain/services/rank_decay_service.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/user_profile.dart';
+import 'package:treniday/domain/services/rank_decay_service.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

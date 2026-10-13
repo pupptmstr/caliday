@@ -1,10 +1,10 @@
 # Home Screen — Design Rules
 
-> **PROJECT:** CaliDay
+> **PROJECT:** TreniDay
 > **Screen:** Home (main tab, daily entry point)
 > **Last updated:** 2026-10-10 (the middle and the folded plan, 0.9.4)
 >
-> Rules here **override** `design-system/caliday/MASTER.md`.
+> Rules here **override** `design-system/treniday/MASTER.md`.
 > For anything not covered here, refer to MASTER.md.
 
 ---
@@ -24,7 +24,7 @@ The user opens it every day. It must:
 ```
 ┌────────────────────────────────┐
 │  HERO ZONE (gradient bg)       │
-│  "CaliDay" title               │
+│  "TreniDay" title               │
 │  Stat chips: streak / SP / rank│
 │  Goro SVG (200px, centered)    │
 └────────────────────────────────┘

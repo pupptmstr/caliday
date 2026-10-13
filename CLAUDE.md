@@ -1,4 +1,4 @@
-# CaliDay — Instructions for Claude
+# TreniDay — Instructions for Claude
 
 ## Project Description
 
@@ -14,14 +14,14 @@ All data is stored locally (Hive), no backend, free, no ads.
 | `internal_docs/CHANGELOG.md` | One entry per version: what changed, decisions, non-obvious problems and fixes |
 | `internal_docs/reference/` | overview (stack, structure, conventions, commands), data-hive, courses, progression, workout, screens, platform (notifications, widgets, Health, iOS, Android, web, CI), testing, tooling |
 | `internal_docs/decisions/`, `specs/`, `research/` | Why things are so; one file per active idea (`specs/done/` for finished ones); parked research |
-| **`design-system/caliday/BRAND.md`** | Brand & character reference — Goro, Skala, colors, gradients, animations, anti-patterns. **Read before any UI task.** |
-| `design-system/caliday/MASTER.md` | UX style rules (Vibrant & Block-based), spacing, component specs |
-| `design-system/caliday/pages/` | Per-screen design rules (home.md, profile.md) |
-| `internal_docs/CaliDay_Design_Document.md` | Product design document |
+| **`design-system/treniday/BRAND.md`** | Brand & character reference — Goro, Skala, colors, gradients, animations, anti-patterns. **Read before any UI task.** |
+| `design-system/treniday/MASTER.md` | UX style rules (Vibrant & Block-based), spacing, component specs |
+| `design-system/treniday/pages/` | Per-screen design rules (home.md, profile.md) |
+| `internal_docs/TreniDay_Design_Document.md` | Product design document |
 | `internal_docs/tz_designer.md` | Brief for the Lottie animations (status per branch, how they are generated) |
 | `site/` | The public landing page (template + strings per language), rendered by `tools/site/build_site.py` into the root of the GitHub Pages site |
 | `docs/` | Public legal pages (Privacy Policy, Terms of Use) published to GitHub Pages — URLs are referenced from the app and store listings |
-| `internal_docs/design-concept/caliday_design_concept.md` | Goro mascot design, colors, icons |
+| `internal_docs/design-concept/treniday_design_concept.md` | Goro mascot design, colors, icons |
 
 ## Tech Stack (brief)
 
@@ -49,7 +49,7 @@ flutter analyze                   # Linter
 dart run build_runner build       # Code generation (Hive adapters)
 dart run flutter_launcher_icons   # Icons
 flutter gen-l10n                  # L10n
-flutter build web --release --base-href /caliday/app/   # Web build (CI deploys it to GitHub Pages)
+flutter build web --release --base-href /treniday/app/   # Web build (CI deploys it to GitHub Pages)
 python3 tools/lottie/gen_flex.py  # Regenerate Flex Lottie animations (also gen_supp.py, gen_posture.py, gen_neck.py, gen_cooldown.py, gen_pull.py, gen_push.py, gen_evening.py, gen_morning.py, gen_yoga.py, gen_extra.py; enliven.py / patch_old.py fix designer files in place)
 python3 tools/lottie/check_anim.py NAME ...   # Jump / loop-seam check of generated animations
 python3 tools/lottie/build_preview.py --preset flex|supp|posture|neck|cooldown|pull|push|refresh|evening|morning|yoga|extra   # Page to watch generated animations
@@ -58,7 +58,7 @@ python3 tools/lottie/thumb_crops.py   # Re-crop the exercise thumbnails after ad
 python3 tools/characters/gen_goro.py  # Goro's fun poses (About) and his locked-achievement pose; gen_hosts.py / gen_skala.py for the hosts and Skala
 python3 tools/sounds/gen_sounds.py   # Regenerate the workout cues (assets/sounds); build_preview.py makes a page to listen to them
 python3 tools/characters/export_widget_art.py   # Goro's faces and poses as PNG for the native home-screen widgets (iOS assets + Android drawable-nodpi)
-python3 tools/site/build_site.py build/site_preview   # Render the landing page (site/, four languages); the caliday-site launch config serves it; CI renders it into the Pages site
+python3 tools/site/build_site.py build/site_preview   # Render the landing page (site/, four languages); the treniday-site launch config serves it; CI renders it into the Pages site
 python3 tools/site/make_og.py   # Redraw the landing page's link-preview cards (site/og-<lang>.png)
 ```
 

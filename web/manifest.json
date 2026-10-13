@@ -1,6 +1,6 @@
 {
-    "name": "CaliDay",
-    "short_name": "CaliDay",
+    "name": "TreniDay",
+    "short_name": "TreniDay",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#4DA6FF",

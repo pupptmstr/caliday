@@ -6,7 +6,7 @@
 A short session: 3–6 exercises, 5–15 minutes. Types: `Daily`, `Skill`, `Challenge`.
 
 ## Courses
-CaliDay supports multiple **courses** (like Duolingo). Each course has its own branch set and progression:
+TreniDay supports multiple **courses** (like Duolingo). Each course has its own branch set and progression:
 - `CourseId.calisthenics` → push, pull, core, legs, balance, flex
 - `CourseId.healthyBody` → posture, neck, flex
 - `CourseId.eveningStretch` → eveningBack, eveningHips, eveningFolds, eveningShoulders (0.8.20; a bonus workout of this course adds **no** supplementary exercises — `CourseCatalog.addsSupplementary`)

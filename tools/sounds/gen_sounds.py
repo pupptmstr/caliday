@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synthesises every workout cue of CaliDay in code (no samples, no licences).
+"""Synthesises every workout cue of TreniDay in code (no samples, no licences).
 
 Usage: python3 tools/sounds/gen_sounds.py [--out DIR] [name ...]
 

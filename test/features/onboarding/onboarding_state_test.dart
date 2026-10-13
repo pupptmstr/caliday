@@ -1,7 +1,7 @@
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/repositories/user_repository.dart';
-import 'package:caliday/data/static/release_notes_catalog.dart';
-import 'package:caliday/features/onboarding/providers/onboarding_provider.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/repositories/user_repository.dart';
+import 'package:treniday/data/static/release_notes_catalog.dart';
+import 'package:treniday/features/onboarding/providers/onboarding_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 

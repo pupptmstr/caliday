@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'package:caliday/features/settings/widgets/goro_poses.dart';
+import 'package:treniday/features/settings/widgets/goro_poses.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';

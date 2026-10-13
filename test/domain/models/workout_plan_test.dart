@@ -1,7 +1,7 @@
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/exercise.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
-import 'package:caliday/domain/models/workout_plan.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/exercise.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
+import 'package:treniday/domain/models/workout_plan.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 final Exercise _timed = ExerciseCatalog.libraryAll

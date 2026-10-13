@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Assemble the CaliDay landing page (`site/`) into a folder ready to serve.
+"""Assemble the TreniDay landing page (`site/`) into a folder ready to serve.
 
     python3 tools/site/build_site.py OUT_DIR [--url https://example.org/]
 
@@ -18,7 +18,7 @@ docs and the web app in `_site/app/`. Locally:
 
     python3 tools/site/build_site.py build/site_preview
 
-and the `caliday-site` server of `.claude/launch.json` serves that folder
+and the `treniday-site` server of `.claude/launch.json` serves that folder
 (the app link points at `app/`, which only the deployed site has).
 """
 
@@ -35,8 +35,8 @@ SITE = ROOT / 'site'
 ASSETS = ROOT / 'assets'
 CROPS = ROOT / 'lib' / 'data' / 'static' / 'animation_crops.dart'
 
-# The public address of the landing page (GitHub Pages of pupptmstr/caliday).
-DEFAULT_URL = 'https://pupptmstr.github.io/caliday/'
+# The public address of the landing page (GitHub Pages of pupptmstr/treniday).
+DEFAULT_URL = 'https://pupptmstr.github.io/treniday/'
 
 # The page languages in menu order; the first one lives at the root.
 LANGS = ['en', 'ru', 'de', 'es']
@@ -93,14 +93,14 @@ def json_ld(code: str, s: dict[str, str], url: str) -> str:
         {
             '@context': 'https://schema.org',
             '@type': 'WebSite',
-            'name': 'CaliDay',
+            'name': 'TreniDay',
             'url': url,
             'inLanguage': code,
         },
         {
             '@context': 'https://schema.org',
             '@type': 'SoftwareApplication',
-            'name': 'CaliDay',
+            'name': 'TreniDay',
             'url': page,
             'description': s['app_desc'],
             'applicationCategory': 'HealthApplication',
@@ -110,7 +110,7 @@ def json_ld(code: str, s: dict[str, str], url: str) -> str:
             'image': url + 'img/icon.png',
             'isAccessibleForFree': True,
             'offers': {'@type': 'Offer', 'price': '0', 'priceCurrency': 'USD'},
-            'sameAs': ['https://github.com/pupptmstr/caliday'],
+            'sameAs': ['https://github.com/pupptmstr/treniday'],
         },
     ]
     return json.dumps(data, ensure_ascii=False, indent=2).replace('</', '<\\/')

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// CaliDay brand design tokens and ThemeData factory.
+/// TreniDay brand design tokens and ThemeData factory.
 ///
 /// Usage in MaterialApp:
 ///   theme: AppTheme.light,

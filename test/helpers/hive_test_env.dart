@@ -1,14 +1,14 @@
 import 'dart:io';
 
-import 'package:caliday/data/models/branch_growth.dart';
-import 'package:caliday/data/models/custom_branch.dart';
-import 'package:caliday/data/models/custom_course.dart';
-import 'package:caliday/data/models/custom_routine.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/exercise_result.dart';
-import 'package:caliday/data/models/skill_progress.dart';
-import 'package:caliday/data/models/user_profile.dart';
-import 'package:caliday/data/models/workout_log.dart';
+import 'package:treniday/data/models/branch_growth.dart';
+import 'package:treniday/data/models/custom_branch.dart';
+import 'package:treniday/data/models/custom_course.dart';
+import 'package:treniday/data/models/custom_routine.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/exercise_result.dart';
+import 'package:treniday/data/models/skill_progress.dart';
+import 'package:treniday/data/models/user_profile.dart';
+import 'package:treniday/data/models/workout_log.dart';
 import 'package:hive_ce/hive_ce.dart';
 
 /// A real Hive database in a throw-away temp directory, set up the way
@@ -26,7 +26,7 @@ class HiveTestEnv {
   final Directory directory;
 
   static Future<HiveTestEnv> open() async {
-    final dir = await Directory.systemTemp.createTemp('caliday_hive_test_');
+    final dir = await Directory.systemTemp.createTemp('treniday_hive_test_');
     Hive.init(dir.path);
     _registerAdapters();
     await Future.wait([

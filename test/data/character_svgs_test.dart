@@ -1,8 +1,8 @@
 import 'dart:io';
 
-import 'package:caliday/core/providers/goro_expression_provider.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/features/settings/widgets/goro_poses.dart';
+import 'package:treniday/core/providers/goro_expression_provider.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/features/settings/widgets/goro_poses.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 

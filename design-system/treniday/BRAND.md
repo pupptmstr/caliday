@@ -1,6 +1,6 @@
-# CaliDay — Brand & Character Reference
+# TreniDay — Brand & Character Reference
 
-> This file consolidates `internal_docs/design-concept/caliday_design_concept.md` (characters, colors, assets)
+> This file consolidates `internal_docs/design-concept/treniday_design_concept.md` (characters, colors, assets)
 > with the UX style direction from `MASTER.md` (Vibrant & Block-based).
 > Use this as the **single source of truth** when making visual decisions.
 
@@ -134,7 +134,7 @@ Before the first workout of the day the active host says one of its own lines (f
 **Type scale in use:**
 - Display numbers (stats): 26sp, w900
 - Rank name: 24sp, w900
-- App title "CaliDay": 28sp, w900
+- App title "TreniDay": 28sp, w900
 - Button labels: 17sp, w700
 - Body / labels: 14–16sp, w400–w600
 

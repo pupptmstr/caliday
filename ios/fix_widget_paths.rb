@@ -6,9 +6,9 @@ require 'xcodeproj'
 
 project = Xcodeproj::Project.open('ios/Runner.xcodeproj')
 
-# Fix group path: ios/CaliDayWidget -> CaliDayWidget (relative to ios/)
-group = project.main_group.find_subpath('CaliDayWidget')
-abort "❌ CaliDayWidget group not found" unless group
+# Fix group path: ios/TreniDayWidget -> TreniDayWidget (relative to ios/)
+group = project.main_group.find_subpath('TreniDayWidget')
+abort "❌ TreniDayWidget group not found" unless group
 
 if group.path&.start_with?('ios/')
   group.path = group.path.sub('ios/', '')

@@ -16,7 +16,7 @@
 		7884E8682EC3CC0700C636F2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7884E8672EC3CC0400C636F2 /* SceneDelegate.swift */; };
 		78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */; };
 		897AB6F16DBFF643D7A5078F /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D001EFBEA96DDE6A6731AE83 /* Pods_RunnerTests.framework */; };
-		8B55C79E51B521FB48653616 /* CaliDayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59383D326E69AD092B2F34C /* CaliDayWidget.swift */; };
+		8B55C79E51B521FB48653616 /* TreniDayWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = F59383D326E69AD092B2F34C /* TreniDayWidget.swift */; };
 		C0DA11DA7E57A7E000000003 /* WidgetViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA11DA7E57A7E000000004 /* WidgetViews.swift */; };
 		C0DA11DA7E57A7E000000001 /* WidgetState.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DA11DA7E57A7E000000002 /* WidgetState.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
@@ -39,7 +39,7 @@
 			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 54FFD09B91E2E15FFE915F78;
-			remoteInfo = CaliDayWidget;
+			remoteInfo = TreniDayWidget;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -85,7 +85,7 @@
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		8518C79602DC5CBCAFBFC65F /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		8C12C95B88DE5C23A64B7F32 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
-		8D65E02AB74E11B6D91BCED8 /* CaliDayWidget.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = CaliDayWidget.entitlements; sourceTree = "<group>"; };
+		8D65E02AB74E11B6D91BCED8 /* TreniDayWidget.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = TreniDayWidget.entitlements; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,7 +98,7 @@
 		C38E0A73EF3F4FC81D7C22BE /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		CB97FF5FDB7E36AD0E7688EA /* .appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = .appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		D001EFBEA96DDE6A6731AE83 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		F59383D326E69AD092B2F34C /* CaliDayWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CaliDayWidget.swift; sourceTree = "<group>"; };
+		F59383D326E69AD092B2F34C /* TreniDayWidget.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = TreniDayWidget.swift; sourceTree = "<group>"; };
 		C0DA11DA7E57A7E000000004 /* WidgetViews.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WidgetViews.swift; sourceTree = "<group>"; };
 		C0DA11DA7E57A7E000000002 /* WidgetState.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WidgetState.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -192,7 +192,7 @@
 				331C8082294A63A400263BE5 /* RunnerTests */,
 				402A034006BA3FEBF24E5E67 /* Pods */,
 				289FBD5C73E4038B87E5B67B /* Frameworks */,
-				C14E666F4668841260C000C0 /* CaliDayWidget */,
+				C14E666F4668841260C000C0 /* TreniDayWidget */,
 			);
 			sourceTree = "<group>";
 		};
@@ -222,18 +222,18 @@
 			path = Runner;
 			sourceTree = "<group>";
 		};
-		C14E666F4668841260C000C0 /* CaliDayWidget */ = {
+		C14E666F4668841260C000C0 /* TreniDayWidget */ = {
 			isa = PBXGroup;
 			children = (
-				F59383D326E69AD092B2F34C /* CaliDayWidget.swift */,
+				F59383D326E69AD092B2F34C /* TreniDayWidget.swift */,
 				C0DA11DA7E57A7E000000004 /* WidgetViews.swift */,
 				C0DA11DA7E57A7E000000002 /* WidgetState.swift */,
 				B6742655AFFD298F518ABEA0 /* Assets.xcassets */,
-				8D65E02AB74E11B6D91BCED8 /* CaliDayWidget.entitlements */,
+				8D65E02AB74E11B6D91BCED8 /* TreniDayWidget.entitlements */,
 				A71750D17A59DCA04137FFEB /* Info.plist */,
 			);
-			name = CaliDayWidget;
-			path = CaliDayWidget;
+			name = TreniDayWidget;
+			path = TreniDayWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -258,9 +258,9 @@
 			productReference = 331C8081294A63A400263BE5 /* RunnerTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		54FFD09B91E2E15FFE915F78 /* CaliDayWidget */ = {
+		54FFD09B91E2E15FFE915F78 /* TreniDayWidget */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 206F854265E6AC75786B8EF8 /* Build configuration list for PBXNativeTarget "CaliDayWidget" */;
+			buildConfigurationList = 206F854265E6AC75786B8EF8 /* Build configuration list for PBXNativeTarget "TreniDayWidget" */;
 			buildPhases = (
 				686B6806639140506223CC85 /* Sources */,
 				55F58C888DD3934E05C83D14 /* Frameworks */,
@@ -270,8 +270,8 @@
 			);
 			dependencies = (
 			);
-			name = CaliDayWidget;
-			productName = CaliDayWidget;
+			name = TreniDayWidget;
+			productName = TreniDayWidget;
 			productReference = CB97FF5FDB7E36AD0E7688EA /* .appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
@@ -339,7 +339,7 @@
 			targets = (
 				97C146ED1CF9000F007C117D /* Runner */,
 				331C8080294A63A400263BE5 /* RunnerTests */,
-				54FFD09B91E2E15FFE915F78 /* CaliDayWidget */,
+				54FFD09B91E2E15FFE915F78 /* TreniDayWidget */,
 			);
 		};
 /* End PBXProject section */
@@ -464,7 +464,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8B55C79E51B521FB48653616 /* CaliDayWidget.swift in Sources */,
+				8B55C79E51B521FB48653616 /* TreniDayWidget.swift in Sources */,
 				C0DA11DA7E57A7E000000003 /* WidgetViews.swift in Sources */,
 				C0DA11DA7E57A7E000000001 /* WidgetState.swift in Sources */,
 			);
@@ -490,8 +490,8 @@
 		};
 		82141E6B3C671B78090AE104 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = CaliDayWidget;
-			target = 54FFD09B91E2E15FFE915F78 /* CaliDayWidget */;
+			name = TreniDayWidget;
+			target = 54FFD09B91E2E15FFE915F78 /* TreniDayWidget */;
 			targetProxy = 341282171E35F00CEB39B065 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -520,11 +520,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = CaliDayWidget/CaliDayWidget.entitlements;
-				INFOPLIST_FILE = CaliDayWidget/Info.plist;
+				CODE_SIGN_ENTITLEMENTS = TreniDayWidget/TreniDayWidget.entitlements;
+				INFOPLIST_FILE = TreniDayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.caliday.CaliDayWidget;
-				PRODUCT_NAME = CaliDayWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.treniday.TreniDayWidget;
+				PRODUCT_NAME = TreniDayWidget;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -601,7 +601,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.caliday;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.treniday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -618,7 +618,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.caliday.RunnerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.treniday.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -636,7 +636,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.caliday.RunnerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.treniday.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
@@ -652,7 +652,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.caliday.RunnerTests;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.treniday.RunnerTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
@@ -663,11 +663,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = CaliDayWidget/CaliDayWidget.entitlements;
-				INFOPLIST_FILE = CaliDayWidget/Info.plist;
+				CODE_SIGN_ENTITLEMENTS = TreniDayWidget/TreniDayWidget.entitlements;
+				INFOPLIST_FILE = TreniDayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.caliday.CaliDayWidget;
-				PRODUCT_NAME = CaliDayWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.treniday.TreniDayWidget;
+				PRODUCT_NAME = TreniDayWidget;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -803,7 +803,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.caliday;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.treniday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -827,7 +827,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.caliday;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.treniday;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
@@ -839,11 +839,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				CODE_SIGN_ENTITLEMENTS = CaliDayWidget/CaliDayWidget.entitlements;
-				INFOPLIST_FILE = CaliDayWidget/Info.plist;
+				CODE_SIGN_ENTITLEMENTS = TreniDayWidget/TreniDayWidget.entitlements;
+				INFOPLIST_FILE = TreniDayWidget/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.caliday.CaliDayWidget;
-				PRODUCT_NAME = CaliDayWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pupptmstr.treniday.TreniDayWidget;
+				PRODUCT_NAME = TreniDayWidget;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
@@ -855,7 +855,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		206F854265E6AC75786B8EF8 /* Build configuration list for PBXNativeTarget "CaliDayWidget" */ = {
+		206F854265E6AC75786B8EF8 /* Build configuration list for PBXNativeTarget "TreniDayWidget" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				1744331FE7D91800DB5272F0 /* Release */,

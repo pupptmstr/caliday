@@ -112,12 +112,12 @@ class UserProfile extends HiveObject {
   @HiveField(20)
   bool? hapticEnabled;
 
-  /// Whether CaliDay writes workouts to Apple Health / Health Connect.
+  /// Whether TreniDay writes workouts to Apple Health / Health Connect.
   /// null → false (opt-in feature).
   @HiveField(21)
   bool? healthWorkoutsEnabled;
 
-  /// Whether CaliDay reads body weight from Health for calorie calculations.
+  /// Whether TreniDay reads body weight from Health for calorie calculations.
   /// null → false (opt-in feature).
   @HiveField(22)
   bool? healthWeightEnabled;

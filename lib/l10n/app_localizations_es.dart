@@ -1011,7 +1011,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get onboardingHealthBody =>
-      'CaliDay puede guardar tus entrenamientos automáticamente en Apple Health (iOS) o Health Connect (Android).';
+      'TreniDay puede guardar tus entrenamientos automáticamente en Apple Health (iOS) o Health Connect (Android).';
 
   @override
   String get onboardingHealthEnable => 'Activar';
@@ -2417,7 +2417,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get aboutLegalConsent =>
-      'Al usar CaliDay aceptas la Política de privacidad y las Condiciones de uso.';
+      'Al usar TreniDay aceptas la Política de privacidad y las Condiciones de uso.';
 
   @override
   String get aboutCopyright => '© 2026 pupptmstr';
@@ -3527,8 +3527,12 @@ class AppLocalizationsEs extends AppLocalizations {
       'Ya no hay amigos: sin servidor solo podían intercambiar un código QR una vez y nada más. La app ya no necesita la cámara ni el Bluetooth.\nTu nombre: tu anfitrión te saluda con él en la pantalla de inicio, y el perfil y el final del entrenamiento lo muestran. Cámbialo en Ajustes → Perfil.\nCuatro ramas nuevas fuera de los cursos: Espalda fuerte, Glúteos, Brazos y hombros y Cardio: 22 ejercicios, cada uno con la animación de Goro. Añádelas a tu propio curso: Cursos → + → Crear tu propio curso.';
 
   @override
+  String get releaseNotes099 =>
+      'CaliDay ahora se llama TreniDay: un nombre nuevo, el mismo Goro y todo tu progreso.\nLa versión web se ha mudado a pupptmstr.github.io/treniday/app: ábrela en el mismo navegador y tu progreso seguirá ahí.';
+
+  @override
   String get releaseNotes098 =>
-      'La versión web en el iPhone ya reproduce todos los sonidos del entrenamiento — los tics, el inicio de un aguante, el cambio de lado, el final del descanso —, no solo los que siguen a un toque.\nCaliDay tiene sitio web: pupptmstr.github.io/caliday — todo sobre la app en cuatro idiomas.';
+      'La versión web en el iPhone ya reproduce todos los sonidos del entrenamiento — los tics, el inicio de un aguante, el cambio de lado, el final del descanso —, no solo los que siguen a un toque.\nTreniDay tiene sitio web: pupptmstr.github.io/treniday — todo sobre la app en cuatro idiomas.';
 
   @override
   String get releaseNotes097 =>
@@ -3540,7 +3544,7 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseNotes093 =>
-      'Tu propio curso: en la pestaña Cursos toca + y reúne ramas de cualquier curso, elige el anfitrión y ponle un nombre.\nUna rama propia: elige ejercicios y ordénalos, cada uno será una etapa. Las repeticiones, las series, los descansos y los retos los pone la app, como en cualquier rama.\nEn la campana, arriba están las últimas actualizaciones y debajo, plegada, toda la historia de CaliDay versión a versión.';
+      'Tu propio curso: en la pestaña Cursos toca + y reúne ramas de cualquier curso, elige el anfitrión y ponle un nombre.\nUna rama propia: elige ejercicios y ordénalos, cada uno será una etapa. Las repeticiones, las series, los descansos y los retos los pone la app, como en cualquier rama.\nEn la campana, arriba están las últimas actualizaciones y debajo, plegada, toda la historia de TreniDay versión a versión.';
 
   @override
   String get releaseHistory01 =>
@@ -3572,9 +3576,9 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get releaseHistory08 =>
-      'Las estadísticas de la pantalla de inicio abren el calendario, el historial y los rangos; un calendario de entrenamientos.\nEl rango baja tras pausas largas y vuelve con el entrenamiento.\nCaliDay en el navegador: la versión web.\nAnimaciones para cada ejercicio de los primeros cursos.\nLos ejercicios por tiempo empiezan solos tras una cuenta atrás corta; los de un lado se hacen a ambos.\nLos entrenamientos son Corto, Estándar o Completo, con una estimación del tiempo que aprende tu ritmo.\n«Novedades» en la campana del perfil; alemán y español.\nCada habilidad avanza una vez al día, en cualquier entrenamiento.\nUn curso nuevo, Estiramiento nocturno, y un anfitrión para cada curso.';
+      'Las estadísticas de la pantalla de inicio abren el calendario, el historial y los rangos; un calendario de entrenamientos.\nEl rango baja tras pausas largas y vuelve con el entrenamiento.\nTreniDay en el navegador: la versión web.\nAnimaciones para cada ejercicio de los primeros cursos.\nLos ejercicios por tiempo empiezan solos tras una cuenta atrás corta; los de un lado se hacen a ambos.\nLos entrenamientos son Corto, Estándar o Completo, con una estimación del tiempo que aprende tu ritmo.\n«Novedades» en la campana del perfil; alemán y español.\nCada habilidad avanza una vez al día, en cualquier entrenamiento.\nUn curso nuevo, Estiramiento nocturno, y un anfitrión para cada curso.';
 
   @override
   String get releaseHistory09 =>
-      'Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.\nSe quitan los amigos; tu anfitrión te saluda por tu nombre.\nCuatro ramas fuera de los cursos: espalda, glúteos, brazos y hombros, cardio.\nUn sonido para cada momento del entrenamiento, sobre tu música.\nWidgets con Goro: Hoy, Goro, Racha y Rango; en el iPhone, también en la pantalla de bloqueo.';
+      'Cursos nuevos: Rutina matutina con la alondra Aurora y Yoga con el gato Miso.\nLos anfitriones entregan los logros de su curso; ejercicios por lado más cortos.\nCada ejercicio tiene una animación.\nTus propios cursos: con ramas ya hechas y ramas tuyas, hechas de ejercicios en tu orden.\nSe quitan los amigos; tu anfitrión te saluda por tu nombre.\nCuatro ramas fuera de los cursos: espalda, glúteos, brazos y hombros, cardio.\nUn sonido para cada momento del entrenamiento, sobre tu música.\nWidgets con Goro: Hoy, Goro, Racha y Rango; en el iPhone, también en la pantalla de bloqueo.\nUn nombre nuevo: CaliDay ahora es TreniDay.';
 }

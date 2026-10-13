@@ -1,4 +1,4 @@
-import 'package:caliday/domain/services/workout_energy.dart';
+import 'package:treniday/domain/services/workout_energy.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 ({DateTime at, double? kg}) sample(int day, double? kg) =>

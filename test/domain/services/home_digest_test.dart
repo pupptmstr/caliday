@@ -1,10 +1,10 @@
 import 'dart:math';
 
-import 'package:caliday/data/models/branch_growth.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/workout_log.dart';
-import 'package:caliday/data/static/achievement_catalog.dart';
-import 'package:caliday/domain/services/home_digest.dart';
+import 'package:treniday/data/models/branch_growth.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/workout_log.dart';
+import 'package:treniday/data/static/achievement_catalog.dart';
+import 'package:treniday/domain/services/home_digest.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 WorkoutLog _log(DateTime date, [List<BranchGrowth>? growth]) => WorkoutLog(

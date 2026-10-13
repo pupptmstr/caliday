@@ -1,7 +1,7 @@
 import 'dart:io';
 
-import 'package:caliday/core/l10n/app_languages.dart';
-import 'package:caliday/l10n/app_localizations.dart';
+import 'package:treniday/core/l10n/app_languages.dart';
+import 'package:treniday/l10n/app_localizations.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {

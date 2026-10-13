@@ -1,15 +1,15 @@
-import 'package:caliday/data/models/custom_branch.dart';
-import 'package:caliday/data/models/custom_course.dart';
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/skill_progress.dart';
-import 'package:caliday/data/models/user_profile.dart';
-import 'package:caliday/data/repositories/custom_course_repository.dart';
-import 'package:caliday/data/repositories/skill_progress_repository.dart';
-import 'package:caliday/data/repositories/user_repository.dart';
-import 'package:caliday/domain/models/branch.dart';
-import 'package:caliday/domain/models/course.dart';
-import 'package:caliday/features/home/providers/home_provider.dart';
-import 'package:caliday/features/workout/providers/workout_provider.dart';
+import 'package:treniday/data/models/custom_branch.dart';
+import 'package:treniday/data/models/custom_course.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/skill_progress.dart';
+import 'package:treniday/data/models/user_profile.dart';
+import 'package:treniday/data/repositories/custom_course_repository.dart';
+import 'package:treniday/data/repositories/skill_progress_repository.dart';
+import 'package:treniday/data/repositories/user_repository.dart';
+import 'package:treniday/domain/models/branch.dart';
+import 'package:treniday/domain/models/course.dart';
+import 'package:treniday/features/home/providers/home_provider.dart';
+import 'package:treniday/features/workout/providers/workout_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 

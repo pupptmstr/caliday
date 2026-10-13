@@ -1,9 +1,9 @@
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/workout_log.dart';
-import 'package:caliday/data/repositories/workout_repository.dart';
-import 'package:caliday/data/static/supplementary_exercise_catalog.dart';
-import 'package:caliday/features/home/providers/home_provider.dart';
-import 'package:caliday/features/workout/providers/workout_provider.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/workout_log.dart';
+import 'package:treniday/data/repositories/workout_repository.dart';
+import 'package:treniday/data/static/supplementary_exercise_catalog.dart';
+import 'package:treniday/features/home/providers/home_provider.dart';
+import 'package:treniday/features/workout/providers/workout_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 

@@ -1,10 +1,10 @@
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/exercise.dart';
-import 'package:caliday/data/models/skill_progress.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
-import 'package:caliday/data/static/supplementary_exercise_catalog.dart';
-import 'package:caliday/domain/models/branch.dart';
-import 'package:caliday/domain/services/custom_stages.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/exercise.dart';
+import 'package:treniday/data/models/skill_progress.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
+import 'package:treniday/data/static/supplementary_exercise_catalog.dart';
+import 'package:treniday/domain/models/branch.dart';
+import 'package:treniday/domain/services/custom_stages.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 /// A branch the user makes holds catalog exercises in their order; the app

@@ -2,8 +2,8 @@
   "lang_name": "English",
   "lang_short": "EN",
   "og_locale": "en_US",
-  "meta_title": "CaliDay — free home workouts that feel like a game",
-  "meta_desc": "CaliDay is a free home workout app with Goro the gorilla: bodyweight skill branches from wall push-ups to a handstand, yoga and stretching courses, streaks, ranks and achievements. No ads, no account.",
+  "meta_title": "TreniDay — free home workouts that feel like a game",
+  "meta_desc": "TreniDay is a free home workout app with Goro the gorilla: bodyweight skill branches from wall push-ups to a handstand, yoga and stretching courses, streaks, ranks and achievements. No ads, no account.",
   "app_desc": "Short bodyweight workouts at home with Goro the gorilla: skill branches, courses, streaks, ranks and achievements. Free, no ads, no account.",
 
   "skip": "Skip to content",
@@ -43,7 +43,7 @@
   "sec": "sec",
   "pause": "Pause",
 
-  "stats_label": "CaliDay in numbers",
+  "stats_label": "TreniDay in numbers",
   "stat_ex": "animated exercises",
   "stat_branches": "skill branches",
   "stat_courses": "courses, plus your own",
@@ -124,11 +124,11 @@
   "f5_t": "Gentle reminders",
   "f5_p": "A morning reminder, an evening nudge and a warning when your streak is at risk — each one can be turned off.",
   "f6_t": "Works in the browser",
-  "f6_p": "No install needed: open CaliDay in the browser and add it to your home screen.",
+  "f6_p": "No install needed: open TreniDay in the browser and add it to your home screen.",
 
   "priv_eyebrow": "Privacy",
   "priv_t": "Your progress stays with you",
-  "priv_p": "CaliDay has no server and no account. Everything you do is stored on your device and nowhere else. The code is open for anyone to read.",
+  "priv_p": "TreniDay has no server and no account. Everything you do is stored on your device and nowhere else. The code is open for anyone to read.",
   "pill_account": "No account",
   "pill_ads": "No ads",
   "pill_tracking": "No tracking",
@@ -138,8 +138,8 @@
 
   "faq_eyebrow": "FAQ",
   "faq_title": "Questions",
-  "q1": "Is CaliDay free?",
-  "a1": "Yes. CaliDay is free, with no ads, no subscriptions and no paid features.",
+  "q1": "Is TreniDay free?",
+  "a1": "Yes. TreniDay is free, with no ads, no subscriptions and no paid features.",
   "q2": "Do I need any equipment?",
   "a2": "Almost nothing: a floor, a wall and sometimes a chair. A pull-up bar opens the Pull branch; without one the app plans your workouts around it.",
   "q3": "How long is a workout?",
@@ -158,5 +158,5 @@
   "foot_app": "Web app",
   "foot_privacy": "Privacy Policy",
   "foot_terms": "Terms of Use",
-  "foot_copy": "© 2026 CaliDay"
+  "foot_copy": "© 2026 TreniDay"
 }

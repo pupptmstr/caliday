@@ -1,4 +1,4 @@
-# CaliDay — Mascot and Visual Style Design Concept
+# TreniDay — Mascot and Visual Style Design Concept
 
 **Version:** 2.0
 **Date:** February 2026
@@ -9,7 +9,7 @@
 
 ### 1.1 Concept
 
-Goro is the gorilla mascot of the CaliDay app. The central brand character.
+Goro is the gorilla mascot of the TreniDay app. The central brand character.
 
 **Why a gorilla:**
 
@@ -110,7 +110,7 @@ eyebrows, eyes, and mouth — while everything else (crest, headband, ears, nose
 
 ### 2.3 Implementation Status
 
-SVG files for all 6 expressions **received from the designer**; they live in `assets/goro/` (the delivery notes are in `internal_docs/caliday_design_v1_1/RESULTS.md`).
+SVG files for all 6 expressions **received from the designer**; they live in `assets/goro/` (the delivery notes are in `internal_docs/treniday_design_v1_1/RESULTS.md`).
 The system is **fully integrated** in the code — `GoroExpressionProvider` is implemented and active.
 
 ### 2.4 Technical Details
@@ -200,9 +200,9 @@ This format was chosen as the primary one for several reasons:
 
 | Variant | File | Usage |
 |---------|------|-------|
-| **Face** (primary) | `caliday_icon_face.svg` | App icon, avatar, notifications |
-| **Flex** | `caliday_icon.svg` | Store listing, promo, home screen |
-| **Idle** | `caliday_icon_idle.svg` | Menus, settings, resting state |
+| **Face** (primary) | `treniday_icon_face.svg` | App icon, avatar, notifications |
+| **Flex** | `treniday_icon.svg` | Store listing, promo, home screen |
+| **Idle** | `treniday_icon_idle.svg` | Menus, settings, resting state |
 
 ### 4.3 File Requirements
 
@@ -361,16 +361,16 @@ All 5 branches + accessories. Total: **43 animations**.
 
 | File | Description |
 |------|-------------|
-| `caliday_icon_face.svg` | Primary icon — Goro's face, "Happy" expression |
-| `caliday_icon.svg` | Goro flexing bicep (for store and promo) |
-| `caliday_icon_idle.svg` | Idle pose — Goro standing calmly |
-| `caliday_icon_preview.html` | Preview of all variants with colour palette |
+| `treniday_icon_face.svg` | Primary icon — Goro's face, "Happy" expression |
+| `treniday_icon.svg` | Goro flexing bicep (for store and promo) |
+| `treniday_icon_idle.svg` | Idle pose — Goro standing calmly |
+| `treniday_icon_preview.html` | Preview of all variants with colour palette |
 | `goro_notification.svg` | Source of the Android notification icon (`ic_goro_notif.xml`) |
-| `caliday_design_concept.md` | This document |
+| `treniday_design_concept.md` | This document |
 
 ### Ready Assets (v1.1) — received and integrated
 
-The files are in `assets/goro/` and `assets/skala/` (the designer's delivery notes: `internal_docs/caliday_design_v1_1/RESULTS.md`).
+The files are in `assets/goro/` and `assets/skala/` (the designer's delivery notes: `internal_docs/treniday_design_v1_1/RESULTS.md`).
 
 | File | Description | Format |
 |------|-------------|--------|

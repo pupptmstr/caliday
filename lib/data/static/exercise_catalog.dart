@@ -1,7 +1,7 @@
 import '../models/enums.dart';
 import '../models/exercise.dart';
 
-/// Static catalog of all exercises used in CaliDay (Push, Core, Pull, Legs, Balance branches).
+/// Static catalog of all exercises used in TreniDay (Push, Core, Pull, Legs, Balance branches).
 ///
 /// Each entry covers one progression stage within a branch. Starting values
 /// reflect what a user does on day one of that stage; target values are the

@@ -1,17 +1,17 @@
-# Privacy Policy — CaliDay
+# Privacy Policy — TreniDay
 
-**Last updated: October 11, 2026**
+**Last updated: October 13, 2026**
 
 ---
 
-CaliDay is a home workout app built on a simple principle: your data belongs to you.
+TreniDay is a home workout app built on a simple principle: your data belongs to you.
 This policy explains what information the app uses and how it stays on your device.
 
 ---
 
 ## 1. Data We Collect
 
-**CaliDay does not collect, transmit, or store any personal data on external servers.**
+**TreniDay does not collect, transmit, or store any personal data on external servers.**
 
 There are no accounts, no sign-up, no cloud sync. Everything you do in the app —
 workouts, progress, streak, settings — is stored locally on your device using
@@ -41,33 +41,33 @@ Bluetooth.
 
 ### Web version
 
-CaliDay is also available as a web app at <https://pupptmstr.github.io/caliday/app/>. It works the
+TreniDay is also available as a web app at <https://pupptmstr.github.io/treniday/app/>. It works the
 same way: everything you do is stored in your browser, on your device, and is never sent to
-CaliDay's developers. The data is deleted when you clear the site data for that address in your
+TreniDay's developers. The data is deleted when you clear the site data for that address in your
 browser. The web app has no Health integration, home screen widget or notifications.
 
 The web page itself is hosted on GitHub Pages. Like any web host, GitHub may process technical data
-such as your IP address when you load the page, under GitHub's own privacy statement. CaliDay does
+such as your IP address when you load the page, under GitHub's own privacy statement. TreniDay does
 not receive or use that data.
 
 ---
 
 ## 3. Health Data (Apple Health / Google Health Connect)
 
-If you opt in during onboarding or in Settings, CaliDay can:
+If you opt in during onboarding or in Settings, TreniDay can:
 
 - **Write** workout sessions (type, duration, estimated calories) to Apple Health or Google Health Connect
 - **Read** your body weight from Apple Health or Google Health Connect for more accurate calorie estimates
 
 This integration is **entirely optional** and **off by default**. Health data is read and written
-directly on your device. It is never transmitted to CaliDay's developers or any third party.
+directly on your device. It is never transmitted to TreniDay's developers or any third party.
 You can revoke this permission at any time in your device's Health or Settings app.
 
 ---
 
 ## 4. Push Notifications
 
-CaliDay schedules local push notifications (workout reminders, streak alerts) entirely on-device.
+TreniDay schedules local push notifications (workout reminders, streak alerts) entirely on-device.
 No push tokens are sent to any server. Notifications are managed by your device's operating system.
 You can disable them at any time in your device's Settings.
 
@@ -75,7 +75,7 @@ You can disable them at any time in your device's Settings.
 
 ## 5. Analytics and Advertising
 
-CaliDay contains **no analytics SDKs, no crash reporting services, no advertising networks,
+TreniDay contains **no analytics SDKs, no crash reporting services, no advertising networks,
 and no tracking of any kind.** The developers do not know how many people use the app,
 what workouts they do, or anything else about user behavior.
 
@@ -83,7 +83,7 @@ what workouts they do, or anything else about user behavior.
 
 ## 6. Children
 
-CaliDay is not directed at children under the age of 13. We do not knowingly collect
+TreniDay is not directed at children under the age of 13. We do not knowingly collect
 any information from children. If you are a parent or guardian and believe your child
 has provided personal information through the app, please contact us — though in practice
 the app stores nothing off-device that could be retrieved.
@@ -103,4 +103,4 @@ Continued use of the app after a policy update constitutes acceptance of the rev
 Questions about this privacy policy:
 
 **Email:** [kurnyakov.petr@gmail.com](mailto:kurnyakov.petr@gmail.com)
-**GitHub:** [https://github.com/pupptmstr/caliday](https://github.com/pupptmstr/caliday)
+**GitHub:** [https://github.com/pupptmstr/treniday](https://github.com/pupptmstr/treniday)

@@ -1,6 +1,6 @@
 ---
 name: document-idea
-description: Workflow for documenting a new product idea or feature proposal in CaliDay. Use when a new idea appears — records the idea in internal_docs/STATUS.md and, when it needs planning, a spec file in internal_docs/specs/.
+description: Workflow for documenting a new product idea or feature proposal in TreniDay. Use when a new idea appears — records the idea in internal_docs/STATUS.md and, when it needs planning, a spec file in internal_docs/specs/.
 ---
 
 # Document Idea Workflow

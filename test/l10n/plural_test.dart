@@ -1,5 +1,5 @@
-import 'package:caliday/l10n/app_localizations_en.dart';
-import 'package:caliday/l10n/app_localizations_ru.dart';
+import 'package:treniday/l10n/app_localizations_en.dart';
+import 'package:treniday/l10n/app_localizations_ru.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import '../helpers/all_translations.dart';

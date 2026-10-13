@@ -1,7 +1,7 @@
-import 'package:caliday/data/models/enums.dart';
-import 'package:caliday/data/models/skill_progress.dart';
-import 'package:caliday/data/repositories/skill_progress_repository.dart';
-import 'package:caliday/data/static/exercise_catalog.dart';
+import 'package:treniday/data/models/enums.dart';
+import 'package:treniday/data/models/skill_progress.dart';
+import 'package:treniday/data/repositories/skill_progress_repository.dart';
+import 'package:treniday/data/static/exercise_catalog.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_ce/hive_ce.dart';
 

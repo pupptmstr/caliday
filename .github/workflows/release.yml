@@ -114,7 +114,7 @@ jobs:
       - name: Name the artifacts
         run: |
           version=$(grep '^version:' pubspec.yaml | awk '{print $2}')
-          base="caliday-${version%%+*}-b${version##*+}"
+          base="treniday-${version%%+*}-b${version##*+}"
           suffix=""
           if [ "$HAS_KEYSTORE" != "true" ]; then suffix="-debug-signed"; fi
           mkdir -p dist
@@ -151,14 +151,14 @@ jobs:
         run: |
           flutter build ios --release --no-codesign
           mkdir -p dist
-          ditto -c -k --keepParent build/ios/iphoneos/Runner.app dist/caliday-ios-unsigned.zip
+          ditto -c -k --keepParent build/ios/iphoneos/Runner.app dist/treniday-ios-unsigned.zip
 
       # UNVERIFIED: written without an Apple Developer account, never run.
       # Automatic signing through an App Store Connect API key (role Admin or
       # App Manager): xcodebuild creates the profiles for Runner and the
-      # CaliDayWidget extension (App Groups, HealthKit) itself, so no
+      # TreniDayWidget extension (App Groups, HealthKit) itself, so no
       # certificates or profiles are stored as secrets. The bundle ids
-      # com.pupptmstr.caliday and com.pupptmstr.caliday.CaliDayWidget must be
+      # com.pupptmstr.treniday and com.pupptmstr.treniday.TreniDayWidget must be
       # registered in the account first.
       - name: Build a signed IPA
         if: ${{ env.HAS_ASC_KEY == 'true' }}
@@ -203,7 +203,7 @@ jobs:
 
           version=$(grep '^version:' pubspec.yaml | awk '{print $2}')
           mkdir -p dist
-          cp build/ios/ipa/*.ipa "dist/caliday-${version%%+*}-b${version##*+}.ipa"
+          cp build/ios/ipa/*.ipa "dist/treniday-${version%%+*}-b${version##*+}.ipa"
 
       - uses: actions/upload-artifact@v7
         with:
@@ -232,5 +232,5 @@ jobs:
           files=(dist/*.apk dist/*.aab dist/*.ipa)   # not the unsigned iOS zip
           gh release create "$GITHUB_REF_NAME" "${files[@]}" \
             --repo "$GITHUB_REPOSITORY" \
-            --title "CaliDay $GITHUB_REF_NAME" \
+            --title "TreniDay $GITHUB_REF_NAME" \
             --generate-notes --draft

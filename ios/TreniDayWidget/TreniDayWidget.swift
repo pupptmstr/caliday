@@ -4,11 +4,10 @@ import WidgetKit
 // The home-screen and lock-screen widgets (agreed with the owner 2026-10-12):
 // Today, Goro, Streak and Rank. What they show comes from the app
 // (WidgetState.swift reads it), how they look is WidgetViews.swift. The kinds
-// are listed in WidgetService.iOSKinds; "CaliDayWidget" is the Today widget
-// and keeps the kind of the one widget there used to be.
+// are listed in WidgetService.iOSKinds; "TreniDayWidget" is the Today widget.
 
 @main
-struct CaliDayWidgets: WidgetBundle {
+struct TreniDayWidgets: WidgetBundle {
     var body: some Widget {
         TodayWidget()
         GoroWidget()
@@ -19,7 +18,7 @@ struct CaliDayWidgets: WidgetBundle {
 
 struct TodayWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "CaliDayWidget", provider: Provider()) { TodayView(entry: $0) }
+        StaticConfiguration(kind: "TreniDayWidget", provider: Provider()) { TodayView(entry: $0) }
             .configurationDisplayName(gallery("today").name)
             .description(gallery("today").description)
             .supportedFamilies([.systemSmall, .systemMedium, .systemLarge, .accessoryRectangular])
@@ -28,7 +27,7 @@ struct TodayWidget: Widget {
 
 struct GoroWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "CaliDayGoroWidget", provider: Provider()) { GoroView(entry: $0) }
+        StaticConfiguration(kind: "TreniDayGoroWidget", provider: Provider()) { GoroView(entry: $0) }
             .configurationDisplayName(gallery("goro").name)
             .description(gallery("goro").description)
             .supportedFamilies([.systemSmall])
@@ -37,7 +36,7 @@ struct GoroWidget: Widget {
 
 struct StreakWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "CaliDayStreakWidget", provider: Provider()) { StreakView(entry: $0) }
+        StaticConfiguration(kind: "TreniDayStreakWidget", provider: Provider()) { StreakView(entry: $0) }
             .configurationDisplayName(gallery("streak").name)
             .description(gallery("streak").description)
             .supportedFamilies([.systemSmall, .accessoryCircular, .accessoryInline])
@@ -46,7 +45,7 @@ struct StreakWidget: Widget {
 
 struct RankWidget: Widget {
     var body: some WidgetConfiguration {
-        StaticConfiguration(kind: "CaliDayRankWidget", provider: Provider()) { RankView(entry: $0) }
+        StaticConfiguration(kind: "TreniDayRankWidget", provider: Provider()) { RankView(entry: $0) }
             .configurationDisplayName(gallery("rank").name)
             .description(gallery("rank").description)
             .supportedFamilies([.systemSmall, .systemMedium, .accessoryCircular])
@@ -85,6 +84,6 @@ private func gallery(_ widget: String) -> (name: String, description: String) {
         ],
     ]
     let code = Locale.preferredLanguages.first.map { String($0.prefix(2)) } ?? "en"
-    let entry = (texts[code] ?? texts["en"]!)[widget] ?? ("CaliDay", "")
+    let entry = (texts[code] ?? texts["en"]!)[widget] ?? ("TreniDay", "")
     return (entry.0, entry.1)
 }

@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:caliday/l10n/app_localizations.dart';
+import 'package:treniday/l10n/app_localizations.dart';
 
 /// Shortcut: `context.l10n` instead of `AppLocalizations.of(context)!`.
 extension BuildContextL10n on BuildContext {

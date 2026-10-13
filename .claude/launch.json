@@ -2,7 +2,7 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "caliday-web",
+      "name": "treniday-web",
       "runtimeExecutable": "flutter",
       "runtimeArgs": ["run", "-d", "web-server", "--web-port", "8099"],
       "port": 8099
@@ -14,7 +14,7 @@
       "port": 8098
     },
     {
-      "name": "caliday-site",
+      "name": "treniday-site",
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8097", "--directory", "build/site_preview"],
       "port": 8097

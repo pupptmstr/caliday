@@ -1,8 +1,8 @@
 <p align="center">
-  <img src="assets/icon/icon.png" width="112" alt="CaliDay: Goro the gorilla">
+  <img src="assets/icon/icon.png" width="112" alt="TreniDay: Goro the gorilla">
 </p>
 
-<h1 align="center">CaliDay</h1>
+<h1 align="center">TreniDay</h1>
 
 <p align="center">
   <b>Free home workouts that feel like a game</b><br>
@@ -10,15 +10,15 @@
 </p>
 
 <p align="center">
-  <a href="https://pupptmstr.github.io/caliday/"><b>Website</b></a> ·
-  <a href="https://pupptmstr.github.io/caliday/app/"><b>Web app</b></a> ·
+  <a href="https://pupptmstr.github.io/treniday/"><b>Website</b></a> ·
+  <a href="https://pupptmstr.github.io/treniday/app/"><b>Web app</b></a> ·
   <a href="internal_docs/README.md">Project notes</a> ·
   <a href="docs/PRIVACY_POLICY.md">Privacy</a>
 </p>
 
 <p align="center">
-  <a href="https://github.com/pupptmstr/caliday/actions/workflows/ci.yml"><img src="https://github.com/pupptmstr/caliday/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
-  <a href="https://github.com/pupptmstr/caliday/actions/workflows/web.yml"><img src="https://github.com/pupptmstr/caliday/actions/workflows/web.yml/badge.svg?branch=main" alt="Deploy web"></a>
+  <a href="https://github.com/pupptmstr/treniday/actions/workflows/ci.yml"><img src="https://github.com/pupptmstr/treniday/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI"></a>
+  <a href="https://github.com/pupptmstr/treniday/actions/workflows/web.yml"><img src="https://github.com/pupptmstr/treniday/actions/workflows/web.yml/badge.svg?branch=main" alt="Deploy web"></a>
   <img src="https://img.shields.io/badge/platforms-iOS%20%C2%B7%20Android%20%C2%B7%20Web-4DA6FF" alt="Platforms: iOS, Android, Web">
   <img src="https://img.shields.io/badge/ads-none-34C759" alt="No ads">
 </p>
@@ -32,13 +32,13 @@
   <img src="assets/skala/skala_neutral.svg" width="92" alt="Skala, the challenges">
 </p>
 
-CaliDay is a home-workout app with a game around it. It guides you from
+TreniDay is a home-workout app with a game around it. It guides you from
 absolute zero (wall push-ups, a first plank, a gentle stretch) to advanced
 skills (handstand push-ups, L-sit, free handstand, the wheel) through short
 daily workouts: five courses, each with a host of its own, and courses you put
 together yourself. Free, with no ads, no subscriptions and no account;
 everything stays on your device. The iPhone and Android apps are coming to the
-stores; the [web version](https://pupptmstr.github.io/caliday/app/) works today.
+stores; the [web version](https://pupptmstr.github.io/treniday/app/) works today.
 
 ---
 
@@ -55,7 +55,7 @@ stores; the [web version](https://pupptmstr.github.io/caliday/app/) works today.
 
 The app is built on proven game-based learning mechanics:
 
-| Mechanic          | How it works in CaliDay                                        |
+| Mechanic          | How it works in TreniDay                                        |
 |-------------------|----------------------------------------------------------------|
 | Course            | A set of skill branches with its own host character             |
 | Skill / branch    | A ladder of exercises (Push, Pull, Backbends…), easy to hard    |
@@ -99,8 +99,8 @@ every stage, amount and challenge norm is in [the exercise catalog](internal_doc
 - **Health integration:** Apple Health and Health Connect — the workout and its calories, if you want
 - **Languages:** English, Russian, German and Spanish (German and Spanish are drafts awaiting native proofreading)
 - **Dark theme**, onboarding with a push-up calibration and course choice
-- **Web version** at https://pupptmstr.github.io/caliday/app/ (installable as a PWA; data stays in the browser — no notifications, Health or widget there)
-- **Website** at https://pupptmstr.github.io/caliday/ in the app's four languages
+- **Web version** at https://pupptmstr.github.io/treniday/app/ (installable as a PWA; data stays in the browser — no notifications, Health or widget there)
+- **Website** at https://pupptmstr.github.io/treniday/ in the app's four languages
 - **100% offline** — no server, all data on the device (Hive)
 
 ## Tech Stack
@@ -194,7 +194,7 @@ A rank that is not trained for 21 days is *shown* one tier lower (further tiers 
 ## Documentation
 
 - [Project notes](internal_docs/README.md) — the index: [status](internal_docs/STATUS.md), [changelog](internal_docs/CHANGELOG.md), the reference by topic (data, courses, progression, workout, screens, platforms, testing, tooling), decisions, specs
-- [Design system](design-system/caliday/BRAND.md) — brand, mascot and hosts, colours, UX rules
+- [Design system](design-system/treniday/BRAND.md) — brand, mascot and hosts, colours, UX rules
 - [Privacy Policy](docs/PRIVACY_POLICY.md) · [Terms of Use](docs/TERMS_OF_USE.md)
 
 ## Roadmap
@@ -208,7 +208,7 @@ A rank that is not trained for 21 days is *shown* one tier lower (further tiers 
 
 ## License
 
-© 2026 the author of CaliDay. **All rights reserved.** The source is open to
+© 2026 the author of TreniDay. **All rights reserved.** The source is open to
 read, but it is not licensed for use: copying, modifying, distributing or
 building on it needs written permission — see [LICENSE](LICENSE). Using the
 app is governed by the [Terms of Use](docs/TERMS_OF_USE.md).
