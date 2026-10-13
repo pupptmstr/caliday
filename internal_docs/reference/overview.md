@@ -211,4 +211,5 @@ python3 tools/sounds/gen_sounds.py  # Regenerate the workout cues (assets/sounds
 python3 tools/sounds/build_preview.py  # Build build/sounds_preview.html to listen to them
 python3 tools/site/build_site.py build/site_preview  # Render the landing page (served by the treniday-site launch config)
 python3 tools/site/make_og.py  # Redraw the landing page's link-preview cards (site/og-<lang>.png)
+python3 tools/store/check_listing.py  # Check the store listings (fastlane/metadata) against the limits and our rules
 ```

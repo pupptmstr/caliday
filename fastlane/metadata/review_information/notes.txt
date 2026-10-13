@@ -1,0 +1,7 @@
+TreniDay needs no account and no sign-in: every feature is available right after the short onboarding. All data is stored on the device; the app has no server and makes no network requests of its own (the only links open the privacy policy, the terms and an email address in Safari / Mail, from Profile → Settings → About).
+
+Apple Health (HealthKit) is optional and off by default. To try it: Profile → the gear icon (Settings) → Health → turn on "Record workouts" (and, if you like, "Read body weight"); the Health permission sheet appears. The onboarding offers the same step. After a workout the app writes one workout (Traditional Strength Training) with its duration and an estimate of the energy burned (MET 5.5 × body weight × hours; 70 kg unless the body weight is read from Health). The body weight is read only for that estimate. Health data never leaves the device and is not used for advertising or anything else.
+
+A quick look at a workout: Home → the big workout button. Every exercise is shown by an animation of Goro the gorilla; a timed hold starts by itself after a get-ready countdown, and sound cues tell what comes next, so the user does not need to touch the screen. "Pause" is always available.
+
+The home-screen and lock-screen widgets show what the app writes to its App Group (streak, rank, today's plan); they have no other data source. Reminders are local notifications scheduled on the device.
