@@ -1,6 +1,8 @@
-# Vibration patterns of our own — open idea (2026-10-12)
+# Vibration patterns of our own — declined (owner, 2026-10-13)
 
 > Part of the project notes — the index is [internal_docs/README.md](../README.md).
+
+**Declined (owner, 2026-10-13):** not to be done; kept for the record of what was looked at.
 
 **Where it came from:** with the sounds of 0.9.6 the owner asked what the vibration does, whether it can be changed and whether the web vibrates.
 
