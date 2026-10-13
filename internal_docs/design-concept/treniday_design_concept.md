@@ -59,7 +59,7 @@ Goro is the gorilla mascot of the TreniDay app. The central brand character.
 | **Aurora** | Host of Morning Routine | Bright, early, sings | Lark, blue sports headband, sunrise | ✅ Drawn 0.9.0 (six faces, idle, cheer) |
 | **Miso** | Host of Yoga | Calm, flexible, quietly pleased | Ginger tabby cat, blue collar with a bell, teal tile, yoga mat | ✅ Drawn 0.9.1 (six faces, idle in lotus, cheer with paws overhead) |
 | **Bruno** | Exercise demonstrator | Calm, technical | Bear | ❌ Dropped in that role (2026-10-08): stage previews will play Goro's animations |
-| **Rex** | Streak motivator | Energetic, hyperactive | Small monkey, flame | 🔲 Deferred |
+| **Rex** | Streak motivator | Energetic, hyperactive | Small monkey, flame | ❌ Dropped (owner, 2026-10-13) |
 
 **Course hosts (decided 2026-10-08):** every course has its own host — static art in 2–3 poses, like Skala — on the course cards, the workout summary of that course and its achievements. Goro stays the coach (Home, notifications) and performs every exercise animation. Details and the Skala redraw brief: `internal_docs/specs/done/big-features-roadmap.md` § Course hosts.
 

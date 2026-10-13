@@ -23,7 +23,7 @@ Branch `session/2026-10-13-treniday`.
 
 **The repository and the address:** GitHub redirects a renamed repository (git, issues, links) but **not its Pages site** — `/caliday/` stops answering. The repository is renamed together with the merge, so the old address is down only until the new build deploys to `/treniday/`.
 
-**After the merge** (branch `session/2026-10-13-search-console`, no app change): the site carries the Google Search Console verification tag of the owner's property `https://pupptmstr.github.io/treniday/`; the GitHub social preview (a custom image — the old CaliDay og card) is the owner's to replace with `site/og-en.png`.
+**After the merge** (branch `session/2026-10-13-search-console`, no app change): the site carries the Google Search Console verification tag of the owner's property `https://pupptmstr.github.io/treniday/`; the GitHub social preview (a custom image — the old CaliDay og card) is the owner's to replace with `site/og-en.png` (done). The owner verified the property, sent the sitemap and requested indexing; checked every workout sound of the 0.9.8 web version on an iPhone (all play); and dropped two ideas — own vibration patterns and Rex the streak monkey — as well as a visit counter on the site and a redirect from `/caliday/`.
 
 **Recorded for later:** progress export and import through a file — moving to a new phone, or from the web version to the app; the import **merges** with what the device has, never replaces it (owner) — [specs/progress-export.md](specs/progress-export.md).
 
