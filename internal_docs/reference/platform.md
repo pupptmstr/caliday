@@ -134,7 +134,8 @@ Same Flutter app compiled for the browser; data stays local (Hive CE → **Index
 - **The phones** of the first screen are HTML drawn with the app's tokens, not screenshots; they play the real Lottie files (lottie-web 5.12.2 light from cdnjs, with SRI).
 - **Search:** `robots.txt` is read only at a domain's root, so on a project site the sitemap is sent through Google Search Console: the owner's URL-prefix property `https://pupptmstr.github.io/treniday/` is verified by the `google-site-verification` meta tag in the template's `<head>` (2026-10-13) — removing it loses the verification.
 - **Preview:** `python3 tools/site/build_site.py build/site_preview`, then the `treniday-site` server of `.claude/launch.json` (port 8097). The app and the legal links point at `app/` and `PRIVACY_POLICY`, which only the deployed site has.
-- **Store links:** placeholders until the listings exist; Apple's "Download on the App Store" badge may only be used for an app that is on the store.
+- **Store links:** placeholders until the listings exist; Apple's "Download on the App Store" badge may only be used for an app that is on the store. The listings themselves are ready in `fastlane/metadata/` — [specs/store-listing.md](../specs/store-listing.md).
+- **Support contact:** the FAQ's last question gives the email; it is what the App Store's support URL (`…/treniday/#faq`) points at — Apple wants contact information there.
 
 ## Release builds (CI) — drafted, disabled
 
@@ -159,7 +160,7 @@ Secrets: `ANDROID_KEYSTORE_BASE64` (PowerShell: `[Convert]::ToBase64String([IO.F
 
 **iOS signing (when the paid account exists).** Register the bundle ids `com.pupptmstr.treniday` and `com.pupptmstr.treniday.TreniDayWidget`, the App Group `group.com.pupptmstr.treniday` and the HealthKit capability; create an App Store Connect API key (role Admin or App Manager). Secrets: `APPSTORE_API_KEY_BASE64` (the `.p8` file, base64), `APPSTORE_KEY_ID`, `APPSTORE_ISSUER_ID`; variable `APPLE_TEAM_ID` (overrides the `DEVELOPMENT_TEAM` that is committed in `project.pbxproj`). `xcodebuild -allowProvisioningUpdates` with that key creates the profiles for both targets, so no certificate or profile is stored. **That step was written without an account and never run.**
 
-**Not in the workflow:** uploading to the stores. Google Play needs a Play Console account (one-time fee) and a service-account key; TestFlight needs the same App Store Connect API key. Add the upload jobs once the accounts exist.
+**Not in the workflow:** uploading to the stores. Google Play needs a Play Console account (one-time fee) and a service-account key; TestFlight needs the same App Store Connect API key. Add the upload jobs once the accounts exist. The listing texts are in the fastlane layout (`fastlane deliver` / `fastlane supply` upload them) and the store forms' answers are in [specs/store-listing.md](../specs/store-listing.md), with the native settings to change before the first upload.
 
 **What was verified (2026-10-06):** `actionlint` passes; the naming, tag check and `key.properties` snippets were run locally; the Gradle signing was built with a real `flutter build apk --release` with and without a keystore. Not verified: anything that only runs on GitHub (the runners, `gh release create`, artifact upload), and the signed iOS path.
 

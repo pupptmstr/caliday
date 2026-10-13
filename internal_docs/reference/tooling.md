@@ -50,6 +50,10 @@ Goro's poses and locked pose (`tools/characters/gen_goro.py`), the hosts (`gen_h
 
 `tools/site/build_site.py OUT` renders the landing page (`site/`) in every language and copies the art and animations it shares with the app; `tools/site/make_og.py` draws the link-preview cards `site/og-<code>.png` with headless Chrome (run it after changing a tagline or adding a language) — [platform.md § Landing page](platform.md#landing-page-098).
 
+## Store listings
+
+`tools/store/check_listing.py` checks the App Store and Google Play texts in `fastlane/metadata/` against the stores' limits (the App Store keywords in UTF-8 bytes) and the owner's rules (no minutes, no "free forever", no price words in a name, each store names only its own platform); it exits 1 on a problem. Run it after editing a listing — [specs/store-listing.md](../specs/store-listing.md).
+
 ## A local Flutter
 
 There is no Flutter on the owner's Mac; a session clones the SDK at the CI version (`FLUTTER_VERSION` in `.github/workflows/ci.yml`, 3.47.7) into its scratchpad with its own `PUB_CACHE`. Android builds need JDK 17 / 21 (see platform.md § Android Widget), iOS builds CocoaPods.
