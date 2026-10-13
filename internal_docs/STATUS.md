@@ -23,7 +23,7 @@
 - **Apple ID in Xcode** (Settings → Accounts) so automatic signing registers the App IDs, the App Group and HealthKit for a real device; then the paid Apple Developer Program and the Google Play Console for the stores. The release CI is drafted and disabled until then ([platform.md § Release builds](reference/platform.md#release-builds-ci--drafted-disabled)).
 - **Native proofreading** of German and Spanish — the app and the site (`site/strings/de.json`, `es.json`) — and the store listings (the legal pages stay English only).
 - **To check on an iPhone after the deploy:** every workout sound in the web version (0.9.8). With the silent switch on they keep quiet — decided.
-- **Google Search Console** (after the rename is live): a URL-prefix property `https://pupptmstr.github.io/treniday/`, verified by the HTML tag (it goes into `site/template.html`), then `sitemap.xml` and "Request indexing" for the four language pages (the owner's Google account).
+- **Google Search Console:** the property `https://pupptmstr.github.io/treniday/` is created and its HTML tag is in `site/template.html` (2026-10-13); once that is deployed: "Verify", then `sitemap.xml` and "Request indexing" for the four language pages (the owner's Google account).
 - **The name, optionally:** a word mark "TreniDay" in classes 9 and 41 (DPMA or EUIPO) — [specs/done/new-name.md](specs/done/new-name.md). Own domain later, if the owner wants (`treniday.com` / `.app` were free on 2026-10-13).
 
 ## Ideas, open (the owner picks)
